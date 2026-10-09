@@ -1,0 +1,62 @@
+{
+  "status": "ok_with_warnings",
+  "list_csv": "raw_data\\List.csv",
+  "armor_csv": "raw_data\\armor.csv",
+  "component_rows": 68,
+  "components_imported": 67,
+  "components_skipped": [
+    {
+      "csv_row": 58,
+      "serial": "57",
+      "name": "无线电台",
+      "reason": "raw component is missing its 3D position",
+      "context": {
+        "row": 58,
+        "serial": "57",
+        "name": "无线电台",
+        "missing": [
+          "X坐标/cm",
+          "Y坐标/cm",
+          "Z坐标/cm"
+        ]
+      }
+    }
+  ],
+  "armor_rows": 24,
+  "armor_objects": [
+    {
+      "armor_id": "armor-001",
+      "name": "上装甲",
+      "vertex_count": 6,
+      "extrusion_distance_cm": 326.05299949645996,
+      "maximum_cross_section_yz_error_cm": 0.0,
+      "maximum_plane_projection_residual_cm": 0.0
+    },
+    {
+      "armor_id": "armor-002",
+      "name": "下装甲",
+      "vertex_count": 6,
+      "extrusion_distance_cm": 237.4959945678711,
+      "maximum_cross_section_yz_error_cm": 2.384185791015625e-05,
+      "maximum_plane_projection_residual_cm": 3.178914387547138e-05
+    }
+  ],
+  "damage_association_count": 57,
+  "damage_associations_applied": 56,
+  "damage_associations_metadata_only": 1,
+  "damage_codes": [
+    "M2",
+    "K1",
+    "M1",
+    "K2",
+    "F1",
+    "C1",
+    "C2"
+  ],
+  "warnings": [
+    "Armor response parameters come from the explicit import config, not armor.csv.",
+    "Complete raw damage thresholds use the explicit profile state mapping; incomplete rules remain metadata-only.",
+    "All imported response/provenance values remain unverified until approved physical evidence is supplied.",
+    "Components with incomplete geometry were skipped; fill their coordinates and rerun in strict mode."
+  ]
+}

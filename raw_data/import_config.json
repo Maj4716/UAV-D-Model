@@ -1,0 +1,66 @@
+{
+  "target_id": "raw-armored-target",
+  "target_revision": "raw-2026-09-28-v1",
+  "coordinate_frame": {
+    "id": "raw-target-rh",
+    "handedness": "right",
+    "x_axis": "right",
+    "y_axis": "forward",
+    "z_axis": "up",
+    "length_unit": "cm"
+  },
+  "raw_overpressure_unit": "MPa",
+  "armor_cross_section_tolerance_cm": 0.001,
+  "component_defaults": {
+    "component_type": "raw_equivalent_structure",
+    "material_id": "demo_electronics",
+    "layer_stack_id": null,
+    "fragment_response_model_id": "demo_component_response",
+    "blast_response_model_id": "demo_electronics_blast",
+    "pressure_impulse_surface_id": "RAW-PI-UNVERIFIED",
+    "exposure_class": "internal",
+    "compartment_id": null,
+    "damage_states": ["intact", "degraded", "failed"],
+    "provenance_status": "unverified"
+  },
+  "armor_defaults": {
+    "material_id": "demo_steel",
+    "layer_stack_id": null,
+    "fragment_response_model_id": "demo_armor_response",
+    "blast_response_model_id": "demo_structural_blast",
+    "pressure_impulse_surface_id": null,
+    "boundary_condition": "raw-unspecified",
+    "provenance_status": "unverified",
+    "equivalent_thickness": {
+      "value": 10.0,
+      "unit": "mm",
+      "valid_range": [1.0, 100.0],
+      "source_id": "RAW-IMPORT-PROFILE-PLACEHOLDER",
+      "validation_status": "unverified"
+    },
+    "vulnerable_area_ratio": {
+      "value": 0.2,
+      "unit": "1",
+      "valid_range": [0.0, 1.0],
+      "source_id": "RAW-IMPORT-PROFILE-PLACEHOLDER",
+      "validation_status": "unverified"
+    }
+  },
+  "damage_tree": {
+    "version": "raw-damage-tree-v1",
+    "standard_id": "raw-damage-codes-provisional",
+    "standard_name": "原始毁伤代码临时映射",
+    "standard_description": "原始阈值通过导入配置临时映射为部件状态；正式使用前必须由毁伤准则代码表确认。",
+    "dependency_model_id": "fully_dependent",
+    "damage_state": "failed",
+    "threshold_state_map": {
+      "0.2": "degraded",
+      "0.6": "failed",
+      "1": "failed"
+    }
+  },
+  "import_policy": {
+    "skip_incomplete_components": true,
+    "reject_incomplete_damage_rules": false
+  }
+}

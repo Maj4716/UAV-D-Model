@@ -1,0 +1,181 @@
+{
+  "schema_version": "1.0.0",
+  "target_id": "synthetic-protected-module",
+  "target_revision": "demo-1",
+  "coordinate_frame": {
+    "id": "target-rh",
+    "handedness": "right",
+    "x_axis": "forward",
+    "y_axis": "right",
+    "z_axis": "up",
+    "length_unit": "m"
+  },
+  "armor": [
+    {
+      "id": "armor-front",
+      "name": "Synthetic front panel",
+      "role": "armor",
+      "geometry": {
+        "shape": "extruded_polygon",
+        "vertices_m": [
+          [-0.5, -1.0, -1.0],
+          [-0.5, 1.0, -1.0],
+          [-0.5, 1.0, 1.0],
+          [-0.5, -1.0, 1.0]
+        ],
+        "extrusion_direction": [1.0, 0.0, 0.0],
+        "extrusion_distance_m": 0.02
+      },
+      "response": {
+        "material_id": "demo_steel",
+        "layer_stack_id": null,
+        "equivalent_thickness": {
+          "value": 10.0,
+          "unit": "mm",
+          "source_id": "DEMO-NOT-VALIDATED",
+          "calibration_id": null,
+          "validation_status": "unverified",
+          "valid_range": [5.0, 20.0],
+          "uncertainty": {"kind": "none", "parameters": {}, "epistemic": true}
+        },
+        "vulnerable_area_ratio": {
+          "value": 0.2,
+          "unit": "1",
+          "source_id": "DEMO-NOT-VALIDATED",
+          "calibration_id": null,
+          "validation_status": "unverified",
+          "valid_range": [0.0, 1.0],
+          "uncertainty": {"kind": "none", "parameters": {}, "epistemic": true}
+        },
+        "fragment_response_model_id": "demo_armor_response",
+        "blast_response": {
+          "model_id": "demo_structural_blast",
+          "pressure_impulse_surface_id": null
+        }
+      },
+      "boundary_condition": "synthetic-supported-panel",
+      "provenance": {
+        "source_id": "DEMO-GEOMETRY",
+        "status": "reviewed",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    }
+  ],
+  "components": [
+    {
+      "id": "flight-control",
+      "name": "Synthetic precision control module",
+      "component_type": "precision_electronics",
+      "functional_tags": ["control", "navigation"],
+      "geometry": {
+        "shape": "box",
+        "center_m": [0.0, 0.0, 0.0],
+        "size_lwh_m": [0.4, 0.3, 0.2],
+        "orientation_xyzw": [0.0, 0.0, 0.0, 1.0]
+      },
+      "response": {
+        "material_id": "demo_electronics",
+        "layer_stack_id": null,
+        "equivalent_thickness": {
+          "value": 2.0,
+          "unit": "mm",
+          "source_id": "DEMO-NOT-VALIDATED",
+          "calibration_id": null,
+          "validation_status": "unverified",
+          "valid_range": [1.0, 5.0],
+          "uncertainty": {"kind": "none", "parameters": {}, "epistemic": true}
+        },
+        "vulnerable_area_ratio": {
+          "value": 0.7,
+          "unit": "1",
+          "source_id": "DEMO-NOT-VALIDATED",
+          "calibration_id": null,
+          "validation_status": "unverified",
+          "valid_range": [0.0, 1.0],
+          "uncertainty": {"kind": "none", "parameters": {}, "epistemic": true}
+        },
+        "fragment_response_model_id": "demo_component_response",
+        "blast_response": {
+          "model_id": "demo_electronics_blast",
+          "peak_overpressure_threshold": {
+            "value": 150.0,
+            "unit": "kPa",
+            "source_id": "DEMO-NOT-VALIDATED",
+            "calibration_id": null,
+            "validation_status": "unverified",
+            "valid_range": [50.0, 500.0],
+            "uncertainty": {"kind": "none", "parameters": {}, "epistemic": true}
+          },
+          "pressure_impulse_surface_id": "DEMO-PI-SURFACE"
+        }
+      },
+      "compartment_id": "bay-1",
+      "exposure_class": "internal",
+      "damage_states": ["intact", "degraded", "failed"],
+      "provenance": {
+        "source_id": "DEMO-GEOMETRY",
+        "status": "reviewed",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    }
+  ],
+  "damage_tree": {
+    "version": "demo-tree-1",
+    "nodes": [
+      {
+        "id": "control_failed",
+        "node_type": "leaf",
+        "inputs": [],
+        "component_id": "flight-control",
+        "mechanism": "combined",
+        "damage_state": "failed",
+        "k": null,
+        "dependency_model_id": null,
+        "threshold_source_id": "DEMO-NOT-VALIDATED",
+        "description": "Control module has failed"
+      },
+      {
+        "id": "control_blast_degraded",
+        "node_type": "leaf",
+        "inputs": [],
+        "component_id": "flight-control",
+        "mechanism": "blast",
+        "damage_state": "degraded",
+        "k": null,
+        "dependency_model_id": null,
+        "threshold_source_id": "DEMO-NOT-VALIDATED",
+        "description": "Blast has degraded the control module"
+      },
+      {
+        "id": "mission_degraded",
+        "node_type": "or",
+        "inputs": ["control_failed", "control_blast_degraded"],
+        "component_id": null,
+        "mechanism": "not_applicable",
+        "damage_state": null,
+        "k": null,
+        "dependency_model_id": "fully_dependent",
+        "threshold_source_id": "DEMO-NOT-VALIDATED",
+        "description": "Synthetic mission-degradation criterion"
+      },
+      {
+        "id": "mission_loss",
+        "node_type": "standard_projection",
+        "inputs": ["control_failed"],
+        "component_id": null,
+        "mechanism": "not_applicable",
+        "damage_state": null,
+        "k": null,
+        "dependency_model_id": "independent",
+        "threshold_source_id": "DEMO-NOT-VALIDATED",
+        "description": "Synthetic mission-loss criterion"
+      }
+    ],
+    "outputs": ["mission_degraded", "mission_loss"]
+  },
+  "metadata": {
+    "warning": "Synthetic geometry and unvalidated parameters for software tests only"
+  }
+}

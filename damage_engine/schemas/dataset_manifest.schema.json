@@ -1,0 +1,229 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/schemas/dataset_manifest.schema.json",
+  "title": "Damage dataset manifest",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "dataset_id",
+    "created_at",
+    "engine",
+    "source_contracts",
+    "generation",
+    "randomness",
+    "partitions",
+    "tensor_contract",
+    "split_policy",
+    "quality_summary",
+    "prohibited_uses"
+  ],
+  "properties": {
+    "schema_version": {"const": "1.1.0"},
+    "dataset_id": {"type": "string", "minLength": 1},
+    "created_at": {"type": "string", "format": "date-time"},
+    "engine": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["version", "code_hash", "configuration_hash", "fidelity_level"],
+      "properties": {
+        "version": {"type": "string", "minLength": 1},
+        "code_hash": {"type": "string", "minLength": 16},
+        "configuration_hash": {"type": "string", "minLength": 16},
+        "fidelity_level": {"enum": ["L0", "L1", "L2", "L3", "mixed", "unknown"]},
+        "fidelity_levels": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {"enum": ["L0", "L1", "L2", "L3"]}
+        },
+        "validation_record_id": {"type": ["string", "null"]}
+      }
+    },
+    "source_contracts": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["target_schema", "case_schema", "evaluation_standards"],
+      "properties": {
+        "target_schema": {"type": "string", "minLength": 1},
+        "case_schema": {"type": "string", "minLength": 1},
+        "damage_tree_versions": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {"type": "string", "minLength": 1}
+        },
+        "evaluation_standards": {
+          "type": "object",
+          "minProperties": 1,
+          "propertyNames": {"type": "string", "minLength": 1},
+          "additionalProperties": {
+            "type": "array",
+            "minItems": 1,
+            "uniqueItems": true,
+            "items": {"type": "string", "minLength": 1}
+          }
+        },
+        "parameter_set_hashes": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {"type": "string", "minLength": 16}
+        },
+        "parameter_set_ids": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {"type": "string", "minLength": 1}
+        },
+        "target_hashes": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {"type": "string", "minLength": 16}
+        }
+      }
+    },
+    "generation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["workers", "chunksize", "failure_policy", "input_order_preserved", "tensor_compression"],
+      "properties": {
+        "workers": {"type": "integer", "minimum": 1},
+        "chunksize": {"type": "integer", "minimum": 1},
+        "failure_policy": {"enum": ["fail_fast", "isolate_and_record", "precomputed_results"]},
+        "input_order_preserved": {"const": true},
+        "tensor_compression": {"enum": ["compressed", "none"]}
+      }
+    },
+    "randomness": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["split_seed", "aleatory_seed_field", "epistemic_sample_id_field", "parallel_result_order_deterministic"],
+      "properties": {
+        "split_seed": {"type": "integer", "minimum": 0},
+        "aleatory_seed_field": {"type": "string", "minLength": 1},
+        "epistemic_sample_id_field": {"type": "string", "minLength": 1},
+        "parallel_result_order_deterministic": {"type": "boolean"}
+      }
+    },
+    "partitions": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["name", "format", "path_glob", "row_count", "content_hash"],
+        "properties": {
+          "name": {
+            "enum": ["cases", "components", "armor", "armor_labels", "edges", "fragment_summary", "labels", "component_aux", "tree_outputs", "audits", "splits", "tensors"]
+          },
+          "format": {"enum": ["parquet", "arrow_ipc", "jsonl", "npz"]},
+          "path_glob": {"type": "string", "minLength": 1},
+          "row_count": {"type": "integer", "minimum": 0},
+          "content_hash": {"type": "string", "minLength": 16}
+        }
+      }
+    },
+    "tensor_contract": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["version", "fields"],
+      "properties": {
+        "version": {"type": "string", "minLength": 1},
+        "fields": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["name", "dtype", "shape", "semantic_role"],
+            "properties": {
+              "name": {"type": "string", "minLength": 1},
+              "dtype": {"enum": ["float32", "float64", "int16", "int32", "int64", "bool", "string"]},
+              "shape": {"type": "string", "minLength": 1},
+              "semantic_role": {"enum": ["feature", "label", "mask", "uncertainty", "index", "metadata"]},
+              "unit": {"type": ["string", "null"]},
+              "normalization_id": {"type": ["string", "null"]}
+            }
+          }
+        },
+        "axes": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["axis_id", "size", "names_field", "units_field"],
+            "properties": {
+              "axis_id": {"type": "string", "minLength": 1},
+              "size": {"type": "integer", "minimum": 1},
+              "names_field": {"type": "string", "minLength": 1},
+              "units_field": {"type": "string", "minLength": 1}
+            }
+          }
+        }
+      }
+    },
+    "split_policy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["method", "group_keys", "seed", "leakage_audit_passed"],
+      "properties": {
+        "method": {"const": "grouped"},
+        "group_keys": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {"enum": ["target_topology", "warhead_family", "condition_cluster", "parameter_set", "split_group", "physical_case_hash"]}
+        },
+        "seed": {"type": "integer", "minimum": 0},
+        "ratios": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["train", "validation", "test"],
+          "properties": {
+            "train": {"type": "number", "minimum": 0, "maximum": 1},
+            "validation": {"type": "number", "minimum": 0, "maximum": 1},
+            "test": {"type": "number", "minimum": 0, "maximum": 1}
+          }
+        },
+        "leakage_audit_passed": {"type": "boolean"},
+        "split_counts": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["train", "validation", "test"],
+          "properties": {
+            "train": {"type": "integer", "minimum": 0},
+            "validation": {"type": "integer", "minimum": 0},
+            "test": {"type": "integer", "minimum": 0}
+          }
+        }
+      }
+    },
+    "quality_summary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["n_total", "n_valid", "n_refused", "refusal_counts", "unverified_parameter_fraction"],
+      "properties": {
+        "n_total": {"type": "integer", "minimum": 0},
+        "n_valid": {"type": "integer", "minimum": 0},
+        "n_refused": {"type": "integer", "minimum": 0},
+        "refusal_counts": {
+          "type": "object",
+          "additionalProperties": {"type": "integer", "minimum": 0}
+        },
+        "unverified_parameter_fraction": {"type": "number", "minimum": 0, "maximum": 1},
+        "mc_ci_half_width_quantiles": {
+          "type": "array",
+          "items": {"type": "number", "minimum": 0}
+        },
+        "coverage_report_id": {"type": ["string", "null"]}
+      }
+    },
+    "known_limitations": {
+      "type": "array",
+      "items": {"type": "string", "minLength": 1}
+    },
+    "prohibited_uses": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"type": "string", "minLength": 1}
+    }
+  }
+}

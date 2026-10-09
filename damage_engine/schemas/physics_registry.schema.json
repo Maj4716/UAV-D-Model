@@ -1,0 +1,277 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/schemas/physics_registry.schema.json",
+  "title": "Versioned physics model registry",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "config_id",
+    "validation_status",
+    "fragment_source_models",
+    "fragment_response_models",
+    "blast_field_models",
+    "blast_response_models",
+    "transmission_models"
+  ],
+  "properties": {
+    "schema_version": {"const": "1.0.0"},
+    "config_id": {"type": "string", "minLength": 1},
+    "validation_status": {"enum": ["unverified", "calibrated", "validated"]},
+    "fragment_source_models": {
+      "type": "object",
+      "minProperties": 1,
+      "additionalProperties": {"$ref": "#/$defs/fragmentSourceModel"}
+    },
+    "fragment_response_models": {
+      "type": "object",
+      "minProperties": 1,
+      "additionalProperties": {"$ref": "#/$defs/fragmentResponseModel"}
+    },
+    "blast_field_models": {
+      "type": "object",
+      "minProperties": 1,
+      "additionalProperties": {"$ref": "#/$defs/blastFieldModel"}
+    },
+    "blast_response_models": {
+      "type": "object",
+      "minProperties": 1,
+      "additionalProperties": {"$ref": "#/$defs/blastResponseModel"}
+    },
+    "transmission_models": {
+      "type": "object",
+      "minProperties": 1,
+      "additionalProperties": {"$ref": "#/$defs/transmissionModel"}
+    },
+    "provenance": {"type": "object"}
+  },
+  "$defs": {
+    "fragmentSourceModel": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "initial_velocity",
+        "direction",
+        "drag",
+        "casing_mass_basis",
+        "maximum_fragment_mass_fraction_of_total_metal",
+        "valid_speed_mps",
+        "source_id"
+      ],
+      "properties": {
+        "initial_velocity": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["kind"],
+          "properties": {
+            "kind": {"enum": ["fixed", "gurney_cylinder"]},
+            "velocity_mps": {"type": "number", "exclusiveMinimum": 0}
+          },
+          "allOf": [
+            {
+              "if": {"properties": {"kind": {"const": "fixed"}}, "required": ["kind"]},
+              "then": {"required": ["velocity_mps"]}
+            }
+          ]
+        },
+        "direction": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["kind"],
+          "properties": {
+            "kind": {"enum": ["isotropic", "cone", "taylor_ring"]},
+            "axis_body": {
+              "type": "array",
+              "prefixItems": [{"type": "number"}, {"type": "number"}, {"type": "number"}],
+              "minItems": 3,
+              "maxItems": 3
+            },
+            "half_angle_deg": {"type": "number", "exclusiveMinimum": 0, "maximum": 180},
+            "spread_sigma_deg": {"type": "number", "minimum": 0}
+          },
+          "allOf": [
+            {
+              "if": {"properties": {"kind": {"const": "cone"}}, "required": ["kind"]},
+              "then": {"required": ["axis_body", "half_angle_deg"]}
+            },
+            {
+              "if": {"properties": {"kind": {"const": "taylor_ring"}}, "required": ["kind"]},
+              "then": {"required": ["axis_body", "spread_sigma_deg"]}
+            }
+          ]
+        },
+        "drag": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["kind", "coefficient", "area_shape_factor"],
+          "properties": {
+            "kind": {"const": "constant_cd"},
+            "coefficient": {"type": "number", "exclusiveMinimum": 0},
+            "area_shape_factor": {"type": "number", "exclusiveMinimum": 0}
+          }
+        },
+        "casing_mass_basis": {"enum": ["includes_fragments", "excludes_fragments"]},
+        "maximum_fragment_mass_fraction_of_total_metal": {
+          "type": "number",
+          "exclusiveMinimum": 0,
+          "maximum": 1
+        },
+        "valid_speed_mps": {
+          "type": "array",
+          "prefixItems": [{"type": "number"}, {"type": "number"}],
+          "minItems": 2,
+          "maxItems": 2
+        },
+        "source_id": {"type": "string", "minLength": 1}
+      }
+    },
+    "fragmentResponseModel": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["ballistic_limit", "damage_states", "source_id"],
+      "properties": {
+        "ballistic_limit": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "coefficient",
+            "thickness_exponent",
+            "mass_exponent",
+            "obliquity_exponent",
+            "transition_width_ratio",
+            "maximum_obliquity_deg"
+          ],
+          "properties": {
+            "coefficient": {"type": "number", "exclusiveMinimum": 0},
+            "thickness_exponent": {"type": "number"},
+            "mass_exponent": {"type": "number"},
+            "obliquity_exponent": {"type": "number"},
+            "transition_width_ratio": {"type": "number", "exclusiveMinimum": 0},
+            "maximum_obliquity_deg": {"type": "number", "exclusiveMinimum": 0, "maximum": 90}
+          }
+        },
+        "damage_states": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["residual_energy_50_j", "log_slope"],
+            "properties": {
+              "residual_energy_50_j": {"type": "number", "exclusiveMinimum": 0},
+              "log_slope": {"type": "number", "exclusiveMinimum": 0}
+            }
+          }
+        },
+        "hole_area_multiplier": {"type": "number", "exclusiveMinimum": 0},
+        "source_id": {"type": "string", "minLength": 1}
+      }
+    },
+    "blastFieldModel": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "scaled_distance_table",
+        "reflection",
+        "compartment_amplification",
+        "heat_capacity_ratio",
+        "specific_gas_constant_j_kgk",
+        "reference_temperature_k",
+        "source_id"
+      ],
+      "properties": {
+        "scaled_distance_table": {
+          "type": "array",
+          "minItems": 2,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["z_m_kg13", "peak_pressure_pa", "scaled_impulse_pa_s_kgm13", "scaled_duration_s_kgm13"],
+            "properties": {
+              "z_m_kg13": {"type": "number", "exclusiveMinimum": 0},
+              "peak_pressure_pa": {"type": "number", "exclusiveMinimum": 0},
+              "scaled_impulse_pa_s_kgm13": {"type": "number", "exclusiveMinimum": 0},
+              "scaled_duration_s_kgm13": {"type": "number", "exclusiveMinimum": 0}
+            }
+          }
+        },
+        "reflection": {"$ref": "#/$defs/reflectionModel"},
+        "compartment_amplification": {"$ref": "#/$defs/compartmentAmplification"},
+        "heat_capacity_ratio": {"type": "number", "exclusiveMinimum": 1},
+        "specific_gas_constant_j_kgk": {"type": "number", "exclusiveMinimum": 0},
+        "reference_temperature_k": {"type": "number", "exclusiveMinimum": 0},
+        "source_id": {"type": "string", "minLength": 1}
+      }
+    },
+    "reflectionModel": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["minimum_factor", "maximum_factor", "pressure_scale_pa", "angular_exponent"],
+      "properties": {
+        "minimum_factor": {"type": "number", "minimum": 0},
+        "maximum_factor": {"type": "number", "minimum": 0},
+        "pressure_scale_pa": {"type": "number", "exclusiveMinimum": 0},
+        "angular_exponent": {"type": "number", "minimum": 0}
+      }
+    },
+    "compartmentAmplification": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "external": {"type": "number", "minimum": 0},
+        "semi_exposed": {"type": "number", "minimum": 0},
+        "internal": {"type": "number", "minimum": 0}
+      }
+    },
+    "blastResponseModel": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["damage_states", "source_id"],
+      "properties": {
+        "damage_states": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "peak_50_pa",
+              "impulse_50_pa_s",
+              "peak_exponent",
+              "impulse_exponent",
+              "log_slope"
+            ],
+            "properties": {
+              "peak_50_pa": {"type": "number", "exclusiveMinimum": 0},
+              "impulse_50_pa_s": {"type": "number", "exclusiveMinimum": 0},
+              "peak_exponent": {"type": "number", "exclusiveMinimum": 0},
+              "impulse_exponent": {"type": "number", "exclusiveMinimum": 0},
+              "duration_50_s": {"type": "number", "exclusiveMinimum": 0},
+              "duration_exponent": {"type": "number"},
+              "log_slope": {"type": "number", "exclusiveMinimum": 0}
+            },
+            "dependentRequired": {
+              "duration_50_s": ["duration_exponent"],
+              "duration_exponent": ["duration_50_s"]
+            }
+          }
+        },
+        "source_id": {"type": "string", "minLength": 1}
+      }
+    },
+    "transmissionModel": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "peak_half_thickness_m",
+        "impulse_half_thickness_m",
+        "minimum_transmission",
+        "source_id"
+      ],
+      "properties": {
+        "peak_half_thickness_m": {"type": "number", "exclusiveMinimum": 0},
+        "impulse_half_thickness_m": {"type": "number", "exclusiveMinimum": 0},
+        "minimum_transmission": {"type": "number", "minimum": 0, "maximum": 1},
+        "source_id": {"type": "string", "minLength": 1}
+      }
+    }
+  }
+}

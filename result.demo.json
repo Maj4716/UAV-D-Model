@@ -1,0 +1,389 @@
+{
+  "status": "ok",
+  "case_id": "demo-case-001",
+  "target_id": "synthetic-protected-module",
+  "component_order": [
+    "flight-control"
+  ],
+  "replicate_count": 40,
+  "mechanisms": [
+    "blast",
+    "fragment"
+  ],
+  "coupling_model": "sequential",
+  "combined_dependency_assumption": "conditional_independence_given_replicate",
+  "convergence": {
+    "mode": "adaptive",
+    "probability_scope": [
+      "damage_tree.outputs",
+      "component.damage_states.fragment",
+      "component.damage_states.blast",
+      "component.damage_states.combined"
+    ],
+    "physical_metrics_in_scope": false,
+    "target_half_width": 0.05,
+    "minimum_required_replicates": 32,
+    "achieved_max_half_width": 0.08160228163418015,
+    "target_met": false,
+    "reached_replicate_limit": true
+  },
+  "parameter_realization": {
+    "armor-front": {
+      "equivalent_thickness_m": 0.01,
+      "vulnerable_area_ratio": 0.2,
+      "blast_peak_threshold_pa": null,
+      "blast_impulse_threshold_pa_s": null,
+      "blast_duration_threshold_s": null
+    },
+    "flight-control": {
+      "equivalent_thickness_m": 0.002,
+      "vulnerable_area_ratio": 0.7,
+      "blast_peak_threshold_pa": 150000.0,
+      "blast_impulse_threshold_pa_s": null,
+      "blast_duration_threshold_s": null
+    }
+  },
+  "armor": {
+    "armor-front": {
+      "name": "Synthetic front panel",
+      "post_fragment_integrity": {
+        "mean": 0.9983821177660397,
+        "stddev": 1.124366563280595e-16,
+        "ci95_lower": 0.9983821177660397,
+        "ci95_upper": 0.9983821177660397
+      },
+      "post_combined_integrity": {
+        "mean": 0.9983821177660397,
+        "stddev": 1.124366563280595e-16,
+        "ci95_lower": 0.9983821177660397,
+        "ci95_upper": 0.9983821177660397
+      },
+      "blast_metrics": {
+        "distance_m": {
+          "mean": 1.51,
+          "stddev": 0.0,
+          "ci95_lower": 1.51,
+          "ci95_upper": 1.51
+        },
+        "incident_peak_pressure_pa": {
+          "mean": 332371.03799093614,
+          "stddev": 0.0,
+          "ci95_lower": 332371.03799093614,
+          "ci95_upper": 332371.03799093614
+        },
+        "incident_impulse_pa_s": {
+          "mean": 662.2516556291387,
+          "stddev": 0.0,
+          "ci95_lower": 662.2516556291387,
+          "ci95_upper": 662.2516556291387
+        },
+        "reflected_peak_pressure_pa": {
+          "mean": 843369.6812325685,
+          "stddev": 0.0,
+          "ci95_lower": 843369.6812325685,
+          "ci95_upper": 843369.6812325685
+        },
+        "reflected_impulse_pa_s": {
+          "mean": 1054.9222639740385,
+          "stddev": 0.0,
+          "ci95_lower": 1054.9222639740385,
+          "ci95_upper": 1054.9222639740385
+        },
+        "positive_duration_s": {
+          "mean": 0.006039999999999999,
+          "stddev": 0.0,
+          "ci95_lower": 0.006039999999999999,
+          "ci95_upper": 0.006039999999999999
+        },
+        "arrival_time_s": {
+          "mean": 0.0021448178766649336,
+          "stddev": 0.0,
+          "ci95_lower": 0.0021448178766649336,
+          "ci95_upper": 0.0021448178766649336
+        },
+        "incidence_cosine": {
+          "mean": 1.0,
+          "stddev": 0.0,
+          "ci95_lower": 1.0,
+          "ci95_upper": 1.0
+        },
+        "blast_failure_probability": {
+          "mean": 0.0,
+          "stddev": 0.0,
+          "ci95_lower": 0.0,
+          "ci95_upper": 0.0
+        },
+        "pre_blast_integrity": {
+          "mean": 0.9983821177660397,
+          "stddev": 1.124366563280595e-16,
+          "ci95_lower": 0.9983821177660397,
+          "ci95_upper": 0.9983821177660397
+        },
+        "post_blast_integrity": {
+          "mean": 0.9983821177660397,
+          "stddev": 1.124366563280595e-16,
+          "ci95_lower": 0.9983821177660397,
+          "ci95_upper": 0.9983821177660397
+        }
+      }
+    }
+  },
+  "components": {
+    "flight-control": {
+      "name": "Synthetic precision control module",
+      "component_type": "precision_electronics",
+      "damage_states": {
+        "fragment": {
+          "degraded": {
+            "mean": 0.8401103121545462,
+            "stddev": 0.26331511321107615,
+            "ci95_lower": 0.758508113145521,
+            "ci95_upper": 0.9217125111635714
+          },
+          "failed": {
+            "mean": 0.8400962249287751,
+            "stddev": 0.2633153798270781,
+            "ci95_lower": 0.758493943294595,
+            "ci95_upper": 0.9216985065629553
+          }
+        },
+        "blast": {
+          "degraded": {
+            "mean": 0.6769209815982598,
+            "stddev": 0.0,
+            "ci95_lower": 0.6769209815982598,
+            "ci95_upper": 0.6769209815982598
+          },
+          "failed": {
+            "mean": 0.287259375413239,
+            "stddev": 0.0,
+            "ci95_lower": 0.287259375413239,
+            "ci95_upper": 0.287259375413239
+          }
+        },
+        "combined": {
+          "degraded": {
+            "mean": 0.9483429965983301,
+            "stddev": 0.08507158830657759,
+            "ci95_lower": 0.9219790382430708,
+            "ci95_upper": 0.9747069549535894
+          },
+          "failed": {
+            "mean": 0.8860300834819543,
+            "stddev": 0.18767556828125187,
+            "ci95_lower": 0.827868822302304,
+            "ci95_upper": 0.9441913446616047
+          }
+        }
+      },
+      "fragment_metrics": {
+        "hits": {
+          "mean": 2.575,
+          "stddev": 1.567089413776135,
+          "ci95_lower": 2.089353959222278,
+          "ci95_upper": 3.0606460407777223
+        },
+        "penetrations": {
+          "mean": 2.575,
+          "stddev": 1.567089413776135,
+          "ci95_lower": 2.089353959222278,
+          "ci95_upper": 3.0606460407777223
+        },
+        "mean_arrival_speed_mps": {
+          "mean": 1400.3940093441802,
+          "stddev": 403.8385685974818,
+          "ci95_lower": 1275.2431403327414,
+          "ci95_upper": 1525.544878355619
+        },
+        "mean_penetration_margin": {
+          "mean": 14.141218944011404,
+          "stddev": 4.078001555937496,
+          "ci95_lower": 12.877433168601048,
+          "ci95_upper": 15.405004719421761
+        },
+        "deposited_energy_j": {
+          "mean": 63.130773359188325,
+          "stddev": 38.42102796158561,
+          "ci95_lower": 51.2239734356329,
+          "ci95_upper": 75.03757328274375
+        }
+      },
+      "blast_metrics": {
+        "distance_m": {
+          "mean": 2.0,
+          "stddev": 0.0,
+          "ci95_lower": 2.0,
+          "ci95_upper": 2.0
+        },
+        "incident_peak_pressure_pa": {
+          "mean": 200000.00000000006,
+          "stddev": 0.0,
+          "ci95_lower": 200000.00000000006,
+          "ci95_upper": 200000.00000000006
+        },
+        "incident_impulse_pa_s": {
+          "mean": 499.99999999999983,
+          "stddev": 0.0,
+          "ci95_lower": 499.99999999999983,
+          "ci95_upper": 499.99999999999983
+        },
+        "effective_peak_pressure_pa": {
+          "mean": 162743.5490219941,
+          "stddev": 0.0,
+          "ci95_lower": 162743.5490219941,
+          "ci95_upper": 162743.5490219941
+        },
+        "effective_impulse_pa_s": {
+          "mean": 483.6634500171798,
+          "stddev": 5.756756803996647e-14,
+          "ci95_lower": 483.6634500171798,
+          "ci95_upper": 483.6634500171798
+        },
+        "positive_duration_s": {
+          "mean": 0.007999999999999997,
+          "stddev": 0.0,
+          "ci95_lower": 0.007999999999999997,
+          "ci95_upper": 0.007999999999999997
+        },
+        "arrival_time_s": {
+          "mean": 0.003408149318098482,
+          "stddev": 0.0,
+          "ci95_lower": 0.003408149318098482,
+          "ci95_upper": 0.003408149318098482
+        },
+        "shielding_effective_thickness_m": {
+          "mean": 0.009983821177660399,
+          "stddev": 0.0,
+          "ci95_lower": 0.009983821177660399,
+          "ci95_upper": 0.009983821177660399
+        },
+        "shielding_panel_count": {
+          "mean": 1.0,
+          "stddev": 0.0,
+          "ci95_lower": 1.0,
+          "ci95_upper": 1.0
+        }
+      }
+    }
+  },
+  "damage_tree": {
+    "version": "demo-tree-1",
+    "dependency_assumption": "explicit_per_gate",
+    "dependency_models": {
+      "mission_degraded": "fully_dependent"
+    },
+    "node_probabilities": {
+      "control_blast_degraded": {
+        "mean": 0.6769209815982598,
+        "stddev": 0.0,
+        "ci95_lower": 0.6769209815982598,
+        "ci95_upper": 0.6769209815982598
+      },
+      "control_failed": {
+        "mean": 0.8860300834819543,
+        "stddev": 0.18767556828125187,
+        "ci95_lower": 0.827868822302304,
+        "ci95_upper": 0.9441913446616047
+      },
+      "mission_degraded": {
+        "mean": 0.9152547039458309,
+        "stddev": 0.10065175652308601,
+        "ci95_lower": 0.884062401437084,
+        "ci95_upper": 0.9464470064545777
+      },
+      "mission_loss": {
+        "mean": 0.8860300834819543,
+        "stddev": 0.18767556828125187,
+        "ci95_lower": 0.827868822302304,
+        "ci95_upper": 0.9441913446616047
+      }
+    },
+    "outputs": {
+      "mission_degraded": {
+        "mean": 0.9152547039458309,
+        "stddev": 0.10065175652308601,
+        "ci95_lower": 0.884062401437084,
+        "ci95_upper": 0.9464470064545777
+      },
+      "mission_loss": {
+        "mean": 0.8860300834819543,
+        "stddev": 0.18767556828125187,
+        "ci95_lower": 0.827868822302304,
+        "ci95_upper": 0.9441913446616047
+      }
+    },
+    "evaluation_standards": {
+      "demo-tree-1": {
+        "mission_degraded": {
+          "mean": 0.9152547039458309,
+          "stddev": 0.10065175652308601,
+          "ci95_lower": 0.884062401437084,
+          "ci95_upper": 0.9464470064545777
+        },
+        "mission_loss": {
+          "mean": 0.8860300834819543,
+          "stddev": 0.18767556828125187,
+          "ci95_lower": 0.827868822302304,
+          "ci95_upper": 0.9441913446616047
+        }
+      }
+    }
+  },
+  "summary": {
+    "total_fragments": {
+      "mean": 48.0,
+      "stddev": 0.0,
+      "ci95_lower": 48.0,
+      "ci95_upper": 48.0
+    },
+    "total_armor_hits": {
+      "mean": 48.0,
+      "stddev": 0.0,
+      "ci95_lower": 48.0,
+      "ci95_upper": 48.0
+    },
+    "total_armor_penetrations": {
+      "mean": 48.0,
+      "stddev": 0.0,
+      "ci95_lower": 48.0,
+      "ci95_upper": 48.0
+    },
+    "total_component_hits": {
+      "mean": 2.575,
+      "stddev": 1.567089413776135,
+      "ci95_lower": 2.089353959222278,
+      "ci95_upper": 3.0606460407777223
+    },
+    "total_component_penetrations": {
+      "mean": 2.575,
+      "stddev": 1.567089413776135,
+      "ci95_lower": 2.089353959222278,
+      "ci95_upper": 3.0606460407777223
+    }
+  },
+  "warnings": [
+    "Physics registry is not validated; outputs are not real-world certified.",
+    "Sequential armor coupling is applied, but fragment/blast state probabilities are still combined using conditional independence within each replicate.",
+    "Adaptive convergence covers probability labels only; physical metrics require separate unit-specific convergence criteria."
+  ],
+  "provenance": {
+    "engine_version": "0.3.0",
+    "engine_code_hash": "sha256:742cf4cdfeb371a934fc074e5f60ef3c105439a72d0651d517573f8bf3a00ccf",
+    "schema_version": "1.0.0",
+    "schema_tree_hash": "sha256:a5f4c6e87a038eaa52cfc89f566098e9841f6f1d8bd2266c281ce560f2d548ce",
+    "created_at": "2026-09-26T07:38:50.637487+00:00",
+    "target_hash": "sha256:8e78db46060db85224a600f5b56733f4ddcf2fcfeabde2a47887e921c6e99c72",
+    "input_target_hash": "sha256:8e78db46060db85224a600f5b56733f4ddcf2fcfeabde2a47887e921c6e99c72",
+    "case_hash": "sha256:41a13f8dfa010850ca4de08906caec0b989cdac81604a0f7b99d481195525220",
+    "physics_registry_hash": "sha256:34a68dcfe220317cacd48e8c32cd848adedd99df74b91c40a1b15b20deceb1b3",
+    "physics_validation_status": "unverified",
+    "damage_tree_version": "demo-tree-1",
+    "evaluation_standard_ids": [
+      "demo-tree-1"
+    ],
+    "aleatory_seed": 20260926,
+    "epistemic_sample_id": "demo-epistemic-001",
+    "epistemic_realization_hash": "sha256:3a0b31ef59a53ca9ac9caeccdef6843a6e4419a6c27c7973890779c378c31a20",
+    "replicate_count": 40
+  }
+}

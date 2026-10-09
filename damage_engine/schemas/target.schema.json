@@ -1,0 +1,484 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/schemas/target.schema.json",
+  "title": "Damage simulation target model",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "target_id",
+    "target_revision",
+    "coordinate_frame",
+    "armor",
+    "components",
+    "damage_tree"
+  ],
+  "properties": {
+    "schema_version": {"const": "1.0.0"},
+    "target_id": {"type": "string", "minLength": 1},
+    "target_revision": {"type": "string", "minLength": 1},
+    "coordinate_frame": {"$ref": "#/$defs/coordinateFrame"},
+    "armor": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"$ref": "#/$defs/armorPanel"}
+    },
+    "components": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"$ref": "#/$defs/component"}
+    },
+    "damage_tree": {"$ref": "#/$defs/damageTree"},
+    "metadata": {"type": "object"}
+  },
+  "$defs": {
+    "vector3": {
+      "type": "array",
+      "prefixItems": [
+        {"type": "number"},
+        {"type": "number"},
+        {"type": "number"}
+      ],
+      "minItems": 3,
+      "maxItems": 3
+    },
+    "unitVector3": {
+      "allOf": [
+        {"$ref": "#/$defs/vector3"}
+      ],
+      "description": "Loader must verify finite values and unit norm within the approved tolerance."
+    },
+    "quaternionXyzw": {
+      "type": "array",
+      "prefixItems": [
+        {"type": "number"},
+        {"type": "number"},
+        {"type": "number"},
+        {"type": "number"}
+      ],
+      "minItems": 4,
+      "maxItems": 4,
+      "description": "Loader must verify finite values and unit norm within the approved tolerance."
+    },
+    "coordinateFrame": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "handedness", "x_axis", "y_axis", "z_axis", "length_unit"],
+      "properties": {
+        "id": {"type": "string", "minLength": 1},
+        "handedness": {"const": "right"},
+        "x_axis": {"type": "string", "minLength": 1},
+        "y_axis": {"type": "string", "minLength": 1},
+        "z_axis": {"type": "string", "minLength": 1},
+        "length_unit": {"enum": ["m", "cm"]}
+      }
+    },
+    "uncertainty": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind", "parameters", "epistemic"],
+      "properties": {
+        "kind": {
+          "enum": ["none", "normal", "lognormal", "uniform", "interval", "empirical"]
+        },
+        "parameters": {"type": "object"},
+        "epistemic": {"type": "boolean", "default": false}
+      }
+    },
+    "parameter": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "value",
+        "unit",
+        "source_id",
+        "calibration_id",
+        "validation_status",
+        "valid_range",
+        "uncertainty"
+      ],
+      "properties": {
+        "value": {"type": "number"},
+        "unit": {"type": "string", "minLength": 1},
+        "source_id": {"type": "string", "minLength": 1},
+        "calibration_id": {"type": ["string", "null"]},
+        "validation_status": {"enum": ["unverified", "calibrated", "validated"]},
+        "valid_range": {
+          "type": "array",
+          "prefixItems": [{"type": "number"}, {"type": "number"}],
+          "minItems": 2,
+          "maxItems": 2
+        },
+        "uncertainty": {"$ref": "#/$defs/uncertainty"}
+      }
+    },
+    "boxGeometry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["shape", "orientation_xyzw"],
+      "properties": {
+        "shape": {"const": "box"},
+        "center_m": {"$ref": "#/$defs/vector3"},
+        "size_lwh_m": {
+          "type": "array",
+          "prefixItems": [
+            {"type": "number", "exclusiveMinimum": 0},
+            {"type": "number", "exclusiveMinimum": 0},
+            {"type": "number", "exclusiveMinimum": 0}
+          ],
+          "minItems": 3,
+          "maxItems": 3
+        },
+        "center_cm": {"$ref": "#/$defs/vector3"},
+        "size_lwh_cm": {
+          "type": "array",
+          "prefixItems": [
+            {"type": "number", "exclusiveMinimum": 0},
+            {"type": "number", "exclusiveMinimum": 0},
+            {"type": "number", "exclusiveMinimum": 0}
+          ],
+          "minItems": 3,
+          "maxItems": 3
+        },
+        "orientation_xyzw": {"$ref": "#/$defs/quaternionXyzw"}
+      },
+      "oneOf": [
+        {
+          "required": ["center_m", "size_lwh_m"],
+          "not": {"anyOf": [{"required": ["center_cm"]}, {"required": ["size_lwh_cm"]}]}
+        },
+        {
+          "required": ["center_cm", "size_lwh_cm"],
+          "not": {"anyOf": [{"required": ["center_m"]}, {"required": ["size_lwh_m"]}]}
+        }
+      ]
+    },
+    "cylinderGeometry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["shape", "orientation_xyzw"],
+      "properties": {
+        "shape": {"const": "cylinder"},
+        "center_m": {"$ref": "#/$defs/vector3"},
+        "radius_m": {"type": "number", "exclusiveMinimum": 0},
+        "height_m": {"type": "number", "exclusiveMinimum": 0},
+        "center_cm": {"$ref": "#/$defs/vector3"},
+        "radius_cm": {"type": "number", "exclusiveMinimum": 0},
+        "height_cm": {"type": "number", "exclusiveMinimum": 0},
+        "orientation_xyzw": {"$ref": "#/$defs/quaternionXyzw"}
+      },
+      "oneOf": [
+        {
+          "required": ["center_m", "radius_m", "height_m"],
+          "not": {
+            "anyOf": [
+              {"required": ["center_cm"]},
+              {"required": ["radius_cm"]},
+              {"required": ["height_cm"]}
+            ]
+          }
+        },
+        {
+          "required": ["center_cm", "radius_cm", "height_cm"],
+          "not": {
+            "anyOf": [
+              {"required": ["center_m"]},
+              {"required": ["radius_m"]},
+              {"required": ["height_m"]}
+            ]
+          }
+        }
+      ]
+    },
+    "extrudedPolygonGeometry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["shape", "extrusion_direction"],
+      "properties": {
+        "shape": {"const": "extruded_polygon"},
+        "vertices_m": {
+          "type": "array",
+          "minItems": 3,
+          "items": {"$ref": "#/$defs/vector3"}
+        },
+        "vertices_cm": {
+          "type": "array",
+          "minItems": 3,
+          "items": {"$ref": "#/$defs/vector3"}
+        },
+        "extrusion_direction": {"$ref": "#/$defs/unitVector3"},
+        "extrusion_distance_m": {"type": "number", "exclusiveMinimum": 0},
+        "extrusion_distance_cm": {"type": "number", "exclusiveMinimum": 0}
+      },
+      "oneOf": [
+        {
+          "required": ["vertices_m", "extrusion_distance_m"],
+          "not": {
+            "anyOf": [
+              {"required": ["vertices_cm"]},
+              {"required": ["extrusion_distance_cm"]}
+            ]
+          }
+        },
+        {
+          "required": ["vertices_cm", "extrusion_distance_cm"],
+          "not": {
+            "anyOf": [
+              {"required": ["vertices_m"]},
+              {"required": ["extrusion_distance_m"]}
+            ]
+          }
+        }
+      ]
+    },
+    "geometry": {
+      "oneOf": [
+        {"$ref": "#/$defs/boxGeometry"},
+        {"$ref": "#/$defs/cylinderGeometry"},
+        {"$ref": "#/$defs/extrudedPolygonGeometry"}
+      ]
+    },
+    "materialResponse": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["material_id", "equivalent_thickness", "vulnerable_area_ratio", "fragment_response_model_id", "blast_response"],
+      "properties": {
+        "material_id": {"type": "string", "minLength": 1},
+        "layer_stack_id": {"type": ["string", "null"]},
+        "equivalent_thickness": {
+          "allOf": [
+            {"$ref": "#/$defs/parameter"},
+            {"properties": {"unit": {"enum": ["m", "cm", "mm"]}}}
+          ]
+        },
+        "vulnerable_area_ratio": {
+          "allOf": [
+            {"$ref": "#/$defs/parameter"},
+            {
+              "properties": {"unit": {"enum": ["1", "%"]}},
+              "description": "The semantic validator enforces [0,1] for unit 1 or [0,100] for %."
+            }
+          ]
+        },
+        "fragment_response_model_id": {"type": "string", "minLength": 1},
+        "blast_response": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["model_id"],
+          "properties": {
+            "model_id": {"type": "string", "minLength": 1},
+            "peak_overpressure_threshold": {
+              "allOf": [
+                {"$ref": "#/$defs/parameter"},
+                {"properties": {"unit": {"enum": ["Pa", "kPa", "MPa"]}}}
+              ]
+            },
+            "impulse_threshold": {
+              "allOf": [
+                {"$ref": "#/$defs/parameter"},
+                {"properties": {"unit": {"enum": ["Pa*s", "kPa*ms", "kPa*s", "MPa*ms"]}}}
+              ]
+            },
+            "duration_threshold": {
+              "allOf": [
+                {"$ref": "#/$defs/parameter"},
+                {"properties": {"unit": {"enum": ["s", "ms"]}}}
+              ]
+            },
+            "pressure_impulse_surface_id": {"type": ["string", "null"]}
+          }
+        }
+      }
+    },
+    "armorPanel": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "name", "role", "geometry", "response", "provenance"],
+      "properties": {
+        "id": {"type": "string", "minLength": 1},
+        "name": {"type": "string", "minLength": 1},
+        "role": {"const": "armor"},
+        "geometry": {"$ref": "#/$defs/extrudedPolygonGeometry"},
+        "response": {"$ref": "#/$defs/materialResponse"},
+        "boundary_condition": {"type": "string"},
+        "provenance": {"$ref": "#/$defs/provenance"}
+      }
+    },
+    "component": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "name",
+        "component_type",
+        "functional_tags",
+        "geometry",
+        "response",
+        "exposure_class",
+        "damage_states",
+        "provenance"
+      ],
+      "properties": {
+        "id": {"type": "string", "minLength": 1},
+        "name": {"type": "string", "minLength": 1},
+        "component_type": {"type": "string", "minLength": 1},
+        "functional_tags": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {"type": "string", "minLength": 1}
+        },
+        "geometry": {"$ref": "#/$defs/geometry"},
+        "response": {"$ref": "#/$defs/materialResponse"},
+        "compartment_id": {"type": ["string", "null"]},
+        "exposure_class": {"enum": ["external", "semi_exposed", "internal"]},
+        "damage_states": {
+          "type": "array",
+          "minItems": 2,
+          "uniqueItems": true,
+          "items": {"type": "string", "minLength": 1}
+        },
+        "provenance": {"$ref": "#/$defs/provenance"}
+      }
+    },
+    "provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["source_id", "status"],
+      "properties": {
+        "source_id": {"type": "string", "minLength": 1},
+        "status": {"enum": ["unverified", "reviewed", "approved"]},
+        "reviewer": {"type": ["string", "null"]},
+        "reviewed_at": {"type": ["string", "null"], "format": "date-time"}
+      }
+    },
+    "damageTreeNode": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "node_type", "inputs"],
+      "properties": {
+        "id": {"type": "string", "minLength": 1},
+        "node_type": {
+          "enum": ["leaf", "and", "or", "not", "k_of_n", "functional", "standard_projection"]
+        },
+        "inputs": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {"type": "string", "minLength": 1}
+        },
+        "component_id": {"type": ["string", "null"]},
+        "mechanism": {"enum": ["fragment", "blast", "combined", "not_applicable"]},
+        "damage_state": {"type": ["string", "null"]},
+        "k": {"type": ["integer", "null"], "minimum": 1},
+        "dependency_model_id": {
+          "enum": ["independent", "fully_dependent", null]
+        },
+        "threshold_source_id": {"type": ["string", "null"]},
+        "description": {"type": "string"}
+      },
+      "allOf": [
+        {
+          "if": {"properties": {"node_type": {"const": "leaf"}}, "required": ["node_type"]},
+          "then": {
+            "required": ["component_id", "mechanism", "damage_state"],
+            "properties": {
+              "inputs": {"maxItems": 0},
+              "component_id": {"type": "string", "minLength": 1},
+              "mechanism": {"enum": ["fragment", "blast", "combined"]},
+              "damage_state": {"type": "string", "minLength": 1},
+              "k": {"type": "null"},
+              "dependency_model_id": {"type": "null"}
+            }
+          }
+        },
+        {
+          "if": {"properties": {"node_type": {"enum": ["and", "or"]}}, "required": ["node_type"]},
+          "then": {
+            "required": ["dependency_model_id"],
+            "properties": {
+              "inputs": {"minItems": 2},
+              "k": {"type": "null"},
+              "dependency_model_id": {"enum": ["independent", "fully_dependent"]}
+            }
+          }
+        },
+        {
+          "if": {"properties": {"node_type": {"const": "not"}}, "required": ["node_type"]},
+          "then": {
+            "properties": {
+              "inputs": {"minItems": 1, "maxItems": 1},
+              "k": {"type": "null"},
+              "dependency_model_id": {"type": "null"}
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {"node_type": {"enum": ["k_of_n", "functional"]}},
+            "required": ["node_type"]
+          },
+          "then": {
+            "required": ["k", "dependency_model_id"],
+            "properties": {
+              "inputs": {"minItems": 2},
+              "k": {"type": "integer", "minimum": 1},
+              "dependency_model_id": {"enum": ["independent", "fully_dependent"]}
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {"node_type": {"const": "standard_projection"}},
+            "required": ["node_type"]
+          },
+          "then": {
+            "properties": {
+              "inputs": {"minItems": 1, "maxItems": 1},
+              "k": {"type": "null"},
+              "dependency_model_id": {"enum": ["independent", null]}
+            }
+          }
+        }
+      ]
+    },
+    "damageTree": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["version", "nodes", "outputs"],
+      "properties": {
+        "version": {"type": "string", "minLength": 1},
+        "nodes": {
+          "type": "array",
+          "minItems": 1,
+          "items": {"$ref": "#/$defs/damageTreeNode"}
+        },
+        "outputs": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {"type": "string", "minLength": 1}
+        },
+        "standards": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["id", "outputs"],
+            "properties": {
+              "id": {"type": "string", "minLength": 1},
+              "name": {"type": "string", "minLength": 1},
+              "description": {"type": "string"},
+              "outputs": {
+                "type": "array",
+                "minItems": 1,
+                "uniqueItems": true,
+                "items": {"type": "string", "minLength": 1}
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,31 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "damage-dataset-engine"
+version = "0.4.0"
+description = "Traceable fragment and blast damage simulation for dataset generation"
+requires-python = ">=3.11"
+dependencies = [
+  "numpy>=1.26",
+  "jsonschema>=4.20"
+]
+
+[project.optional-dependencies]
+dataset = ["pyarrow>=15"]
+test = ["pytest>=8"]
+torch = ["torch>=2.2"]
+
+[project.scripts]
+damage-engine = "damage_engine.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["damage_engine*"]
+
+[tool.setuptools.package-data]
+"damage_engine.schemas" = ["*.json"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"

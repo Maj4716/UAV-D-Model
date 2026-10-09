@@ -1,0 +1,73 @@
+{
+  "schema_version": "1.0.0",
+  "case_id": "raw-target-smoke-001",
+  "target_ref": {
+    "target_id": "raw-armored-target",
+    "target_revision": "raw-2026-09-28-v1",
+    "content_hash": "sha256:c6745e13b03c2bcd00ae6db95841f937dd59bc337a33d1edf420a0afefc855e6"
+  },
+  "encounter": {
+    "detonation_position_m": [-5.0, 0.0, 1.0],
+    "body_to_target_orientation_xyzw": [0.0, 0.0, 0.0, 1.0],
+    "velocity_target_mps": [0.0, 0.0, 0.0],
+    "detonation_time_s": 0.0
+  },
+  "warhead": {
+    "warhead_id": "synthetic-demo-source",
+    "revision": "demo-1",
+    "charge_mass_kg": 1.0,
+    "casing_mass_kg": 1.0,
+    "fragment_source": {
+      "model_id": "demo_cone_source",
+      "total_count": 48,
+      "mass_distribution": {
+        "family": "fixed",
+        "parameters": {"value_kg": 0.005},
+        "source_id": "DEMO-NOT-VALIDATED",
+        "valid_range_kg": [0.001, 0.02]
+      },
+      "shape_class": "irregular",
+      "density_kg_m3": 7800.0,
+      "drag_model_id": "constant_cd",
+      "direction_model_id": "cone",
+      "initial_velocity_model_id": "gurney_cylinder",
+      "gurney_constant_mps": 2200.0,
+      "detonation_velocity_mps": 6800.0,
+      "fragment_list_ref": null
+    },
+    "blast_source": {
+      "model_id": "demo_scaled_distance_field",
+      "equivalent_mass_kg": 1.0,
+      "equivalency_basis": "synthetic-demo",
+      "pressure_time_model_id": "scaled-table",
+      "source_id": "DEMO-NOT-VALIDATED"
+    },
+    "source_id": "DEMO-NOT-VALIDATED"
+  },
+  "environment": {
+    "air_density_kg_m3": 1.225,
+    "ambient_pressure_pa": 101325.0,
+    "temperature_k": 288.15
+  },
+  "analysis": {
+    "fidelity_level": "L1",
+    "mechanisms": ["fragment", "blast"],
+    "aleatory_seed": 20260928,
+    "epistemic_sample_id": "raw-smoke-epistemic-001",
+    "replicates": 40,
+    "adaptive_ci_half_width": 0.2,
+    "adaptive_physical_ci": {
+      "component.blast.effective_peak_pressure_pa": {
+        "absolute_half_width": 1000000000000.0
+      }
+    },
+    "coupling_model": "sequential",
+    "capture_fragment_audit": false,
+    "evaluation_standard_ids": ["raw-damage-codes-provisional"]
+  },
+  "parameter_set_id": "synthetic-unvalidated-demo-1",
+  "metadata": {
+    "split_group": "raw-smoke-condition",
+    "warning": "Geometry integration and software verification only; physical response parameters remain unverified."
+  }
+}

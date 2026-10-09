@@ -1,0 +1,15 @@
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.pytest_tmp/
+.coverage
+htmlcov/
+.docx_qa/
+dist*/
+build/
+*.egg-info/
+.wheel_test*/
+.dataset.incomplete
+.mypy_cache/
+.ruff_cache/
+.venv/
