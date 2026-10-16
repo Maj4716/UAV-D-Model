@@ -18,6 +18,7 @@ from .fragments import (
     simulate_fragments,
 )
 from .geometry import CompiledTarget, compile_target
+from .input_identity import DEPENDENCY_LOGICAL_ID, FrozenCase, case_identity_hash
 from .normalization import normalize_target
 from .parameters import (
     build_epistemic_realization,
@@ -28,9 +29,10 @@ from .registry import PhysicsRegistry
 from .schema_resources import schema_tree_hash
 from .utils import content_hash, source_tree_hash, statistics_dict
 from .validation import validate_inputs
+from .impact import resolve_impact_detonation
 
 
-ENGINE_VERSION = "0.4.0"
+ENGINE_VERSION = "0.7.0.dev3"
 SCHEMA_TREE_HASH = schema_tree_hash()
 ENGINE_CODE_HASH = content_hash(
     {
@@ -74,6 +76,51 @@ _PHYSICAL_METRIC_UNITS = {
     "summary.total_component_hits": "count",
     "summary.total_component_penetrations": "count",
 }
+
+
+def build_replicate_trace(replicates: list[dict[str, Any]]) -> dict[str, Any]:
+    """Return the joint per-replicate records needed for convergence studies.
+
+    This opt-in trace preserves the order in which the tree and mechanism
+    outputs were evaluated.  It deliberately avoids recomputing a tree from
+    aggregate leaves, because nonlinear gates generally do not commute with
+    averaging.
+    """
+    if not replicates:
+        raise InputValidationError("replicate trace requires at least one completed replicate")
+    records = []
+    for index, replicate in enumerate(replicates):
+        required = {
+            "mechanism_states", "fragment_metrics", "blast_metrics", "tree", "summary",
+            "parameter_realization_hash",
+        }
+        missing = sorted(required - set(replicate))
+        if missing:
+            raise InputValidationError(
+                "replicate trace source is incomplete", context={"replicate": index, "missing": missing}
+            )
+        tree = replicate["tree"]
+        if not isinstance(tree, dict) or not {"outputs", "node_probabilities"}.issubset(tree):
+            raise InputValidationError("replicate trace tree record is incomplete")
+        records.append(
+            {
+                "replicate_index": index,
+                "parameter_realization_hash": replicate["parameter_realization_hash"],
+                "system_outputs": tree["outputs"],
+                "tree_node_probabilities": tree["node_probabilities"],
+                "component_mechanism_states": replicate["mechanism_states"],
+                "fragment_metrics": replicate["fragment_metrics"],
+                "blast_metrics": replicate["blast_metrics"],
+                "summary": replicate["summary"],
+            }
+        )
+    return {
+        "schema_version": "1.0.0",
+        "semantics": "joint_per_replicate_outputs_before_aggregation",
+        "replicate_count": len(records),
+        "records": records,
+        "scientific_status": "raw_simulator_repetitions_not_independent_physical_validation",
+    }
 
 
 @dataclass
@@ -211,7 +258,7 @@ class DamageEngine:
 
     def run(self, case: dict, *, fail_closed: bool = True) -> EngineResult:
         try:
-            return EngineResult(self._run(case))
+            return EngineResult(self._run(self.prepare_case(case)))
         except DamageEngineError as error:
             if fail_closed:
                 raise
@@ -224,8 +271,18 @@ class DamageEngine:
                 }
             )
 
+    def prepare_case(self, case: dict) -> dict:
+        """Materialize geometry-derived fields before hashing or simulation."""
+
+        return resolve_impact_detonation(case, self.compiled_target)
+
     def _run(self, case: dict) -> dict:
-        validate_inputs(self.target_data, case, self.registry)
+        validate_inputs(
+            self.target_data,
+            case,
+            self.registry,
+            compiled_target=self.compiled_target,
+        )
         fragment_source = case["warhead"]["fragment_source"]
         fragment_list_data: FragmentListData | None = (
             load_fragment_list(fragment_source)
@@ -240,6 +297,7 @@ class DamageEngine:
         self._validate_physical_tolerances(physical_tolerances, mechanisms)
         adaptive_enabled = adaptive_target is not None or bool(physical_tolerances)
         capture_audit = bool(case["analysis"].get("capture_fragment_audit", False))
+        capture_replicate_trace = bool(case["analysis"].get("capture_replicate_trace", False))
         root_seed = np.random.SeedSequence(int(case["analysis"]["aleatory_seed"]))
         replicate_seeds = root_seed.spawn(maximum_replicates)
         epistemic_seed = int(
@@ -337,6 +395,7 @@ class DamageEngine:
                     "combined_armor_integrity": combined_armor_integrity,
                     "armor_blast_metrics": blast.armor_metrics,
                     "tree": tree,
+                    "parameter_realization_hash": content_hash(parameter_realization),
                     "summary": {
                         "total_fragments": float(fragment.total_fragments),
                         "total_armor_hits": float(fragment.total_armor_hits),
@@ -386,7 +445,7 @@ class DamageEngine:
             replicates, physical_tolerances
         )
         probability_target_met = (
-            achieved_half_width <= float(adaptive_target)
+            achieved_half_width is not None and achieved_half_width <= float(adaptive_target)
             if adaptive_target is not None
             else None
         )
@@ -450,10 +509,14 @@ class DamageEngine:
                     if fragment_list_data is not None
                     else None
                 ),
+                epistemic_realization=epistemic,
+                parameter_realization=parameter_features,
             ),
         }
         if capture_audit:
             payload["fragment_audit"] = audit
+        if capture_replicate_trace:
+            payload["replicate_trace"] = build_replicate_trace(replicates)
         return payload
 
     def _has_converged(
@@ -463,11 +526,9 @@ class DamageEngine:
         probability_target: float | None,
         physical_tolerances: dict,
     ) -> bool:
-        probability_met = (
-            self._maximum_probability_half_width(replicates) <= probability_target
-            if probability_target is not None
-            else True
-        )
+        half_width = self._maximum_probability_half_width(replicates)
+        probability_met = (half_width is not None and half_width <= probability_target
+                           if probability_target is not None else True)
         return probability_met and self._physical_convergence_report(
             replicates, physical_tolerances
         )["target_met"]
@@ -614,7 +675,9 @@ class DamageEngine:
             series_values = self._physical_metric_series(replicates, selector)
             for series_id, values, probability in series_values:
                 stats = statistics_dict(values, probability=probability)
-                half_width = 0.5 * (stats["ci95_upper"] - stats["ci95_lower"])
+                estimable = stats["ci95_upper"] is not None and stats["ci95_lower"] is not None
+                half_width = (0.5 * (stats["ci95_upper"] - stats["ci95_lower"])
+                              if estimable else None)
                 allowed_candidates = []
                 if absolute is not None:
                     allowed_candidates.append(float(absolute))
@@ -623,20 +686,22 @@ class DamageEngine:
                         float(relative) * max(abs(float(stats["mean"])), relative_floor)
                     )
                 allowed = max(allowed_candidates, default=0.0)
-                met = half_width <= allowed
+                met = estimable and half_width <= allowed
                 if not met:
                     selector_unmet += 1
                     unmet_series_count += 1
                 ratio = (
                     half_width / allowed
-                    if allowed > 0.0
-                    else (0.0 if half_width == 0.0 else float("inf"))
+                    if estimable and allowed > 0.0
+                    else (0.0 if estimable and half_width == 0.0 else float("inf"))
                 )
                 result = {
                     "series_id": series_id,
                     "unit": _PHYSICAL_METRIC_UNITS[selector],
                     "mean": float(stats["mean"]),
-                    "ci95_half_width": float(half_width),
+                    "ci95_half_width": float(half_width) if estimable else None,
+                    "uncertainty_estimable": bool(estimable),
+                    "sample_count": int(stats.get("sample_count", len(values))),
                     "allowed_half_width": float(allowed),
                     "tolerance_ratio": (
                         float(ratio) if np.isfinite(ratio) else None
@@ -696,10 +761,12 @@ class DamageEngine:
                             )
         return values
 
-    def _maximum_probability_half_width(self, replicates: list[dict]) -> float:
+    def _maximum_probability_half_width(self, replicates: list[dict]) -> float | None:
         half_widths = []
         for series in self._probability_series(replicates):
             stats = statistics_dict(series, probability=True)
+            if stats["ci95_upper"] is None or stats["ci95_lower"] is None:
+                return None
             half_widths.append(0.5 * (stats["ci95_upper"] - stats["ci95_lower"]))
         return max(half_widths, default=0.0)
 
@@ -830,6 +897,8 @@ class DamageEngine:
         *,
         replicate_count: int,
         fragment_list_provenance: dict[str, Any] | None = None,
+        epistemic_realization: dict | None = None,
+        parameter_realization: dict | None = None,
     ) -> dict:
         fragment_list_reference = case.get("warhead", {}).get("fragment_source", {}).get(
             "fragment_list_ref"
@@ -840,6 +909,20 @@ class DamageEngine:
                 "reference": fragment_list_reference,
                 "status": "not_loaded_or_refused",
             }
+        if isinstance(case, FrozenCase) and fragment_list is not None:
+            location = next(
+                (item for item in case.input_identity.get("locations", [])
+                 if item.get("logical_source_id") == DEPENDENCY_LOGICAL_ID),
+                None,
+            )
+            if location is None:
+                raise InputValidationError("frozen external input is missing its original source location")
+            # Preserve the logical source location rather than publishing an
+            # ephemeral snapshot path as the archive's sole replay reference.
+            fragment_list = dict(fragment_list)
+            fragment_list["reference"] = location["reference"]
+            fragment_list["resolved_path"] = location["resolved_path"]
+            fragment_list["snapshot_used"] = True
         return {
             "engine_version": ENGINE_VERSION,
             "engine_code_hash": ENGINE_CODE_HASH,
@@ -848,7 +931,13 @@ class DamageEngine:
             "created_at": datetime.now(timezone.utc).isoformat(),
             "target_hash": self.target_hash,
             "input_target_hash": self.input_target_hash,
-            "case_hash": content_hash(case),
+            "case_hash": (
+                case_identity_hash(case, loaded_dependency=fragment_list)
+                if fragment_list is not None and fragment_list.get("content_hash")
+                else case_identity_hash(case)
+                if fragment_list_reference is None or hasattr(case, "input_identity")
+                else content_hash(case)
+            ),
             "physics_registry_hash": self.registry.hash,
             "physics_validation_status": self.registry.validation_status,
             "fragment_list": fragment_list,
@@ -858,11 +947,20 @@ class DamageEngine:
             ),
             "aleatory_seed": case.get("analysis", {}).get("aleatory_seed"),
             "epistemic_sample_id": case.get("analysis", {}).get("epistemic_sample_id"),
-            "epistemic_realization_hash": content_hash(
+            "epistemic_realization_key": content_hash(
                 {
                     "target_hash": self.target_hash,
                     "epistemic_sample_id": case.get("analysis", {}).get("epistemic_sample_id"),
                 }
             ),
+            "epistemic_realization_hash": (
+                content_hash(epistemic_realization) if epistemic_realization is not None else None
+            ),
+            "parameter_realization_hash": (
+                content_hash(parameter_realization) if parameter_realization is not None else None
+            ),
+            "parameter_realization_hash_scope": "nominal_feature_realization_not_all_replicate_parameters",
+            "parameter_randomness_scope": "epistemic_parameters_fixed_per_case_non_epistemic_parameters_may_vary_per_replicate",
+            "epistemic_sampler_version": "target-parameter-sampler@1.0.0",
             "replicate_count": replicate_count,
         }

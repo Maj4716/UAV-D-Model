@@ -28,12 +28,27 @@
       }
     },
     "encounter": {"$ref": "#/$defs/encounter"},
+    "munition": {"$ref": "#/$defs/munition"},
     "warhead": {"$ref": "#/$defs/warhead"},
     "environment": {"$ref": "#/$defs/environment"},
     "analysis": {"$ref": "#/$defs/analysis"},
     "parameter_set_id": {"type": "string", "minLength": 1},
     "metadata": {"type": "object"}
   },
+  "allOf": [
+    {
+      "if": {
+        "required": ["encounter"],
+        "properties": {
+          "encounter": {
+            "required": ["detonation_trigger"],
+            "properties": {"detonation_trigger": {"const": "first_armor_contact"}}
+          }
+        }
+      },
+      "then": {"required": ["munition"]}
+    }
+  ],
   "$defs": {
     "vector3": {
       "type": "array",
@@ -56,6 +71,56 @@
       "minItems": 4,
       "maxItems": 4
     },
+    "munition": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "profile_id",
+        "profile_revision",
+        "display_name_zh",
+        "projectile_length_m",
+        "projectile_diameter_m",
+        "warhead_length_m",
+        "warhead_diameter_m",
+        "wall_thickness_m",
+        "detonation_point",
+        "fuze_type",
+        "trajectory_reference_point",
+        "fragment_ring_count",
+        "fragments_per_ring",
+        "fragment_axial_coverage_ratio",
+        "fragment_spread_sigma_deg",
+        "tnt_equivalence",
+        "reference_source_id",
+        "reference_source_location",
+        "validation_status"
+      ],
+      "properties": {
+        "profile_id": {"enum": ["small_front", "medium_front", "large_front"]},
+        "profile_revision": {"const": "loitering-munition-reference-port-v1"},
+        "display_name_zh": {"type": "string", "minLength": 1},
+        "projectile_length_m": {"type": "number", "exclusiveMinimum": 0},
+        "projectile_diameter_m": {"type": "number", "exclusiveMinimum": 0},
+        "warhead_length_m": {"type": "number", "exclusiveMinimum": 0},
+        "warhead_diameter_m": {"type": "number", "exclusiveMinimum": 0},
+        "wall_thickness_m": {"type": "number", "exclusiveMinimum": 0},
+        "detonation_point": {"const": "front"},
+        "fuze_type": {"const": "impact_contact"},
+        "trajectory_reference_point": {"const": "nose_fuze"},
+        "fragment_ring_count": {"type": "integer", "minimum": 1},
+        "fragments_per_ring": {
+          "type": "array",
+          "minItems": 1,
+          "items": {"type": "integer", "minimum": 1}
+        },
+        "fragment_axial_coverage_ratio": {"type": "number", "exclusiveMinimum": 0, "maximum": 1},
+        "fragment_spread_sigma_deg": {"type": "number", "minimum": 0},
+        "tnt_equivalence": {"type": "number", "exclusiveMinimum": 0},
+        "reference_source_id": {"type": "string", "minLength": 1},
+        "reference_source_location": {"type": "string", "minLength": 1},
+        "validation_status": {"const": "unverified"}
+      }
+    },
     "encounter": {
       "type": "object",
       "additionalProperties": false,
@@ -68,8 +133,36 @@
         "detonation_position_m": {"$ref": "#/$defs/vector3"},
         "body_to_target_orientation_xyzw": {"$ref": "#/$defs/quaternionXyzw"},
         "velocity_target_mps": {"$ref": "#/$defs/vector3"},
-        "detonation_time_s": {"type": "number", "minimum": 0}
-      }
+        "detonation_time_s": {"type": "number", "minimum": 0},
+        "detonation_trigger": {"enum": ["preset", "first_armor_contact"]},
+        "trajectory_origin_m": {"$ref": "#/$defs/vector3"},
+        "trajectory_reference_point": {"const": "nose_fuze"},
+        "detonation_delay_s": {"const": 0.0},
+        "collision_distance_m": {"type": "number", "minimum": 0},
+        "collision_armor_id": {"type": "string", "minLength": 1},
+        "collision_normal_target_xyz": {"$ref": "#/$defs/vector3"},
+        "impact_model_id": {"const": "continuous-ray-first-armor-v1"}
+      },
+      "allOf": [
+        {
+          "if": {
+            "required": ["detonation_trigger"],
+            "properties": {"detonation_trigger": {"const": "first_armor_contact"}}
+          },
+          "then": {
+            "required": [
+              "detonation_time_s",
+              "trajectory_origin_m",
+              "trajectory_reference_point",
+              "detonation_delay_s",
+              "collision_distance_m",
+              "collision_armor_id",
+              "collision_normal_target_xyz",
+              "impact_model_id"
+            ]
+          }
+        }
+      ]
     },
     "massDistribution": {
       "type": "object",
@@ -280,6 +373,7 @@
         },
         "coupling_model": {"enum": ["none", "sequential"]},
         "capture_fragment_audit": {"type": "boolean", "default": false},
+        "capture_replicate_trace": {"type": "boolean", "default": false},
         "evaluation_standard_ids": {
           "type": "array",
           "minItems": 1,

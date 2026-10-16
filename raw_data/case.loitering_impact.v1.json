@@ -1,0 +1,98 @@
+{
+  "schema_version": "1.0.0",
+  "case_id": "loitering-impact-template-v1",
+  "target_ref": {
+    "target_id": "raw-armored-target",
+    "target_revision": "raw-2026-09-28-v1",
+    "content_hash": "sha256:c6745e13b03c2bcd00ae6db95841f937dd59bc337a33d1edf420a0afefc855e6"
+  },
+  "encounter": {
+    "detonation_position_m": [-1.6302649974822998, 0.0, 1.2],
+    "body_to_target_orientation_xyzw": [0.0, 0.0, 0.0, 1.0],
+    "velocity_target_mps": [120.0, 0.0, 0.0],
+    "detonation_time_s": 0.0697477916876475,
+    "detonation_trigger": "first_armor_contact",
+    "trajectory_origin_m": [-10.0, 0.0, 1.2],
+    "trajectory_reference_point": "nose_fuze",
+    "detonation_delay_s": 0.0,
+    "collision_distance_m": 8.3697350025177,
+    "collision_armor_id": "armor-001",
+    "collision_normal_target_xyz": [-1.0, 0.0, 0.0],
+    "impact_model_id": "continuous-ray-first-armor-v1"
+  },
+  "munition": {
+    "profile_id": "small_front",
+    "profile_revision": "loitering-munition-reference-port-v1",
+    "display_name_zh": "小型（前端起爆）",
+    "projectile_length_m": 0.30,
+    "projectile_diameter_m": 0.10,
+    "warhead_length_m": 0.12,
+    "warhead_diameter_m": 0.09,
+    "wall_thickness_m": 0.0025,
+    "detonation_point": "front",
+    "fuze_type": "impact_contact",
+    "trajectory_reference_point": "nose_fuze",
+    "fragment_ring_count": 6,
+    "fragments_per_ring": [10, 10, 10, 10, 10, 10],
+    "fragment_axial_coverage_ratio": 0.85,
+    "fragment_spread_sigma_deg": 2.0,
+    "tnt_equivalence": 1.0,
+    "reference_source_id": "BISHE-SIMULATION-ENGINE-PARAMETERS-UNVERIFIED",
+    "reference_source_location": "D:\\Desktop\\毕设\\代码\\src\\loitering_munition_damage_twin\\simulation\\engine.py:194-239,258-285,298-324,392-466",
+    "validation_status": "unverified"
+  },
+  "warhead": {
+    "warhead_id": "loitering-munition-small_front",
+    "revision": "loitering-munition-reference-port-v1",
+    "charge_mass_kg": 1.0,
+    "casing_mass_kg": 0.6473644361803473,
+    "fragment_source": {
+      "model_id": "loitering_small_front_taylor_source",
+      "total_count": 60,
+      "mass_distribution": {
+        "family": "fixed",
+        "parameters": {"value_kg": 0.005},
+        "source_id": "BISHE-SIMULATION-ENGINE-PARAMETERS-UNVERIFIED",
+        "valid_range_kg": [0.004995, 0.005005]
+      },
+      "shape_class": "cube",
+      "density_kg_m3": 7850.0,
+      "drag_model_id": "constant_cd",
+      "direction_model_id": "taylor_ring",
+      "initial_velocity_model_id": "gurney_cylinder",
+      "gurney_constant_mps": 2440.0,
+      "detonation_velocity_mps": 6900.0
+    },
+    "blast_source": {
+      "model_id": "demo_scaled_distance_field",
+      "equivalent_mass_kg": 1.0,
+      "equivalency_basis": "reference-code-tnt-equivalence-1.0-unverified",
+      "pressure_time_model_id": "scaled-table",
+      "source_id": "BISHE-SIMULATION-ENGINE-PARAMETERS-UNVERIFIED"
+    },
+    "source_id": "BISHE-SIMULATION-ENGINE-PARAMETERS-UNVERIFIED"
+  },
+  "environment": {
+    "air_density_kg_m3": 1.225,
+    "ambient_pressure_pa": 101325.0,
+    "temperature_k": 288.15
+  },
+  "analysis": {
+    "fidelity_level": "L2",
+    "mechanisms": ["fragment"],
+    "aleatory_seed": 2026101401,
+    "epistemic_sample_id": "loitering-impact-template-v1",
+    "replicates": 2,
+    "adaptive_ci_half_width": null,
+    "coupling_model": "none",
+    "capture_fragment_audit": false,
+    "capture_replicate_trace": false,
+    "evaluation_standard_ids": ["raw-damage-codes-provisional"]
+  },
+  "parameter_set_id": "loitering-impact-unverified-1",
+  "metadata": {
+    "split_group": "loitering-impact-template-v1",
+    "impact_semantics": "trajectory_origin_m is the nose-fuze point at t=0; detonation occurs at the first armor intersection with zero delay",
+    "warning": "Software verification only; imported target response, blast tables, and munition parameters are unvalidated"
+  }
+}

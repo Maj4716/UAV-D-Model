@@ -1,0 +1,26 @@
+{
+  "schema_version": "1.0.0",
+  "label_spec_id": "synthetic-demo-system-events-v1",
+  "revision": "1.0.0-provisional",
+  "status": "provisional",
+  "source": {
+    "damage_tree_id": "synthetic-protected-module/damage-tree",
+    "damage_tree_revision": "demo-tree-1",
+    "damage_tree_definition_hash": "sha256:798f47e5570fea120913477bc8a36b56d5fc8f0cfa5800c4b9a91cef85d34a75"
+  },
+  "tasks": {
+    "system_events": {
+      "type": "multi_label_event_probability",
+      "outputs": [
+        "mission_degraded",
+        "mission_loss"
+      ],
+      "loss": "soft_bce_or_brier",
+      "description": "Non-exclusive synthetic mission-event probabilities emitted by demo-tree-1; these outputs must not be normalized with softmax."
+    }
+  },
+  "provenance": {
+    "approval_status": "not_approved",
+    "evidence_ref": null
+  }
+}

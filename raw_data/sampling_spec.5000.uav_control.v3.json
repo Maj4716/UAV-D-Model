@@ -1,0 +1,198 @@
+{
+  "schema_version": "1.2.0",
+  "model_input_contract": "uav_state_only@1.0.0",
+  "sampling_spec_id": "uav-control-p0-5000-v3",
+  "revision": "3.1.0-provisional",
+  "status": "provisional",
+  "reference_distribution": {
+    "distribution_id": "uav-control-reference-5000-v3",
+    "interpretation": "design_distribution",
+    "variables": [
+      {
+        "name": "uav_relative_position_via_threat_vector",
+        "path": "/encounter/detonation_position_m",
+        "distribution": "sphere_volume",
+        "center": [0.0, 0.0, 0.0],
+        "radius_min": 1.5,
+        "radius_max": 5.0
+      },
+      {
+        "name": "uav_relative_velocity_x_via_target_frame",
+        "path": "/encounter/velocity_target_mps/0",
+        "distribution": "uniform",
+        "low": -30.0,
+        "high": 30.0
+      },
+      {
+        "name": "uav_relative_velocity_y_via_target_frame",
+        "path": "/encounter/velocity_target_mps/1",
+        "distribution": "uniform",
+        "low": -30.0,
+        "high": 30.0
+      },
+      {
+        "name": "uav_relative_velocity_z_via_target_frame",
+        "path": "/encounter/velocity_target_mps/2",
+        "distribution": "uniform",
+        "low": -30.0,
+        "high": 30.0
+      },
+      {
+        "name": "uav_attitude_via_body_to_target_rotation",
+        "path": "/encounter/body_to_target_orientation_xyzw",
+        "distribution": "haar_quaternion"
+      }
+    ],
+    "constraints": []
+  },
+  "budgets": {
+    "train_pilot": 3000,
+    "validation": 500,
+    "test": 1500,
+    "rare_stress_test": 0
+  },
+  "seeds": {
+    "design": 2026101311,
+    "selection": 2026101312,
+    "split": 2026101313,
+    "screening": 2026101314,
+    "formal": 2026101315
+  },
+  "formal_policy": {
+    "replicates": 4,
+    "adaptive_ci_half_width": null,
+    "epistemic_policy": "unique_per_lineage"
+  },
+  "split_policy": {
+    "registry_id": "uav-control-splits-5000-v3",
+    "freeze_before_outcomes": true,
+    "adaptive_train_only": true
+  },
+  "quality_gates": {
+    "positivity_min": 0.1,
+    "min_ess_fraction": 0.5,
+    "max_weight_cv": 2.0
+  },
+  "feature_roles": [
+    {
+      "feature_id": "uav_relative_position",
+      "path": "/encounter/detonation_position_m",
+      "tensor_feature_names": [
+        "uav_position_relative_to_fixed_threat_x_m",
+        "uav_position_relative_to_fixed_threat_y_m",
+        "uav_position_relative_to_fixed_threat_z_m"
+      ],
+      "role": "learnable_variable",
+      "availability_stage": "raw_input",
+      "deployment_available": true
+    },
+    {
+      "feature_id": "uav_relative_velocity_x",
+      "path": "/encounter/velocity_target_mps/0",
+      "tensor_feature_names": ["uav_velocity_relative_to_fixed_threat_x_mps"],
+      "role": "learnable_variable",
+      "availability_stage": "raw_input",
+      "deployment_available": true
+    },
+    {
+      "feature_id": "uav_relative_velocity_y",
+      "path": "/encounter/velocity_target_mps/1",
+      "tensor_feature_names": ["uav_velocity_relative_to_fixed_threat_y_mps"],
+      "role": "learnable_variable",
+      "availability_stage": "raw_input",
+      "deployment_available": true
+    },
+    {
+      "feature_id": "uav_relative_velocity_z",
+      "path": "/encounter/velocity_target_mps/2",
+      "tensor_feature_names": ["uav_velocity_relative_to_fixed_threat_z_mps"],
+      "role": "learnable_variable",
+      "availability_stage": "raw_input",
+      "deployment_available": true
+    },
+    {
+      "feature_id": "uav_relative_attitude",
+      "path": "/encounter/body_to_target_orientation_xyzw",
+      "tensor_feature_names": [
+        "uav_attitude_relative_to_fixed_threat_rotation_6d_col0_x",
+        "uav_attitude_relative_to_fixed_threat_rotation_6d_col0_y",
+        "uav_attitude_relative_to_fixed_threat_rotation_6d_col0_z",
+        "uav_attitude_relative_to_fixed_threat_rotation_6d_col1_x",
+        "uav_attitude_relative_to_fixed_threat_rotation_6d_col1_y",
+        "uav_attitude_relative_to_fixed_threat_rotation_6d_col1_z"
+      ],
+      "role": "learnable_variable",
+      "availability_stage": "raw_input",
+      "deployment_available": true
+    }
+  ],
+  "variable_blocks": [],
+  "geometry_strata": [
+    {
+      "stratum_id": "cone_proximal_uav_pose",
+      "description": "Outcome-blind training-only enrichment where the fixed fragment cone axis is within 35 degrees of the UAV direction.",
+      "pre_label": true,
+      "predicate": {
+        "all": [
+          {
+            "source": "prelabel_screening",
+            "path": "/fragment_cone_axis_to_uav_angle_deg",
+            "operator": "le",
+            "value": 35.0
+          }
+        ]
+      }
+    }
+  ],
+  "stream_roles": [
+    {"role": "reference_train", "stream": "reference", "split": "train", "train_eligible": true},
+    {"role": "reference_validation", "stream": "reference", "split": "validation", "train_eligible": false},
+    {"role": "reference_test", "stream": "reference", "split": "test", "train_eligible": false},
+    {"role": "geometry_stratified_train", "stream": "geometry_stratified", "split": "train", "train_eligible": true}
+  ],
+  "round_budgets": [
+    {
+      "round": 0,
+      "allocations": [
+        {"role": "reference_validation", "stratum_id": "p0", "proposal_id": "uav-control-reference-5000-v3", "count": 500},
+        {"role": "reference_test", "stratum_id": "p0", "proposal_id": "uav-control-reference-5000-v3", "count": 1500},
+        {"role": "reference_train", "stratum_id": "p0", "proposal_id": "uav-control-reference-5000-v3", "count": 2000},
+        {"role": "geometry_stratified_train", "stratum_id": "cone_proximal_uav_pose", "proposal_id": "uav-control-cone-proximal-v3", "count": 1000}
+      ]
+    }
+  ],
+  "replicate_policy": {
+    "default_replicates": 4,
+    "outcome_adaptive": false,
+    "overrides": [
+      {"role": "reference_validation", "replicates": 8},
+      {"role": "reference_test", "replicates": 8},
+      {"role": "geometry_stratified_train", "stratum_id": "cone_proximal_uav_pose", "replicates": 32}
+    ]
+  },
+  "key_projections": [
+    {
+      "projection_id": "uav-position-velocity-attitude",
+      "paths": [
+        "/encounter/detonation_position_m",
+        "/encounter/velocity_target_mps/0",
+        "/encounter/velocity_target_mps/1",
+        "/encounter/velocity_target_mps/2",
+        "/encounter/body_to_target_orientation_xyzw"
+      ],
+      "purpose": "coverage_audit",
+      "pre_label_only": true
+    }
+  ],
+  "proxy_scope": {
+    "scope": "fixed_target",
+    "geometry_boundary": "end_to_end",
+    "target_identity_policy": "fixed_target_hash",
+    "deployment_features_match_training": true,
+    "evidence_status": "unverified"
+  },
+  "legal_sampling": {
+    "invalid_candidate_policy": "reject_and_resample",
+    "max_attempts_per_allocation": 50000
+  }
+}

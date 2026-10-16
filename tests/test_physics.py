@@ -1,6 +1,8 @@
 from __future__ import annotations
 
 from copy import deepcopy
+from dataclasses import asdict
+import json
 
 import numpy as np
 import pytest
@@ -13,6 +15,7 @@ from damage_engine.blast import (
     simulate_blast,
 )
 from damage_engine.errors import InputValidationError, OutOfDomainError
+from damage_engine.fragment_audit import summarize_component_reachability
 from damage_engine.fragments import Fragment, generate_fragments, simulate_fragments
 from damage_engine.geometry import compile_target
 from damage_engine.parameters import nominal_target_parameters, sample_target_realization
@@ -84,6 +87,145 @@ def test_penetrating_fragment_continues_through_serial_components(
         "flight-control",
         "downstream-control",
     ]
+    trace_records = [
+        event for event in result.audit if event["record_type"] == "fragment_trace"
+    ]
+    assert len(trace_records) == 1
+    trace = trace_records[0]
+    assert trace["origin_target_m"] == [-2.0, 0.0, 0.0]
+    assert trace["direction_target_xyz"] == [1.0, 0.0, 0.0]
+    assert [item["object_id"] for item in trace["geometry_candidate_path"]] == [
+        "armor-front",
+        "flight-control",
+        "downstream-control",
+    ]
+    assert [item["object_id"] for item in trace["processed_path"]] == [
+        "armor-front",
+        "flight-control",
+        "downstream-control",
+    ]
+    assert trace["blocking_object_id"] is None
+    assert trace["blocking_reason"] is None
+    for event in component_events:
+        assert event["entry_distance_m"] < event["exit_distance_m"]
+        assert len(event["entry_point_target_m"]) == 3
+        assert len(event["exit_point_target_m"]) == 3
+        assert event["response_model"] == {
+            "id": "demo_component_response",
+            "source_id": "DEMO-NOT-VALIDATED",
+        }
+        assert event["equivalent_thickness_m"] > 0.0
+        assert event["v50_mps"] > 0.0
+        assert event["penetration_margin"] > 0.0
+        assert set(event["damage_state_response_probabilities"]) == {
+            "degraded",
+            "failed",
+        }
+    json.dumps(result.audit, allow_nan=False)
+
+    # Audit capture is observational: with an identical RNG state all physical
+    # outputs must remain bit-for-bit equal when capture is disabled.
+    without_audit = simulate_fragments(
+        case_data,
+        compiled,
+        permissive_registry,
+        np.random.default_rng(3),
+        parameter_realization=parameters,
+        capture_audit=False,
+    )
+    assert without_audit.audit == []
+    assert without_audit.component_state_probabilities == result.component_state_probabilities
+    assert without_audit.component_metrics == result.component_metrics
+    assert without_audit.armor_integrity == result.armor_integrity
+    assert without_audit.total_fragments == result.total_fragments
+    assert without_audit.total_armor_hits == result.total_armor_hits
+    assert without_audit.total_armor_penetrations == result.total_armor_penetrations
+    assert without_audit.total_component_hits == result.total_component_hits
+    assert without_audit.total_component_penetrations == result.total_component_penetrations
+
+
+def test_fragment_audit_records_upstream_blocker_and_unprocessed_component(
+    monkeypatch,
+    target_data,
+    case_data,
+    registry,
+):
+    registry_data = deepcopy(registry.data)
+    registry_data["fragment_response_models"]["demo_armor_response"]["ballistic_limit"][
+        "coefficient"
+    ] = 1.0e9
+    blocking_registry = PhysicsRegistry(registry_data)
+    fragment = Fragment(
+        fragment_id=0,
+        mass_kg=0.005,
+        origin_m=np.array([-2.0, 0.0, 0.0]),
+        direction=np.array([1.0, 0.0, 0.0]),
+        initial_speed_mps=1000.0,
+        area_m2=1.0e-4,
+        drag_coefficient=0.9,
+    )
+    monkeypatch.setattr(
+        "damage_engine.fragments.generate_fragments",
+        lambda case, registry, rng: [fragment],
+    )
+
+    result = simulate_fragments(
+        case_data,
+        compile_target(target_data),
+        blocking_registry,
+        np.random.default_rng(8),
+        parameter_realization=nominal_target_parameters(target_data),
+        capture_audit=True,
+    )
+
+    trace = next(item for item in result.audit if item["record_type"] == "fragment_trace")
+    assert [item["object_id"] for item in trace["geometry_candidate_path"]] == [
+        "armor-front",
+        "flight-control",
+    ]
+    assert [item["object_id"] for item in trace["processed_path"]] == [
+        "armor-front"
+    ]
+    assert trace["blocking_object_id"] == "armor-front"
+    assert trace["blocking_reason"] == "armor_not_penetrated"
+    assert trace["completed_geometry_path"] is False
+    report = summarize_component_reachability(result.audit, ["flight-control"])
+    assert report["components"]["flight-control"]["counts"][
+        "blocked_before_component"
+    ] == 1
+
+
+@pytest.mark.parametrize("seed", [0, 3, 19])
+def test_fragment_audit_capture_does_not_change_probabilistic_physics(
+    seed,
+    target_data,
+    case_data,
+    registry,
+):
+    compiled = compile_target(target_data)
+    parameters = nominal_target_parameters(target_data)
+    without_audit = simulate_fragments(
+        case_data,
+        compiled,
+        registry,
+        np.random.default_rng(seed),
+        parameter_realization=parameters,
+        capture_audit=False,
+    )
+    with_audit = simulate_fragments(
+        case_data,
+        compiled,
+        registry,
+        np.random.default_rng(seed),
+        parameter_realization=parameters,
+        capture_audit=True,
+    )
+
+    without_payload = asdict(without_audit)
+    with_payload = asdict(with_audit)
+    assert without_payload.pop("audit") == []
+    assert with_payload.pop("audit")
+    assert without_payload == with_payload
 
 
 def test_blast_response_is_stable_for_extreme_load_ratios():

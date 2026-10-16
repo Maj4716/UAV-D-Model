@@ -95,8 +95,8 @@ def test_dataset_export_contract(tmp_path, target_data, case_data, registry):
         contract_names = {field["name"] for field in manifest["tensor_contract"]["fields"]}
         assert contract_names == set(tensors.files)
 
-    assert manifest["schema_version"] == "1.1.0"
-    assert manifest["tensor_contract"]["version"] == "1.3.0"
+    assert manifest["schema_version"] == "1.2.0"
+    assert manifest["tensor_contract"]["version"] == "1.4.0"
     assert manifest["split_policy"]["seed"] == 17
     assert manifest["split_policy"]["group_keys"] == [
         "split_group", "condition_cluster", "physical_case_hash"
@@ -266,6 +266,33 @@ def test_torch_adapter_is_pickleable_and_uses_npz_splits(
     assert restored.metadata["armor_label_names"] == tuple(ARMOR_LABEL_NAMES)
     assert restored.metadata["frechet_bound_names"] == tuple(FRECHET_BOUND_NAMES)
     assert restored.metadata["evaluation_standard_ids"] == ("demo-tree-1",)
+    binding = restored.metadata["system_learning_binding"]
+    assert binding["dataset_id"] == restored.manifest["dataset_id"]
+    assert binding["manifest_hash"] == restored._manifest_hash
+    source_hashes = binding["source_contract_hashes"]
+    assert source_hashes["target_hash"] == restored.manifest["source_contracts"][
+        "target_hashes"
+    ][0]
+    assert source_hashes["physics_registry_hash"] == restored.manifest["engine"][
+        "configuration_hash"
+    ]
+    assert source_hashes["engine_code_hash"] == restored.manifest["engine"][
+        "code_hash"
+    ]
+    optional_research_bindings = (
+        "damage_tree_definition_hash",
+        "label_spec_hash",
+        "sampling_design_hash",
+        "split_registry_hash",
+    )
+    for name in optional_research_bindings:
+        if name in restored.manifest["source_contracts"]:
+            assert source_hashes[name] == restored.manifest["source_contracts"][name]
+        else:
+            # A plain DatasetWriter archive has no frozen sampling/label
+            # contracts.  Preserve that incompleteness so the system-learning
+            # adapter can refuse it instead of inventing source identities.
+            assert name not in source_hashes
     with pytest.raises(ValueError, match="split must"):
         TorchDamageDataset(tmp_path, split="holdout")
 
@@ -342,7 +369,13 @@ def test_multi_target_collate_pads_axes_aligns_outputs_and_offsets_graph(
         collate_damage_batch,
     )
 
-    dataset = TorchMultiTargetDataset([first_directory, second_directory])
+    # This fixture intentionally combines two historical archives that do not
+    # carry per-output LabelSpec identities.  Opt in to the software-forensic
+    # compatibility path; current sampling archives must fail closed instead.
+    dataset = TorchMultiTargetDataset(
+        [first_directory, second_directory],
+        allow_legacy_semantic_combination=True,
+    )
     first_sample, second_sample = dataset[0], dataset[1]
     first_edge_count = first_sample["tree_edge_index"].shape[1]
     first_node_count = len(first_sample["_topology"]["graph_node_ids"])

@@ -36,6 +36,13 @@ class UnverifiedModelError(DamageEngineError):
 
 
 class NumericalError(DamageEngineError):
+    """Reserved compatibility refusal for future bounded numerical failures.
+
+    No active engine path emits this code.  It is retained because serialized
+    clients may already recognize ``REF_NUMERICAL``; remove only after a public
+    import/ledger inventory and one breaking-release deprecation window.
+    """
+
     code = "REF_NUMERICAL"
 
 

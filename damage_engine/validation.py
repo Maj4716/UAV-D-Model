@@ -1,45 +1,106 @@
 from __future__ import annotations
 
 import math
+from collections import OrderedDict
+from threading import RLock
 from typing import Any, Iterable
 
 import numpy as np
-from jsonschema import Draft202012Validator
 
+from .content_contract import validate_json_schema
 from .damage_tree import compile_damage_tree
 from .errors import InputValidationError, UnverifiedModelError
 from .fragments import load_fragment_list, validate_fragment_mass_budget
+from .geometry import CompiledTarget, compile_target
+from .impact import is_impact_case, validate_impact_detonation
+from .munition_profiles import validate_munition_profile
 from .normalization import normalize_target
 from .registry import PhysicsRegistry
-from .schema_resources import load_schema
 from .utils import content_hash
 
 
 _QUATERNION_TOLERANCE = 1.0e-6
 _UNIT_VECTOR_TOLERANCE = 1.0e-6
+_STATIC_VALIDATION_CACHE_LIMIT = 64
+_STATIC_VALIDATION_CACHE: OrderedDict[tuple[str, str, str], None] = OrderedDict()
+_STATIC_VALIDATION_CACHE_LOCK = RLock()
+_STATIC_VALIDATION_CACHE_HITS = 0
+_STATIC_VALIDATION_CACHE_MISSES = 0
+
+
+def _static_case_contract_hash(case: dict) -> str:
+    """Hash validation inputs that do not vary along the runtime state axes.
+
+    The full case (including metadata, environment, seeds and encounter state)
+    is still schema/finite/value validated on every call.  This key contains
+    exactly the fields used by the cross-document semantic checks below;
+    per-candidate sampling metadata therefore cannot defeat reuse of a fixed
+    simulator contract.
+    """
+
+    analysis = case["analysis"]
+    static_case = {
+        "target_ref": case["target_ref"],
+        "parameter_set_id": case["parameter_set_id"],
+        "warhead": case["warhead"],
+        "analysis": {
+            "evaluation_standard_ids": analysis["evaluation_standard_ids"],
+            "fidelity_level": analysis["fidelity_level"],
+        },
+    }
+    return content_hash(static_case)
+
+
+def _static_cache_lookup(key: tuple[str, str, str]) -> bool:
+    global _STATIC_VALIDATION_CACHE_HITS, _STATIC_VALIDATION_CACHE_MISSES
+    with _STATIC_VALIDATION_CACHE_LOCK:
+        if key in _STATIC_VALIDATION_CACHE:
+            _STATIC_VALIDATION_CACHE.move_to_end(key)
+            _STATIC_VALIDATION_CACHE_HITS += 1
+            return True
+        _STATIC_VALIDATION_CACHE_MISSES += 1
+        return False
+
+
+def _static_cache_store(key: tuple[str, str, str]) -> None:
+    with _STATIC_VALIDATION_CACHE_LOCK:
+        _STATIC_VALIDATION_CACHE[key] = None
+        _STATIC_VALIDATION_CACHE.move_to_end(key)
+        while len(_STATIC_VALIDATION_CACHE) > _STATIC_VALIDATION_CACHE_LIMIT:
+            _STATIC_VALIDATION_CACHE.popitem(last=False)
+
+
+def validation_cache_info() -> dict[str, int]:
+    """Return process-local cache counters for benchmarks and diagnostics."""
+
+    with _STATIC_VALIDATION_CACHE_LOCK:
+        schema_cache = validate_json_schema.cache_info()
+        return {
+            "static_hits": _STATIC_VALIDATION_CACHE_HITS,
+            "static_misses": _STATIC_VALIDATION_CACHE_MISSES,
+            "static_entries": len(_STATIC_VALIDATION_CACHE),
+            "static_limit": _STATIC_VALIDATION_CACHE_LIMIT,
+            "schema_hits": schema_cache.hits,
+            "schema_misses": schema_cache.misses,
+            "schema_entries": schema_cache.currsize,
+        }
+
+
+def clear_validation_caches() -> None:
+    """Clear process-local validation caches; intended for tests/benchmarks."""
+
+    global _STATIC_VALIDATION_CACHE_HITS, _STATIC_VALIDATION_CACHE_MISSES
+    with _STATIC_VALIDATION_CACHE_LOCK:
+        _STATIC_VALIDATION_CACHE.clear()
+        _STATIC_VALIDATION_CACHE_HITS = 0
+        _STATIC_VALIDATION_CACHE_MISSES = 0
+    validate_json_schema.cache_clear()
 
 
 def _validate_schema(instance: dict, schema_name: str) -> None:
-    schema = load_schema(schema_name)
-    errors = sorted(
-        Draft202012Validator(schema).iter_errors(instance),
-        key=lambda error: tuple(str(value) for value in error.absolute_path),
-    )
-    if errors:
-        details = []
-        for error in errors[:20]:
-            path = "/".join(str(value) for value in error.absolute_path) or "$"
-            details.append(
-                {
-                    "path": path,
-                    "message": error.message,
-                    "validator": error.validator,
-                }
-            )
-        raise InputValidationError(
-            f"{schema_name} validation failed",
-            context={"errors": details, "error_count": len(errors)},
-        )
+    """Compatibility shim; production modules use ``validate_json_schema``."""
+
+    validate_json_schema(instance, schema_name)
 
 
 def _walk_parameters(value: Any, path: tuple[str, ...] = ()):
@@ -366,16 +427,55 @@ def _validate_registry_semantics(registry: PhysicsRegistry) -> None:
             )
 
 
-def validate_inputs(target: dict, case: dict, registry: PhysicsRegistry) -> None:
+def validate_inputs(
+    target: dict,
+    case: dict,
+    registry: PhysicsRegistry,
+    *,
+    compiled_target: CompiledTarget | None = None,
+) -> None:
     target = normalize_target(target)
-    _validate_schema(target, "target.schema.json")
-    _validate_schema(case, "simulation_case.schema.json")
-    _validate_finite_numbers(target, document="target")
+    # The case document and runtime state are deliberately checked on every
+    # invocation.  Only target/registry/cross-document semantics below are
+    # eligible for content-addressed caching.
+    validate_json_schema(case, "simulation_case.schema.json")
     _validate_finite_numbers(case, document="simulation_case")
+    _finite_vector(case["encounter"]["detonation_position_m"], "detonation_position_m", 3)
+    _finite_vector(case["encounter"]["velocity_target_mps"], "velocity_target_mps", 3)
+    _validate_quaternion(
+        case["encounter"]["body_to_target_orientation_xyzw"],
+        "encounter body_to_target_orientation_xyzw",
+    )
+    validate_munition_profile(case)
+    if is_impact_case(case):
+        validate_impact_detonation(
+            case,
+            compiled_target if compiled_target is not None else compile_target(target),
+        )
+
+    try:
+        target_hash = content_hash(target)
+    except (TypeError, ValueError):
+        _validate_finite_numbers(target, document="target")
+        raise
+    try:
+        registry_hash = content_hash(registry.data)
+    except (TypeError, ValueError):
+        _validate_finite_numbers(registry.data, document="physics_registry")
+        raise
+    cache_key = (target_hash, registry_hash, _static_case_contract_hash(case))
+    source_reference = case["warhead"]["fragment_source"].get("fragment_list_ref")
+    # An external list can change while retaining the same path.  It is read
+    # and verified on every case, never admitted to this in-memory cache.
+    cacheable = source_reference is None
+    if cacheable and _static_cache_lookup(cache_key):
+        return
+
+    validate_json_schema(target, "target.schema.json")
+    _validate_finite_numbers(target, document="target")
     _validate_finite_numbers(registry.data, document="physics_registry")
     _validate_registry_semantics(registry)
 
-    target_hash = content_hash(target)
     reference = case["target_ref"]
     if reference["target_id"] != target["target_id"]:
         raise InputValidationError(
@@ -506,12 +606,6 @@ def validate_inputs(target: dict, case: dict, registry: PhysicsRegistry) -> None
         raise InputValidationError("taylor_ring fragment source requires detonation_velocity_mps")
 
     registry.blast_field(case["warhead"]["blast_source"]["model_id"])
-    _finite_vector(case["encounter"]["detonation_position_m"], "detonation_position_m", 3)
-    _finite_vector(case["encounter"]["velocity_target_mps"], "velocity_target_mps", 3)
-    _validate_quaternion(
-        case["encounter"]["body_to_target_orientation_xyzw"],
-        "encounter body_to_target_orientation_xyzw",
-    )
 
     if case["analysis"]["fidelity_level"] == "L3":
         registry.require_validated()
@@ -532,6 +626,8 @@ def validate_inputs(target: dict, case: dict, registry: PhysicsRegistry) -> None
             )
 
     # Compilation above validates the full DAG and its evaluation-standard views.
+    if cacheable:
+        _static_cache_store(cache_key)
 
 
 def _validate_target_item(

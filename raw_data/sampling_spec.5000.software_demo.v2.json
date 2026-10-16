@@ -1,0 +1,264 @@
+{
+  "schema_version": "1.1.0",
+  "sampling_spec_id": "synthetic-demo-p0-5000-v2",
+  "revision": "2.0.0-provisional",
+  "status": "provisional",
+  "reference_distribution": {
+    "distribution_id": "synthetic-demo-p0-design-5000-v2",
+    "interpretation": "design_distribution",
+    "variables": [
+      {
+        "name": "detonation_position_on_2m_shell",
+        "path": "/encounter/detonation_position_m",
+        "distribution": "sphere_shell",
+        "center": [0.0, 0.0, 0.0],
+        "radius": 2.0
+      },
+      {
+        "name": "body_orientation_haar_so3",
+        "path": "/encounter/body_to_target_orientation_xyzw",
+        "distribution": "haar_quaternion"
+      }
+    ],
+    "constraints": []
+  },
+  "budgets": {
+    "train_pilot": 4000,
+    "validation": 500,
+    "test": 500,
+    "rare_stress_test": 0
+  },
+  "seeds": {
+    "design": 2026101111,
+    "selection": 2026101112,
+    "split": 2026101113,
+    "screening": 2026101114,
+    "formal": 2026101115
+  },
+  "formal_policy": {
+    "replicates": 4,
+    "adaptive_ci_half_width": null,
+    "epistemic_policy": "unique_per_lineage"
+  },
+  "split_policy": {
+    "registry_id": "synthetic-demo-p0-splits-5000-v2",
+    "freeze_before_outcomes": true,
+    "adaptive_train_only": true
+  },
+  "quality_gates": {
+    "positivity_min": 0.1,
+    "min_ess_fraction": 0.5,
+    "max_weight_cv": 2.0
+  },
+  "feature_roles": [
+    {
+      "feature_id": "detonation_position",
+      "path": "/encounter/detonation_position_m",
+      "tensor_feature_names": ["detonation_direction_x", "detonation_direction_y", "detonation_direction_z", "detonation_distance_m"],
+      "role": "learnable_variable",
+      "availability_stage": "raw_input",
+      "deployment_available": true
+    },
+    {
+      "feature_id": "body_orientation",
+      "path": "/encounter/body_to_target_orientation_xyzw",
+      "tensor_feature_names": ["orientation_rotation_6d_col0_x", "orientation_rotation_6d_col0_y", "orientation_rotation_6d_col0_z", "orientation_rotation_6d_col1_x", "orientation_rotation_6d_col1_y", "orientation_rotation_6d_col1_z"],
+      "role": "learnable_variable",
+      "availability_stage": "raw_input",
+      "deployment_available": true
+    },
+    {
+      "feature_id": "detonation_time",
+      "path": "/encounter/detonation_time_s",
+      "tensor_feature_names": ["detonation_time_s"],
+      "role": "fixed_context",
+      "availability_stage": "raw_input",
+      "deployment_available": true
+    },
+    {
+      "feature_id": "target_velocity",
+      "path": "/encounter/velocity_target_mps",
+      "tensor_feature_names": ["velocity_x_mps", "velocity_y_mps", "velocity_z_mps"],
+      "role": "fixed_context",
+      "availability_stage": "raw_input",
+      "deployment_available": true
+    },
+    {
+      "feature_id": "charge_mass",
+      "path": "/warhead/charge_mass_kg",
+      "tensor_feature_names": ["charge_mass_kg"],
+      "role": "fixed_context",
+      "availability_stage": "raw_input",
+      "deployment_available": true
+    },
+    {
+      "feature_id": "casing_mass",
+      "path": "/warhead/casing_mass_kg",
+      "tensor_feature_names": ["casing_mass_kg"],
+      "role": "fixed_context",
+      "availability_stage": "raw_input",
+      "deployment_available": true
+    },
+    {
+      "feature_id": "blast_equivalent_mass",
+      "path": "/warhead/blast_source/equivalent_mass_kg",
+      "tensor_feature_names": ["blast_equivalent_mass_kg"],
+      "role": "fixed_context",
+      "availability_stage": "raw_input",
+      "deployment_available": true
+    },
+    {
+      "feature_id": "fragment_total_count",
+      "path": "/warhead/fragment_source/total_count",
+      "tensor_feature_names": ["fragment_total_count"],
+      "role": "fixed_context",
+      "availability_stage": "raw_input",
+      "deployment_available": true
+    },
+    {
+      "feature_id": "fragment_mass_distribution",
+      "path": "/warhead/fragment_source/mass_distribution",
+      "tensor_feature_names": ["mass_family_fixed", "mass_family_lognormal", "mass_family_weibull", "mass_family_empirical", "fragment_mass_mean_kg", "fragment_mass_stddev_kg", "fragment_mass_q10_kg", "fragment_mass_q50_kg", "fragment_mass_q90_kg"],
+      "role": "fixed_context",
+      "availability_stage": "raw_input",
+      "deployment_available": true
+    },
+    {
+      "feature_id": "fragment_shape_class",
+      "path": "/warhead/fragment_source/shape_class",
+      "tensor_feature_names": ["shape_sphere", "shape_cube", "shape_cylinder", "shape_irregular", "shape_empirical"],
+      "role": "fixed_context",
+      "availability_stage": "raw_input",
+      "deployment_available": true
+    },
+    {
+      "feature_id": "fragment_density",
+      "path": "/warhead/fragment_source/density_kg_m3",
+      "tensor_feature_names": ["fragment_density_kg_m3"],
+      "role": "fixed_context",
+      "availability_stage": "raw_input",
+      "deployment_available": true
+    },
+    {
+      "feature_id": "initial_velocity_model",
+      "path": "/warhead/fragment_source/initial_velocity_model_id",
+      "tensor_feature_names": ["initial_velocity_fixed", "initial_velocity_gurney"],
+      "role": "fixed_context",
+      "availability_stage": "raw_input",
+      "deployment_available": true
+    },
+    {
+      "feature_id": "fixed_initial_velocity",
+      "path": "/warhead/fragment_source/fixed_initial_velocity_mps",
+      "tensor_feature_names": ["fixed_initial_velocity_mps"],
+      "role": "structural_missing",
+      "availability_stage": "not_applicable",
+      "deployment_available": false
+    },
+    {
+      "feature_id": "gurney_constant",
+      "path": "/warhead/fragment_source/gurney_constant_mps",
+      "tensor_feature_names": ["gurney_constant_mps"],
+      "role": "fixed_context",
+      "availability_stage": "raw_input",
+      "deployment_available": true
+    },
+    {
+      "feature_id": "detonation_velocity",
+      "path": "/warhead/fragment_source/detonation_velocity_mps",
+      "tensor_feature_names": ["detonation_velocity_mps"],
+      "role": "fixed_context",
+      "availability_stage": "raw_input",
+      "deployment_available": true
+    },
+    {
+      "feature_id": "direction_model",
+      "path": "/warhead/fragment_source/direction_model_id",
+      "tensor_feature_names": ["direction_isotropic", "direction_cone", "direction_taylor_ring"],
+      "role": "fixed_context",
+      "availability_stage": "raw_input",
+      "deployment_available": true
+    },
+    {
+      "feature_id": "direction_axis_body",
+      "path": "/physics_registry/fragment_source/direction/axis_body",
+      "tensor_feature_names": ["direction_axis_body_x", "direction_axis_body_y", "direction_axis_body_z"],
+      "role": "fixed_context",
+      "availability_stage": "raw_input",
+      "deployment_available": true
+    },
+    {
+      "feature_id": "direction_half_angle",
+      "path": "/physics_registry/fragment_source/direction/half_angle_deg",
+      "tensor_feature_names": ["direction_half_angle_deg"],
+      "role": "fixed_context",
+      "availability_stage": "raw_input",
+      "deployment_available": true
+    },
+    {
+      "feature_id": "direction_spread_sigma",
+      "path": "/physics_registry/fragment_source/direction/spread_sigma_deg",
+      "tensor_feature_names": ["direction_spread_sigma_deg"],
+      "role": "fixed_context",
+      "availability_stage": "raw_input",
+      "deployment_available": true
+    },
+    {
+      "feature_id": "drag_model",
+      "path": "/physics_registry/fragment_source/drag",
+      "tensor_feature_names": ["drag_coefficient", "area_shape_factor"],
+      "role": "fixed_context",
+      "availability_stage": "raw_input",
+      "deployment_available": true
+    },
+    {
+      "feature_id": "environment",
+      "path": "/environment",
+      "tensor_feature_names": ["air_density_kg_m3", "ambient_pressure_pa", "temperature_k"],
+      "role": "fixed_context",
+      "availability_stage": "raw_input",
+      "deployment_available": true
+    }
+  ],
+  "variable_blocks": [],
+  "geometry_strata": [],
+  "stream_roles": [
+    {"role": "reference_train", "stream": "reference", "split": "train", "train_eligible": true},
+    {"role": "reference_validation", "stream": "reference", "split": "validation", "train_eligible": false},
+    {"role": "reference_test", "stream": "reference", "split": "test", "train_eligible": false}
+  ],
+  "round_budgets": [
+    {
+      "round": 0,
+      "allocations": [
+        {"role": "reference_validation", "stratum_id": "p0", "proposal_id": "synthetic-demo-p0-design-5000-v2", "count": 500},
+        {"role": "reference_test", "stratum_id": "p0", "proposal_id": "synthetic-demo-p0-design-5000-v2", "count": 500},
+        {"role": "reference_train", "stratum_id": "p0", "proposal_id": "synthetic-demo-p0-design-5000-v2", "count": 4000}
+      ]
+    }
+  ],
+  "replicate_policy": {
+    "default_replicates": 4,
+    "outcome_adaptive": false,
+    "overrides": []
+  },
+  "key_projections": [
+    {
+      "projection_id": "position-orientation-joint",
+      "paths": ["/encounter/detonation_position_m", "/encounter/body_to_target_orientation_xyzw"],
+      "purpose": "coverage_audit",
+      "pre_label_only": true
+    }
+  ],
+  "proxy_scope": {
+    "scope": "fixed_target",
+    "geometry_boundary": "end_to_end",
+    "target_identity_policy": "fixed_target_hash",
+    "deployment_features_match_training": true,
+    "evidence_status": "unverified"
+  },
+  "legal_sampling": {
+    "invalid_candidate_policy": "fail_closed",
+    "max_attempts_per_allocation": 8000
+  }
+}

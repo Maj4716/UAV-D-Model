@@ -1,0 +1,151 @@
+{
+  "schema_version": "1.1.0",
+  "sampling_spec_id": "loitering-impact-three-profile-smoke-v1",
+  "revision": "1.0.0-provisional",
+  "status": "provisional",
+  "reference_distribution": {
+    "distribution_id": "loitering-impact-three-profile-design-v1",
+    "interpretation": "design_distribution",
+    "variables": [
+      {
+        "name": "munition_profile",
+        "path": "/munition/profile_id",
+        "distribution": "choice",
+        "values": ["small_front", "medium_front", "large_front"]
+      },
+      {
+        "name": "trajectory_origin_y_m",
+        "path": "/encounter/trajectory_origin_m/1",
+        "distribution": "uniform",
+        "low": -3.0,
+        "high": 2.0
+      },
+      {
+        "name": "trajectory_origin_z_m",
+        "path": "/encounter/trajectory_origin_m/2",
+        "distribution": "uniform",
+        "low": 0.65,
+        "high": 1.80
+      },
+      {
+        "name": "impact_speed_mps",
+        "path": "/encounter/velocity_target_mps/0",
+        "distribution": "uniform",
+        "low": 80.0,
+        "high": 160.0
+      }
+    ],
+    "constraints": []
+  },
+  "budgets": {
+    "train_pilot": 6,
+    "validation": 3,
+    "test": 3,
+    "rare_stress_test": 0
+  },
+  "seeds": {
+    "design": 2026101401,
+    "selection": 2026101402,
+    "split": 2026101403,
+    "screening": 2026101404,
+    "formal": 2026101405
+  },
+  "formal_policy": {
+    "replicates": 2,
+    "adaptive_ci_half_width": null,
+    "epistemic_policy": "unique_per_lineage"
+  },
+  "split_policy": {
+    "registry_id": "loitering-impact-three-profile-splits-v1",
+    "freeze_before_outcomes": true,
+    "adaptive_train_only": true
+  },
+  "quality_gates": {
+    "positivity_min": 0.1,
+    "min_ess_fraction": 0.5,
+    "max_weight_cv": 2.0
+  },
+  "feature_roles": [
+    {
+      "feature_id": "munition_profile",
+      "path": "/munition/profile_id",
+      "tensor_feature_names": ["munition_profile_small_front", "munition_profile_medium_front", "munition_profile_large_front"],
+      "role": "learnable_variable",
+      "availability_stage": "raw_input",
+      "deployment_available": true
+    },
+    {
+      "feature_id": "trajectory_origin_y",
+      "path": "/encounter/trajectory_origin_m/1",
+      "tensor_feature_names": ["trajectory_origin_y_m"],
+      "role": "learnable_variable",
+      "availability_stage": "raw_input",
+      "deployment_available": true
+    },
+    {
+      "feature_id": "trajectory_origin_z",
+      "path": "/encounter/trajectory_origin_m/2",
+      "tensor_feature_names": ["trajectory_origin_z_m"],
+      "role": "learnable_variable",
+      "availability_stage": "raw_input",
+      "deployment_available": true
+    },
+    {
+      "feature_id": "impact_speed",
+      "path": "/encounter/velocity_target_mps/0",
+      "tensor_feature_names": ["impact_speed_mps"],
+      "role": "learnable_variable",
+      "availability_stage": "raw_input",
+      "deployment_available": true
+    },
+    {
+      "feature_id": "collision_solution",
+      "path": "/encounter/collision_distance_m",
+      "tensor_feature_names": ["collision_distance_m", "detonation_time_s"],
+      "role": "derived_input",
+      "availability_stage": "prelabel_geometry",
+      "deployment_available": true
+    }
+  ],
+  "variable_blocks": [],
+  "geometry_strata": [],
+  "stream_roles": [
+    {"role": "reference_train", "stream": "reference", "split": "train", "train_eligible": true},
+    {"role": "reference_validation", "stream": "reference", "split": "validation", "train_eligible": false},
+    {"role": "reference_test", "stream": "reference", "split": "test", "train_eligible": false}
+  ],
+  "round_budgets": [
+    {
+      "round": 0,
+      "allocations": [
+        {"role": "reference_validation", "stratum_id": "p0", "proposal_id": "loitering-impact-three-profile-design-v1", "count": 3},
+        {"role": "reference_test", "stratum_id": "p0", "proposal_id": "loitering-impact-three-profile-design-v1", "count": 3},
+        {"role": "reference_train", "stratum_id": "p0", "proposal_id": "loitering-impact-three-profile-design-v1", "count": 6}
+      ]
+    }
+  ],
+  "replicate_policy": {
+    "default_replicates": 2,
+    "outcome_adaptive": false,
+    "overrides": []
+  },
+  "key_projections": [
+    {
+      "projection_id": "profile-impact-geometry",
+      "paths": ["/munition/profile_id", "/encounter/trajectory_origin_m/1", "/encounter/trajectory_origin_m/2", "/encounter/velocity_target_mps/0"],
+      "purpose": "coverage_audit",
+      "pre_label_only": true
+    }
+  ],
+  "proxy_scope": {
+    "scope": "fixed_target",
+    "geometry_boundary": "end_to_end",
+    "target_identity_policy": "fixed_target_hash",
+    "deployment_features_match_training": true,
+    "evidence_status": "unverified"
+  },
+  "legal_sampling": {
+    "invalid_candidate_policy": "fail_closed",
+    "max_attempts_per_allocation": 1000
+  }
+}

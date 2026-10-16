@@ -5,14 +5,22 @@ import math
 from concurrent.futures import ProcessPoolExecutor
 from datetime import datetime, timezone
 from pathlib import Path
-from typing import Any, Iterable
+from typing import Any, Callable, Iterable
 
 import numpy as np
 
+from .archive_validation import verify_monolithic_archive
+from .content_contract import is_sha256_identity, validate_json_schema
 from .engine import ENGINE_CODE_HASH, DamageEngine, EngineResult
 from .errors import InputValidationError
+from .estimands import positive_effective_sample_size, scale_positive_weights
 from .geometry import BoxGeometry, CylinderGeometry, ExtrudedPolygonGeometry
+from .learning_input_identity import (
+    model_input_definition_for_sampling_contract,
+)
 from .registry import PhysicsRegistry
+from .quality import synthetic_label_admission, validate_precomputed_results
+from .result_ledger import write_result_ledger
 from .utils import content_hash, file_hash, length_to_m, pressure_to_pa, ratio_value
 
 
@@ -22,6 +30,11 @@ CASE_FEATURE_NAMES = [
     "velocity_x_mps", "velocity_y_mps", "velocity_z_mps",
     "charge_mass_kg", "casing_mass_kg", "blast_equivalent_mass_kg",
     "fragment_total_count",
+    "munition_profile_small_front", "munition_profile_medium_front", "munition_profile_large_front",
+    "projectile_length_m", "projectile_diameter_m",
+    "warhead_length_m", "warhead_diameter_m", "wall_thickness_m",
+    "fragment_ring_count", "fragment_axial_coverage_ratio",
+    "impact_first_armor_contact", "collision_distance_m",
     "mass_family_fixed", "mass_family_lognormal", "mass_family_weibull", "mass_family_empirical",
     "fragment_mass_mean_kg", "fragment_mass_stddev_kg",
     "fragment_mass_q10_kg", "fragment_mass_q50_kg", "fragment_mass_q90_kg",
@@ -45,6 +58,7 @@ CASE_FEATURE_UNITS = [
     "1", "1", "1", "1",
     "m/s", "m/s", "m/s",
     "kg", "kg", "kg", "count",
+    "1", "1", "1", "m", "m", "m", "m", "m", "count", "1", "1", "m",
     "1", "1", "1", "1",
     "kg", "kg", "kg", "kg", "kg",
     "1", "1", "1", "1", "1",
@@ -54,6 +68,24 @@ CASE_FEATURE_UNITS = [
     "1", "1", "1", "1", "1", "1", "1", "1", "1",
     "count", "1",
 ]
+
+# Contract 1.5 separates variables available to a deployed surrogate from
+# solver/acquisition controls.  ``case_x`` remains in 1.5 archives as a legacy
+# compatibility bundle, but the Torch loader defaults to ``case_physics_x``.
+SOLVER_CONTEXT_FEATURE_NAMES = [
+    "mechanism_fragment_enabled", "mechanism_blast_enabled",
+    "coupling_none", "coupling_sequential", "coupling_fully_coupled",
+    "fidelity_l0", "fidelity_l1", "fidelity_l2", "fidelity_l3",
+    "requested_replicates", "adaptive_ci_half_width",
+]
+CASE_PHYSICS_FEATURE_NAMES = [
+    name for name in CASE_FEATURE_NAMES if name not in SOLVER_CONTEXT_FEATURE_NAMES
+]
+_CASE_UNIT_BY_NAME = dict(zip(CASE_FEATURE_NAMES, CASE_FEATURE_UNITS))
+CASE_PHYSICS_FEATURE_UNITS = [_CASE_UNIT_BY_NAME[name] for name in CASE_PHYSICS_FEATURE_NAMES]
+SOLVER_CONTEXT_FEATURE_UNITS = [_CASE_UNIT_BY_NAME[name] for name in SOLVER_CONTEXT_FEATURE_NAMES]
+_CASE_PHYSICS_INDICES = [CASE_FEATURE_NAMES.index(name) for name in CASE_PHYSICS_FEATURE_NAMES]
+_SOLVER_CONTEXT_INDICES = [CASE_FEATURE_NAMES.index(name) for name in SOLVER_CONTEXT_FEATURE_NAMES]
 
 
 COMPONENT_FEATURE_NAMES = [
@@ -145,11 +177,15 @@ def dataset_identity_hash(
     split_ratios: tuple[float, float, float] | list[float],
     tensor_contract_version: str,
     engine_code_hash: str,
+    damage_tree_definition_hash: str | None = None,
+    label_spec_hash: str | None = None,
+    sampling_design_hash: str | None = None,
+    stratification_spec_hash: str | None = None,
+    split_registry_hash: str | None = None,
 ) -> str:
     """Return the storage-layout-independent identity of teacher labels."""
 
-    return content_hash(
-        {
+    identity = {
             "target_hash": target_hash,
             "physics_registry_hash": physics_registry_hash,
             "engine_code_hash": engine_code_hash,
@@ -158,7 +194,15 @@ def dataset_identity_hash(
             "split_ratios": [float(value) for value in split_ratios],
             "tensor_contract_version": str(tensor_contract_version),
         }
-    )
+    optional = {
+        "damage_tree_definition_hash": damage_tree_definition_hash,
+        "label_spec_hash": label_spec_hash,
+        "sampling_design_hash": sampling_design_hash,
+        "stratification_spec_hash": stratification_spec_hash,
+        "split_registry_hash": split_registry_hash,
+    }
+    identity.update({key: value for key, value in optional.items() if value is not None})
+    return content_hash(identity)
 
 AUXILIARY_LABEL_NAMES = [
     "fragment_hits", "fragment_penetrations", "fragment_mean_arrival_speed_mps",
@@ -239,7 +283,10 @@ def _require_pyarrow():
 
 def _write_parquet(path: Path, rows: list[dict]) -> None:
     pa, pq = _require_pyarrow()
-    table = pa.Table.from_pylist(rows)
+    from .parquet_schema import table_schema, validate_rows
+    schema = table_schema(path.stem)
+    validate_rows(rows, schema)
+    table = pa.Table.from_pylist(rows, schema=schema)
     pq.write_table(table, path, compression="zstd")
 
 
@@ -320,6 +367,8 @@ def _case_features(case: dict, engine: DamageEngine) -> tuple[list[float], list[
     warhead = case["warhead"]
     environment = case["environment"]
     source = warhead["fragment_source"]
+    munition = case.get("munition") or {}
+    has_munition = bool(munition)
     distribution = source["mass_distribution"]
     family_names = ["fixed", "lognormal", "weibull", "empirical"]
     family = distribution["family"]
@@ -360,6 +409,34 @@ def _case_features(case: dict, engine: DamageEngine) -> tuple[list[float], list[
     add("casing_mass_kg", warhead.get("casing_mass_kg") or 0.0, warhead.get("casing_mass_kg") is not None)
     add("blast_equivalent_mass_kg", warhead["blast_source"]["equivalent_mass_kg"])
     add("fragment_total_count", source["total_count"])
+    profile_id = munition.get("profile_id")
+    for name in ("small_front", "medium_front", "large_front"):
+        add(
+            f"munition_profile_{name}",
+            profile_id == name,
+            has_munition,
+        )
+    for feature_name, source_name in (
+        ("projectile_length_m", "projectile_length_m"),
+        ("projectile_diameter_m", "projectile_diameter_m"),
+        ("warhead_length_m", "warhead_length_m"),
+        ("warhead_diameter_m", "warhead_diameter_m"),
+        ("wall_thickness_m", "wall_thickness_m"),
+        ("fragment_ring_count", "fragment_ring_count"),
+        ("fragment_axial_coverage_ratio", "fragment_axial_coverage_ratio"),
+    ):
+        add(
+            feature_name,
+            munition.get(source_name, 0.0),
+            source_name in munition,
+        )
+    is_impact = encounter.get("detonation_trigger") == "first_armor_contact"
+    add("impact_first_armor_contact", is_impact)
+    add(
+        "collision_distance_m",
+        encounter.get("collision_distance_m", 0.0),
+        "collision_distance_m" in encounter,
+    )
     for name, value in zip(family_names, family_one_hot):
         add(f"mass_family_{name}", value)
     for name, value in zip(
@@ -573,22 +650,8 @@ def _physical_case_key(case: dict) -> str:
     Case IDs, aleatory seeds and requested replicate counts must not create new
     groups: doing so leaks near-identical Monte Carlo repeats across splits.
     """
-    analysis = case.get("analysis") or {}
-    return content_hash(
-        {
-            "target_ref": case.get("target_ref"),
-            "encounter": case.get("encounter"),
-            "warhead": case.get("warhead"),
-            "environment": case.get("environment"),
-            "parameter_set_id": case.get("parameter_set_id"),
-            "analysis": {
-                "fidelity_level": analysis.get("fidelity_level"),
-                "mechanisms": analysis.get("mechanisms"),
-                "epistemic_sample_id": analysis.get("epistemic_sample_id"),
-                "coupling_model": analysis.get("coupling_model"),
-            },
-        }
-    )
+    from .learning_input_identity import learning_input_fingerprint
+    return learning_input_fingerprint(case)
 
 
 def _split_name(
@@ -599,6 +662,36 @@ def _split_name(
 ) -> tuple[str, str, str, str]:
     metadata = case.get("metadata") or {}
     leakage_key = _physical_case_key(case)
+    frozen_split = metadata.get("frozen_split")
+    if frozen_split is not None:
+        registry_hash = metadata.get("split_registry_hash")
+        group_id = metadata.get("split_group")
+        sampling = metadata.get("sampling")
+        if frozen_split not in {"train", "validation", "test"}:
+            raise InputValidationError("frozen_split must be train, validation or test")
+        if (
+            not is_sha256_identity(
+                registry_hash, acceptance="legacy_prefix_length"
+            )
+            or not isinstance(group_id, str)
+            or not group_id
+            or not isinstance(sampling, dict)
+            or sampling.get("lineage_id") != group_id
+            or sampling.get("split_registry_hash") != registry_hash
+            or sampling.get("frozen_split") != frozen_split
+        ):
+            raise InputValidationError(
+                "explicit split assignment is not bound to a frozen split registry and lineage"
+            )
+        if sampling.get("role") == "adaptive_train" and frozen_split != "train":
+            raise InputValidationError("adaptive_train samples cannot enter validation or test")
+        from .sampling_validation import load_verified_split_registry, validate_registry_assignments
+        registry = load_verified_split_registry(
+            sampling.get("split_registry_document"), expected_hash=registry_hash,
+            expected_id=sampling.get("split_registry_id"),
+        )
+        validate_registry_assignments(registry, [sampling])
+        return group_id, "frozen_split_registry", leakage_key, str(frozen_split)
     if metadata.get("split_group") is not None:
         group_source = "split_group"
         group_id = str(metadata["split_group"])
@@ -634,6 +727,223 @@ def _walk_parameters(value: Any):
             yield from _walk_parameters(child)
 
 
+_SAMPLING_REQUIRED_FIELDS_V1_0 = {
+    "schema_version", "candidate_id", "lineage_id", "design_group_id", "round",
+    "stream", "role", "stratum", "selection_probability", "design_weight_raw",
+    "role_names", "stratum_names",
+    "weight_mask", "sampling_spec_id", "sampling_spec_hash", "p0_id", "p0_hash",
+    "label_spec_id", "label_spec_hash", "stratification_spec_id",
+    "stratification_spec_hash", "split_registry_id", "split_registry_hash",
+    "frozen_split", "epistemic_group_id", "screen_seed", "formal_seed",
+    "damage_tree_definition_hash", "target_hash", "physics_registry_hash",
+    "engine_code_hash",
+    "split_registry_document", "label_spec_document",
+}
+_SAMPLING_REQUIRED_FIELDS_V1_1 = _SAMPLING_REQUIRED_FIELDS_V1_0 | {
+    "sampling_spec_document", "training_design_document", "training_design_hash",
+}
+_SAMPLING_REQUIRED_FIELDS_V1_2 = _SAMPLING_REQUIRED_FIELDS_V1_1 | {
+    "p0_density", "adaptive_density", "proposal_density",
+    "p0_hierarchy_probability", "proposal_hierarchy_probability",
+    "acquisition_model_hash", "adaptive_proposal_hash", "proposal_hash",
+    "round_lineage_id", "parent_round_lineage_id", "candidate_case_hash",
+    "learning_input_hash", "selected_case_set_hash", "design_weight_formula",
+}
+_SAMPLING_REQUIRED_FIELDS_BY_VERSION = {
+    "1.0.0": _SAMPLING_REQUIRED_FIELDS_V1_0,
+    "1.1.0": _SAMPLING_REQUIRED_FIELDS_V1_1,
+    "1.2.0": _SAMPLING_REQUIRED_FIELDS_V1_2,
+}
+
+
+def _sampling_context(cases: list[dict]) -> list[dict] | None:
+    records = [((case.get("metadata") or {}).get("sampling")) for case in cases]
+    if all(record is None for record in records):
+        return None
+    if any(not isinstance(record, dict) for record in records):
+        raise InputValidationError(
+            "sampling-aware datasets require a sampling envelope on every input case"
+        )
+    fixed_fields = {
+        "schema_version",
+        "sampling_spec_id", "sampling_spec_hash", "p0_id", "p0_hash",
+        "label_spec_id", "label_spec_hash", "stratification_spec_id",
+        "stratification_spec_hash", "split_registry_id", "split_registry_hash",
+        "damage_tree_definition_hash", "target_hash", "physics_registry_hash",
+        "engine_code_hash", "role_names", "stratum_names",
+        "split_registry_document", "label_spec_document",
+    }
+    expected_fixed: dict[str, Any] | None = None
+    candidate_ids: set[str] = set()
+    validated: list[dict] = []
+    for case, raw in zip(cases, records):
+        assert isinstance(raw, dict)
+        version = raw.get("schema_version")
+        required_fields = _SAMPLING_REQUIRED_FIELDS_BY_VERSION.get(version)
+        if required_fields is None:
+            raise InputValidationError("unsupported sampling envelope schema version")
+        if set(raw) != required_fields:
+            raise InputValidationError(
+                "sampling envelope has missing or unknown fields",
+                context={
+                    "case_id": case.get("case_id"),
+                    "schema_version": version,
+                    "missing": sorted(required_fields - set(raw)),
+                    "unknown": sorted(set(raw) - required_fields),
+                },
+            )
+        record = dict(raw)
+        if any(type(record[field]) not in {int, float} for field in ("selection_probability", "design_weight_raw")):
+            raise InputValidationError("sampling probabilities and raw weights must be numeric scalars")
+        probability = float(record["selection_probability"])
+        weight = float(record["design_weight_raw"])
+        if not math.isfinite(probability) or not 0.0 < probability <= 1.0:
+            raise InputValidationError("sampling selection probability must lie in (0, 1]")
+        if not math.isfinite(weight) or weight <= 0.0:
+            raise InputValidationError("raw sampling design weight must be finite and positive")
+        if type(record["weight_mask"]) is not bool:
+            raise InputValidationError("sampling weight mask must be boolean")
+        if version == "1.2.0":
+            adaptive_numbers = (
+                "p0_density", "adaptive_density", "proposal_density",
+                "p0_hierarchy_probability", "proposal_hierarchy_probability",
+            )
+            if any(type(record[field]) not in {int, float} for field in adaptive_numbers):
+                raise InputValidationError("adaptive sampling density factors must be numeric scalars")
+            factors = {field: float(record[field]) for field in adaptive_numbers}
+            if any(not math.isfinite(value) or value <= 0.0 for value in factors.values()):
+                raise InputValidationError("adaptive sampling density factors must be finite and positive")
+            if (
+                factors["p0_hierarchy_probability"] > 1.0
+                or factors["proposal_hierarchy_probability"] > 1.0
+            ):
+                raise InputValidationError("adaptive hierarchy probabilities must lie in (0, 1]")
+            expected_weight = (
+                factors["p0_density"] * factors["p0_hierarchy_probability"]
+                / (
+                    factors["proposal_density"]
+                    * factors["proposal_hierarchy_probability"]
+                    * probability
+                )
+            )
+            if not math.isclose(weight, expected_weight, rel_tol=1.0e-12, abs_tol=1.0e-12):
+                raise InputValidationError("adaptive raw design weight violates the general proposal formula")
+        elif not math.isclose(
+            weight, 1.0 / probability, rel_tol=1.0e-12, abs_tol=1.0e-12
+        ):
+            raise InputValidationError("raw design weight must equal inverse inclusion probability")
+        if type(record["round"]) is not int or record["round"] < 0:
+            raise InputValidationError("sampling round must be a nonnegative integer")
+        if any(type(record[field]) is not int or record[field] < 0 for field in ("formal_seed", "screen_seed")):
+            raise InputValidationError("sampling seeds must be nonnegative integers")
+        if any(not isinstance(record[field], str) or not record[field] for field in (
+            "candidate_id", "lineage_id", "design_group_id", "stream", "role", "stratum",
+            "sampling_spec_id", "sampling_spec_hash", "p0_id", "p0_hash",
+            "label_spec_id", "label_spec_hash", "stratification_spec_id",
+            "stratification_spec_hash", "split_registry_id", "split_registry_hash",
+            "frozen_split", "epistemic_group_id", "damage_tree_definition_hash",
+            "target_hash", "physics_registry_hash", "engine_code_hash",
+        )):
+            raise InputValidationError("sampling string identities must be nonempty")
+        if version == "1.2.0":
+            adaptive_identity_fields = (
+                "acquisition_model_hash", "adaptive_proposal_hash", "proposal_hash",
+                "round_lineage_id", "parent_round_lineage_id", "candidate_case_hash",
+                "learning_input_hash", "selected_case_set_hash", "design_weight_formula",
+            )
+            if any(
+                not isinstance(record[field], str) or not record[field]
+                for field in adaptive_identity_fields
+            ):
+                raise InputValidationError("adaptive sampling identities must be nonempty strings")
+            for field in (
+                "acquisition_model_hash", "adaptive_proposal_hash", "proposal_hash",
+                "candidate_case_hash", "learning_input_hash", "selected_case_set_hash",
+            ):
+                value = record[field]
+                if not is_sha256_identity(value):
+                    raise InputValidationError(f"adaptive sampling {field} must be a sha256 identity")
+            if (
+                record["design_weight_formula"]
+                != "p0_density*p0_hierarchy_probability/(proposal_density*proposal_hierarchy_probability*inclusion_probability)"
+                or record["round"] < 1
+                or record["stream"] != "adaptive_train"
+                or record["role"] != "adaptive_train"
+                or record["frozen_split"] != "train"
+                or record["weight_mask"] is not True
+            ):
+                raise InputValidationError("adaptive sampling role, split or weight contract is invalid")
+            from .learning_input_identity import learning_input_fingerprint
+
+            if learning_input_fingerprint(case) != record["learning_input_hash"]:
+                raise InputValidationError("adaptive learning-input hash differs from the executed case")
+        for field, active in (("role_names", record["role"]), ("stratum_names", record["stratum"])):
+            names = record[field]
+            if (
+                not isinstance(names, list) or not names
+                or any(not isinstance(name, str) or not name for name in names)
+                or len(names) != len(set(names)) or active not in names
+            ):
+                raise InputValidationError(f"sampling {field} must be a unique vocabulary containing the active value")
+        if record["candidate_id"] in candidate_ids:
+            raise InputValidationError("sampling candidate_id values must be unique")
+        candidate_ids.add(record["candidate_id"])
+        if int(record["formal_seed"]) != int(case["analysis"]["aleatory_seed"]):
+            raise InputValidationError("formal seed in sampling envelope differs from the executed case")
+        active_fixed_fields = set(fixed_fields)
+        if version in {"1.1.0", "1.2.0"}:
+            active_fixed_fields.update(
+                {"sampling_spec_document", "training_design_document", "training_design_hash"}
+            )
+        if version == "1.2.0":
+            active_fixed_fields.update(
+                {
+                    "acquisition_model_hash", "adaptive_proposal_hash", "proposal_hash",
+                    "round_lineage_id", "parent_round_lineage_id",
+                    "selected_case_set_hash", "design_weight_formula",
+                }
+            )
+        fixed = {field: record[field] for field in active_fixed_fields}
+        if expected_fixed is None:
+            expected_fixed = fixed
+        elif fixed != expected_fixed:
+            raise InputValidationError("sampling-aware dataset mixes incompatible plan identities")
+        validated.append(record)
+    from .sampling_validation import load_verified_split_registry, validate_candidate_set, validate_registry_assignments
+    registry = load_verified_split_registry(
+        validated[0]["split_registry_document"], expected_hash=validated[0]["split_registry_hash"],
+        expected_id=validated[0]["split_registry_id"],
+    )
+    validate_candidate_set(validated)
+    validate_registry_assignments(registry, validated)
+    from .label_spec import LabelSpec
+    spec = LabelSpec(validated[0]["label_spec_document"])
+    if spec.hash != validated[0]["label_spec_hash"] or spec.spec_id != validated[0]["label_spec_id"]:
+        raise InputValidationError("label specification document differs from the declared identity")
+    if spec.data["source"]["damage_tree_definition_hash"] != validated[0]["damage_tree_definition_hash"]:
+        raise InputValidationError("label specification document is bound to a different tree definition")
+    if validated[0]["schema_version"] in {"1.1.0", "1.2.0"}:
+        from .sampling_spec import SamplingSpec
+
+        sampling_spec = SamplingSpec(validated[0]["sampling_spec_document"])
+        if (
+            sampling_spec.hash != validated[0]["sampling_spec_hash"]
+            or sampling_spec.spec_id != validated[0]["sampling_spec_id"]
+        ):
+            raise InputValidationError(
+                "sampling specification document differs from the declared identity"
+            )
+        if (
+            sampling_spec.training_design_document
+            != validated[0]["training_design_document"]
+            or sampling_spec.training_design_hash != validated[0]["training_design_hash"]
+        ):
+            raise InputValidationError(
+                "training design document differs from the declared identity"
+            )
+    return validated
+
+
 class DatasetWriter:
     def __init__(
         self,
@@ -642,9 +952,9 @@ class DatasetWriter:
         split_seed: int = 0,
         split_ratios: tuple[float, float, float] = (0.8, 0.1, 0.1),
         tensor_compression: str = "compressed",
+        result_compression: str = "auto",
     ):
         self.output_directory = Path(output_directory)
-        self.output_directory.mkdir(parents=True, exist_ok=True)
         self.split_seed = int(split_seed)
         if self.split_seed < 0:
             raise ValueError("split_seed must be non-negative")
@@ -656,6 +966,9 @@ class DatasetWriter:
         if tensor_compression not in {"compressed", "none"}:
             raise ValueError("tensor_compression must be 'compressed' or 'none'")
         self.tensor_compression = tensor_compression
+        if result_compression not in {"auto", "none", "gzip"}:
+            raise ValueError("result_compression must be 'auto', 'none', or 'gzip'")
+        self.result_compression = result_compression
 
     def run_cases(
         self,
@@ -665,6 +978,23 @@ class DatasetWriter:
         fail_closed: bool = False,
         workers: int = 1,
         chunksize: int | None = None,
+        cases_base_directory: str | Path | None = None,
+    ) -> dict:
+        from .input_identity import freeze_case_inputs
+        prepared_cases = (engine.prepare_case(case) for case in cases)
+        with freeze_case_inputs(
+            prepared_cases, cases_base_directory=cases_base_directory
+        ) as frozen:
+            return self._run_frozen_cases(
+                engine, list(frozen), fail_closed=fail_closed, workers=workers,
+                chunksize=chunksize, input_snapshot=frozen.metadata,
+            )
+
+    def _run_frozen_cases(
+        self, engine: DamageEngine, cases: Iterable[dict], *, fail_closed: bool,
+        workers: int, chunksize: int | None, input_snapshot: dict,
+        _captured_inputs: bool = False,
+        _case_hash: Callable[[dict], str] | None = None,
     ) -> dict:
         case_list = list(cases)
         if not case_list:
@@ -674,6 +1004,8 @@ class DatasetWriter:
         if chunksize is not None and chunksize < 1:
             raise ValueError("chunksize must be at least one")
         case_ids = [case.get("case_id") for case in case_list]
+        if any(not isinstance(value, str) or not value for value in case_ids):
+            raise InputValidationError("dataset case_id values must be nonempty strings")
         non_null_ids = [str(value) for value in case_ids if value is not None]
         if len(non_null_ids) != len(set(non_null_ids)):
             raise InputValidationError("dataset case_id values must be unique")
@@ -694,18 +1026,39 @@ class DatasetWriter:
                     )
                 )
             results = [EngineResult(payload) for payload in payloads]
-        return self.write(
-            engine,
-            case_list,
-            results,
-            generation={
-                "workers": int(workers),
-                "chunksize": int(effective_chunksize),
-                "failure_policy": "fail_fast" if fail_closed else "isolate_and_record",
-                "input_order_preserved": True,
-                "tensor_compression": self.tensor_compression,
-            },
-        )
+        generation = {
+            "workers": int(workers),
+            "chunksize": int(effective_chunksize),
+            "failure_policy": "fail_fast" if fail_closed else "isolate_and_record",
+            "input_order_preserved": True,
+            "tensor_compression": self.tensor_compression,
+            "result_compression": self.result_compression,
+            "input_snapshot": input_snapshot,
+        }
+        if not _captured_inputs:
+            return self.write(
+                engine,
+                case_list,
+                results,
+                generation=generation,
+            )
+
+        # ShardedDatasetWriter uses this private branch only after an internal
+        # compact sampling source has copied and fully verified every finite
+        # input.  Preserve the normal per-shard exclusive lock and all result,
+        # case-id and schema validation, but do not serialize the hydrated
+        # O(N) split registry into another temporary input spool.
+        from .input_identity import capture_environment_identity, single_writer_lock
+
+        generation.setdefault("environment", capture_environment_identity())
+        with single_writer_lock(self.output_directory):
+            return self._write_frozen(
+                engine,
+                case_list,
+                results,
+                generation=generation,
+                _case_hash=_case_hash,
+            )
 
     def write(
         self,
@@ -714,9 +1067,135 @@ class DatasetWriter:
         results: list[EngineResult],
         *,
         generation: dict | None = None,
+        cases_base_directory: str | Path | None = None,
+    ) -> dict:
+        from copy import deepcopy
+        from .input_identity import FrozenCase, capture_environment_identity, case_identity_hash, freeze_case_inputs
+        if len(cases) != len(results):
+            raise InputValidationError("cases and results must have equal length")
+
+        def preflight_hash(case: dict) -> str:
+            warhead = case.get("warhead", {})
+            if not isinstance(warhead, dict):
+                raise InputValidationError("precomputed case warhead must be an object")
+            source = warhead.get("fragment_source", {})
+            if not isinstance(source, dict):
+                raise InputValidationError("precomputed case fragment_source must be an object")
+            reference = source.get("fragment_list_ref")
+            if reference is not None and (not isinstance(reference, str) or not reference.strip()):
+                raise InputValidationError("precomputed case fragment_list_ref must be a nonempty path string")
+            if reference is not None and not isinstance(case, FrozenCase) and not Path(reference).is_absolute():
+                if cases_base_directory is None:
+                    raise InputValidationError("relative external input references require cases_base_directory")
+                case = deepcopy(case)
+                case["warhead"]["fragment_source"]["fragment_list_ref"] = str(Path(cases_base_directory) / reference)
+            return case_identity_hash(case)
+
+        # Precomputed-entry preflight is read-only, including external hashing.
+        # Repeat it against the frozen snapshot to catch edits during capture.
+        validate_precomputed_results(
+            engine, cases, [result.to_dict() for result in results], case_hash=preflight_hash,
+            engine_code_hash=ENGINE_CODE_HASH, fragment_metrics=_FRAGMENT_AUXILIARY_KEYS,
+            blast_metrics=_BLAST_AUXILIARY_KEYS, armor_metrics=_ARMOR_BLAST_LABEL_KEYS,
+        )
+        with freeze_case_inputs(cases, cases_base_directory=cases_base_directory) as frozen:
+            execution = dict(generation or {
+                "workers": 1, "chunksize": 1, "failure_policy": "precomputed_results",
+                "input_order_preserved": True, "tensor_compression": self.tensor_compression,
+                "result_compression": self.result_compression,
+            })
+            execution.setdefault("input_snapshot", frozen.metadata)
+            execution.setdefault("environment", capture_environment_identity())
+            from .input_identity import single_writer_lock
+            with single_writer_lock(self.output_directory):
+                return self._write_frozen(engine, list(frozen), results, generation=execution)
+
+    def _write_frozen(
+        self, engine: DamageEngine, cases: list[dict], results: list[EngineResult], *,
+        generation: dict,
+        _case_hash: Callable[[dict], str] | None = None,
     ) -> dict:
         if len(cases) != len(results):
-            raise ValueError("cases and results must have equal length")
+            raise InputValidationError("cases and results must have equal length")
+        from .input_identity import case_identity_hash
+        hash_case = _case_hash or case_identity_hash
+        payloads = [result.to_dict() for result in results]
+        validate_precomputed_results(
+            engine, cases, payloads, case_hash=hash_case,
+            engine_code_hash=ENGINE_CODE_HASH,
+            fragment_metrics=_FRAGMENT_AUXILIARY_KEYS, blast_metrics=_BLAST_AUXILIARY_KEYS,
+            armor_metrics=_ARMOR_BLAST_LABEL_KEYS,
+        )
+        sampling_records = _sampling_context(cases)
+        sampling_enabled = sampling_records is not None
+        model_input_definition = None
+        sampling_spec_document = (
+            sampling_records[0].get("sampling_spec_document")
+            if sampling_records
+            else None
+        )
+        if (
+            isinstance(sampling_spec_document, dict)
+            and sampling_spec_document.get("schema_version") == "1.2.0"
+        ):
+            candidate_definition = model_input_definition_for_sampling_contract(
+                sampling_spec_document.get("model_input_contract")
+            )
+            if candidate_definition is not None:
+                try:
+                    for case in cases:
+                        candidate_definition.vector(case)
+                except (KeyError, TypeError, ValueError):
+                    # Artificial/legacy SamplingSpec fixtures can use an
+                    # abstract case schema. They keep their historical tensor
+                    # contract; only executable cases enter contract 1.8.
+                    pass
+                else:
+                    model_input_definition = candidate_definition
+        versioned_model_contract_enabled = model_input_definition is not None
+        fixed_scenario_hash: str | None = None
+        if versioned_model_contract_enabled:
+            fixed_scenario_hashes = {
+                model_input_definition.fixed_scenario_fingerprint(case)
+                for case in cases
+            }
+            if len(fixed_scenario_hashes) != 1:
+                raise InputValidationError(
+                    "versioned model-input archives require exactly one frozen scenario identity",
+                    context={
+                        "fixed_scenario_hashes": sorted(fixed_scenario_hashes),
+                        "case_count": len(cases),
+                    },
+                )
+            fixed_scenario_hash = next(iter(fixed_scenario_hashes))
+        label_spec = None
+        if sampling_records:
+            from .label_spec import LabelSpec
+            first_sampling = sampling_records[0]
+            label_spec = LabelSpec(first_sampling["label_spec_document"])
+            label_spec.validate_output_vocabulary(engine.damage_tree.outputs)
+            if label_spec.data["source"]["damage_tree_revision"] != engine.damage_tree.version:
+                raise InputValidationError("label specification source revision differs from the current tree")
+            expected_tree_hash = content_hash(engine.target_data["damage_tree"])
+            identity_checks = {
+                "target_hash": engine.target_hash,
+                "physics_registry_hash": engine.registry.hash,
+                "engine_code_hash": ENGINE_CODE_HASH,
+                "damage_tree_definition_hash": expected_tree_hash,
+            }
+            for field, expected in identity_checks.items():
+                if first_sampling[field] != expected:
+                    raise InputValidationError(
+                        "sampling envelope is bound to a different teacher identity",
+                        context={"field": field, "declared": first_sampling[field], "actual": expected},
+                    )
+            all_input_splits = []
+            for case in cases:
+                group_id, _, leakage_key, split = _split_name(case, seed=self.split_seed, ratios=self.split_ratios)
+                all_input_splits.append({"group_id": group_id, "leakage_key": leakage_key, "split": split})
+            if not self._check_split_leakage(all_input_splits):
+                raise InputValidationError("duplicate declared learning inputs or groups cross split boundaries")
+        self.output_directory.mkdir(parents=True, exist_ok=True)
         incomplete_path = self.output_directory / ".dataset.incomplete"
         incomplete_path.write_text(
             json.dumps(
@@ -725,16 +1204,25 @@ class DatasetWriter:
             ),
             encoding="utf-8",
         )
-        raw_path = self.output_directory / "results.jsonl"
-        with raw_path.open("w", encoding="utf-8") as stream:
-            for result in results:
-                stream.write(json.dumps(result.to_dict(), ensure_ascii=False, allow_nan=False) + "\n")
-        payloads = [result.to_dict() for result in results]
+        result_compression = self.result_compression
+        if result_compression == "auto":
+            result_compression = "gzip" if sampling_enabled else "none"
+        raw_path, raw_format = write_result_ledger(
+            self.output_directory,
+            (result.to_dict() for result in results),
+            compression=result_compression,
+        )
+        generation["result_compression"] = result_compression
         valid_pairs = [
             (case, payload)
             for case, payload in zip(cases, payloads)
             if payload.get("status") == "ok"
         ]
+        valid_sampling_records = (
+            [record for record, payload in zip(sampling_records, payloads) if payload.get("status") == "ok"]
+            if sampling_records is not None
+            else []
+        )
         refused = [payload for payload in payloads if payload.get("status") != "ok"]
         state_names = _state_names(engine)
         mechanism_names = ["fragment", "blast", "combined"]
@@ -783,6 +1271,7 @@ class DatasetWriter:
         system_label_stddev = []
         system_label_ci95 = []
         system_label_masks = []
+        system_source_available_masks = []
         requested_standard_masks = []
         case_rows: list[dict] = []
         component_rows: list[dict] = []
@@ -861,7 +1350,8 @@ class DatasetWriter:
                                 component_result["damage_states"][mechanism][state]["ci95_upper"],
                             ]
                             label_mask[component_index, mechanism_index, state_index] = (
-                                mechanism == "combined" or mechanism in enabled_mechanisms
+                                {"fragment", "blast"}.issubset(enabled_mechanisms)
+                                if mechanism == "combined" else mechanism in enabled_mechanisms
                             )
                 for state_index, state in enumerate(state_names):
                     if state not in states_available:
@@ -929,7 +1419,8 @@ class DatasetWriter:
                                 "component_id": item.object_id,
                                 "mechanism": mechanism,
                                 "damage_state": state,
-                                "available": mechanism == "combined" or mechanism in enabled_mechanisms,
+                                "available": ({"fragment", "blast"}.issubset(enabled_mechanisms)
+                                              if mechanism == "combined" else mechanism in enabled_mechanisms),
                                 **stats,
                             }
                         )
@@ -1022,12 +1513,21 @@ class DatasetWriter:
             for standard_id in requested_standard_ids:
                 requested_mask[standard_index[standard_id]] = True
             requested_standard_masks.append(requested_mask.tolist())
-            if requested_standard_ids:
-                system_label_masks.append(
-                    np.any(standard_output_mask[requested_mask], axis=0).tolist()
-                )
-            else:  # The case schema requires at least one standard; retain fail-safe behavior.
-                system_label_masks.append([False] * len(output_names))
+            from .label_spec import system_output_availability
+            component_availability = {
+                (component.object_id, mechanism, state): bool(label_mask[c, m, s])
+                for c, component in enumerate(engine.compiled_target.components)
+                for m, mechanism in enumerate(mechanism_names) for s, state in enumerate(state_names)
+            }
+            source_flags = system_output_availability(
+                engine.damage_tree.nodes, output_names, enabled_mechanisms,
+                component_availability=component_availability,
+            )
+            source_mask = np.asarray([source_flags[name] for name in output_names], dtype=bool)
+            system_source_available_masks.append(source_mask.tolist())
+            requested_outputs = (np.any(standard_output_mask[requested_mask], axis=0)
+                                 if requested_standard_ids else np.zeros(len(output_names), dtype=bool))
+            system_label_masks.append((requested_outputs & source_mask).tolist())
             group_id, group_source, leakage_key, split = _split_name(
                 case, seed=self.split_seed, ratios=self.split_ratios
             )
@@ -1040,8 +1540,7 @@ class DatasetWriter:
                     "split": split,
                 }
             )
-            case_rows.append(
-                {
+            case_row = {
                     "case_id": case["case_id"],
                     "target_id": result["target_id"],
                     "features": case_x,
@@ -1054,7 +1553,18 @@ class DatasetWriter:
                     "split": split,
                     "case_hash": result["provenance"]["case_hash"],
                 }
-            )
+            sampling_record = (case.get("metadata") or {}).get("sampling")
+            if isinstance(sampling_record, dict):
+                case_row["sampling"] = {
+                    key: sampling_record[key]
+                    for key in (
+                        "candidate_id", "lineage_id", "round", "stream", "role", "stratum",
+                        "selection_probability", "design_weight_raw", "sampling_spec_hash",
+                        "label_spec_hash", "split_registry_hash",
+                        "weight_mask", "epistemic_group_id", "frozen_split",
+                    )
+                }
+            case_rows.append(case_row)
             for standard_id in requested_standard_ids:
                 for output_name in engine.damage_tree.standards[standard_id]:
                     tree_rows.append(
@@ -1062,6 +1572,7 @@ class DatasetWriter:
                             "case_id": case["case_id"],
                             "evaluation_standard_id": standard_id,
                             "output_node": output_name,
+                            "available": bool(source_flags[output_name]),
                             **result["damage_tree"]["outputs"][output_name],
                         }
                     )
@@ -1069,7 +1580,10 @@ class DatasetWriter:
         graph_node_types = ["component"] * component_count + ["damage_tree"] * len(
             engine.damage_tree.order
         )
-        graph_node_index = {identifier: index for index, identifier in enumerate(graph_node_ids)}
+        graph_node_index = {
+            (node_type, identifier): index
+            for index, (node_type, identifier) in enumerate(zip(graph_node_types, graph_node_ids))
+        }
         graph_edges: list[tuple[int, int]] = []
         graph_edge_types: list[int] = []
         for node_id, node in engine.damage_tree.nodes.items():
@@ -1078,11 +1592,14 @@ class DatasetWriter:
                     {
                         "source_id": str(node["component_id"]),
                         "target_id": node_id,
+                        "source_type": "component",
+                        "target_type": "damage_tree",
                         "edge_type": "component_state_to_leaf",
                     }
                 )
                 graph_edges.append(
-                    (graph_node_index[str(node["component_id"])], graph_node_index[node_id])
+                    (graph_node_index[("component", str(node["component_id"]))],
+                     graph_node_index[("damage_tree", node_id)])
                 )
                 graph_edge_types.append(0)
             for dependency in node["inputs"]:
@@ -1090,10 +1607,13 @@ class DatasetWriter:
                     {
                         "source_id": dependency,
                         "target_id": node_id,
+                        "source_type": "damage_tree",
+                        "target_type": "damage_tree",
                         "edge_type": "damage_tree_dependency",
                     }
                 )
-                graph_edges.append((graph_node_index[dependency], graph_node_index[node_id]))
+                graph_edges.append((graph_node_index[("damage_tree", dependency)],
+                                    graph_node_index[("damage_tree", node_id)]))
                 graph_edge_types.append(1)
 
         armor_vertices: list[list[float]] = []
@@ -1150,6 +1670,7 @@ class DatasetWriter:
             "system_y_stddev": batch_array(system_label_stddev, (len(output_names),), np.float32),
             "system_y_ci95": batch_array(system_label_ci95, (len(output_names), 2), np.float32),
             "system_label_mask": batch_array(system_label_masks, (len(output_names),), bool),
+            "system_source_available_mask": batch_array(system_source_available_masks, (len(output_names),), bool),
             "requested_standard_mask": batch_array(
                 requested_standard_masks, (len(evaluation_standard_ids),), bool
             ),
@@ -1178,8 +1699,8 @@ class DatasetWriter:
             "input_case_status": np.asarray(input_status, dtype=str),
             "input_case_valid_mask": np.asarray(input_valid_mask, dtype=bool),
             "input_to_valid_index": np.asarray(input_to_valid_index, dtype=np.int64),
-            "component_ids": np.asarray(list(engine.compiled_target.component_order)),
-            "armor_ids": np.asarray([item.object_id for item in engine.compiled_target.armor]),
+            "component_ids": np.asarray(list(engine.compiled_target.component_order), dtype=str),
+            "armor_ids": np.asarray([item.object_id for item in engine.compiled_target.armor], dtype=str),
             "mechanism_names": np.asarray(mechanism_names),
             "state_names": np.asarray(state_names),
             "frechet_bound_names": np.asarray(FRECHET_BOUND_NAMES),
@@ -1216,6 +1737,153 @@ class DatasetWriter:
             "tree_edge_type": np.asarray(graph_edge_types, dtype=np.int16),
             "tree_edge_type_names": np.asarray(["component_state_to_leaf", "damage_tree_dependency"]),
         }
+        if sampling_enabled:
+            assert sampling_records is not None
+            role_names = list(sampling_records[0]["role_names"])
+            stratum_names = list(sampling_records[0]["stratum_names"])
+            role_index = {name: index for index, name in enumerate(role_names)}
+            stratum_index = {name: index for index, name in enumerate(stratum_names)}
+            tensor_values.update(
+                {
+                    "case_physics_x": tensor_values["case_x"][:, _CASE_PHYSICS_INDICES].copy(),
+                    "case_physics_feature_mask": tensor_values["case_feature_mask"][:, _CASE_PHYSICS_INDICES].copy(),
+                    "solver_context_x": tensor_values["case_x"][:, _SOLVER_CONTEXT_INDICES].copy(),
+                    "solver_context_feature_mask": tensor_values["case_feature_mask"][:, _SOLVER_CONTEXT_INDICES].copy(),
+                    "case_physics_feature_names": np.asarray(CASE_PHYSICS_FEATURE_NAMES),
+                    "case_physics_feature_units": np.asarray(CASE_PHYSICS_FEATURE_UNITS),
+                    "solver_context_feature_names": np.asarray(SOLVER_CONTEXT_FEATURE_NAMES),
+                    "solver_context_feature_units": np.asarray(SOLVER_CONTEXT_FEATURE_UNITS),
+                    "sampling_selection_probability": np.asarray(
+                        [record["selection_probability"] for record in valid_sampling_records], dtype=np.float64
+                    ),
+                    "sampling_design_weight_raw": np.asarray(
+                        [record["design_weight_raw"] for record in valid_sampling_records], dtype=np.float64
+                    ),
+                    "sampling_weight_mask": np.asarray(
+                        [record["weight_mask"] for record in valid_sampling_records], dtype=bool
+                    ),
+                    "sampling_round": np.asarray(
+                        [record["round"] for record in valid_sampling_records], dtype=np.int64
+                    ),
+                    "sampling_stratum_index": np.asarray(
+                        [stratum_index[record["stratum"]] for record in valid_sampling_records], dtype=np.int64
+                    ),
+                    "sampling_role_index": np.asarray(
+                        [role_index[record["role"]] for record in valid_sampling_records], dtype=np.int64
+                    ),
+                    "sampling_stratum_names": np.asarray(stratum_names),
+                    "sampling_role_names": np.asarray(role_names),
+                    "sampling_candidate_ids": np.asarray(
+                        [record["candidate_id"] for record in valid_sampling_records], dtype=str
+                    ),
+                    "sampling_lineage_ids": np.asarray(
+                        [record["lineage_id"] for record in valid_sampling_records], dtype=str
+                    ),
+                    "sampling_epistemic_group_ids": np.asarray(
+                        [record["epistemic_group_id"] for record in valid_sampling_records], dtype=str
+                    ),
+                }
+            )
+            if model_input_definition is not None:
+                # Complete teacher tensors remain audit-only.  This versioned
+                # definition is the sole source of learner-visible field and
+                # feature metadata.
+                tensor_values.update(
+                    {
+                        model_input_definition.tensor_field: batch_array(
+                            [
+                                model_input_definition.vector(case)
+                                for case, _ in valid_pairs
+                            ],
+                            (len(model_input_definition.feature_names),),
+                            np.float32,
+                        ),
+                        model_input_definition.mask_field: np.ones(
+                            (
+                                len(valid_pairs),
+                                len(model_input_definition.feature_names),
+                            ),
+                            dtype=bool,
+                        ),
+                        **{
+                            field: np.asarray(values)
+                            for field, values in model_input_definition.metadata_fields.items()
+                        },
+                    }
+                )
+            for field, key in {
+                "input_sampling_candidate_ids": "candidate_id", "input_sampling_lineage_ids": "lineage_id",
+                "input_sampling_roles": "role", "input_sampling_epistemic_group_ids": "epistemic_group_id",
+                "input_frozen_splits": "frozen_split",
+            }.items():
+                tensor_values[field] = np.asarray([record[key] for record in sampling_records], dtype=str)
+            if sampling_records[0]["schema_version"] == "1.2.0":
+                tensor_values["input_sampling_selection_probability"] = np.asarray(
+                    [record["selection_probability"] for record in sampling_records],
+                    dtype=np.float64,
+                )
+                tensor_values["input_sampling_design_weight_raw"] = np.asarray(
+                    [record["design_weight_raw"] for record in sampling_records],
+                    dtype=np.float64,
+                )
+                tensor_values["input_sampling_weight_mask"] = np.asarray(
+                    [record["weight_mask"] for record in sampling_records], dtype=bool
+                )
+                adaptive_numeric_fields = {
+                    "sampling_p0_density": "p0_density",
+                    "sampling_adaptive_density": "adaptive_density",
+                    "sampling_proposal_density": "proposal_density",
+                    "sampling_p0_hierarchy_probability": "p0_hierarchy_probability",
+                    "sampling_proposal_hierarchy_probability": "proposal_hierarchy_probability",
+                }
+                for field, key in adaptive_numeric_fields.items():
+                    tensor_values[field] = np.asarray(
+                        [record[key] for record in valid_sampling_records], dtype=np.float64
+                    )
+                    tensor_values["input_" + field] = np.asarray(
+                        [record[key] for record in sampling_records], dtype=np.float64
+                    )
+                adaptive_identity_fields = {
+                    "sampling_acquisition_model_hashes": "acquisition_model_hash",
+                    "sampling_proposal_hashes": "proposal_hash",
+                    "sampling_round_lineage_ids": "round_lineage_id",
+                    "sampling_selected_case_set_hashes": "selected_case_set_hash",
+                }
+                for field, key in adaptive_identity_fields.items():
+                    tensor_values[field] = np.asarray(
+                        [record[key] for record in valid_sampling_records], dtype=str
+                    )
+                    tensor_values["input_" + field] = np.asarray(
+                        [record[key] for record in sampling_records], dtype=str
+                    )
+            assert label_spec is not None
+            task_masks = label_spec.validate_system_outputs(output_names, tensor_values["system_y"], tensor_values["system_label_mask"])
+            task_names = sorted(task_masks)
+            tensor_values["label_task_names"] = np.asarray(task_names, dtype=str)
+            tensor_values["label_task_available_mask"] = np.stack([task_masks[name] for name in task_names], axis=-1)
+        # Missing uncertainty is represented by NaN and an independent mask.
+        # Label availability still means its mean is usable as a synthetic label.
+        uncertainty_prefixes = {
+            "armor": ("armor_y", "armor_label_mask"),
+            "component": ("component_y", "component_label_mask"),
+            "component_frechet": ("component_frechet_y", "component_frechet_label_mask"),
+            "component_aux": ("component_aux_y", "component_aux_label_mask"),
+            "system": ("system_y", "system_label_mask"),
+        }
+        for prefix, (label_name, availability_name) in uncertainty_prefixes.items():
+            shape = tensor_values[label_name].shape
+            counts = tensor_values["replicate_counts"].reshape((shape[0],) + (1,) * (len(shape) - 1))
+            sample_count = np.where(tensor_values[availability_name],
+                                    np.broadcast_to(counts, shape), 0).astype(np.int64)
+            uncertainty_mask = (
+                tensor_values[availability_name] & (sample_count >= 2)
+                & np.isfinite(tensor_values[label_name + "_stddev"])
+                & np.all(np.isfinite(tensor_values[label_name + "_ci95"]), axis=-1)
+            )
+            tensor_values[prefix + "_sample_count"] = sample_count
+            tensor_values[prefix + "_uncertainty_mask"] = uncertainty_mask
+            tensor_values[label_name + "_stddev"][~uncertainty_mask] = np.nan
+            tensor_values[label_name + "_ci95"][~uncertainty_mask] = np.nan
         arrays_path = self.output_directory / "tensors.npz"
         tensor_writer = np.savez_compressed if self.tensor_compression == "compressed" else np.savez
         tensor_writer(arrays_path, **tensor_values)
@@ -1265,7 +1933,7 @@ class DatasetWriter:
                 },
                 {
                     "name": "audits",
-                    "format": "jsonl",
+                    "format": raw_format,
                     "path_glob": raw_path.name,
                     "row_count": len(results),
                     "content_hash": file_hash(raw_path),
@@ -1296,7 +1964,8 @@ class DatasetWriter:
             "component_aux_y": "[B,C,U]", "component_aux_y_stddev": "[B,C,U]",
             "component_aux_y_ci95": "[B,C,U,2]", "component_aux_label_mask": "[B,C,U]",
             "system_y": "[B,O]", "system_y_stddev": "[B,O]", "system_y_ci95": "[B,O,2]",
-            "system_label_mask": "[B,O]", "requested_standard_mask": "[B,E]",
+            "system_label_mask": "[B,O]", "requested_standard_mask": "[B,E_standard]",
+            "system_source_available_mask": "[B,O]",
             "case_ids": "[B]", "case_hashes": "[B]",
             "split_names": "[B]", "split_group_ids": "[B]", "split_group_sources": "[B]",
             "leakage_keys": "[B]", "aleatory_seeds": "[B]", "epistemic_sample_ids": "[B]",
@@ -1305,7 +1974,7 @@ class DatasetWriter:
             "component_ids": "[C]", "armor_ids": "[A]", "mechanism_names": "[M]",
             "state_names": "[S]", "frechet_bound_names": "[D]",
             "frechet_bound_units": "[D]", "system_output_names": "[O]",
-            "evaluation_standard_ids": "[E]", "standard_output_mask": "[E,O]",
+            "evaluation_standard_ids": "[E_standard]", "standard_output_mask": "[E_standard,O]",
             "case_feature_names": "[F_case]", "case_feature_units": "[F_case]",
             "component_feature_names": "[F_component]", "component_feature_units": "[F_component]",
             "armor_feature_names": "[F_armor]", "armor_feature_units": "[F_armor]",
@@ -1318,8 +1987,55 @@ class DatasetWriter:
             "armor_blast_response_model_ids": "[A]", "armor_vertices_m": "[V,3]",
             "armor_vertex_offsets": "[A+1]", "graph_node_ids": "[G]", "graph_node_types": "[G]",
             "component_vertices_m": "[Vc,3]", "component_vertex_offsets": "[C+1]",
-            "tree_edge_index": "[2,E]", "tree_edge_type": "[E]", "tree_edge_type_names": "[2]",
+            "tree_edge_index": "[2,E_edge]", "tree_edge_type": "[E_edge]", "tree_edge_type_names": "[2]",
         }
+        if sampling_enabled:
+            tensor_shapes.update(
+                {
+                    "case_physics_x": "[B,F_case_physics]",
+                    "case_physics_feature_mask": "[B,F_case_physics]",
+                    "solver_context_x": "[B,F_solver]",
+                    "solver_context_feature_mask": "[B,F_solver]",
+                    "case_physics_feature_names": "[F_case_physics]",
+                    "case_physics_feature_units": "[F_case_physics]",
+                    "solver_context_feature_names": "[F_solver]",
+                    "solver_context_feature_units": "[F_solver]",
+                    "sampling_selection_probability": "[B]",
+                    "sampling_design_weight_raw": "[B]",
+                    "sampling_weight_mask": "[B]",
+                    "sampling_round": "[B]",
+                    "sampling_stratum_index": "[B]",
+                    "sampling_role_index": "[B]",
+                    "sampling_stratum_names": "[Q]",
+                    "sampling_role_names": "[R]",
+                    "sampling_candidate_ids": "[B]",
+                    "sampling_lineage_ids": "[B]",
+                    "sampling_epistemic_group_ids": "[B]",
+                    "system_source_available_mask": "[B,O]",
+                    "input_sampling_candidate_ids": "[N]", "input_sampling_lineage_ids": "[N]",
+                    "input_sampling_roles": "[N]", "input_sampling_epistemic_group_ids": "[N]",
+                    "input_frozen_splits": "[N]", "label_task_names": "[T]",
+                    "label_task_available_mask": "[B,T]",
+                }
+            )
+            if model_input_definition is not None:
+                tensor_shapes.update(model_input_definition.tensor_shapes)
+            if sampling_records[0]["schema_version"] == "1.2.0":
+                tensor_shapes["input_sampling_selection_probability"] = "[N]"
+                tensor_shapes["input_sampling_design_weight_raw"] = "[N]"
+                tensor_shapes["input_sampling_weight_mask"] = "[N]"
+                for name in (
+                    "sampling_p0_density", "sampling_adaptive_density",
+                    "sampling_proposal_density", "sampling_p0_hierarchy_probability",
+                    "sampling_proposal_hierarchy_probability",
+                    "sampling_acquisition_model_hashes", "sampling_proposal_hashes",
+                    "sampling_round_lineage_ids", "sampling_selected_case_set_hashes",
+                ):
+                    tensor_shapes[name] = "[B]"
+                    tensor_shapes["input_" + name] = "[N]"
+        for prefix, (label_name, _) in uncertainty_prefixes.items():
+            tensor_shapes[prefix + "_sample_count"] = tensor_shapes[label_name]
+            tensor_shapes[prefix + "_uncertainty_mask"] = tensor_shapes[label_name]
         label_fields = {
             "component_y", "component_frechet_y", "armor_y", "system_y",
             "component_aux_y",
@@ -1330,13 +2046,26 @@ class DatasetWriter:
             "armor_y_stddev", "armor_y_ci95", "component_aux_y_stddev", "component_aux_y_ci95",
         }
         mask_fields = {name for name in tensor_values if name.endswith("mask")}
-        feature_fields = {"case_x", "component_x", "armor_x", "component_armor_path_x"}
+        feature_fields = {
+            "case_x", "case_physics_x", "solver_context_x", "uav_state_x",
+            "loitering_impact_x",
+            "component_x", "armor_x",
+            "component_armor_path_x",
+        }
         index_fields = {
             "aleatory_seeds", "replicate_counts", "input_to_valid_index", "armor_vertex_offsets",
             "component_vertex_offsets", "tree_edge_index", "tree_edge_type",
+            "sampling_round", "sampling_stratum_index", "sampling_role_index",
         }
+        index_fields.update(prefix + "_sample_count" for prefix in uncertainty_prefixes)
         field_units = {
             "case_x": "mixed; see case_feature_units",
+            "case_physics_x": "mixed; see case_physics_feature_units",
+            "solver_context_x": "mixed; see solver_context_feature_units",
+            "uav_state_x": "mixed; see uav_state_feature_units",
+            "loitering_impact_x": (
+                "mixed; see loitering_impact_feature_units"
+            ),
             "component_x": "mixed; see component_feature_units",
             "armor_x": "mixed; see armor_feature_units",
             "component_armor_path_x": "mixed; see armor_path_feature_units",
@@ -1352,7 +2081,25 @@ class DatasetWriter:
             "component_aux_y_ci95": "mixed; see component_aux_label_units",
             "armor_vertices_m": "m", "component_vertices_m": "m",
             "aleatory_seeds": "1", "replicate_counts": "count",
+            "sampling_selection_probability": "1",
+            "sampling_design_weight_raw": "1",
+            "sampling_p0_density": "density",
+            "sampling_adaptive_density": "density",
+            "sampling_proposal_density": "density",
+            "sampling_p0_hierarchy_probability": "1",
+            "sampling_proposal_hierarchy_probability": "1",
+            "input_sampling_p0_density": "density",
+            "input_sampling_adaptive_density": "density",
+            "input_sampling_proposal_density": "density",
+            "input_sampling_p0_hierarchy_probability": "1",
+            "input_sampling_proposal_hierarchy_probability": "1",
+            "input_sampling_selection_probability": "1",
+            "input_sampling_design_weight_raw": "1",
+            "sampling_round": "count",
+            "sampling_stratum_index": "1",
+            "sampling_role_index": "1",
         }
+        field_units.update({prefix + "_sample_count": "count" for prefix in uncertainty_prefixes})
 
         def dtype_name(array: np.ndarray) -> str:
             if array.dtype.kind == "b":
@@ -1406,17 +2153,159 @@ class DatasetWriter:
             (payload.get("provenance", {}) for payload in payloads if payload.get("provenance")),
             {},
         )
+        sampling_fixed = sampling_records[0] if sampling_records else None
+        contract_version = (
+            "1.8.0"
+            if versioned_model_contract_enabled
+            else (
+                "1.7.0"
+                if sampling_fixed and sampling_fixed["schema_version"] == "1.2.0"
+                else ("1.6.0" if sampling_enabled else "1.4.0")
+            )
+        )
+        manifest_version = (
+            "1.7.0"
+            if versioned_model_contract_enabled
+            else (
+                "1.6.0"
+                if sampling_fixed and sampling_fixed["schema_version"] == "1.2.0"
+                else (
+                    "1.5.0"
+                    if sampling_fixed and sampling_fixed["schema_version"] == "1.1.0"
+                    else ("1.4.0" if sampling_enabled else "1.2.0")
+                )
+            )
+        )
         identity_hash = dataset_identity_hash(
             target_hash=engine.target_hash,
             physics_registry_hash=engine.registry.hash,
             engine_code_hash=ENGINE_CODE_HASH,
-            ordered_case_hashes=[content_hash(case) for case in cases],
+            ordered_case_hashes=[hash_case(case) for case in cases],
             split_seed=self.split_seed,
             split_ratios=self.split_ratios,
-            tensor_contract_version="1.3.0",
+            tensor_contract_version=contract_version,
+            damage_tree_definition_hash=(
+                sampling_fixed["damage_tree_definition_hash"] if sampling_fixed else None
+            ),
+            label_spec_hash=(sampling_fixed["label_spec_hash"] if sampling_fixed else None),
+            sampling_design_hash=(sampling_fixed["sampling_spec_hash"] if sampling_fixed else None),
+            stratification_spec_hash=(
+                sampling_fixed["stratification_spec_hash"] if sampling_fixed else None
+            ),
+            split_registry_hash=(sampling_fixed["split_registry_hash"] if sampling_fixed else None),
         )
+        source_contracts = {
+            "target_schema": "target.schema.json@1.0.0",
+            "case_schema": "simulation_case.schema.json@1.0.0",
+            "damage_tree_versions": [engine.damage_tree.version],
+            "evaluation_standards": {
+                standard_id: list(output_ids)
+                for standard_id, output_ids in engine.damage_tree.standards.items()
+            },
+            "parameter_set_hashes": [engine.registry.hash],
+            "parameter_set_ids": sorted(
+                {
+                    str(case["parameter_set_id"])
+                    for case, _ in valid_pairs
+                    if case.get("parameter_set_id") is not None
+                }
+            ),
+            "target_hashes": [engine.target_hash],
+        }
+        if versioned_model_contract_enabled:
+            assert fixed_scenario_hash is not None
+            source_contracts.update(
+                {
+                    "fixed_scenario_hash": fixed_scenario_hash,
+                    "fixed_scenario_identity_version": (
+                        model_input_definition.fixed_scenario_identity_version
+                    ),
+                    "learning_input_identity_version": (
+                        model_input_definition.learning_input_identity_version
+                    ),
+                }
+            )
+        generation_record = dict(generation)
+        from .parquet_schema import PARQUET_SCHEMA_VERSION
+        generation_record["storage_guarantees"] = {
+            **generation_record.get("storage_guarantees", {}),
+            "parquet_table_schema_version": PARQUET_SCHEMA_VERSION,
+            "parquet_unknown_fields_refused": True,
+        }
+        if sampling_fixed:
+            source_contracts.update(
+                {
+                    "damage_tree_definition_hash": sampling_fixed["damage_tree_definition_hash"],
+                    "label_spec_id": sampling_fixed["label_spec_id"],
+                    "label_spec_hash": sampling_fixed["label_spec_hash"],
+                    "label_spec_document": sampling_fixed["label_spec_document"],
+                    "sampling_spec_id": sampling_fixed["sampling_spec_id"],
+                    "sampling_design_hash": sampling_fixed["sampling_spec_hash"],
+                    "stratification_spec_id": sampling_fixed["stratification_spec_id"],
+                    "stratification_spec_hash": sampling_fixed["stratification_spec_hash"],
+                    "split_registry_id": sampling_fixed["split_registry_id"],
+                    "split_registry_hash": sampling_fixed["split_registry_hash"],
+                    "label_task_semantics": "externally_versioned; see label_spec",
+                }
+            )
+            if sampling_fixed["schema_version"] in {"1.1.0", "1.2.0"}:
+                source_contracts.update(
+                    {
+                        "sampling_spec_document": sampling_fixed[
+                            "sampling_spec_document"
+                        ],
+                        "training_design_document": sampling_fixed[
+                            "training_design_document"
+                        ],
+                        "training_design_hash": sampling_fixed[
+                            "training_design_hash"
+                        ],
+                    }
+                )
+            generation_record["sampling"] = {
+                "sampling_envelope_version": sampling_fixed["schema_version"],
+                "rounds": sorted({record["round"] for record in sampling_records}),
+                "streams": sorted({record["stream"] for record in sampling_records}),
+                "roles": list(sampling_fixed["role_names"]),
+                "strata": list(sampling_fixed["stratum_names"]),
+                "selection_probability_field": "sampling_selection_probability",
+                "raw_design_weight_field": "sampling_design_weight_raw",
+                "raw_design_weight_semantics": (
+                    "general_two_stage_reference_joint_design"
+                    if sampling_fixed["schema_version"] == "1.2.0"
+                    else "inverse_inclusion_probability_for_weight_mask_true_reference_cases"
+                ),
+                "split_registry_document": sampling_fixed["split_registry_document"],
+            }
+            if sampling_fixed["schema_version"] == "1.2.0":
+                generation_record["sampling"].update(
+                    {
+                        "design_weight_formula": sampling_fixed["design_weight_formula"],
+                        "proposal_hash": sampling_fixed["proposal_hash"],
+                        "adaptive_proposal_hash": sampling_fixed[
+                            "adaptive_proposal_hash"
+                        ],
+                        "acquisition_model_hash": sampling_fixed[
+                            "acquisition_model_hash"
+                        ],
+                        "round_lineage_id": sampling_fixed["round_lineage_id"],
+                        "parent_round_lineage_id": sampling_fixed[
+                            "parent_round_lineage_id"
+                        ],
+                        "selected_case_set_hash": sampling_fixed[
+                            "selected_case_set_hash"
+                        ],
+                        "adaptive_factor_fields": {
+                            "p0_density": "sampling_p0_density",
+                            "adaptive_density": "sampling_adaptive_density",
+                            "proposal_density": "sampling_proposal_density",
+                            "p0_hierarchy_probability": "sampling_p0_hierarchy_probability",
+                            "proposal_hierarchy_probability": "sampling_proposal_hierarchy_probability",
+                        },
+                    }
+                )
         manifest = {
-            "schema_version": "1.1.0",
+            "schema_version": manifest_version,
             "dataset_id": "damage-dataset-" + identity_hash.split(":", 1)[1][:24],
             "created_at": datetime.now(timezone.utc).isoformat(),
             "engine": {
@@ -1427,30 +2316,27 @@ class DatasetWriter:
                 "fidelity_levels": fidelity_levels,
                 "validation_record_id": None,
             },
-            "source_contracts": {
-                "target_schema": "target.schema.json@1.0.0",
-                "case_schema": "simulation_case.schema.json@1.0.0",
-                "damage_tree_versions": [engine.damage_tree.version],
-                "evaluation_standards": {
-                    standard_id: list(output_ids)
-                    for standard_id, output_ids in engine.damage_tree.standards.items()
-                },
-                "parameter_set_hashes": [engine.registry.hash],
-                "parameter_set_ids": sorted(
-                    {
-                        str(case["parameter_set_id"])
-                        for case, _ in valid_pairs
-                        if case.get("parameter_set_id") is not None
-                    }
-                ),
-                "target_hashes": [engine.target_hash],
+            "source_contracts": source_contracts,
+            "generation": generation_record,
+            "semantic_vocabulary": {
+                "version": "1.0.0",
+                "names": {"state_names": state_names, "mechanism_names": mechanism_names,
+                          "system_output_names": output_names,
+                          "evaluation_standard_ids": evaluation_standard_ids},
+                "content_hash": content_hash({"version": "1.0.0", "names": {
+                    "state_names": state_names, "mechanism_names": mechanism_names,
+                    "system_output_names": output_names,
+                    "evaluation_standard_ids": evaluation_standard_ids}}),
             },
-            "generation": generation or {
-                "workers": 1,
-                "chunksize": 1,
-                "failure_policy": "precomputed_results",
-                "input_order_preserved": True,
-                "tensor_compression": self.tensor_compression,
+            "label_admission": synthetic_label_admission(),
+            "capabilities": {
+                "storage_layout": "monolithic",
+                "bounded_tensor_batch": False,
+                "checkpoint_resume": False,
+                "sharded_writer_available": True,
+                "single_target_topology_per_archive": True,
+                "semantic_vocabulary_frozen": True,
+                "independent_scientific_validation": False,
             },
             "randomness": {
                 "split_seed": self.split_seed,
@@ -1460,9 +2346,21 @@ class DatasetWriter:
             },
             "partitions": partitions,
             "tensor_contract": {
-                "version": "1.3.0",
+                "version": contract_version,
                 "fields": tensor_fields,
                 "axes": [
+                    {"axis_id": "B", "size": len(valid_pairs), "names_field": "case_ids", "units_field": None},
+                    {"axis_id": "N", "size": len(cases), "names_field": "input_case_ids", "units_field": None},
+                    {"axis_id": "C", "size": component_count, "names_field": "component_ids", "units_field": None},
+                    {"axis_id": "A", "size": armor_count, "names_field": "armor_ids", "units_field": None},
+                    {"axis_id": "M", "size": len(mechanism_names), "names_field": "mechanism_names", "units_field": None},
+                    {"axis_id": "S", "size": len(state_names), "names_field": "state_names", "units_field": None},
+                    {"axis_id": "O", "size": len(output_names), "names_field": "system_output_names", "units_field": None},
+                    {"axis_id": "E_standard", "size": len(evaluation_standard_ids), "names_field": "evaluation_standard_ids", "units_field": None},
+                    {"axis_id": "G", "size": len(graph_node_ids), "names_field": None, "units_field": None},
+                    {"axis_id": "E_edge", "size": len(graph_edges), "names_field": None, "units_field": None},
+                    {"axis_id": "V", "size": len(armor_vertices), "names_field": None, "units_field": None},
+                    {"axis_id": "Vc", "size": len(component_vertices), "names_field": None, "units_field": None},
                     {"axis_id": "F_case", "size": len(CASE_FEATURE_NAMES), "names_field": "case_feature_names", "units_field": "case_feature_units"},
                     {"axis_id": "F_component", "size": len(COMPONENT_FEATURE_NAMES), "names_field": "component_feature_names", "units_field": "component_feature_units"},
                     {"axis_id": "F_armor", "size": len(ARMOR_FEATURE_NAMES), "names_field": "armor_feature_names", "units_field": "armor_feature_units"},
@@ -1482,6 +2380,10 @@ class DatasetWriter:
                     "test": self.split_ratios[2],
                 },
                 "leakage_audit_passed": self._check_split_leakage(split_rows),
+                "independent_unit_status": "caller_defined_or_exact_input_hash_only",
+                "split_registry_status": "not_supplied",
+                "independence_guaranteed": False,
+                "coverage_guaranteed": False,
                 "split_counts": {
                     name: sum(row["split"] == name for row in split_rows)
                     for name in ("train", "validation", "test")
@@ -1490,6 +2392,12 @@ class DatasetWriter:
             "quality_summary": {
                 "n_total": len(results),
                 "n_valid": len(valid_pairs),
+                "n_valid_semantics": "execution_success_count",
+                "execution_success_count": len(valid_pairs),
+                "purpose_admission_counts": {
+                    "software_development": len(valid_pairs), "research_training": 0,
+                    "research_validation": 0, "research_test": 0,
+                },
                 "n_refused": len(refused),
                 "refusal_counts": refusal_counts,
                 "unverified_parameter_fraction": unverified_fraction,
@@ -1500,7 +2408,12 @@ class DatasetWriter:
                 "A dataset generated with an unvalidated registry is suitable only for software development.",
                 "Damage-tree gates support only explicitly declared independent or fully-dependent (comonotonic) inputs; other dependence structures require a future calibrated model.",
                 "Fragment/blast component-state probabilities are still combined using conditional independence within each replicate, even when sequential armor coupling is enabled.",
-                "Generation still materializes cases, results, tensor arrays and Parquet rows in memory; use bounded batches because sharding and checkpoint/resume are not implemented.",
+                "The monolithic writer materializes one batch of cases, results, arrays and Parquet rows; use ShardedDatasetWriter for checkpoint/resume and bounded tensor batches.",
+                "Grouped splitting checks declared groups and exact physical input keys; it does not establish independent research units or enforce a cross-dataset split registry.",
+                "Hash split ratios are assignment probabilities, not guaranteed realized coverage ratios.",
+                "State labels are synthetic teacher outputs; state names and tensor shape alone do not establish mutually exclusive classes or a normalized probability distribution.",
+                "Monte Carlo intervals are approximate intervals for a conditional replicate mean, not total epistemic or real-world predictive uncertainty; adaptive-stop coverage has not been validated.",
+                "The parameter realization hash covers the nominal feature realization; non-epistemic target parameters may vary within replicates and are not all represented by that hash.",
                 "Each dense NPZ still describes one target topology; TorchMultiTargetDataset and collate_damage_batch provide padding, name alignment, and disjoint-graph batching across those target-specific datasets.",
                 "Armor labels now expose integrity and blast-response outputs, but remain tied to the same unvalidated physical registry as the other teacher labels.",
             ],
@@ -1509,11 +2422,101 @@ class DatasetWriter:
                 "Do not use the surrogate in an autonomous control loop without independent safety validation.",
             ],
         }
+        if model_input_definition is not None:
+            assert fixed_scenario_hash is not None
+            manifest["model_input_contract"] = (
+                model_input_definition.manifest_document(
+                    fixed_scenario_hash=fixed_scenario_hash
+                )
+            )
+            manifest["known_limitations"].append(
+                model_input_definition.known_limitation
+            )
+        if sampling_enabled:
+            assert sampling_fixed is not None
+            manifest["tensor_contract"]["axes"].extend(
+                [
+                    {
+                        "axis_id": "F_case_physics", "size": len(CASE_PHYSICS_FEATURE_NAMES),
+                        "names_field": "case_physics_feature_names", "units_field": "case_physics_feature_units",
+                    },
+                    {
+                        "axis_id": "F_solver", "size": len(SOLVER_CONTEXT_FEATURE_NAMES),
+                        "names_field": "solver_context_feature_names", "units_field": "solver_context_feature_units",
+                    },
+                    {
+                        "axis_id": "Q", "size": len(sampling_fixed["stratum_names"]),
+                        "names_field": "sampling_stratum_names", "units_field": None,
+                    },
+                    {
+                        "axis_id": "R", "size": len(sampling_fixed["role_names"]),
+                        "names_field": "sampling_role_names", "units_field": None,
+                    },
+                    {"axis_id": "T", "size": len(task_names), "names_field": "label_task_names", "units_field": None},
+                ]
+            )
+            if model_input_definition is not None:
+                manifest["tensor_contract"]["axes"].append(
+                    model_input_definition.axis_document
+                )
+            manifest["split_policy"].update(
+                {
+                    "split_registry_status": "frozen_pre_outcome",
+                    "split_registry_hash": sampling_fixed["split_registry_hash"],
+                    "independent_unit_status": "explicit_registry; domain_independence_unverified",
+                    "independence_guaranteed": False,
+                    "coverage_guaranteed": False,
+                }
+            )
+            usable_weights = [record for record in valid_sampling_records if record["weight_mask"]]
+            weights = np.asarray([record["design_weight_raw"] for record in usable_weights], dtype=np.float64)
+            probabilities = np.asarray(
+                [record["selection_probability"] for record in usable_weights], dtype=np.float64
+            )
+            scaled_weights = (
+                scale_positive_weights(weights, field="sampling design weights")[0]
+                if weights.size
+                else weights
+            )
+            ess = positive_effective_sample_size(weights)
+            manifest["quality_summary"]["sampling_diagnostics"] = {
+                "positivity_min": float(np.min(probabilities)) if probabilities.size else None,
+                "effective_sample_size": ess,
+                "ess_fraction": ess / len(weights) if weights.size else 0.0,
+                "weight_cv": (
+                    float(np.std(scaled_weights) / np.mean(scaled_weights)) if weights.size else None
+                ),
+                "raw_weight_preserved": True,
+                "candidate_ledger_external": True,
+                "diagnostic_population": "successful_inputs_with_weight_mask_true",
+                "usable_weight_count": len(usable_weights),
+            }
+            manifest["known_limitations"].append(
+                f"Tensor contract {contract_version} preserves raw inclusion weights and verifies declared definitions; sampling diagnostics do not establish physical validity or operational representativeness."
+            )
+        # Refuse publication when a writer change and the executable JSON
+        # contract drift apart.  Archive loaders validate tensor semantics,
+        # while this gate validates the complete manifest envelope itself.
+        validate_json_schema(manifest, "dataset_manifest.schema.json")
         manifest_path = self.output_directory / "manifest.json"
         manifest_temp_path = self.output_directory / "manifest.json.tmp"
         with manifest_temp_path.open("w", encoding="utf-8") as stream:
-            json.dump(manifest, stream, ensure_ascii=False, indent=2, allow_nan=False)
+            json.dump(
+                manifest,
+                stream,
+                ensure_ascii=False,
+                allow_nan=False,
+                separators=(",", ":"),
+            )
         manifest_temp_path.replace(manifest_path)
+        # Publication is complete only after the exact bytes can be reopened
+        # through the same verifier used by downstream loaders.  The marker is
+        # intentionally retained until this check succeeds.
+        verify_monolithic_archive(
+            self.output_directory,
+            allow_split_leakage=True,
+            allow_incomplete_marker=True,
+        )
         incomplete_path.unlink(missing_ok=True)
         return manifest
 
@@ -1539,6 +2542,8 @@ class DatasetWriter:
         for _, result in valid_pairs:
             for output in outputs:
                 stats = result["damage_tree"]["outputs"][output]
+                if stats["ci95_upper"] is None or stats["ci95_lower"] is None:
+                    continue
                 widths.append(0.5 * (stats["ci95_upper"] - stats["ci95_lower"]))
         if not widths:
             return []

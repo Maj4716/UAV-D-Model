@@ -518,14 +518,39 @@ def compile_damage_tree(target: dict) -> CompiledDamageTree:
         )
 
     leaf_events: dict[str, set[tuple[str, str, str]]] = {}
+    signed_events: dict[str, set[tuple[tuple[str, str, str], int]]] = {}
     for node_id in order:
         node = nodes[node_id]
         if node["node_type"] == "leaf":
             leaf_events[node_id] = {
                 (node["component_id"], node["mechanism"], node["damage_state"])
             }
+            signed_events[node_id] = {(event, 1) for event in leaf_events[node_id]}
         else:
             leaf_events[node_id] = set().union(*(leaf_events[item] for item in node["inputs"]))
+            inherited = set().union(*(signed_events[item] for item in node["inputs"]))
+            signed_events[node_id] = (
+                {(event, -sign) for event, sign in inherited}
+                if node["node_type"] == "not" else inherited
+            )
+        if node["node_type"] in _GATE_TYPES and node["dependency_model_id"] == "fully_dependent":
+            for left_index, left_id in enumerate(node["inputs"]):
+                for right_id in node["inputs"][left_index + 1:]:
+                    opposite = {
+                        event for event, sign in signed_events[left_id]
+                        if (event, -sign) in signed_events[right_id]
+                    }
+                    if opposite:
+                        raise DamageTreeError(
+                            "fully_dependent gate has structurally opposed event polarity",
+                            context={
+                                "node_id": node_id,
+                                "left_input": left_id,
+                                "right_input": right_id,
+                                "conflicting_events": _event_descriptions(opposite),
+                                "reason": "positive_dependence_cannot_override_known_complement_relation",
+                            },
+                        )
         if node["node_type"] in _GATE_TYPES and node["dependency_model_id"] == "independent":
             for left_index, left_id in enumerate(node["inputs"]):
                 for right_id in node["inputs"][left_index + 1 :]:

@@ -1,0 +1,57 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/schemas/label_spec.schema.json",
+  "title": "Damage-engine learning label specification",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "label_spec_id", "revision", "status", "source", "tasks", "provenance"],
+  "properties": {
+    "schema_version": {"const": "1.0.0"},
+    "label_spec_id": {"type": "string", "minLength": 1},
+    "revision": {"type": "string", "minLength": 1},
+    "status": {"enum": ["provisional", "approved", "deprecated"]},
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["damage_tree_id", "damage_tree_revision", "damage_tree_definition_hash"],
+      "properties": {
+        "damage_tree_id": {"type": "string", "minLength": 1},
+        "damage_tree_revision": {"type": "string", "minLength": 1},
+        "damage_tree_definition_hash": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"}
+      }
+    },
+    "tasks": {
+      "type": "object",
+      "minProperties": 1,
+      "propertyNames": {"type": "string", "minLength": 1},
+      "additionalProperties": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["type", "outputs", "loss"],
+        "properties": {
+          "type": {
+            "enum": [
+              "event_probability", "multi_label_event_probability", "ordinal_cumulative",
+              "mutually_exclusive_class", "continuous_response", "auxiliary_physics"
+            ]
+          },
+          "outputs": {
+            "type": "array", "minItems": 1, "uniqueItems": true,
+            "items": {"type": "string", "minLength": 1}
+          },
+          "loss": {"type": "string", "minLength": 1},
+          "description": {"type": "string"}
+        }
+      }
+    },
+    "provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["approval_status", "evidence_ref"],
+      "properties": {
+        "approval_status": {"enum": ["not_approved", "approved", "deprecated"]},
+        "evidence_ref": {"type": ["string", "null"]}
+      }
+    }
+  }
+}

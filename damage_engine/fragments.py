@@ -660,7 +660,38 @@ def _sample_directions(
             raise InputValidationError("taylor_ring requires detonation_velocity_mps")
         base = math.atan2(2.0 * gurney_speed, detonation_velocity_mps)
         sigma = math.radians(float(direction.get("spread_sigma_deg", 0.0)))
-        theta = np.clip(rng.normal(base, sigma, count), 0.0, math.pi)
+        ring_count = direction.get("ring_count")
+        if ring_count is None:
+            theta = np.clip(rng.normal(base, sigma, count), 0.0, math.pi)
+        else:
+            ring_count = int(ring_count)
+            if ring_count < 1 or ring_count > count:
+                raise InputValidationError(
+                    "taylor_ring ring_count must lie between one and total_count"
+                )
+            correction = math.radians(
+                float(direction.get("axial_angle_correction_deg", 0.0))
+            )
+            base_per_ring, remainder = divmod(count, ring_count)
+            ring_counts = [base_per_ring] * ring_count
+            ring_counts[-1] += remainder
+            theta_values: list[float] = []
+            azimuth_values: list[float] = []
+            for ring_index, ring_size in enumerate(ring_counts):
+                normalized_axial = (
+                    ring_index / max(1, ring_count - 1)
+                    if ring_count > 1
+                    else 0.5
+                )
+                ring_theta = base + correction * normalized_axial
+                for fragment_index in range(ring_size):
+                    theta_values.append(ring_theta + rng.normal(0.0, sigma))
+                    azimuth_values.append(
+                        2.0 * math.pi * fragment_index / ring_size
+                        + rng.normal(0.0, sigma)
+                    )
+            theta = np.clip(np.asarray(theta_values), 0.0, math.pi)
+            azimuth = np.asarray(azimuth_values)
     else:
         raise InputValidationError(f"unsupported direction model: {kind}")
     values = (
@@ -898,6 +929,30 @@ def _armor_area(item: CompiledObject) -> float:
     return max(float(size[-1] * size[-2]), EPS)
 
 
+def _json_finite(value: float) -> float | None:
+    """Keep opt-in audit payloads compatible with strict JSON writers."""
+
+    number = float(value)
+    return number if math.isfinite(number) else None
+
+
+def _geometry_path_record(fragment: Fragment, hit) -> dict[str, Any]:
+    """Return geometry-only information for one exact ray intersection."""
+
+    exit_point = fragment.origin_m + float(hit.exit_t) * fragment.direction
+    return {
+        "object_id": hit.object_id,
+        "role": hit.role,
+        "entry_distance_m": float(hit.entry_t),
+        "exit_distance_m": float(hit.exit_t),
+        "path_length_m": float(hit.path_length_m),
+        "entry_point_target_m": np.asarray(hit.entry_point, dtype=np.float64).tolist(),
+        "exit_point_target_m": np.asarray(exit_point, dtype=np.float64).tolist(),
+        "entry_normal_target_xyz": np.asarray(hit.entry_normal, dtype=np.float64).tolist(),
+        "fragment_response_model_id": hit.response.get("fragment_response_model_id"),
+    }
+
+
 def simulate_fragments(
     case: dict,
     target: CompiledTarget,
@@ -945,7 +1000,16 @@ def simulate_fragments(
         speed = fragment.initial_speed_mps
         previous_distance = 0.0
         hits = target.ray_hits(fragment.origin_m, fragment.direction)
-        for hit in hits:
+        geometry_path = (
+            [_geometry_path_record(fragment, hit) for hit in hits]
+            if capture_audit
+            else []
+        )
+        processed_path: list[dict[str, Any]] = []
+        blocking_object_id: str | None = None
+        blocked_before_object_id: str | None = None
+        blocking_reason: str | None = None
+        for path_index, hit in enumerate(hits):
             speed = _arrival_speed(
                 speed,
                 hit.entry_t - previous_distance,
@@ -953,6 +1017,9 @@ def simulate_fragments(
                 air_density,
             )
             if speed <= EPS:
+                if capture_audit:
+                    blocked_before_object_id = hit.object_id
+                    blocking_reason = "arrival_speed_exhausted_before_object"
                 break
             model_id = hit.response.get("fragment_response_model_id")
             if not model_id:
@@ -973,81 +1040,163 @@ def simulate_fragments(
             )
             penetrated = bool(rng.random() < probability)
             before_speed = speed
+            residual = 0.0
+            deposited = 0.0
+            state_response_probabilities: dict[str, float] = {}
+            state_response_parameters: dict[str, dict[str, float]] = {}
+            if capture_audit:
+                state_response_probabilities = {
+                    state: 0.0
+                    for state in model.get("damage_states", {})
+                    if state in component_survival.get(hit.object_id, {})
+                }
+                state_response_parameters = {
+                    state: {
+                        "residual_energy_50_j": float(
+                            state_model["residual_energy_50_j"]
+                        ),
+                        "log_slope": float(state_model["log_slope"]),
+                    }
+                    for state, state_model in model.get("damage_states", {}).items()
+                    if state in component_survival.get(hit.object_id, {})
+                }
             if hit.role == "armor":
                 armor_hits += 1
                 if penetrated:
                     armor_penetrations += 1
                     speed = _residual_speed(speed, v50)
+                    residual = speed
                     equivalent_diameter = math.sqrt(4.0 * fragment.area_m2 / math.pi)
                     hole_multiplier = float(model.get("hole_area_multiplier", 1.0))
-                    armor_holes[hit.object_id] += hole_multiplier * math.pi * equivalent_diameter**2 / 4.0
-                if capture_audit:
-                    audit.append(
-                        {
-                            "fragment_id": fragment.fragment_id,
-                            "source_fragment_id": fragment.source_fragment_id,
-                            "source_multiplicity_index": fragment.source_multiplicity_index,
-                            "source_multiplicity": fragment.source_multiplicity,
-                            "object_id": hit.object_id,
-                            "role": hit.role,
-                            "distance_m": hit.entry_t,
-                            "arrival_speed_mps": before_speed,
-                            "impact_angle_rad": angle,
-                            "penetration_probability": probability,
-                            "penetrated": penetrated,
-                            "residual_speed_mps": speed if penetrated else 0.0,
-                        }
+                    armor_holes[hit.object_id] += (
+                        hole_multiplier * math.pi * equivalent_diameter**2 / 4.0
                     )
-                if not penetrated:
-                    break
-                previous_distance = max(previous_distance, hit.exit_t)
-                continue
+            else:
+                component_hits += 1
+                metrics = component_metrics[hit.object_id]
+                metrics["hits"] += 1.0
+                metrics["mean_arrival_speed_mps"] += before_speed
+                metrics["mean_penetration_margin"] += margin
+                if penetrated:
+                    component_penetrations += 1
+                    metrics["penetrations"] += 1.0
+                    residual = _residual_speed(speed, v50)
+                    deposited = 0.5 * fragment.mass_kg * max(0.0, speed**2 - residual**2)
+                    metrics["deposited_energy_j"] += deposited
+                    vulnerability = float(parameters["vulnerable_area_ratio"])
+                    for state, state_model in model.get("damage_states", {}).items():
+                        if state not in component_survival[hit.object_id]:
+                            continue
+                        energy_50 = float(state_model["residual_energy_50_j"])
+                        slope = float(state_model["log_slope"])
+                        if residual <= 0 or energy_50 <= 0:
+                            single_probability = 0.0
+                        else:
+                            residual_energy = 0.5 * fragment.mass_kg * residual**2
+                            single_probability = sigmoid(
+                                slope * math.log(residual_energy / energy_50)
+                            )
+                        single_probability *= vulnerability
+                        if capture_audit:
+                            state_response_probabilities[state] = float(single_probability)
+                        component_survival[hit.object_id][state] *= 1.0 - single_probability
 
-            component_hits += 1
-            metrics = component_metrics[hit.object_id]
-            metrics["hits"] += 1.0
-            metrics["mean_arrival_speed_mps"] += before_speed
-            metrics["mean_penetration_margin"] += margin
-            if penetrated:
-                component_penetrations += 1
-                metrics["penetrations"] += 1.0
-                residual = _residual_speed(speed, v50)
-                deposited = 0.5 * fragment.mass_kg * max(0.0, speed**2 - residual**2)
-                metrics["deposited_energy_j"] += deposited
-                vulnerability = float(parameters["vulnerable_area_ratio"])
-                for state, state_model in model.get("damage_states", {}).items():
-                    if state not in component_survival[hit.object_id]:
-                        continue
-                    energy_50 = float(state_model["residual_energy_50_j"])
-                    slope = float(state_model["log_slope"])
-                    if residual <= 0 or energy_50 <= 0:
-                        single_probability = 0.0
-                    else:
-                        residual_energy = 0.5 * fragment.mass_kg * residual**2
-                        single_probability = sigmoid(slope * math.log(residual_energy / energy_50))
-                    single_probability *= vulnerability
-                    component_survival[hit.object_id][state] *= 1.0 - single_probability
             if capture_audit:
-                audit.append(
+                exit_point = fragment.origin_m + float(hit.exit_t) * fragment.direction
+                event = {
+                    "record_type": "intersection",
+                    "fragment_id": fragment.fragment_id,
+                    "source_fragment_id": fragment.source_fragment_id,
+                    "source_multiplicity_index": fragment.source_multiplicity_index,
+                    "source_multiplicity": fragment.source_multiplicity,
+                    "candidate_path_index": path_index,
+                    "object_id": hit.object_id,
+                    "role": hit.role,
+                    # ``distance_m`` is retained as the legacy entry-distance alias.
+                    "distance_m": float(hit.entry_t),
+                    "entry_distance_m": float(hit.entry_t),
+                    "exit_distance_m": float(hit.exit_t),
+                    "path_length_m": float(hit.path_length_m),
+                    "entry_point_target_m": np.asarray(hit.entry_point, dtype=np.float64).tolist(),
+                    "exit_point_target_m": np.asarray(exit_point, dtype=np.float64).tolist(),
+                    "entry_normal_target_xyz": np.asarray(
+                        hit.entry_normal, dtype=np.float64
+                    ).tolist(),
+                    "fragment_response_model_id": model_id,
+                    "fragment_response_model_source_id": model.get("source_id"),
+                    "response_model": {
+                        "id": model_id,
+                        "source_id": model.get("source_id"),
+                    },
+                    "equivalent_thickness_m": thickness,
+                    "arrival_speed_mps": before_speed,
+                    "impact_angle_rad": angle,
+                    "v50_mps": _json_finite(v50),
+                    "penetration_margin": margin,
+                    "penetration_probability": probability,
+                    "penetrated": penetrated,
+                    "residual_speed_mps": residual if penetrated else 0.0,
+                    "deposited_energy_j": deposited,
+                    "damage_state_response_probabilities": state_response_probabilities,
+                    "damage_state_response_parameters": state_response_parameters,
+                }
+                audit.append(event)
+                disposition = "penetrated_continue"
+                if not penetrated:
+                    disposition = "not_penetrated_block"
+                elif residual <= EPS:
+                    disposition = "residual_speed_exhausted_block"
+                processed_path.append(
                     {
-                        "fragment_id": fragment.fragment_id,
-                        "source_fragment_id": fragment.source_fragment_id,
-                        "source_multiplicity_index": fragment.source_multiplicity_index,
-                        "source_multiplicity": fragment.source_multiplicity,
+                        "candidate_path_index": path_index,
                         "object_id": hit.object_id,
                         "role": hit.role,
-                        "distance_m": hit.entry_t,
-                        "arrival_speed_mps": before_speed,
-                        "impact_angle_rad": angle,
-                        "penetration_probability": probability,
+                        "disposition": disposition,
                         "penetrated": penetrated,
                         "residual_speed_mps": residual if penetrated else 0.0,
                     }
                 )
-            if not penetrated or residual <= EPS:
+
+            if not penetrated:
+                if capture_audit:
+                    blocking_object_id = hit.object_id
+                    blocking_reason = (
+                        "armor_not_penetrated"
+                        if hit.role == "armor"
+                        else "component_not_penetrated"
+                    )
+                break
+            if residual <= EPS:
+                if capture_audit:
+                    blocking_object_id = hit.object_id
+                    blocking_reason = "residual_speed_exhausted_after_penetration"
                 break
             speed = residual
             previous_distance = max(previous_distance, hit.exit_t)
+
+        if capture_audit:
+            audit.append(
+                {
+                    "record_type": "fragment_trace",
+                    "fragment_id": fragment.fragment_id,
+                    "source_fragment_id": fragment.source_fragment_id,
+                    "source_multiplicity_index": fragment.source_multiplicity_index,
+                    "source_multiplicity": fragment.source_multiplicity,
+                    "role": "fragment_trace",
+                    "origin_target_m": np.asarray(fragment.origin_m, dtype=np.float64).tolist(),
+                    "direction_target_xyz": np.asarray(
+                        fragment.direction, dtype=np.float64
+                    ).tolist(),
+                    "initial_speed_mps": float(fragment.initial_speed_mps),
+                    "mass_kg": float(fragment.mass_kg),
+                    "geometry_candidate_path": geometry_path,
+                    "processed_path": processed_path,
+                    "blocking_object_id": blocking_object_id,
+                    "blocked_before_object_id": blocked_before_object_id,
+                    "blocking_reason": blocking_reason,
+                    "completed_geometry_path": blocking_reason is None,
+                }
+            )
 
     probabilities: dict[str, dict[str, float]] = {}
     for component in target.components:

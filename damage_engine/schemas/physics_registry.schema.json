@@ -87,7 +87,11 @@
               "maxItems": 3
             },
             "half_angle_deg": {"type": "number", "exclusiveMinimum": 0, "maximum": 180},
-            "spread_sigma_deg": {"type": "number", "minimum": 0}
+            "spread_sigma_deg": {"type": "number", "minimum": 0},
+            "ring_count": {"type": "integer", "minimum": 1},
+            "axial_coverage_ratio": {"type": "number", "exclusiveMinimum": 0, "maximum": 1},
+            "axial_angle_correction_deg": {"type": "number", "minimum": 0, "maximum": 90},
+            "azimuth_layout": {"enum": ["uniform_per_ring"]}
           },
           "allOf": [
             {

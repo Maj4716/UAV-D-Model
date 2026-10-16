@@ -1,0 +1,31 @@
+{
+  "schema_version": "1.0.0",
+  "label_spec_id": "raw-armored-target-fragment-only-damage-events-v1",
+  "revision": "1.0.0-provisional",
+  "status": "provisional",
+  "source": {
+    "damage_tree_id": "raw-armored-target-fragment-only-v1/damage-tree",
+    "damage_tree_revision": "raw-damage-tree-fragment-only-v1",
+    "damage_tree_definition_hash": "sha256:9ca8d192986ffd35a2944c2007b592ca818854d177d8230f851fe34b9e019411"
+  },
+  "tasks": {
+    "raw_damage_events": {
+      "type": "multi_label_event_probability",
+      "outputs": [
+        "effect-m2",
+        "effect-k1",
+        "effect-m1",
+        "effect-k2",
+        "effect-f1",
+        "effect-c1",
+        "effect-c2"
+      ],
+      "loss": "soft_bce_or_brier",
+      "description": "Non-exclusive provisional armored-target damage-code events driven only by fragment component damage probabilities."
+    }
+  },
+  "provenance": {
+    "approval_status": "not_approved",
+    "evidence_ref": "raw_data/target.rebuilt.fragment_only.v1.json"
+  }
+}

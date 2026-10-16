@@ -6,7 +6,7 @@ from typing import Iterable
 
 import numpy as np
 
-from .errors import InputValidationError, NumericalError
+from .errors import InputValidationError
 from .utils import EPS, normalize, quaternion_matrix_xyzw
 
 
@@ -601,7 +601,18 @@ class CompiledTarget:
         if math.isnan(maximum_distance_m) or maximum_distance_m < 0:
             raise InputValidationError("maximum ray distance must be non-negative")
         hits: list[RayHit] = []
-        for object_index in self._candidate_indices(origin, direction, maximum_distance_m):
+        # Every concrete geometry performs its own exact AABB rejection before
+        # the narrow phase.  For a small target, constructing vectorized
+        # broad-phase arrays duplicates that work and costs more than visiting
+        # the handful of objects directly.  Object order matches the sorted
+        # brute-force candidate order, so deterministic hit ordering is
+        # unchanged.  Larger targets retain the BVH path.
+        object_indices: Iterable[int] = (
+            range(len(self.objects))
+            if len(self.objects) <= self._bvh_leaf_size
+            else self._candidate_indices(origin, direction, maximum_distance_m)
+        )
+        for object_index in object_indices:
             item = self.objects[int(object_index)]
             intersection = item.geometry.intersect(origin, direction)
             if intersection is None:

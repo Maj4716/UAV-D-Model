@@ -1,0 +1,53 @@
+{
+  "schema_version": "1.0.0",
+  "sampling_spec_id": "synthetic-demo-p0-2000-v1",
+  "revision": "1.0.0-provisional",
+  "status": "provisional",
+  "reference_distribution": {
+    "distribution_id": "synthetic-demo-p0-design-2000-v1",
+    "interpretation": "design_distribution",
+    "variables": [
+      {
+        "name": "detonation_position_on_2m_shell",
+        "path": "/encounter/detonation_position_m",
+        "distribution": "sphere_shell",
+        "center": [0.0, 0.0, 0.0],
+        "radius": 2.0
+      },
+      {
+        "name": "body_orientation_haar_so3",
+        "path": "/encounter/body_to_target_orientation_xyzw",
+        "distribution": "haar_quaternion"
+      }
+    ],
+    "constraints": []
+  },
+  "budgets": {
+    "train_pilot": 1600,
+    "validation": 200,
+    "test": 200,
+    "rare_stress_test": 0
+  },
+  "seeds": {
+    "design": 2026101101,
+    "selection": 2026101102,
+    "split": 2026101103,
+    "screening": 2026101104,
+    "formal": 2026101105
+  },
+  "formal_policy": {
+    "replicates": 2,
+    "adaptive_ci_half_width": null,
+    "epistemic_policy": "unique_per_lineage"
+  },
+  "split_policy": {
+    "registry_id": "synthetic-demo-p0-splits-2000-v1",
+    "freeze_before_outcomes": true,
+    "adaptive_train_only": true
+  },
+  "quality_gates": {
+    "positivity_min": 0.1,
+    "min_ess_fraction": 0.5,
+    "max_weight_cv": 2.0
+  }
+}

@@ -4,11 +4,10 @@ from dataclasses import dataclass
 import math
 from pathlib import Path
 
-from jsonschema import Draft202012Validator
 import numpy as np
 
+from .content_contract import validate_json_schema
 from .errors import InputValidationError, MissingModelError, UnverifiedModelError
-from .schema_resources import load_schema
 from .utils import content_hash, load_json
 
 
@@ -46,20 +45,13 @@ class PhysicsRegistry:
         return cls(load_json(path))
 
     def __post_init__(self):
-        schema = load_schema("physics_registry.schema.json")
-        errors = sorted(
-            Draft202012Validator(schema).iter_errors(self.data),
-            key=lambda error: list(error.absolute_path),
+        validate_json_schema(
+            self.data,
+            "physics_registry.schema.json",
+            failure_message="physics registry schema validation failed",
+            max_errors=20,
+            compatibility="legacy_records",
         )
-        if errors:
-            details = []
-            for error in errors[:20]:
-                path = "/".join(str(value) for value in error.absolute_path) or "$"
-                details.append({"path": path, "message": error.message})
-            raise InputValidationError(
-                "physics registry schema validation failed",
-                context={"errors": details, "error_count": len(errors)},
-            )
         _require_finite_numbers(self.data)
         required = {
             "schema_version",

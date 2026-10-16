@@ -171,8 +171,14 @@ def parameter_value(parameter: dict, rng: np.random.Generator | None = None) -> 
         elif kind == "lognormal":
             sigma = float(params["log_sigma"])
             sampled = rng.lognormal(math.log(value), sigma)
-        elif kind in {"uniform", "interval"}:
+        elif kind == "uniform":
             sampled = rng.uniform(float(params["minimum"]), float(params["maximum"]))
+        elif kind == "interval":
+            raise InputValidationError(
+                "interval specifies bounds only and cannot be sampled as a probability distribution; "
+                "declare uniform explicitly if that assumption is justified",
+                context={"kind": kind, "uncertainty_semantics_version": "2.0"},
+            )
         elif kind == "empirical":
             values = np.asarray(params["values"], dtype=np.float64)
             probabilities = params.get("probabilities")
@@ -255,6 +261,13 @@ def confidence_interval(
     *,
     bounds: tuple[float, float] | None = None,
 ) -> tuple[float, float, float, float]:
+    """Approximate fixed-sample mean interval, conditional on the observed series.
+
+    A single observation has a mean but no estimable sample variance or mean
+    interval; those three tuple positions are NaN. Use statistics_dict for
+    JSON-safe nulls and explicit estimation status. No optional-stopping or
+    simultaneous-coverage guarantee is implied.
+    """
     array = np.asarray(values, dtype=np.float64)
     if array.size == 0:
         return (math.nan, math.nan, math.nan, math.nan)
@@ -262,7 +275,7 @@ def confidence_interval(
         raise InputValidationError("confidence interval values must be finite")
     mean = float(np.mean(array))
     if array.size == 1:
-        return (mean, 0.0, mean, mean)
+        return (mean, math.nan, math.nan, math.nan)
     std = float(np.std(array, ddof=1))
     degrees_of_freedom = array.size - 1
     critical = _T95[degrees_of_freedom - 1] if degrees_of_freedom <= 30 else 1.96
@@ -279,14 +292,27 @@ def statistics_dict(
     values: np.ndarray | list[float],
     *,
     probability: bool = False,
-) -> dict[str, float]:
+) -> dict:
+    array = np.asarray(values, dtype=np.float64)
     mean, std, lower, upper = confidence_interval(
-        np.asarray(values, dtype=np.float64),
+        array,
         bounds=(0.0, 1.0) if probability else None,
     )
+    estimable = array.size >= 2
     return {
-        "mean": mean,
-        "stddev": std,
-        "ci95_lower": lower,
-        "ci95_upper": upper,
+        "mean": mean if array.size else None,
+        "stddev": std if estimable else None,
+        "ci95_lower": lower if estimable else None,
+        "ci95_upper": upper if estimable else None,
+        "sample_count": int(array.size),
+        "uncertainty_estimable": estimable,
+        "insufficient_reason": None if estimable else "fewer_than_two_observations",
+        "estimand": "conditional_replicate_mean",
+        "stddev_estimand": "observed_replicate_sample_dispersion",
+        "conditioning": "fixed_case_and_epistemic_realization_with_possible_within_replicate_parameter_variation",
+        "random_level": "within_case_replicates",
+        "interval_type": "approximate_pointwise_mean_ci",
+        "interval_method": "student_t_df_le_30_else_normal_1.96",
+        "probability_bounds_clipped": bool(probability),
+        "coverage_status": "fixed_sample_approximation_not_optional_stopping_validated",
     }

@@ -67,17 +67,22 @@ def test_sharded_generation_is_bounded_and_matches_monolithic_output(
         json.loads(path.read_text(encoding="utf-8"))
         for path in sorted((sharded / "shards").glob("part-*/manifest.json"))
     ]
+    expected_partitions = [
+        {
+            **partition,
+            "path_glob": (
+                f"shards/part-{shard_index:06d}/{partition['path_glob']}"
+            ),
+        }
+        for shard_index, child in enumerate(child_manifests)
+        for partition in child["partitions"]
+    ]
+    assert manifest["partitions"] == expected_partitions
     for partition in manifest["partitions"]:
-        assert len(list(sharded.glob(partition["path_glob"]))) == 3
-        assert partition["row_count"] == sum(
-            next(
-                item["row_count"]
-                for item in child["partitions"]
-                if item["name"] == partition["name"]
-                and item["format"] == partition["format"]
-            )
-            for child in child_manifests
-        )
+        # Root manifests intentionally publish one exact, hash-bound file per
+        # shard partition.  A wildcard that groups all shard files would make
+        # it impossible to bind each committed payload to its own digest.
+        assert len(list(sharded.glob(partition["path_glob"]))) == 1
 
     with np.load(monolithic / "tensors.npz", allow_pickle=False) as expected:
         for field in ("case_ids", "case_x", "component_y", "system_y"):
@@ -119,7 +124,7 @@ def test_sharded_resume_reuses_committed_shards_and_rejects_changed_input(
 
     changed = deepcopy(cases)
     changed[0]["environment"]["temperature_k"] += 1.0
-    with pytest.raises(InputValidationError, match="do not match"):
+    with pytest.raises(InputValidationError, match="does not match"):
         ShardedDatasetWriter(output, shard_size=2).run_cases(
             engine, iter(changed), resume=True
         )

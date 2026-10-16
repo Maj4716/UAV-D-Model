@@ -1,0 +1,19 @@
+{
+  "schema_version": "1.0.0",
+  "independent_data_sources": [],
+  "dimensional_error_metrics": [],
+  "interval_coverage": [],
+  "mechanism_stratified_errors": [],
+  "extrapolation_failure_rules": [],
+  "uncertainty_ledger": {
+    "parameter_epistemic": "missing",
+    "model_form": "missing",
+    "numerical_error": "missing"
+  },
+  "approval": {
+    "approver_id": "",
+    "approved_at": "",
+    "protocol_version": ""
+  },
+  "_instructions": "Template only and intentionally non-admissible. Remove this field, supply independently reviewed evidence, content hashes, passed dimensional and coverage criteria, refuse-on-extrapolation rules, and a timezone-aware approval before research admission."
+}

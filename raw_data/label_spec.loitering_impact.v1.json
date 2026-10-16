@@ -1,0 +1,31 @@
+{
+  "schema_version": "1.0.0",
+  "label_spec_id": "raw-armored-target-damage-events-v1",
+  "revision": "1.0.0-provisional",
+  "status": "provisional",
+  "source": {
+    "damage_tree_id": "raw-armored-target/damage-tree",
+    "damage_tree_revision": "raw-damage-tree-v1",
+    "damage_tree_definition_hash": "sha256:8bc3df1049a27ad52fe9246c0fe0d3e9f9de9cbc9b860a62616d78906213b8fb"
+  },
+  "tasks": {
+    "raw_damage_events": {
+      "type": "multi_label_event_probability",
+      "outputs": [
+        "effect-m2",
+        "effect-k1",
+        "effect-m1",
+        "effect-k2",
+        "effect-f1",
+        "effect-c1",
+        "effect-c2"
+      ],
+      "loss": "soft_bce_or_brier",
+      "description": "Non-exclusive provisional raw damage-code events for the imported armored target."
+    }
+  },
+  "provenance": {
+    "approval_status": "not_approved",
+    "evidence_ref": "raw_data/target.rebuilt.json"
+  }
+}

@@ -12,7 +12,9 @@ from damage_engine.schema_resources import (
 
 EXPECTED_SCHEMAS = (
     "dataset_manifest.schema.json",
+    "label_spec.schema.json",
     "physics_registry.schema.json",
+    "sampling_spec.schema.json",
     "simulation_case.schema.json",
     "target.schema.json",
 )

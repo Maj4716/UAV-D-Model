@@ -74,6 +74,7 @@
       }
     },
     "uncertainty": {
+      "description": "Semantics 2.0: interval is bounds only and cannot authorize random sampling. uniform is an explicit probability assumption. For lognormal, parameter.value is the median (exp(log-location)), not the arithmetic mean. Legacy interval-to-uniform behavior is no longer implicit.",
       "type": "object",
       "additionalProperties": false,
       "required": ["kind", "parameters", "epistemic"],
