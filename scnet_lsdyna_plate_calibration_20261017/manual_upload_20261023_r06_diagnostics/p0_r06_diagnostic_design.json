@@ -1,0 +1,241 @@
+{
+  "schema_version": "hf-p0-r06-diagnostic-design@1.0.0",
+  "package_revision": "R06_paired_diagnostics_preregistered_20261023",
+  "design_status": "frozen_after_r05_stage_ab_before_any_r06_solver_outcome",
+  "title": "SCNet P0 R06 paired single-factor diagnostics at 800 and 2000 m/s, 0.75 mm",
+  "created_date": "2026-10-23",
+  "seed": 20261017,
+  "unit_system": "kg-mm-ms-kN-GPa-K",
+  "purpose": "Two paired single-factor diagnostics represented by four independent solver jobs; diagnostic attribution only, not a production P0 response set.",
+  "provenance": {
+    "parent_revision": "R05_capture_ledger_preregistered",
+    "parent_job_id": "72252362",
+    "parent_return_directory": "05",
+    "parent_evidence_policy": "read_only_immutable",
+    "parent_result": "run_integrity_pass_but_six_of_seven_primary_qois_unavailable",
+    "successor_contract": "design/p0_r06_real_output_contract.json",
+    "identity_rule": "Every R06 job uses the original R05 case mesh, coordinates, connectivity, node IDs, element IDs, PIDs, material, EOS, contact, section, timestep, and boundary conditions except for its one preregistered factor."
+  },
+  "symmetry": {
+    "type": "quarter_model",
+    "full_model_scale_factor": 4.0,
+    "validity": "normal incidence, face-on cube, centered impact only"
+  },
+  "frozen_common": {
+    "fragment_mass_g": 8.0,
+    "fragment_density_kg_m3": 7830.0,
+    "plate_thickness_mm": 10.0,
+    "obliquity_deg_from_normal": 0.0,
+    "fragment_orientation": "face_on",
+    "material_set": "jc4340_reference_central",
+    "plate_half_span_mm": 60.0,
+    "refined_half_span_mm": 15.0,
+    "outer_target_spacing_mm": 2.5,
+    "initial_gap_mm": 1.0,
+    "mesh_mm": 0.75
+  },
+  "frozen_solver_controls": {
+    "control_timestep": {
+      "dtinit": 0.0,
+      "tssfac": 0.8,
+      "isdo": 0,
+      "tslimit": 0.0,
+      "dt2ms": 0.0,
+      "lctm": 0,
+      "erode": 0,
+      "ms1st": 0
+    },
+    "control_contact_card1": {
+      "slsfac": 0.0,
+      "rwpnal": 0.0,
+      "islchk": 2,
+      "shlthk": 0,
+      "penopt": 1,
+      "thkchg": 0,
+      "orien": 1,
+      "enmass": 0
+    },
+    "control_contact_card2": {
+      "usrstr": 0,
+      "usrfrc": 0,
+      "nsbcs": 0,
+      "interm": 0,
+      "xpene": 0.0,
+      "ssthk": 0,
+      "ecdt": 0,
+      "tiedprj": 0
+    },
+    "eroding_contact_card4": {
+      "isym": 1,
+      "erosop": 1,
+      "iadj": 1
+    },
+    "control_solid_default": "absent",
+    "termination_dtmin": 0.0
+  },
+  "shared_measurement_upgrade": {
+    "status": "identical_within_and_across_pairs_not_counted_as_a_physics_factor",
+    "full_model_d3plot_interval_ms": 0.0001,
+    "fragment_d3part_interval_ms": 0.00005,
+    "intfor_interval_ms": 0.00005,
+    "ascii_interval_ms": 0.00005,
+    "fragment_part_set_id": 900001,
+    "plate_psfail_part_set_id": 910001,
+    "database_extent_binary_neiph": 6,
+    "mat015_history_variable_6": "Johnson-Cook damage D",
+    "contact_output_flags": {
+      "spr_or_sapr": 1,
+      "mpr_or_sbpr": 1
+    },
+    "intfor": {
+      "keyword": "*DATABASE_BINARY_INTFOR_FILE",
+      "filename": "intfor",
+      "extent_card1": [1, 1, 1, 1, 1, 1, 0, 0],
+      "extent_card2": [0, 0, 0, 0, 0, 1],
+      "interpretation_boundary": "INTFOR pressure, force, gap, and penetration fields are direct solver diagnostics when present; NPEN support and sign conventions must be confirmed on the returned R15.0.2 files."
+    },
+    "capture_plane": {
+      "axis": "z",
+      "coordinate_mm": -12.0,
+      "undeformed_plate_back_mm": -10.0,
+      "offset_behind_plate_mm": 2.0,
+      "travel_direction": "negative",
+      "crossing_policy": "R06 successor real-output contract"
+    },
+    "required_return_families": [
+      "submitted .k",
+      "solver o= output or d3hsp",
+      "mes*",
+      "glstat",
+      "matsum",
+      "sleout",
+      "nodout",
+      "ncforc",
+      "binout*",
+      "d3plot*",
+      "d3part*",
+      "intfor*",
+      "solver stdout/stderr",
+      "Slurm script and resource record"
+    ]
+  },
+  "paired_experiments": [
+    {
+      "experiment_id": "r06_diag_800_window",
+      "question": "Was the R05 800 m/s response censored by the 0.04 ms observation horizon?",
+      "case_identity": {
+        "r05_case_id": "p0_v0800_h0p75",
+        "r05_original_index": 2,
+        "impact_speed_mps": 800.0,
+        "mesh_mm": 0.75,
+        "plate_part_id": 1002,
+        "fragment_part_id": 2002
+      },
+      "factor": "termination_time_ms",
+      "control_level": 0.04,
+      "treatment_level": 0.08,
+      "jobs": [
+        {
+          "job_id": "r06d_0800_ctrl",
+          "directory": "job_01_v0800_control",
+          "role": "paired_control",
+          "termination_time_ms": 0.04,
+          "plate_only_psfail": false
+        },
+        {
+          "job_id": "r06d_0800_tend008",
+          "directory": "job_02_v0800_tend_0p08",
+          "role": "single_factor_treatment",
+          "termination_time_ms": 0.08,
+          "plate_only_psfail": false
+        }
+      ],
+      "preregistered_evaluation": {
+        "prefix_check": "Through 0.04 ms, the paired trajectories and event ledger must agree within the frozen numerical comparison tolerances; otherwise do not attribute suffix differences solely to the observation horizon.",
+        "treatment_question": "Measure new first-crossing mass, deletion, ambiguity, and qM/qP/qE/qV evolution from 0.04 to 0.08 ms.",
+        "support_condition": "The extended suffix reaches the existing tail-stability gates without worsening run-integrity, while the paired prefix is consistent.",
+        "refute_condition": "The extended suffix remains unstable, adds material crossing/deletion, or the paired prefix is inconsistent.",
+        "claim_boundary": "A stable longer window cannot recover a primary QoI while deleted-upstream mass remains above 5%. It cannot establish V50 or physical validity."
+      }
+    },
+    {
+      "experiment_id": "r06_diag_2000_psfail",
+      "question": "How much of the 2000 m/s fragment loss is caused by eroding-contact automatic negative-volume deletion?",
+      "case_identity": {
+        "r05_case_id": "p0_v2000_h0p75",
+        "r05_original_index": 5,
+        "impact_speed_mps": 2000.0,
+        "mesh_mm": 0.75,
+        "plate_part_id": 1005,
+        "fragment_part_id": 2005
+      },
+      "factor": "control_solid_psfail_part_set",
+      "control_level": "absent_eroding_contact_automatic_negative_volume_applies_to_all_solids",
+      "treatment_level": "plate_only_part_set_910001",
+      "jobs": [
+        {
+          "job_id": "r06d_2000_ctrl",
+          "directory": "job_03_v2000_control",
+          "role": "paired_control",
+          "termination_time_ms": 0.04,
+          "plate_only_psfail": false
+        },
+        {
+          "job_id": "r06d_2000_psfail_plate",
+          "directory": "job_04_v2000_psfail_plate_only",
+          "role": "single_factor_treatment",
+          "termination_time_ms": 0.04,
+          "plate_only_psfail": true
+        }
+      ],
+      "preregistered_evaluation": {
+        "primary_contrast": "Fragment negative-volume events, deleted-upstream reference mass, first-event time/location, and normal termination in treatment minus paired control.",
+        "mechanism_alignment": "For each deleted solid, align the MES category, last alive MAT_015 damage D, D3PART state interval, and available INTFOR contact diagnostics. Do not impose an arbitrary D>=0.95 proxy for D=1.",
+        "support_condition": "Fragment negative-volume events materially decrease while paired physics and run-integrity remain valid; residual other failures remain reported rather than relabeled.",
+        "refute_condition": "Fragment negative-volume events do not decrease, the treatment terminates abnormally, or residual unresolved failures dominate without improved mass accounting.",
+        "historical_lower_bound": "Even eliminating all 76 historical fragment negative-volume events leaves an element-count proxy of (448-76)/686 = 54.227% upstream deletion; therefore this is attribution, not an expected 5% gate repair.",
+        "claim_boundary": "PSFAIL does not calibrate material failure, prove perforation, or create an admissible training label."
+      }
+    }
+  ],
+  "paired_comparison_tolerances": {
+    "state_time_absolute_ms": 1e-09,
+    "qM_qP_qE_absolute": 0.01,
+    "qV_relative": 0.05,
+    "energy_ratio_range": [0.95, 1.05],
+    "hourglass_to_peak_internal_energy_max": 0.05,
+    "added_mass_fraction_max": 0.0,
+    "missing_or_nonfinite_policy": "fail_closed"
+  },
+  "submission_sequence": {
+    "wave_1": ["r06d_0800_ctrl", "r06d_2000_ctrl"],
+    "wave_1_gate": "Both controls must pass target-solver parsing, normal termination, required-output readability, and reproduce the relevant R05 failure pattern directionally before interventions are interpreted.",
+    "wave_2": ["r06d_0800_tend008", "r06d_2000_psfail_plate"],
+    "resource_identity": "Use exactly one node, 32 ranks, LS-DYNA R15 MPP double precision, and identical memory settings for all four jobs."
+  },
+  "deferred_not_generated": [
+    {
+      "candidate": "800 m/s eroding-contact versus automatic-single-surface ablation",
+      "reason": "Changing the contact family weakens treatment of newly exposed eroding surfaces and can invalidate late response; reserve for a pre-deletion contact-mechanism study if the window diagnostic is inconclusive."
+    },
+    {
+      "candidate": "2000 m/s fragment MAT_015 EROD=0 versus EROD=1 ablation",
+      "reason": "EROD=1 retains failed mass with zeroed deviatoric stress, so its capture response cannot be used as a production QoI; reserve for a later material-failure attribution study."
+    }
+  ],
+  "admission": {
+    "r06_diagnostic_submission": "allowed_only_after_static_release_verifier_passes",
+    "p0_response_calibration": "denied_pending_solver_results_and_all_applicable_gates",
+    "p1_submission": "denied",
+    "local_engine_fitting": "denied",
+    "reference_dataset_generation": "denied",
+    "physical_validity": "not_established_requires_independent_experimental_evidence"
+  },
+  "claim_boundary": [
+    "Four jobs implement two paired single-factor diagnostics; they are not four independent calibration points.",
+    "Static validation establishes serialization and identity only, not LS-DYNA parser/runtime acceptance.",
+    "A solver-completed diagnostic is not automatically an admissible P0 response.",
+    "The generic 4340 material and generic-steel EOS remain unvalidated for the real target system.",
+    "Unavailable response is never replaced with zero and targeted diagnostic data stay outside the reference response distribution."
+  ]
+}

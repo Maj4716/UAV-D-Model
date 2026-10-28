@@ -1,0 +1,8 @@
+case_id,case_label,impact_speed_mps,mesh_mm,deleted_upstream_mass_fraction,frozen_gate_fraction,gate_status
+p0_v0600_h0p75,600 m/s; h=0.75 mm,600.0,0.75,0.0,0.05,at_or_below_frozen_gate
+p0_v0800_h0p75,800 m/s; h=0.75 mm,800.0,0.75,0.19825072619906742,0.05,above_frozen_gate
+p0_v1000_h0p75,1000 m/s; h=0.75 mm,1000.0,0.75,0.24781340758212825,0.05,above_frozen_gate
+p0_v1200_h0p75,1200 m/s; h=0.75 mm,1200.0,0.75,0.24344022985400898,0.05,above_frozen_gate
+p0_v2000_h0p75,2000 m/s; h=0.75 mm,2000.0,0.75,0.6530612148685321,0.05,above_frozen_gate
+p0_v2000_h1p00,2000 m/s; h=1 mm,2000.0,1.0,0.7559999865564393,0.05,above_frozen_gate
+p0_v2000_h0p50,2000 m/s; h=0.5 mm,2000.0,0.5,0.12199999668040871,0.05,above_frozen_gate

@@ -1,0 +1,38 @@
+{
+  "schema_version": "hf-p0-r06-diagnostic-release@1.0.0",
+  "package_revision": "R06_measurement_contract_repair_20261027",
+  "status": "prepared_not_submitted_not_solver_validated",
+  "submission_policy": "Follow the frozen design wave order and do not bypass any parser/runtime/output gate.",
+  "bundle_count": 1,
+  "bundles": [
+    {
+      "wave": 0,
+      "job_id": "r06f_0800_ctrl",
+      "experiment_id": "r06f_recanary_800_measurement_contract",
+      "role": "measurement_repair_recanary_control",
+      "zip": {
+        "path": "uav_hf_r06f_0800_ctrl.zip",
+        "size_bytes": 413370,
+        "sha256": "sha256:8d9735ca52a29a336379827bdff5b5b20dd29a3ae75887f4f38ac6fdfce112b3"
+      },
+      "external_manifest": {
+        "path": "uav_hf_r06f_0800_ctrl.bundle_manifest.json",
+        "size_bytes": 2334,
+        "sha256": "sha256:c8464142ffdf4381d8fd5e605752ff3521075bc8427c7951cfc6fc8abb28b2c3"
+      }
+    }
+  ],
+  "source_readiness": {
+    "path": "manual_upload_20261027_r06f_measurement_contract/R06_SUBMISSION_READINESS.json",
+    "sha256": "sha256:8f3e77bad47507f4237ecee72391c5c2673688c7215bc487bd03499bcfe7a187",
+    "overall_status": "pass"
+  },
+  "admission": {
+    "r06_diagnostic_submission": "ready_for_user_submission_in_staged_canary",
+    "p0_response_calibration": "denied",
+    "p1_submission": "denied",
+    "local_engine_fitting": "denied",
+    "reference_dataset_generation": "denied",
+    "physical_validity": "not_established"
+  }
+}

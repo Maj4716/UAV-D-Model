@@ -1,0 +1,80 @@
+{
+  "date": "2026-10-15",
+  "timezone": "Asia/Shanghai",
+  "python": "D:\\ProgramData\\Anaconda\\envs\\pytorch312-lmdt\\python.exe",
+  "scope": "selected generic software, archive integrity and abstract data-interface tests only",
+  "source_before": "sha256:4e767ff2c20a310d08b9cf8dad6de09988e75a8956f6eb18aa4af6d7aef298b3",
+  "test_files": [
+    "tests/test_utils.py",
+    "tests/test_normalization.py",
+    "tests/test_schema_resources.py",
+    "tests/test_statistics_cli_review.py",
+    "tests/test_loader_contract_review.py",
+    "tests/test_shard_integrity_review.py",
+    "tests/test_writer_integrity_review.py",
+    "tests/test_reaudit_contract_fix.py",
+    "tests/test_reaudit_serialization_fix.py",
+    "tests/test_reaudit_sampling_fix.py",
+    "tests/test_reaudit_audit_fix.py",
+    "tests/test_result_ledger_compression.py",
+    "tests/test_training_readiness_result_ledger.py",
+    "tests/test_loader_stream_separation.py",
+    "tests/test_dataset_policy.py",
+    "tests/test_dataset_policy_cli.py"
+  ],
+  "process_temp": "C:\\Users\\Administrator\\.codex\\visualizations\\2026\\10\\09\\01a11ff4-76f9-7262-9bf8-10f9bed66e97\\reaudit_20261015_6041fd197b",
+  "steps": [
+    {
+      "name": "generic_pytest",
+      "command": [
+        "D:\\ProgramData\\Anaconda\\envs\\pytorch312-lmdt\\python.exe",
+        "-m",
+        "pytest",
+        "tests/test_utils.py",
+        "tests/test_normalization.py",
+        "tests/test_schema_resources.py",
+        "tests/test_statistics_cli_review.py",
+        "tests/test_loader_contract_review.py",
+        "tests/test_shard_integrity_review.py",
+        "tests/test_writer_integrity_review.py",
+        "tests/test_reaudit_contract_fix.py",
+        "tests/test_reaudit_serialization_fix.py",
+        "tests/test_reaudit_sampling_fix.py",
+        "tests/test_reaudit_audit_fix.py",
+        "tests/test_result_ledger_compression.py",
+        "tests/test_training_readiness_result_ledger.py",
+        "tests/test_loader_stream_separation.py",
+        "tests/test_dataset_policy.py",
+        "tests/test_dataset_policy_cli.py",
+        "-q",
+        "-p",
+        "no:cacheprovider",
+        "--basetemp",
+        "C:\\Users\\Administrator\\.codex\\visualizations\\2026\\10\\09\\01a11ff4-76f9-7262-9bf8-10f9bed66e97\\reaudit_20261015_6041fd197b\\pytest",
+        "--junitxml",
+        "D:\\Desktop\\UAV新\\review_evidence\\reaudit_20261015\\generic_tests.xml"
+      ],
+      "exit_code": 0,
+      "seconds": 19.861461700000064
+    },
+    {
+      "name": "static_repro",
+      "command": [
+        "D:\\ProgramData\\Anaconda\\envs\\pytorch312-lmdt\\python.exe",
+        "C:\\Users\\Administrator\\.codex\\skills\\test-research-code\\scripts\\repro_check.py",
+        "C:\\Users\\Administrator\\.codex\\visualizations\\2026\\10\\09\\01a11ff4-76f9-7262-9bf8-10f9bed66e97\\reaudit_20261015_6041fd197b\\static_source",
+        "--json"
+      ],
+      "exit_code": 0,
+      "seconds": 0.2481631999999081
+    }
+  ],
+  "pytest_summary": {
+    "tests": 361,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "source_after": "sha256:4e767ff2c20a310d08b9cf8dad6de09988e75a8956f6eb18aa4af6d7aef298b3",
+  "source_unchanged": true
+}

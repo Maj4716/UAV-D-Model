@@ -1,0 +1,397 @@
+{
+  "schema_version": "hf-p0-r05-failure-visualization@1.0.0",
+  "generated_at_utc": "2026-10-23T04:26:40.876113+00:00",
+  "script_identity": {
+    "name": "plot_r05_failure_modes",
+    "version": "1.0.0",
+    "path": "D:\\Desktop\\UAV新\\scnet_lsdyna_plate_calibration_20261017\\scripts\\plot_r05_failure_modes.py",
+    "sha256": "sha256:2a94af8e12db765588a4a12078f313f44f26649480bdebc907c503a1868bed72"
+  },
+  "runtime": {
+    "python": "3.12.13",
+    "matplotlib": "3.11.1",
+    "numpy": "2.4.6",
+    "pillow": "12.3.0"
+  },
+  "sources": {
+    "failure_events_unique": {
+      "path": "D:\\Desktop\\UAV新\\scnet_lsdyna_plate_calibration_20261017\\analysis\\72252362_r05_stage_ab_20261023\\failure_events_unique.csv",
+      "size_bytes": 797590,
+      "sha256": "sha256:597ea96e12022fe6410fc2935a37fe9bf9659d87aa7cf5b01925f95533e751ad",
+      "row_count": 2248,
+      "columns": [
+        "failure_type",
+        "element_id",
+        "cycle",
+        "time_ms",
+        "last_observed_time_ms",
+        "observation_count",
+        "source_refs",
+        "part_id",
+        "case_id",
+        "case_role",
+        "part_kind",
+        "initial_deck_centroid_x_mm",
+        "initial_deck_centroid_y_mm",
+        "initial_deck_centroid_z_mm",
+        "initial_position_semantics",
+        "d3part_association",
+        "ledger_state",
+        "reference_mass_kg",
+        "initial_centroid_x_mm",
+        "initial_centroid_y_mm",
+        "initial_centroid_z_mm",
+        "crossing_time_ms",
+        "d3part_deletion_interval_start_ms",
+        "d3part_deletion_interval_end_ms",
+        "last_alive_centroid_z_mm",
+        "first_dead_centroid_z_mm",
+        "fragment_initial_reference_centroid_max_abs_delta_mm",
+        "fragment_initial_reference_crosscheck_status",
+        "mes_time_within_d3part_deletion_interval"
+      ]
+    },
+    "failure_summary_by_case": {
+      "path": "D:\\Desktop\\UAV新\\scnet_lsdyna_plate_calibration_20261017\\analysis\\72252362_r05_stage_ab_20261023\\failure_summary_by_case.csv",
+      "size_bytes": 6013,
+      "sha256": "sha256:e72ba02685a93591d675b03ea7f1811740dc4d0ec20091b2e2eb4cceb47b19ab",
+      "row_count": 7,
+      "columns": [
+        "case_id",
+        "role",
+        "impact_speed_mps",
+        "mesh_mm",
+        "plate_part_id",
+        "fragment_part_id",
+        "unique_failure_element_count",
+        "failure_event_count",
+        "first_failure_time_ms",
+        "first_failure_type",
+        "first_failure_part_kind",
+        "first_failure_element_id",
+        "last_failure_time_ms",
+        "plate_negative_volume_count",
+        "fragment_negative_volume_count",
+        "plate_other_failure_count",
+        "fragment_other_failure_count",
+        "fragment_mes_time_in_d3part_deletion_interval_count",
+        "fragment_mes_time_outside_d3part_deletion_interval_count",
+        "fragment_event_ledger_state_counts",
+        "deleted_upstream_mass_fraction",
+        "primary_qoi_available",
+        "qualification_use_forbidden",
+        "capture_ledger_classification",
+        "capture_ledger_unavailable_reasons",
+        "fragment_failure_initial_x_min_mm",
+        "fragment_failure_initial_x_max_mm",
+        "fragment_failure_initial_y_min_mm",
+        "fragment_failure_initial_y_max_mm",
+        "fragment_failure_initial_z_min_mm",
+        "fragment_failure_initial_z_max_mm",
+        "fragment_failure_last_alive_z_min_mm",
+        "fragment_failure_last_alive_z_max_mm",
+        "plate_failure_initial_deck_x_min_mm",
+        "plate_failure_initial_deck_y_min_mm",
+        "plate_failure_initial_deck_z_min_mm",
+        "plate_failure_initial_deck_x_max_mm",
+        "plate_failure_initial_deck_y_max_mm",
+        "plate_failure_initial_deck_z_max_mm",
+        "fragment_failure_initial_deck_x_min_mm",
+        "fragment_failure_initial_deck_y_min_mm",
+        "fragment_failure_initial_deck_z_min_mm",
+        "fragment_failure_initial_deck_x_max_mm",
+        "fragment_failure_initial_deck_y_max_mm",
+        "fragment_failure_initial_deck_z_max_mm",
+        "initial_deck_position_semantics",
+        "plate_failure_deformed_position_status"
+      ]
+    },
+    "frozen_design": {
+      "path": "D:\\Desktop\\UAV新\\scnet_lsdyna_plate_calibration_20261017\\05\\p0_cases_r05.json",
+      "size_bytes": 9615,
+      "sha256": "sha256:b1d2027d57fc6d9cd1ee3f932ea044fd16a112344d8f2b6f508071f45191a06f",
+      "json_pointer": "/qualification_gates/capture_ledger/deleted_upstream_mass_fraction_max"
+    }
+  },
+  "frozen_gate": {
+    "name": "deleted_upstream_mass_fraction_max",
+    "value": 0.05,
+    "comparison": "at_or_below passes the availability component; above fails"
+  },
+  "figures": {
+    "panel_a": {
+      "png": "r05_failure_modes_panel_a_counts.png",
+      "svg": "r05_failure_modes_panel_a_counts.svg",
+      "encoding": "zero-baseline grouped bar position/length; part by color and failure text category by hatch; direct count labels",
+      "transformation": "exact case/category count lookup; no filtering; structural zeros retained"
+    },
+    "panel_b": {
+      "png": "r05_failure_modes_panel_b_time_initial_z.png",
+      "svg": "r05_failure_modes_panel_b_time_initial_z.svg",
+      "encoding": "raw event time versus undeformed deck-reference centroid z; part by color and failure text category by marker",
+      "transformation": "predeclared focus-case selection only; no binning, jitter, interpolation, connection, smoothing, aggregation, or exclusion within selected cases",
+      "artist_alpha": 0.72,
+      "overplotting_note": "coincident points may overlap; source-data CSV preserves every event"
+    },
+    "panel_c": {
+      "png": "r05_failure_modes_panel_c_deleted_upstream_gate.png",
+      "svg": "r05_failure_modes_panel_c_deleted_upstream_gate.svg",
+      "encoding": "zero-baseline horizontal bar; frozen threshold line; color, hatch, and direct percentage label redundantly encode gate status",
+      "transformation": "direct case-level fraction lookup; no estimation or normalization"
+    }
+  },
+  "source_data": {
+    "panel_a": {
+      "artifact": "r05_failure_modes_panel_a_source_data.csv",
+      "row_count": 28,
+      "columns": [
+        "case_id",
+        "case_label",
+        "impact_speed_mps",
+        "mesh_mm",
+        "part_kind",
+        "failure_type",
+        "count",
+        "structural_zero_retained"
+      ]
+    },
+    "panel_b": {
+      "artifact": "r05_failure_modes_panel_b_source_data.csv",
+      "row_count": 847,
+      "columns": [
+        "case_id",
+        "case_label",
+        "element_id",
+        "failure_type",
+        "part_kind",
+        "time_ms",
+        "initial_deck_centroid_z_mm",
+        "initial_position_semantics"
+      ]
+    },
+    "panel_c": {
+      "artifact": "r05_failure_modes_panel_c_source_data.csv",
+      "row_count": 7,
+      "columns": [
+        "case_id",
+        "case_label",
+        "impact_speed_mps",
+        "mesh_mm",
+        "deleted_upstream_mass_fraction",
+        "frozen_gate_fraction",
+        "gate_status"
+      ]
+    }
+  },
+  "uncertainty": {
+    "displayed": false,
+    "reason": "single deterministic solver return; no replicate distribution or inferential uncertainty definition is available"
+  },
+  "missing_data_policy": "required plotting values must be finite; missing/nonfinite values fail generation instead of being converted to zero or silently omitted",
+  "accessibility": {
+    "background": "opaque white",
+    "color_is_redundant": true,
+    "part_colors": {
+      "plate": "#0072B2",
+      "fragment": "#D55E00"
+    },
+    "failure_hatches": {
+      "negative_volume": "////",
+      "other_solid_failure": ".."
+    },
+    "failure_markers": {
+      "negative_volume": "o",
+      "other_solid_failure": "X"
+    },
+    "contrast_against_white": {
+      "plate": 5.185446345779855,
+      "fragment": 3.8671837898669135
+    },
+    "note": "contrast ratios and redundant encodings are recorded for review; they are not an accessibility or publisher-compliance certification"
+  },
+  "export": {
+    "png_dpi": 200,
+    "png_mode": "RGB",
+    "png_alpha_channel": false,
+    "svg_fonttype": "none",
+    "background": "opaque_white",
+    "bbox_inches": null,
+    "figure_specs": {
+      "r05_failure_modes_panel_a_counts": {
+        "width_in": 7.2,
+        "height_in": 4.5
+      },
+      "r05_failure_modes_panel_b_time_initial_z": {
+        "width_in": 7.2,
+        "height_in": 3.8
+      },
+      "r05_failure_modes_panel_c_deleted_upstream_gate": {
+        "width_in": 7.2,
+        "height_in": 4.5
+      }
+    },
+    "replace_was_explicit": true
+  },
+  "artifacts": {
+    "r05_failure_modes_panel_a_counts.png": {
+      "kind": "figure_png",
+      "size_bytes": 120728,
+      "sha256": "sha256:cc464b666a7b6e9ed7734d26beb98824a3ad0933c9fe3bf63418366e5e637370",
+      "metadata": {
+        "format": "PNG",
+        "mode": "RGB",
+        "width_px": 1440,
+        "height_px": 900,
+        "dpi": [
+          199.9996,
+          199.9996
+        ],
+        "has_alpha_channel": false,
+        "background": "opaque_white"
+      }
+    },
+    "r05_failure_modes_panel_b_time_initial_z.png": {
+      "kind": "figure_png",
+      "size_bytes": 141548,
+      "sha256": "sha256:c9ad03f2de5a8aacf9d190cdf42856f0c9392e0bc70274b394a52c07a2ca7996",
+      "metadata": {
+        "format": "PNG",
+        "mode": "RGB",
+        "width_px": 1440,
+        "height_px": 760,
+        "dpi": [
+          199.9996,
+          199.9996
+        ],
+        "has_alpha_channel": false,
+        "background": "opaque_white"
+      }
+    },
+    "r05_failure_modes_panel_c_deleted_upstream_gate.png": {
+      "kind": "figure_png",
+      "size_bytes": 98705,
+      "sha256": "sha256:2db38e8ff109b890e927c28c17966b08fc5ee9a6a5c0aac691270f6ee05bbba3",
+      "metadata": {
+        "format": "PNG",
+        "mode": "RGB",
+        "width_px": 1440,
+        "height_px": 900,
+        "dpi": [
+          199.9996,
+          199.9996
+        ],
+        "has_alpha_channel": false,
+        "background": "opaque_white"
+      }
+    },
+    "r05_failure_modes_panel_a_counts.svg": {
+      "kind": "figure_svg",
+      "size_bytes": 168177,
+      "sha256": "sha256:d8844a1bfa9de32e6388c50e51d89575c5faaad331b2293e6e31b066de48055e",
+      "metadata": {
+        "format": "SVG",
+        "width": "518.4pt",
+        "height": "324pt",
+        "view_box": "0 0 518.4 324",
+        "text_element_count": 59,
+        "embedded_raster_count": 0,
+        "background": "opaque_white",
+        "container_transparency": false
+      }
+    },
+    "r05_failure_modes_panel_b_time_initial_z.svg": {
+      "kind": "figure_svg",
+      "size_bytes": 163958,
+      "sha256": "sha256:9d99af10298ddc948b79a5222694f459c29b2cf7c70354f7743bc667c4cf0f41",
+      "metadata": {
+        "format": "SVG",
+        "width": "518.4pt",
+        "height": "273.6pt",
+        "view_box": "0 0 518.4 273.6",
+        "text_element_count": 23,
+        "embedded_raster_count": 0,
+        "background": "opaque_white",
+        "container_transparency": false
+      }
+    },
+    "r05_failure_modes_panel_c_deleted_upstream_gate.svg": {
+      "kind": "figure_svg",
+      "size_bytes": 17744,
+      "sha256": "sha256:83f247d372d4dd705486dd08ae768d8dea91448c9f9453cfd59a26343228ef57",
+      "metadata": {
+        "format": "SVG",
+        "width": "518.4pt",
+        "height": "324pt",
+        "view_box": "0 0 518.4 324",
+        "text_element_count": 30,
+        "embedded_raster_count": 0,
+        "background": "opaque_white",
+        "container_transparency": false
+      }
+    },
+    "r05_failure_modes_panel_a_source_data.csv": {
+      "kind": "source_data_csv",
+      "size_bytes": 2367,
+      "sha256": "sha256:18eea430a23bbc50d1d6b66be27a0f1d6ad40011ecbe295a541b0956d29af17b",
+      "metadata": {
+        "row_count": 28,
+        "columns": [
+          "case_id",
+          "case_label",
+          "impact_speed_mps",
+          "mesh_mm",
+          "part_kind",
+          "failure_type",
+          "count",
+          "structural_zero_retained"
+        ]
+      }
+    },
+    "r05_failure_modes_panel_b_source_data.csv": {
+      "kind": "source_data_csv",
+      "size_bytes": 124209,
+      "sha256": "sha256:acc755e3cd86a2dc8e146c69698e66b5c8688d9928445c3975ad222044bb59b8",
+      "metadata": {
+        "row_count": 847,
+        "columns": [
+          "case_id",
+          "case_label",
+          "element_id",
+          "failure_type",
+          "part_kind",
+          "time_ms",
+          "initial_deck_centroid_z_mm",
+          "initial_position_semantics"
+        ]
+      }
+    },
+    "r05_failure_modes_panel_c_source_data.csv": {
+      "kind": "source_data_csv",
+      "size_bytes": 724,
+      "sha256": "sha256:d51d593f0557e6453c301553333b55d0a1638e7fc0f22d6088051b52730c901e",
+      "metadata": {
+        "row_count": 7,
+        "columns": [
+          "case_id",
+          "case_label",
+          "impact_speed_mps",
+          "mesh_mm",
+          "deleted_upstream_mass_fraction",
+          "frozen_gate_fraction",
+          "gate_status"
+        ]
+      }
+    },
+    "r05_failure_visualization_notes_zh.md": {
+      "kind": "description_and_alt_text_markdown",
+      "size_bytes": 2894,
+      "sha256": "sha256:8980d53e361e5fb681e1e9a9f64597dc920c125c507d0cd6e41092044850e6bb",
+      "metadata": {
+        "language": "zh-CN",
+        "encoding": "UTF-8"
+      }
+    }
+  },
+  "notes_and_alt_text": "r05_failure_visualization_notes_zh.md",
+  "claim_boundary": "Diagnostic visualization of solver-returned observations only; not physical causation, experimental validation, P0 response admission, engine calibration, or dataset-generator promotion."
+}

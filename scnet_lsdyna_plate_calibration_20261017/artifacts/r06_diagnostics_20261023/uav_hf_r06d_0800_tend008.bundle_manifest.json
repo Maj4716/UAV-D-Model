@@ -1,0 +1,63 @@
+{
+  "schema_version": "hf-p0-r06-diagnostic-bundle@1.0.0",
+  "package_revision": "R06_paired_diagnostics_preregistered_20261023",
+  "job_id": "r06d_0800_tend008",
+  "experiment_id": "r06_diag_800_window",
+  "role": "single_factor_treatment",
+  "status": "prepared_not_submitted_not_solver_validated",
+  "head_deck": "r06d_0800_tend008.k",
+  "file_policy": "explicit_whitelist_one_head_deck",
+  "files": [
+    {
+      "path": "UPLOAD_README.txt",
+      "size_bytes": 1825,
+      "sha256": "sha256:fc7dbc807f20323439178ae38196d0a51f81289234946b896d9bd4b30d8a6b58"
+    },
+    {
+      "path": "jc4340_reference.json",
+      "size_bytes": 3144,
+      "sha256": "sha256:9b462b920459e57641d5f89d10d36c0aa0498c86f2478fef8e4c3efa96888311"
+    },
+    {
+      "path": "job_contract.json",
+      "size_bytes": 1715,
+      "sha256": "sha256:ee182432efb1e7d8da396040fc860f5516d6cc9c0bd6e7aa6c30afc5f32c546b"
+    },
+    {
+      "path": "manifest.json",
+      "size_bytes": 2083,
+      "sha256": "sha256:0faeb93dc4e485fcbc2bbeb7ad1daba99db24441182b3bc7dc68616b12e9248e"
+    },
+    {
+      "path": "p0_case_part_map.csv",
+      "size_bytes": 467,
+      "sha256": "sha256:b8bb17eb1e4e373a23f63f3fc62d3b93e5ae42c56dbb00aaf1b7f1442e29f8f9"
+    },
+    {
+      "path": "p0_r06_diagnostic_design.json",
+      "size_bytes": 10607,
+      "sha256": "sha256:9443fc7397c78db6d9fb7fd0b2b55ac185972f52fae5c90ea3641df8598da402"
+    },
+    {
+      "path": "p0_r06_real_output_contract.json",
+      "size_bytes": 6077,
+      "sha256": "sha256:71371ee8726fe95899de33aef163d8a9725d9f43781d5775de10fa2afc150795"
+    },
+    {
+      "path": "r06d_0800_tend008.k",
+      "size_bytes": 2557680,
+      "sha256": "sha256:3eb30f6c2321d5801c3f94ea32338755d94204df272c5654510d0b10f24fc6d8"
+    },
+    {
+      "path": "static_validation.json",
+      "size_bytes": 2126,
+      "sha256": "sha256:7dca39f061bc917acc48cb4a360fdb0f49680158ddec447c376879e77d62c2ee"
+    }
+  ],
+  "prohibited_inference": "Bundle and static PASS do not establish parser/runtime, numerical response, physical validity, or P0/P1 admission.",
+  "bundle": {
+    "path": "uav_hf_r06d_0800_tend008.zip",
+    "size_bytes": 412996,
+    "sha256": "sha256:97743dbc58f4e5aa6fc07a3c4c3f2e89bb007209e901805fd307d4ce1c8e9859"
+  }
+}

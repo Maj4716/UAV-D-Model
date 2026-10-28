@@ -1,0 +1,487 @@
+{
+  "scope": "general two-row, two-task numeric fixtures; no formal label distribution analysis",
+  "python": "D:\\ProgramData\\Anaconda\\envs\\pytorch312-lmdt\\python.exe",
+  "torch": "2.8.0+cu128",
+  "numpy": "2.4.6",
+  "source_before": {
+    "package_source_tree": "sha256:4e767ff2c20a310d08b9cf8dad6de09988e75a8956f6eb18aa4af6d7aef298b3",
+    "files": {
+      "system_learning.py": "sha256:06554fe5e41bf0b4b9b87d8212239cfc0ffda4e5d3c0bf87084f637bbf61172a",
+      "archive_validation.py": "sha256:f2983ee93f3e604117dc252ab684b24a09da62e90b9ab1877f47b2fbf2752800",
+      "multitask_targets.py": "sha256:dc2b9539dfa1f72314ff5692507dc5dfaa82d53ed74eb022a04e11caccf8e083",
+      "training_view.py": "sha256:7deb446d4103426d70aa2157590a1c7b0bfd0484a9661e3f105ae2a988876ec7"
+    }
+  },
+  "covered_public_apis": [
+    "masked_soft_bce_with_logits",
+    "masked_brier_from_logits",
+    "fit_reference_prevalence_baseline",
+    "evaluate_system_probabilities"
+  ],
+  "loss_cases": {
+    "available_true_zero_targets": {
+      "masked_soft_bce_with_logits": {
+        "accepted": true,
+        "output": {
+          "kind": "tensor",
+          "value_text": "0.6931471824645996",
+          "is_finite": true,
+          "dtype": "torch.float32"
+        },
+        "warnings": []
+      },
+      "masked_brier_from_logits": {
+        "accepted": true,
+        "output": {
+          "kind": "tensor",
+          "value_text": "0.25",
+          "is_finite": true,
+          "dtype": "torch.float32"
+        },
+        "warnings": []
+      }
+    },
+    "mixed_mask_finite_placeholders": {
+      "masked_soft_bce_with_logits": {
+        "accepted": true,
+        "output": {
+          "kind": "tensor",
+          "value_text": "0.6931471824645996",
+          "is_finite": true,
+          "dtype": "torch.float32"
+        },
+        "warnings": []
+      },
+      "masked_brier_from_logits": {
+        "accepted": true,
+        "output": {
+          "kind": "tensor",
+          "value_text": "0.0625",
+          "is_finite": true,
+          "dtype": "torch.float32"
+        },
+        "warnings": []
+      }
+    },
+    "mixed_mask_nan_placeholders": {
+      "masked_soft_bce_with_logits": {
+        "accepted": true,
+        "output": {
+          "kind": "tensor",
+          "value_text": "nan",
+          "is_finite": false,
+          "dtype": "torch.float32"
+        },
+        "warnings": []
+      },
+      "masked_brier_from_logits": {
+        "accepted": true,
+        "output": {
+          "kind": "tensor",
+          "value_text": "nan",
+          "is_finite": false,
+          "dtype": "torch.float32"
+        },
+        "warnings": []
+      }
+    },
+    "all_mask_false_finite_placeholders": {
+      "masked_soft_bce_with_logits": {
+        "accepted": false,
+        "error_type": "InputValidationError",
+        "message": "masked loss has no available targets",
+        "warnings": []
+      },
+      "masked_brier_from_logits": {
+        "accepted": false,
+        "error_type": "InputValidationError",
+        "message": "masked loss has no available targets",
+        "warnings": []
+      }
+    },
+    "all_mask_false_nan_placeholders": {
+      "masked_soft_bce_with_logits": {
+        "accepted": false,
+        "error_type": "InputValidationError",
+        "message": "masked loss has no available targets",
+        "warnings": []
+      },
+      "masked_brier_from_logits": {
+        "accepted": false,
+        "error_type": "InputValidationError",
+        "message": "masked loss has no available targets",
+        "warnings": []
+      }
+    },
+    "unmasked_nan": {
+      "masked_soft_bce_with_logits": {
+        "accepted": false,
+        "error_type": "InputValidationError",
+        "message": "available neural loss inputs must be finite",
+        "warnings": []
+      },
+      "masked_brier_from_logits": {
+        "accepted": false,
+        "error_type": "InputValidationError",
+        "message": "available neural loss inputs must be finite",
+        "warnings": []
+      }
+    },
+    "zero_case_weight": {
+      "masked_soft_bce_with_logits": {
+        "accepted": false,
+        "error_type": "InputValidationError",
+        "message": "design_weight must be finite and positive",
+        "warnings": []
+      },
+      "masked_brier_from_logits": {
+        "accepted": false,
+        "error_type": "InputValidationError",
+        "message": "design_weight must be finite and positive",
+        "warnings": []
+      }
+    },
+    "zero_task_weight": {
+      "masked_soft_bce_with_logits": {
+        "accepted": false,
+        "error_type": "InputValidationError",
+        "message": "task_weight must be finite and positive",
+        "warnings": []
+      },
+      "masked_brier_from_logits": {
+        "accepted": false,
+        "error_type": "InputValidationError",
+        "message": "task_weight must be finite and positive",
+        "warnings": []
+      }
+    },
+    "tiny_positive_task_weight": {
+      "masked_soft_bce_with_logits": {
+        "accepted": true,
+        "output": {
+          "kind": "tensor",
+          "value_text": "0.6931471824645996",
+          "is_finite": true,
+          "dtype": "torch.float32"
+        },
+        "warnings": []
+      },
+      "masked_brier_from_logits": {
+        "accepted": true,
+        "output": {
+          "kind": "tensor",
+          "value_text": "0.0625",
+          "is_finite": true,
+          "dtype": "torch.float32"
+        },
+        "warnings": []
+      }
+    }
+  },
+  "baseline_and_metrics_cases": {
+    "available_true_zero_targets": {
+      "baseline": {
+        "accepted": true,
+        "output": {
+          "kind": "baseline",
+          "predictions_text": [
+            "0.0",
+            "0.0"
+          ],
+          "all_finite": true,
+          "support": [
+            {
+              "task_name": "toy-a",
+              "available_count": 2,
+              "design_weight_sum": 2.0,
+              "prediction": 0.0
+            },
+            {
+              "task_name": "toy-b",
+              "available_count": 2,
+              "design_weight_sum": 2.0,
+              "prediction": 0.0
+            }
+          ]
+        },
+        "warnings": []
+      },
+      "metrics": {
+        "accepted": true,
+        "output": {
+          "kind": "metrics",
+          "tasks": [
+            {
+              "task_name": "toy-a",
+              "available_count": 2,
+              "brier": 0.25,
+              "log_loss": 0.6931471805599453,
+              "ece": 0.5,
+              "calibration_status": "undefined_no_positive_soft_mass",
+              "soft_average_precision": null,
+              "soft_average_precision_status": "undefined_no_positive_soft_mass"
+            },
+            {
+              "task_name": "toy-b",
+              "available_count": 2,
+              "brier": 0.25,
+              "log_loss": 0.6931471805599453,
+              "ece": 0.5,
+              "calibration_status": "undefined_no_positive_soft_mass",
+              "soft_average_precision": null,
+              "soft_average_precision_status": "undefined_no_positive_soft_mass"
+            }
+          ]
+        },
+        "warnings": []
+      }
+    },
+    "mixed_mask_finite_placeholders": {
+      "baseline": {
+        "accepted": true,
+        "output": {
+          "kind": "baseline",
+          "predictions_text": [
+            "0.25",
+            "0.75"
+          ],
+          "all_finite": true,
+          "support": [
+            {
+              "task_name": "toy-a",
+              "available_count": 1,
+              "design_weight_sum": 1.0,
+              "prediction": 0.25
+            },
+            {
+              "task_name": "toy-b",
+              "available_count": 1,
+              "design_weight_sum": 1.0,
+              "prediction": 0.75
+            }
+          ]
+        },
+        "warnings": []
+      },
+      "metrics": {
+        "accepted": true,
+        "output": {
+          "kind": "metrics",
+          "tasks": [
+            {
+              "task_name": "toy-a",
+              "available_count": 1,
+              "brier": 0.0625,
+              "log_loss": 0.6931471805599453,
+              "ece": 0.25,
+              "calibration_status": "undefined_constant_prediction",
+              "soft_average_precision": 0.25,
+              "soft_average_precision_status": "defined_fractional_event_mass"
+            },
+            {
+              "task_name": "toy-b",
+              "available_count": 1,
+              "brier": 0.0625,
+              "log_loss": 0.6931471805599453,
+              "ece": 0.25,
+              "calibration_status": "undefined_constant_prediction",
+              "soft_average_precision": 0.75,
+              "soft_average_precision_status": "defined_fractional_event_mass"
+            }
+          ]
+        },
+        "warnings": []
+      }
+    },
+    "mixed_mask_nan_placeholders": {
+      "baseline": {
+        "accepted": true,
+        "output": {
+          "kind": "baseline",
+          "predictions_text": [
+            "0.25",
+            "0.75"
+          ],
+          "all_finite": true,
+          "support": [
+            {
+              "task_name": "toy-a",
+              "available_count": 1,
+              "design_weight_sum": 1.0,
+              "prediction": 0.25
+            },
+            {
+              "task_name": "toy-b",
+              "available_count": 1,
+              "design_weight_sum": 1.0,
+              "prediction": 0.75
+            }
+          ]
+        },
+        "warnings": []
+      },
+      "metrics": {
+        "accepted": true,
+        "output": {
+          "kind": "metrics",
+          "tasks": [
+            {
+              "task_name": "toy-a",
+              "available_count": 1,
+              "brier": 0.0625,
+              "log_loss": 0.6931471805599453,
+              "ece": 0.25,
+              "calibration_status": "undefined_constant_prediction",
+              "soft_average_precision": 0.25,
+              "soft_average_precision_status": "defined_fractional_event_mass"
+            },
+            {
+              "task_name": "toy-b",
+              "available_count": 1,
+              "brier": 0.0625,
+              "log_loss": 0.6931471805599453,
+              "ece": 0.25,
+              "calibration_status": "undefined_constant_prediction",
+              "soft_average_precision": 0.75,
+              "soft_average_precision_status": "defined_fractional_event_mass"
+            }
+          ]
+        },
+        "warnings": []
+      }
+    },
+    "all_mask_false_finite_placeholders": {
+      "baseline": {
+        "accepted": false,
+        "error_type": "InputValidationError",
+        "message": "Reference Train has no available target for a baseline task",
+        "warnings": []
+      },
+      "metrics": {
+        "accepted": false,
+        "error_type": "InputValidationError",
+        "message": "evaluated task has no available targets",
+        "warnings": []
+      }
+    },
+    "all_mask_false_nan_placeholders": {
+      "baseline": {
+        "accepted": false,
+        "error_type": "InputValidationError",
+        "message": "Reference Train has no available target for a baseline task",
+        "warnings": []
+      },
+      "metrics": {
+        "accepted": false,
+        "error_type": "InputValidationError",
+        "message": "evaluated task has no available targets",
+        "warnings": []
+      }
+    },
+    "unmasked_nan": {
+      "baseline": {
+        "accepted": false,
+        "error_type": "InputValidationError",
+        "message": "available system targets must be finite",
+        "warnings": []
+      },
+      "metrics": {
+        "accepted": false,
+        "error_type": "InputValidationError",
+        "message": "available system targets must be finite",
+        "warnings": []
+      }
+    },
+    "zero_case_weight": {
+      "baseline": {
+        "accepted": false,
+        "error_type": "InputValidationError",
+        "message": "design_weights must be finite, positive and aligned to cases",
+        "warnings": []
+      },
+      "metrics": {
+        "accepted": false,
+        "error_type": "InputValidationError",
+        "message": "design_weights must be finite, positive and aligned to cases",
+        "warnings": []
+      }
+    }
+  },
+  "finite_weight_sum_overflow_boundary": {
+    "baseline": {
+      "accepted": true,
+      "output": {
+        "kind": "baseline",
+        "predictions_text": [
+          "0.0",
+          "0.0"
+        ],
+        "all_finite": true,
+        "support": [
+          {
+            "task_name": "toy-a",
+            "available_count": 2,
+            "design_weight_sum": "inf",
+            "prediction": 0.0
+          },
+          {
+            "task_name": "toy-b",
+            "available_count": 2,
+            "design_weight_sum": "inf",
+            "prediction": 0.0
+          }
+        ]
+      },
+      "warnings": [
+        "overflow encountered in reduce",
+        "overflow encountered in reduce"
+      ]
+    },
+    "metrics": {
+      "accepted": true,
+      "output": {
+        "kind": "metrics",
+        "tasks": [
+          {
+            "task_name": "toy-a",
+            "available_count": 2,
+            "brier": 0.0,
+            "log_loss": 0.0,
+            "ece": "nan",
+            "calibration_status": "undefined_constant_prediction",
+            "soft_average_precision": 0.0,
+            "soft_average_precision_status": "defined_fractional_event_mass"
+          },
+          {
+            "task_name": "toy-b",
+            "available_count": 2,
+            "brier": 0.0,
+            "log_loss": 0.0,
+            "ece": "nan",
+            "calibration_status": "undefined_constant_prediction",
+            "soft_average_precision": 0.0,
+            "soft_average_precision_status": "defined_fractional_event_mass"
+          }
+        ]
+      },
+      "warnings": [
+        "overflow encountered in reduce",
+        "overflow encountered in reduce",
+        "overflow encountered in reduce",
+        "overflow encountered in reduce",
+        "overflow encountered in reduce",
+        "overflow encountered in reduce"
+      ]
+    }
+  },
+  "source_after": {
+    "package_source_tree": "sha256:4e767ff2c20a310d08b9cf8dad6de09988e75a8956f6eb18aa4af6d7aef298b3",
+    "files": {
+      "system_learning.py": "sha256:06554fe5e41bf0b4b9b87d8212239cfc0ffda4e5d3c0bf87084f637bbf61172a",
+      "archive_validation.py": "sha256:f2983ee93f3e604117dc252ab684b24a09da62e90b9ab1877f47b2fbf2752800",
+      "multitask_targets.py": "sha256:dc2b9539dfa1f72314ff5692507dc5dfaa82d53ed74eb022a04e11caccf8e083",
+      "training_view.py": "sha256:7deb446d4103426d70aa2157590a1c7b0bfd0484a9661e3f105ae2a988876ec7"
+    }
+  },
+  "source_unchanged": true
+}

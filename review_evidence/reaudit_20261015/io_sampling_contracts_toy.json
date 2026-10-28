@@ -1,0 +1,26 @@
+{
+  "scope": "artificial arrays and candidate identities only",
+  "guards": {
+    "duplicate_candidate_id": true,
+    "lineage_crosses_split": true,
+    "epistemic_group_crosses_split": true,
+    "probability_above_one": true,
+    "negative_weight": true,
+    "nonboolean_selected": true,
+    "nan_latent": true,
+    "out_of_bounds_latent": true,
+    "executed_must_be_selected": true
+  },
+  "weighted_ks_matches_hand_calculation": true,
+  "ess_matches_hand_calculation": true,
+  "set_counts": {
+    "candidate_frame": 4,
+    "selected": 3,
+    "executed": 3,
+    "successful": 2,
+    "admitted": 1,
+    "refused": 1
+  },
+  "coverage_guaranteed": false,
+  "strict_json_serialization_passed": true
+}

@@ -1,0 +1,254 @@
+{
+  "schema_version": "hf-p0-r06f-return-audit@1.0.0",
+  "audit_date": "2026-10-28",
+  "source_evidence": {
+    "directory": "D:/Desktop/UAV新/uav_hf_r06f_0800_ctrl2",
+    "evidence_policy": "read_only_immutable",
+    "file_count": 113,
+    "total_bytes": 2131646345,
+    "platform_job_id": "72617857",
+    "job_id": "r06f_0800_ctrl",
+    "package_revision": "R06_measurement_contract_repair_20261027",
+    "deck_sha256": "sha256:111911562b703b8af1e96810b08edd8c31fbeea739ddddd2921b8bcd07c517af",
+    "submission_zip_sha256": "sha256:8d9735ca52a29a336379827bdff5b5b20dd29a3ae75887f4f38ac6fdfce112b3",
+    "solver_build": "LS-DYNA MPP double R15.0.2-1-g1e7cfa42b1 I8R8 Intel-MPI 2018"
+  },
+  "execution": {
+    "input_identity": "pass",
+    "license_checkout": "pass",
+    "normal_termination": true,
+    "rank_log_count": 32,
+    "normal_termination_rank_count": 32,
+    "stderr_size_bytes": 0,
+    "cycle_count": 2863,
+    "final_problem_time_ms": 0.040005,
+    "elapsed_seconds": 27,
+    "start_time": "2026-10-28 10:16:56",
+    "end_time": "2026-10-28 10:17:39",
+    "numbered_error_count": 0,
+    "warning_30364_rank_occurrences": 32,
+    "negative_volume_event_count": 66,
+    "negative_volume_unique_element_count": 66,
+    "negative_volume_by_part": {
+      "plate_pid_1002": 23,
+      "fragment_pid_2002": 43
+    },
+    "first_negative_volume_time_ms": 0.0032354,
+    "last_negative_volume_time_ms": 0.01208,
+    "dt2ms": 0.0,
+    "parts_with_added_mass": 0
+  },
+  "resource_identity": {
+    "status": "pass",
+    "frozen": {
+      "nodes": 1,
+      "ranks": 32,
+      "ranks_per_node": 32
+    },
+    "observed": {
+      "nodes": 1,
+      "ranks": 32,
+      "ranks_per_node": 32
+    },
+    "evidence": [
+      "Slurm script uses -N 1 and --ntasks-per-node=32",
+      "job log records 32 total cores and host b13r3n01:32",
+      "job log executes mpirun -np 32",
+      "solver output records MPP execution with 32 procs",
+      "32 mes files and 32 rank-partitioned restart dumps were returned"
+    ]
+  },
+  "returned_outputs": {
+    "d3plot": {
+      "file_count": 14,
+      "total_bytes": 1699008512,
+      "state_count": 402,
+      "last_time_ms": 0.04000532063035557,
+      "readability": "pass"
+    },
+    "d3part": {
+      "file_count": 3,
+      "total_bytes": 121683968,
+      "state_count": 802,
+      "last_time_ms": 0.04000532063035557,
+      "readability": "pass"
+    },
+    "binout": {
+      "file_count": 2,
+      "total_bytes": 179270814,
+      "readability": "pass",
+      "logical_databases": [
+        "JOBINFO",
+        "glstat",
+        "matsum",
+        "ncforc",
+        "nodout",
+        "sleout"
+      ]
+    },
+    "glstat": {
+      "size_bytes": 892460,
+      "record_count": 801,
+      "minimum_total_energy_ratio": 0.957156,
+      "maximum_total_energy_ratio": 1.00268,
+      "maximum_absolute_hourglass_energy": 0.0,
+      "final_eroded_energy_fraction_of_initial": 0.058051875
+    }
+  },
+  "measurement_contract": {
+    "status": "pass_with_adapter_gap",
+    "d3part_history": {
+      "shape": [
+        802,
+        686,
+        1,
+        7
+      ],
+      "hvar6_zero_based_index": 5,
+      "alive_hvar6_status": "available",
+      "alive_hvar6_minimum": 0.0,
+      "alive_hvar6_maximum": 0.7106432313331785,
+      "alive_hvar6_invalid_count": 0,
+      "initial_alive_fragment_count": 686,
+      "final_alive_fragment_count": 612
+    },
+    "d3part_full_d3plot_crosscheck": {
+      "status": "pass",
+      "shared_state_count": 402,
+      "fragment_element_id_count": 686,
+      "alive_value_comparison_count": 251379,
+      "maximum_absolute_difference_all_7_channels": 0.0,
+      "alive_mask_mismatch_count": 0,
+      "maximum_time_mismatch_ms": 0.0
+    },
+    "full_d3plot_hvar6": {
+      "status": "available",
+      "state_count": 402,
+      "solid_count": 20902,
+      "invalid_alive_value_count": 0,
+      "plate_maximum": 0.5542500914343516,
+      "fragment_maximum": 0.7106432313331785
+    },
+    "ncforc": {
+      "status": "available_ragged_pending_semantic_validation",
+      "path": "ncforc/surfa_1",
+      "state_count": 801,
+      "minimum_nodes_per_state": 3365,
+      "maximum_nodes_per_state": 3427,
+      "union_node_count": 3518,
+      "all_state_intersection_node_count": 3285,
+      "node_count_change_count": 47,
+      "all_ids_unique_per_state": true,
+      "all_coordinates_forces_pressure_finite": true,
+      "raw_model_unit_ranges": {
+        "pressure": [-1.5248724543318302, 24.312986689516034],
+        "x_force": [-2.14860405616208, 1.7413646829694251],
+        "y_force": [-2.048875895861517, 2.084197314442901],
+        "z_force": [-6.4135504001462245, 6.63122133922494]
+      },
+      "claim_boundary": "Units, sign convention, contact-side mapping, impulse and energy closure are not yet validated."
+    },
+    "sleout": {
+      "status": "available_in_binout",
+      "direct_contact_substitute": false
+    },
+    "intfor": {
+      "status": "not_requested_under_r06f_contract",
+      "value": null,
+      "missing_is_zero": false
+    },
+    "adapter_gap": {
+      "affected_output": "r06f_single_job_analysis.json/direct_contact_outputs",
+      "cause": "r06_single_job_adapter.py still passes an empty BINOUT inventory and does not read ragged NCFORC states",
+      "invalidated_claims": [
+        "NCFORC unavailable",
+        "SLEOUT missing",
+        "INTFOR missing unexplained"
+      ],
+      "unaffected_sections": [
+        "capture",
+        "mat015_hvar6"
+      ]
+    }
+  },
+  "diagnostic_response": {
+    "primary_qoi_available": false,
+    "unavailable_reasons": [
+      "deleted_upstream_mass",
+      "unstable_tail_qM",
+      "unstable_tail_qP",
+      "unstable_tail_qE"
+    ],
+    "diagnostic_values_before_availability_gate": {
+      "qM": 0.873177834689523,
+      "qP": 0.56130745469677,
+      "qE": 0.3608752905192748,
+      "qV_over_v0": 0.642832917187316
+    },
+    "deleted_upstream_mass_fraction": 0.10787171943769217,
+    "tail_window": {
+      "increment_qM": 0.19533527520075533,
+      "increment_qP": 0.12542763021896308,
+      "increment_qE": 0.08054716105824995,
+      "qV_relative_range": 0.0006127784561712702
+    }
+  },
+  "formal_comparison_to_job_72397333": {
+    "formal_use": "valid_resource_matched_recanary",
+    "qM_absolute_difference": 3.10476977460894e-10,
+    "qP_absolute_difference": 3.0322999666765327e-10,
+    "qE_absolute_difference": 4.80725181883912e-10,
+    "qV_relative_difference": 2.913915056385315e-10,
+    "frozen_tolerances": {
+      "qM_qP_qE_absolute_max": 0.01,
+      "qV_relative_max": 0.05
+    },
+    "gate_results": {
+      "qM": "pass",
+      "qP": "pass",
+      "qE": "pass",
+      "qV": "pass"
+    },
+    "supporting_exact_or_reported_matches": {
+      "cycle_count": true,
+      "energy_ratio_range": true,
+      "negative_volume_count_and_part_split": true,
+      "final_alive_fragment_count": true,
+      "full_d3plot_hvar6_maxima": true
+    },
+    "interpretation": "The R06f output-card repair is non-invasive for the frozen 800 m/s control at one node and 32 MPP ranks."
+  },
+  "comparison_to_wrong_resource_job_72579731": {
+    "formal_use": "context_only",
+    "qM_absolute_difference": 0.03498542210474731,
+    "qP_absolute_difference": 0.02830359406907257,
+    "qE_absolute_difference": 0.021898259060200376,
+    "qV_absolute_difference": 0.006936131884706431,
+    "interpretation": "The earlier 512-rank deviation disappears at the frozen 32-rank decomposition, supporting MPP decomposition/resource identity as the dominant confounder."
+  },
+  "decision": {
+    "solver_parser_runtime": "pass",
+    "input_identity": "pass",
+    "resource_identity": "pass",
+    "measurement_channel_repair": "pass",
+    "frozen_wave0_repeatability": "pass",
+    "formal_primary_qoi": "unavailable",
+    "classification": "successful_resource_matched_recanary_and_noninvasive_measurement_repair",
+    "release_r06f_0800_tssfac04": true,
+    "release_r06f_2000_ctrl": false,
+    "release_treatments": false,
+    "p0_response_calibration": "denied",
+    "p1_submission": "denied",
+    "engine_fitting": "denied",
+    "dataset_reference_promotion": "denied"
+  },
+  "recommended_next_sequence": [
+    "Repair and regression-test the single-job adapter so it inventories BINOUT, reads ragged NCFORC with per-state node IDs, reports SLEOUT as energy-only, and records INTFOR as not requested rather than missing.",
+    "Generate one single-factor 800 m/s, 0.75 mm, TSSFAC=0.4 diagnostic from the byte-identical R06f control while retaining DT2MS=0, one node, 32 ranks, the same solver build, termination time and output contract.",
+    "Submit only that TSSFAC=0.4 job in a fresh platform work directory and verify the scheduler handshake before allowing it to run.",
+    "Compare its diagnostic qM/qP/qE to Job 72617857 using absolute tolerance 0.01 and qV/v0 using relative tolerance 0.05, with normal termination, run-integrity, D3PART/HVAR6 and NCFORC readability as additional gates.",
+    "If the timestep diagnostic passes, release the 2000 m/s control next; if it fails, stop and investigate numerical robustness before any 2000 m/s or treatment run.",
+    "Keep all treatment jobs, engine fitting and dataset-reference promotion frozen until the timestep gate and subsequent 2000 m/s control gate pass."
+  ],
+  "claim_boundary": "This audit establishes returned-evidence, solver/runtime, resource identity, reader capability and resource-matched diagnostic repeatability. It does not establish material truth, physical validity, formal P0/P1 admission, engine calibration or dataset-label admission."
+}

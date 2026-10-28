@@ -1,0 +1,51 @@
+{
+  "schema_version": "hf-p0-r06-job-manifest@1.0.0",
+  "package_revision": "R06_measurement_contract_repair_20261027",
+  "job_id": "r06f_0800_ctrl",
+  "status": "generated_not_solver_validated",
+  "evidence_class": "high_fidelity_synthetic_diagnostic_candidate",
+  "deck": {
+    "path": "r06f_0800_ctrl.k",
+    "size_bytes": 2557676,
+    "sha256": "sha256:111911562b703b8af1e96810b08edd8c31fbeea739ddddd2921b8bcd07c517af",
+    "node_count": 23775,
+    "element_count": 20902,
+    "node_id_span": [
+      23776,
+      47550
+    ],
+    "element_id_span": [
+      20903,
+      41804
+    ]
+  },
+  "design": {
+    "path": "p0_r06f_measurement_repair_design.json",
+    "sha256": "sha256:d4e2bd9b6a58efdc9b56e9a4c2d9f87ed78e6b5f0db1bd057579b079b430d6cf"
+  },
+  "material": {
+    "path": "jc4340_reference.json",
+    "sha256": "sha256:9b462b920459e57641d5f89d10d36c0aa0498c86f2478fef8e4c3efa96888311"
+  },
+  "successor_contract": {
+    "path": "p0_r06f_real_output_contract.json",
+    "sha256": "sha256:566b00de9f897e2f63133b9bb8a3dd7d72f702d9e8029d97e94ee9ffdc202128",
+    "historical_status_preserved": "frozen_after_r06e_wave0_capability_audit_before_any_r06f_solver_outcome"
+  },
+  "case_map": {
+    "path": "p0_case_part_map.csv",
+    "sha256": "sha256:691ce1f9c68d24657a865522d139aac0fc69a0d66bea08635dcc8c510d2245d2"
+  },
+  "job_contract": {
+    "path": "job_contract.json",
+    "sha256": "sha256:cd0e528fd8e15038234e15053b6d9fe377596018093227a8d91a2567172aa969"
+  },
+  "limitations": [
+    "This prospective contract does not rewrite the frozen R06e failure/hold decision.",
+    "INTFOR and NCFORC absence is not a zero contact response.",
+    "A readable HVAR6 is a solver measurement channel, not evidence that the material law is physically calibrated.",
+    "Static PASS and normal termination do not establish numerical repeatability, P0 admission, or dataset-label admission.",
+    "Only one R06f 800 m/s control job is generated and exposed in this release.",
+    "The targeted canary remains outside the reference response distribution and training labels."
+  ]
+}

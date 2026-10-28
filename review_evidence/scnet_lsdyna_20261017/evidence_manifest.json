@@ -1,0 +1,122 @@
+{
+  "schema_version": "1.0.0",
+  "record_date": "2026-10-17",
+  "purpose": "SCNet LS-DYNA candidate evidence inventory for calibrating the UAV damage-engine project",
+  "confidentiality": "local_project_only",
+  "scnet_live_observations": [
+    {
+      "evidence_id": "SCNET-LIVE-001",
+      "observation": "The SCNet ANSYS LS-DYNA template exposed V231,user on the xahcnormal CPU resource. The template accepted .key, .k, .inc and .dyn inputs.",
+      "verification_status": "agent_observed_live_ui",
+      "scientific_use": "platform_capability_only"
+    },
+    {
+      "evidence_id": "SCNET-LIVE-002",
+      "job_id": "46778684",
+      "job_status_at_observation": "running",
+      "resources": {
+        "nodes": 4,
+        "cpu_cores": 240,
+        "requested_memory_gb": 851.7188,
+        "walltime_limit_h": 24
+      },
+      "solver": {
+        "family": "LS-DYNA MPP double precision",
+        "build": "R14.0.0",
+        "mpi": "Intel MPI 2018",
+        "ranks": 240,
+        "input_mode": "restart.k"
+      },
+      "runtime_observation": {
+        "simulated_time_reached_s": 0.0072502,
+        "reported_time_step_s": 4.78e-08,
+        "normal_termination_observed": false,
+        "node_deletion_messages_observed": true,
+        "stderr_only_contained_srun_route_message": true
+      },
+      "verification_status": "agent_observed_live_ui",
+      "scientific_use": "running_candidate_only"
+    },
+    {
+      "evidence_id": "SCNET-LIVE-003",
+      "job_id": "71701742",
+      "job_status_at_observation": "completed",
+      "resources": {
+        "cpu_cores": 240,
+        "elapsed_seconds": 22167,
+        "derived_core_hours": 1477.8
+      },
+      "solver_log": {
+        "cycles": 314461,
+        "normal_termination": true,
+        "glstat_size_mb": 31.88,
+        "d3hsp_segment_size_mb": 178.31
+      },
+      "verification_status": "agent_observed_live_ui",
+      "scientific_use": "candidate_numerical_evidence_pending_input_and_qoi_binding"
+    },
+    {
+      "evidence_id": "SCNET-LIVE-004",
+      "observation": "The running job script enforced an authorization flag, source-manifest hash, input-deck hash, source-gate hash and executable hash before launching the solver.",
+      "verification_status": "agent_observed_live_ui",
+      "scientific_use": "positive_provenance_control_evidence"
+    },
+    {
+      "evidence_id": "SCNET-LIVE-005",
+      "observation": "The completed glstat download did not complete within the browser timeout. After that attempt, browser-origin access to SCNet was denied, so no result file was retrieved and no additional paid job was submitted.",
+      "verification_status": "agent_observed_tool_event",
+      "scientific_use": "access_and_execution_boundary"
+    }
+  ],
+  "local_evidence": [
+    {
+      "evidence_id": "LOCAL-001",
+      "path": "raw_data/target.rebuilt.fragment_only.v1.json",
+      "finding": "Two armor objects and 67 components use unverified demo response identities and provisional imported damage-tree semantics."
+    },
+    {
+      "evidence_id": "LOCAL-002",
+      "path": "examples/physics.loitering_impact.json",
+      "finding": "Fragment source, ballistic response, component response and blast response parameters are explicitly marked unverified or DEMO-NOT-VALIDATED."
+    },
+    {
+      "evidence_id": "LOCAL-003",
+      "path": "review_evidence/scnet_lsdyna_20261017/local_dataset_audit.json",
+      "finding": "The current 5000-case archive is internally consistent but not research-admitted; four system outputs are constant zero, one is extremely sparse, and every case uses two Monte Carlo replicates."
+    },
+    {
+      "evidence_id": "LOCAL-004",
+      "path": "review_evidence/kmfc_v0_component_support_audit_20261015.json",
+      "finding": "Current component-response support is K=28, M=2205, F=28 and C=0; K and F positives are the same 28 cases."
+    },
+    {
+      "evidence_id": "LOCAL-005",
+      "path": "review_evidence/kmfc_ordinal_feasibility_audit_20261015.json",
+      "finding": "The legacy seven outputs cannot be relabeled in place as four ordered two-level KMFC pairs."
+    },
+    {
+      "evidence_id": "LOCAL-006",
+      "path": "review_evidence/scnet_lsdyna_20261017/training_readiness_fail_closed.log",
+      "finding": "The training-readiness audit failed closed because formal result files do not contain replicate traces.",
+      "artifact_status": "not_created_due_to_fail_closed_error"
+    },
+    {
+      "evidence_id": "LOCAL-007",
+      "path": "tests/test_review35_contact_conditioning.py and four related contract test modules",
+      "finding": "63 selected contact, tree, input, system-learning and scientific-validation tests passed in pytorch312-lmdt; pytest cache creation emitted a Windows permission warning."
+    }
+  ],
+  "admission": {
+    "scnet_platform_capability_confirmed": true,
+    "existing_completed_lsdyna_run_confirmed": true,
+    "existing_running_lsdyna_run_confirmed": true,
+    "input_deck_matches_local_uav_project": "not_established",
+    "part_to_component_mapping_available": false,
+    "field_or_component_qoi_retrieved": false,
+    "numerical_quality_admission": false,
+    "parameter_calibration_completed": false,
+    "kmfc_calibration_completed": false,
+    "physical_validity": "not_established",
+    "new_paid_job_submitted_by_this_review": false
+  }
+}

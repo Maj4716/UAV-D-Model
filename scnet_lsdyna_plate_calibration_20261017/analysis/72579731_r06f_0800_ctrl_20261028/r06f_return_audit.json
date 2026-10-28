@@ -1,0 +1,238 @@
+{
+  "schema_version": "hf-p0-r06f-return-audit@1.0.0",
+  "audit_date": "2026-10-28",
+  "source_evidence": {
+    "directory": "D:/Desktop/UAV新/uav_hf_r06f_0800_ctrl",
+    "evidence_policy": "read_only_immutable",
+    "file_count_including_downloaded_file_tree": 1093,
+    "total_bytes": 2824683203,
+    "platform_job_id": "72579731",
+    "job_id": "r06f_0800_ctrl",
+    "package_revision": "R06_measurement_contract_repair_20261027",
+    "deck_sha256": "sha256:111911562b703b8af1e96810b08edd8c31fbeea739ddddd2921b8bcd07c517af",
+    "submission_zip_sha256": "sha256:8d9735ca52a29a336379827bdff5b5b20dd29a3ae75887f4f38ac6fdfce112b3",
+    "solver_build": "LS-DYNA MPP double R15.0.2-1-g1e7cfa42b1 I8R8 Intel-MPI 2018"
+  },
+  "execution": {
+    "input_identity": "pass",
+    "license_checkout": "pass",
+    "normal_termination": true,
+    "rank_log_count": 512,
+    "normal_termination_rank_count": 512,
+    "stderr_size_bytes": 0,
+    "cycle_count": 2845,
+    "elapsed_seconds": 1136,
+    "start_time": "2026-10-27 19:39:19",
+    "end_time": "2026-10-27 19:58:15",
+    "scheduler_exit_code_record": null,
+    "scheduler_exit_code_reason": "No separate sacct/ExitCode record was returned; mpirun success is inferred from the wrapper reaching and recording its end time.",
+    "numbered_error_count": 0,
+    "warning_30364_rank_occurrences": 512,
+    "negative_volume_event_count": 66,
+    "negative_volume_unique_element_count": 66,
+    "negative_volume_by_part": {
+      "plate_pid_1002": 26,
+      "fragment_pid_2002": 40
+    },
+    "first_negative_volume_time_ms": 0.0032354,
+    "last_negative_volume_time_ms": 0.012784,
+    "dt2ms": 0.0,
+    "parts_with_added_mass": 0
+  },
+  "resource_identity": {
+    "status": "fail",
+    "frozen": {
+      "nodes": 1,
+      "ranks": 32,
+      "ranks_per_node": 32
+    },
+    "observed": {
+      "nodes": 16,
+      "ranks": 512,
+      "ranks_per_node": 32
+    },
+    "evidence": [
+      "job_LS_DYNA_20261027193518338_650252.slurm uses -N 16 and --ntasks-per-node=32",
+      "job_portal_20261027193518338_650252.var records GAP_NNODE=16 and GAP_PPN=32",
+      "job log executes mpirun -np 512",
+      "512 mes files and 512 rank-partitioned restart dumps were returned"
+    ],
+    "consequence": "The run is not a resource-matched repeatability recanary against Job 72397333."
+  },
+  "returned_outputs": {
+    "d3plot": {
+      "file_count": 14,
+      "total_bytes": 1699008512,
+      "state_count": 402,
+      "last_time_ms": 0.04000230296300135,
+      "readability": "pass"
+    },
+    "d3part": {
+      "file_count": 3,
+      "total_bytes": 121683968,
+      "state_count": 802,
+      "last_time_ms": 0.04000230296300135,
+      "readability": "pass"
+    },
+    "binout": {
+      "file_count": 2,
+      "total_bytes": 194578849,
+      "readability": "pass",
+      "logical_databases": [
+        "JOBINFO",
+        "glstat",
+        "matsum",
+        "ncforc",
+        "sleout",
+        "nodout"
+      ]
+    },
+    "glstat": {
+      "size_bytes": 892460,
+      "record_count": 801,
+      "minimum_total_energy_ratio": 0.955775,
+      "maximum_total_energy_ratio": 1.00268,
+      "maximum_absolute_hourglass_energy": 0.0,
+      "final_eroded_energy_fraction_of_initial": 0.06075546875
+    }
+  },
+  "measurement_contract": {
+    "status": "pass_with_adapter_gap",
+    "d3part_history": {
+      "shape": [
+        802,
+        686,
+        1,
+        7
+      ],
+      "hvar6_zero_based_index": 5,
+      "alive_hvar6_status": "available",
+      "alive_hvar6_minimum": 0.0,
+      "alive_hvar6_maximum": 0.7305407248005301,
+      "alive_hvar6_invalid_count": 0,
+      "channel_4_sentinel": -1e30
+    },
+    "d3part_full_d3plot_crosscheck": {
+      "shared_state_count": 402,
+      "fragment_element_id_count": 686,
+      "alive_value_comparison_count": 251657,
+      "maximum_absolute_difference_all_7_channels": 0.0,
+      "alive_mask_mismatch_count": 0,
+      "time_mismatch_count": 0
+    },
+    "full_d3plot_hvar6": {
+      "status": "available",
+      "state_count": 402,
+      "solid_count": 20902,
+      "invalid_alive_value_count": 0,
+      "plate_maximum": 0.5903131560472147,
+      "fragment_maximum": 0.7305407248005301
+    },
+    "ncforc": {
+      "status": "available_ragged_pending_semantic_validation",
+      "path": "ncforc/surfa_1",
+      "state_count": 801,
+      "minimum_nodes_per_state": 3365,
+      "maximum_nodes_per_state": 3432,
+      "union_node_count": 3519,
+      "all_state_intersection_node_count": 3284,
+      "node_count_change_count": 51,
+      "all_ids_unique_per_state": true,
+      "all_coordinates_forces_pressure_finite": true,
+      "raw_model_unit_ranges": {
+        "pressure": [-2.43283, 32.28997],
+        "x_force": [-2.64423, 1.71626],
+        "y_force": [-1.96796, 1.70007],
+        "z_force": [-6.41358, 6.63127]
+      },
+      "claim_boundary": "Units, sign convention, contact-side mapping, impulse and energy closure are not yet validated."
+    },
+    "sleout": {
+      "status": "available_in_binout",
+      "direct_contact_substitute": false
+    },
+    "intfor": {
+      "status": "not_requested_under_r06f_contract",
+      "value": null,
+      "missing_is_zero": false
+    },
+    "adapter_gap": {
+      "affected_output": "r06f_single_job_analysis.json/direct_contact_outputs",
+      "cause": "r06_single_job_adapter.py passes an empty BINOUT inventory and does not read ragged NCFORC states",
+      "invalidated_claims": [
+        "NCFORC unavailable",
+        "SLEOUT missing",
+        "INTFOR missing unexplained"
+      ],
+      "unaffected_sections": [
+        "capture",
+        "mat015_hvar6"
+      ]
+    }
+  },
+  "diagnostic_response": {
+    "primary_qoi_available": false,
+    "unavailable_reasons": [
+      "deleted_upstream_mass",
+      "unstable_tail_qM",
+      "unstable_tail_qP",
+      "unstable_tail_qE"
+    ],
+    "diagnostic_values_before_availability_gate": {
+      "qM": 0.8381924125847757,
+      "qP": 0.5330038606276974,
+      "qE": 0.33897703145907443,
+      "qV_over_v0": 0.6358967853026096
+    },
+    "deleted_upstream_mass_fraction": 0.1049562674256438,
+    "tail_window": {
+      "increment_qM": 0.17638483826930254,
+      "increment_qP": 0.11206073155627228,
+      "increment_qE": 0.07120039821447441,
+      "qV_relative_range": 0.0003539000342746221
+    }
+  },
+  "exploratory_comparison_to_job_72397333": {
+    "formal_use": "invalid_due_to_resource_identity_mismatch",
+    "qM_absolute_difference": 0.03498542241522429,
+    "qP_absolute_difference": 0.028303594372302565,
+    "qE_absolute_difference": 0.021898259540925558,
+    "qV_relative_difference": 0.01078994,
+    "frozen_tolerances": {
+      "qM_qP_qE_absolute_max": 0.01,
+      "qV_relative_max": 0.05
+    },
+    "exploratory_gate_results": {
+      "qM": "fail",
+      "qP": "fail",
+      "qE": "fail",
+      "qV": "pass"
+    },
+    "interpretation": "The differences are confounded by changing the MPP decomposition from 32 to 512 ranks and cannot be attributed to physics or the measurement-card revision."
+  },
+  "decision": {
+    "solver_parser_runtime": "pass",
+    "input_identity": "pass",
+    "measurement_channel_repair": "pass",
+    "resource_identity": "fail",
+    "formal_primary_qoi": "unavailable",
+    "frozen_wave0_repeatability": "invalid_and_exploratory_fail",
+    "classification": "successful_solver_run_but_resource_confounded_invalid_recanary",
+    "release_r06f_0800_tssfac04": false,
+    "release_r06f_2000_ctrl": false,
+    "release_treatments": false,
+    "p0_response_calibration": "denied",
+    "p1_submission": "denied",
+    "engine_fitting": "denied",
+    "dataset_reference_promotion": "denied"
+  },
+  "recommended_next_sequence": [
+    "Preserve Job 72579731 as a 512-rank exploratory output-contract and decomposition-sensitivity record; do not relabel it as a clean recanary.",
+    "Repair the single-job adapter to inventory BINOUT, represent INTFOR as not requested by the R06f contract, and read ragged NCFORC while preserving per-state node IDs.",
+    "Resubmit the byte-identical R06f 800 m/s control package in a fresh work directory using exactly 1 node and 32 total MPP ranks.",
+    "Before allowing the corrected run to continue, verify the generated scheduler evidence says -N 1, 32 tasks per node, 32 total cores and mpirun -np 32.",
+    "Audit the corrected return against Job 72397333 using the frozen qM/qP/qE absolute 0.01 and qV relative 0.05 tolerances plus normal termination, run integrity and output readability.",
+    "Only if the corrected recanary passes, generate and submit the single-factor 800 m/s TSSFAC=0.4 diagnostic. Hold 2000 m/s and all treatments until the timestep gate also passes."
+  ],
+  "claim_boundary": "This audit establishes returned-evidence, solver/runtime, resource identity, reader capability and diagnostic-response facts. It does not establish material truth, physical validity, formal P0/P1 admission, engine calibration or dataset-label admission."
+}

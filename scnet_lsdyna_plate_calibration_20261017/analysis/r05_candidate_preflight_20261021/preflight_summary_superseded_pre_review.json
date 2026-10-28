@@ -1,0 +1,73 @@
+{
+  "schema_version": "hf-p0-r05-preflight@1.0.0",
+  "date": "2026-10-21",
+  "package_revision": "R05_capture_ledger_preregistered",
+  "status": "prepared_not_submitted_not_solver_validated",
+  "source_evidence": {
+    "parent_job_id": "72095164",
+    "parent_revision": "R04_full_keyword_type_contract",
+    "parent_response_admission": "denied"
+  },
+  "repair_scope": [
+    "lower-speed transition bracketing",
+    "fragment-only high-rate D3PART output",
+    "initial-reference-mass capture ledger",
+    "pre-registered availability and numerical qualification gates",
+    "immutable generation and explicit-whitelist packaging"
+  ],
+  "unchanged_scope": [
+    "material parameters",
+    "equation of state",
+    "contact controls",
+    "solid formulation",
+    "geometry",
+    "P1 design and status",
+    "local engine",
+    "dataset generator",
+    "training data and sealed Test"
+  ],
+  "candidate": {
+    "directory": "manual_upload_20261021_r05_candidate",
+    "deck_size_bytes": 20605206,
+    "deck_sha256": "sha256:6fbd753a113d0214e7ba4ff5136dc526d151e6f2c52c94e70399b29c4b9d3d0c",
+    "case_map_sha256": "sha256:b05b59249e49c3e9d15904f475c2f9478bdff1638fb797d1b552298490aa5295",
+    "design_sha256": "sha256:0af7a0fe4b9cf868129ea1f98306fe99ef4e772ae9978d799bf49a99fea22875",
+    "static_validation_sha256": "sha256:fa719acd0d1365ecbaa2c96a8758755a45c877452011d58e4cfdf4b0bf53d8bb",
+    "static_validation": "pass"
+  },
+  "bundle": {
+    "path": "artifacts/uav_hf_p0_plate_r05_candidate.zip",
+    "size_bytes": 3159004,
+    "sha256": "sha256:4b2dd994f72549a8dfd8e567292b3a4dfc94646552e91c784ab4a4be8e143bee",
+    "entry_count": 9,
+    "zip_integrity": "pass",
+    "embedded_hash_verification": "pass"
+  },
+  "verification": {
+    "static_checks": "pass",
+    "unittest_count": 20,
+    "unittest_status": "pass",
+    "keyword_format_selftest": "pass",
+    "postprocessor_selftest": "pass_after_workspace_temp_override",
+    "deterministic_regeneration": "pass",
+    "overwrite_refusal": "pass",
+    "tamper_detection": "pass",
+    "r04_preservation": "pass"
+  },
+  "r04_preserved_sha256": {
+    "manual_upload_20261021_r04/p0_velocity_mesh_calibration.k": "312f2ce1c42dd070097dad1036d1d670790704c55c5b534a3b845a0709709e08",
+    "manual_upload_20261021_r04/p0_case_part_map.csv": "7ef72a22eec38691a8662e0efff4d0e8ca5aeaa5757720ac8958ce2dfd1e453a",
+    "manual_upload_20261021_r04/manifest.json": "8e767187759cc47b4dd837dd3b9b6908abc85bc7a986bd6fcaaddee30e937220",
+    "manual_upload_20261021_r04/static_validation.json": "11d0facf716df33373cbd39e0cd3d4072704e3bc2f6c0b9e0cd952aeb4feacc1",
+    "design/p0_cases.json": "805916aa97986bb7fbe29d6a2a43d039ac18f6a587cd56d26e37bceb0bc04348"
+  },
+  "acceptance_boundary": {
+    "ls_dyna_parser_runtime": "pending",
+    "d3part_readability": "pending",
+    "capture_qoi_availability": "pending",
+    "numerical_response_qualification": "pending",
+    "physical_validation": "not_established",
+    "p0_response_calibration_admission": "denied_pending_r05_results",
+    "p1_submission_admission": "denied"
+  }
+}

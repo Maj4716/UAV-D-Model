@@ -1,0 +1,63 @@
+{
+  "all_s_contact_admitted": true,
+  "approach_counts": {
+    "bottom_up_pos_z": 3,
+    "front_to_rear_neg_y": 3,
+    "left_to_right_pos_x": 3,
+    "rear_to_front_pos_y": 3,
+    "right_to_left_neg_x": 3,
+    "top_down_neg_z": 3
+  },
+  "archive_model_input_shape": [
+    18,
+    15
+  ],
+  "archive_receipt_audit_overrides": [],
+  "archive_receipt_committed_file_count": 11,
+  "archive_receipt_identity_hash": "sha256:0d17b87838f4dcfb84713e52736d04eb1b1cfe217d4cf06b5a682862b7071560",
+  "archive_receipt_reverified_after_tests": true,
+  "archive_receipt_reverified_after_torch_open": true,
+  "archive_receipt_verified": true,
+  "candidate_count": 18,
+  "distinct_body_y_axes": 18,
+  "engine_code_hash": "sha256:8866e874dd6bc306e6c087251312a53d6f6681dbb6c5e7da6fd2bed32412e00a",
+  "engine_configuration_hash": "sha256:9e38d58b3a9e22c4d991fa889ad8945ad42700c0db1deb4b4984a2c4c781de66",
+  "evidence_boundary": "software contract smoke only; not physical validation or operational prevalence evidence",
+  "formal_case_count": 18,
+  "latent_shape": [
+    18,
+    7
+  ],
+  "manifest_engine_code_hash": "sha256:8866e874dd6bc306e6c087251312a53d6f6681dbb6c5e7da6fd2bed32412e00a",
+  "manifest_hash": "sha256:c39f0aeafa828df357ac1c6bd72ce5e4ff630db4e473b417a3ca5d36e8c075e2",
+  "minimum_body_x_velocity_cosine": 1.0,
+  "model_input_tensor": "loitering_impact_contact_pose_x",
+  "rejected_noncontact_count": 4,
+  "rejected_teacher_executed_values": [
+    false
+  ],
+  "rejection_candidate_count": 22,
+  "rejection_checkpoint_relative_path": "rejection_checkpoint",
+  "rejection_checkpoint_verified": true,
+  "rejection_codes": {
+    "no_forward_armor_intersection": 4
+  },
+  "rejection_formal_case_count": 18,
+  "sampling_spec_hash": "sha256:f384a87540debba6eedcf28092e5f7a5c4912e5571fe982e1ede0427ead01b88",
+  "schema_tree_hash": "sha256:0a01427792877f5e7d767c93c2a38ed2ef371df35304bb96c41a0a1065d546b7",
+  "schema_version": "1.1.0",
+  "smoke_archive_relative_path": "smoke_archive",
+  "targeted_test_count": 47,
+  "targeted_test_exit_code": 0,
+  "targeted_test_log_hash": "sha256:751ff3d96214c7532a373422c175a7da2b266a8b1725bab148b5c5269e50c264",
+  "targeted_test_log_relative_path": "targeted_test.log",
+  "targeted_test_status": "passed",
+  "torch_loader_verified": true,
+  "torch_sample_model_input_shape": [
+    15
+  ],
+  "training_design_hash": "sha256:627c09d4d0b5644daebf99e11b93aa8b2718996f18cdad24126606e02fc31481",
+  "training_input_shape": [
+    15
+  ]
+}

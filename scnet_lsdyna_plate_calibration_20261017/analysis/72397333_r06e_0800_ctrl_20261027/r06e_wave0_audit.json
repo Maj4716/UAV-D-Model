@@ -1,0 +1,182 @@
+{
+  "schema_version": "hf-p0-r06e-wave0-return-audit@1.0.0",
+  "audit_date": "2026-10-27",
+  "source_evidence": {
+    "directory": "D:/Desktop/UAV新/06",
+    "evidence_policy": "read_only_immutable",
+    "file_count": 113,
+    "total_bytes": 1932839917,
+    "platform_job_id": "72397333",
+    "job_id": "r06e_0800_ctrl",
+    "package_revision": "R06_keyword_parser_repair_20261025",
+    "deck_sha256": "sha256:47c5fcacbec9ba3edac10d06611b6ba602f58a135b27b62d968290334a763a70",
+    "solver_build": "LS-DYNA MPP double R15.0.2-1-g1e7cfa42b1 I8R8 Intel-MPI 2018"
+  },
+  "execution": {
+    "identity_and_manifest": "pass",
+    "keyword_parser_repair": "pass",
+    "keyword_error_counts": {
+      "KEY+246": 0,
+      "KEY+450": 0,
+      "KEY+133": 0,
+      "KEY+457": 0,
+      "other_numbered_errors": 0
+    },
+    "license_checkout": "pass",
+    "requested_ranks": 32,
+    "normal_termination_rank_count": 32,
+    "final_problem_time_ms": 0.040005,
+    "final_cycle": 2863,
+    "normal_termination": true,
+    "stderr_size_bytes": 0,
+    "energy_ratio_minimum": 0.957156,
+    "energy_ratio_maximum": 1.00268,
+    "hourglass_to_peak_internal_energy": 0.0,
+    "added_mass_parts": 0,
+    "dt2ms": 0.0,
+    "run_integrity_status": "pass"
+  },
+  "returned_outputs": {
+    "mes_file_count": 32,
+    "d3plot_file_count": 14,
+    "d3plot_total_bytes": 1699008512,
+    "d3part_file_count": 3,
+    "d3part_total_bytes": 95272960,
+    "binout_file_count": 2,
+    "binout_total_bytes": 3946114,
+    "binout_logical_databases": [
+      "JOBINFO",
+      "glstat",
+      "matsum",
+      "sleout",
+      "nodout"
+    ],
+    "intfor_file_count": 0,
+    "ncforc_file_or_binout_database_count": 0
+  },
+  "measurement_readability": {
+    "d3part": {
+      "status": "pass",
+      "state_count": 802,
+      "first_time_ms": 0.0,
+      "last_time_ms": 0.0400053206304,
+      "node_count": 960,
+      "solid_count": 686,
+      "used_solid_part_ids": [2002],
+      "initial_alive_solid_count": 686,
+      "final_alive_solid_count": 612,
+      "solver_realizable_timeline": "pass",
+      "history_shape": [802, 686, 1, 1],
+      "history_semantics": "the sole D3PART history channel equals full-D3PLOT raw history channel 7 at every shared state and is not MAT_015 JC damage channel 6"
+    },
+    "d3plot": {
+      "status": "pass",
+      "state_count": 402,
+      "first_time_ms": 0.0,
+      "last_time_ms": 0.0400053206304,
+      "node_count": 23775,
+      "solid_count": 20902,
+      "history_shape": [402, 20902, 1, 7],
+      "jc_damage_raw_channel_number": 6,
+      "jc_damage_array_index": 5,
+      "jc_damage_minimum": 0.0,
+      "jc_damage_maximum": 0.7106432313331785,
+      "plate_jc_damage_maximum": 0.5542500914,
+      "fragment_jc_damage_maximum": 0.7106432313331785,
+      "deleted_state_policy": "mask by element_solid_is_alive; post-deletion zero is not damage recovery",
+      "raw_channel_4_policy": "unavailable sentinel -1e30; finite-number tests alone are insufficient"
+    },
+    "intfor": {
+      "status": "unavailable",
+      "reason": "Warning 20340 (STR+340): binary interface force data is unavailable for eroding contact types - interface #1",
+      "missing_is_not_zero": true
+    },
+    "ncforc": {
+      "status": "unavailable",
+      "reason": "no standalone file and no BINOUT logical database was returned",
+      "missing_is_not_zero": true
+    },
+    "sleout_boundary": "interface energy is readable but cannot substitute for direct pressure, gap, penetration, or nodal interface force"
+  },
+  "diagnostic_response": {
+    "qualification_use_forbidden": true,
+    "primary_qoi_available": false,
+    "unavailable_reasons": [
+      "deleted_upstream_mass",
+      "unstable_tail_qM",
+      "unstable_tail_qP",
+      "unstable_tail_qE"
+    ],
+    "diagnostic_values_before_availability_gate": {
+      "qM": 0.873177835,
+      "qP": 0.561307455,
+      "qE": 0.360875291,
+      "qV_over_v0": 0.642832917,
+      "qV_mps": 514.2663336
+    },
+    "mass_fraction_by_ledger_state": {
+      "alive_crossed": 0.873177835,
+      "alive_upstream": 0.018950437,
+      "deleted_upstream": 0.107871719,
+      "deleted_after_crossing": 0.0,
+      "temporal_ambiguity": 0.0
+    },
+    "tail_window": {
+      "start_time_ms": 0.03600479,
+      "increment_qM": 0.195335275,
+      "increment_qP": 0.12542763,
+      "increment_qE": 0.080547161,
+      "qV_relative_range": 0.000612778
+    },
+    "failure_events": {
+      "unique_total": 107,
+      "plate_negative_volume": 23,
+      "plate_other_solid_failure": 10,
+      "fragment_negative_volume": 43,
+      "fragment_other_solid_failure": 31,
+      "first_failure_element_id": 39675,
+      "first_failure_part": "plate",
+      "first_failure_type": "negative_volume",
+      "first_failure_time_ms": 0.0032354,
+      "last_failure_time_ms": 0.023074
+    }
+  },
+  "r05_same_case_comparison": {
+    "r05_job_id": "72252362",
+    "r05_case_id": "p0_v0800_h0p75",
+    "both_formal_status": "unavailable",
+    "r05_diagnostic_qM": 0.026239067301984945,
+    "r06e_diagnostic_qM": 0.873177835,
+    "r05_deleted_upstream_mass_fraction": 0.19825072619906742,
+    "r06e_deleted_upstream_mass_fraction": 0.107871719,
+    "r05_unique_failure_events": 155,
+    "r06e_unique_failure_events": 107,
+    "approximate_second_half_median_time_step_ms": {
+      "r05_multicase": 0.000006343,
+      "r06e_single_case": 0.00001223
+    },
+    "decision": "the isolated R06e control does not reproduce the historical R05 multicase trajectory; timestep and MPP/contact-decomposition sensitivity are unresolved numerical confounders"
+  },
+  "frozen_gate_decision": {
+    "parser_runtime_canary": "pass",
+    "normal_termination": "pass",
+    "run_integrity": "pass",
+    "d3part_readability": "pass",
+    "intfor_readability": "fail_unavailable",
+    "wave_0_status_under_frozen_r06e_design": "fail_hold",
+    "release_r06e_2000_ctrl": false,
+    "p0_response_calibration": "denied",
+    "p1_submission": "denied",
+    "engine_fitting": "denied",
+    "dataset_reference_promotion": "denied"
+  },
+  "recommended_next_sequence": [
+    "Freeze Job 72397333 as a successful parser/runtime canary and a failed frozen output gate; do not rewrite the R06e outcome.",
+    "Create a prospective R06f measurement contract: direct INTFOR/NCFORC are explicit unavailable for eroding contact, SLEOUT remains energy-only, D3PART is the capture ledger source, and full D3PLOT raw history channel 6 is the MAT_015 damage source.",
+    "Add and validate an R06 single-job adapter that reads D3PLOT history variables, masks deleted states, and never maps missing direct-contact data or sentinels to zero.",
+    "Generate one R06f 800 m/s control recanary with unchanged physics and versioned output cards; compare it against Job 72397333 using the frozen qM/qP/qE and qV tolerances.",
+    "Before releasing 2000 m/s, run one 800 m/s no-mass-scaling timestep sensitivity at TSSFAC=0.4. If it fails the preregistered numerical comparison tolerances, stop and repair numerical robustness.",
+    "Only after the revised Wave 0 and timestep gate pass, submit the 2000 m/s control; submit the two treatments only after both controls pass."
+  ],
+  "claim_boundary": "This audit establishes returned-evidence, parser/runtime, readability, and diagnostic response facts. It does not establish material truth, physical validity, P0/P1 admission, engine calibration, or dataset-label admission."
+}

@@ -1,0 +1,107 @@
+{
+  "review_date": "2026-10-15",
+  "scope": "label availability, input identity and declared-role counts only; no outcome-versus-input analysis or effect optimization",
+  "python": "D:\\ProgramData\\Anaconda\\envs\\pytorch312-lmdt\\python.exe",
+  "dataset_id": "damage-dataset-fb1af45b41880da2e8ef368a",
+  "manifest_hash": "sha256:f8702b39623fc53c9a2334cf728263af2d261fe4a8ef19eaf713bf04c32cb4c4",
+  "case_count": 5000,
+  "unique_case_count": 5000,
+  "split_role_counts": {
+    "validation": {
+      "reference_validation": 500
+    },
+    "test": {
+      "reference_test": 1500
+    },
+    "train": {
+      "reference_train": 3000
+    }
+  },
+  "label_storage_summaries": {
+    "component": {
+      "all_positions": 2010000,
+      "available_positions": 670000,
+      "unavailable_positions": 1340000,
+      "available_exact_zero": 661774,
+      "available_nonfinite": 0,
+      "unavailable_zero_placeholders": 1331774,
+      "uncertainty_estimable_positions": 670000,
+      "uncertainty_on_unavailable": 0
+    },
+    "component_frechet": {
+      "all_positions": 1340000,
+      "available_positions": 0,
+      "unavailable_positions": 1340000,
+      "available_exact_zero": 0,
+      "available_nonfinite": 0,
+      "unavailable_zero_placeholders": 1323548,
+      "uncertainty_estimable_positions": 0,
+      "uncertainty_on_unavailable": 0
+    },
+    "component_aux": {
+      "all_positions": 4690000,
+      "available_positions": 1675000,
+      "unavailable_positions": 3015000,
+      "available_exact_zero": 1654435,
+      "available_nonfinite": 0,
+      "unavailable_zero_placeholders": 3015000,
+      "uncertainty_estimable_positions": 1675000,
+      "uncertainty_on_unavailable": 0
+    },
+    "armor": {
+      "all_positions": 130000,
+      "available_positions": 20000,
+      "unavailable_positions": 110000,
+      "available_exact_zero": 0,
+      "available_nonfinite": 0,
+      "unavailable_zero_placeholders": 90000,
+      "uncertainty_estimable_positions": 20000,
+      "uncertainty_on_unavailable": 0
+    },
+    "system": {
+      "all_positions": 35000,
+      "available_positions": 35000,
+      "unavailable_positions": 0,
+      "available_exact_zero": 32206,
+      "available_nonfinite": 0,
+      "unavailable_zero_placeholders": 0,
+      "uncertainty_estimable_positions": 35000,
+      "uncertainty_on_unavailable": 0
+    }
+  },
+  "system_axis_size": 7,
+  "system_train_constant_zero_column_indices": [
+    1,
+    3,
+    5,
+    6
+  ],
+  "system_train_no_available_column_indices": [],
+  "model_input": {
+    "tensor_field": "loitering_impact_x",
+    "shape": [
+      5000,
+      6
+    ],
+    "available_positions": 30000,
+    "available_nonfinite": 0,
+    "constant_columns_among_available": 0,
+    "unique_content_fingerprints": 5000,
+    "duplicate_input_fingerprints": 0,
+    "fingerprints_crossing_splits": 0,
+    "fingerprint_precision_boundary": "archived float32 values plus availability mask; exact equality only"
+  },
+  "replicate_count_histogram": {
+    "2": 5000
+  },
+  "sampling_weight_mask_counts": {
+    "True": 5000
+  },
+  "excluded_analyses": [
+    "attack-condition comparisons",
+    "physical causes of zero outcomes",
+    "resampling for effect improvement",
+    "model fitting"
+  ],
+  "real_world_reference_available": false
+}

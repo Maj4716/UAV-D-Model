@@ -1,0 +1,21 @@
+{
+  "schema_version": "hf-p0-r06e-wave0-analysis-manifest@1.0.0",
+  "analysis_date": "2026-10-27",
+  "source_directory": "D:/Desktop/UAV新/06",
+  "source_policy": "read_only_immutable",
+  "artifacts": [
+    {
+      "path": "r06e_wave0_audit.json",
+      "sha256": "sha256:4cf663e1f1db090651dc79cd7dc78d07cd2372761882e618147beefc5b0b808d"
+    },
+    {
+      "path": "worklog.md",
+      "sha256": "sha256:faae4ab743a0f7cdb587992616f8dd56688bdb46c02f7637e8c27a137b8a3738"
+    },
+    {
+      "path": "../../../55_SCNet_P0_R06e_0800_ctrl_Job72397333回传审查与R06f下一步计划_2026-10-27.md",
+      "sha256": "sha256:0f261564e11316e916fa164425a9c1ac253f0080caddba9784e465c9e7958cd6"
+    }
+  ],
+  "claim_boundary": "Manifest binds analysis artifacts only; it does not hash every raw return file or establish numerical, physical, or admission validity."
+}

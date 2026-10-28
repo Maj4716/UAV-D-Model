@@ -1,0 +1,2 @@
+job_id,experiment_id,role,case_id,source_r05_index,plate_part_id,fragment_part_id,fragment_center_history_node_id,impact_speed_mps,mesh_mm,plate_elements,fragment_elements,symmetry_scale_factor,capture_plane_z_mm,fragment_initial_reference_mass_kg,termination_time_ms,psfail_part_set_id,primary_qoi_source
+r06e_2000_psfail_plate,r06_diag_2000_psfail,single_factor_treatment,p0_v2000_h0p75,5,1005,2005,118364,2000.0,0.75,20216,686,4.0,-12.0,0.002,0.04,910001,d3part_fragment_set

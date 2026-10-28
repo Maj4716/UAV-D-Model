@@ -1,0 +1,49 @@
+{
+  "schema_version": "hf-p0-r06-job-manifest@1.0.0",
+  "package_revision": "R06_timestep_refinement_20261028",
+  "job_id": "r06g_0800_tssfac02",
+  "status": "generated_not_solver_validated",
+  "evidence_class": "high_fidelity_synthetic_diagnostic_candidate",
+  "deck": {
+    "path": "r06g_0800_tssfac02.k",
+    "size_bytes": 2557651,
+    "sha256": "sha256:b5f4da367e9ef6eaae7098e47a84610eb55c51760cc9bf8dbb4721693b7a732a",
+    "node_count": 23775,
+    "element_count": 20902,
+    "node_id_span": [
+      23776,
+      47550
+    ],
+    "element_id_span": [
+      20903,
+      41804
+    ]
+  },
+  "design": {
+    "path": "p0_r06g_timestep_refinement_design.json",
+    "sha256": "sha256:f38539285164c4955b52ab692109bd3952c02eeb279ec88cdfa743139cc90de2"
+  },
+  "material": {
+    "path": "jc4340_reference.json",
+    "sha256": "sha256:9b462b920459e57641d5f89d10d36c0aa0498c86f2478fef8e4c3efa96888311"
+  },
+  "successor_contract": {
+    "path": "p0_r06g_timestep_output_contract.json",
+    "sha256": "sha256:8c2ada9502bc8088ac1de1513bf81b4b23963e4142fdcea6e87b7b9b7bb13831",
+    "historical_status_preserved": "frozen_after_r06f_tssfac04_sensitivity_fail_before_tssfac02_outcome"
+  },
+  "case_map": {
+    "path": "p0_case_part_map.csv",
+    "sha256": "sha256:0d22e1c745b561dfb10b703341dad05e116c418340300b471dd3536949281f46"
+  },
+  "job_contract": {
+    "path": "job_contract.json",
+    "sha256": "sha256:622d7e49755cd23ca806788d3f3f414c126c68113b4f2d74b188e11e03467971"
+  },
+  "limitations": [
+    "Job 72630855 ran successfully but failed the frozen 0.8-versus-0.4 timestep-sensitivity gate.",
+    "This package changes only TSSFAC from 0.4 to 0.2 and keeps DT2MS=0.",
+    "A null qV is not zero and is only a convergence non-applicable case when both runs have zero confirmed crossing mass.",
+    "Static PASS and normal termination do not establish timestep convergence, physical validity, P0/P1 admission, engine fitting, or dataset-label admission."
+  ]
+}

@@ -1,0 +1,106 @@
+{
+  "schema_version": "hf-p0-r05-preflight@1.1.0",
+  "date": "2026-10-21",
+  "package_revision": "R05_capture_ledger_preregistered",
+  "status": "prepared_not_submitted_not_solver_validated",
+  "source_evidence": {
+    "parent_job_id": "72095164",
+    "parent_revision": "R04_full_keyword_type_contract",
+    "parent_response_admission": "denied"
+  },
+  "repair_scope": [
+    "lower-speed transition bracketing",
+    "fragment-only high-rate D3PART output",
+    "identity-bound expected-reference-mass capture ledger",
+    "strict D3PART binary adapter",
+    "pre-registered availability and numerical qualification gates",
+    "immutable generation and live-revalidated explicit-whitelist packaging"
+  ],
+  "unchanged_scope": [
+    "R04 authoritative package and returned solver evidence",
+    "material parameters",
+    "equation of state",
+    "contact controls",
+    "solid formulation",
+    "P1 design and denied status",
+    "local engine",
+    "dataset generator",
+    "training data and sealed Test"
+  ],
+  "candidate": {
+    "directory": "manual_upload_20261021_r05_candidate",
+    "deck_size_bytes": 20605206,
+    "deck_sha256": "sha256:6fbd753a113d0214e7ba4ff5136dc526d151e6f2c52c94e70399b29c4b9d3d0c",
+    "design_size_bytes": 9615,
+    "design_raw_sha256": "sha256:b1d2027d57fc6d9cd1ee3f932ea044fd16a112344d8f2b6f508071f45191a06f",
+    "design_canonical_json_sha256": "sha256:85b35f1a23ac0b822d0ce65fd9232327c9e566e5cfdddb080814e01414ebdf97",
+    "case_map_size_bytes": 1135,
+    "case_map_sha256": "sha256:b05b59249e49c3e9d15904f475c2f9478bdff1638fb797d1b552298490aa5295",
+    "package_manifest_size_bytes": 5054,
+    "package_manifest_sha256": "sha256:e178b6c28832519aaa2befdc969dcd93d2141ea4073ad740b52b17968d92ba44",
+    "upload_readme_size_bytes": 2748,
+    "upload_readme_sha256": "sha256:2e873f731308fa2027b06184c658a31fe31dabe3d084ac0abe7c0159083deb8d",
+    "static_validation_size_bytes": 5633,
+    "static_validation_sha256": "sha256:491753050734ba46ded5460221e35a70e37bbccd179b6b172d753bfc18c8b17e",
+    "static_validation": "pass"
+  },
+  "bundle": {
+    "path": "artifacts/uav_hf_p0_plate_r05_candidate.zip",
+    "size_bytes": 3160411,
+    "sha256": "sha256:4d52697f1ea2c3f56cc7aea1c6753b49a95764e72c16a3fe141c5f5ecfb86372",
+    "external_manifest_path": "artifacts/uav_hf_p0_plate_r05_candidate.manifest.json",
+    "external_manifest_size_bytes": 1932,
+    "external_manifest_sha256": "sha256:50cd85708f83bacc15260ffa874d369eb1ace8e851b4d90e26ef1e4aa44ca3cd",
+    "entry_count": 9,
+    "candidate_file_count": 8,
+    "embedded_manifest": "candidate_bundle_manifest.json",
+    "zip_integrity": "pass",
+    "exact_whitelist": "pass",
+    "embedded_hash_verification": "pass",
+    "external_bundle_identity": "pass"
+  },
+  "verification": {
+    "static_checks": "pass",
+    "r05_unittest_count": 50,
+    "r05_unittest_status": "pass",
+    "r05_unittest_elapsed_seconds": 46.927,
+    "py_compile": "pass",
+    "keyword_format_selftest": "pass",
+    "postprocessor_selftest": "pass_after_workspace_temp_override",
+    "deterministic_regeneration": "pass",
+    "overwrite_refusal": "pass",
+    "semantic_and_identity_tamper_detection": "pass",
+    "stale_static_pass_rejection": "pass",
+    "synthetic_d3part_adapter_tests": "10_of_10_pass",
+    "synthetic_adapter_to_assessor_interoperability": "pass",
+    "real_r05_d3part_integration": "unverified_until_real_r05_d3part",
+    "r04_preservation": "pass"
+  },
+  "r04_preserved_sha256": {
+    "manual_upload_20261021_r04/p0_velocity_mesh_calibration.k": "312f2ce1c42dd070097dad1036d1d670790704c55c5b534a3b845a0709709e08",
+    "manual_upload_20261021_r04/p0_case_part_map.csv": "7ef72a22eec38691a8662e0efff4d0e8ca5aeaa5757720ac8958ce2dfd1e453a",
+    "manual_upload_20261021_r04/manifest.json": "8e767187759cc47b4dd837dd3b9b6908abc85bc7a986bd6fcaaddee30e937220",
+    "manual_upload_20261021_r04/static_validation.json": "11d0facf716df33373cbd39e0cd3d4072704e3bc2f6c0b9e0cd952aeb4feacc1",
+    "design/p0_cases.json": "805916aa97986bb7fbe29d6a2a43d039ac18f6a587cd56d26e37bceb0bc04348"
+  },
+  "superseded_evidence": {
+    "pre_review_revision": {
+      "candidate_directory": "analysis/r05_candidate_preflight_20261021/superseded_pre_review_candidate",
+      "bundle_directory": "analysis/r05_candidate_preflight_20261021/superseded_pre_review_bundle",
+      "reason": "withdrawn before submission after independent review found fail-open and stale-validation risks"
+    },
+    "pre_wording_clarification_revision": {
+      "bundle_directory": "analysis/r05_candidate_preflight_20261021/superseded_before_qv_wording_clarification_bundle",
+      "reason": "retained before clarifying qM/qP/qE normalization and qV=qP/qM wording; deck and numerical contract were unchanged"
+    }
+  },
+  "acceptance_boundary": {
+    "ls_dyna_parser_runtime": "pending",
+    "real_d3part_readability_and_integration": "pending",
+    "capture_qoi_availability": "pending",
+    "numerical_response_qualification": "pending",
+    "physical_validation": "not_established",
+    "p0_response_calibration_admission": "denied_pending_r05_results",
+    "p1_submission_admission": "denied"
+  }
+}

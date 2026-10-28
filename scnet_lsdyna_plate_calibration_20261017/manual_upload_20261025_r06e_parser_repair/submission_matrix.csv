@@ -1,0 +1,5 @@
+wave,job_id,directory,experiment_id,role,speed_mps,mesh_mm,termination_time_ms,psfail_part_set_id,deck
+1,r06e_0800_ctrl,job_01_v0800_control,r06_diag_800_window,paired_control,800.0,0.75,0.04,0,r06e_0800_ctrl.k
+2,r06e_0800_tend008,job_02_v0800_tend_0p08,r06_diag_800_window,single_factor_treatment,800.0,0.75,0.08,0,r06e_0800_tend008.k
+1,r06e_2000_ctrl,job_03_v2000_control,r06_diag_2000_psfail,paired_control,2000.0,0.75,0.04,0,r06e_2000_ctrl.k
+2,r06e_2000_psfail_plate,job_04_v2000_psfail_plate_only,r06_diag_2000_psfail,single_factor_treatment,2000.0,0.75,0.04,910001,r06e_2000_psfail_plate.k

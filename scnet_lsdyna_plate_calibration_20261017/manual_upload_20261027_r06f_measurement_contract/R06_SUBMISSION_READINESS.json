@@ -1,0 +1,191 @@
+{
+  "schema_version": "hf-p0-r06-submission-readiness@1.0.0",
+  "package_revision": "R06_measurement_contract_repair_20261027",
+  "overall_status": "pass",
+  "lifecycle_status": "prepared_not_submitted_not_solver_validated",
+  "job_count": 1,
+  "paired_experiment_count": 1,
+  "checks": {
+    "batch_hash_bindings": {
+      "status": "pass"
+    },
+    "historical_r05_deck_immutable": {
+      "status": "pass",
+      "sha256": "sha256:6fbd753a113d0214e7ba4ff5136dc526d151e6f2c52c94e70399b29c4b9d3d0c"
+    },
+    "single_case_packages": {
+      "status": "pass",
+      "count": 1
+    },
+    "per_job_static_validation": {
+      "status": "pass",
+      "jobs": {
+        "r06f_0800_ctrl": {
+          "schema_version": "hf-p0-r06-static-validation@1.0.0",
+          "package_revision": "R06_measurement_contract_repair_20261027",
+          "job_id": "r06f_0800_ctrl",
+          "overall_status": "pass",
+          "solver_validation_status": "not_run_no_local_lsdyna_executable",
+          "checks": {
+            "keyword_input_format": {
+              "status": "pass",
+              "mode": "long",
+              "active_numeric_width": 20,
+              "numeric_item_count": 306966,
+              "maximum_numeric_item_chars": 16,
+              "standard_width_exceedance_count": 71458
+            },
+            "keyword_schema": {
+              "status": "pass",
+              "keyword_type_count": 31,
+              "keyword_block_count": 39,
+              "extent_binary_cards": 2,
+              "d3part_extent_cards": 2,
+              "intfor_file_cards": 0,
+              "extent_intfor_cards": 0,
+              "ncforc_requested": true
+            },
+            "manifest_and_hashes": {
+              "status": "pass"
+            },
+            "single_case_identity": {
+              "status": "pass",
+              "case_id": "p0_v0800_h0p75"
+            },
+            "immutable_r05_mesh_parity": {
+              "status": "pass",
+              "historical_deck_sha256": "sha256:6fbd753a113d0214e7ba4ff5136dc526d151e6f2c52c94e70399b29c4b9d3d0c",
+              "node_count": 23775,
+              "element_count": 20902
+            },
+            "r06_output_contract": {
+              "status": "pass",
+              "d3part_fields": [
+                "5.000000000e-05",
+                "0",
+                "0",
+                "0",
+                "900001"
+              ],
+              "neiph": 6,
+              "extent_binary_cards": [
+                [
+                  "6",
+                  "0",
+                  "3",
+                  "0",
+                  "1",
+                  "1",
+                  "1",
+                  "1"
+                ],
+                [
+                  "0",
+                  "0",
+                  "0",
+                  "1",
+                  "1",
+                  "1",
+                  "2",
+                  "1"
+                ]
+              ],
+              "extent_d3part_cards": [
+                [
+                  "6",
+                  "0",
+                  "3",
+                  "0",
+                  "1",
+                  "1",
+                  "1",
+                  "1"
+                ],
+                [
+                  "0",
+                  "0",
+                  "0",
+                  "0",
+                  "0",
+                  "0",
+                  "0",
+                  "0"
+                ]
+              ],
+              "contact_print_flags": [
+                1,
+                1
+              ],
+              "binary_intfor_requested": false,
+              "ncforc_requested_best_effort": true,
+              "missing_direct_contact_is_zero": false
+            },
+            "immutable_r06e_physics_parity": {
+              "status": "pass",
+              "parent_deck_sha256": "sha256:47c5fcacbec9ba3edac10d06611b6ba602f58a135b27b62d968290334a763a70",
+              "allowed_difference_scope": "title_and_database_output_blocks_only"
+            },
+            "no_mass_scaling_or_timestep_erosion": {
+              "status": "pass",
+              "dt2ms": 0.0,
+              "erode": 0
+            },
+            "psfail_scope": {
+              "status": "pass",
+              "psfail": 0,
+              "plate_only_set": [
+                1002
+              ]
+            },
+            "resource_identity": {
+              "status": "pass",
+              "nodes": 1,
+              "ranks": 32
+            }
+          },
+          "limitations": [
+            "Static PASS does not establish LS-DYNA parser or runtime acceptance.",
+            "MAT_015 HVAR6 readability and D3PART content remain untested until target-solver return.",
+            "INTFOR is unavailable for the eroding contact; missing NCFORC is nonblocking and never zero.",
+            "This diagnostic job is not an admissible P0 response or training label."
+          ]
+        }
+      }
+    },
+    "paired_single_factor_isolation": {
+      "status": "pass",
+      "pairs": [
+        {
+          "experiment_id": "r06f_recanary_800_measurement_contract",
+          "factor": "measurement_contract_revision_only",
+          "job_id": "r06f_0800_ctrl",
+          "status": "not_applicable_single_recanary"
+        }
+      ]
+    },
+    "wave_order": {
+      "status": "pass",
+      "wave_0": [
+        "r06f_0800_ctrl"
+      ],
+      "wave_0_gate": "Zero KEY errors, normal termination, run-integrity PASS, readable D3PART capture ledger, readable full-D3PLOT HVAR6 with alive masking, and frozen repeatability tolerances.",
+      "hold_after_wave_0": "Do not submit the TSSFAC=0.4 diagnostic, 2000 m/s control, or any treatment until the returned R06f recanary is audited.",
+      "resource_identity": "Use exactly one node, 32 ranks, LS-DYNA R15 MPP double precision, and the same memory settings as Job 72397333."
+    }
+  },
+  "unmet_external_gates": [
+    "target LS-DYNA R15.0.2 keyword parse",
+    "normal solver termination and run-integrity",
+    "real D3PART/full-D3PLOT-HVAR6 readability",
+    "paired response and failure-mechanism analysis",
+    "P0 response admission and independent physical validation"
+  ],
+  "admission": {
+    "r06_diagnostic_submission": "ready_for_user_submission_in_staged_canary",
+    "p0_response_calibration": "denied",
+    "p1_submission": "denied",
+    "local_engine_fitting": "denied",
+    "reference_dataset_generation": "denied",
+    "physical_validity": "not_established"
+  }
+}

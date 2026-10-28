@@ -1,0 +1,26 @@
+{
+  "schema": "returned-run-software-receipt@1.0.0",
+  "job_id": "72095164",
+  "audit_time": "2026-10-21T15:53:49.222983+08:00",
+  "actual_solver_version": "mpp d R15",
+  "actual_solver_revision": "R15.0.2-1-g1e7cfa42b1",
+  "mpi_platform_from_solver_banner": "Intel-MPI 2018 Xeon64",
+  "mpp_ranks": 32,
+  "solver_reported_elapsed_seconds": 58,
+  "wrapper_elapsed_seconds": 74,
+  "cycle_count": 1990,
+  "normal_termination_rank_count": 32,
+  "solver_executable_sha256": null,
+  "scheduler_exit_code": null,
+  "software_runtime_status": "normal_termination_observed",
+  "binary_database_readability": "not_checked",
+  "numerical_qualification": "not_assessed",
+  "physical_validation": "not_assessed",
+  "application_calibration": "not_assessed",
+  "raw_manifest_preserved": true,
+  "derivation": [
+    "runtime_evidence.json",
+    "input_identity.json",
+    "archive_identity.json"
+  ]
+}

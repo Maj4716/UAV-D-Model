@@ -1,0 +1,176 @@
+{
+  "schema_version": "hf-p0-r06d-wave1-keyword-failure@1.0.0",
+  "analysis_date": "2026-10-25",
+  "overall_status": "root_cause_confirmed",
+  "failure_stage": "target_R15_keyword_reader_before_time_integration",
+  "common_cause": "Both controls contain the same incomplete DATABASE_EXTENT_BINARY block and the same over-wide INTFOR timing card.",
+  "cases": [
+    {
+      "job_id": "r06d_0800_ctrl",
+      "platform_job_id": "72269229",
+      "zip": {
+        "path": "D:\\Downloads\\uav_hf_r06d_0800_ctrl.zip",
+        "size_bytes": 917917,
+        "sha256": "sha256:fe6718e5081580a71db144409f43f9d1fd866343cc244026655c0ec2922ff93f",
+        "member_count": 57,
+        "uncompressed_bytes": 6511823,
+        "crc": "pass",
+        "path_safety": "pass"
+      },
+      "deck": {
+        "member": "r06d_0800_ctrl.k",
+        "sha256": "sha256:37f5f2ef4e6d0276e28d05aaf15c4114a4ae26e7655c11ba3ff1b2a8f8725daa",
+        "manifest_match": true,
+        "released_package_match": true,
+        "extent_binary_card_count": 1,
+        "intfor_timing_field_count": 5
+      },
+      "execution": {
+        "target_solver": "LS-DYNA R15.0.2 MPP double precision",
+        "license_checkout": "pass",
+        "keyword_reader_started": true,
+        "time_integration_started": false,
+        "normal_termination": false,
+        "stderr_empty": true
+      },
+      "diagnostics": {
+        "mes0000_member": "mes0000",
+        "error_10246_lines": [
+          130
+        ],
+        "error_10450_lines": [
+          139
+        ],
+        "warning_10457_lines": [
+          145
+        ],
+        "error_10133_lines": [
+          166
+        ],
+        "job_out_cycle_zero_lines": [
+          1162
+        ],
+        "required_solver_outputs": {
+          "d3plot": [],
+          "d3part": [],
+          "intfor": [],
+          "glstat": [],
+          "matsum": [],
+          "sleout": [],
+          "nodout": [],
+          "ncforc": [],
+          "binout": []
+        }
+      },
+      "root_cause": "DATABASE_EXTENT_BINARY Card 2 is absent, so the R15 reader consumes DATABASE_BINARY_D3PART as data; the following D3PART line then produces a cascading keyword-command error.",
+      "independent_compatibility_warning": "DATABASE_BINARY_INTFOR_FILE timing Card 1 has five fields but the returned R15.0.2 parser accepts four."
+    },
+    {
+      "job_id": "r06d_2000_ctrl",
+      "platform_job_id": "72269336",
+      "zip": {
+        "path": "D:\\Downloads\\uav_hf_r06d_2000_ctrl.zip",
+        "size_bytes": 929354,
+        "sha256": "sha256:cd382fb6e569293b8a7e05462185c3817d22dd604b49da884c5a1e72800be72f",
+        "member_count": 57,
+        "uncompressed_bytes": 6673165,
+        "crc": "pass",
+        "path_safety": "pass"
+      },
+      "deck": {
+        "member": "r06d_2000_ctrl.k",
+        "sha256": "sha256:3b61883283b0a68ede37ee40069af5e0ad85ce6fef57a43f572e56573d177ae2",
+        "manifest_match": true,
+        "released_package_match": true,
+        "extent_binary_card_count": 1,
+        "intfor_timing_field_count": 5
+      },
+      "execution": {
+        "target_solver": "LS-DYNA R15.0.2 MPP double precision",
+        "license_checkout": "pass",
+        "keyword_reader_started": true,
+        "time_integration_started": false,
+        "normal_termination": false,
+        "stderr_empty": true
+      },
+      "diagnostics": {
+        "mes0000_member": "mes0000",
+        "error_10246_lines": [
+          130
+        ],
+        "error_10450_lines": [
+          139
+        ],
+        "warning_10457_lines": [
+          145
+        ],
+        "error_10133_lines": [
+          166
+        ],
+        "job_out_cycle_zero_lines": [
+          1162
+        ],
+        "required_solver_outputs": {
+          "d3plot": [],
+          "d3part": [],
+          "intfor": [],
+          "glstat": [],
+          "matsum": [],
+          "sleout": [],
+          "nodout": [],
+          "ncforc": [],
+          "binout": []
+        }
+      },
+      "root_cause": "DATABASE_EXTENT_BINARY Card 2 is absent, so the R15 reader consumes DATABASE_BINARY_D3PART as data; the following D3PART line then produces a cascading keyword-command error.",
+      "independent_compatibility_warning": "DATABASE_BINARY_INTFOR_FILE timing Card 1 has five fields but the returned R15.0.2 parser accepts four."
+    }
+  ],
+  "repair_contract": {
+    "database_extent_binary_card1": [
+      6,
+      0,
+      3,
+      0,
+      1,
+      1,
+      1,
+      1
+    ],
+    "database_extent_binary_card2": [
+      0,
+      0,
+      0,
+      1,
+      1,
+      1,
+      2,
+      1
+    ],
+    "intfor_file_timing_card": [
+      5e-05,
+      0,
+      0,
+      0
+    ],
+    "intfor_file_ioopt_card": [
+      0
+    ],
+    "d3part_five_field_card": [
+      5e-05,
+      0,
+      0,
+      0,
+      900001
+    ]
+  },
+  "excluded_causes": [
+    "upload or return deck mutation",
+    "license checkout failure",
+    "scheduler launch failure",
+    "MPI rank-count mismatch",
+    "memory exhaustion",
+    "numerical instability after time integration"
+  ],
+  "claim_boundary": "The returns establish a parser-contract failure only. They contain no numerical or physical response evidence and cannot qualify P0, P1, engine fitting, or dataset labels."
+}

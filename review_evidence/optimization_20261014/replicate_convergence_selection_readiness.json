@@ -1,0 +1,113 @@
+{
+  "schema_version": "1.0.0",
+  "status": "quota_unreachable",
+  "selection_source_split": "train",
+  "selection_source_role": "reference_train",
+  "uses_validation_or_test_outcomes": false,
+  "outcome_informed": true,
+  "source_label_replicates": 2,
+  "response_score": {
+    "definition": "max(effect-m2, effect-m1)",
+    "tasks": [
+      "effect-m2",
+      "effect-m1"
+    ],
+    "bands": {
+      "low": "score == 0",
+      "transition": "0 < score < 1",
+      "high": "score == 1"
+    },
+    "boundary": "Existing R=2 Train labels are used only to plan a new convergence diagnostic. They are not treated as converged truth."
+  },
+  "required_design": {
+    "profiles": [
+      "large_front",
+      "medium_front",
+      "small_front"
+    ],
+    "collision_armor_ids": [
+      "armor-001",
+      "armor-002"
+    ],
+    "response_bands": [
+      "low",
+      "transition",
+      "high"
+    ],
+    "minimum_per_crossed_stratum": 4,
+    "required_case_count": 72
+  },
+  "available_counts": {
+    "large_front|armor-001|low": 542,
+    "large_front|armor-001|transition": 0,
+    "large_front|armor-001|high": 0,
+    "large_front|armor-002|low": 4,
+    "large_front|armor-002|transition": 8,
+    "large_front|armor-002|high": 437,
+    "medium_front|armor-001|low": 578,
+    "medium_front|armor-001|transition": 0,
+    "medium_front|armor-001|high": 0,
+    "medium_front|armor-002|low": 0,
+    "medium_front|armor-002|transition": 3,
+    "medium_front|armor-002|high": 437,
+    "small_front|armor-001|low": 553,
+    "small_front|armor-001|transition": 0,
+    "small_front|armor-001|high": 0,
+    "small_front|armor-002|low": 2,
+    "small_front|armor-002|transition": 6,
+    "small_front|armor-002|high": 430
+  },
+  "shortfalls": {
+    "large_front|armor-001|transition": {
+      "available": 0,
+      "required": 4,
+      "shortfall": 4
+    },
+    "large_front|armor-001|high": {
+      "available": 0,
+      "required": 4,
+      "shortfall": 4
+    },
+    "medium_front|armor-001|transition": {
+      "available": 0,
+      "required": 4,
+      "shortfall": 4
+    },
+    "medium_front|armor-001|high": {
+      "available": 0,
+      "required": 4,
+      "shortfall": 4
+    },
+    "medium_front|armor-002|low": {
+      "available": 0,
+      "required": 4,
+      "shortfall": 4
+    },
+    "medium_front|armor-002|transition": {
+      "available": 3,
+      "required": 4,
+      "shortfall": 1
+    },
+    "small_front|armor-001|transition": {
+      "available": 0,
+      "required": 4,
+      "shortfall": 4
+    },
+    "small_front|armor-001|high": {
+      "available": 0,
+      "required": 4,
+      "shortfall": 4
+    },
+    "small_front|armor-002|low": {
+      "available": 2,
+      "required": 4,
+      "shortfall": 2
+    }
+  },
+  "selected_case_ids": [],
+  "bindings": {
+    "formal_manifest_hash": "sha256:f8702b39623fc53c9a2334cf728263af2d261fe4a8ef19eaf713bf04c32cb4c4",
+    "sampling_checkpoint_hash": "sha256:809f66749e33b7eb4a36434b686105d92f367bc7bd1963d202ec4347871bc520"
+  },
+  "decision": "Do not execute or claim the formal 72-case R=4/8/16/32/64/128 study until a new Train-only reachability design can fill every frozen stratum."
+}

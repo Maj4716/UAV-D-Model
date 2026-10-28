@@ -1,0 +1,50 @@
+{
+  "schema_version": "hf-p0-r06-job-manifest@1.0.0",
+  "package_revision": "R06_paired_diagnostics_preregistered_20261023",
+  "job_id": "r06d_2000_ctrl",
+  "status": "generated_not_solver_validated",
+  "evidence_class": "high_fidelity_synthetic_diagnostic_candidate",
+  "deck": {
+    "path": "r06d_2000_ctrl.k",
+    "size_bytes": 2718980,
+    "sha256": "sha256:3b61883283b0a68ede37ee40069af5e0ad85ce6fef57a43f572e56573d177ae2",
+    "node_count": 23775,
+    "element_count": 20902,
+    "node_id_span": [
+      95101,
+      118875
+    ],
+    "element_id_span": [
+      83609,
+      104510
+    ]
+  },
+  "design": {
+    "path": "p0_r06_diagnostic_design.json",
+    "sha256": "sha256:9443fc7397c78db6d9fb7fd0b2b55ac185972f52fae5c90ea3641df8598da402"
+  },
+  "material": {
+    "path": "jc4340_reference.json",
+    "sha256": "sha256:9b462b920459e57641d5f89d10d36c0aa0498c86f2478fef8e4c3efa96888311"
+  },
+  "successor_contract": {
+    "path": "p0_r06_real_output_contract.json",
+    "sha256": "sha256:71371ee8726fe95899de33aef163d8a9725d9f43781d5775de10fa2afc150795",
+    "historical_status_preserved": "frozen_after_r05_diagnostic_before_any_r06_deck_or_solver_outcome"
+  },
+  "case_map": {
+    "path": "p0_case_part_map.csv",
+    "sha256": "sha256:6e25b4162f1dbffab847bf16a057dc1af9483d7b5ef5896565c300be60aeecb1"
+  },
+  "job_contract": {
+    "path": "job_contract.json",
+    "sha256": "sha256:25cf731853ba837ba9b17c2c3e1470982ee1c720902a0b27864de5a652a5af42"
+  },
+  "limitations": [
+    "Four jobs implement two paired single-factor diagnostics; they are not four independent calibration points.",
+    "Static validation establishes serialization and identity only, not LS-DYNA parser/runtime acceptance.",
+    "A solver-completed diagnostic is not automatically an admissible P0 response.",
+    "The generic 4340 material and generic-steel EOS remain unvalidated for the real target system.",
+    "Unavailable response is never replaced with zero and targeted diagnostic data stay outside the reference response distribution."
+  ]
+}

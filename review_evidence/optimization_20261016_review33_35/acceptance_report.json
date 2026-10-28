@@ -1,0 +1,151 @@
+{
+  "schema_version": "review33-35-acceptance@1.0.0",
+  "date": "2026-10-16",
+  "scope": {
+    "review_documents": [
+      {
+        "name": "33_进一步更新后代码科研审查_标签稀疏输入偏置与引擎数据一致性_2026-10-15.md",
+        "sha256": "sha256:dc4830bb4ee49993cd5defaa93b1a570348ef7dca5467204ab19a234b62931e3"
+      },
+      {
+        "name": "34_毁伤树与源项强度根因辨识论证_2026-10-15.md",
+        "sha256": "sha256:577d2da2f229525a18270d0b67eaefb3ea0821271430b77fc8e6a92577fbf048"
+      },
+      {
+        "name": "35_下一轮科研整改总纲_KMFC专用有序毁伤树与条件接触采样合同_2026-10-15.md",
+        "sha256": "sha256:c4ee67f062c721a161247cc1ef55a3d307b2fb6fda42776b89204d08b824890d"
+      }
+    ],
+    "package_version": "0.7.0.dev3",
+    "git_head": "473c7353917d5d802406335021d3234bc810348f",
+    "git_branch": "main",
+    "working_tree_clean": false,
+    "porcelain_entry_count_at_acceptance": 225
+  },
+  "software_changes": {
+    "training_and_identity": {
+      "mask_safe_bce_and_brier": true,
+      "availability_safe_conditional_gate": true,
+      "train_only_task_selection": true,
+      "task_name_to_dataset_axis_binding": true,
+      "required_source_hashes": [
+        "target_hash",
+        "physics_registry_hash",
+        "engine_code_hash",
+        "damage_tree_definition_hash",
+        "label_spec_hash",
+        "sampling_design_hash",
+        "split_registry_hash"
+      ],
+      "lowercase_sha256_validation": true,
+      "dataset_and_contract_manifest_hash_validation": true,
+      "design_weight_task_weight_minibatch_probability_separated": true,
+      "stable_extreme_weight_aggregation": true,
+      "float32_post_cast_finite_validation": true
+    },
+    "archive_and_statistics": {
+      "all_three_audit_tools_use_production_committed_inventory_validator": true,
+      "orphan_incomplete_partition_hash_and_axis_checks_fail_closed": true,
+      "invalid_eligible_weight_or_probability_fails_closed": true,
+      "degenerate_smd_and_correlation_report_not_estimable": true,
+      "strict_json_without_nan_or_infinity": true
+    },
+    "contact_conditioning": {
+      "sampling_spec_version": "1.3.0",
+      "contract_id": "s-contact-first-armor@1.0.0",
+      "contract_hash": "sha256:839d96ee8ccc8cefc6f887395ba078047b6f4cf6cc459c0a361c4fc0742a3fe6",
+      "allowed_pre_outcome_dependency_path_count": 49,
+      "dependency_policy": "exact_versioned_allowlist",
+      "input_refusals_persisted_before_teacher_execution": true,
+      "selected_pre_execution_tristate_preserved": true,
+      "round_attempt_accept_refusal_reconciliation": true,
+      "estimand": "criterion_exceedance_probability_given_first_armor_contact"
+    },
+    "ordinal_projection": {
+      "schema_version": "1.0.0",
+      "status": "provisional_software_only",
+      "legacy_damage_tree_replaced": false,
+      "zero_anchored_monotone_hill": true,
+      "positive_power_mean": true,
+      "per_replicate_nested_hard_gates": true,
+      "missingness_propagated": true,
+      "counts_saved": ["successes", "trials", "n0", "n1", "n2", "q1", "q2"],
+      "wilson_intervals": true,
+      "nested_cumulative_logits": true,
+      "ranked_probability_score": true
+    }
+  },
+  "verification": {
+    "pytest": {
+      "tests": 799,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "time_seconds": 55.66,
+      "junit_sha256": "sha256:f1ae67a0ae2737e3f80303b9b1191dfb0c4bc46aca710ce8dc5451a8a25aab2e"
+    },
+    "python_ast_files": 130,
+    "python_ast_parse_passed": true,
+    "sampling_schema_copies_equal": true,
+    "sampling_schema_sha256": "sha256:a6203f156313c536cdf7b2495d47cd8c5c6b37cbce0399b8fede14a2f5e129f3",
+    "git_diff_check_content_errors": 0,
+    "git_diff_check_line_ending_warnings_only": true,
+    "real_archive_adapter_smoke": {
+      "train_cases": 3000,
+      "selected_tasks": ["effect-m2", "effect-m1"],
+      "eligibility_enforced": true,
+      "dataset_contract_source_hashes_equal": true
+    }
+  },
+  "historical_archive_audit": {
+    "dataset_id": "damage-dataset-fb1af45b41880da2e8ef368a",
+    "manifest_hash": "sha256:f8702b39623fc53c9a2334cf728263af2d261fe4a8ef19eaf713bf04c32cb4c4",
+    "case_count": 5000,
+    "committed_shard_count": 4,
+    "split_counts": {"train": 3000, "validation": 500, "test": 1500},
+    "replicates_per_case": 2,
+    "design_weight_eligible_count": 5000,
+    "design_weight_invalid_count": 0,
+    "design_weight_ess": 5000.0,
+    "selection_probability_invalid_count": 0,
+    "archive_identity_bindings_match": true,
+    "archive_audit_completed": true,
+    "default_system_task_training_ready": false,
+    "research_admission": false,
+    "issue_counts": {"critical": 2, "high": 2, "medium": 0, "low": 0, "info": 0},
+    "current_source_reproduced_archive": false,
+    "current_engine_code_hash": "sha256:2772ca80993d7b7a7168b9eec5c08e5478df0cd4284f39e609f1745497b7e2d3",
+    "archive_engine_code_hash": "sha256:bf3b325e5504d180a22a14aab4948751f374f8a67eb77d6db956707d2770e787",
+    "code_hashes_match": false
+  },
+  "evidence_files": {
+    "distribution_audit.json": "sha256:8241c2289f1ecb01e8e65063450ae0f6c1bac1a7f271f226c1e91007ec70b3f8",
+    "loitering_impact_audit.json": "sha256:1740ced744eaf5d7588c272e0495c4e886263486f0cbb1e0b2b9c476f8716abb",
+    "loitering_impact_audit.md": "sha256:0683140f4de92bc569575d98688057eb6b0dc39f4385fde7dcd84728a4f4260a",
+    "system_learning_contract.json": "sha256:6165fd5452a67f501a0f5c0c991ffe675408e5e09599ee224ba5161c81cea46d",
+    "pytest_full.xml": "sha256:f1ae67a0ae2737e3f80303b9b1191dfb0c4bc46aca710ce8dc5451a8a25aab2e"
+  },
+  "gates": {
+    "G0_rebuildable_clean_source": "not_met_dirty_uncommitted_workspace",
+    "G1_historical_archive_integrity": "passed_for_read_only_historical_archive",
+    "G2_label_contract": "partially_met_software_binding_fixed_codebook_incomplete",
+    "G3_sparse_support_and_replicates": "not_met_structural_zeros_and_R2",
+    "G4_inputs_splits_and_sealed_test": "not_met_direction_attitude_coverage_and_test_already_observed",
+    "G5_training_interface": "software_contract_passed_research_gate_not_met",
+    "G6_physical_and_research_admission": "not_met",
+    "KMFC_G3_tree_mathematics": "software_prototype_passed_not_calibrated",
+    "KMFC_G7_new_dataset_integrity": "not_applicable_no_new_ordinal_dataset_generated",
+    "KMFC_G10_physical_validity": "not_met"
+  },
+  "remaining_boundaries": [
+    "KMFC codebook, K ordering, F1 component-050 rule, F2 and C semantics are not approved.",
+    "No independent source-term, penetration, component-response, threshold or system-level calibration exists.",
+    "The 5000-case archive has one direction, one attitude and R=2; contact does not establish directional or attitude coverage.",
+    "The current observed Test is diagnostic only; a new sealed Reference Test is required.",
+    "SamplingSpec 1.3 closes the reference-plan contact ledger, but existing adaptive executable rounds still accept only 1.1/1.2 and cannot yet produce contact_enriched_train.",
+    "All-attempts-refused plan construction fails closed with refusal counts in the exception but does not publish a completed checkpoint.",
+    "Contact conditioning currently uses rejection sampling rather than direct construction on the contact manifold.",
+    "No new 5000-case dataset was generated with dev3; historical dev1 labels were audited, not reproduced.",
+    "Software tests and archive consistency do not establish physical validity, operational prevalence or research admission."
+  ]
+}

@@ -1,0 +1,42 @@
+{
+  "schema_version": "hf-p0-r06f-wave0-stage@1.0.0",
+  "package_revision": "R06_measurement_contract_repair_20261027",
+  "job_id": "r06f_0800_ctrl",
+  "status": "ready_for_user_submission_not_submitted_not_solver_validated",
+  "upload_only": "uav_hf_r06f_0800_ctrl.zip",
+  "head_deck": "r06f_0800_ctrl.k",
+  "source_release_manifest": {
+    "path": "D:\\Desktop\\UAV新\\scnet_lsdyna_plate_calibration_20261017\\artifacts\\r06f_measurement_contract_20261027\\R06_RELEASE_MANIFEST.json",
+    "sha256": "sha256:a75547a753ba2655182f13444032025b3714f133afc46eeaa3117ff9c5003d6f"
+  },
+  "zip": {
+    "path": "uav_hf_r06f_0800_ctrl.zip",
+    "size_bytes": 413370,
+    "sha256": "sha256:8d9735ca52a29a336379827bdff5b5b20dd29a3ae75887f4f38ac6fdfce112b3"
+  },
+  "external_manifest": {
+    "path": "uav_hf_r06f_0800_ctrl.bundle_manifest.json",
+    "size_bytes": 2334,
+    "sha256": "sha256:c8464142ffdf4381d8fd5e605752ff3521075bc8427c7951cfc6fc8abb28b2c3"
+  },
+  "instructions": {
+    "path": "SUBMIT_ONLY_THIS_JOB.md",
+    "sha256": "sha256:8c3ac2343dae9040c5afd1912b38f6c27fb01517da766ad517205447d5dad7dc"
+  },
+  "zip_verification": {
+    "status": "pass",
+    "job_id": "r06f_0800_ctrl",
+    "zip": "uav_hf_r06f_0800_ctrl.zip",
+    "size_bytes": 413370,
+    "sha256": "sha256:8d9735ca52a29a336379827bdff5b5b20dd29a3ae75887f4f38ac6fdfce112b3",
+    "member_count": 10,
+    "head_deck": "r06f_0800_ctrl.k"
+  },
+  "next_gate_if_return_passes": "generate_and_submit_only_r06f_0800_tssfac04",
+  "prohibited": [
+    "submitting any R06d or R06e ZIP",
+    "submitting R06f TSSFAC=0.4 before this recanary return is audited",
+    "submitting R06f 2000 m/s or either treatment before the numerical gates pass",
+    "treating static PASS as target-solver, response, physical, P0/P1, engine, or dataset acceptance"
+  ]
+}

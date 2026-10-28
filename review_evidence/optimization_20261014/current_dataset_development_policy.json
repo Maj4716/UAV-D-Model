@@ -1,0 +1,20 @@
+{
+  "classification": "software_interpolation_pilot",
+  "dataset_id": "damage-dataset-fb1af45b41880da2e8ef368a",
+  "dataset_identity_hash": "sha256:f8702b39623fc53c9a2334cf728263af2d261fe4a8ef19eaf713bf04c32cb4c4",
+  "proxy_boundary": "end_to_end",
+  "proxy_scope": "fixed_target",
+  "research_admission": {
+    "purposes": [
+      "software_development",
+      "exploratory_modeling"
+    ],
+    "status": "refused"
+  },
+  "schema_version": "1.0.0",
+  "scientific_evidence_status": "unverified",
+  "seal": {
+    "frozen_model_hash": null,
+    "state": "not_applicable"
+  }
+}

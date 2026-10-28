@@ -1,0 +1,2876 @@
+{
+  "schema_version": "1.0.0",
+  "scope": "existing_full_archive_diagnostic_only",
+  "dataset_id": "damage-dataset-fb1af45b41880da2e8ef368a",
+  "engine_version": "0.7.0.dev1",
+  "case_count": 5000,
+  "split_counts": {
+    "validation": 500,
+    "test": 1500,
+    "train": 3000
+  },
+  "replicate_count_distribution": {
+    "2": 5000
+  },
+  "input_support": {
+    "learnable_feature_names": [
+      "munition_profile_small_front",
+      "munition_profile_medium_front",
+      "munition_profile_large_front",
+      "trajectory_origin_y_m",
+      "trajectory_origin_z_m",
+      "impact_speed_mps"
+    ],
+    "profiles": {
+      "large_front": 1668,
+      "small_front": 1662,
+      "medium_front": 1670
+    },
+    "continuous": {
+      "trajectory_origin_y_m": {
+        "minimum": -2.9999027252197266,
+        "maximum": 1.9998230934143066,
+        "mean": -0.4958958287801826,
+        "std": 1.4452066471332303,
+        "unique_count": 5000,
+        "ten_bin_counts": [
+          509,
+          485,
+          505,
+          494,
+          491,
+          487,
+          523,
+          507,
+          501,
+          498
+        ],
+        "ten_bin_minimum": 485,
+        "ten_bin_maximum": 523
+      },
+      "trajectory_origin_z_m": {
+        "minimum": 0.6504389643669128,
+        "maximum": 1.7999260425567627,
+        "mean": 1.2200066826820373,
+        "std": 0.3323938585494137,
+        "unique_count": 4999,
+        "ten_bin_counts": [
+          510,
+          522,
+          486,
+          516,
+          507,
+          489,
+          505,
+          476,
+          486,
+          503
+        ],
+        "ten_bin_minimum": 476,
+        "ten_bin_maximum": 522
+      },
+      "impact_speed_mps": {
+        "minimum": 80.01004791259766,
+        "maximum": 159.98837280273438,
+        "mean": 119.54635833129883,
+        "std": 22.954936998209938,
+        "unique_count": 4998,
+        "ten_bin_counts": [
+          508,
+          519,
+          477,
+          518,
+          530,
+          510,
+          510,
+          456,
+          500,
+          472
+        ],
+        "ten_bin_minimum": 456,
+        "ten_bin_maximum": 530
+      }
+    },
+    "continuous_pearson_correlation": [
+      [
+        1.0,
+        -0.009743986884344975,
+        0.0074681779432180725
+      ],
+      [
+        -0.009743986884344975,
+        0.9999999999999998,
+        0.008419629250748364
+      ],
+      [
+        0.0074681779432180725,
+        0.008419629250748364,
+        0.9999999999999999
+      ]
+    ],
+    "yz_10x10_occupied_cells": 100,
+    "yz_10x10_minimum_cell_count": 31,
+    "yz_10x10_maximum_cell_count": 73,
+    "orientation_unique_rows": 1,
+    "orientation_values": [
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "velocity_direction_unique_rows": 1,
+    "velocity_direction_values": [
+      [
+        1.0,
+        0.0,
+        0.0
+      ]
+    ],
+    "detonation_x_unique_count": 2,
+    "detonation_x_value_counts": {
+      "-1.630264997482": 2789,
+      "-1.187480092049": 2211
+    },
+    "first_armor_contact_true_count": 5000,
+    "split_distribution_tests": {
+      "continuous_ks": {
+        "trajectory_origin_y_m": {
+          "train_vs_validation": {
+            "D": 0.028666666666666674,
+            "p_value": 0.8656368465480814
+          },
+          "train_vs_test": {
+            "D": 0.019000000000000017,
+            "p_value": 0.8609619364476504
+          },
+          "validation_vs_test": {
+            "D": 0.030000000000000027,
+            "p_value": 0.8835148466090861
+          }
+        },
+        "trajectory_origin_z_m": {
+          "train_vs_validation": {
+            "D": 0.02233333333333337,
+            "p_value": 0.980918212670705
+          },
+          "train_vs_test": {
+            "D": 0.01433333333333342,
+            "p_value": 0.9858118336813689
+          },
+          "validation_vs_test": {
+            "D": 0.026666666666666727,
+            "p_value": 0.9493750303988777
+          }
+        },
+        "impact_speed_mps": {
+          "train_vs_validation": {
+            "D": 0.03200000000000003,
+            "p_value": 0.7636118535506322
+          },
+          "train_vs_test": {
+            "D": 0.021666666666666612,
+            "p_value": 0.7330261569268727
+          },
+          "validation_vs_test": {
+            "D": 0.030000000000000027,
+            "p_value": 0.8835148466090861
+          }
+        }
+      },
+      "profile_chi_square": {
+        "table_rows": [
+          "train",
+          "validation",
+          "test"
+        ],
+        "table_columns": [
+          "small_front",
+          "medium_front",
+          "large_front"
+        ],
+        "observed": [
+          [
+            991,
+            1018,
+            991
+          ],
+          [
+            165,
+            160,
+            175
+          ],
+          [
+            506,
+            492,
+            502
+          ]
+        ],
+        "chi2": 1.3718151961925542,
+        "dof": 4,
+        "p_value": 0.8490785762535006,
+        "minimum_expected_count": 166.2
+      }
+    }
+  },
+  "labels": {
+    "effect-m2": {
+      "all": {
+        "n": 5000,
+        "zero_count": 3230,
+        "zero_fraction": 0.646,
+        "positive_count": 1770,
+        "positive_fraction": 0.354,
+        "positive_rate_wilson95": [
+          0.34086166130073653,
+          0.3673625076672202
+        ],
+        "exact_one_count": 1660,
+        "unique_value_count": 57,
+        "value_counts": {
+          "0": 3230,
+          "0.499995231628": 1,
+          "0.499995261431": 1,
+          "0.4999961555": 1,
+          "0.499997317791": 1,
+          "0.499997526407": 1,
+          "0.499997615814": 2,
+          "0.499997645617": 1,
+          "0.499997675419": 1,
+          "0.499997794628": 2,
+          "0.49999782443": 3,
+          "0.499997913837": 2,
+          "0.49999794364": 1,
+          "0.499998509884": 1,
+          "0.499999076128": 1,
+          "0.499999165535": 1,
+          "0.49999922514": 1,
+          "0.499999374151": 1,
+          "0.499999403954": 2,
+          "0.499999433756": 4,
+          "0.499999463558": 5,
+          "0.499999493361": 5,
+          "0.499999552965": 4,
+          "0.499999582767": 2,
+          "0.49999961257": 5,
+          "0.499999880791": 1,
+          "0.5": 15,
+          "0.99986743927": 1,
+          "0.999985218048": 1,
+          "0.99999153614": 1,
+          "0.999994874001": 1,
+          "0.999995172024": 1,
+          "0.999995291233": 1,
+          "0.999995470047": 1,
+          "0.999995648861": 1,
+          "0.999997258186": 2,
+          "0.999997437": 1,
+          "0.999997496605": 1,
+          "0.99999755621": 4,
+          "0.999997615814": 1,
+          "0.999997675419": 2,
+          "0.999997735023": 1,
+          "0.999997794628": 1,
+          "0.999998152256": 1,
+          "0.999998509884": 1,
+          "0.999998688698": 1,
+          "0.999998807907": 1,
+          "0.999998927116": 2,
+          "0.999999046326": 1,
+          "0.999999165535": 3,
+          "0.99999922514": 3,
+          "0.999999403954": 3,
+          "0.999999463558": 3,
+          "0.999999523163": 2,
+          "0.999999582767": 2,
+          "0.999999642372": 1,
+          "1": 1660
+        },
+        "discrete_entropy_bits": 1.1734500988365033,
+        "r2_nearest_level_counts": {
+          "0.0": 3230,
+          "1.0": 1705,
+          "0.5": 65
+        },
+        "r2_nearest_level_max_absolute_deviation": 0.00013256072998046875,
+        "r2_quantized_entropy_bits": 1.0179692753967347,
+        "r2_quantized_normalized_entropy": 0.6422671040693769,
+        "hhi": 0.52755864,
+        "effective_discrete_values": 2.255504397484967,
+        "binary_balance_effective_n": 4573.68,
+        "mean": 0.34749994127750394,
+        "std": 0.4727511882534468
+      },
+      "by_split": {
+        "train": {
+          "n": 3000,
+          "zero_count": 1936,
+          "zero_fraction": 0.6453333333333333,
+          "positive_count": 1064,
+          "positive_fraction": 0.3546666666666667,
+          "positive_rate_wilson95": [
+            0.33774302086582414,
+            0.3719620311636706
+          ],
+          "exact_one_count": 995,
+          "unique_value_count": 39,
+          "value_counts": {
+            "0": 1936,
+            "0.499995231628": 1,
+            "0.499995261431": 1,
+            "0.4999961555": 1,
+            "0.499997615814": 2,
+            "0.499997645617": 1,
+            "0.499997794628": 2,
+            "0.49999782443": 2,
+            "0.499997913837": 2,
+            "0.49999794364": 1,
+            "0.499999076128": 1,
+            "0.499999165535": 1,
+            "0.49999922514": 1,
+            "0.499999374151": 1,
+            "0.499999403954": 2,
+            "0.499999433756": 4,
+            "0.499999463558": 4,
+            "0.499999493361": 3,
+            "0.49999961257": 4,
+            "0.499999880791": 1,
+            "0.5": 9,
+            "0.99986743927": 1,
+            "0.99999153614": 1,
+            "0.999994874001": 1,
+            "0.999997258186": 1,
+            "0.999997437": 1,
+            "0.99999755621": 4,
+            "0.999997675419": 1,
+            "0.999997794628": 1,
+            "0.999998152256": 1,
+            "0.999998509884": 1,
+            "0.999998688698": 1,
+            "0.999999165535": 2,
+            "0.99999922514": 3,
+            "0.999999403954": 1,
+            "0.999999463558": 2,
+            "0.999999523163": 2,
+            "0.999999582767": 1,
+            "1": 995
+          },
+          "discrete_entropy_bits": 1.1728406923049834,
+          "r2_nearest_level_counts": {
+            "0.0": 1936,
+            "1.0": 1020,
+            "0.5": 44
+          },
+          "r2_nearest_level_max_absolute_deviation": 0.00013256072998046875,
+          "r2_quantized_entropy_bits": 1.026288543990013,
+          "r2_quantized_normalized_entropy": 0.6475159781528287,
+          "hhi": 0.5264820000000001,
+          "effective_discrete_values": 2.2545518546332906,
+          "binary_balance_effective_n": 2746.5386666666664,
+          "mean": 0.3473332583804925,
+          "std": 0.4722564347839942
+        },
+        "validation": {
+          "n": 500,
+          "zero_count": 318,
+          "zero_fraction": 0.636,
+          "positive_count": 182,
+          "positive_fraction": 0.364,
+          "positive_rate_wilson95": [
+            0.32301143591892645,
+            0.4070623846866158
+          ],
+          "exact_one_count": 173,
+          "unique_value_count": 10,
+          "value_counts": {
+            "0": 318,
+            "0.499999493361": 1,
+            "0.5": 1,
+            "0.999995648861": 1,
+            "0.999997615814": 1,
+            "0.999997675419": 1,
+            "0.999997735023": 1,
+            "0.999999403954": 2,
+            "0.999999642372": 1,
+            "1": 173
+          },
+          "discrete_entropy_bits": 1.1024093583389303,
+          "r2_nearest_level_counts": {
+            "0.0": 318,
+            "1.0": 180,
+            "0.5": 2
+          },
+          "r2_nearest_level_max_absolute_deviation": 4.351139068603516e-06,
+          "r2_quantized_entropy_bits": 0.9777236104225542,
+          "r2_quantized_normalized_entropy": 0.6168749165848978,
+          "hhi": 0.524256,
+          "effective_discrete_values": 2.147129724926552,
+          "binary_balance_effective_n": 463.008,
+          "mean": 0.3619999732375145,
+          "std": 0.47953724241649803
+        },
+        "test": {
+          "n": 1500,
+          "zero_count": 976,
+          "zero_fraction": 0.6506666666666666,
+          "positive_count": 524,
+          "positive_fraction": 0.34933333333333333,
+          "positive_rate_wilson95": [
+            0.3256190496562846,
+            0.3738173521340635
+          ],
+          "exact_one_count": 492,
+          "unique_value_count": 25,
+          "value_counts": {
+            "0": 976,
+            "0.499997317791": 1,
+            "0.499997526407": 1,
+            "0.499997675419": 1,
+            "0.49999782443": 1,
+            "0.499998509884": 1,
+            "0.499999463558": 1,
+            "0.499999493361": 1,
+            "0.499999552965": 4,
+            "0.499999582767": 2,
+            "0.49999961257": 1,
+            "0.5": 5,
+            "0.999985218048": 1,
+            "0.999995172024": 1,
+            "0.999995291233": 1,
+            "0.999995470047": 1,
+            "0.999997258186": 1,
+            "0.999997496605": 1,
+            "0.999998807907": 1,
+            "0.999998927116": 2,
+            "0.999999046326": 1,
+            "0.999999165535": 1,
+            "0.999999463558": 1,
+            "0.999999582767": 1,
+            "1": 492
+          },
+          "discrete_entropy_bits": 1.14026250634143,
+          "r2_nearest_level_counts": {
+            "0.0": 976,
+            "1.0": 505,
+            "0.5": 19
+          },
+          "r2_nearest_level_max_absolute_deviation": 1.4781951904296875e-05,
+          "r2_quantized_entropy_bits": 1.0120262847668569,
+          "r2_quantized_normalized_entropy": 0.6385174944557906,
+          "hhi": 0.5309813333333333,
+          "effective_discrete_values": 2.2042112636968154,
+          "binary_balance_effective_n": 1363.7973333333334,
+          "mean": 0.3429999630848567,
+          "std": 0.47136429113780387
+        }
+      },
+      "by_profile": {
+        "small_front": {
+          "n": 1662,
+          "zero_count": 1071,
+          "zero_fraction": 0.644404332129964,
+          "positive_count": 591,
+          "positive_fraction": 0.3555956678700361,
+          "positive_rate_wilson95": [
+            0.3329389151837213,
+            0.37891841826275907
+          ],
+          "exact_one_count": 544,
+          "unique_value_count": 31,
+          "value_counts": {
+            "0": 1071,
+            "0.499995231628": 1,
+            "0.499995261431": 1,
+            "0.4999961555": 1,
+            "0.499997317791": 1,
+            "0.499997526407": 1,
+            "0.499997615814": 2,
+            "0.499997645617": 1,
+            "0.499997675419": 1,
+            "0.499997794628": 2,
+            "0.49999782443": 3,
+            "0.499997913837": 2,
+            "0.49999794364": 1,
+            "0.499999880791": 1,
+            "0.5": 9,
+            "0.999985218048": 1,
+            "0.99999153614": 1,
+            "0.999994874001": 1,
+            "0.999995172024": 1,
+            "0.999995291233": 1,
+            "0.999995470047": 1,
+            "0.999995648861": 1,
+            "0.999997258186": 2,
+            "0.999997437": 1,
+            "0.999997496605": 1,
+            "0.99999755621": 4,
+            "0.999997615814": 1,
+            "0.999997675419": 2,
+            "0.999997735023": 1,
+            "0.999997794628": 1,
+            "1": 544
+          },
+          "discrete_entropy_bits": 1.2076074951681466,
+          "r2_nearest_level_counts": {
+            "0.0": 1071,
+            "1.0": 564,
+            "0.5": 27
+          },
+          "r2_nearest_level_max_absolute_deviation": 1.4781951904296875e-05,
+          "r2_quantized_entropy_bits": 1.034186961379937,
+          "r2_quantized_normalized_entropy": 0.6524993246902581,
+          "hhi": 0.5224462429821553,
+          "effective_discrete_values": 2.309543140962997,
+          "binary_balance_effective_n": 1523.3718411552347,
+          "mean": 0.34747284966398806,
+          "std": 0.4718835123905292
+        },
+        "medium_front": {
+          "n": 1670,
+          "zero_count": 1059,
+          "zero_fraction": 0.6341317365269461,
+          "positive_count": 611,
+          "positive_fraction": 0.3658682634730539,
+          "positive_rate_wilson95": [
+            0.3430989710706163,
+            0.3892532193718174
+          ],
+          "exact_one_count": 578,
+          "unique_value_count": 18,
+          "value_counts": {
+            "0": 1059,
+            "0.499998509884": 1,
+            "0.499999076128": 1,
+            "0.499999165535": 1,
+            "0.49999922514": 1,
+            "0.499999403954": 2,
+            "0.499999433756": 4,
+            "0.499999463558": 5,
+            "0.499999493361": 5,
+            "0.5": 2,
+            "0.999998152256": 1,
+            "0.999998509884": 1,
+            "0.999998927116": 2,
+            "0.999999046326": 1,
+            "0.999999403954": 2,
+            "0.999999463558": 3,
+            "0.999999523163": 1,
+            "1": 578
+          },
+          "discrete_entropy_bits": 1.1317229188019455,
+          "r2_nearest_level_counts": {
+            "0.0": 1059,
+            "1.0": 589,
+            "0.5": 22
+          },
+          "r2_nearest_level_max_absolute_deviation": 1.8477439880371094e-06,
+          "r2_quantized_entropy_bits": 1.0292814727482131,
+          "r2_quantized_normalized_entropy": 0.649404305956697,
+          "hhi": 0.5219491555810535,
+          "effective_discrete_values": 2.1912026543685,
+          "binary_balance_effective_n": 1549.8179640718563,
+          "mean": 0.3592814237057806,
+          "std": 0.47634531937911195
+        },
+        "large_front": {
+          "n": 1668,
+          "zero_count": 1100,
+          "zero_fraction": 0.6594724220623501,
+          "positive_count": 568,
+          "positive_fraction": 0.3405275779376499,
+          "positive_rate_wilson95": [
+            0.31817540735633276,
+            0.363612601193671
+          ],
+          "exact_one_count": 538,
+          "unique_value_count": 16,
+          "value_counts": {
+            "0": 1100,
+            "0.499999374151": 1,
+            "0.499999552965": 4,
+            "0.499999582767": 2,
+            "0.49999961257": 5,
+            "0.5": 4,
+            "0.99986743927": 1,
+            "0.999998688698": 1,
+            "0.999998807907": 1,
+            "0.999999165535": 3,
+            "0.99999922514": 3,
+            "0.999999403954": 1,
+            "0.999999523163": 1,
+            "0.999999582767": 2,
+            "0.999999642372": 1,
+            "1": 538
+          },
+          "discrete_entropy_bits": 1.090484655106863,
+          "r2_nearest_level_counts": {
+            "0.0": 1100,
+            "1.0": 552,
+            "0.5": 16
+          },
+          "r2_nearest_level_max_absolute_deviation": 0.00013256072998046875,
+          "r2_quantized_entropy_bits": 0.9883627524645836,
+          "r2_quantized_normalized_entropy": 0.6235874678516872,
+          "hhi": 0.538969543789429,
+          "effective_discrete_values": 2.1294556083734864,
+          "binary_balance_effective_n": 1498.3213429256596,
+          "mean": 0.33573132653316434,
+          "std": 0.46969951689047895
+        }
+      },
+      "positive_rate_heterogeneity": {
+        "by_split": {
+          "estimable": true,
+          "levels": [
+            "train",
+            "validation",
+            "test"
+          ],
+          "observed_positive_negative": [
+            [
+              1064,
+              1936
+            ],
+            [
+              182,
+              318
+            ],
+            [
+              524,
+              976
+            ]
+          ],
+          "positive_rates": [
+            0.3546666666666667,
+            0.364,
+            0.34933333333333333
+          ],
+          "maximum_to_minimum_rate_ratio": 1.0419847328244274,
+          "chi2": 0.36731909534554236,
+          "dof": 2,
+          "p_value": 0.8322190865265805,
+          "conditional_monte_carlo_p_value": 0.8357816421835782,
+          "conditional_monte_carlo_draws": 100000,
+          "conditional_monte_carlo_standard_error_upper_bound": 0.001171540390991704,
+          "minimum_expected_count": 177.0,
+          "asymptotic_warning": false
+        },
+        "by_profile": {
+          "estimable": true,
+          "levels": [
+            "small_front",
+            "medium_front",
+            "large_front"
+          ],
+          "observed_positive_negative": [
+            [
+              591,
+              1071
+            ],
+            [
+              611,
+              1059
+            ],
+            [
+              568,
+              1100
+            ]
+          ],
+          "positive_rates": [
+            0.3555956678700361,
+            0.3658682634730539,
+            0.3405275779376499
+          ],
+          "maximum_to_minimum_rate_ratio": 1.074415956818757,
+          "chi2": 2.371013983542336,
+          "dof": 2,
+          "p_value": 0.30559120798959927,
+          "conditional_monte_carlo_p_value": 0.3038569614303857,
+          "conditional_monte_carlo_draws": 100000,
+          "conditional_monte_carlo_standard_error_upper_bound": 0.001454399905186599,
+          "minimum_expected_count": 588.348,
+          "asymptotic_warning": false
+        }
+      },
+      "positive_input_support": {
+        "trajectory_origin_y_min_max": [
+          -2.9973464012145996,
+          1.9980008602142334
+        ],
+        "trajectory_origin_z_min_max": [
+          0.6515061259269714,
+          1.1489474773406982
+        ],
+        "impact_speed_min_max": [
+          80.0269775390625,
+          159.98837280273438
+        ],
+        "yz_10x10_occupied_cells": 50,
+        "detonation_x_counts": {
+          "-1.187480092049": 1770
+        }
+      }
+    },
+    "effect-k1": {
+      "all": {
+        "n": 5000,
+        "zero_count": 5000,
+        "zero_fraction": 1.0,
+        "positive_count": 0,
+        "positive_fraction": 0.0,
+        "positive_rate_wilson95": [
+          0.0,
+          0.0007677019450571244
+        ],
+        "exact_one_count": 0,
+        "unique_value_count": 1,
+        "value_counts": {
+          "0": 5000
+        },
+        "discrete_entropy_bits": -0.0,
+        "r2_nearest_level_counts": {
+          "0.0": 5000
+        },
+        "r2_nearest_level_max_absolute_deviation": 0.0,
+        "r2_quantized_entropy_bits": -0.0,
+        "r2_quantized_normalized_entropy": -0.0,
+        "hhi": 1.0,
+        "effective_discrete_values": 1.0,
+        "binary_balance_effective_n": 0.0,
+        "mean": 0.0,
+        "std": 0.0
+      },
+      "by_split": {
+        "train": {
+          "n": 3000,
+          "zero_count": 3000,
+          "zero_fraction": 1.0,
+          "positive_count": 0,
+          "positive_fraction": 0.0,
+          "positive_rate_wilson95": [
+            0.0,
+            0.0012788487253259629
+          ],
+          "exact_one_count": 0,
+          "unique_value_count": 1,
+          "value_counts": {
+            "0": 3000
+          },
+          "discrete_entropy_bits": -0.0,
+          "r2_nearest_level_counts": {
+            "0.0": 3000
+          },
+          "r2_nearest_level_max_absolute_deviation": 0.0,
+          "r2_quantized_entropy_bits": -0.0,
+          "r2_quantized_normalized_entropy": -0.0,
+          "hhi": 1.0,
+          "effective_discrete_values": 1.0,
+          "binary_balance_effective_n": 0.0,
+          "mean": 0.0,
+          "std": 0.0
+        },
+        "validation": {
+          "n": 500,
+          "zero_count": 500,
+          "zero_fraction": 1.0,
+          "positive_count": 0,
+          "positive_fraction": 0.0,
+          "positive_rate_wilson95": [
+            4.336808689942018e-19,
+            0.007624340461552241
+          ],
+          "exact_one_count": 0,
+          "unique_value_count": 1,
+          "value_counts": {
+            "0": 500
+          },
+          "discrete_entropy_bits": -0.0,
+          "r2_nearest_level_counts": {
+            "0.0": 500
+          },
+          "r2_nearest_level_max_absolute_deviation": 0.0,
+          "r2_quantized_entropy_bits": -0.0,
+          "r2_quantized_normalized_entropy": -0.0,
+          "hhi": 1.0,
+          "effective_discrete_values": 1.0,
+          "binary_balance_effective_n": 0.0,
+          "mean": 0.0,
+          "std": 0.0
+        },
+        "test": {
+          "n": 1500,
+          "zero_count": 1500,
+          "zero_fraction": 1.0,
+          "positive_count": 0,
+          "positive_fraction": 0.0,
+          "positive_rate_wilson95": [
+            0.0,
+            0.002554430720181488
+          ],
+          "exact_one_count": 0,
+          "unique_value_count": 1,
+          "value_counts": {
+            "0": 1500
+          },
+          "discrete_entropy_bits": -0.0,
+          "r2_nearest_level_counts": {
+            "0.0": 1500
+          },
+          "r2_nearest_level_max_absolute_deviation": 0.0,
+          "r2_quantized_entropy_bits": -0.0,
+          "r2_quantized_normalized_entropy": -0.0,
+          "hhi": 1.0,
+          "effective_discrete_values": 1.0,
+          "binary_balance_effective_n": 0.0,
+          "mean": 0.0,
+          "std": 0.0
+        }
+      },
+      "by_profile": {
+        "small_front": {
+          "n": 1662,
+          "zero_count": 1662,
+          "zero_fraction": 1.0,
+          "positive_count": 0,
+          "positive_fraction": 0.0,
+          "positive_rate_wilson95": [
+            0.0,
+            0.002306017058438217
+          ],
+          "exact_one_count": 0,
+          "unique_value_count": 1,
+          "value_counts": {
+            "0": 1662
+          },
+          "discrete_entropy_bits": -0.0,
+          "r2_nearest_level_counts": {
+            "0.0": 1662
+          },
+          "r2_nearest_level_max_absolute_deviation": 0.0,
+          "r2_quantized_entropy_bits": -0.0,
+          "r2_quantized_normalized_entropy": -0.0,
+          "hhi": 1.0,
+          "effective_discrete_values": 1.0,
+          "binary_balance_effective_n": 0.0,
+          "mean": 0.0,
+          "std": 0.0
+        },
+        "medium_front": {
+          "n": 1670,
+          "zero_count": 1670,
+          "zero_fraction": 1.0,
+          "positive_count": 0,
+          "positive_fraction": 0.0,
+          "positive_rate_wilson95": [
+            0.0,
+            0.002294995622465121
+          ],
+          "exact_one_count": 0,
+          "unique_value_count": 1,
+          "value_counts": {
+            "0": 1670
+          },
+          "discrete_entropy_bits": -0.0,
+          "r2_nearest_level_counts": {
+            "0.0": 1670
+          },
+          "r2_nearest_level_max_absolute_deviation": 0.0,
+          "r2_quantized_entropy_bits": -0.0,
+          "r2_quantized_normalized_entropy": -0.0,
+          "hhi": 1.0,
+          "effective_discrete_values": 1.0,
+          "binary_balance_effective_n": 0.0,
+          "mean": 0.0,
+          "std": 0.0
+        },
+        "large_front": {
+          "n": 1668,
+          "zero_count": 1668,
+          "zero_fraction": 1.0,
+          "positive_count": 0,
+          "positive_fraction": 0.0,
+          "positive_rate_wilson95": [
+            2.168404344971009e-19,
+            0.0022977410928688565
+          ],
+          "exact_one_count": 0,
+          "unique_value_count": 1,
+          "value_counts": {
+            "0": 1668
+          },
+          "discrete_entropy_bits": -0.0,
+          "r2_nearest_level_counts": {
+            "0.0": 1668
+          },
+          "r2_nearest_level_max_absolute_deviation": 0.0,
+          "r2_quantized_entropy_bits": -0.0,
+          "r2_quantized_normalized_entropy": -0.0,
+          "hhi": 1.0,
+          "effective_discrete_values": 1.0,
+          "binary_balance_effective_n": 0.0,
+          "mean": 0.0,
+          "std": 0.0
+        }
+      },
+      "positive_rate_heterogeneity": {
+        "by_split": {
+          "estimable": false,
+          "levels": [
+            "train",
+            "validation",
+            "test"
+          ],
+          "observed_positive_negative": [
+            [
+              0,
+              3000
+            ],
+            [
+              0,
+              500
+            ],
+            [
+              0,
+              1500
+            ]
+          ],
+          "reason": "one outcome column is identically zero"
+        },
+        "by_profile": {
+          "estimable": false,
+          "levels": [
+            "small_front",
+            "medium_front",
+            "large_front"
+          ],
+          "observed_positive_negative": [
+            [
+              0,
+              1662
+            ],
+            [
+              0,
+              1670
+            ],
+            [
+              0,
+              1668
+            ]
+          ],
+          "reason": "one outcome column is identically zero"
+        }
+      },
+      "positive_input_support": null
+    },
+    "effect-m1": {
+      "all": {
+        "n": 5000,
+        "zero_count": 4004,
+        "zero_fraction": 0.8008,
+        "positive_count": 996,
+        "positive_fraction": 0.1992,
+        "positive_rate_wilson95": [
+          0.18836220082656505,
+          0.21049964866358137
+        ],
+        "exact_one_count": 834,
+        "unique_value_count": 51,
+        "value_counts": {
+          "0": 4004,
+          "0.499997884035": 1,
+          "0.499998003244": 1,
+          "0.499998152256": 1,
+          "0.499998241663": 2,
+          "0.499998271465": 2,
+          "0.499998301268": 2,
+          "0.49999833107": 4,
+          "0.499998509884": 2,
+          "0.499998539686": 1,
+          "0.499998599291": 1,
+          "0.499999523163": 2,
+          "0.499999552965": 7,
+          "0.499999582767": 6,
+          "0.49999961257": 5,
+          "0.499999642372": 1,
+          "0.499999672174": 5,
+          "0.499999701977": 9,
+          "0.499999731779": 2,
+          "0.5": 23,
+          "0.999995172024": 1,
+          "0.999995410442": 2,
+          "0.999996066093": 1,
+          "0.999996304512": 1,
+          "0.999996423721": 2,
+          "0.999996483326": 2,
+          "0.999996602535": 3,
+          "0.999996721745": 1,
+          "0.999996781349": 4,
+          "0.999996840954": 1,
+          "0.999996900558": 1,
+          "0.999997913837": 1,
+          "0.999997973442": 2,
+          "0.999998211861": 1,
+          "0.999998271465": 5,
+          "0.99999833107": 3,
+          "0.999998390675": 3,
+          "0.999998450279": 1,
+          "0.999998509884": 3,
+          "0.999998569489": 3,
+          "0.99999910593": 4,
+          "0.999999165535": 3,
+          "0.99999922514": 1,
+          "0.999999284744": 1,
+          "0.999999344349": 5,
+          "0.999999403954": 2,
+          "0.999999523163": 5,
+          "0.999999582767": 10,
+          "0.999999642372": 7,
+          "0.999999701977": 6,
+          "1": 834
+        },
+        "discrete_entropy_bits": 1.0120083599722578,
+        "r2_nearest_level_counts": {
+          "0.0": 4004,
+          "1.0": 919,
+          "0.5": 77
+        },
+        "r2_nearest_level_max_absolute_deviation": 4.827976226806641e-06,
+        "r2_quantized_entropy_bits": 0.7985363895199598,
+        "r2_quantized_normalized_entropy": 0.5038203674576696,
+        "hhi": 0.6691496,
+        "effective_discrete_values": 2.0167165960052427,
+        "binary_balance_effective_n": 3190.3871999999997,
+        "mean": 0.19149996587634086,
+        "std": 0.3885584941030399
+      },
+      "by_split": {
+        "train": {
+          "n": 3000,
+          "zero_count": 2410,
+          "zero_fraction": 0.8033333333333333,
+          "positive_count": 590,
+          "positive_fraction": 0.19666666666666666,
+          "positive_rate_wilson95": [
+            0.1828350774722357,
+            0.21127409075446202
+          ],
+          "exact_one_count": 499,
+          "unique_value_count": 38,
+          "value_counts": {
+            "0": 2410,
+            "0.499998241663": 1,
+            "0.499998271465": 1,
+            "0.499998301268": 2,
+            "0.49999833107": 2,
+            "0.499998509884": 2,
+            "0.499998599291": 1,
+            "0.499999523163": 1,
+            "0.499999552965": 4,
+            "0.499999582767": 4,
+            "0.499999672174": 3,
+            "0.499999701977": 4,
+            "0.499999731779": 2,
+            "0.5": 14,
+            "0.999995410442": 2,
+            "0.999996066093": 1,
+            "0.999996304512": 1,
+            "0.999996423721": 1,
+            "0.999996483326": 1,
+            "0.999996602535": 3,
+            "0.999996781349": 3,
+            "0.999996900558": 1,
+            "0.999997973442": 1,
+            "0.999998211861": 1,
+            "0.999998271465": 2,
+            "0.99999833107": 1,
+            "0.999998390675": 1,
+            "0.999998450279": 1,
+            "0.999998509884": 2,
+            "0.999998569489": 1,
+            "0.99999910593": 2,
+            "0.999999165535": 1,
+            "0.999999344349": 5,
+            "0.999999523163": 3,
+            "0.999999582767": 7,
+            "0.999999642372": 4,
+            "0.999999701977": 5,
+            "1": 499
+          },
+          "discrete_entropy_bits": 0.9802173187243163,
+          "r2_nearest_level_counts": {
+            "0.0": 2410,
+            "1.0": 549,
+            "0.5": 41
+          },
+          "r2_nearest_level_max_absolute_deviation": 4.589557647705078e-06,
+          "r2_quantized_entropy_bits": 0.7868023636179278,
+          "r2_quantized_normalized_entropy": 0.49641702138689947,
+          "hhi": 0.6730604444444446,
+          "effective_discrete_values": 1.9727625514463434,
+          "binary_balance_effective_n": 1895.8666666666668,
+          "mean": 0.18983330073952676,
+          "std": 0.38778850742703314
+        },
+        "validation": {
+          "n": 500,
+          "zero_count": 396,
+          "zero_fraction": 0.792,
+          "positive_count": 104,
+          "positive_fraction": 0.208,
+          "positive_rate_wilson95": [
+            0.17471631170962926,
+            0.24573630311991723
+          ],
+          "exact_one_count": 88,
+          "unique_value_count": 17,
+          "value_counts": {
+            "0": 396,
+            "0.49999833107": 1,
+            "0.499999582767": 1,
+            "0.49999961257": 1,
+            "0.499999701977": 1,
+            "0.5": 1,
+            "0.999995172024": 1,
+            "0.999996840954": 1,
+            "0.999997913837": 1,
+            "0.999997973442": 1,
+            "0.999998509884": 1,
+            "0.999999165535": 1,
+            "0.999999403954": 1,
+            "0.999999523163": 1,
+            "0.999999582767": 1,
+            "0.999999642372": 2,
+            "1": 88
+          },
+          "discrete_entropy_bits": 0.9904738766788719,
+          "r2_nearest_level_counts": {
+            "0.0": 396,
+            "1.0": 99,
+            "0.5": 5
+          },
+          "r2_nearest_level_max_absolute_deviation": 4.827976226806641e-06,
+          "r2_quantized_entropy_bits": 0.7955019498343998,
+          "r2_quantized_normalized_entropy": 0.5019058491746318,
+          "hhi": 0.6583120000000001,
+          "effective_discrete_values": 1.986837492833729,
+          "binary_balance_effective_n": 329.47200000000004,
+          "mean": 0.20299996119737626,
+          "std": 0.3991126954782896
+        },
+        "test": {
+          "n": 1500,
+          "zero_count": 1198,
+          "zero_fraction": 0.7986666666666666,
+          "positive_count": 302,
+          "positive_fraction": 0.20133333333333334,
+          "positive_rate_wilson95": [
+            0.18181498521786943,
+            0.2223775280656523
+          ],
+          "exact_one_count": 247,
+          "unique_value_count": 34,
+          "value_counts": {
+            "0": 1198,
+            "0.499997884035": 1,
+            "0.499998003244": 1,
+            "0.499998152256": 1,
+            "0.499998241663": 1,
+            "0.499998271465": 1,
+            "0.49999833107": 1,
+            "0.499998539686": 1,
+            "0.499999523163": 1,
+            "0.499999552965": 3,
+            "0.499999582767": 1,
+            "0.49999961257": 4,
+            "0.499999642372": 1,
+            "0.499999672174": 2,
+            "0.499999701977": 4,
+            "0.5": 8,
+            "0.999996423721": 1,
+            "0.999996483326": 1,
+            "0.999996721745": 1,
+            "0.999996781349": 1,
+            "0.999998271465": 3,
+            "0.99999833107": 2,
+            "0.999998390675": 2,
+            "0.999998569489": 2,
+            "0.99999910593": 2,
+            "0.999999165535": 1,
+            "0.99999922514": 1,
+            "0.999999284744": 1,
+            "0.999999403954": 1,
+            "0.999999523163": 1,
+            "0.999999582767": 2,
+            "0.999999642372": 1,
+            "0.999999701977": 1,
+            "1": 247
+          },
+          "discrete_entropy_bits": 1.0334145932721048,
+          "r2_nearest_level_counts": {
+            "0.0": 1198,
+            "1.0": 271,
+            "0.5": 31
+          },
+          "r2_nearest_level_max_absolute_deviation": 3.5762786865234375e-06,
+          "r2_quantized_entropy_bits": 0.8206905968566716,
+          "r2_quantized_normalized_entropy": 0.5177981160331921,
+          "hhi": 0.6650542222222222,
+          "effective_discrete_values": 2.0468630705086746,
+          "binary_balance_effective_n": 964.7893333333333,
+          "mean": 0.19099996437629063,
+          "std": 0.38646123747684547
+        }
+      },
+      "by_profile": {
+        "small_front": {
+          "n": 1662,
+          "zero_count": 1312,
+          "zero_fraction": 0.789410348977136,
+          "positive_count": 350,
+          "positive_fraction": 0.21058965102286403,
+          "positive_rate_wilson95": [
+            0.1916661841881213,
+            0.23084788826086644
+          ],
+          "exact_one_count": 286,
+          "unique_value_count": 33,
+          "value_counts": {
+            "0": 1312,
+            "0.499997884035": 1,
+            "0.499998003244": 1,
+            "0.499998152256": 1,
+            "0.499998241663": 2,
+            "0.499998271465": 2,
+            "0.499998301268": 2,
+            "0.49999833107": 4,
+            "0.499998509884": 2,
+            "0.499998539686": 1,
+            "0.499998599291": 1,
+            "0.5": 6,
+            "0.999995172024": 1,
+            "0.999995410442": 2,
+            "0.999996066093": 1,
+            "0.999996304512": 1,
+            "0.999996423721": 2,
+            "0.999996483326": 2,
+            "0.999996602535": 3,
+            "0.999996721745": 1,
+            "0.999996781349": 4,
+            "0.999996840954": 1,
+            "0.999996900558": 1,
+            "0.999997913837": 1,
+            "0.999997973442": 2,
+            "0.999998211861": 1,
+            "0.999998271465": 5,
+            "0.99999833107": 3,
+            "0.999998390675": 3,
+            "0.999998450279": 1,
+            "0.999998509884": 3,
+            "0.999998569489": 3,
+            "1": 286
+          },
+          "discrete_entropy_bits": 1.0683043747323624,
+          "r2_nearest_level_counts": {
+            "0.0": 1312,
+            "1.0": 327,
+            "0.5": 23
+          },
+          "r2_nearest_level_max_absolute_deviation": 4.827976226806641e-06,
+          "r2_quantized_entropy_bits": 0.8162563111830339,
+          "r2_quantized_normalized_entropy": 0.5150003932658584,
+          "hhi": 0.6528474674938206,
+          "effective_discrete_values": 2.0969673151667054,
+          "binary_balance_effective_n": 1105.1744885679905,
+          "mean": 0.2036701961544877,
+          "std": 0.3984079529407764
+        },
+        "medium_front": {
+          "n": 1670,
+          "zero_count": 1323,
+          "zero_fraction": 0.7922155688622754,
+          "positive_count": 347,
+          "positive_fraction": 0.20778443113772455,
+          "positive_rate_wilson95": [
+            0.18900695107242815,
+            0.22790317810573107
+          ],
+          "exact_one_count": 296,
+          "unique_value_count": 13,
+          "value_counts": {
+            "0": 1323,
+            "0.499999523163": 2,
+            "0.499999552965": 7,
+            "0.499999582767": 5,
+            "0.49999961257": 5,
+            "0.5": 8,
+            "0.99999910593": 4,
+            "0.999999165535": 3,
+            "0.99999922514": 1,
+            "0.999999284744": 1,
+            "0.999999523163": 5,
+            "0.999999582767": 10,
+            "1": 296
+          },
+          "discrete_entropy_bits": 0.9598658845580559,
+          "r2_nearest_level_counts": {
+            "1.0": 320,
+            "0.0": 1323,
+            "0.5": 27
+          },
+          "r2_nearest_level_max_absolute_deviation": 8.940696716308594e-07,
+          "r2_quantized_entropy_bits": 0.8191795478110799,
+          "r2_quantized_normalized_entropy": 0.5168447502312227,
+          "hhi": 0.6591358600164939,
+          "effective_discrete_values": 1.9451290638363394,
+          "binary_balance_effective_n": 1099.5952095808382,
+          "mean": 0.1997005854895015,
+          "std": 0.3946876448764668
+        },
+        "large_front": {
+          "n": 1668,
+          "zero_count": 1369,
+          "zero_fraction": 0.8207434052757794,
+          "positive_count": 299,
+          "positive_fraction": 0.17925659472422062,
+          "positive_rate_wilson95": [
+            0.16159262230798355,
+            0.1983945377455954
+          ],
+          "exact_one_count": 252,
+          "unique_value_count": 12,
+          "value_counts": {
+            "0": 1369,
+            "0.499999582767": 1,
+            "0.499999642372": 1,
+            "0.499999672174": 5,
+            "0.499999701977": 9,
+            "0.499999731779": 2,
+            "0.5": 9,
+            "0.999999344349": 5,
+            "0.999999403954": 2,
+            "0.999999642372": 7,
+            "0.999999701977": 6,
+            "1": 252
+          },
+          "discrete_entropy_bits": 0.8758477903225959,
+          "r2_nearest_level_counts": {
+            "0.0": 1369,
+            "1.0": 272,
+            "0.5": 27
+          },
+          "r2_nearest_level_max_absolute_deviation": 6.556510925292969e-07,
+          "r2_quantized_entropy_bits": 0.756868099541444,
+          "r2_quantized_normalized_entropy": 0.4775306035297806,
+          "hhi": 0.6965549862268459,
+          "effective_discrete_values": 1.835086146014895,
+          "binary_balance_effective_n": 981.6091127098322,
+          "mean": 0.17116306091455533,
+          "std": 0.3712404876223279
+        }
+      },
+      "positive_rate_heterogeneity": {
+        "by_split": {
+          "estimable": true,
+          "levels": [
+            "train",
+            "validation",
+            "test"
+          ],
+          "observed_positive_negative": [
+            [
+              590,
+              2410
+            ],
+            [
+              104,
+              396
+            ],
+            [
+              302,
+              1198
+            ]
+          ],
+          "positive_rates": [
+            0.19666666666666666,
+            0.208,
+            0.20133333333333334
+          ],
+          "maximum_to_minimum_rate_ratio": 1.0576271186440678,
+          "chi2": 0.406220285738358,
+          "dof": 2,
+          "p_value": 0.8161883391491892,
+          "conditional_monte_carlo_p_value": 0.8223217767822322,
+          "conditional_monte_carlo_draws": 100000,
+          "conditional_monte_carlo_standard_error_upper_bound": 0.0012087542025240074,
+          "minimum_expected_count": 99.6,
+          "asymptotic_warning": false
+        },
+        "by_profile": {
+          "estimable": true,
+          "levels": [
+            "small_front",
+            "medium_front",
+            "large_front"
+          ],
+          "observed_positive_negative": [
+            [
+              350,
+              1312
+            ],
+            [
+              347,
+              1323
+            ],
+            [
+              299,
+              1369
+            ]
+          ],
+          "positive_rates": [
+            0.21058965102286403,
+            0.20778443113772455,
+            0.17925659472422062
+          ],
+          "maximum_to_minimum_rate_ratio": 1.1747944411576496,
+          "chi2": 6.281979098554507,
+          "dof": 2,
+          "p_value": 0.04323998862502229,
+          "conditional_monte_carlo_p_value": 0.04292957070429296,
+          "conditional_monte_carlo_draws": 100000,
+          "conditional_monte_carlo_standard_error_upper_bound": 0.0006409884762102831,
+          "minimum_expected_count": 331.0704,
+          "asymptotic_warning": false
+        }
+      },
+      "positive_input_support": {
+        "trajectory_origin_y_min_max": [
+          -2.677191972732544,
+          1.9976633787155151
+        ],
+        "trajectory_origin_z_min_max": [
+          0.6504389643669128,
+          0.9680593609809875
+        ],
+        "impact_speed_min_max": [
+          80.07627868652344,
+          159.98837280273438
+        ],
+        "yz_10x10_occupied_cells": 28,
+        "detonation_x_counts": {
+          "-1.187480092049": 996
+        }
+      }
+    },
+    "effect-k2": {
+      "all": {
+        "n": 5000,
+        "zero_count": 5000,
+        "zero_fraction": 1.0,
+        "positive_count": 0,
+        "positive_fraction": 0.0,
+        "positive_rate_wilson95": [
+          0.0,
+          0.0007677019450571244
+        ],
+        "exact_one_count": 0,
+        "unique_value_count": 1,
+        "value_counts": {
+          "0": 5000
+        },
+        "discrete_entropy_bits": -0.0,
+        "r2_nearest_level_counts": {
+          "0.0": 5000
+        },
+        "r2_nearest_level_max_absolute_deviation": 0.0,
+        "r2_quantized_entropy_bits": -0.0,
+        "r2_quantized_normalized_entropy": -0.0,
+        "hhi": 1.0,
+        "effective_discrete_values": 1.0,
+        "binary_balance_effective_n": 0.0,
+        "mean": 0.0,
+        "std": 0.0
+      },
+      "by_split": {
+        "train": {
+          "n": 3000,
+          "zero_count": 3000,
+          "zero_fraction": 1.0,
+          "positive_count": 0,
+          "positive_fraction": 0.0,
+          "positive_rate_wilson95": [
+            0.0,
+            0.0012788487253259629
+          ],
+          "exact_one_count": 0,
+          "unique_value_count": 1,
+          "value_counts": {
+            "0": 3000
+          },
+          "discrete_entropy_bits": -0.0,
+          "r2_nearest_level_counts": {
+            "0.0": 3000
+          },
+          "r2_nearest_level_max_absolute_deviation": 0.0,
+          "r2_quantized_entropy_bits": -0.0,
+          "r2_quantized_normalized_entropy": -0.0,
+          "hhi": 1.0,
+          "effective_discrete_values": 1.0,
+          "binary_balance_effective_n": 0.0,
+          "mean": 0.0,
+          "std": 0.0
+        },
+        "validation": {
+          "n": 500,
+          "zero_count": 500,
+          "zero_fraction": 1.0,
+          "positive_count": 0,
+          "positive_fraction": 0.0,
+          "positive_rate_wilson95": [
+            4.336808689942018e-19,
+            0.007624340461552241
+          ],
+          "exact_one_count": 0,
+          "unique_value_count": 1,
+          "value_counts": {
+            "0": 500
+          },
+          "discrete_entropy_bits": -0.0,
+          "r2_nearest_level_counts": {
+            "0.0": 500
+          },
+          "r2_nearest_level_max_absolute_deviation": 0.0,
+          "r2_quantized_entropy_bits": -0.0,
+          "r2_quantized_normalized_entropy": -0.0,
+          "hhi": 1.0,
+          "effective_discrete_values": 1.0,
+          "binary_balance_effective_n": 0.0,
+          "mean": 0.0,
+          "std": 0.0
+        },
+        "test": {
+          "n": 1500,
+          "zero_count": 1500,
+          "zero_fraction": 1.0,
+          "positive_count": 0,
+          "positive_fraction": 0.0,
+          "positive_rate_wilson95": [
+            0.0,
+            0.002554430720181488
+          ],
+          "exact_one_count": 0,
+          "unique_value_count": 1,
+          "value_counts": {
+            "0": 1500
+          },
+          "discrete_entropy_bits": -0.0,
+          "r2_nearest_level_counts": {
+            "0.0": 1500
+          },
+          "r2_nearest_level_max_absolute_deviation": 0.0,
+          "r2_quantized_entropy_bits": -0.0,
+          "r2_quantized_normalized_entropy": -0.0,
+          "hhi": 1.0,
+          "effective_discrete_values": 1.0,
+          "binary_balance_effective_n": 0.0,
+          "mean": 0.0,
+          "std": 0.0
+        }
+      },
+      "by_profile": {
+        "small_front": {
+          "n": 1662,
+          "zero_count": 1662,
+          "zero_fraction": 1.0,
+          "positive_count": 0,
+          "positive_fraction": 0.0,
+          "positive_rate_wilson95": [
+            0.0,
+            0.002306017058438217
+          ],
+          "exact_one_count": 0,
+          "unique_value_count": 1,
+          "value_counts": {
+            "0": 1662
+          },
+          "discrete_entropy_bits": -0.0,
+          "r2_nearest_level_counts": {
+            "0.0": 1662
+          },
+          "r2_nearest_level_max_absolute_deviation": 0.0,
+          "r2_quantized_entropy_bits": -0.0,
+          "r2_quantized_normalized_entropy": -0.0,
+          "hhi": 1.0,
+          "effective_discrete_values": 1.0,
+          "binary_balance_effective_n": 0.0,
+          "mean": 0.0,
+          "std": 0.0
+        },
+        "medium_front": {
+          "n": 1670,
+          "zero_count": 1670,
+          "zero_fraction": 1.0,
+          "positive_count": 0,
+          "positive_fraction": 0.0,
+          "positive_rate_wilson95": [
+            0.0,
+            0.002294995622465121
+          ],
+          "exact_one_count": 0,
+          "unique_value_count": 1,
+          "value_counts": {
+            "0": 1670
+          },
+          "discrete_entropy_bits": -0.0,
+          "r2_nearest_level_counts": {
+            "0.0": 1670
+          },
+          "r2_nearest_level_max_absolute_deviation": 0.0,
+          "r2_quantized_entropy_bits": -0.0,
+          "r2_quantized_normalized_entropy": -0.0,
+          "hhi": 1.0,
+          "effective_discrete_values": 1.0,
+          "binary_balance_effective_n": 0.0,
+          "mean": 0.0,
+          "std": 0.0
+        },
+        "large_front": {
+          "n": 1668,
+          "zero_count": 1668,
+          "zero_fraction": 1.0,
+          "positive_count": 0,
+          "positive_fraction": 0.0,
+          "positive_rate_wilson95": [
+            2.168404344971009e-19,
+            0.0022977410928688565
+          ],
+          "exact_one_count": 0,
+          "unique_value_count": 1,
+          "value_counts": {
+            "0": 1668
+          },
+          "discrete_entropy_bits": -0.0,
+          "r2_nearest_level_counts": {
+            "0.0": 1668
+          },
+          "r2_nearest_level_max_absolute_deviation": 0.0,
+          "r2_quantized_entropy_bits": -0.0,
+          "r2_quantized_normalized_entropy": -0.0,
+          "hhi": 1.0,
+          "effective_discrete_values": 1.0,
+          "binary_balance_effective_n": 0.0,
+          "mean": 0.0,
+          "std": 0.0
+        }
+      },
+      "positive_rate_heterogeneity": {
+        "by_split": {
+          "estimable": false,
+          "levels": [
+            "train",
+            "validation",
+            "test"
+          ],
+          "observed_positive_negative": [
+            [
+              0,
+              3000
+            ],
+            [
+              0,
+              500
+            ],
+            [
+              0,
+              1500
+            ]
+          ],
+          "reason": "one outcome column is identically zero"
+        },
+        "by_profile": {
+          "estimable": false,
+          "levels": [
+            "small_front",
+            "medium_front",
+            "large_front"
+          ],
+          "observed_positive_negative": [
+            [
+              0,
+              1662
+            ],
+            [
+              0,
+              1670
+            ],
+            [
+              0,
+              1668
+            ]
+          ],
+          "reason": "one outcome column is identically zero"
+        }
+      },
+      "positive_input_support": null
+    },
+    "effect-f1": {
+      "all": {
+        "n": 5000,
+        "zero_count": 4972,
+        "zero_fraction": 0.9944,
+        "positive_count": 28,
+        "positive_fraction": 0.0056,
+        "positive_rate_wilson95": [
+          0.003877382638215079,
+          0.008081721045057406
+        ],
+        "exact_one_count": 4,
+        "unique_value_count": 26,
+        "value_counts": {
+          "0": 4972,
+          "0.499965429306": 1,
+          "0.499965727329": 1,
+          "0.499967604876": 1,
+          "0.499968349934": 1,
+          "0.499968737364": 1,
+          "0.499970197678": 1,
+          "0.499970465899": 1,
+          "0.499972462654": 1,
+          "0.499973326921": 1,
+          "0.499974370003": 1,
+          "0.499995023012": 1,
+          "0.499996185303": 1,
+          "0.499996393919": 1,
+          "0.499996691942": 1,
+          "0.499996930361": 1,
+          "0.5": 1,
+          "0.999924600124": 1,
+          "0.999963402748": 1,
+          "0.999976456165": 1,
+          "0.999992728233": 1,
+          "0.999995470047": 1,
+          "0.999995529652": 1,
+          "0.999996006489": 1,
+          "0.999996304512": 1,
+          "1": 4
+        },
+        "discrete_entropy_bits": 0.0752676177508584,
+        "r2_nearest_level_counts": {
+          "0.0": 4972,
+          "1.0": 12,
+          "0.5": 16
+        },
+        "r2_nearest_level_max_absolute_deviation": 7.539987564086914e-05,
+        "r2_quantized_entropy_bits": 0.055463707749127636,
+        "r2_quantized_normalized_entropy": 0.034993703462316436,
+        "hhi": 0.9888329599999999,
+        "effective_discrete_values": 1.0535564509599114,
+        "binary_balance_effective_n": 111.3728,
+        "mean": 0.003999903678894043,
+        "std": 0.05642581459278812
+      },
+      "by_split": {
+        "train": {
+          "n": 3000,
+          "zero_count": 2989,
+          "zero_fraction": 0.9963333333333333,
+          "positive_count": 11,
+          "positive_fraction": 0.0036666666666666666,
+          "positive_rate_wilson95": [
+            0.0020486685952001804,
+            0.006554135239473392
+          ],
+          "exact_one_count": 2,
+          "unique_value_count": 11,
+          "value_counts": {
+            "0": 2989,
+            "0.499968349934": 1,
+            "0.499968737364": 1,
+            "0.499972462654": 1,
+            "0.499973326921": 1,
+            "0.499996393919": 1,
+            "0.499996930361": 1,
+            "0.5": 1,
+            "0.999924600124": 1,
+            "0.999995529652": 1,
+            "1": 2
+          },
+          "discrete_entropy_bits": 0.0469662433713018,
+          "r2_nearest_level_counts": {
+            "0.0": 2989,
+            "1.0": 4,
+            "0.5": 7
+          },
+          "r2_nearest_level_max_absolute_deviation": 7.539987564086914e-05,
+          "r2_quantized_entropy_bits": 0.0384157485531674,
+          "r2_quantized_normalized_entropy": 0.024237638767912982,
+          "hhi": 0.9926815555555554,
+          "effective_discrete_values": 1.0330902148341532,
+          "binary_balance_effective_n": 43.83866666666667,
+          "mean": 0.0024999321103096007,
+          "std": 0.04370723619803599
+        },
+        "validation": {
+          "n": 500,
+          "zero_count": 498,
+          "zero_fraction": 0.996,
+          "positive_count": 2,
+          "positive_fraction": 0.004,
+          "positive_rate_wilson95": [
+            0.0010976305226827934,
+            0.014465715215177033
+          ],
+          "exact_one_count": 0,
+          "unique_value_count": 3,
+          "value_counts": {
+            "0": 498,
+            "0.999963402748": 1,
+            "0.999996304512": 1
+          },
+          "discrete_entropy_bits": 0.04162236032227844,
+          "r2_nearest_level_counts": {
+            "0.0": 498,
+            "1.0": 2
+          },
+          "r2_nearest_level_max_absolute_deviation": 3.6597251892089844e-05,
+          "r2_quantized_entropy_bits": 0.037622360322278434,
+          "r2_quantized_normalized_entropy": 0.023737066526911713,
+          "hhi": 0.992024,
+          "effective_discrete_values": 1.0292706264155413,
+          "binary_balance_effective_n": 7.968,
+          "mean": 0.003999919414520264,
+          "std": 0.06311766374339202
+        },
+        "test": {
+          "n": 1500,
+          "zero_count": 1485,
+          "zero_fraction": 0.99,
+          "positive_count": 15,
+          "positive_fraction": 0.01,
+          "positive_rate_wilson95": [
+            0.006069437504076523,
+            0.016433904601701334
+          ],
+          "exact_one_count": 2,
+          "unique_value_count": 15,
+          "value_counts": {
+            "0": 1485,
+            "0.499965429306": 1,
+            "0.499965727329": 1,
+            "0.499967604876": 1,
+            "0.499970197678": 1,
+            "0.499970465899": 1,
+            "0.499974370003": 1,
+            "0.499995023012": 1,
+            "0.499996185303": 1,
+            "0.499996691942": 1,
+            "0.999976456165": 1,
+            "0.999992728233": 1,
+            "0.999995470047": 1,
+            "0.999996006489": 1,
+            "1": 2
+          },
+          "discrete_entropy_bits": 0.11852870851866304,
+          "r2_nearest_level_counts": {
+            "0.0": 1485,
+            "0.5": 9,
+            "1.0": 6
+          },
+          "r2_nearest_level_max_absolute_deviation": 3.457069396972656e-05,
+          "r2_quantized_entropy_bits": 0.09050264184045786,
+          "r2_quantized_normalized_entropy": 0.057100809513965955,
+          "hhi": 0.9801075555555557,
+          "effective_discrete_values": 1.0856271518323537,
+          "binary_balance_effective_n": 59.4,
+          "mean": 0.006999841570854187,
+          "std": 0.07382965235694304
+        }
+      },
+      "by_profile": {
+        "small_front": {
+          "n": 1662,
+          "zero_count": 1648,
+          "zero_fraction": 0.9915764139590855,
+          "positive_count": 14,
+          "positive_fraction": 0.00842358604091456,
+          "positive_rate_wilson95": [
+            0.005024365066169323,
+            0.01408997420789087
+          ],
+          "exact_one_count": 0,
+          "unique_value_count": 15,
+          "value_counts": {
+            "0": 1648,
+            "0.499965429306": 1,
+            "0.499965727329": 1,
+            "0.499967604876": 1,
+            "0.499968349934": 1,
+            "0.499968737364": 1,
+            "0.499970197678": 1,
+            "0.499970465899": 1,
+            "0.499972462654": 1,
+            "0.499973326921": 1,
+            "0.499974370003": 1,
+            "0.5": 1,
+            "0.999924600124": 1,
+            "0.999963402748": 1,
+            "0.999976456165": 1
+          },
+          "discrete_entropy_bits": 0.1022227962541327,
+          "r2_nearest_level_counts": {
+            "0.0": 1648,
+            "1.0": 3,
+            "0.5": 11
+          },
+          "r2_nearest_level_max_absolute_deviation": 7.539987564086914e-05,
+          "r2_quantized_entropy_bits": 0.07646549462526768,
+          "r2_quantized_normalized_entropy": 0.04824435568063974,
+          "hhi": 0.9832288530629447,
+          "effective_discrete_values": 1.0734260434171397,
+          "binary_balance_effective_n": 55.52827918170878,
+          "mean": 0.0051140560354997104,
+          "std": 0.058593412183148834
+        },
+        "medium_front": {
+          "n": 1670,
+          "zero_count": 1658,
+          "zero_fraction": 0.9928143712574851,
+          "positive_count": 12,
+          "positive_fraction": 0.00718562874251497,
+          "positive_rate_wilson95": [
+            0.004115247125347984,
+            0.012518024009129613
+          ],
+          "exact_one_count": 4,
+          "unique_value_count": 10,
+          "value_counts": {
+            "0": 1658,
+            "0.499995023012": 1,
+            "0.499996185303": 1,
+            "0.499996393919": 1,
+            "0.999992728233": 1,
+            "0.999995470047": 1,
+            "0.999995529652": 1,
+            "0.999996006489": 1,
+            "0.999996304512": 1,
+            "1": 4
+          },
+          "discrete_entropy_bits": 0.08246561652311862,
+          "r2_nearest_level_counts": {
+            "0.0": 1658,
+            "1.0": 9,
+            "0.5": 3
+          },
+          "r2_nearest_level_max_absolute_deviation": 7.271766662597656e-06,
+          "r2_quantized_entropy_bits": 0.06732536950806217,
+          "r2_quantized_normalized_entropy": 0.042477578792828985,
+          "hhi": 0.9856889813187996,
+          "effective_discrete_values": 1.0588260660872384,
+          "binary_balance_effective_n": 47.65508982035928,
+          "mean": 0.006287403377944124,
+          "std": 0.07614956199782441
+        },
+        "large_front": {
+          "n": 1668,
+          "zero_count": 1666,
+          "zero_fraction": 0.9988009592326139,
+          "positive_count": 2,
+          "positive_fraction": 0.001199040767386091,
+          "positive_rate_wilson95": [
+            0.00032888183403043244,
+            0.004361430623124111
+          ],
+          "exact_one_count": 0,
+          "unique_value_count": 3,
+          "value_counts": {
+            "0": 1666,
+            "0.499996691942": 1,
+            "0.499996930361": 1
+          },
+          "discrete_entropy_bits": 0.014563229428475148,
+          "r2_nearest_level_counts": {
+            "0.0": 1666,
+            "0.5": 2
+          },
+          "r2_nearest_level_max_absolute_deviation": 3.3080577850341797e-06,
+          "r2_quantized_entropy_bits": 0.013364188661089058,
+          "r2_quantized_normalized_entropy": 0.008431864258623386,
+          "hhi": 0.9976040750133706,
+          "effective_discrete_values": 1.0101455823618595,
+          "binary_balance_effective_n": 7.99040767386091,
+          "mean": 0.0005995165601336985,
+          "std": 0.017303090712167898
+        }
+      },
+      "positive_rate_heterogeneity": {
+        "by_split": {
+          "estimable": true,
+          "levels": [
+            "train",
+            "validation",
+            "test"
+          ],
+          "observed_positive_negative": [
+            [
+              11,
+              2989
+            ],
+            [
+              2,
+              498
+            ],
+            [
+              15,
+              1485
+            ]
+          ],
+          "positive_rates": [
+            0.0036666666666666666,
+            0.004,
+            0.01
+          ],
+          "maximum_to_minimum_rate_ratio": 2.7272727272727275,
+          "chi2": 7.458433896486994,
+          "dof": 2,
+          "p_value": 0.024011630826719192,
+          "conditional_monte_carlo_p_value": 0.025219747802521973,
+          "conditional_monte_carlo_draws": 100000,
+          "conditional_monte_carlo_standard_error_upper_bound": 0.0004958196458723591,
+          "minimum_expected_count": 2.8,
+          "asymptotic_warning": true
+        },
+        "by_profile": {
+          "estimable": true,
+          "levels": [
+            "small_front",
+            "medium_front",
+            "large_front"
+          ],
+          "observed_positive_negative": [
+            [
+              14,
+              1648
+            ],
+            [
+              12,
+              1658
+            ],
+            [
+              2,
+              1666
+            ]
+          ],
+          "positive_rates": [
+            0.00842358604091456,
+            0.00718562874251497,
+            0.001199040767386091
+          ],
+          "maximum_to_minimum_rate_ratio": 7.025270758122744,
+          "chi2": 8.93500585740067,
+          "dof": 2,
+          "p_value": 0.01147593633319557,
+          "conditional_monte_carlo_p_value": 0.011599884001159988,
+          "conditional_monte_carlo_draws": 100000,
+          "conditional_monte_carlo_standard_error_upper_bound": 0.000338604883194552,
+          "minimum_expected_count": 9.3072,
+          "asymptotic_warning": false
+        }
+      },
+      "positive_input_support": {
+        "trajectory_origin_y_min_max": [
+          0.38324782252311707,
+          1.7378261089324951
+        ],
+        "trajectory_origin_z_min_max": [
+          1.109774112701416,
+          1.1468042135238647
+        ],
+        "impact_speed_min_max": [
+          101.07427978515625,
+          159.50918579101562
+        ],
+        "yz_10x10_occupied_cells": 5,
+        "detonation_x_counts": {
+          "-1.187480092049": 28
+        }
+      }
+    },
+    "effect-c1": {
+      "all": {
+        "n": 5000,
+        "zero_count": 5000,
+        "zero_fraction": 1.0,
+        "positive_count": 0,
+        "positive_fraction": 0.0,
+        "positive_rate_wilson95": [
+          0.0,
+          0.0007677019450571244
+        ],
+        "exact_one_count": 0,
+        "unique_value_count": 1,
+        "value_counts": {
+          "0": 5000
+        },
+        "discrete_entropy_bits": -0.0,
+        "r2_nearest_level_counts": {
+          "0.0": 5000
+        },
+        "r2_nearest_level_max_absolute_deviation": 0.0,
+        "r2_quantized_entropy_bits": -0.0,
+        "r2_quantized_normalized_entropy": -0.0,
+        "hhi": 1.0,
+        "effective_discrete_values": 1.0,
+        "binary_balance_effective_n": 0.0,
+        "mean": 0.0,
+        "std": 0.0
+      },
+      "by_split": {
+        "train": {
+          "n": 3000,
+          "zero_count": 3000,
+          "zero_fraction": 1.0,
+          "positive_count": 0,
+          "positive_fraction": 0.0,
+          "positive_rate_wilson95": [
+            0.0,
+            0.0012788487253259629
+          ],
+          "exact_one_count": 0,
+          "unique_value_count": 1,
+          "value_counts": {
+            "0": 3000
+          },
+          "discrete_entropy_bits": -0.0,
+          "r2_nearest_level_counts": {
+            "0.0": 3000
+          },
+          "r2_nearest_level_max_absolute_deviation": 0.0,
+          "r2_quantized_entropy_bits": -0.0,
+          "r2_quantized_normalized_entropy": -0.0,
+          "hhi": 1.0,
+          "effective_discrete_values": 1.0,
+          "binary_balance_effective_n": 0.0,
+          "mean": 0.0,
+          "std": 0.0
+        },
+        "validation": {
+          "n": 500,
+          "zero_count": 500,
+          "zero_fraction": 1.0,
+          "positive_count": 0,
+          "positive_fraction": 0.0,
+          "positive_rate_wilson95": [
+            4.336808689942018e-19,
+            0.007624340461552241
+          ],
+          "exact_one_count": 0,
+          "unique_value_count": 1,
+          "value_counts": {
+            "0": 500
+          },
+          "discrete_entropy_bits": -0.0,
+          "r2_nearest_level_counts": {
+            "0.0": 500
+          },
+          "r2_nearest_level_max_absolute_deviation": 0.0,
+          "r2_quantized_entropy_bits": -0.0,
+          "r2_quantized_normalized_entropy": -0.0,
+          "hhi": 1.0,
+          "effective_discrete_values": 1.0,
+          "binary_balance_effective_n": 0.0,
+          "mean": 0.0,
+          "std": 0.0
+        },
+        "test": {
+          "n": 1500,
+          "zero_count": 1500,
+          "zero_fraction": 1.0,
+          "positive_count": 0,
+          "positive_fraction": 0.0,
+          "positive_rate_wilson95": [
+            0.0,
+            0.002554430720181488
+          ],
+          "exact_one_count": 0,
+          "unique_value_count": 1,
+          "value_counts": {
+            "0": 1500
+          },
+          "discrete_entropy_bits": -0.0,
+          "r2_nearest_level_counts": {
+            "0.0": 1500
+          },
+          "r2_nearest_level_max_absolute_deviation": 0.0,
+          "r2_quantized_entropy_bits": -0.0,
+          "r2_quantized_normalized_entropy": -0.0,
+          "hhi": 1.0,
+          "effective_discrete_values": 1.0,
+          "binary_balance_effective_n": 0.0,
+          "mean": 0.0,
+          "std": 0.0
+        }
+      },
+      "by_profile": {
+        "small_front": {
+          "n": 1662,
+          "zero_count": 1662,
+          "zero_fraction": 1.0,
+          "positive_count": 0,
+          "positive_fraction": 0.0,
+          "positive_rate_wilson95": [
+            0.0,
+            0.002306017058438217
+          ],
+          "exact_one_count": 0,
+          "unique_value_count": 1,
+          "value_counts": {
+            "0": 1662
+          },
+          "discrete_entropy_bits": -0.0,
+          "r2_nearest_level_counts": {
+            "0.0": 1662
+          },
+          "r2_nearest_level_max_absolute_deviation": 0.0,
+          "r2_quantized_entropy_bits": -0.0,
+          "r2_quantized_normalized_entropy": -0.0,
+          "hhi": 1.0,
+          "effective_discrete_values": 1.0,
+          "binary_balance_effective_n": 0.0,
+          "mean": 0.0,
+          "std": 0.0
+        },
+        "medium_front": {
+          "n": 1670,
+          "zero_count": 1670,
+          "zero_fraction": 1.0,
+          "positive_count": 0,
+          "positive_fraction": 0.0,
+          "positive_rate_wilson95": [
+            0.0,
+            0.002294995622465121
+          ],
+          "exact_one_count": 0,
+          "unique_value_count": 1,
+          "value_counts": {
+            "0": 1670
+          },
+          "discrete_entropy_bits": -0.0,
+          "r2_nearest_level_counts": {
+            "0.0": 1670
+          },
+          "r2_nearest_level_max_absolute_deviation": 0.0,
+          "r2_quantized_entropy_bits": -0.0,
+          "r2_quantized_normalized_entropy": -0.0,
+          "hhi": 1.0,
+          "effective_discrete_values": 1.0,
+          "binary_balance_effective_n": 0.0,
+          "mean": 0.0,
+          "std": 0.0
+        },
+        "large_front": {
+          "n": 1668,
+          "zero_count": 1668,
+          "zero_fraction": 1.0,
+          "positive_count": 0,
+          "positive_fraction": 0.0,
+          "positive_rate_wilson95": [
+            2.168404344971009e-19,
+            0.0022977410928688565
+          ],
+          "exact_one_count": 0,
+          "unique_value_count": 1,
+          "value_counts": {
+            "0": 1668
+          },
+          "discrete_entropy_bits": -0.0,
+          "r2_nearest_level_counts": {
+            "0.0": 1668
+          },
+          "r2_nearest_level_max_absolute_deviation": 0.0,
+          "r2_quantized_entropy_bits": -0.0,
+          "r2_quantized_normalized_entropy": -0.0,
+          "hhi": 1.0,
+          "effective_discrete_values": 1.0,
+          "binary_balance_effective_n": 0.0,
+          "mean": 0.0,
+          "std": 0.0
+        }
+      },
+      "positive_rate_heterogeneity": {
+        "by_split": {
+          "estimable": false,
+          "levels": [
+            "train",
+            "validation",
+            "test"
+          ],
+          "observed_positive_negative": [
+            [
+              0,
+              3000
+            ],
+            [
+              0,
+              500
+            ],
+            [
+              0,
+              1500
+            ]
+          ],
+          "reason": "one outcome column is identically zero"
+        },
+        "by_profile": {
+          "estimable": false,
+          "levels": [
+            "small_front",
+            "medium_front",
+            "large_front"
+          ],
+          "observed_positive_negative": [
+            [
+              0,
+              1662
+            ],
+            [
+              0,
+              1670
+            ],
+            [
+              0,
+              1668
+            ]
+          ],
+          "reason": "one outcome column is identically zero"
+        }
+      },
+      "positive_input_support": null
+    },
+    "effect-c2": {
+      "all": {
+        "n": 5000,
+        "zero_count": 5000,
+        "zero_fraction": 1.0,
+        "positive_count": 0,
+        "positive_fraction": 0.0,
+        "positive_rate_wilson95": [
+          0.0,
+          0.0007677019450571244
+        ],
+        "exact_one_count": 0,
+        "unique_value_count": 1,
+        "value_counts": {
+          "0": 5000
+        },
+        "discrete_entropy_bits": -0.0,
+        "r2_nearest_level_counts": {
+          "0.0": 5000
+        },
+        "r2_nearest_level_max_absolute_deviation": 0.0,
+        "r2_quantized_entropy_bits": -0.0,
+        "r2_quantized_normalized_entropy": -0.0,
+        "hhi": 1.0,
+        "effective_discrete_values": 1.0,
+        "binary_balance_effective_n": 0.0,
+        "mean": 0.0,
+        "std": 0.0
+      },
+      "by_split": {
+        "train": {
+          "n": 3000,
+          "zero_count": 3000,
+          "zero_fraction": 1.0,
+          "positive_count": 0,
+          "positive_fraction": 0.0,
+          "positive_rate_wilson95": [
+            0.0,
+            0.0012788487253259629
+          ],
+          "exact_one_count": 0,
+          "unique_value_count": 1,
+          "value_counts": {
+            "0": 3000
+          },
+          "discrete_entropy_bits": -0.0,
+          "r2_nearest_level_counts": {
+            "0.0": 3000
+          },
+          "r2_nearest_level_max_absolute_deviation": 0.0,
+          "r2_quantized_entropy_bits": -0.0,
+          "r2_quantized_normalized_entropy": -0.0,
+          "hhi": 1.0,
+          "effective_discrete_values": 1.0,
+          "binary_balance_effective_n": 0.0,
+          "mean": 0.0,
+          "std": 0.0
+        },
+        "validation": {
+          "n": 500,
+          "zero_count": 500,
+          "zero_fraction": 1.0,
+          "positive_count": 0,
+          "positive_fraction": 0.0,
+          "positive_rate_wilson95": [
+            4.336808689942018e-19,
+            0.007624340461552241
+          ],
+          "exact_one_count": 0,
+          "unique_value_count": 1,
+          "value_counts": {
+            "0": 500
+          },
+          "discrete_entropy_bits": -0.0,
+          "r2_nearest_level_counts": {
+            "0.0": 500
+          },
+          "r2_nearest_level_max_absolute_deviation": 0.0,
+          "r2_quantized_entropy_bits": -0.0,
+          "r2_quantized_normalized_entropy": -0.0,
+          "hhi": 1.0,
+          "effective_discrete_values": 1.0,
+          "binary_balance_effective_n": 0.0,
+          "mean": 0.0,
+          "std": 0.0
+        },
+        "test": {
+          "n": 1500,
+          "zero_count": 1500,
+          "zero_fraction": 1.0,
+          "positive_count": 0,
+          "positive_fraction": 0.0,
+          "positive_rate_wilson95": [
+            0.0,
+            0.002554430720181488
+          ],
+          "exact_one_count": 0,
+          "unique_value_count": 1,
+          "value_counts": {
+            "0": 1500
+          },
+          "discrete_entropy_bits": -0.0,
+          "r2_nearest_level_counts": {
+            "0.0": 1500
+          },
+          "r2_nearest_level_max_absolute_deviation": 0.0,
+          "r2_quantized_entropy_bits": -0.0,
+          "r2_quantized_normalized_entropy": -0.0,
+          "hhi": 1.0,
+          "effective_discrete_values": 1.0,
+          "binary_balance_effective_n": 0.0,
+          "mean": 0.0,
+          "std": 0.0
+        }
+      },
+      "by_profile": {
+        "small_front": {
+          "n": 1662,
+          "zero_count": 1662,
+          "zero_fraction": 1.0,
+          "positive_count": 0,
+          "positive_fraction": 0.0,
+          "positive_rate_wilson95": [
+            0.0,
+            0.002306017058438217
+          ],
+          "exact_one_count": 0,
+          "unique_value_count": 1,
+          "value_counts": {
+            "0": 1662
+          },
+          "discrete_entropy_bits": -0.0,
+          "r2_nearest_level_counts": {
+            "0.0": 1662
+          },
+          "r2_nearest_level_max_absolute_deviation": 0.0,
+          "r2_quantized_entropy_bits": -0.0,
+          "r2_quantized_normalized_entropy": -0.0,
+          "hhi": 1.0,
+          "effective_discrete_values": 1.0,
+          "binary_balance_effective_n": 0.0,
+          "mean": 0.0,
+          "std": 0.0
+        },
+        "medium_front": {
+          "n": 1670,
+          "zero_count": 1670,
+          "zero_fraction": 1.0,
+          "positive_count": 0,
+          "positive_fraction": 0.0,
+          "positive_rate_wilson95": [
+            0.0,
+            0.002294995622465121
+          ],
+          "exact_one_count": 0,
+          "unique_value_count": 1,
+          "value_counts": {
+            "0": 1670
+          },
+          "discrete_entropy_bits": -0.0,
+          "r2_nearest_level_counts": {
+            "0.0": 1670
+          },
+          "r2_nearest_level_max_absolute_deviation": 0.0,
+          "r2_quantized_entropy_bits": -0.0,
+          "r2_quantized_normalized_entropy": -0.0,
+          "hhi": 1.0,
+          "effective_discrete_values": 1.0,
+          "binary_balance_effective_n": 0.0,
+          "mean": 0.0,
+          "std": 0.0
+        },
+        "large_front": {
+          "n": 1668,
+          "zero_count": 1668,
+          "zero_fraction": 1.0,
+          "positive_count": 0,
+          "positive_fraction": 0.0,
+          "positive_rate_wilson95": [
+            2.168404344971009e-19,
+            0.0022977410928688565
+          ],
+          "exact_one_count": 0,
+          "unique_value_count": 1,
+          "value_counts": {
+            "0": 1668
+          },
+          "discrete_entropy_bits": -0.0,
+          "r2_nearest_level_counts": {
+            "0.0": 1668
+          },
+          "r2_nearest_level_max_absolute_deviation": 0.0,
+          "r2_quantized_entropy_bits": -0.0,
+          "r2_quantized_normalized_entropy": -0.0,
+          "hhi": 1.0,
+          "effective_discrete_values": 1.0,
+          "binary_balance_effective_n": 0.0,
+          "mean": 0.0,
+          "std": 0.0
+        }
+      },
+      "positive_rate_heterogeneity": {
+        "by_split": {
+          "estimable": false,
+          "levels": [
+            "train",
+            "validation",
+            "test"
+          ],
+          "observed_positive_negative": [
+            [
+              0,
+              3000
+            ],
+            [
+              0,
+              500
+            ],
+            [
+              0,
+              1500
+            ]
+          ],
+          "reason": "one outcome column is identically zero"
+        },
+        "by_profile": {
+          "estimable": false,
+          "levels": [
+            "small_front",
+            "medium_front",
+            "large_front"
+          ],
+          "observed_positive_negative": [
+            [
+              0,
+              1662
+            ],
+            [
+              0,
+              1670
+            ],
+            [
+              0,
+              1668
+            ]
+          ],
+          "reason": "one outcome column is identically zero"
+        }
+      },
+      "positive_input_support": null
+    }
+  },
+  "ordinal_diagnostics": {
+    "m2_greater_than_m1_count_if_m2_is_level2": 1346,
+    "m1_greater_than_m2_count": 531,
+    "m1_equals_m2_count": 3123,
+    "k2_le_k1_all": true,
+    "c2_le_c1_all": true,
+    "warning": "Constant-zero pairs satisfy ordering vacuously and provide no ordinal learnability evidence."
+  },
+  "kmfc_candidate_upstream_support": {
+    "K": {
+      "component_count": 4,
+      "stages": {
+        "hit": {
+          "case_count": 28,
+          "case_fraction": 0.0056,
+          "wilson95": [
+            0.003877382638215079,
+            0.008081721045057406
+          ]
+        },
+        "penetration": {
+          "case_count": 28,
+          "case_fraction": 0.0056,
+          "wilson95": [
+            0.003877382638215079,
+            0.008081721045057406
+          ]
+        },
+        "energy": {
+          "case_count": 28,
+          "case_fraction": 0.0056,
+          "wilson95": [
+            0.003877382638215079,
+            0.008081721045057406
+          ]
+        }
+      },
+      "by_profile": {
+        "small_front": {
+          "hit": 14,
+          "penetration": 14,
+          "energy": 14
+        },
+        "medium_front": {
+          "hit": 12,
+          "penetration": 12,
+          "energy": 12
+        },
+        "large_front": {
+          "hit": 2,
+          "penetration": 2,
+          "energy": 2
+        }
+      },
+      "stage_monotonicity_violations": {
+        "penetration_without_hit": 0,
+        "energy_without_penetration": 0
+      },
+      "conditional_survival": {
+        "penetration_given_hit": 1.0,
+        "energy_given_penetration": 1.0
+      }
+    },
+    "M": {
+      "component_count": 40,
+      "stages": {
+        "hit": {
+          "case_count": 2205,
+          "case_fraction": 0.441,
+          "wilson95": [
+            0.4272882901123114,
+            0.45480229871720546
+          ]
+        },
+        "penetration": {
+          "case_count": 2205,
+          "case_fraction": 0.441,
+          "wilson95": [
+            0.4272882901123114,
+            0.45480229871720546
+          ]
+        },
+        "energy": {
+          "case_count": 2205,
+          "case_fraction": 0.441,
+          "wilson95": [
+            0.4272882901123114,
+            0.45480229871720546
+          ]
+        }
+      },
+      "by_profile": {
+        "small_front": {
+          "hit": 718,
+          "penetration": 718,
+          "energy": 718
+        },
+        "medium_front": {
+          "hit": 745,
+          "penetration": 745,
+          "energy": 745
+        },
+        "large_front": {
+          "hit": 742,
+          "penetration": 742,
+          "energy": 742
+        }
+      },
+      "stage_monotonicity_violations": {
+        "penetration_without_hit": 0,
+        "energy_without_penetration": 0
+      },
+      "conditional_survival": {
+        "penetration_given_hit": 1.0,
+        "energy_given_penetration": 1.0
+      }
+    },
+    "F": {
+      "component_count": 15,
+      "stages": {
+        "hit": {
+          "case_count": 28,
+          "case_fraction": 0.0056,
+          "wilson95": [
+            0.003877382638215079,
+            0.008081721045057406
+          ]
+        },
+        "penetration": {
+          "case_count": 28,
+          "case_fraction": 0.0056,
+          "wilson95": [
+            0.003877382638215079,
+            0.008081721045057406
+          ]
+        },
+        "energy": {
+          "case_count": 28,
+          "case_fraction": 0.0056,
+          "wilson95": [
+            0.003877382638215079,
+            0.008081721045057406
+          ]
+        }
+      },
+      "by_profile": {
+        "small_front": {
+          "hit": 14,
+          "penetration": 14,
+          "energy": 14
+        },
+        "medium_front": {
+          "hit": 12,
+          "penetration": 12,
+          "energy": 12
+        },
+        "large_front": {
+          "hit": 2,
+          "penetration": 2,
+          "energy": 2
+        }
+      },
+      "stage_monotonicity_violations": {
+        "penetration_without_hit": 0,
+        "energy_without_penetration": 0
+      },
+      "conditional_survival": {
+        "penetration_given_hit": 1.0,
+        "energy_given_penetration": 1.0
+      }
+    },
+    "C": {
+      "component_count": 10,
+      "stages": {
+        "hit": {
+          "case_count": 0,
+          "case_fraction": 0.0,
+          "wilson95": [
+            0.0,
+            0.0007677019450571244
+          ]
+        },
+        "penetration": {
+          "case_count": 0,
+          "case_fraction": 0.0,
+          "wilson95": [
+            0.0,
+            0.0007677019450571244
+          ]
+        },
+        "energy": {
+          "case_count": 0,
+          "case_fraction": 0.0,
+          "wilson95": [
+            0.0,
+            0.0007677019450571244
+          ]
+        }
+      },
+      "by_profile": {
+        "small_front": {
+          "hit": 0,
+          "penetration": 0,
+          "energy": 0
+        },
+        "medium_front": {
+          "hit": 0,
+          "penetration": 0,
+          "energy": 0
+        },
+        "large_front": {
+          "hit": 0,
+          "penetration": 0,
+          "energy": 0
+        }
+      },
+      "stage_monotonicity_violations": {
+        "penetration_without_hit": 0,
+        "energy_without_penetration": 0
+      },
+      "conditional_survival": {
+        "penetration_given_hit": null,
+        "energy_given_penetration": null
+      }
+    }
+  },
+  "interpretation": {
+    "structural_zero_operational_definition": "No positive case at the earliest archived physical support stages (fragment hit, penetration, deposited energy) for the components used by a task/category under this fixed archive and design measure.",
+    "rare_positive_operational_definition": "Positive upstream support exists but occupies a small fraction of the current design measure, so prevalence and metric estimates have substantial finite-sample uncertainty.",
+    "threshold_induced_zero_operational_definition": "Positive continuous upstream dose exists but a downstream state threshold or damage-tree gate maps it to zero; this requires paired dose/gate evidence and must not be inferred from a zero label alone.",
+    "findings": [
+      "K and C old system outputs are constant zero and unlearnable; C also has zero candidate-category hit/penetration/energy support in all 5000 archived cases.",
+      "F has only 28 candidate-category upstream-positive cases, all through the narrow observed component support; this is rare positive support rather than a universal impossibility claim.",
+      "M has broad upstream support, while current M1/M2 outputs are not an admissible nested ordinal pair if M2 is intended as level 2.",
+      "Every case uses one orientation and one normalized velocity direction. The archive cannot identify directional/attitude effects or justify generalization beyond this fixed approach geometry.",
+      "R=2 restricts direct Bernoulli probability resolution to 0, 0.5 and 1 and makes nondetection indistinguishable from a truly zero conditional probability without a convergence experiment."
+    ]
+  },
+  "deep_learning_implications": {
+    "constant_zero_tasks": [
+      "effect-k1",
+      "effect-k2",
+      "effect-c1",
+      "effect-c2"
+    ],
+    "constant_zero_task_label_entropy_bits": 0.0,
+    "constant_zero_task_input_label_mutual_information_bits": 0.0,
+    "f1_train_positive_count": 11,
+    "f1_train_positive_fraction": 0.0036666666666666666,
+    "f1_probability_of_zero_positive_cases_per_iid_batch": {
+      "32": 0.8890969700707537,
+      "64": 0.7904934221889948,
+      "128": 0.6248798505240682,
+      "256": 0.3904748275909819
+    },
+    "f1_validation_recall_step_per_positive_case": 0.5,
+    "f1_test_recall_step_per_positive_case": 0.06666666666666667,
+    "accuracy_of_constant_zero_classifier": {
+      "train": 0.9963333333333333,
+      "validation": 0.996,
+      "test": 0.99
+    },
+    "recommendation": "Do not train or report K/C heads from this archive. Treat F as a separate rare-event/hurdle task only after acquiring substantially more independent positive cases in Train. Preserve a reference stream and keep outcome-enriched sampling weights separate from minibatch/task weights."
+  },
+  "scientific_boundary": "All Train, Validation, and previously observed Test rows are included. Results are descriptive diagnostics of one unvalidated synthetic archive and fixed design distribution. They do not establish real-world prevalence, physical validity, or causal inevitability of sparsity.",
+  "sources": {
+    "archive_manifest": "raw_data/dataset_5000_loitering_impact_fragment_only_v1/formal_dataset/manifest.json",
+    "archive_manifest_sha256": "sha256:f8702b39623fc53c9a2334cf728263af2d261fe4a8ef19eaf713bf04c32cb4c4",
+    "shard_tensor_paths": [
+      "raw_data/dataset_5000_loitering_impact_fragment_only_v1/formal_dataset/shards/part-000000/tensors.npz",
+      "raw_data/dataset_5000_loitering_impact_fragment_only_v1/formal_dataset/shards/part-000001/tensors.npz",
+      "raw_data/dataset_5000_loitering_impact_fragment_only_v1/formal_dataset/shards/part-000002/tensors.npz",
+      "raw_data/dataset_5000_loitering_impact_fragment_only_v1/formal_dataset/shards/part-000003/tensors.npz"
+    ]
+  }
+}

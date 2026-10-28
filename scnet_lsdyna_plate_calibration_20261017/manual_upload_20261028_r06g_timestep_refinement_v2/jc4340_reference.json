@@ -1,0 +1,81 @@
+{
+  "schema_version": "hf-material-register@1.0.0",
+  "material_id": "jc4340_reference_central",
+  "physical_validity": "high_fidelity_synthetic_reference_candidate",
+  "claim_boundary": "Generic AISI 4340 Johnson-Cook reference system; not the actual armor or fragment material of the project target.",
+  "unit_system": "kg-mm-ms-kN-GPa-K",
+  "strength_model": {
+    "lsdyna_keyword": "*MAT_JOHNSON_COOK",
+    "density_kg_mm3": 7.83e-06,
+    "youngs_modulus_gpa": 200.0,
+    "poissons_ratio": 0.29,
+    "shear_modulus_gpa": 77.0,
+    "A_gpa": 0.792,
+    "B_gpa": 0.510,
+    "n": 0.26,
+    "C": 0.014,
+    "m": 1.03,
+    "melt_temperature_k": 1793.0,
+    "reference_temperature_k": 300.0,
+    "reference_strain_rate_per_ms": 0.001,
+    "specific_heat_j_kgk": 477.0,
+    "plastic_strain_iteration": 1
+  },
+  "failure_model": {
+    "D1": 0.05,
+    "D2": 3.44,
+    "D3": -2.12,
+    "D4": 0.002,
+    "D5": 0.61,
+    "erosion_enabled": true,
+    "minimum_failure_strain": 1e-06
+  },
+  "equation_of_state": {
+    "lsdyna_keyword": "*EOS_GRUNEISEN",
+    "C_mm_ms": 4568.0,
+    "S1": 1.49,
+    "S2": 0.0,
+    "S3": 0.0,
+    "gamma0": 2.17,
+    "a": 0.0,
+    "initial_internal_energy": 0.0,
+    "initial_relative_volume": 1.0,
+    "status": "generic-steel EOS sensitivity assumption; not independently validated for this heat treatment"
+  },
+  "sources": [
+    {
+      "source_id": "JC-1983",
+      "title": "A constitutive model and data for metals subjected to large strains, high strain rates and high temperatures",
+      "authors": "G. R. Johnson; W. H. Cook",
+      "year": 1983,
+      "url": "https://ia600406.us.archive.org/4/items/AConstitutiveModelAndDataForMetals/A%20constitutive%20model%20and%20data%20for%20metals_text.pdf",
+      "used_for": ["A", "B", "n", "C", "m", "density", "specific_heat", "melt_temperature"]
+    },
+    {
+      "source_id": "JC-1985",
+      "title": "Fracture characteristics of three metals subjected to various strains, strain rates, temperatures and pressures",
+      "authors": "G. R. Johnson; W. H. Cook",
+      "year": 1985,
+      "doi": "10.1016/0013-7944(85)90052-9",
+      "used_for": ["D1", "D2", "D3", "D4", "D5"]
+    },
+    {
+      "source_id": "LSDYNA-MAT015-MANUAL",
+      "title": "LS-DYNA Keyword User's Manual, *MAT_JOHNSON_COOK",
+      "url": "https://lsdyna.ansys.com/wp-content/uploads/2025/02/LS-DYNA_manual_Vol_II_R6.0.0.pdf",
+      "used_for": ["keyword semantics", "units", "failure and erosion semantics"]
+    },
+    {
+      "source_id": "DYNAMORE-SEA1006-EOS",
+      "title": "12th European LS-DYNA Conference material definition of Steel SAE 1006",
+      "url": "https://lsdyna.ansys.com/wp-content/uploads/attachments/balaban_fe-tech.pdf",
+      "used_for": ["generic steel Gruneisen EOS central values"],
+      "limitation": "EOS values are transferred as a generic-steel sensitivity assumption, not as a 4340-specific calibration."
+    }
+  ],
+  "planned_epistemic_variants": {
+    "low": {"strength_scale": 0.9, "failure_strain_scale": 0.85},
+    "central": {"strength_scale": 1.0, "failure_strain_scale": 1.0},
+    "high": {"strength_scale": 1.1, "failure_strain_scale": 1.15}
+  }
+}

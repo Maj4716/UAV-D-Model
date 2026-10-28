@@ -1,0 +1,244 @@
+{
+  "schema_version": "hf-p0-numerical-qa@1.0.0",
+  "job_id": "72095164",
+  "assessment_time": "2026-10-21T16:32:48.842507+08:00",
+  "overall_status": "review_required",
+  "gates": {
+    "archive_and_input_identity": "pass",
+    "solver_normal_termination": "pass",
+    "global_total_energy_candidate_band": "pass",
+    "hourglass_candidate_gate": "pass",
+    "mass_scaling_gate": "configured_off_actual_unavailable",
+    "negative_volume_localization": "review_required",
+    "binary_database_readability": "not_checked_reader_unavailable",
+    "case_level_perforation_and_residual_velocity": "not_assessed_stage_3"
+  },
+  "termination": {
+    "rank_logs": 32,
+    "normal_termination_rank_count": 32,
+    "error_fatal_counts": []
+  },
+  "warning_counts": [
+    {
+      "id": "30364",
+      "code": "INI+364",
+      "occurrences": 32
+    },
+    {
+      "id": "40509",
+      "code": "SOL+509",
+      "occurrences": 874
+    }
+  ],
+  "negative_volume": {
+    "event_count": 874,
+    "unique_event_count": 874,
+    "unique_element_count": 874,
+    "unmapped_event_count": 0,
+    "case_summary": [
+      {
+        "case_id": "p0_v1200_h0p75",
+        "role": "hf_response_fit",
+        "impact_speed_mps": 1200.0,
+        "mesh_mm": 0.75,
+        "plate_part_id": 1001,
+        "fragment_part_id": 2001,
+        "plate_negative_volume_events": 49,
+        "fragment_negative_volume_events": 69,
+        "total_negative_volume_events": 118,
+        "first_event_time": 0.0021628,
+        "last_event_time": 0.018942
+      },
+      {
+        "case_id": "p0_v1600_h0p75",
+        "role": "hf_response_fit",
+        "impact_speed_mps": 1600.0,
+        "mesh_mm": 0.75,
+        "plate_part_id": 1002,
+        "fragment_part_id": 2002,
+        "plate_negative_volume_events": 72,
+        "fragment_negative_volume_events": 62,
+        "total_negative_volume_events": 134,
+        "first_event_time": 0.001721,
+        "last_event_time": 0.015436
+      },
+      {
+        "case_id": "p0_v2000_h0p75",
+        "role": "hf_response_holdout",
+        "impact_speed_mps": 2000.0,
+        "mesh_mm": 0.75,
+        "plate_part_id": 1003,
+        "fragment_part_id": 2003,
+        "plate_negative_volume_events": 85,
+        "fragment_negative_volume_events": 52,
+        "total_negative_volume_events": 137,
+        "first_event_time": 0.0014681,
+        "last_event_time": 0.014323
+      },
+      {
+        "case_id": "p0_v2300_h0p75",
+        "role": "hf_response_fit",
+        "impact_speed_mps": 2300.0,
+        "mesh_mm": 0.75,
+        "plate_part_id": 1004,
+        "fragment_part_id": 2004,
+        "plate_negative_volume_events": 101,
+        "fragment_negative_volume_events": 68,
+        "total_negative_volume_events": 169,
+        "first_event_time": 0.0013244,
+        "last_event_time": 0.011815
+      },
+      {
+        "case_id": "p0_v2600_h0p75",
+        "role": "hf_response_fit",
+        "impact_speed_mps": 2600.0,
+        "mesh_mm": 0.75,
+        "plate_part_id": 1005,
+        "fragment_part_id": 2005,
+        "plate_negative_volume_events": 72,
+        "fragment_negative_volume_events": 46,
+        "total_negative_volume_events": 118,
+        "first_event_time": 0.0012192,
+        "last_event_time": 0.010611
+      },
+      {
+        "case_id": "p0_v2000_h1p00",
+        "role": "hf_numerical_verification",
+        "impact_speed_mps": 2000.0,
+        "mesh_mm": 1.0,
+        "plate_part_id": 1006,
+        "fragment_part_id": 2006,
+        "plate_negative_volume_events": 69,
+        "fragment_negative_volume_events": 59,
+        "total_negative_volume_events": 128,
+        "first_event_time": 0.0018147,
+        "last_event_time": 0.014026
+      },
+      {
+        "case_id": "p0_v2000_h0p50",
+        "role": "hf_numerical_verification",
+        "impact_speed_mps": 2000.0,
+        "mesh_mm": 0.5,
+        "plate_part_id": 1007,
+        "fragment_part_id": 2007,
+        "plate_negative_volume_events": 53,
+        "fragment_negative_volume_events": 17,
+        "total_negative_volume_events": 70,
+        "first_event_time": 0.0013244,
+        "last_event_time": 0.0035618
+      }
+    ]
+  },
+  "global_statistics": {
+    "record_count": 401,
+    "final_time": 0.0199984,
+    "minimum_time_step": 7.56953e-06,
+    "maximum_time_step": 6.46272e-05,
+    "final_total_energy_ratio": 0.977608,
+    "minimum_total_energy_ratio": 0.977608,
+    "maximum_total_energy_ratio": 1.00175,
+    "maximum_total_energy_ratio_absolute_deviation": 0.022391999999999967,
+    "final_energy_ratio_without_eroded": 0.629447,
+    "initial_total_energy": 28050.0,
+    "final_total_energy": 27421.9,
+    "final_kinetic_energy": 16620.0,
+    "final_internal_energy": 5553.13,
+    "final_hourglass_energy": 0.0,
+    "maximum_absolute_hourglass_energy": 0.0,
+    "maximum_absolute_hourglass_over_internal": 0.0,
+    "final_sliding_energy": 5248.82,
+    "final_eroded_kinetic_energy": 7900.39,
+    "final_eroded_internal_energy": 1865.53,
+    "final_eroded_hourglass_energy": 0.0,
+    "final_eroded_energy_sum": 9765.92,
+    "final_eroded_energy_fraction_of_initial": 0.34816114081996435,
+    "final_sliding_energy_fraction_of_initial": 0.18712370766488412,
+    "final_added_mass": null
+  },
+  "control_timestep": {
+    "card_line": 9,
+    "dt2ms": 0.0,
+    "configured_mass_scaling": false
+  },
+  "binary_readability": {
+    "schema_version": "hf-binary-readability-inventory@1.0.0",
+    "files": [
+      {
+        "name": "binout0000",
+        "present": true,
+        "bytes": 2664314
+      },
+      {
+        "name": "d3plot",
+        "present": true,
+        "bytes": 19021824
+      },
+      {
+        "name": "d3plot01",
+        "present": true,
+        "bytes": 125530112
+      },
+      {
+        "name": "d3plot02",
+        "present": true,
+        "bytes": 125530112
+      },
+      {
+        "name": "d3plot03",
+        "present": true,
+        "bytes": 125530112
+      },
+      {
+        "name": "d3plot04",
+        "present": true,
+        "bytes": 125530112
+      },
+      {
+        "name": "d3plot05",
+        "present": true,
+        "bytes": 125530112
+      },
+      {
+        "name": "d3plot06",
+        "present": true,
+        "bytes": 125530112
+      },
+      {
+        "name": "d3plot07",
+        "present": true,
+        "bytes": 125530112
+      },
+      {
+        "name": "d3plot08",
+        "present": true,
+        "bytes": 125530112
+      },
+      {
+        "name": "d3plot09",
+        "present": true,
+        "bytes": 25108480
+      },
+      {
+        "name": "d3plot10",
+        "present": true,
+        "bytes": 25108480
+      }
+    ],
+    "reader_availability": {
+      "lasso": false,
+      "lasso.dyna": false,
+      "qd": false,
+      "qd.cae": false,
+      "lsprepost_on_path": false
+    },
+    "readability_status": "not_checked_reader_unavailable",
+    "interpretation": "Presence and size are recorded only. No binary payload or d3plot state was interpreted in Stage 0-2."
+  },
+  "review_reasons": [
+    "All seven cases contain negative-volume erosion in both plate and fragment parts; spatial/visual reasonableness is not established by logs alone.",
+    "Standalone MATSUM/NODOUT/SLEOUT files are absent and no supported BINOUT/d3plot reader is installed in the audited environment.",
+    "The returned GLSTAT does not expose an added-mass field, so configured-off mass scaling is verified but actual added mass remains unavailable.",
+    "Per-case perforation state, residual velocity, response stabilization and mesh sensitivity remain Stage 3-4 work."
+  ],
+  "claim_boundary": "Stage 0-2 establishes archive/input identity, solver completion and global ASCII numerical indicators only. It does not establish case-level numerical qualification, convergence, physical validity, application calibration or research admission."
+}

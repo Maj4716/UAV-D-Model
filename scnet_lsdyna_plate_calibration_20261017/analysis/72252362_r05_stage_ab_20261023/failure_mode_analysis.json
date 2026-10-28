@@ -1,0 +1,1188 @@
+{
+  "schema_version": "hf-p0-r05-failure-mode-analysis@1.1.0",
+  "script_version": "1.1.0",
+  "job_id": "72252362",
+  "analysis_status": "diagnostic_complete_no_admission",
+  "input_identity": {
+    "return_directory": "D:\\Desktop\\UAV新\\scnet_lsdyna_plate_calibration_20261017\\05",
+    "design_sha256": "sha256:b1d2027d57fc6d9cd1ee3f932ea044fd16a112344d8f2b6f508071f45191a06f",
+    "deck_sha256": "sha256:6fbd753a113d0214e7ba4ff5136dc526d151e6f2c52c94e70399b29c4b9d3d0c",
+    "case_map_sha256": "sha256:b05b59249e49c3e9d15904f475c2f9478bdff1638fb797d1b552298490aa5295",
+    "material_sha256": "sha256:9b462b920459e57641d5f89d10d36c0aa0498c86f2478fef8e4c3efa96888311",
+    "manifest_sha256": "sha256:e178b6c28832519aaa2befdc969dcd93d2141ea4073ad740b52b17968d92ba44",
+    "d3part_family_identity_contract": "extract_r05_d3part.d3part_family_identity",
+    "d3part_family_sha256": "sha256:8f24005080f09cbfd1b81dd2f0f97d4abb3158e7133207f44beccb9852346af7",
+    "d3part_family": [
+      {
+        "path": "d3part",
+        "size_bytes": 708608,
+        "sha256": "sha256:810aa8cea6cdec18803fea6cd05e8995022b7404f33734aa2199197820415ecf"
+      },
+      {
+        "path": "d3part01",
+        "size_bytes": 145997824,
+        "sha256": "sha256:63bd452362f3cf83c721d17fb9263f2406549ad7c476fed9fd021416805cae9d"
+      },
+      {
+        "path": "d3part02",
+        "size_bytes": 145997824,
+        "sha256": "sha256:bf974457b2db5bcd5b08cdba40c34d8e4b76700eebd97ec25b24ba706c9c3800"
+      },
+      {
+        "path": "d3part03",
+        "size_bytes": 145997824,
+        "sha256": "sha256:a8b9cf6b053a747cf76feac6122771e44e77169d0c2d95105591bdb77b1edb00"
+      },
+      {
+        "path": "d3part04",
+        "size_bytes": 145997824,
+        "sha256": "sha256:c3bbe7d63024bd9ecfdd8916e6072f666aca8f8ce98803fffe33878e7e804773"
+      },
+      {
+        "path": "d3part05",
+        "size_bytes": 145997824,
+        "sha256": "sha256:79a12ac794a2e78cc52499a49d0c022d0b568a4228115d1e35e053b490704fa4"
+      },
+      {
+        "path": "d3part06",
+        "size_bytes": 44478464,
+        "sha256": "sha256:405f378f8ba8a88ceab8dd9134030034af22f773c5062ae59210668c12171597"
+      },
+      {
+        "path": "d3part07",
+        "size_bytes": 970752,
+        "sha256": "sha256:8d439fdbc10289b8d16fdbba98743c76a0de410e9782c0cc8769c29dec2ff3b7"
+      }
+    ],
+    "d3plot_family_sha256": "sha256:a02b188281ed86b4c4234b54b67ca1f4fbb73c3c8d4f938b15751523dc6e321b",
+    "d3plot_family": [
+      {
+        "name": "d3plot",
+        "size_bytes": 19021824,
+        "sha256": "sha256:5bb275ec9ca220cb4c0e8ef9a7587bf13ea43aaa6d9faede7627fb59892f9ced"
+      },
+      {
+        "name": "d3plot01",
+        "size_bytes": 125530112,
+        "sha256": "sha256:77d3dea71e48e2dbc70206e64f6243c4fd6e70798f14610488fcbb1f948db8f4"
+      },
+      {
+        "name": "d3plot02",
+        "size_bytes": 125530112,
+        "sha256": "sha256:161ce8cd63e719c9329338c65f40cc1abb99888c8a314ac6fe67f8e9bf2d1a76"
+      },
+      {
+        "name": "d3plot03",
+        "size_bytes": 125530112,
+        "sha256": "sha256:32fa8a8aa8e2c64a812a64fed4e0e0869f0f211df4e25bf4cfdb961aa5dd587d"
+      },
+      {
+        "name": "d3plot04",
+        "size_bytes": 125530112,
+        "sha256": "sha256:6bb217ce22213bf57e3a0996fd2d265741fdf907f999b83ca72a45b12753b6fc"
+      },
+      {
+        "name": "d3plot05",
+        "size_bytes": 125530112,
+        "sha256": "sha256:52c789a3aa243617cab1229319ab54c6c2d337ff757c878a6612389db5f2591f"
+      },
+      {
+        "name": "d3plot06",
+        "size_bytes": 125530112,
+        "sha256": "sha256:0bb1bb13843ce432b57047c49ec77b7da4cc774e0d763d2c5ee8b3b12dc2da68"
+      },
+      {
+        "name": "d3plot07",
+        "size_bytes": 125530112,
+        "sha256": "sha256:a6a4560c3c464bdab2199a5affe1768fb480f9c0c7b9fff93ffbbe11d7e4c6f9"
+      },
+      {
+        "name": "d3plot08",
+        "size_bytes": 125530112,
+        "sha256": "sha256:e31dc2e4425cfe7737822870b8d0f6aa265d3e19c1024e3a5457a88af675d37c"
+      },
+      {
+        "name": "d3plot09",
+        "size_bytes": 125530112,
+        "sha256": "sha256:6ac4d68ac2b1127eae805096e0fa793c8064a222f766847943bc7c3b93b44d54"
+      },
+      {
+        "name": "d3plot10",
+        "size_bytes": 125530112,
+        "sha256": "sha256:9c167db691125611002e77745a2818145e218ee1463c78d3a4a7cbfb70826a5a"
+      },
+      {
+        "name": "d3plot11",
+        "size_bytes": 125530112,
+        "sha256": "sha256:44cc329b074400621381c7247707cf8361f703b330fe40e64dfeb433eda0044d"
+      },
+      {
+        "name": "d3plot12",
+        "size_bytes": 125530112,
+        "sha256": "sha256:e8cce4ec292ff87892c0efd6b8520e3aedc71a0a4d698a081324933ee3b49c0d"
+      },
+      {
+        "name": "d3plot13",
+        "size_bytes": 125530112,
+        "sha256": "sha256:92fe2549837487915b00971a764a3f635e464a9f479cc7be50b220f2121629eb"
+      },
+      {
+        "name": "d3plot14",
+        "size_bytes": 125530112,
+        "sha256": "sha256:59a7664474db3ec3332ec41dc2cf1490c8c57b5993d9c4ab8f17b9cdf9acc1a9"
+      },
+      {
+        "name": "d3plot15",
+        "size_bytes": 125530112,
+        "sha256": "sha256:c60c9ba2f07a86bb0beaaf79e8948582ecea54f184ed47c7ce1dcf948493c7c9"
+      },
+      {
+        "name": "d3plot16",
+        "size_bytes": 125530112,
+        "sha256": "sha256:53096d7a518458065de07081718bedca8d9368d5a548c55802b573da862c5f5a"
+      },
+      {
+        "name": "d3plot17",
+        "size_bytes": 25108480,
+        "sha256": "sha256:509f53af0838311211b7e54dcdddff8681aea3bc55181b4fc96cc2ec3122b80e"
+      },
+      {
+        "name": "d3plot18",
+        "size_bytes": 25108480,
+        "sha256": "sha256:bb4af8bbb5d6617e7fb38b986e267d6fad6067ad9aae84823a631033f14d533d"
+      }
+    ],
+    "mes_family": {
+      "entries": [
+        {
+          "name": "mes0000",
+          "size_bytes": 2991837,
+          "sha256": "sha256:55ab403c422ea849bfafb4bb08c4f190c6872d47e91083f8bb638dd91687185f"
+        },
+        {
+          "name": "mes0001",
+          "size_bytes": 293625,
+          "sha256": "sha256:a11ec3f4bd9342e8b29c4f0f7bc1c729c156ee13da9ea0975bad8e0dfd06ee85"
+        },
+        {
+          "name": "mes0002",
+          "size_bytes": 293625,
+          "sha256": "sha256:f561e27897c8ac0ecf1ef175f6d048be7b3123360ced860125c850d971b5d870"
+        },
+        {
+          "name": "mes0003",
+          "size_bytes": 306438,
+          "sha256": "sha256:ff6878af00606991a73ee607c79c7b438eca7dfbcf8e7d7634f3803b63478195"
+        },
+        {
+          "name": "mes0004",
+          "size_bytes": 320056,
+          "sha256": "sha256:2ddf07aaa735d2934a11b84bb19fec9ea06586c5521d0662f25f5a857b2eff54"
+        },
+        {
+          "name": "mes0005",
+          "size_bytes": 293566,
+          "sha256": "sha256:e14e6fd3627bd6d17923febdb452dae750cf40afc54e9434fdf7071c3463975d"
+        },
+        {
+          "name": "mes0006",
+          "size_bytes": 293625,
+          "sha256": "sha256:617e4bc25035d658aca7550071a8d78deed038417ba62442b03b924505241a8d"
+        },
+        {
+          "name": "mes0007",
+          "size_bytes": 307467,
+          "sha256": "sha256:933e568ad259f58d15dcc5c9f93c57c191e4ec884c9aedf4f7f76f7d9dd2925c"
+        },
+        {
+          "name": "mes0008",
+          "size_bytes": 293625,
+          "sha256": "sha256:15cae929112dc26faa11c11b162e07a037b88f3aa30c13044a0c96b7e7d92b48"
+        },
+        {
+          "name": "mes0009",
+          "size_bytes": 323543,
+          "sha256": "sha256:ed004df183aa33fe715034772e32c05fd9fabe0fb2fc7413532f5a67c52b9222"
+        },
+        {
+          "name": "mes0010",
+          "size_bytes": 293566,
+          "sha256": "sha256:9b0e60568c837cceeb1c2f393b77a65501e30e83910ec9490fa073492fe5cf5f"
+        },
+        {
+          "name": "mes0011",
+          "size_bytes": 293566,
+          "sha256": "sha256:2e4322c91e2f216dc9b5fced85e08f412cdcf087db469318be2a9aa3788f276a"
+        },
+        {
+          "name": "mes0012",
+          "size_bytes": 293625,
+          "sha256": "sha256:ff9b75ed5b073bdb543933380e24a4083d024de5944a7367c09fb396e244ba99"
+        },
+        {
+          "name": "mes0013",
+          "size_bytes": 293625,
+          "sha256": "sha256:b726d27d9221feb1db824f0a557053cda47b7442c6b2c30637621f2ce5c7e055"
+        },
+        {
+          "name": "mes0014",
+          "size_bytes": 293566,
+          "sha256": "sha256:341346d84bbfdbd31f26c93ef8161449ed4cee01aad4318ebb9683930a3c03c0"
+        },
+        {
+          "name": "mes0015",
+          "size_bytes": 293625,
+          "sha256": "sha256:c5ed21e8894b241ce1fa2c26794accf4c4b8da6407a2e8b8bb4a386763fd17f9"
+        },
+        {
+          "name": "mes0016",
+          "size_bytes": 316847,
+          "sha256": "sha256:884ceef0b30816de561d808b8d3d9b3363b674e10071d276a832914b6b1e9481"
+        },
+        {
+          "name": "mes0017",
+          "size_bytes": 296987,
+          "sha256": "sha256:21acf09dc8814cb9a1ffa37c1aab8eab0827930fd0d933c892c6a13ed3b7625b"
+        },
+        {
+          "name": "mes0018",
+          "size_bytes": 293625,
+          "sha256": "sha256:79ecc7e6878be24aedb97dfa6e6b84c685bcc514ee09af9df871023dc7b8ab5c"
+        },
+        {
+          "name": "mes0019",
+          "size_bytes": 293566,
+          "sha256": "sha256:dba8f2284e21c0ec2f95b343ccd605aceeada07c4649e270bb47b7fcdc77d045"
+        },
+        {
+          "name": "mes0020",
+          "size_bytes": 330349,
+          "sha256": "sha256:9f3ef8e2ae2da32d566d67bb6a70ec960e39a60492e7d51db6a1ab868af1d30f"
+        },
+        {
+          "name": "mes0021",
+          "size_bytes": 293625,
+          "sha256": "sha256:a34f9f3f9f4fe9f96ee472464a4210959f79d77628b9b1725844158b50946e96"
+        },
+        {
+          "name": "mes0022",
+          "size_bytes": 293625,
+          "sha256": "sha256:18ec64529cb52b1f9efd8f48c8795239e1cbc503746c38819f39e94a934db1bb"
+        },
+        {
+          "name": "mes0023",
+          "size_bytes": 293625,
+          "sha256": "sha256:36a3e9e22eaca502d7bbf2c9bd47fd29e5f6b8f4b5bdb79da1ea424df8374349"
+        },
+        {
+          "name": "mes0024",
+          "size_bytes": 383588,
+          "sha256": "sha256:2a6b2d2818255f9c9720aa5b7168ab22d97f7e2d147112af9759a77cb3e1fa99"
+        },
+        {
+          "name": "mes0025",
+          "size_bytes": 293625,
+          "sha256": "sha256:0d9e53e65a3cbc90c49f673d876efe3677365b63d6718a4bdbc2b8e40a6faf56"
+        },
+        {
+          "name": "mes0026",
+          "size_bytes": 293625,
+          "sha256": "sha256:e2ca1481711ded7c54d0bdbc684424463871ddc7339023aeb3d5094300770233"
+        },
+        {
+          "name": "mes0027",
+          "size_bytes": 293625,
+          "sha256": "sha256:5962af3b938ba6ac5bbc7790359682b200dbc1f074b275a6241eeaa7021cdc89"
+        },
+        {
+          "name": "mes0028",
+          "size_bytes": 363874,
+          "sha256": "sha256:2418aeb0e1570cae025fb74c7c7383a8aab77a08038c9929c8f016989e5b91d6"
+        },
+        {
+          "name": "mes0029",
+          "size_bytes": 293625,
+          "sha256": "sha256:27879eba28e533e3bf48cb82794fb69f5b5cac8b23e6215c3dcdde07a5a0ab01"
+        },
+        {
+          "name": "mes0030",
+          "size_bytes": 297015,
+          "sha256": "sha256:46fde55cd92c819d9aa76f99916e6e08fb37c1ce6b648aa6a535a51fe4eec088"
+        },
+        {
+          "name": "mes0031",
+          "size_bytes": 293625,
+          "sha256": "sha256:5116ad6e703214717c5bcde64f1d70c4b92161bc4ba6e9bdb5fa25cd23b45480"
+        }
+      ],
+      "family_sha256": "sha256:8ca905d855046e1b63327b327f1d0d2ce9f3ce84cd596a27cb1649ecdc5122f4"
+    }
+  },
+  "run_integrity_binding": {
+    "schema_version": "hf-p0-r05-run-integrity-evidence@1.0.0",
+    "evidence_id": "job-72252362-hash-bound-run-integrity",
+    "status": "pass",
+    "run_id": "72252362",
+    "solver_build": "LS-DYNA MPP double R15.0.2-1-g1e7cfa42b1 I8R8 Intel-MPI 2018",
+    "d3part_family_sha256": "sha256:8f24005080f09cbfd1b81dd2f0f97d4abb3158e7133207f44beccb9852346af7",
+    "returned_artifact_sha256": "sha256:8a0ec2d4ad22a3d068b9bb260a4fcfd89df904a80b36153e229a0a2034ad7239",
+    "evidence_sha256": "sha256:9561d88dac2fffdf04dc2b3b3d6823e1e78ccc5651419a95ca1791c6c12ab66f",
+    "claim_boundary": "This existing pass establishes run/returned-evidence integrity only; it is not D3PART integration acceptance or physical admission."
+  },
+  "mes": {
+    "rank_file_count": 32,
+    "raw_observation_count": 2248,
+    "unique_event_count": 2248,
+    "unique_element_count": 2248,
+    "cross_type_element_overlap_count": 0,
+    "negative_volume_unique_count": 628,
+    "other_solid_failure_unique_count": 1620
+  },
+  "d3part": {
+    "summary": {
+      "reader": "project-local lasso-python 2.0.4 D3plot",
+      "coordinate_mode": "absolute_coordinates",
+      "state_count": 802,
+      "first_time_ms": 0.0,
+      "last_time_ms": 0.040002637597628225,
+      "minimum_state_interval_ms": 6.027376444617261e-06,
+      "maximum_state_interval_ms": 6.462719373816848e-05,
+      "node_count": 7737,
+      "solid_count": 5680,
+      "catalog_part_ids": [
+        1001,
+        2001,
+        1002,
+        2002,
+        1003,
+        2003,
+        1004,
+        2004,
+        1005,
+        2005,
+        1006,
+        2006,
+        1007,
+        2007
+      ],
+      "used_solid_part_ids": [
+        2001,
+        2002,
+        2003,
+        2004,
+        2005,
+        2006,
+        2007
+      ],
+      "zero_solid_catalog_part_ids": [
+        1001,
+        1002,
+        1003,
+        1004,
+        1005,
+        1006,
+        1007
+      ]
+    },
+    "initial_frozen_adapter_observation": {
+      "implementation_scope": "original frozen adapter observed at Stage B kickoff, before the concurrent repair",
+      "status_at_observation": "fail_closed",
+      "observed_software_blockers": [
+        {
+          "gate": "maximum_state_interval",
+          "expected_upper_bound_ms": 5.0050000000000004e-05,
+          "actual_ms": 6.462719373816848e-05,
+          "exceeding_interval_count": 392
+        },
+        {
+          "gate": "exact_part_catalog",
+          "catalog_part_ids": [
+            1001,
+            2001,
+            1002,
+            2002,
+            1003,
+            2003,
+            1004,
+            2004,
+            1005,
+            2005,
+            1006,
+            2006,
+            1007,
+            2007
+          ],
+          "used_solid_part_ids": [
+            2001,
+            2002,
+            2003,
+            2004,
+            2005,
+            2006,
+            2007
+          ],
+          "zero_solid_catalog_part_ids": [
+            1001,
+            1002,
+            1003,
+            1004,
+            1005,
+            1006,
+            1007
+          ]
+        }
+      ],
+      "current_repaired_adapter_status": "not_assessed_by_this_failure_mode_analyzer",
+      "nonretroactivity": "A later adapter repair cannot retroactively qualify this R05 run; run-integrity evidence is now separately hash-bound and passing, while independent integration acceptance remains required."
+    },
+    "diagnostic_normalizations": [
+      "the formal frozen maximum-state-interval gate is reported but not applied to this diagnostic ledger",
+      "zero-solid plate PID catalog metadata is retained in the report but only actually referenced fragment PIDs are analyzed"
+    ]
+  },
+  "case_summary": [
+    {
+      "case_id": "p0_v0600_h0p75",
+      "role": "hf_response_fit",
+      "impact_speed_mps": 600.0,
+      "mesh_mm": 0.75,
+      "plate_part_id": 1001,
+      "fragment_part_id": 2001,
+      "unique_failure_element_count": 0,
+      "failure_event_count": 0,
+      "first_failure_time_ms": null,
+      "first_failure_type": null,
+      "first_failure_part_kind": null,
+      "first_failure_element_id": null,
+      "last_failure_time_ms": null,
+      "plate_negative_volume_count": 0,
+      "fragment_negative_volume_count": 0,
+      "plate_other_failure_count": 0,
+      "fragment_other_failure_count": 0,
+      "fragment_mes_time_in_d3part_deletion_interval_count": 0,
+      "fragment_mes_time_outside_d3part_deletion_interval_count": 0,
+      "fragment_event_ledger_state_counts": {
+        "alive_crossed": 0,
+        "alive_upstream": 0,
+        "deleted_upstream": 0,
+        "deleted_after_crossing": 0,
+        "temporal_ambiguity": 0
+      },
+      "deleted_upstream_mass_fraction": 0.0,
+      "primary_qoi_available": true,
+      "qualification_use_forbidden": true,
+      "capture_ledger_classification": "confirmed_nonperforation",
+      "capture_ledger_unavailable_reasons": [],
+      "fragment_failure_initial_x_min_mm": null,
+      "fragment_failure_initial_x_max_mm": null,
+      "fragment_failure_initial_y_min_mm": null,
+      "fragment_failure_initial_y_max_mm": null,
+      "fragment_failure_initial_z_min_mm": null,
+      "fragment_failure_initial_z_max_mm": null,
+      "fragment_failure_last_alive_z_min_mm": null,
+      "fragment_failure_last_alive_z_max_mm": null,
+      "plate_failure_initial_deck_x_min_mm": null,
+      "plate_failure_initial_deck_y_min_mm": null,
+      "plate_failure_initial_deck_z_min_mm": null,
+      "plate_failure_initial_deck_x_max_mm": null,
+      "plate_failure_initial_deck_y_max_mm": null,
+      "plate_failure_initial_deck_z_max_mm": null,
+      "fragment_failure_initial_deck_x_min_mm": null,
+      "fragment_failure_initial_deck_y_min_mm": null,
+      "fragment_failure_initial_deck_z_min_mm": null,
+      "fragment_failure_initial_deck_x_max_mm": null,
+      "fragment_failure_initial_deck_y_max_mm": null,
+      "fragment_failure_initial_deck_z_max_mm": null,
+      "initial_deck_position_semantics": "reference_geometry_only_not_failure_time_position",
+      "plate_failure_deformed_position_status": "unavailable_fragment_only_d3part"
+    },
+    {
+      "case_id": "p0_v0800_h0p75",
+      "role": "hf_response_fit",
+      "impact_speed_mps": 800.0,
+      "mesh_mm": 0.75,
+      "plate_part_id": 1002,
+      "fragment_part_id": 2002,
+      "unique_failure_element_count": 155,
+      "failure_event_count": 155,
+      "first_failure_time_ms": 0.003171,
+      "first_failure_type": "negative_volume",
+      "first_failure_part_kind": "plate",
+      "first_failure_element_id": 39675,
+      "last_failure_time_ms": 0.034496,
+      "plate_negative_volume_count": 18,
+      "fragment_negative_volume_count": 59,
+      "plate_other_failure_count": 1,
+      "fragment_other_failure_count": 77,
+      "fragment_mes_time_in_d3part_deletion_interval_count": 121,
+      "fragment_mes_time_outside_d3part_deletion_interval_count": 15,
+      "fragment_event_ledger_state_counts": {
+        "alive_crossed": 0,
+        "alive_upstream": 0,
+        "deleted_upstream": 136,
+        "deleted_after_crossing": 0,
+        "temporal_ambiguity": 0
+      },
+      "deleted_upstream_mass_fraction": 0.19825072619906742,
+      "primary_qoi_available": false,
+      "qualification_use_forbidden": true,
+      "capture_ledger_classification": "unavailable",
+      "capture_ledger_unavailable_reasons": [
+        "deleted_upstream_mass",
+        "unstable_tail_qM"
+      ],
+      "fragment_failure_initial_x_min_mm": 150.35970905,
+      "fragment_failure_initial_x_max_mm": 154.67621775,
+      "fragment_failure_initial_y_min_mm": 0.35970906035,
+      "fragment_failure_initial_y_max_mm": 4.6762177844999995,
+      "fragment_failure_initial_z_min_mm": 1.3597090605000002,
+      "fragment_failure_initial_z_max_mm": 9.992726509499999,
+      "fragment_failure_last_alive_z_min_mm": -5.587593400500361,
+      "fragment_failure_last_alive_z_max_mm": 0.41464901088705003,
+      "plate_failure_initial_deck_x_min_mm": 150.375,
+      "plate_failure_initial_deck_y_min_mm": 0.375,
+      "plate_failure_initial_deck_z_min_mm": -1.07142857165,
+      "plate_failure_initial_deck_x_max_mm": 152.625,
+      "plate_failure_initial_deck_y_max_mm": 4.125,
+      "plate_failure_initial_deck_z_max_mm": -0.35714285715,
+      "fragment_failure_initial_deck_x_min_mm": 150.35970905,
+      "fragment_failure_initial_deck_y_min_mm": 0.35970906035,
+      "fragment_failure_initial_deck_z_min_mm": 1.3597090605000002,
+      "fragment_failure_initial_deck_x_max_mm": 154.67621775,
+      "fragment_failure_initial_deck_y_max_mm": 4.6762177844999995,
+      "fragment_failure_initial_deck_z_max_mm": 9.992726509499999,
+      "initial_deck_position_semantics": "reference_geometry_only_not_failure_time_position",
+      "plate_failure_deformed_position_status": "unavailable_fragment_only_d3part"
+    },
+    {
+      "case_id": "p0_v1000_h0p75",
+      "role": "hf_response_holdout",
+      "impact_speed_mps": 1000.0,
+      "mesh_mm": 0.75,
+      "plate_part_id": 1003,
+      "fragment_part_id": 2003,
+      "unique_failure_element_count": 224,
+      "failure_event_count": 224,
+      "first_failure_time_ms": 0.0025304,
+      "first_failure_type": "negative_volume",
+      "first_failure_part_kind": "plate",
+      "first_failure_element_id": 60577,
+      "last_failure_time_ms": 0.038651,
+      "plate_negative_volume_count": 38,
+      "fragment_negative_volume_count": 61,
+      "plate_other_failure_count": 13,
+      "fragment_other_failure_count": 112,
+      "fragment_mes_time_in_d3part_deletion_interval_count": 148,
+      "fragment_mes_time_outside_d3part_deletion_interval_count": 25,
+      "fragment_event_ledger_state_counts": {
+        "alive_crossed": 0,
+        "alive_upstream": 0,
+        "deleted_upstream": 170,
+        "deleted_after_crossing": 3,
+        "temporal_ambiguity": 0
+      },
+      "deleted_upstream_mass_fraction": 0.24781340758212825,
+      "primary_qoi_available": false,
+      "qualification_use_forbidden": true,
+      "capture_ledger_classification": "unavailable",
+      "capture_ledger_unavailable_reasons": [
+        "deleted_upstream_mass",
+        "unstable_tail_qM",
+        "unstable_tail_qP",
+        "unstable_tail_qE"
+      ],
+      "fragment_failure_initial_x_min_mm": 300.35970905,
+      "fragment_failure_initial_x_max_mm": 304.67621775,
+      "fragment_failure_initial_y_min_mm": 0.35970906035,
+      "fragment_failure_initial_y_max_mm": 4.6762177844999995,
+      "fragment_failure_initial_z_min_mm": 1.3597090605000002,
+      "fragment_failure_initial_z_max_mm": 9.273308388499999,
+      "fragment_failure_last_alive_z_min_mm": -13.324522663874319,
+      "fragment_failure_last_alive_z_max_mm": 0.10272188266673037,
+      "plate_failure_initial_deck_x_min_mm": 300.375,
+      "plate_failure_initial_deck_y_min_mm": 0.375,
+      "plate_failure_initial_deck_z_min_mm": -1.07142857165,
+      "plate_failure_initial_deck_x_max_mm": 304.875,
+      "plate_failure_initial_deck_y_max_mm": 4.875,
+      "plate_failure_initial_deck_z_max_mm": -0.35714285715,
+      "fragment_failure_initial_deck_x_min_mm": 300.35970905,
+      "fragment_failure_initial_deck_y_min_mm": 0.35970906035,
+      "fragment_failure_initial_deck_z_min_mm": 1.3597090605000002,
+      "fragment_failure_initial_deck_x_max_mm": 304.67621775,
+      "fragment_failure_initial_deck_y_max_mm": 4.6762177844999995,
+      "fragment_failure_initial_deck_z_max_mm": 9.273308388499999,
+      "initial_deck_position_semantics": "reference_geometry_only_not_failure_time_position",
+      "plate_failure_deformed_position_status": "unavailable_fragment_only_d3part"
+    },
+    {
+      "case_id": "p0_v1200_h0p75",
+      "role": "hf_response_fit",
+      "impact_speed_mps": 1200.0,
+      "mesh_mm": 0.75,
+      "plate_part_id": 1004,
+      "fragment_part_id": 2004,
+      "unique_failure_element_count": 250,
+      "failure_event_count": 250,
+      "first_failure_time_ms": 0.0021627,
+      "first_failure_type": "negative_volume",
+      "first_failure_part_kind": "plate",
+      "first_failure_element_id": 81479,
+      "last_failure_time_ms": 0.036133,
+      "plate_negative_volume_count": 51,
+      "fragment_negative_volume_count": 56,
+      "plate_other_failure_count": 26,
+      "fragment_other_failure_count": 117,
+      "fragment_mes_time_in_d3part_deletion_interval_count": 159,
+      "fragment_mes_time_outside_d3part_deletion_interval_count": 14,
+      "fragment_event_ledger_state_counts": {
+        "alive_crossed": 0,
+        "alive_upstream": 0,
+        "deleted_upstream": 167,
+        "deleted_after_crossing": 6,
+        "temporal_ambiguity": 0
+      },
+      "deleted_upstream_mass_fraction": 0.24344022985400898,
+      "primary_qoi_available": false,
+      "qualification_use_forbidden": true,
+      "capture_ledger_classification": "unavailable",
+      "capture_ledger_unavailable_reasons": [
+        "deleted_upstream_mass"
+      ],
+      "fragment_failure_initial_x_min_mm": 0.35970906035,
+      "fragment_failure_initial_x_max_mm": 4.6762177845,
+      "fragment_failure_initial_y_min_mm": 150.35970905,
+      "fragment_failure_initial_y_max_mm": 154.67621775,
+      "fragment_failure_initial_z_min_mm": 1.3597090605000002,
+      "fragment_failure_initial_z_max_mm": 9.992726509499999,
+      "fragment_failure_last_alive_z_min_mm": -19.582052396354683,
+      "fragment_failure_last_alive_z_max_mm": 0.014414049916731592,
+      "plate_failure_initial_deck_x_min_mm": 0.375,
+      "plate_failure_initial_deck_y_min_mm": 150.375,
+      "plate_failure_initial_deck_z_min_mm": -1.785714286,
+      "plate_failure_initial_deck_x_max_mm": 4.875,
+      "plate_failure_initial_deck_y_max_mm": 154.875,
+      "plate_failure_initial_deck_z_max_mm": -0.35714285715,
+      "fragment_failure_initial_deck_x_min_mm": 0.35970906035,
+      "fragment_failure_initial_deck_y_min_mm": 150.35970905,
+      "fragment_failure_initial_deck_z_min_mm": 1.3597090605000002,
+      "fragment_failure_initial_deck_x_max_mm": 4.6762177845,
+      "fragment_failure_initial_deck_y_max_mm": 154.67621775,
+      "fragment_failure_initial_deck_z_max_mm": 9.992726509499999,
+      "initial_deck_position_semantics": "reference_geometry_only_not_failure_time_position",
+      "plate_failure_deformed_position_status": "unavailable_fragment_only_d3part"
+    },
+    {
+      "case_id": "p0_v2000_h0p75",
+      "role": "hf_response_fit",
+      "impact_speed_mps": 2000.0,
+      "mesh_mm": 0.75,
+      "plate_part_id": 1005,
+      "fragment_part_id": 2005,
+      "unique_failure_element_count": 692,
+      "failure_event_count": 692,
+      "first_failure_time_ms": 0.0014569,
+      "first_failure_type": "negative_volume",
+      "first_failure_part_kind": "plate",
+      "first_failure_element_id": 102381,
+      "last_failure_time_ms": 0.036904,
+      "plate_negative_volume_count": 72,
+      "fragment_negative_volume_count": 76,
+      "plate_other_failure_count": 154,
+      "fragment_other_failure_count": 390,
+      "fragment_mes_time_in_d3part_deletion_interval_count": 417,
+      "fragment_mes_time_outside_d3part_deletion_interval_count": 49,
+      "fragment_event_ledger_state_counts": {
+        "alive_crossed": 0,
+        "alive_upstream": 0,
+        "deleted_upstream": 448,
+        "deleted_after_crossing": 18,
+        "temporal_ambiguity": 0
+      },
+      "deleted_upstream_mass_fraction": 0.6530612148685321,
+      "primary_qoi_available": false,
+      "qualification_use_forbidden": true,
+      "capture_ledger_classification": "unavailable",
+      "capture_ledger_unavailable_reasons": [
+        "deleted_upstream_mass"
+      ],
+      "fragment_failure_initial_x_min_mm": 150.35970905,
+      "fragment_failure_initial_x_max_mm": 154.67621775,
+      "fragment_failure_initial_y_min_mm": 150.35970905,
+      "fragment_failure_initial_y_max_mm": 154.67621775,
+      "fragment_failure_initial_z_min_mm": 1.3597090605000002,
+      "fragment_failure_initial_z_max_mm": 10.71214463,
+      "fragment_failure_last_alive_z_min_mm": -50.551440853683545,
+      "fragment_failure_last_alive_z_max_mm": 0.6851632954506526,
+      "plate_failure_initial_deck_x_min_mm": 150.375,
+      "plate_failure_initial_deck_y_min_mm": 150.375,
+      "plate_failure_initial_deck_z_min_mm": -9.642857143,
+      "plate_failure_initial_deck_x_max_mm": 156.375,
+      "plate_failure_initial_deck_y_max_mm": 156.375,
+      "plate_failure_initial_deck_z_max_mm": -0.35714285715,
+      "fragment_failure_initial_deck_x_min_mm": 150.35970905,
+      "fragment_failure_initial_deck_y_min_mm": 150.35970905,
+      "fragment_failure_initial_deck_z_min_mm": 1.3597090605000002,
+      "fragment_failure_initial_deck_x_max_mm": 154.67621775,
+      "fragment_failure_initial_deck_y_max_mm": 154.67621775,
+      "fragment_failure_initial_deck_z_max_mm": 10.71214463,
+      "initial_deck_position_semantics": "reference_geometry_only_not_failure_time_position",
+      "plate_failure_deformed_position_status": "unavailable_fragment_only_d3part"
+    },
+    {
+      "case_id": "p0_v2000_h1p00",
+      "role": "hf_numerical_verification",
+      "impact_speed_mps": 2000.0,
+      "mesh_mm": 1.0,
+      "plate_part_id": 1006,
+      "fragment_part_id": 2006,
+      "unique_failure_element_count": 563,
+      "failure_event_count": 563,
+      "first_failure_time_ms": 0.0018287,
+      "first_failure_type": "negative_volume",
+      "first_failure_part_kind": "fragment",
+      "first_failure_element_id": 115401,
+      "last_failure_time_ms": 0.038488,
+      "plate_negative_volume_count": 74,
+      "fragment_negative_volume_count": 61,
+      "plate_other_failure_count": 296,
+      "fragment_other_failure_count": 132,
+      "fragment_mes_time_in_d3part_deletion_interval_count": 169,
+      "fragment_mes_time_outside_d3part_deletion_interval_count": 24,
+      "fragment_event_ledger_state_counts": {
+        "alive_crossed": 0,
+        "alive_upstream": 0,
+        "deleted_upstream": 189,
+        "deleted_after_crossing": 4,
+        "temporal_ambiguity": 0
+      },
+      "deleted_upstream_mass_fraction": 0.7559999865564393,
+      "primary_qoi_available": false,
+      "qualification_use_forbidden": true,
+      "capture_ledger_classification": "unavailable",
+      "capture_ledger_unavailable_reasons": [
+        "deleted_upstream_mass"
+      ],
+      "fragment_failure_initial_x_min_mm": 300.5035927,
+      "fragment_failure_initial_x_max_mm": 304.53233415,
+      "fragment_failure_initial_y_min_mm": 150.5035927,
+      "fragment_failure_initial_y_max_mm": 154.53233415,
+      "fragment_failure_initial_z_min_mm": 1.5035926845,
+      "fragment_failure_initial_z_max_mm": 10.568261004999998,
+      "fragment_failure_last_alive_z_min_mm": -22.791250173219325,
+      "fragment_failure_last_alive_z_max_mm": 1.1101334369164917,
+      "plate_failure_initial_deck_x_min_mm": 300.5,
+      "plate_failure_initial_deck_y_min_mm": 150.5,
+      "plate_failure_initial_deck_z_min_mm": -9.5,
+      "plate_failure_initial_deck_x_max_mm": 308.5,
+      "plate_failure_initial_deck_y_max_mm": 157.5,
+      "plate_failure_initial_deck_z_max_mm": -0.5,
+      "fragment_failure_initial_deck_x_min_mm": 300.5035927,
+      "fragment_failure_initial_deck_y_min_mm": 150.5035927,
+      "fragment_failure_initial_deck_z_min_mm": 1.5035926845,
+      "fragment_failure_initial_deck_x_max_mm": 304.53233415,
+      "fragment_failure_initial_deck_y_max_mm": 154.53233415,
+      "fragment_failure_initial_deck_z_max_mm": 10.568261004999998,
+      "initial_deck_position_semantics": "reference_geometry_only_not_failure_time_position",
+      "plate_failure_deformed_position_status": "unavailable_fragment_only_d3part"
+    },
+    {
+      "case_id": "p0_v2000_h0p50",
+      "role": "hf_numerical_verification",
+      "impact_speed_mps": 2000.0,
+      "mesh_mm": 0.5,
+      "plate_part_id": 1007,
+      "fragment_part_id": 2007,
+      "unique_failure_element_count": 364,
+      "failure_event_count": 364,
+      "first_failure_time_ms": 0.00066101,
+      "first_failure_type": "other_solid_failure",
+      "first_failure_part_kind": "fragment",
+      "first_failure_element_id": 161830,
+      "last_failure_time_ms": 0.035358,
+      "plate_negative_volume_count": 45,
+      "fragment_negative_volume_count": 17,
+      "plate_other_failure_count": 64,
+      "fragment_other_failure_count": 238,
+      "fragment_mes_time_in_d3part_deletion_interval_count": 219,
+      "fragment_mes_time_outside_d3part_deletion_interval_count": 36,
+      "fragment_event_ledger_state_counts": {
+        "alive_crossed": 0,
+        "alive_upstream": 0,
+        "deleted_upstream": 244,
+        "deleted_after_crossing": 11,
+        "temporal_ambiguity": 0
+      },
+      "deleted_upstream_mass_fraction": 0.12199999668040871,
+      "primary_qoi_available": false,
+      "qualification_use_forbidden": true,
+      "capture_ledger_classification": "unavailable",
+      "capture_ledger_unavailable_reasons": [
+        "deleted_upstream_mass"
+      ],
+      "fragment_failure_initial_x_min_mm": 0.25179634225,
+      "fragment_failure_initial_x_max_mm": 4.784130502499999,
+      "fragment_failure_initial_y_min_mm": 300.25179635,
+      "fragment_failure_initial_y_max_mm": 304.7841305,
+      "fragment_failure_initial_z_min_mm": 1.251796342,
+      "fragment_failure_initial_z_max_mm": 10.316464665,
+      "fragment_failure_last_alive_z_min_mm": -63.75425262388543,
+      "fragment_failure_last_alive_z_max_mm": 0.05841740190636471,
+      "plate_failure_initial_deck_x_min_mm": 0.25,
+      "plate_failure_initial_deck_y_min_mm": 300.25,
+      "plate_failure_initial_deck_z_min_mm": -0.75,
+      "plate_failure_initial_deck_x_max_mm": 5.25,
+      "plate_failure_initial_deck_y_max_mm": 305.25,
+      "plate_failure_initial_deck_z_max_mm": -0.25,
+      "fragment_failure_initial_deck_x_min_mm": 0.25179634225,
+      "fragment_failure_initial_deck_y_min_mm": 300.25179635,
+      "fragment_failure_initial_deck_z_min_mm": 1.251796342,
+      "fragment_failure_initial_deck_x_max_mm": 4.784130502499999,
+      "fragment_failure_initial_deck_y_max_mm": 304.7841305,
+      "fragment_failure_initial_deck_z_max_mm": 10.316464665,
+      "initial_deck_position_semantics": "reference_geometry_only_not_failure_time_position",
+      "plate_failure_deformed_position_status": "unavailable_fragment_only_d3part"
+    }
+  ],
+  "focus_cases": {
+    "p0_v0800_h0p75": {
+      "case_id": "p0_v0800_h0p75",
+      "role": "hf_response_fit",
+      "impact_speed_mps": 800.0,
+      "mesh_mm": 0.75,
+      "plate_part_id": 1002,
+      "fragment_part_id": 2002,
+      "unique_failure_element_count": 155,
+      "failure_event_count": 155,
+      "first_failure_time_ms": 0.003171,
+      "first_failure_type": "negative_volume",
+      "first_failure_part_kind": "plate",
+      "first_failure_element_id": 39675,
+      "last_failure_time_ms": 0.034496,
+      "plate_negative_volume_count": 18,
+      "fragment_negative_volume_count": 59,
+      "plate_other_failure_count": 1,
+      "fragment_other_failure_count": 77,
+      "fragment_mes_time_in_d3part_deletion_interval_count": 121,
+      "fragment_mes_time_outside_d3part_deletion_interval_count": 15,
+      "fragment_event_ledger_state_counts": {
+        "alive_crossed": 0,
+        "alive_upstream": 0,
+        "deleted_upstream": 136,
+        "deleted_after_crossing": 0,
+        "temporal_ambiguity": 0
+      },
+      "deleted_upstream_mass_fraction": 0.19825072619906742,
+      "primary_qoi_available": false,
+      "qualification_use_forbidden": true,
+      "capture_ledger_classification": "unavailable",
+      "capture_ledger_unavailable_reasons": [
+        "deleted_upstream_mass",
+        "unstable_tail_qM"
+      ],
+      "fragment_failure_initial_x_min_mm": 150.35970905,
+      "fragment_failure_initial_x_max_mm": 154.67621775,
+      "fragment_failure_initial_y_min_mm": 0.35970906035,
+      "fragment_failure_initial_y_max_mm": 4.6762177844999995,
+      "fragment_failure_initial_z_min_mm": 1.3597090605000002,
+      "fragment_failure_initial_z_max_mm": 9.992726509499999,
+      "fragment_failure_last_alive_z_min_mm": -5.587593400500361,
+      "fragment_failure_last_alive_z_max_mm": 0.41464901088705003,
+      "plate_failure_initial_deck_x_min_mm": 150.375,
+      "plate_failure_initial_deck_y_min_mm": 0.375,
+      "plate_failure_initial_deck_z_min_mm": -1.07142857165,
+      "plate_failure_initial_deck_x_max_mm": 152.625,
+      "plate_failure_initial_deck_y_max_mm": 4.125,
+      "plate_failure_initial_deck_z_max_mm": -0.35714285715,
+      "fragment_failure_initial_deck_x_min_mm": 150.35970905,
+      "fragment_failure_initial_deck_y_min_mm": 0.35970906035,
+      "fragment_failure_initial_deck_z_min_mm": 1.3597090605000002,
+      "fragment_failure_initial_deck_x_max_mm": 154.67621775,
+      "fragment_failure_initial_deck_y_max_mm": 4.6762177844999995,
+      "fragment_failure_initial_deck_z_max_mm": 9.992726509499999,
+      "initial_deck_position_semantics": "reference_geometry_only_not_failure_time_position",
+      "plate_failure_deformed_position_status": "unavailable_fragment_only_d3part"
+    },
+    "p0_v2000_h0p75": {
+      "case_id": "p0_v2000_h0p75",
+      "role": "hf_response_fit",
+      "impact_speed_mps": 2000.0,
+      "mesh_mm": 0.75,
+      "plate_part_id": 1005,
+      "fragment_part_id": 2005,
+      "unique_failure_element_count": 692,
+      "failure_event_count": 692,
+      "first_failure_time_ms": 0.0014569,
+      "first_failure_type": "negative_volume",
+      "first_failure_part_kind": "plate",
+      "first_failure_element_id": 102381,
+      "last_failure_time_ms": 0.036904,
+      "plate_negative_volume_count": 72,
+      "fragment_negative_volume_count": 76,
+      "plate_other_failure_count": 154,
+      "fragment_other_failure_count": 390,
+      "fragment_mes_time_in_d3part_deletion_interval_count": 417,
+      "fragment_mes_time_outside_d3part_deletion_interval_count": 49,
+      "fragment_event_ledger_state_counts": {
+        "alive_crossed": 0,
+        "alive_upstream": 0,
+        "deleted_upstream": 448,
+        "deleted_after_crossing": 18,
+        "temporal_ambiguity": 0
+      },
+      "deleted_upstream_mass_fraction": 0.6530612148685321,
+      "primary_qoi_available": false,
+      "qualification_use_forbidden": true,
+      "capture_ledger_classification": "unavailable",
+      "capture_ledger_unavailable_reasons": [
+        "deleted_upstream_mass"
+      ],
+      "fragment_failure_initial_x_min_mm": 150.35970905,
+      "fragment_failure_initial_x_max_mm": 154.67621775,
+      "fragment_failure_initial_y_min_mm": 150.35970905,
+      "fragment_failure_initial_y_max_mm": 154.67621775,
+      "fragment_failure_initial_z_min_mm": 1.3597090605000002,
+      "fragment_failure_initial_z_max_mm": 10.71214463,
+      "fragment_failure_last_alive_z_min_mm": -50.551440853683545,
+      "fragment_failure_last_alive_z_max_mm": 0.6851632954506526,
+      "plate_failure_initial_deck_x_min_mm": 150.375,
+      "plate_failure_initial_deck_y_min_mm": 150.375,
+      "plate_failure_initial_deck_z_min_mm": -9.642857143,
+      "plate_failure_initial_deck_x_max_mm": 156.375,
+      "plate_failure_initial_deck_y_max_mm": 156.375,
+      "plate_failure_initial_deck_z_max_mm": -0.35714285715,
+      "fragment_failure_initial_deck_x_min_mm": 150.35970905,
+      "fragment_failure_initial_deck_y_min_mm": 150.35970905,
+      "fragment_failure_initial_deck_z_min_mm": 1.3597090605000002,
+      "fragment_failure_initial_deck_x_max_mm": 154.67621775,
+      "fragment_failure_initial_deck_y_max_mm": 154.67621775,
+      "fragment_failure_initial_deck_z_max_mm": 10.71214463,
+      "initial_deck_position_semantics": "reference_geometry_only_not_failure_time_position",
+      "plate_failure_deformed_position_status": "unavailable_fragment_only_d3part"
+    }
+  },
+  "focus_solid_history": {
+    "schema_version": "hf-p0-r05-focus-solid-history@1.0.0",
+    "analysis_status": "diagnostic_history_complete_no_admission",
+    "qualification_use_forbidden": true,
+    "integration_acceptance_status": "pending_independent_integration_acceptance_no_retroactive_admission",
+    "artifact_identity": {
+      "package_revision": "R05_capture_ledger_preregistered",
+      "job_id": "72252362",
+      "design_sha256": "sha256:b1d2027d57fc6d9cd1ee3f932ea044fd16a112344d8f2b6f508071f45191a06f",
+      "deck_sha256": "sha256:6fbd753a113d0214e7ba4ff5136dc526d151e6f2c52c94e70399b29c4b9d3d0c",
+      "case_map_sha256": "sha256:b05b59249e49c3e9d15904f475c2f9478bdff1638fb797d1b552298490aa5295",
+      "material_sha256": "sha256:9b462b920459e57641d5f89d10d36c0aa0498c86f2478fef8e4c3efa96888311",
+      "upload_manifest_sha256": "sha256:e178b6c28832519aaa2befdc969dcd93d2141ea4073ad740b52b17968d92ba44",
+      "d3part_family_sha256": "sha256:8f24005080f09cbfd1b81dd2f0f97d4abb3158e7133207f44beccb9852346af7",
+      "d3plot_family_sha256": "sha256:a02b188281ed86b4c4234b54b67ca1f4fbb73c3c8d4f938b15751523dc6e321b",
+      "d3plot_family_file_count": 19,
+      "d3plot_family_identity_contract": "sha256 of canonical JSON name/size_bytes/file_sha256 entries in numbered-family order",
+      "analyzer_sha256": "sha256:da6ce61fb4c58637eb53e5dc2da81451bd2eb046ddc7a587efff655561318416"
+    },
+    "run_integrity_binding": {
+      "schema_version": "hf-p0-r05-run-integrity-evidence@1.0.0",
+      "evidence_id": "job-72252362-hash-bound-run-integrity",
+      "status": "pass",
+      "run_id": "72252362",
+      "solver_build": "LS-DYNA MPP double R15.0.2-1-g1e7cfa42b1 I8R8 Intel-MPI 2018",
+      "d3part_family_sha256": "sha256:8f24005080f09cbfd1b81dd2f0f97d4abb3158e7133207f44beccb9852346af7",
+      "returned_artifact_sha256": "sha256:8a0ec2d4ad22a3d068b9bb260a4fcfd89df904a80b36153e229a0a2034ad7239",
+      "evidence_sha256": "sha256:9561d88dac2fffdf04dc2b3b3d6823e1e78ccc5651419a95ca1791c6c12ab66f",
+      "claim_boundary": "This existing pass establishes run/returned-evidence integrity only; it is not D3PART integration acceptance or physical admission."
+    },
+    "reader": "project-local lasso-python 2.0.4 D3plot",
+    "d3plot_summary": {
+      "state_count": 82,
+      "first_time_ms": 0.0,
+      "last_time_ms": 0.040002637597628225,
+      "node_count": 184949,
+      "solid_count": 163730,
+      "solid_result_layer_count": 1,
+      "solid_state_variable_count": 8,
+      "solid_history_variable_count": 1,
+      "has_solid_stress": true
+    },
+    "statistics_contract": {
+      "population": "unweighted_alive_solid_elements",
+      "quantile_method": "numpy.quantile linear",
+      "effective_plastic_strain": "D3PLOT element_solid_effective_plastic_strain",
+      "derived_solid_hydrostatic_pressure": {
+        "formula": "p=-(sxx+syy+szz)/3",
+        "unit": "GPa",
+        "source": "D3PLOT element_solid_stress normal components",
+        "is_contact_pressure": false
+      },
+      "extrema_interpretation": "diagnostic saved-state extrema only; they do not identify or prove a material, contact, or fracture mechanism"
+    },
+    "cases": [
+      {
+        "case_id": "p0_v0800_h0p75",
+        "parts": [
+          {
+            "part_kind": "plate",
+            "part_id": 1002,
+            "total_element_count": 20216,
+            "initial_alive_element_count": 20216,
+            "final_alive_element_count": 20197,
+            "minimum_alive_element_count": 20197,
+            "maximum_effective_plastic_strain_among_alive": 2.477141068153924,
+            "maximum_effective_plastic_strain_time_ms": 0.03999661022118361,
+            "maximum_derived_solid_hydrostatic_pressure_gpa_among_alive": 10.402915284233538,
+            "maximum_derived_solid_hydrostatic_pressure_time_ms": 0.001991868873800035,
+            "minimum_derived_solid_hydrostatic_pressure_gpa_among_alive": -2.0708683148575897,
+            "minimum_derived_solid_hydrostatic_pressure_time_ms": 0.003991769996756563
+          },
+          {
+            "part_kind": "fragment",
+            "part_id": 2002,
+            "total_element_count": 686,
+            "initial_alive_element_count": 686,
+            "final_alive_element_count": 550,
+            "minimum_alive_element_count": 550,
+            "maximum_effective_plastic_strain_among_alive": 3.499311050229765,
+            "maximum_effective_plastic_strain_time_ms": 0.016995534265894438,
+            "maximum_derived_solid_hydrostatic_pressure_gpa_among_alive": 10.705242803900875,
+            "maximum_derived_solid_hydrostatic_pressure_time_ms": 0.001991868873800035,
+            "minimum_derived_solid_hydrostatic_pressure_gpa_among_alive": -2.9897553725318353,
+            "minimum_derived_solid_hydrostatic_pressure_time_ms": 0.003991769996756563
+          }
+        ],
+        "first_failure_element": {
+          "element_id": 39675,
+          "part_kind": "plate",
+          "part_id": 1002,
+          "failure_type": "negative_volume",
+          "mes_first_failure_time_ms": 0.003171,
+          "alive_history_state_count": 7,
+          "last_alive_d3plot_time_ms": 0.002991050296125369,
+          "first_deleted_d3plot_time_ms": 0.0034924290147063694,
+          "maximum_effective_plastic_strain_while_alive": 0.5842422943699593,
+          "maximum_derived_solid_hydrostatic_pressure_gpa_while_alive": 8.192124290346525,
+          "minimum_derived_solid_hydrostatic_pressure_gpa_while_alive": 0.0,
+          "interpretation": "saved-state history while the element is alive; MES failure time and the following saved deletion state do not establish a material mechanism"
+        }
+      },
+      {
+        "case_id": "p0_v2000_h0p75",
+        "parts": [
+          {
+            "part_kind": "plate",
+            "part_id": 1005,
+            "total_element_count": 20216,
+            "initial_alive_element_count": 20216,
+            "final_alive_element_count": 19990,
+            "minimum_alive_element_count": 19990,
+            "maximum_effective_plastic_strain_among_alive": 3.409545834353283,
+            "maximum_effective_plastic_strain_time_ms": 0.009994611684155354,
+            "maximum_derived_solid_hydrostatic_pressure_gpa_among_alive": 24.677920825112114,
+            "maximum_derived_solid_hydrostatic_pressure_time_ms": 0.0009931082009673872,
+            "minimum_derived_solid_hydrostatic_pressure_gpa_among_alive": -7.33414349295409,
+            "minimum_derived_solid_hydrostatic_pressure_time_ms": 0.002991050296125369
+          },
+          {
+            "part_kind": "fragment",
+            "part_id": 2005,
+            "total_element_count": 686,
+            "initial_alive_element_count": 686,
+            "final_alive_element_count": 220,
+            "minimum_alive_element_count": 220,
+            "maximum_effective_plastic_strain_among_alive": 3.12649764465855,
+            "maximum_effective_plastic_strain_time_ms": 0.015498901351173983,
+            "maximum_derived_solid_hydrostatic_pressure_gpa_among_alive": 23.20287795818678,
+            "maximum_derived_solid_hydrostatic_pressure_time_ms": 0.0009931082009673872,
+            "minimum_derived_solid_hydrostatic_pressure_gpa_among_alive": -10.72505508328395,
+            "minimum_derived_solid_hydrostatic_pressure_time_ms": 0.002991050296125369
+          }
+        ],
+        "first_failure_element": {
+          "element_id": 102381,
+          "part_kind": "plate",
+          "part_id": 1005,
+          "failure_type": "negative_volume",
+          "mes_first_failure_time_ms": 0.0014569,
+          "alive_history_state_count": 3,
+          "last_alive_d3plot_time_ms": 0.0009931082009673872,
+          "first_deleted_d3plot_time_ms": 0.0014896172923838024,
+          "maximum_effective_plastic_strain_while_alive": 0.19935760502167488,
+          "maximum_derived_solid_hydrostatic_pressure_gpa_while_alive": 15.839404751083565,
+          "minimum_derived_solid_hydrostatic_pressure_gpa_while_alive": 0.0,
+          "interpretation": "saved-state history while the element is alive; MES failure time and the following saved deletion state do not establish a material mechanism"
+        }
+      }
+    ],
+    "contact_output_availability": {
+      "d3plot_header_flags": {
+        "has_node_max_contact_penetration_absolute": false,
+        "has_node_max_contact_penetration_relative": false,
+        "has_node_contact_energy_density": false
+      },
+      "binout_logical_directories": [
+        "glstat",
+        "jobinfo",
+        "matsum",
+        "nodout",
+        "sleout"
+      ],
+      "sleout_variables": [
+        "build_id",
+        "cycle",
+        "date",
+        "friction_energy",
+        "ids",
+        "is_transducer",
+        "legend",
+        "legend_ids",
+        "revision",
+        "single_sided",
+        "slave",
+        "slave+master",
+        "time",
+        "title",
+        "total_energy",
+        "total_friction",
+        "total_master",
+        "total_slave",
+        "version"
+      ],
+      "contact_penetration": {
+        "status": "unavailable_not_written",
+        "reason": "D3PLOT absolute/relative penetration flags are false and no BINOUT penetration variable is present"
+      },
+      "contact_pressure": {
+        "status": "unavailable_not_written",
+        "reason": "no D3PLOT contact-pressure array or contact-force/interface BINOUT pressure variable is present"
+      },
+      "derived_solid_hydrostatic_pressure": {
+        "available": true,
+        "formula": "p=-(sxx+syy+szz)/3",
+        "unit": "GPa",
+        "is_contact_pressure": false
+      },
+      "claim_boundary": "SLEOUT energy channels and derived solid hydrostatic pressure do not replace direct contact penetration or contact-pressure histories."
+    },
+    "csv_artifacts": [
+      {
+        "name": "d3plot_focus_part_history.csv",
+        "size_bytes": 94228,
+        "sha256": "sha256:39a608b6cbbbc1f806cfc710b304755572fc644b9d7b5abca92c59a78699381c"
+      },
+      {
+        "name": "d3plot_first_failure_element_history.csv",
+        "size_bytes": 1804,
+        "sha256": "sha256:bcef10d832c63b47f4c885121d58d05aa674132a40dd8d2035e9771dffcbfe7e"
+      }
+    ],
+    "claim_boundary": "Diagnostic D3PLOT solid-state history only; no direct contact penetration or contact pressure is available, and no response, physical, engine, or dataset admission follows from these extrema."
+  },
+  "limitations": [
+    "plate initial deck centroids are available, but plate failure-time/deformed coordinates are unavailable from the fragment-only D3PART",
+    "other_solid_failure does not identify a physical or numerical failure mechanism",
+    "D3PART saved states bracket deletion but do not prove exact deletion time or causality",
+    "solid hydrostatic pressure is derived from D3PLOT stress and is not contact pressure",
+    "direct contact penetration and contact pressure were not written in the returned databases",
+    "this analyzer does not assess the concurrently repaired adapter or produce integration acceptance",
+    "later software repair cannot retroactively promote this R05 diagnostic to admission evidence",
+    "solver diagnostics do not establish experimental or physical validity"
+  ],
+  "claim_boundary": "Failure-mode localization and diagnostic capture-ledger association only; not P0 response admission, material calibration, physical validation, engine fitting, or dataset-generator promotion."
+}

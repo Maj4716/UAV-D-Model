@@ -32,6 +32,19 @@ LOITERING_IMPACT_LEARNING_INPUT_IDENTITY_VERSION = (
     "loitering-impact-learning-input@1.0.0"
 )
 
+LOITERING_IMPACT_CONTACT_POSE_STATE_CONTRACT_VERSION = (
+    "loitering-impact-contact-pose-input@1.0.0"
+)
+LOITERING_IMPACT_CONTACT_POSE_SAMPLING_MODEL_INPUT_CONTRACT = (
+    "loitering_impact_contact_pose@1.0.0"
+)
+LOITERING_IMPACT_CONTACT_POSE_FIXED_SCENARIO_IDENTITY_VERSION = (
+    "loitering-impact-contact-pose-fixed-scenario-json@1.0.0"
+)
+LOITERING_IMPACT_CONTACT_POSE_LEARNING_INPUT_IDENTITY_VERSION = (
+    "loitering-impact-contact-pose-learning-input@1.0.0"
+)
+
 UAV_STATE_FEATURE_NAMES = (
     "uav_position_relative_to_fixed_threat_x_m",
     "uav_position_relative_to_fixed_threat_y_m",
@@ -119,6 +132,95 @@ LOITERING_IMPACT_STATE_FEATURE_SEMANTICS = (
     "Positive x-directed impact speed in the target frame before impact resolution.",
 )
 LOITERING_IMPACT_TRAINING_FEATURE_NAMES = LOITERING_IMPACT_STATE_FEATURE_NAMES
+
+LOITERING_IMPACT_CONTACT_POSE_QUATERNION_FEATURE_NAMES = (
+    "body_to_target_orientation_qx",
+    "body_to_target_orientation_qy",
+    "body_to_target_orientation_qz",
+    "body_to_target_orientation_qw",
+)
+LOITERING_IMPACT_CONTACT_POSE_ROTATION_6D_FEATURE_NAMES = (
+    "body_to_target_rotation_6d_col0_x",
+    "body_to_target_rotation_6d_col0_y",
+    "body_to_target_rotation_6d_col0_z",
+    "body_to_target_rotation_6d_col1_x",
+    "body_to_target_rotation_6d_col1_y",
+    "body_to_target_rotation_6d_col1_z",
+)
+LOITERING_IMPACT_CONTACT_POSE_STATE_FEATURE_NAMES = (
+    *LOITERING_IMPACT_STATE_FEATURE_NAMES[:3],
+    "trajectory_origin_x_m",
+    "trajectory_origin_y_m",
+    "trajectory_origin_z_m",
+    "approach_velocity_target_x_mps",
+    "approach_velocity_target_y_mps",
+    "approach_velocity_target_z_mps",
+    *LOITERING_IMPACT_CONTACT_POSE_QUATERNION_FEATURE_NAMES,
+)
+LOITERING_IMPACT_CONTACT_POSE_STATE_FEATURE_UNITS = (
+    *("1",) * 3,
+    *("m",) * 3,
+    *("m/s",) * 3,
+    *("1",) * 4,
+)
+LOITERING_IMPACT_CONTACT_POSE_STATE_FEATURE_SOURCE_PATHS = (
+    *("/munition/profile_id",) * 3,
+    *("/encounter/trajectory_origin_m",) * 3,
+    *("/encounter/velocity_target_mps",) * 3,
+    *("/encounter/body_to_target_orientation_xyzw",) * 4,
+)
+LOITERING_IMPACT_CONTACT_POSE_STATE_FEATURE_TRANSFORMS = (
+    "one_hot_equals_small_front",
+    "one_hot_equals_medium_front",
+    "one_hot_equals_large_front",
+    *("identity_target_frame_component",) * 6,
+    *("normalize_and_canonicalize_sign",) * 4,
+)
+LOITERING_IMPACT_CONTACT_POSE_STATE_FEATURE_SEMANTICS = (
+    *LOITERING_IMPACT_STATE_FEATURE_SEMANTICS[:3],
+    "Nose-fuze trajectory-origin x coordinate in the frozen target frame before impact resolution.",
+    "Nose-fuze trajectory-origin y coordinate in the frozen target frame before impact resolution.",
+    "Nose-fuze trajectory-origin z coordinate in the frozen target frame before impact resolution.",
+    "Target-frame x component of the pre-impact velocity jointly constructed on the contact manifold.",
+    "Target-frame y component of the pre-impact velocity jointly constructed on the contact manifold.",
+    "Target-frame z component of the pre-impact velocity jointly constructed on the contact manifold.",
+    "x component of the canonical body-to-target attitude aligned with the approach velocity.",
+    "y component of the canonical body-to-target attitude aligned with the approach velocity.",
+    "z component of the canonical body-to-target attitude aligned with the approach velocity.",
+    "w component of the canonical body-to-target attitude aligned with the approach velocity.",
+)
+LOITERING_IMPACT_CONTACT_POSE_TRAINING_FEATURE_NAMES = (
+    *LOITERING_IMPACT_CONTACT_POSE_STATE_FEATURE_NAMES[:9],
+    *LOITERING_IMPACT_CONTACT_POSE_ROTATION_6D_FEATURE_NAMES,
+)
+LOITERING_IMPACT_CONTACT_POSE_TRAINING_FEATURE_UNITS = (
+    *("1",) * 3,
+    *("m",) * 3,
+    *("m/s",) * 3,
+    *("1",) * 6,
+)
+LOITERING_IMPACT_CONTACT_POSE_TRAINING_FEATURE_SOURCE_PATHS = (
+    *("/munition/profile_id",) * 3,
+    *("/encounter/trajectory_origin_m",) * 3,
+    *("/encounter/velocity_target_mps",) * 3,
+    *("/encounter/body_to_target_orientation_xyzw",) * 6,
+)
+LOITERING_IMPACT_CONTACT_POSE_TRAINING_FEATURE_TRANSFORMS = (
+    "one_hot_equals_small_front",
+    "one_hot_equals_medium_front",
+    "one_hot_equals_large_front",
+    *("identity_target_frame_component",) * 6,
+    *("normalized_quaternion_to_rotation_matrix_first_two_columns",) * 6,
+)
+LOITERING_IMPACT_CONTACT_POSE_TRAINING_FEATURE_SEMANTICS = (
+    *LOITERING_IMPACT_CONTACT_POSE_STATE_FEATURE_SEMANTICS[:9],
+    "Target-frame x component of the body x axis; invariant to quaternion sign.",
+    "Target-frame y component of the body x axis; invariant to quaternion sign.",
+    "Target-frame z component of the body x axis; invariant to quaternion sign.",
+    "Target-frame x component of the body y axis; invariant to quaternion sign.",
+    "Target-frame y component of the body y axis; invariant to quaternion sign.",
+    "Target-frame z component of the body y axis; invariant to quaternion sign.",
+)
 
 
 MODEL_INPUT_EXCLUDED_TENSOR_FIELDS = (
@@ -337,7 +439,44 @@ LOITERING_IMPACT_MODEL_INPUT_DEFINITION = ModelInputDefinition(
     ),
 )
 
+LOITERING_IMPACT_CONTACT_POSE_MODEL_INPUT_DEFINITION = ModelInputDefinition(
+    sampling_contract=(
+        LOITERING_IMPACT_CONTACT_POSE_SAMPLING_MODEL_INPUT_CONTRACT
+    ),
+    version=LOITERING_IMPACT_CONTACT_POSE_STATE_CONTRACT_VERSION,
+    tensor_field="loitering_impact_contact_pose_x",
+    mask_field="loitering_impact_contact_pose_feature_mask",
+    metadata_prefix="loitering_impact_contact_pose",
+    feature_axis="F_loitering_impact_contact_pose",
+    feature_names=LOITERING_IMPACT_CONTACT_POSE_TRAINING_FEATURE_NAMES,
+    feature_units=LOITERING_IMPACT_CONTACT_POSE_TRAINING_FEATURE_UNITS,
+    feature_source_paths=(
+        LOITERING_IMPACT_CONTACT_POSE_TRAINING_FEATURE_SOURCE_PATHS
+    ),
+    feature_transforms=LOITERING_IMPACT_CONTACT_POSE_TRAINING_FEATURE_TRANSFORMS,
+    feature_semantics=LOITERING_IMPACT_CONTACT_POSE_TRAINING_FEATURE_SEMANTICS,
+    fixed_scenario_identity_version=(
+        LOITERING_IMPACT_CONTACT_POSE_FIXED_SCENARIO_IDENTITY_VERSION
+    ),
+    learning_input_identity_version=(
+        LOITERING_IMPACT_CONTACT_POSE_LEARNING_INPUT_IDENTITY_VERSION
+    ),
+    learning_input_payload_key="loitering_impact_contact_pose_state",
+    evidence_boundary=(
+        "three versioned munition-profile categories plus pre-impact target-frame "
+        "origin, velocity and body attitude; collision solution and teacher "
+        "physics are excluded, and approach weights describe a contact-conditioned "
+        "design distribution rather than operational prevalence"
+    ),
+    known_limitation=(
+        "The target-facing ray manifold and its approach weights are project-specific "
+        "design choices. S-CONTACT proves first-armour-contact consistency but does "
+        "not validate operational attack frequencies or physical response fidelity."
+    ),
+)
+
 MODEL_INPUT_DEFINITIONS = (
+    LOITERING_IMPACT_CONTACT_POSE_MODEL_INPUT_DEFINITION,
     LOITERING_IMPACT_MODEL_INPUT_DEFINITION,
     UAV_MODEL_INPUT_DEFINITION,
 )
@@ -431,6 +570,24 @@ def _canonical_inverse_quaternion_xyzw(value: Any) -> list[float]:
     return quaternion
 
 
+def _canonical_quaternion_xyzw(value: Any) -> list[float]:
+    """Normalize a body-to-target quaternion and remove the q/-q duplicate."""
+
+    quaternion = _finite_vector(
+        value, length=4, name="encounter.body_to_target_orientation_xyzw"
+    )
+    norm = math.sqrt(sum(item * item for item in quaternion))
+    if norm <= 0.0:
+        raise ValueError("encounter.body_to_target_orientation_xyzw must be nonzero")
+    quaternion = [item / norm for item in quaternion]
+    for component in reversed(quaternion):
+        if abs(component) > 1.0e-15:
+            if component < 0.0:
+                quaternion = [-item for item in quaternion]
+            break
+    return quaternion
+
+
 def uav_state_value(case: dict) -> dict[str, float]:
     """Return the canonical ten-value UAV-only learner state.
 
@@ -516,6 +673,100 @@ def loitering_impact_state_value(case: dict) -> dict[str, float]:
 def loitering_impact_state_vector(case: dict) -> list[float]:
     state = loitering_impact_state_value(case)
     return [state[name] for name in LOITERING_IMPACT_STATE_FEATURE_NAMES]
+
+
+def loitering_impact_contact_pose_state_value(case: dict) -> dict[str, float]:
+    """Extract the pre-impact pose through a canonical quaternion intermediate.
+
+    Direction and speed are represented by the three target-frame velocity
+    components. The versioned archive and identity immediately convert attitude
+    to rotation-6D, so this quaternion intermediate is never learner-visible.
+    """
+
+    munition = case.get("munition")
+    encounter = case.get("encounter")
+    if not isinstance(munition, dict):
+        raise ValueError("case is missing munition")
+    if not isinstance(encounter, dict):
+        raise ValueError("case is missing encounter")
+    profile_id = munition.get("profile_id")
+    if profile_id not in LOITERING_IMPACT_PROFILE_IDS:
+        raise ValueError(
+            "munition.profile_id must be one of the three versioned loitering profiles"
+        )
+    origin = _finite_vector(
+        encounter.get("trajectory_origin_m"),
+        length=3,
+        name="encounter.trajectory_origin_m",
+    )
+    velocity = _finite_vector(
+        encounter.get("velocity_target_mps"),
+        length=3,
+        name="encounter.velocity_target_mps",
+    )
+    speed = math.sqrt(sum(item * item for item in velocity))
+    if speed <= 0.0:
+        raise ValueError("encounter.velocity_target_mps must be nonzero")
+    orientation = _canonical_quaternion_xyzw(
+        encounter.get("body_to_target_orientation_xyzw")
+    )
+    values = [
+        *(1.0 if profile_id == name else 0.0 for name in LOITERING_IMPACT_PROFILE_IDS),
+        *origin,
+        *velocity,
+        *orientation,
+    ]
+    return dict(
+        zip(
+            LOITERING_IMPACT_CONTACT_POSE_STATE_FEATURE_NAMES,
+            values,
+            strict=True,
+        )
+    )
+
+
+def loitering_impact_contact_pose_state_vector(case: dict) -> list[float]:
+    state = loitering_impact_contact_pose_state_value(case)
+    return [
+        state[name] for name in LOITERING_IMPACT_CONTACT_POSE_STATE_FEATURE_NAMES
+    ]
+
+
+def loitering_impact_contact_pose_learning_value(case: dict) -> dict[str, float]:
+    """Return profile3 + origin3 + velocity3 + rotation-6D6 identity."""
+
+    raw = loitering_impact_contact_pose_state_value(case)
+    prefix = [
+        raw[name]
+        for name in LOITERING_IMPACT_CONTACT_POSE_STATE_FEATURE_NAMES[:9]
+    ]
+    x, y, z, w = (
+        raw[name]
+        for name in LOITERING_IMPACT_CONTACT_POSE_QUATERNION_FEATURE_NAMES
+    )
+    rotation_6d = [
+        1.0 - 2.0 * (y * y + z * z),
+        2.0 * (x * y + z * w),
+        2.0 * (x * z - y * w),
+        2.0 * (x * y - z * w),
+        1.0 - 2.0 * (x * x + z * z),
+        2.0 * (y * z + x * w),
+    ]
+    return dict(
+        zip(
+            LOITERING_IMPACT_CONTACT_POSE_TRAINING_FEATURE_NAMES,
+            [*prefix, *rotation_6d],
+            strict=True,
+        )
+    )
+
+
+def loitering_impact_contact_pose_training_vector(case: dict) -> list[float]:
+    state = loitering_impact_contact_pose_learning_value(case)
+    return [
+        state[name]
+        for name in LOITERING_IMPACT_CONTACT_POSE_TRAINING_FEATURE_NAMES
+    ]
 
 
 def fixed_scenario_value(case: dict) -> dict:
@@ -626,11 +877,68 @@ def loitering_impact_fixed_scenario_fingerprint(case: dict) -> str:
     )
 
 
+def loitering_impact_contact_pose_fixed_scenario_value(case: dict) -> dict:
+    """Return scenario state invariant to the full sampled contact pose."""
+
+    identity_input = {
+        key: child
+        for key, child in case.items()
+        if key not in {"case_id", "metadata", "munition", "warhead"}
+    }
+    value = semantic_case_value(identity_input)
+    encounter = value.get("encounter")
+    if isinstance(encounter, dict):
+        for name in (
+            "trajectory_origin_m",
+            "velocity_target_mps",
+            "body_to_target_orientation_xyzw",
+            "detonation_position_m",
+            "detonation_time_s",
+            "collision_distance_m",
+            "collision_armor_id",
+            "collision_normal_target_xyz",
+        ):
+            encounter.pop(name, None)
+    analysis = value.get("analysis")
+    if isinstance(analysis, dict):
+        for name in (
+            "aleatory_seed",
+            "epistemic_sample_id",
+            "replicates",
+            "adaptive_ci_half_width",
+            "adaptive_physical_ci",
+            "capture_fragment_audit",
+            "capture_replicate_trace",
+        ):
+            analysis.pop(name, None)
+    return value
+
+
+def loitering_impact_contact_pose_fixed_scenario_fingerprint(case: dict) -> str:
+    return content_hash(
+        {
+            "version": (
+                LOITERING_IMPACT_CONTACT_POSE_FIXED_SCENARIO_IDENTITY_VERSION
+            ),
+            "scenario": loitering_impact_contact_pose_fixed_scenario_value(case),
+        }
+    )
+
+
 def loitering_impact_learning_input_fingerprint(case: dict) -> str:
     """Compatibility entry point for the loitering-impact input identity."""
 
     return LOITERING_IMPACT_MODEL_INPUT_DEFINITION.learning_input_fingerprint(
         case
+    )
+
+
+def loitering_impact_contact_pose_learning_input_fingerprint(case: dict) -> str:
+    """Compatibility entry point for the contact-pose input identity."""
+
+    return (
+        LOITERING_IMPACT_CONTACT_POSE_MODEL_INPUT_DEFINITION
+        .learning_input_fingerprint(case)
     )
 
 
@@ -666,7 +974,7 @@ def _model_input_definition_for_case(
         sampling_spec = sampling.get("sampling_spec_document")
         if not isinstance(sampling_spec, dict) or sampling_spec.get(
             "schema_version"
-        ) != "1.2.0":
+        ) not in {"1.2.0", "1.3.0", "1.4.0"}:
             return None
         model_input_contract = sampling_spec.get("model_input_contract")
         try:
@@ -712,14 +1020,23 @@ def learning_input_fingerprint(case: dict) -> str:
 _MODEL_INPUT_VECTOR_ADAPTERS = {
     UAV_STATE_CONTRACT_VERSION: uav_state_vector,
     LOITERING_IMPACT_STATE_CONTRACT_VERSION: loitering_impact_state_vector,
+    LOITERING_IMPACT_CONTACT_POSE_STATE_CONTRACT_VERSION: (
+        loitering_impact_contact_pose_training_vector
+    ),
 }
 _MODEL_INPUT_SCENARIO_ADAPTERS = {
     UAV_STATE_CONTRACT_VERSION: fixed_scenario_fingerprint,
     LOITERING_IMPACT_STATE_CONTRACT_VERSION: (
         loitering_impact_fixed_scenario_fingerprint
     ),
+    LOITERING_IMPACT_CONTACT_POSE_STATE_CONTRACT_VERSION: (
+        loitering_impact_contact_pose_fixed_scenario_fingerprint
+    ),
 }
 _MODEL_INPUT_VALUE_ADAPTERS = {
     UAV_STATE_CONTRACT_VERSION: uav_state_value,
     LOITERING_IMPACT_STATE_CONTRACT_VERSION: loitering_impact_state_value,
+    LOITERING_IMPACT_CONTACT_POSE_STATE_CONTRACT_VERSION: (
+        loitering_impact_contact_pose_learning_value
+    ),
 }

@@ -1,0 +1,135 @@
+{
+  "schema_version": "hf-p0-r06-real-output-contract@1.0.0",
+  "contract_id": "p0_r06_real_output_contract",
+  "status": "frozen_after_r05_diagnostic_before_any_r06_deck_or_solver_outcome",
+  "version_boundary": {
+    "applies_to_revision_family": "R06",
+    "effective_scope": "future_successor_candidates_only",
+    "r06_deck_status": "not_generated",
+    "r06_submission_status": "not_submitted",
+    "historical_r05": {
+      "package_revision": "R05_capture_ledger_preregistered",
+      "job_id": "72252362",
+      "evidence_policy": "read_only_immutable",
+      "retroactive_admission": false,
+      "interpretation": "R05 remains diagnostic evidence under its original contract; this successor contract cannot turn an R05 unavailable or failed gate into a pass"
+    }
+  },
+  "d3part_keyword": {
+    "keyword": "*DATABASE_BINARY_D3PART",
+    "solver_compatibility_basis": "LS-DYNA R15.0.2 accepted five fields at runtime in Job 72252362; the R05 tail fields produced Warning 10457 and are not carried forward",
+    "field_count": 5,
+    "fields": [
+      {
+        "position": 1,
+        "name": "DT",
+        "source": "measurement_contract.fragment_d3part_interval_ms",
+        "frozen_value_ms": 0.00005
+      },
+      {
+        "position": 2,
+        "name": "CYCL",
+        "frozen_value": 0
+      },
+      {
+        "position": 3,
+        "name": "IOOPT",
+        "frozen_value": 0
+      },
+      {
+        "position": 4,
+        "name": "LCDT",
+        "frozen_value": 0
+      },
+      {
+        "position": 5,
+        "name": "PSETID",
+        "source": "measurement_contract.fragment_part_set_id",
+        "frozen_value": 900001
+      }
+    ],
+    "serialization": "exactly_five_comma_separated_nonblank_fields_without_trailing_comma",
+    "extra_field_policy": "reject"
+  },
+  "d3part_population": {
+    "admission_identity": "used_solid_part_ids",
+    "required_relation": "used_solid_part_ids == expected_fragment_part_ids",
+    "expected_fragment_part_ids_source": "identity-bound case map fragment_part_id values",
+    "catalog_part_ids_role": "metadata_only",
+    "zero_solid_catalog_part_ids": "allowed_but_must_be_reported",
+    "unexpected_used_solid_part_ids": "fail_closed",
+    "missing_expected_used_solid_part_ids": "fail_closed"
+  },
+  "timeline": {
+    "nominal_output_interval_ms": 0.00005,
+    "solver_timeline_source": {
+      "artifact_family": "binout*",
+      "database": "glstat",
+      "time_field": "time",
+      "time_step_field": "time_step"
+    },
+    "interval_rule": {
+      "operator": "<=",
+      "left_hand_side": "each actual adjacent D3PART state interval",
+      "right_hand_side": "nominal output interval plus the maximum positive GLSTAT explicit solver time_step whose solver state lies in the same D3PART interval, plus time-word tolerance",
+      "time_word_tolerance_ulps": 4
+    },
+    "start_rule": "the first D3PART time must be zero within the frozen time-word tolerance",
+    "solver_evidence_coverage_rule": "finite strictly increasing GLSTAT times with positive finite time_step values must cover every D3PART interval",
+    "termination_coverage_rule": "last D3PART time plus nominal output interval plus final positive explicit solver time_step plus time-word tolerance must reach termination_time_ms",
+    "missing_nonfinite_nonmonotone_policy": "fail_closed",
+    "claim_boundary": "solver-realizable scheduling is a numerical output-completeness rule, not permission to fit a percentage tolerance to observed R05 states"
+  },
+  "crossing_resolution": {
+    "position_basis": "8-node arithmetic element centroid",
+    "maximum_directional_cross_step_travel_mesh_fraction": 0.5,
+    "resolved_alive_to_alive_rule": "directional centroid travel across the capture plane must be positive and no greater than 0.5 times that case mesh",
+    "overlimit_policy": "route_reference_mass_to_temporal_ambiguity",
+    "alive_to_deleted_possible_crossing_policy": "route_reference_mass_to_temporal_ambiguity",
+    "availability_policy": "temporal ambiguity remains subject to the frozen mass-fraction gate; unavailable is never replaced with zero"
+  },
+  "return_evidence": {
+    "completeness_semantics": "returned-evidence completeness only; no solver-response, numerical-convergence, physical-validity, P0, or P1 admission follows from equivalence",
+    "required_direct_families": [
+      "mes*",
+      "glstat",
+      "binout*",
+      "d3plot*",
+      "d3part*",
+      "solver stdout",
+      "solver stderr",
+      "Slurm script",
+      "resource record"
+    ],
+    "d3hsp": {
+      "accepted_equivalent": "solver_o_output",
+      "cardinality": "exactly_one",
+      "command_binding": "scheduler stdout must bind the exact LS-DYNA o= output path",
+      "identity_policy": "the solver_o_output must be included in the hash-bound run artifact manifest"
+    },
+    "binout_logical_database_equivalences": {
+      "artifact_family": "binout*",
+      "logical_databases": [
+        "matsum",
+        "nodout",
+        "sleout"
+      ],
+      "all_required": true,
+      "identity_policy": "the binout family must be included in the hash-bound run artifact manifest"
+    },
+    "missing_equivalent_policy": "fail_closed"
+  },
+  "admission": {
+    "p0_response_calibration": "denied_until_all_future_r06_applicable_gates_pass",
+    "p1_submission": "denied_until_p0_response_calibration_is_allowed",
+    "local_engine_fitting": "denied_until_p0_response_calibration_is_allowed",
+    "dataset_generation": "denied_until_p0_response_calibration_is_allowed",
+    "historical_r05_job_72252362": "not_retroactively_admitted",
+    "physical_validity": "requires independent experimental evidence and cannot be established by this contract"
+  },
+  "claim_boundary": [
+    "This file freezes a future real-output interface; it is not an R06 deck or solver submission.",
+    "The contract records lessons from R05 without rewriting the R05 design, deck, return, static validation, or admission result.",
+    "Passing serialization, timeline, PID, and return-equivalence checks would establish engineering consistency only."
+  ]
+}

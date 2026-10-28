@@ -1,0 +1,455 @@
+{
+  "scope": "Run completion and generic coded-diagnostic inventory only; no simulated-response evaluation.",
+  "files_scanned": 37,
+  "rank_logs_with_normal_termination": 32,
+  "rank_logs_total": 32,
+  "coded_error_fatal_occurrences": 0,
+  "rank_diagnostic_occurrences": [
+    {
+      "severity": "warning",
+      "id": "30364",
+      "code": "INI+364",
+      "occurrences": 32
+    },
+    {
+      "severity": "warning",
+      "id": "40509",
+      "code": "SOL+509",
+      "occurrences": 874
+    }
+  ],
+  "diagnostic_count_caveat": "Counts are log occurrences, not deduplicated physical events; secondary output streams repeat some rank messages.",
+  "non_event_mentions_manually_checked": [
+    {
+      "file": "job_uav_hf_p0_plate_r04_72095164.out",
+      "lines": [
+        1958,
+        2084,
+        3002
+      ],
+      "finding": "error termination occurs inside echoed option descriptions, not runtime error events"
+    }
+  ],
+  "evidence": [
+    {
+      "file": "mes0000",
+      "line": 56,
+      "text": "|  Version : mpp d R15                              |"
+    },
+    {
+      "file": "mes0000",
+      "line": 57,
+      "text": "|  Revision: R15.0.2-1-g1e7cfa42b1                  |"
+    },
+    {
+      "file": "mes0000",
+      "line": 67,
+      "text": "|  Platform   : Intel-MPI 2018 Xeon64               |"
+    },
+    {
+      "file": "mes0000",
+      "line": 57725,
+      "text": "Problem time       =    2.0006E-02"
+    },
+    {
+      "file": "mes0000",
+      "line": 57726,
+      "text": "Problem cycle      =      1990"
+    },
+    {
+      "file": "mes0000",
+      "line": 57727,
+      "text": "Total CPU time     =        59 seconds (   0 hours  0 minutes 59 seconds)"
+    },
+    {
+      "file": "mes0000",
+      "line": 57731,
+      "text": "Parallel execution with     32 MPP proc"
+    },
+    {
+      "file": "mes0000",
+      "line": 57776,
+      "text": "Elapsed time      58 seconds for    1990 cycles using    32 MPP procs"
+    }
+  ],
+  "files": [
+    {
+      "file": "mes0000",
+      "lines": 57779,
+      "bytes": 3510470,
+      "normal_termination_lines": [
+        57619,
+        57779
+      ],
+      "termination_time_reached_lines": [
+        57614
+      ],
+      "coded_diagnostic_occurrences": 119
+    },
+    {
+      "file": "mes0001",
+      "lines": 7218,
+      "bytes": 337007,
+      "normal_termination_lines": [
+        7218
+      ],
+      "termination_time_reached_lines": [],
+      "coded_diagnostic_occurrences": 1
+    },
+    {
+      "file": "mes0002",
+      "lines": 7218,
+      "bytes": 337007,
+      "normal_termination_lines": [
+        7218
+      ],
+      "termination_time_reached_lines": [],
+      "coded_diagnostic_occurrences": 1
+    },
+    {
+      "file": "mes0003",
+      "lines": 8587,
+      "bytes": 401922,
+      "normal_termination_lines": [
+        8587
+      ],
+      "termination_time_reached_lines": [],
+      "coded_diagnostic_occurrences": 48
+    },
+    {
+      "file": "mes0004",
+      "lines": 9274,
+      "bytes": 423447,
+      "normal_termination_lines": [
+        9274
+      ],
+      "termination_time_reached_lines": [],
+      "coded_diagnostic_occurrences": 123
+    },
+    {
+      "file": "mes0005",
+      "lines": 7217,
+      "bytes": 336948,
+      "normal_termination_lines": [
+        7217
+      ],
+      "termination_time_reached_lines": [],
+      "coded_diagnostic_occurrences": 1
+    },
+    {
+      "file": "mes0006",
+      "lines": 7218,
+      "bytes": 337007,
+      "normal_termination_lines": [
+        7218
+      ],
+      "termination_time_reached_lines": [],
+      "coded_diagnostic_occurrences": 1
+    },
+    {
+      "file": "mes0007",
+      "lines": 7499,
+      "bytes": 351662,
+      "normal_termination_lines": [
+        7499
+      ],
+      "termination_time_reached_lines": [],
+      "coded_diagnostic_occurrences": 21
+    },
+    {
+      "file": "mes0008",
+      "lines": 7218,
+      "bytes": 337007,
+      "normal_termination_lines": [
+        7218
+      ],
+      "termination_time_reached_lines": [],
+      "coded_diagnostic_occurrences": 1
+    },
+    {
+      "file": "mes0009",
+      "lines": 7871,
+      "bytes": 367371,
+      "normal_termination_lines": [
+        7871
+      ],
+      "termination_time_reached_lines": [],
+      "coded_diagnostic_occurrences": 51
+    },
+    {
+      "file": "mes0010",
+      "lines": 7217,
+      "bytes": 336948,
+      "normal_termination_lines": [
+        7217
+      ],
+      "termination_time_reached_lines": [],
+      "coded_diagnostic_occurrences": 1
+    },
+    {
+      "file": "mes0011",
+      "lines": 7217,
+      "bytes": 336948,
+      "normal_termination_lines": [
+        7217
+      ],
+      "termination_time_reached_lines": [],
+      "coded_diagnostic_occurrences": 1
+    },
+    {
+      "file": "mes0012",
+      "lines": 7218,
+      "bytes": 337007,
+      "normal_termination_lines": [
+        7218
+      ],
+      "termination_time_reached_lines": [],
+      "coded_diagnostic_occurrences": 1
+    },
+    {
+      "file": "mes0013",
+      "lines": 7218,
+      "bytes": 337007,
+      "normal_termination_lines": [
+        7218
+      ],
+      "termination_time_reached_lines": [],
+      "coded_diagnostic_occurrences": 1
+    },
+    {
+      "file": "mes0014",
+      "lines": 7217,
+      "bytes": 336948,
+      "normal_termination_lines": [
+        7217
+      ],
+      "termination_time_reached_lines": [],
+      "coded_diagnostic_occurrences": 1
+    },
+    {
+      "file": "mes0015",
+      "lines": 7218,
+      "bytes": 337007,
+      "normal_termination_lines": [
+        7218
+      ],
+      "termination_time_reached_lines": [],
+      "coded_diagnostic_occurrences": 1
+    },
+    {
+      "file": "mes0016",
+      "lines": 8748,
+      "bytes": 397683,
+      "normal_termination_lines": [
+        8748
+      ],
+      "termination_time_reached_lines": [],
+      "coded_diagnostic_occurrences": 110
+    },
+    {
+      "file": "mes0017",
+      "lines": 7582,
+      "bytes": 351746,
+      "normal_termination_lines": [
+        7582
+      ],
+      "termination_time_reached_lines": [],
+      "coded_diagnostic_occurrences": 26
+    },
+    {
+      "file": "mes0018",
+      "lines": 7218,
+      "bytes": 337007,
+      "normal_termination_lines": [
+        7218
+      ],
+      "termination_time_reached_lines": [],
+      "coded_diagnostic_occurrences": 1
+    },
+    {
+      "file": "mes0019",
+      "lines": 7217,
+      "bytes": 336948,
+      "normal_termination_lines": [
+        7217
+      ],
+      "termination_time_reached_lines": [],
+      "coded_diagnostic_occurrences": 1
+    },
+    {
+      "file": "mes0020",
+      "lines": 9281,
+      "bytes": 423128,
+      "normal_termination_lines": [
+        9281
+      ],
+      "termination_time_reached_lines": [],
+      "coded_diagnostic_occurrences": 132
+    },
+    {
+      "file": "mes0021",
+      "lines": 7279,
+      "bytes": 339925,
+      "normal_termination_lines": [
+        7279
+      ],
+      "termination_time_reached_lines": [],
+      "coded_diagnostic_occurrences": 7
+    },
+    {
+      "file": "mes0022",
+      "lines": 7218,
+      "bytes": 337007,
+      "normal_termination_lines": [
+        7218
+      ],
+      "termination_time_reached_lines": [],
+      "coded_diagnostic_occurrences": 1
+    },
+    {
+      "file": "mes0023",
+      "lines": 7218,
+      "bytes": 337007,
+      "normal_termination_lines": [
+        7218
+      ],
+      "termination_time_reached_lines": [],
+      "coded_diagnostic_occurrences": 1
+    },
+    {
+      "file": "mes0024",
+      "lines": 10248,
+      "bytes": 479544,
+      "normal_termination_lines": [
+        10248
+      ],
+      "termination_time_reached_lines": [],
+      "coded_diagnostic_occurrences": 119
+    },
+    {
+      "file": "mes0025",
+      "lines": 7218,
+      "bytes": 337007,
+      "normal_termination_lines": [
+        7218
+      ],
+      "termination_time_reached_lines": [],
+      "coded_diagnostic_occurrences": 1
+    },
+    {
+      "file": "mes0026",
+      "lines": 7218,
+      "bytes": 337007,
+      "normal_termination_lines": [
+        7218
+      ],
+      "termination_time_reached_lines": [],
+      "coded_diagnostic_occurrences": 1
+    },
+    {
+      "file": "mes0027",
+      "lines": 7218,
+      "bytes": 337007,
+      "normal_termination_lines": [
+        7218
+      ],
+      "termination_time_reached_lines": [],
+      "coded_diagnostic_occurrences": 1
+    },
+    {
+      "file": "mes0028",
+      "lines": 8732,
+      "bytes": 395679,
+      "normal_termination_lines": [
+        8732
+      ],
+      "termination_time_reached_lines": [],
+      "coded_diagnostic_occurrences": 119
+    },
+    {
+      "file": "mes0029",
+      "lines": 7218,
+      "bytes": 337007,
+      "normal_termination_lines": [
+        7218
+      ],
+      "termination_time_reached_lines": [],
+      "coded_diagnostic_occurrences": 1
+    },
+    {
+      "file": "mes0030",
+      "lines": 7310,
+      "bytes": 340490,
+      "normal_termination_lines": [
+        7310
+      ],
+      "termination_time_reached_lines": [],
+      "coded_diagnostic_occurrences": 11
+    },
+    {
+      "file": "mes0031",
+      "lines": 7218,
+      "bytes": 337007,
+      "normal_termination_lines": [
+        7218
+      ],
+      "termination_time_reached_lines": [],
+      "coded_diagnostic_occurrences": 1
+    },
+    {
+      "file": "std.out.72095164",
+      "lines": 4788,
+      "bytes": 126539,
+      "normal_termination_lines": [
+        4670,
+        4787
+      ],
+      "termination_time_reached_lines": [
+        4665
+      ],
+      "coded_diagnostic_occurrences": 51
+    },
+    {
+      "file": "std.err.72095164",
+      "lines": 0,
+      "bytes": 0,
+      "normal_termination_lines": [],
+      "termination_time_reached_lines": [],
+      "coded_diagnostic_occurrences": 0
+    },
+    {
+      "file": "job_uav_hf_p0_plate_r04_72095164.out",
+      "lines": 936683,
+      "bytes": 51439486,
+      "normal_termination_lines": [
+        936564,
+        936683
+      ],
+      "termination_time_reached_lines": [
+        936559
+      ],
+      "coded_diagnostic_occurrences": 119
+    },
+    {
+      "file": "job_uav_hf_p0_plate_r04_72095164.log",
+      "lines": 14,
+      "bytes": 526,
+      "normal_termination_lines": [],
+      "termination_time_reached_lines": [],
+      "coded_diagnostic_occurrences": 0
+    },
+    {
+      "file": "status.out",
+      "lines": 8,
+      "bytes": 474,
+      "normal_termination_lines": [],
+      "termination_time_reached_lines": [],
+      "coded_diagnostic_occurrences": 0
+    }
+  ],
+  "limitations": [
+    "No scheduler exit-code record was identified in this audit.",
+    "status.out contains intermediate estimates and is not a final acceptance record.",
+    "No numerical-validity or physical-validity verdict is made."
+  ]
+}

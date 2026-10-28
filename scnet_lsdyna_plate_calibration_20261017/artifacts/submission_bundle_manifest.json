@@ -1,0 +1,93 @@
+{
+  "schema_version": "hf-submission-bundle@1.0.0",
+  "status": "prepared_not_submitted",
+  "purpose": "SCNet LS-DYNA P0 numerical qualification and low-level plate-response reference",
+  "evidence_ceiling": "high_fidelity_synthetic_reference_candidate",
+  "files": [
+    {
+      "path": "README.md",
+      "size_bytes": 5283,
+      "sha256": "sha256:aadfbbf9487ac7286c0c48176b7547f8a3b00c1ad26d27a7b99ed327a24c7bf7"
+    },
+    {
+      "path": "decks/p0_case_part_map.csv",
+      "size_bytes": 701,
+      "sha256": "sha256:7ef72a22eec38691a8662e0efff4d0e8ca5aeaa5757720ac8958ce2dfd1e453a"
+    },
+    {
+      "path": "decks/p0_velocity_mesh_calibration.k",
+      "size_bytes": 20604806,
+      "sha256": "sha256:312f2ce1c42dd070097dad1036d1d670790704c55c5b534a3b845a0709709e08"
+    },
+    {
+      "path": "design/p0_cases.json",
+      "size_bytes": 2345,
+      "sha256": "sha256:805916aa97986bb7fbe29d6a2a43d039ac18f6a587cd56d26e37bceb0bc04348"
+    },
+    {
+      "path": "design/p1_preregistered_cases.csv",
+      "size_bytes": 3521,
+      "sha256": "sha256:22262e09c1d1bddd4da19eaecc9439a2f9ce81af4245495aeb61e854436b322e"
+    },
+    {
+      "path": "manifest.json",
+      "size_bytes": 1717,
+      "sha256": "sha256:8e767187759cc47b4dd837dd3b9b6908abc85bc7a986bd6fcaaddee30e937220"
+    },
+    {
+      "path": "materials/jc4340_reference.json",
+      "size_bytes": 3144,
+      "sha256": "sha256:9b462b920459e57641d5f89d10d36c0aa0498c86f2478fef8e4c3efa96888311"
+    },
+    {
+      "path": "scnet/run_p0_generic.slurm",
+      "size_bytes": 714,
+      "sha256": "sha256:0dd47edc663c7cc57281685dba8865212cea782974305e8ef94c8989afefe219"
+    },
+    {
+      "path": "scripts/build_submission_bundle.py",
+      "size_bytes": 2830,
+      "sha256": "sha256:aee73017f17429fb7ecf0fbe75fd0b1c046c2deeb57b5eb575c799fcfb8320fd"
+    },
+    {
+      "path": "scripts/generate_p0.py",
+      "size_bytes": 17228,
+      "sha256": "sha256:a71e131c9a4e5e74e26aacf98e16b468c478074389552ad9b7d6d7d7b519e41b"
+    },
+    {
+      "path": "scripts/generate_p1_design.py",
+      "size_bytes": 4102,
+      "sha256": "sha256:901f0fe88cd3980c024e3d8674b5311b97933fd491ac43fecda2149447a8f955"
+    },
+    {
+      "path": "scripts/parse_lsdyna_ascii.py",
+      "size_bytes": 4584,
+      "sha256": "sha256:3256f1816c7b79424d580df4bac64ef08fbb12be156ba9d0fa4bb884166195b0"
+    },
+    {
+      "path": "scripts/selftest_keyword_format.py",
+      "size_bytes": 2987,
+      "sha256": "sha256:e725c8321b7e140e9e50ed160b5c4d74b614f1624ca06fca3fb410d391e30783"
+    },
+    {
+      "path": "scripts/selftest_postprocessor.py",
+      "size_bytes": 1743,
+      "sha256": "sha256:6871d591f6051f14d5abc6b6dd898b1fd9f147e8d5562654110a86ea6c7067d8"
+    },
+    {
+      "path": "scripts/validate_package.py",
+      "size_bytes": 33852,
+      "sha256": "sha256:6c82422f6b57762ac9764e69481a605405337a2cdf5561156cd20deed5d450e2"
+    },
+    {
+      "path": "validation/static_validation.json",
+      "size_bytes": 5002,
+      "sha256": "sha256:11d0facf716df33373cbd39e0cd3d4072704e3bc2f6c0b9e0cd952aeb4feacc1"
+    }
+  ],
+  "bundle": {
+    "path": "scnet_lsdyna_plate_calibration_p0_20261017.zip",
+    "size_bytes": 3179211,
+    "sha256": "sha256:19591e433dc1d75d27b97d02076eb8d173f77e43a4b12d4f4fce3f8895418d61"
+  }
+}

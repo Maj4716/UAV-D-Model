@@ -1,0 +1,61 @@
+{
+  "schema_version": "hf-plate-p0-design@1.2.0",
+  "design_status": "amended_after_third_parser_failure_before_physics_outcomes",
+  "seed": 20261017,
+  "unit_system": "kg-mm-ms-kN-GPa-K",
+  "symmetry": {
+    "type": "quarter_model",
+    "full_model_scale_factor": 4.0,
+    "validity": "normal incidence, face-on cube, centered impact only"
+  },
+  "solver_controls": {
+    "control_contact_card1": {
+      "slsfac": 0.0,
+      "rwpnal": 0.0,
+      "islchk": 2,
+      "shlthk": 0,
+      "penopt": 1,
+      "thkchg": 0,
+      "orien": 1,
+      "enmass": 0
+    },
+    "control_contact_card2": {
+      "usrstr": 0,
+      "usrfrc": 0,
+      "nsbcs": 0,
+      "interm": 0,
+      "xpene": 0.0,
+      "ssthk": 0,
+      "ecdt": 0,
+      "tiedprj": 0
+    },
+    "eroding_contact_card4": {
+      "isym": 1,
+      "erosop": 1,
+      "iadj": 1
+    },
+    "rationale": "Use documented R15 defaults except ISLCHK=2 for a full initial-penetration diagnostic; preserve quarter-symmetry faces with ISYM=1 and explicitly use the R15-supported EROSOP=1/IADJ=1 settings. ECDT is serialized as an integer because R15 declares *CONTROL_CONTACT Card 2 field 7 as type I."
+  },
+  "common": {
+    "fragment_mass_g": 8.0,
+    "fragment_density_kg_m3": 7830.0,
+    "plate_thickness_mm": 10.0,
+    "obliquity_deg_from_normal": 0.0,
+    "fragment_orientation": "face_on",
+    "material_set": "jc4340_reference_central",
+    "plate_half_span_mm": 60.0,
+    "refined_half_span_mm": 15.0,
+    "outer_target_spacing_mm": 2.5,
+    "initial_gap_mm": 1.0,
+    "termination_time_ms": 0.02
+  },
+  "cases": [
+    {"case_id": "p0_v1200_h0p75", "role": "hf_response_fit", "impact_speed_mps": 1200.0, "mesh_mm": 0.75},
+    {"case_id": "p0_v1600_h0p75", "role": "hf_response_fit", "impact_speed_mps": 1600.0, "mesh_mm": 0.75},
+    {"case_id": "p0_v2000_h0p75", "role": "hf_response_holdout", "impact_speed_mps": 2000.0, "mesh_mm": 0.75},
+    {"case_id": "p0_v2300_h0p75", "role": "hf_response_fit", "impact_speed_mps": 2300.0, "mesh_mm": 0.75},
+    {"case_id": "p0_v2600_h0p75", "role": "hf_response_fit", "impact_speed_mps": 2600.0, "mesh_mm": 0.75},
+    {"case_id": "p0_v2000_h1p00", "role": "hf_numerical_verification", "impact_speed_mps": 2000.0, "mesh_mm": 1.0},
+    {"case_id": "p0_v2000_h0p50", "role": "hf_numerical_verification", "impact_speed_mps": 2000.0, "mesh_mm": 0.5}
+  ]
+}

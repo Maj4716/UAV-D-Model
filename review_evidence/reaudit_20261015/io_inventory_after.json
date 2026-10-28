@@ -1,0 +1,316 @@
+{
+  "archive": "D:\\Desktop\\UAV新\\raw_data\\dataset_5000_loitering_impact_fragment_only_v1",
+  "files": {
+    "audits/loitering_impact_scientific_audit.json": {
+      "bytes": 140300,
+      "sha256": "sha256:69560299bab6e1dabfc26c920aa48da9fcc87f2582039c2b8cd372ffd3fb90fa"
+    },
+    "audits/loitering_impact_scientific_audit.md": {
+      "bytes": 6831,
+      "sha256": "sha256:0683140f4de92bc569575d98688057eb6b0dc39f4385fde7dcd84728a4f4260a"
+    },
+    "audits/sampling_quality.json": {
+      "bytes": 558682,
+      "sha256": "sha256:3810013d9a145fbf24200d56fcadc6c5d318815e3c1432c2239ada7f1dc4b608"
+    },
+    "formal_dataset/checkpoint.json": {
+      "bytes": 728163,
+      "sha256": "sha256:0dea32d2fde430e67368569e546c2f2dfff008bbd29a1c7d44abf47c8100b9c8"
+    },
+    "formal_dataset/manifest.json": {
+      "bytes": 784828,
+      "sha256": "sha256:f8702b39623fc53c9a2334cf728263af2d261fe4a8ef19eaf713bf04c32cb4c4"
+    },
+    "formal_dataset/shards/part-000000/armor.parquet": {
+      "bytes": 22917,
+      "sha256": "sha256:18b1768e88392825dac3835ef6d50fd07b7a937ee5704a0b0ee5f4687009ca79"
+    },
+    "formal_dataset/shards/part-000000/armor_labels.parquet": {
+      "bytes": 36788,
+      "sha256": "sha256:ee1d06cdc873d9f06e4a3fe8ee8bef9fa45c6bef0e1dfacc4732f1c4b77ad7ae"
+    },
+    "formal_dataset/shards/part-000000/cases.parquet": {
+      "bytes": 226367,
+      "sha256": "sha256:202be1f652877fff2483f250f4181560136da092aa435fbfd5d4ccfb9aac1868"
+    },
+    "formal_dataset/shards/part-000000/component_aux.parquet": {
+      "bytes": 169659,
+      "sha256": "sha256:96c2ad310322e95605a8d78fbdb802530df11fd7f08b11c3c07da1d64dd85ecc"
+    },
+    "formal_dataset/shards/part-000000/components.parquet": {
+      "bytes": 97971,
+      "sha256": "sha256:7875277e015c071dea511efbe356ce8fcf53008c374386494363ff68e11aa42c"
+    },
+    "formal_dataset/shards/part-000000/edges.parquet": {
+      "bytes": 2606,
+      "sha256": "sha256:006d606d32c1849baeb1ba2f335b93e0c9b88ab45b29abc76da3a79efd09ee72"
+    },
+    "formal_dataset/shards/part-000000/labels.parquet": {
+      "bytes": 89257,
+      "sha256": "sha256:82de99ee3c1180774d268a2283a6d125554f1869c53c5c5c7e63fba4043ada9f"
+    },
+    "formal_dataset/shards/part-000000/manifest.json": {
+      "bytes": 776857,
+      "sha256": "sha256:8f9f99601444af0d6e2cc4267af54a0e39e56b13f57cba7479d5c63e332bfb8e"
+    },
+    "formal_dataset/shards/part-000000/results.jsonl.gz": {
+      "bytes": 12714829,
+      "sha256": "sha256:6640fe2c818e36a8f27d369d5256b7691e1fd699932ac2806884a08f418a5600"
+    },
+    "formal_dataset/shards/part-000000/splits.parquet": {
+      "bytes": 81271,
+      "sha256": "sha256:b013c16a26b38d52dc499808975c8e98688c5ff7a7421915498333a1769c8a14"
+    },
+    "formal_dataset/shards/part-000000/tensors.npz": {
+      "bytes": 1510457,
+      "sha256": "sha256:b2df5cb3637c23d0cd0201beec848fdd47d093d813d210aeffc7e5d078c1f0e9"
+    },
+    "formal_dataset/shards/part-000000/tree_outputs.parquet": {
+      "bytes": 35735,
+      "sha256": "sha256:688e58763f0308ca9609b3073954c54768d5c61429a44ecb7e6d4f8e78b7bb7d"
+    },
+    "formal_dataset/shards/part-000001/armor.parquet": {
+      "bytes": 22848,
+      "sha256": "sha256:2490f439c64644e4372b21cc5267bfe31fbc4ab51c99ce69eb589c8ca8e27a71"
+    },
+    "formal_dataset/shards/part-000001/armor_labels.parquet": {
+      "bytes": 36669,
+      "sha256": "sha256:3ac62192348f012f46accdcaf15dcaf38f0166e82e9814c81a40115bf1e8deab"
+    },
+    "formal_dataset/shards/part-000001/cases.parquet": {
+      "bytes": 226470,
+      "sha256": "sha256:ed603038f41261733d9a51ea0c9a955dabffcfe882d29318e6e62ecb10f03c0e"
+    },
+    "formal_dataset/shards/part-000001/component_aux.parquet": {
+      "bytes": 177581,
+      "sha256": "sha256:59fdfbdf49c7ad662c007110badbebff8555696bf92f75926b7bfc384d7a9ffe"
+    },
+    "formal_dataset/shards/part-000001/components.parquet": {
+      "bytes": 97902,
+      "sha256": "sha256:f7ea71230499118ecc441591f8c40349519231e6d6cdbd82606c14036a03f46c"
+    },
+    "formal_dataset/shards/part-000001/edges.parquet": {
+      "bytes": 2606,
+      "sha256": "sha256:006d606d32c1849baeb1ba2f335b93e0c9b88ab45b29abc76da3a79efd09ee72"
+    },
+    "formal_dataset/shards/part-000001/labels.parquet": {
+      "bytes": 91285,
+      "sha256": "sha256:14d9455a8897ef6f1a1c1bd751f9a30208d0d0fc65a2fb8ff1ddfa6b9bf311e7"
+    },
+    "formal_dataset/shards/part-000001/manifest.json": {
+      "bytes": 776855,
+      "sha256": "sha256:19a2b41600e2cac64faf756247820ed6cbc1ec8f632c5774ba2d1600588d2099"
+    },
+    "formal_dataset/shards/part-000001/results.jsonl.gz": {
+      "bytes": 12731339,
+      "sha256": "sha256:1f1a8129626dd78b79158e9b10d480fe4901adf1ad05ef535c4ae5f1f1cf06fc"
+    },
+    "formal_dataset/shards/part-000001/splits.parquet": {
+      "bytes": 81246,
+      "sha256": "sha256:97345b51ce1490428abd6e12673d9800897a841f3a9d30e4107d1f80ee9187b4"
+    },
+    "formal_dataset/shards/part-000001/tensors.npz": {
+      "bytes": 1522780,
+      "sha256": "sha256:614e64f41265859b90f001070cbe2e52f42f424c1674e6b8195ce9dae393515e"
+    },
+    "formal_dataset/shards/part-000001/tree_outputs.parquet": {
+      "bytes": 35764,
+      "sha256": "sha256:0e660a7e62c5f43f05788b40103b1ea4d55f7e64011b6b9749b1eaeeffebcf9e"
+    },
+    "formal_dataset/shards/part-000002/armor.parquet": {
+      "bytes": 22935,
+      "sha256": "sha256:6d1ecc3df0bc98bc0e1d510af069b227f4d09a35c7d6a5449e58aab59ef8a566"
+    },
+    "formal_dataset/shards/part-000002/armor_labels.parquet": {
+      "bytes": 36937,
+      "sha256": "sha256:7f3c3594a153fef7d2f5bda392696b5e4438df905e6413a70c5396f33ac639fa"
+    },
+    "formal_dataset/shards/part-000002/cases.parquet": {
+      "bytes": 226345,
+      "sha256": "sha256:4f9b52a676add3470b8bf2a279df716b653364fb5e4dac3645e1be2ffba8b152"
+    },
+    "formal_dataset/shards/part-000002/component_aux.parquet": {
+      "bytes": 172057,
+      "sha256": "sha256:5bbb630290603ac144eaa24774e5c0dcae2b6da97579651db7dfd09318e83624"
+    },
+    "formal_dataset/shards/part-000002/components.parquet": {
+      "bytes": 97989,
+      "sha256": "sha256:5e01e1e4c6b415a79c9f7366f68411846f85c8668323872ccd291dcdaa41a3a8"
+    },
+    "formal_dataset/shards/part-000002/edges.parquet": {
+      "bytes": 2606,
+      "sha256": "sha256:006d606d32c1849baeb1ba2f335b93e0c9b88ab45b29abc76da3a79efd09ee72"
+    },
+    "formal_dataset/shards/part-000002/labels.parquet": {
+      "bytes": 87127,
+      "sha256": "sha256:58ef2bc0aef5ddba0fa822ed6d2ffc6aa6f2e5215979870ced2d3bef01957232"
+    },
+    "formal_dataset/shards/part-000002/manifest.json": {
+      "bytes": 776855,
+      "sha256": "sha256:c4fff3c4d1e3d41d3c3a0930d223fee06ce410a41f50a251708dfeff405b3684"
+    },
+    "formal_dataset/shards/part-000002/results.jsonl.gz": {
+      "bytes": 12719444,
+      "sha256": "sha256:21f806cb989cb23e13c355a434660845bf02de9b379bb16f52193a046df02cb5"
+    },
+    "formal_dataset/shards/part-000002/splits.parquet": {
+      "bytes": 81290,
+      "sha256": "sha256:724f604a271095083e984f75ab7b196924d2ffd13ac495910dbc287ac1c88e2a"
+    },
+    "formal_dataset/shards/part-000002/tensors.npz": {
+      "bytes": 1517169,
+      "sha256": "sha256:467d1e521076e708eddb5c4b3db15aa8f376ec32f8c23c0da48e3e6f47dea899"
+    },
+    "formal_dataset/shards/part-000002/tree_outputs.parquet": {
+      "bytes": 35345,
+      "sha256": "sha256:cfe9767467f0e5204190a038319edf5d8a1036f1548f8aa93ef87a688e81162c"
+    },
+    "formal_dataset/shards/part-000003/armor.parquet": {
+      "bytes": 22932,
+      "sha256": "sha256:d43c8e1d9d6d07a4b544e695782abb3a93614bfb733ca81e319a0fbc85f4f049"
+    },
+    "formal_dataset/shards/part-000003/armor_labels.parquet": {
+      "bytes": 36856,
+      "sha256": "sha256:08302d55982979e70fca0257abbf915bc477a9258a37a4a3bb52c414d0773295"
+    },
+    "formal_dataset/shards/part-000003/cases.parquet": {
+      "bytes": 226659,
+      "sha256": "sha256:3faf40b8855812de85ede29adf8d4f6a43a1f9881b4139e8e2f337e8fa7393a9"
+    },
+    "formal_dataset/shards/part-000003/component_aux.parquet": {
+      "bytes": 170035,
+      "sha256": "sha256:a08da64cd6e5796d72e047cdc13b39f05fafedc77c3b3cf4069831296cac4302"
+    },
+    "formal_dataset/shards/part-000003/components.parquet": {
+      "bytes": 97986,
+      "sha256": "sha256:7e0620988ac64b24195cf5b8972fdd41706f2ebabe5204bb71a88bfe6a851f63"
+    },
+    "formal_dataset/shards/part-000003/edges.parquet": {
+      "bytes": 2606,
+      "sha256": "sha256:006d606d32c1849baeb1ba2f335b93e0c9b88ab45b29abc76da3a79efd09ee72"
+    },
+    "formal_dataset/shards/part-000003/labels.parquet": {
+      "bytes": 85974,
+      "sha256": "sha256:de7fa9813de249f943bd4de6c1e77181d0ad6b576d36e90e2615c1447161eb01"
+    },
+    "formal_dataset/shards/part-000003/manifest.json": {
+      "bytes": 776855,
+      "sha256": "sha256:1c76d9c156a7540c5ebfaf99783fa06b1fd51517ca0c3ea567ca67ec2050d821"
+    },
+    "formal_dataset/shards/part-000003/results.jsonl.gz": {
+      "bytes": 12714667,
+      "sha256": "sha256:1a533a1192c2ad7f3a7f0d0ffdb10c33657335016c6bfdec56a00cce3cb4d7ed"
+    },
+    "formal_dataset/shards/part-000003/splits.parquet": {
+      "bytes": 81282,
+      "sha256": "sha256:620d8d702ba0f4a7ae5c396a7707a260ade54ae2f8a0bd252566527757b52869"
+    },
+    "formal_dataset/shards/part-000003/tensors.npz": {
+      "bytes": 1513206,
+      "sha256": "sha256:9dabd4da33c4e62496508096770526025ed8f60c8972b9d32add92c79e43da70"
+    },
+    "formal_dataset/shards/part-000003/tree_outputs.parquet": {
+      "bytes": 35259,
+      "sha256": "sha256:0eb7092c37e651c0a517fb06592793c467a40d9cc8199e6bc5903adb0993ed8e"
+    },
+    "plan/base_case.json": {
+      "bytes": 3517,
+      "sha256": "sha256:dcfeda553d6dccfadea48643612aa41ae24b2cacb38fa87a1dfafb74d2ba80e6"
+    },
+    "plan/formal_input_identity.json": {
+      "bytes": 411,
+      "sha256": "sha256:67574c0b2251440b08cf019b35804ee28a3629bc7e289c67555c55186e3c4b52"
+    },
+    "plan/frozen_hashes.json": {
+      "bytes": 2203,
+      "sha256": "sha256:7c5428618df59ecf709f4bf81157c728655575f84d428e046799d30716c56f9e"
+    },
+    "plan/input_snapshot.json": {
+      "bytes": 579,
+      "sha256": "sha256:fe440a257adf90c04b796130834af5f8cb3fdfeb4638ce5a352382074f248556"
+    },
+    "plan/label_spec.json": {
+      "bytes": 826,
+      "sha256": "sha256:eace805523f267ede3798f24766f1aa9ca41c49c13923cebd67d4d37e781b934"
+    },
+    "plan/sampling_spec.json": {
+      "bytes": 3737,
+      "sha256": "sha256:eb76fd76cd3788e75de8660ae710072fc5f9f1caa0633adcfcfcbdcec25712fa"
+    },
+    "plan/split_registry.json": {
+      "bytes": 737292,
+      "sha256": "sha256:5729e84ce319b0feec94c1e4aaa1853629281ffe86028bcc1f36192913eefc84"
+    },
+    "rounds/round-000/candidates.parquet": {
+      "bytes": 1008410,
+      "sha256": "sha256:ecc52c1fc2ea1aef977cef4b0d3485357b9e5903f57bc4e8db74f09cc973b36a"
+    },
+    "rounds/round-000/formal_cases.jsonl.gz": {
+      "bytes": 952489,
+      "sha256": "sha256:e55a86e9a36cb5f88d58ae9aa2fb3606c8dceec0df01f9ce3f0394bbc1375791"
+    },
+    "rounds/round-000/round_manifest.json": {
+      "bytes": 700,
+      "sha256": "sha256:e85e9e1a23466afc255dba016e67c0e564b07ec74f036f213f7d920391e175c7"
+    },
+    "sampling_checkpoint.json": {
+      "bytes": 938253,
+      "sha256": "sha256:809f66749e33b7eb4a36434b686105d92f367bc7bd1963d202ec4347871bc520"
+    }
+  },
+  "source_hashes": {
+    "damage_engine/__init__.py": "sha256:a4a846d23e3638880676163faf497177d95c615c3e59c5a96bd8a85aad429cda",
+    "damage_engine/__main__.py": "sha256:2cdd23d4f5cd6c3b3e4cb690ad16d560637767b9ca5b2a3cf129fcc0a5ebc82b",
+    "damage_engine/adaptive_sampling.py": "sha256:20b72e958e4c3f50a820e26b44fe5007cb0bd655dc0b234e278a595a169e6349",
+    "damage_engine/archive_validation.py": "sha256:f2983ee93f3e604117dc252ab684b24a09da62e90b9ab1877f47b2fbf2752800",
+    "damage_engine/blast.py": "sha256:e464fd71e83a05b8e13d761d1e058386831b79ca377494e1578512d5e4dae02b",
+    "damage_engine/case_factory.py": "sha256:0697f866bc8f96a973cecfabea3490a96e14ea37b8f0d9f1e038d6aa62ded54a",
+    "damage_engine/cli.py": "sha256:bc3907d758b92b2d6156e17d4b9845d5b7c04c4ced2d670813de6d7ffdcb617b",
+    "damage_engine/damage_tree.py": "sha256:d330268b136ab9b4888f14b3de5e79052737a0b05d3c387c1373608db5b63c2c",
+    "damage_engine/dataset.py": "sha256:aa9670842fb7161e555c8614ac2f34cf88a0e36b3d192e24b6502713a2174308",
+    "damage_engine/dataset_policy.py": "sha256:38e190e3c9b3274a2264f878bb652038a17e48a6f31dd3df75e2114e9ef504ae",
+    "damage_engine/engine.py": "sha256:cc292dd49c16479bd7e53b60571cb56482868167b7d316373070248dea360d09",
+    "damage_engine/errors.py": "sha256:20006d05d602497edce6a5065b56b8e7b1717fbf4d0f1f158396497ff78bf1f8",
+    "damage_engine/evaluation_planning.py": "sha256:01abcf4eefaa78ce0b94a61ea6b96d66b2524115e8b85a740cc5db2126acc114",
+    "damage_engine/fragment_audit.py": "sha256:c4c5ab5e8c150b1f49103a08b49e9606f44246c6030560680970e0040a93c598",
+    "damage_engine/fragments.py": "sha256:b915560153425beaa8addcd78e8a99873af14da02ccbd43b9b31a280c91865d9",
+    "damage_engine/geometry.py": "sha256:6a04cf66a77ea8f560ff5ea2c06b64ebeb49ff4654532938b30d8bf41d209840",
+    "damage_engine/impact.py": "sha256:66f8498f22dea454e857f34487737924c6eb749c986bddb078d8bc48cb8f3758",
+    "damage_engine/input_identity.py": "sha256:2a33516bdd5ad2348572e2bdd5255b2b2445db00a8b86b2d9766b785476719a6",
+    "damage_engine/label_spec.py": "sha256:1dee9ccc39a031c00aec04d269165c2675ab9a661e8c5a97c0df744be0a7765b",
+    "damage_engine/learning_input_identity.py": "sha256:5ef724ed192e51abf15471ad79788de2a12b766da6c7d94f47e8f23a226aaef0",
+    "damage_engine/multitask_targets.py": "sha256:dc2b9539dfa1f72314ff5692507dc5dfaa82d53ed74eb022a04e11caccf8e083",
+    "damage_engine/munition_profiles.py": "sha256:178b5f03026fdcbabebb4a2173fddb9b50c45f397d99ca6e62c03706ebe3091f",
+    "damage_engine/normalization.py": "sha256:ea659df4ff138d3aa8e49da89df5ed8388f7a6d705a290a813be5bac43470e1c",
+    "damage_engine/parameters.py": "sha256:72151bb0dccfd9f066fb03a4a5c402176f901e45074b440e39660866b3d5e6a6",
+    "damage_engine/parquet_schema.py": "sha256:5a0f8a44d040c1c24cc00597e05db5e61f25afb9976bb664875ef6eedbb5dbc6",
+    "damage_engine/prelabel_geometry.py": "sha256:481dd8b79bbfae234e28aed45aa254d84404ced71ebce7731fa9be2d1ece870a",
+    "damage_engine/quality.py": "sha256:caba6e9309eb31474d568781986570e65074024b36b0ae02544f550077d8a460",
+    "damage_engine/raw_import.py": "sha256:e214256af441112e0a1124e4382bc0373d8e5c74bbd83b157266e33d7b3cad63",
+    "damage_engine/registry.py": "sha256:c5c7cdffa01a65d0c52a5bd05b9f2e035a2b0dfed282b84ac6343ffb9c48c43e",
+    "damage_engine/replicate_convergence.py": "sha256:8dad480ea40ccf9050ed579ccc67c0ee5270358b848990f21c04bf7282f64dcb",
+    "damage_engine/result_ledger.py": "sha256:780dfd5da66c48591020e00e6fe915f707f8de7926126015e2c32bc893c36ab6",
+    "damage_engine/sampling_audit.py": "sha256:08aae4fff6a91663c36abe434feb9ab137d2cdcb6c9c6f015cd5479c4160cca0",
+    "damage_engine/sampling_candidate_schema.py": "sha256:7a8e16ef899854a0b916419420fa3ec99a2aa298f7810540b61c97f11cbb8993",
+    "damage_engine/sampling_checkpoint.py": "sha256:82f92e85c58a05e19ea1c1ca2bf49742d39a5f13aca4bce4caa7028f20f8b9f0",
+    "damage_engine/sampling_spec.py": "sha256:c0fe6b2728c41f129770f753b269b8492986a7bedaccec702ca3723bcfcdaa35",
+    "damage_engine/sampling_validation.py": "sha256:fdbc01c7327fb8c69e00696443ffe6706af5adcc4ff1a00165bd89f08dc788f9",
+    "damage_engine/schema_resources.py": "sha256:1ec41b6693c2fc55d62fc1dd21747eb5f0aa325f1f7882586e9fadbf04e969dc",
+    "damage_engine/schemas/__init__.py": "sha256:48e5406a6713b73f39139a1632ca88e398802325a8ba4a8cfcdb475b659438a3",
+    "damage_engine/scientific_validation.py": "sha256:ce47b338c6548205e0b4f155121056571e4f52398bfa0b2a1cf49f7bb6451cee",
+    "damage_engine/sharded_dataset.py": "sha256:ec1d724932e890896a9341942fafc8c1d244ebd0261335fca6eb20cb85e6b59d",
+    "damage_engine/split_registry.py": "sha256:64a104f6337775727e535bc4b1a6c00ece9023593498f20655a56641dc524519",
+    "damage_engine/system_learning.py": "sha256:06554fe5e41bf0b4b9b87d8212239cfc0ffda4e5d3c0bf87084f637bbf61172a",
+    "damage_engine/torch_dataset.py": "sha256:93c3f90970bb9bb543087b061f31bac37e8a236a02c02cf189cb93bcb997fd28",
+    "damage_engine/training_view.py": "sha256:7deb446d4103426d70aa2157590a1c7b0bfd0484a9661e3f105ae2a988876ec7",
+    "damage_engine/utils.py": "sha256:76fa4eab570091fddf8ae6a48c01fc8b0e5b105c19ad1de557a6e41c2faabfd5",
+    "damage_engine/validation.py": "sha256:2437b20c38ee85a821799012cb9805ae0b4cd2a2b69eef0be5cf7d110042bcba",
+    "schemas/dataset_manifest.schema.json": "sha256:d84b3f726ab6a5cee3913e047dcbb04d83df0ecc8c83ecf6b0efd85c40967942",
+    "schemas/label_spec.schema.json": "sha256:518947853c9ffb9814d74c5b4ac0ed96f93977c04ff91543e29d8aefe47a8bca",
+    "schemas/sampling_spec.schema.json": "sha256:86e5dc135f35ddd91fd3869624c83ff0183f2794d78b0288208228fecb2270c4",
+    "schemas/simulation_case.schema.json": "sha256:47dbad190c75897680443f03558c4ccfdc030e17532c1cd872cd6336112a8050",
+    "schemas/target.schema.json": "sha256:423c7987d773767739278775f04c1083809fccbb8105f3d96655eb3006c1ba9f"
+  },
+  "archive_unchanged": true,
+  "source_unchanged": true
+}

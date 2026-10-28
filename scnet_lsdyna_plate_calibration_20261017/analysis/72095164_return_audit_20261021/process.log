@@ -1,0 +1,15 @@
+2026-10-21T15:51:03.443813+08:00 Scope: archive integrity, immutable intake, identity binding, and runtime evidence inventory only.
+2026-10-21T15:51:03.443813+08:00 No physical-response extraction, model changes, remote submission, or returned-script execution.
+2026-10-21T15:51:04.192337+08:00 ZIP SHA256 2d1339f14b742eecdd121d57d400bc6c279c6dedfdbb08add7d4c634abe2f8c5
+2026-10-21T15:51:04.358593+08:00 Path/type/duplicate/encryption checks passed: 100 entries.
+2026-10-21T15:51:11.711130+08:00 Full archive decompression and CRC check passed before extraction.
+2026-10-21T15:51:19.839705+08:00 Extracted and hashed 20/100 entries.
+2026-10-21T15:51:20.169247+08:00 Extracted and hashed 40/100 entries.
+2026-10-21T15:51:20.225713+08:00 Extracted and hashed 60/100 entries.
+2026-10-21T15:51:21.609728+08:00 Extracted and hashed 80/100 entries.
+2026-10-21T15:51:22.869467+08:00 Extracted and hashed 100/100 entries.
+2026-10-21T15:51:23.838860+08:00 Intake complete. Deck identity match: True.
+2026-10-21T15:53:49.222983+08:00 Runtime scan completed: 37 logs; 32/32 rank logs contain normal termination; no anchored coded Error/Fatal markers. Warnings retained without scientific interpretation.
+2026-10-21T15:53:49.222983+08:00 Static repro_check exit code 1: package-local ENV and DATA marked MISSING. Root repository manifests exist; selftest scripts are not detected by the generic test-name heuristic.
+2026-10-21T15:56:32.975495+08:00 Independent verification passed: 100 extracted file hashes, original ZIP unchanged, CSV rows=100, JSON parsing and script compilation.
+2026-10-21T15:56:32.975495+08:00 Saved report 44 and appended paper-workspace checklist/index. Planning scope remains archive/software audit only; binary readability and scientific validity not assessed.

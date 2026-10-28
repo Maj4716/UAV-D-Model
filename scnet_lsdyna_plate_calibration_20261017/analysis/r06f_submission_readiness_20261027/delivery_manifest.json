@@ -1,0 +1,73 @@
+{
+  "schema_version": "hf-p0-r06f-delivery@1.0.0",
+  "date": "2026-10-27",
+  "package_revision": "R06_measurement_contract_repair_20261027",
+  "job_id": "r06f_0800_ctrl",
+  "status": "ready_for_user_submission_not_submitted_not_solver_validated",
+  "source_evidence": {
+    "directory": "D:/Desktop/UAV新/06",
+    "policy": "read_only_immutable",
+    "file_count": 113,
+    "total_bytes": 1932839917,
+    "returned_deck_sha256": "sha256:47c5fcacbec9ba3edac10d06611b6ba602f58a135b27b62d968290334a763a70"
+  },
+  "submission": {
+    "directory": "artifacts/r06f_wave0_canary_20261027",
+    "upload_only": "uav_hf_r06f_0800_ctrl.zip",
+    "head_deck": "r06f_0800_ctrl.k",
+    "size_bytes": 413370,
+    "sha256": "sha256:8d9735ca52a29a336379827bdff5b5b20dd29a3ae75887f4f38ac6fdfce112b3",
+    "zip_member_count": 10,
+    "stage_top_level_item_count": 4,
+    "stage_contains_directories": false
+  },
+  "frozen_case": {
+    "impact_speed_mps": 800.0,
+    "mesh_mm": 0.75,
+    "termination_time_ms": 0.04,
+    "tssfac": 0.8,
+    "dt2ms": 0.0,
+    "psfail": 0,
+    "nodes": 1,
+    "ranks": 32
+  },
+  "measurement_repair": {
+    "binary_intfor_requested": false,
+    "intfor_missing_semantics": "unavailable_by_solver_capability_not_zero",
+    "ncforc_requested": true,
+    "ncforc_gate_role": "best_effort_nonblocking",
+    "d3part_extent_cards": [
+      [6, 0, 3, 0, 1, 1, 1, 1],
+      [0, 0, 0, 0, 0, 0, 0, 0]
+    ],
+    "damage_source": "full d3plot MAT_015 HVAR6 / Python index 5 / alive mask",
+    "sleout_role": "energy_only_not_direct_contact_substitute"
+  },
+  "verification": {
+    "static_validation": "pass",
+    "returned_r06e_physics_parity": "pass",
+    "release_verification": "pass",
+    "zip_verification": "pass",
+    "deterministic_double_build": "pass",
+    "compileall": "pass",
+    "r06f_tests": {
+      "run": 10,
+      "failures": 0,
+      "errors": 0
+    },
+    "full_discovered_tests": {
+      "run": 119,
+      "exit_code": 0
+    },
+    "local_lsdyna": "unavailable_not_run"
+  },
+  "next_if_return_passes": "generate and submit only the preregistered 800 m/s TSSFAC=0.4 no-mass-scaling diagnostic",
+  "prohibited_before_next_gate": [
+    "any R06d or R06e ZIP",
+    "R06f 800 m/s TSSFAC=0.4 before this recanary return is audited",
+    "R06f 2000 m/s control",
+    "R06f 800 m/s extended-window treatment",
+    "R06f 2000 m/s PSFAIL treatment",
+    "P0/P1 admission, engine fitting, or reference dataset promotion"
+  ]
+}

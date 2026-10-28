@@ -1,0 +1,9 @@
+{
+  "schema_version": "hf-p0-r05-run-integrity-evidence@1.0.0",
+  "evidence_id": "job-72252362-hash-bound-run-integrity",
+  "status": "pass",
+  "run_id": "72252362",
+  "solver_build": "LS-DYNA MPP double R15.0.2-1-g1e7cfa42b1 I8R8 Intel-MPI 2018",
+  "d3part_family_sha256": "sha256:8f24005080f09cbfd1b81dd2f0f97d4abb3158e7133207f44beccb9852346af7",
+  "returned_artifact_sha256": "sha256:8a0ec2d4ad22a3d068b9bb260a4fcfd89df904a80b36153e229a0a2034ad7239"
+}

@@ -1,0 +1,358 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <meta name="description" content="dataset_5000_software_demo_v2 的离线、可交互结构与深度学习影响诊断。">
+  <title>新数据集结构与深度学习影响地图</title>
+  <style>
+    :root{
+      --bg:#07111f;--bg2:#0b1728;--panel:#0f1d31;--panel2:#13243b;--ink:#eef5ff;
+      --muted:#9eb0c7;--line:#263b57;--cyan:#56d7d2;--blue:#79a9ff;--green:#65d39a;
+      --amber:#f1c75b;--orange:#ff9d66;--red:#ff718b;--purple:#b59aff;--shadow:0 18px 45px rgba(0,0,0,.23)
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth;scroll-padding-top:82px}
+    body{margin:0;background:
+      radial-gradient(circle at 9% -8%,rgba(86,215,210,.15),transparent 31%),
+      radial-gradient(circle at 92% 4%,rgba(121,169,255,.14),transparent 28%),var(--bg);
+      color:var(--ink);font:15px/1.68 system-ui,-apple-system,"Segoe UI","Microsoft YaHei",sans-serif}
+    a{color:inherit}.wrap{max-width:1380px;margin:auto;padding:0 24px 80px}
+    .topbar{position:sticky;top:0;z-index:30;border-bottom:1px solid rgba(78,105,139,.55);
+      background:rgba(7,17,31,.88);backdrop-filter:blur(16px)}
+    .topbar-inner{max-width:1380px;margin:auto;padding:12px 24px;display:flex;align-items:center;gap:18px}
+    .brand{font-weight:850;letter-spacing:.02em;white-space:nowrap}.brand i{color:var(--cyan);font-style:normal}
+    nav{display:flex;gap:7px;overflow:auto;scrollbar-width:none}nav::-webkit-scrollbar{display:none}
+    nav a{text-decoration:none;color:var(--muted);padding:7px 10px;border-radius:9px;white-space:nowrap;font-size:13px}
+    nav a:hover,nav a:focus-visible{color:var(--ink);background:var(--panel2);outline:none}
+    header{padding:54px 0 24px}.eyebrow{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--cyan);font-weight:800}
+    h1{font-size:clamp(32px,5vw,60px);line-height:1.07;letter-spacing:-.035em;margin:10px 0 14px;max-width:1050px}
+    .lede{font-size:18px;color:#bac9da;max-width:970px;margin:0}.meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px}
+    .chip,.status{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);border-radius:999px;padding:4px 10px;font-size:12px;color:var(--muted)}
+    .chip b{color:var(--ink)}.status{font-weight:800}.pass{color:var(--green);border-color:rgba(101,211,154,.4);background:rgba(101,211,154,.08)}
+    .warn{color:var(--amber);border-color:rgba(241,199,91,.4);background:rgba(241,199,91,.08)}
+    .fail{color:var(--red);border-color:rgba(255,113,139,.42);background:rgba(255,113,139,.08)}
+    .grid{display:grid;gap:16px}.kpis{grid-template-columns:repeat(4,minmax(0,1fr));margin:20px 0}
+    .card,.panel{border:1px solid var(--line);border-radius:18px;background:linear-gradient(145deg,rgba(19,36,59,.96),rgba(12,25,43,.96));box-shadow:var(--shadow)}
+    .card{padding:18px;min-height:151px;display:flex;flex-direction:column;justify-content:space-between}.card .value{font-size:clamp(25px,3vw,38px);font-weight:900;letter-spacing:-.035em;margin:10px 0 0}.card p{color:var(--muted);margin:4px 0 0;font-size:13px}
+    section{margin-top:28px}.section-head{display:flex;justify-content:space-between;align-items:end;gap:20px;margin:34px 0 14px}
+    h2{font-size:clamp(23px,3vw,34px);line-height:1.2;margin:0;letter-spacing:-.02em}.section-head p{max-width:720px;margin:0;color:var(--muted)}
+    h3{margin:0 0 9px;font-size:18px}.panel{padding:21px}.two{grid-template-columns:minmax(0,1.06fr) minmax(0,.94fr)}
+    .three{grid-template-columns:repeat(3,minmax(0,1fr))}.four{grid-template-columns:repeat(4,minmax(0,1fr))}
+    .callout{padding:14px 16px;border-radius:12px;border-left:4px solid var(--amber);background:rgba(241,199,91,.075);color:#dfe9f5}
+    .callout.red{border-left-color:var(--red);background:rgba(255,113,139,.075)}.callout.green{border-left-color:var(--green);background:rgba(101,211,154,.075)}
+    .callout code{overflow-wrap:anywhere}.muted{color:var(--muted)}.tiny{font-size:12px;color:var(--muted)}
+    code,.mono{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;color:#b9d0ff}
+    .verdict{display:grid;grid-template-columns:180px 1fr;gap:20px;align-items:center}.ring{width:154px;aspect-ratio:1;border-radius:50%;display:grid;place-items:center;margin:auto;
+      background:conic-gradient(var(--green) 0 25%,var(--red) 25% 50%,var(--amber) 50% 75%,#394d69 75%);position:relative}.ring:after{content:"";position:absolute;inset:15px;border-radius:50%;background:#102039}
+    .ring div{z-index:1;text-align:center;font-weight:900;font-size:21px}.ring small{display:block;color:var(--muted);font-size:11px;font-weight:600}
+    .verdict-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.verdict-item{padding:12px;border:1px solid var(--line);border-radius:12px;background:rgba(7,17,31,.33)}
+    .verdict-item b{display:block;margin-bottom:3px}.dot{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:7px;background:currentColor}
+    .flow{display:grid;grid-template-columns:repeat(7,minmax(120px,1fr));gap:12px;align-items:stretch;overflow:auto;padding:5px 2px 12px}
+    .node{min-width:150px;padding:14px;border-radius:14px;border:1px solid var(--line);background:rgba(7,17,31,.38);position:relative}.node:not(:last-child):after{content:"→";position:absolute;right:-13px;top:43%;color:var(--cyan);font-size:19px;z-index:2}.node .n{font-size:11px;color:var(--cyan);font-weight:800;letter-spacing:.09em}.node b{display:block;margin:4px 0}.node small{color:var(--muted);display:block}
+    .tree{margin:0;padding:4px 0 4px 2px;white-space:pre;overflow:auto;color:#bfd1e7;font:13px/1.72 ui-monospace,SFMono-Regular,Consolas,monospace}
+    .tree .hot{color:var(--red)}.tree .cool{color:var(--cyan)}.tree .good{color:var(--green)}
+    .bar-row{display:grid;grid-template-columns:minmax(145px,210px) 1fr 120px;gap:12px;align-items:center;margin:12px 0}.bar-track{height:13px;background:#22334b;border-radius:999px;overflow:hidden}.bar-fill{height:100%;border-radius:999px;min-width:2px}.bar-v{text-align:right;font-weight:800;font-variant-numeric:tabular-nums}.bar-v small{display:block;color:var(--muted);font-weight:500}
+    table{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums}th,td{padding:10px 11px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}th{font-size:11px;color:#a8bad0;text-transform:uppercase;letter-spacing:.07em}tbody tr:last-child td{border-bottom:0}.scroll{overflow:auto}
+    .tabs{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:15px}.tab{appearance:none;border:1px solid var(--line);background:#102039;color:var(--muted);padding:8px 12px;border-radius:10px;cursor:pointer;font-weight:750}.tab:hover,.tab:focus-visible{color:var(--ink);outline:2px solid rgba(86,215,210,.45)}.tab.active{background:rgba(86,215,210,.13);border-color:var(--cyan);color:var(--cyan)}
+    .schema-pane{display:none}.schema-pane.active{display:block}.shape{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;color:var(--cyan);white-space:nowrap}.tag{display:inline-block;padding:2px 7px;margin:1px;border-radius:999px;background:#1a304c;color:#bcd0e7;font-size:11px}
+    .donut-layout{display:grid;grid-template-columns:230px 1fr;gap:24px;align-items:center}.donut{width:200px;aspect-ratio:1;border-radius:50%;display:grid;place-items:center;margin:auto;position:relative;background:conic-gradient(var(--cyan) 0 14.583%,#49627e 14.583% 97.917%,var(--red) 97.917%)}.donut:after{content:"";position:absolute;inset:27px;border-radius:50%;background:#102039}.donut strong{z-index:1;font-size:31px}.donut strong small{display:block;font-size:11px;color:var(--muted);text-align:center;letter-spacing:.04em}
+    .legend{display:grid;gap:8px}.legend div{display:flex;justify-content:space-between;gap:20px;border-bottom:1px dashed var(--line);padding:7px 0}.swatch{width:10px;height:10px;border-radius:2px;display:inline-block;margin-right:8px}
+    .splitbar{height:46px;display:flex;border-radius:12px;overflow:hidden;margin:13px 0}.splitbar div{display:grid;place-items:center;font-weight:850}.train{background:#245f72;flex:8}.validation{background:#725d2e;flex:1}.test{background:#6c3956;flex:1}
+    .event-chart{min-height:310px}.event-note{min-height:43px}.metric-line{display:grid;grid-template-columns:1fr auto;gap:14px;padding:10px 0;border-bottom:1px solid var(--line)}.metric-line:last-child{border-bottom:0}.metric-line strong{font-size:19px}
+    .impact-toolbar{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 14px}.filter-btn{appearance:none;border:1px solid var(--line);background:#102039;color:var(--muted);border-radius:999px;padding:7px 11px;cursor:pointer}.filter-btn.active{color:var(--ink);border-color:var(--blue);background:rgba(121,169,255,.12)}
+    .impact-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.impact{border:1px solid var(--line);border-radius:14px;padding:15px;background:rgba(7,17,31,.28)}.impact-top{display:flex;align-items:center;justify-content:space-between;gap:10px}.priority{font-size:11px;font-weight:900;padding:3px 8px;border-radius:999px}.p0{background:rgba(255,113,139,.16);color:var(--red)}.p1{background:rgba(241,199,91,.16);color:var(--amber)}.p2{background:rgba(121,169,255,.15);color:var(--blue)}.impact p{color:#b6c6d9;margin:7px 0 0}.impact.hidden{display:none}
+    .scorecards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}.score{padding:15px;border:1px solid var(--line);border-radius:13px;background:rgba(7,17,31,.3)}.score strong{font-size:25px;display:block}.score span{color:var(--muted);font-size:12px}
+    .ladder{display:grid;gap:8px}.step{display:grid;grid-template-columns:72px 1fr;gap:12px;align-items:start;padding:11px;border-left:3px solid var(--line);background:rgba(7,17,31,.25)}.step.done{border-color:var(--green)}.step.blocked{border-color:var(--red)}.step.future{border-color:var(--amber)}.step b{color:var(--muted)}
+    details{border:1px solid var(--line);border-radius:12px;background:rgba(7,17,31,.25);margin:8px 0}summary{cursor:pointer;padding:12px 14px;font-weight:800}details>div{padding:0 14px 14px;color:#bdcbdb}
+    footer{margin-top:38px;padding:22px 0;border-top:1px solid var(--line);color:var(--muted);font-size:12px}
+    @media(max-width:1050px){.kpis,.four{grid-template-columns:repeat(2,1fr)}.three{grid-template-columns:1fr}.two{grid-template-columns:1fr}.scorecards{grid-template-columns:1fr}.impact-grid{grid-template-columns:1fr}}
+    @media(max-width:680px){.wrap{padding-left:15px;padding-right:15px}.topbar-inner{padding-left:15px;padding-right:15px}.brand{display:none}.kpis,.four{grid-template-columns:1fr}.verdict{grid-template-columns:1fr}.verdict-list{grid-template-columns:1fr}.donut-layout{grid-template-columns:1fr}.bar-row{grid-template-columns:1fr}.bar-v{text-align:left}.panel{padding:16px}h1{font-size:34px}.section-head{display:block}.section-head p{margin-top:7px}}
+    @media print{.topbar{display:none}body{background:#fff;color:#101827}.card,.panel{box-shadow:none;background:#fff;border-color:#b7c0cc}.muted,.tiny,.section-head p,.card p{color:#465469}.wrap{max-width:none}.impact-grid,.two,.three,.four,.kpis{break-inside:avoid}.tab,.impact-toolbar{display:none}.schema-pane{display:block!important}.schema-pane:before{content:attr(data-print-title);font-weight:800;display:block;margin:12px 0}.callout{color:#1b2430}}
+  </style>
+</head>
+<body>
+  <div class="topbar">
+    <div class="topbar-inner">
+      <div class="brand"><i>DATASET</i> / 5000-v2</div>
+      <nav aria-label="页面导航">
+        <a href="#verdict">结论</a><a href="#structure">结构</a><a href="#schema">张量契约</a>
+        <a href="#distribution">分布</a><a href="#labels">标签</a><a href="#impact">深度学习影响</a><a href="#actions">优先级</a>
+      </nav>
+    </div>
+  </div>
+
+  <main class="wrap">
+    <header>
+      <div class="eyebrow">UAV Damage Model · Offline Interactive Audit</div>
+      <h1>新数据集结构与<br>深度学习影响地图</h1>
+      <p class="lede">本页从存储层、张量层、采样层、标签层和训练接口五个角度解剖
+        <code>raw_data/dataset_5000_software_demo_v2</code>。重点不只是“有多少数据”，而是哪些信息会改变可学性、损失函数、泛化边界与评估可靠性。</p>
+      <div class="meta">
+        <span class="chip">Dataset ID <b>damage-dataset-3d648624d4da9056f8ef7f7b</b></span>
+        <span class="chip">引擎 <b>0.7.0.dev1</b></span>
+        <span class="chip">Manifest <b>1.5.0</b></span>
+        <span class="chip">Tensor Contract <b>1.6.0</b></span>
+        <span class="chip">现场复核 <b>2026-10-13</b></span>
+      </div>
+    </header>
+
+    <section id="verdict" aria-labelledby="verdict-title">
+      <div class="section-head"><div><div class="eyebrow">01 / Executive verdict</div><h2 id="verdict-title">先看结论：四个“是否通过”不能混为一谈</h2></div></div>
+      <div class="grid kpis">
+        <article class="card"><span class="status pass"><span class="dot"></span>软件归档通过</span><div><div class="value">5,000 / 5,000</div><p>0 拒算 · 10 分片 · 20,000 次重复</p></div></article>
+        <article class="card"><span class="status pass"><span class="dot"></span>原始 Loader 通过</span><div><div class="value">4,000 / 500 / 500</div><p>Train / Validation / Test 全量遍历，无非有限输入</p></div></article>
+        <article class="card"><span class="status fail"><span class="dot"></span>标准训练视图阻断</span><div><div class="value">Normalizer 未生成</div><p>固定 2 m 距离被误声明为 learnable</p></div></article>
+        <article class="card"><span class="status warn"><span class="dot"></span>科研准入未建立</span><div><div class="value">0</div><p>5,000 条均仅准入 software_development</p></div></article>
+      </div>
+      <div class="panel verdict">
+        <div class="ring" aria-label="四层验收中：归档通过，Loader 通过，训练视图失败，物理有效性未建立"><div>2 / 4<small>不同证据层</small></div></div>
+        <div class="verdict-list">
+          <div class="verdict-item"><b style="color:var(--green)"><span class="dot"></span>完整性</b><span class="muted">分片、哈希、计数、拆分与原始 Loader 可用。</span></div>
+          <div class="verdict-item"><b style="color:var(--red)"><span class="dot"></span>训练接口</b><span class="muted">Train-only 归一化合同拒绝常量“可学”特征。</span></div>
+          <div class="verdict-item"><b style="color:var(--amber)"><span class="dot"></span>统计支持</b><span class="muted">参考分布内覆盖良好，但稀有机理事件太少。</span></div>
+          <div class="verdict-item"><b style="color:var(--amber)"><span class="dot"></span>物理效度</b><span class="muted">参数集仍为 synthetic-unvalidated-demo-1，不能推及真实装备。</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="structure" aria-labelledby="structure-title">
+      <div class="section-head"><div><div class="eyebrow">02 / Data architecture</div><h2 id="structure-title">数据从哪里来，如何到达模型</h2></div><p>箭头表示数据契约传递，不代表物理真实性已经验证。</p></div>
+      <div class="panel">
+        <div class="flow" role="img" aria-label="采样规格到冻结拆分，到五千个正式案例，再到二万次仿真重复，最后写入十个分片、原始 loader 和被阻断的训练视图">
+          <div class="node"><span class="n">SPEC</span><b>SamplingSpec 1.1</b><small>2 m 球壳 + Haar SO(3)<br>5 个设计自由度</small></div>
+          <div class="node"><span class="n">FREEZE</span><b>SplitRegistry</b><small>结果盲冻结<br>4000 / 500 / 500</small></div>
+          <div class="node"><span class="n">CASES</span><b>5,000 正式案例</b><small>p0 reference only<br>设计权重均为 1</small></div>
+          <div class="node"><span class="n">ENGINE</span><b>20,000 重复</b><small>每案例 R=4<br>合成教师执行</small></div>
+          <div class="node"><span class="n">ARCHIVE</span><b>10 个分片</b><small>NPZ + 9 Parquet<br>JSONL + manifest</small></div>
+          <div class="node"><span class="n">LOADER</span><b>PyTorch 原始视图</b><small>三拆分可遍历<br>mask / dtype 稳定</small></div>
+          <div class="node"><span class="n">TRAINING</span><b style="color:var(--red)">归一化拒绝</b><small>feature role mismatch<br>未产生标准训练视图</small></div>
+        </div>
+      </div>
+
+      <div class="grid two" style="margin-top:16px">
+        <div class="panel">
+          <h3>目录与语义层</h3>
+          <pre class="tree" aria-label="数据集目录树">dataset_5000_software_demo_v2/
+├─ <span class="cool">plan/</span>                         # 冻结的输入、规格、hash和拆分注册表
+├─ <span class="hot">rounds/round-000/</span>
+│  ├─ candidates.jsonl/.parquet  # 5,000 个候选样本双格式账本
+│  └─ <span class="hot">formal_cases.jsonl</span>       # 3.72 GiB，重复嵌入 split registry
+├─ <span class="good">formal_dataset/</span>
+│  ├─ manifest.json + checkpoint.json
+│  └─ shards/part-000000 ... 000009
+│     ├─ tensors.npz             # 每片 116 个数组
+│     ├─ results.jsonl           # 逐案例完整结果
+│     ├─ 9 张 *.parquet         # 表化交换/审计视图
+│     └─ manifest.json           # 语义轴、哈希、局限
+├─ <span class="cool">audits/</span>                       # 采样、分布、Loader、训练就绪度
+├─ sampling_checkpoint.json
+├─ generation_timing.json
+└─ generation_acceptance_summary.json</pre>
+        </div>
+        <div class="panel">
+          <h3>存储结构：4.247 GB 的主要成分</h3>
+          <div class="bar-row"><span>轮次计划</span><div class="bar-track"><div class="bar-fill" style="width:94.31%;background:var(--red)"></div></div><div class="bar-v">4.006 GB<small>94.31%</small></div></div>
+          <div class="bar-row"><span>正式数据归档</span><div class="bar-track"><div class="bar-fill" style="width:5.62%;background:var(--cyan)"></div></div><div class="bar-v">238.5 MB<small>5.62%</small></div></div>
+          <div class="bar-row"><span>审计与根级元数据</span><div class="bar-track"><div class="bar-fill" style="width:.07%;background:var(--blue)"></div></div><div class="bar-v">约 3.1 MB<small>0.07%</small></div></div>
+          <div class="callout red" style="margin-top:16px"><b>规模化风险：</b><code>formal_cases.jsonl</code> 单文件 3,995,381,852 B，占整个数据根约 94.06%。这是规划层的元数据重复，不是训练张量自身很大。</div>
+          <p class="tiny">正式归档内部，10 个 <code>results.jsonl</code> 合计约 207.2 MiB，是主要部分；压缩 NPZ 合计约 2.66 MiB。</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="schema" aria-labelledby="schema-title">
+      <div class="section-head"><div><div class="eyebrow">03 / Tensor & table contract</div><h2 id="schema-title">模型真正看到的张量，与审计用的表</h2></div><p>下表展示单样本视角；分片存储时最前面还有 B=500 的 batch 维。</p></div>
+      <div class="panel">
+        <div class="tabs" role="tablist" aria-label="张量类别">
+          <button class="tab active" data-tab="inputs" role="tab" aria-selected="true">输入张量</button>
+          <button class="tab" data-tab="targets" role="tab" aria-selected="false">监督目标</button>
+          <button class="tab" data-tab="metadata" role="tab" aria-selected="false">Mask / 元数据</button>
+          <button class="tab" data-tab="parquet" role="tab" aria-selected="false">Parquet 表</button>
+        </div>
+        <div class="schema-pane active" id="pane-inputs" data-print-title="输入张量">
+          <div class="scroll"><table><thead><tr><th>字段</th><th>单样本 shape</th><th>内容</th><th>对训练的意义</th></tr></thead><tbody>
+            <tr><td><code>case_physics_x</code></td><td class="shape">[48]</td><td>起爆点、姿态、战斗部、破片、环境</td><td>原始案例特征；当前只有 7 维变化</td></tr>
+            <tr><td><code>solver_context_x</code></td><td class="shape">[11]</td><td>机理开关、耦合方式、保真度、重复数</td><td>已归档，默认 PyTorch 样本故意不对模型暴露</td></tr>
+            <tr><td><code>component_x</code></td><td class="shape">[1, 38]</td><td>1 个部件的几何、材料/响应阈值和暴露类型</td><td>当前 C=1，不支持学习跨部件拓扑泛化</td></tr>
+            <tr><td><code>armor_x</code></td><td class="shape">[1, 18]</td><td>1 块装甲的几何与爆炸阈值</td><td>当前 A=1 且完全固定，材料/厚度外推无支持</td></tr>
+            <tr><td><code>component_armor_path_x</code></td><td class="shape">[1, 1, 4]</td><td>是否相交、入射距离、路径长、入射余弦</td><td>几何路径是稀有命中/穿透机理的重要条件信息</td></tr>
+          </tbody></table></div>
+        </div>
+        <div class="schema-pane" id="pane-targets" data-print-title="监督目标">
+          <div class="scroll"><table><thead><tr><th>字段</th><th>单样本 shape</th><th>语义轴</th><th>正确用法</th></tr></thead><tbody>
+            <tr><td><code>component_y</code></td><td class="shape">[1, 3, 2]</td><td>C × mechanism(fragment/blast/combined) × state(degraded/failed)</td><td>有界概率目标；与 mask、CI、sample_count 一起使用</td></tr>
+            <tr><td><code>component_frechet_y</code></td><td class="shape">[1, 2, 2]</td><td>C × state × bound(lower/upper)</td><td>是依赖不确定性的 Fréchet 界，不应当作普通互斥类别</td></tr>
+            <tr><td><code>component_aux_y</code></td><td class="shape">[1, 14]</td><td>命中/穿透数、速度、能量、爆炸响应辅助量</td><td>适合机理分阶段辅助任务，需按单位和缺失 mask 处理</td></tr>
+            <tr><td><code>armor_y</code></td><td class="shape">[1, 13]</td><td>装甲完整度、入射/反射压力、冲量、失效概率</td><td>多量纲混合回归，不能不分尺度地直接求和</td></tr>
+            <tr><td><code>system_y</code></td><td class="shape">[2]</td><td>mission_degraded, mission_loss</td><td><b style="color:var(--amber)">非互斥事件概率</b>；独立 sigmoid + soft BCE/Brier，禁止 softmax</td></tr>
+          </tbody></table></div>
+        </div>
+        <div class="schema-pane" id="pane-metadata" data-print-title="Mask 与元数据">
+          <div class="scroll"><table><thead><tr><th>类别</th><th>代表字段</th><th>对模型的影响</th></tr></thead><tbody>
+            <tr><td>可用性 mask</td><td><code>*_feature_mask</code>, <code>*_label_mask</code>, <code>system_source_available_mask</code></td><td>必须在输入和 loss 中显式传播；缺失不等于 0</td></tr>
+            <tr><td>不确定性</td><td><code>*_stddev</code>, <code>*_ci95</code>, <code>*_uncertainty_mask</code>, <code>*_sample_count</code></td><td>可用于异方差建模/评估；R=4 不代表精确不确定性</td></tr>
+            <tr><td>采样身份</td><td><code>sampling_role</code>, <code>selection_probability</code>, <code>design_weight_raw</code></td><td>用于设计分布估计；设计权重不是类别权重或 minibatch 概率</td></tr>
+            <tr><td>防泄漏身份</td><td><code>case_hashes</code>, <code>leakage_keys</code>, <code>split_group_ids</code></td><td>维持分组拆分与跨集合去重；仍不能证明领域单元真正独立</td></tr>
+            <tr><td>图拓扑</td><td><code>tree_edge_index</code>, <code>graph_node_ids</code>, <code>tree_edge_type</code></td><td>当前图结构为固定目标；只有多目标数据才能验证拓扑泛化</td></tr>
+          </tbody></table></div>
+        </div>
+        <div class="schema-pane" id="pane-parquet" data-print-title="Parquet 表">
+          <div class="scroll"><table><thead><tr><th>表</th><th>每分片行数</th><th>主要用途</th></tr></thead><tbody>
+            <tr><td><code>cases.parquet</code></td><td>500</td><td>案例输入、拆分、采样权重和身份</td></tr>
+            <tr><td><code>components.parquet</code> / <code>armor.parquet</code></td><td>500 / 500</td><td>部件和装甲特征</td></tr>
+            <tr><td><code>labels.parquet</code></td><td>3,000</td><td>部件 × 机理 × 状态，包含 Fréchet 上/下界嵌套统计</td></tr>
+            <tr><td><code>component_aux.parquet</code></td><td>7,000</td><td>14 个机理辅助标签/案例</td></tr>
+            <tr><td><code>armor_labels.parquet</code></td><td>6,500</td><td>13 个装甲标签/案例</td></tr>
+            <tr><td><code>tree_outputs.parquet</code></td><td>1,000</td><td>2 个系统树输出/案例</td></tr>
+            <tr><td><code>splits.parquet</code></td><td>500</td><td>拆分与 leakage key</td></tr>
+            <tr><td><code>edges.parquet</code></td><td>5</td><td>固定损伤树/组件关系边</td></tr>
+          </tbody></table></div>
+          <p class="tiny">现场查看首分片：Parquet 表带 <code>table_schema_version=1.0.0</code> 元数据；<code>labels.parquet</code> 包含显式嵌套的 <code>frechet_union_lower_bound</code> 和 <code>frechet_union_upper_bound</code>。</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="distribution" aria-labelledby="distribution-title">
+      <div class="section-head"><div><div class="eyebrow">04 / Inputs & sampling</div><h2 id="distribution-title">输入看起来有 48 维，真正变化的只有 7 维</h2></div><p>高维张量并不自动等于高维设计空间。</p></div>
+      <div class="grid two">
+        <div class="panel donut-layout">
+          <div class="donut" aria-label="48 个原始案例物理坐标中，7 个变化，40 个固定，1 个结构缺失"><strong>48<small>case physics</small></strong></div>
+          <div>
+            <h3>原始物理坐标</h3>
+            <div class="legend">
+              <div><span><i class="swatch" style="background:var(--cyan)"></i>变化</span><b>7 维 · 14.58%</b></div>
+              <div><span><i class="swatch" style="background:#49627e"></i>固定</span><b>40 维 · 83.33%</b></div>
+              <div><span><i class="swatch" style="background:var(--red)"></i>结构缺失</span><b>1 维 · 2.08%</b></div>
+            </div>
+            <p class="muted">变化项仅为起爆位置 x/y/z 与姿态四元数 x/y/z/w；设计的本质自由度为球面方向 2 + SO(3) 姿态 3 = 5。</p>
+          </div>
+        </div>
+        <div class="panel">
+          <h3>参考设计覆盖</h3>
+          <div class="scorecards">
+            <div class="score"><strong>200 / 200</strong><span>2 m 球面等面积格全覆盖</span></div>
+            <div class="score"><strong>0</strong><span>精确物理输入重复或跨拆分重复</span></div>
+            <div class="score"><strong>ESS 5,000</strong><span>纯 p0 等权重，weight CV=0</span></div>
+          </div>
+          <div class="splitbar" role="img" aria-label="训练 4000，验证 500，测试 500"><div class="train">Train 4,000</div><div class="validation">Val 500</div><div class="test">Test 500</div></div>
+          <p class="tiny">拆分注册表在标签执行前冻结；精确去重通过。但 <b>“域独立”仍未验证</b>，因为目标、部件、装甲和参数集全部固定。</p>
+        </div>
+      </div>
+      <div class="callout red" style="margin-top:16px">
+        <b>直接影响训练的 P0 问题：</b>原始起爆位置经变换得到“3 个方向分量 + 1 个距离”，而 2 m 距离对 Train 是常量。当前路径级角色把四个派生量都标为 learnable，因此严格归一化器正确拒绝：
+        <code>declared learnable_variable feature 'detonation_distance_m' is missing or constant on Train</code>。
+      </div>
+    </section>
+
+    <section id="labels" aria-labelledby="labels-title">
+      <div class="section-head"><div><div class="eyebrow">05 / Labels & uncertainty</div><h2 id="labels-title">稀有事件、平台和标签冗余决定了“学到什么”</h2></div><p>下图的稀有事件以 5% 为满刻度；选择拆分可看有效事件数。</p></div>
+      <div class="grid two">
+        <div class="panel event-chart">
+          <div class="tabs" aria-label="稀有事件拆分选择">
+            <button class="tab event-tab active" data-split="all">全集</button><button class="tab event-tab" data-split="train">Train</button>
+            <button class="tab event-tab" data-split="validation">Validation</button><button class="tab event-tab" data-split="test">Test</button>
+          </div>
+          <div id="event-bars" aria-live="polite"></div>
+          <div class="event-note tiny" id="event-note"></div>
+        </div>
+        <div class="panel">
+          <h3>系统标签的信息结构</h3>
+          <div class="metric-line"><span>联合众数平台</span><strong style="color:var(--red)">67.18%</strong></div>
+          <div class="metric-line"><span><code>mission_degraded</code> vs <code>mission_loss</code> Spearman</span><strong>0.99689</strong></div>
+          <div class="metric-line"><span><code>mission_loss == combined.failed</code></span><strong>100%</strong></div>
+          <div class="metric-line"><span>命中数 = 穿透数的案例</span><strong>99.70%</strong></div>
+          <div class="callout red" style="margin-top:12px">普通 MSE/BCE 很可能通过预测主平台获得“看起来不错”的总体指标，却完全没学会命中—穿透转变。</div>
+        </div>
+      </div>
+      <div class="grid three" style="margin-top:16px">
+        <div class="panel"><h3>R=4 重复信息</h3><div class="metric-line"><span>重复间系统输出有变化</span><strong>370 / 5,000</strong></div><div class="metric-line"><span>任一系统标签 CI 半宽 ≥ 0.10</span><strong>83</strong></div><div class="metric-line"><span>任一系统标签 CI 半宽 ≥ 0.25</span><strong>62</strong></div></div>
+        <div class="panel"><h3>不确定性边界</h3><p><code>mission_loss</code> 最大 CI 半宽约 <b>0.4983</b>；<code>mission_degraded</code> 约 <b>0.2333</b>。</p><p class="muted">大量平台样本的零宽区间不意味着整个模型的不确定性很小。</p></div>
+        <div class="panel"><h3>聚合顺序是标签语义</h3><p><b>63 / 5,000</b> 案例中，“先对叶子取均值再套树”与“每个重复先套树再取均值”不同，最大差 <b>0.111258</b>。</p><p class="muted">训练和后处理应直接使用归档的系统树输出。</p></div>
+      </div>
+    </section>
+
+    <section id="impact" aria-labelledby="impact-title">
+      <div class="section-head"><div><div class="eyebrow">06 / Deep-learning impact</div><h2 id="impact-title">哪些信息会直接改变深度学习效果</h2></div><p>可按优先级筛选。P0 是开始标准训练前的阻断项，P1 影响可学性与评估可信度。</p></div>
+      <div class="panel">
+        <div class="impact-toolbar" aria-label="影响优先级筛选">
+          <button class="filter-btn active" data-priority="all">全部</button><button class="filter-btn" data-priority="p0">P0 阻断</button><button class="filter-btn" data-priority="p1">P1 效果</button><button class="filter-btn" data-priority="p2">P2 工程</button>
+        </div>
+        <div class="impact-grid">
+          <article class="impact" data-priority="p0"><div class="impact-top"><h3>特征角色与归一化</h3><span class="priority p0">P0</span></div><p>2 m 常量距离被当成可学变量，Train-only normalizer 已 fail closed。影响：标准训练视图无法产生；若强行加 epsilon，将制造伪方差和不稳定尺度。</p></article>
+          <article class="impact" data-priority="p0"><div class="impact-top"><h3>标签语义与损失</h3><span class="priority p0">P0</span></div><p><code>system_y</code> 是重叠的事件概率，不是互斥类别。影响：应用独立 sigmoid + soft BCE/Brier；softmax/多类交叉熵会破坏语义。</p></article>
+          <article class="impact" data-priority="p1"><div class="impact-top"><h3>有效输入维度过窄</h3><span class="priority p1">P1</span></div><p>48 个物理坐标中只有 7 个变化，且目标/材料/装甲均固定。影响：模型可能轻松插值并获得很低 loss，但不具备跨距离、装药、材料或拓扑泛化证据。</p></article>
+          <article class="impact" data-priority="p1"><div class="impact-top"><h3>主平台与样本不平衡</h3><span class="priority p1">P1</span></div><p>67.18% 样本在相同系统联合输出上，破片命中仅 3.84%。影响：总体 MSE/BCE 会偏向常数基线；需同时报告平台基线、事件条件误差、PR-AUC/Brier 和校准。</p></article>
+          <article class="impact" data-priority="p1"><div class="impact-top"><h3>验证/测试稀有事件太少</h3><span class="priority p1">P1</span></div><p>Test 只有 17 个命中、4 个“遮蔽且命中”；命中数大于穿透数的 15 个案例全在 Train。影响：关键机理的失败可能无法被验证集发现。</p></article>
+          <article class="impact" data-priority="p1"><div class="impact-top"><h3>多任务标签信息秩低</h3><span class="priority p1">P1</span></div><p>两个系统输出 Spearman=0.99689，命中与穿透也几乎退化为同一任务。影响：平权多任务 loss 可能重复优化同一信号，掩盖稀有机理。</p></article>
+          <article class="impact" data-priority="p1"><div class="impact-top"><h3>Mask 与结构缺失</h3><span class="priority p1">P1</span></div><p><code>fixed_initial_velocity_mps</code> 是结构缺失，各类 label/source mask 也是合同的一部分。影响：将缺失填 0 且丢弃 mask，会把“不适用”误学为物理零值。</p></article>
+          <article class="impact" data-priority="p1"><div class="impact-top"><h3>采样权重的语义</h3><span class="priority p1">P1</span></div><p>当前全部 p0 且 <code>1/rho=1</code>。影响：未来加入 targeted/adaptive 训练样本时，原始设计权重用于总体估计，不能当成类别权重或 minibatch 抽样概率。</p></article>
+          <article class="impact" data-priority="p1"><div class="impact-top"><h3>条件随机性与认识不确定性</h3><span class="priority p1">P1</span></div><p>R=4 重复共用一个 parameter realization hash。影响：当前 CI 主要表示条件 aleatory 随机性，不包含参数认识不确定性；不能当作现实预测区间。</p></article>
+          <article class="impact" data-priority="p2"><div class="impact-top"><h3>计划文件膨胀</h3><span class="priority p2">P2</span></div><p>3.72 GiB 的 <code>formal_cases.jsonl</code> 重复嵌入大型 split registry。影响：对当前 5k 训练精度无直接改变，但会限制 50k/300k 数据生成、IO 和检查点性能。</p></article>
+          <article class="impact" data-priority="p2"><div class="impact-top"><h3>跨格式合同</h3><span class="priority p2">P2</span></div><p>当前 Parquet 使用版本化显式 schema，首分片已观察到 Fréchet 嵌套界字段。影响：避免表格消费者丢失后行才出现的标签字段；正式训练前仍应保留全分片跨格式一致性门禁。</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section id="actions" aria-labelledby="actions-title">
+      <div class="section-head"><div><div class="eyebrow">07 / Action order</div><h2 id="actions-title">如果目标是可信的深度学习，建议按这个顺序推进</h2></div></div>
+      <div class="grid two">
+        <div class="panel ladder">
+          <div class="step done"><b>已完成</b><div><strong>软件归档与原始 Loader</strong><br><span class="muted">5,000 案例、10 分片、三拆分全量遍历通过。</span></div></div>
+          <div class="step blocked"><b>P0-1</b><div><strong>修复 transform-output 特征角色</strong><br><span class="muted">期望 51 个最终特征：9 learnable + 41 fixed_context + 1 structural_missing；重新生成版本化训练视图。</span></div></div>
+          <div class="step future"><b>P0-2</b><div><strong>分离 p0 Reference 与 targeted Train</strong><br><span class="muted">Validation/Test 保持结果盲 p0；只在 Train 用标签前几何类别加强稀有机理。</span></div></div>
+          <div class="step future"><b>P0-3</b><div><strong>按稀有事件精度设计独立测试集</strong><br><span class="muted">500 条 Test 只有 17 个命中，不足以稳定估计命中—穿透转变性能。</span></div></div>
+          <div class="step future"><b>P1</b><div><strong>机理分阶段多任务建模</strong><br><span class="muted">几何/路径 → 命中 → 条件穿透 → 局部响应 → 直接监督的系统树输出。</span></div></div>
+          <div class="step future"><b>P1</b><div><strong>建立物理 V&amp;V 和研究准入</strong><br><span class="muted">独立试验标定、留出验证、机理分层误差与外推失败规则齐备后，才能谈真实效果。</span></div></div>
+        </div>
+        <div class="panel">
+          <h3>训练开始前的最小验收集</h3>
+          <details open><summary>1. 数据处理</summary><div>Train 拟合归一化，Validation/Test 只应用；常量特征保持 identity；所有 mask 同步进入模型或 loss。</div></details>
+          <details open><summary>2. 基线与损失</summary><div>报告联合众数/常数预测基线；系统事件用 soft BCE/Brier；多量纲辅助目标分别标准化和加权，不直接相加。</div></details>
+          <details><summary>3. 评估</summary><div>分别报告 p0 Reference 总体性能、稀有事件条件性能、校准、PR-AUC/Brier、最差几何层与区间不确定性；不将 targeted 和 p0 Test 合并成一个分数。</div></details>
+          <details><summary>4. 模型边界</summary><div>明确声明只适用于固定目标、固定战斗部/材料/环境下的 2 m 球壳 × SO(3) 参考域；空间之外应拒绝预测或标记 OOD。</div></details>
+          <details><summary>5. 证据边界</summary><div>模型能拟合 synthetic teacher，不证明 teacher 物理正确。测试通过、低 loss、高 R² 和较窄的条件 Monte Carlo CI 均不能单独建立真实效度。</div></details>
+        </div>
+      </div>
+    </section>
+
+    <section aria-labelledby="provenance-title">
+      <div class="section-head"><div><div class="eyebrow">08 / Provenance</div><h2 id="provenance-title">本页使用的现场证据</h2></div></div>
+      <div class="panel scroll">
+        <table><thead><tr><th>来源</th><th>用途</th><th>边界</th></tr></thead><tbody>
+          <tr><td><code>generation_acceptance_summary.json</code></td><td>验收状态、阻断问题、核心分布数字</td><td>是生成记录，不是独立物理审核</td></tr>
+          <tr><td><code>generation_timing.json</code></td><td>时间、吞吐、分片和存储分解</td><td>端到端起点基于文件系统时间</td></tr>
+          <tr><td><code>formal_dataset/manifest.json</code></td><td>版本、语义轴、拆分、准入、局限</td><td>Manifest 是契约，不是外部验证</td></tr>
+          <tr><td><code>audits/training_readiness_audit.json</code></td><td>变量特征、稀有事件、重复轨迹和标签诊断</td><td>探索性、合成设计内描述</td></tr>
+          <tr><td><code>audits/loader_and_training_view_validation.json</code></td><td>Loader 形状/dtype/计数和归一化失败记录</td><td>只建立软件接口证据</td></tr>
+          <tr><td>分片文件现场读取</td><td>116 个 NPZ 数组、9 张 Parquet 表、具体 shape/schema</td><td>本页未重跑整套物理仿真</td></tr>
+        </tbody></table>
+      </div>
+    </section>
+
+    <footer>
+      自包含 HTML：无 CDN、无网络请求、无外部字体。所有条形图均有数字/文字冗余编码。<br>
+      证据边界：归档完整、软件 Loader 通过、参考设计内覆盖和代理模型可学，都不等于真实毁伤物理正确、运用分布有代表性或自主控制安全。
+    </footer>
+  </main>
+
+  <script>
+    const eventData = {
+      all:{total:5000,rows:[['至少一次破片命中',192],['遮蔽且命中',50],['命中数 > 穿透数',15]],note:'全集命中率 3.84%，Wilson 95% 区间 3.34%–4.41%。该区间只针对当前合成设计样本。'},
+      train:{total:4000,rows:[['至少一次破片命中',160],['遮蔽且命中',39],['命中数 > 穿透数',15]],note:'Train 含全部 15 个“命中数 > 穿透数”案例；Validation/Test 都没有。'},
+      validation:{total:500,rows:[['至少一次破片命中',15],['遮蔽且命中',7],['命中数 > 穿透数',0]],note:'Validation 只有 15 个命中案例，且缺少命中—穿透转变反例。'},
+      test:{total:500,rows:[['至少一次破片命中',17],['遮蔽且命中',4],['命中数 > 穿透数',0]],note:'Test 命中率 3.40%，Wilson 95% 区间 2.13%–5.38%；只有 4 个“遮蔽且命中”案例。'}
+    };
+    function renderEvents(key){
+      const d=eventData[key], host=document.getElementById('event-bars'); host.innerHTML='';
+      d.rows.forEach((row,i)=>{const pct=row[1]/d.total*100;const scaled=Math.min(100,pct/5*100);const colors=['var(--orange)','var(--purple)','var(--cyan)'];const el=document.createElement('div');el.className='bar-row';el.innerHTML=`<span>${row[0]}</span><div class="bar-track"><div class="bar-fill" style="width:${scaled}%;background:${colors[i]}"></div></div><div class="bar-v">${pct.toFixed(2)}%<small>${row[1]} / ${d.total}</small></div>`;host.appendChild(el)});
+      document.getElementById('event-note').textContent=d.note;
+    }
+    renderEvents('all');
+    document.querySelectorAll('.event-tab').forEach(btn=>btn.addEventListener('click',()=>{document.querySelectorAll('.event-tab').forEach(b=>b.classList.remove('active'));btn.classList.add('active');renderEvents(btn.dataset.split)}));
+    document.querySelectorAll('[data-tab]').forEach(btn=>btn.addEventListener('click',()=>{const key=btn.dataset.tab;document.querySelectorAll('[data-tab]').forEach(b=>{b.classList.toggle('active',b===btn);b.setAttribute('aria-selected',b===btn?'true':'false')});document.querySelectorAll('.schema-pane').forEach(p=>p.classList.toggle('active',p.id==='pane-'+key))}));
+    document.querySelectorAll('.filter-btn').forEach(btn=>btn.addEventListener('click',()=>{const key=btn.dataset.priority;document.querySelectorAll('.filter-btn').forEach(b=>b.classList.toggle('active',b===btn));document.querySelectorAll('.impact').forEach(card=>card.classList.toggle('hidden',key!=='all'&&card.dataset.priority!==key))}));
+  </script>
+</body>
+</html>

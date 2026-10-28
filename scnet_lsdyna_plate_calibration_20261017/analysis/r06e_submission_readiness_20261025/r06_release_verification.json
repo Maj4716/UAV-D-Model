@@ -1,0 +1,104 @@
+{
+  "schema_version": "hf-p0-r06-release-verification@1.0.0",
+  "package_revision": "R06_keyword_parser_repair_20261025",
+  "overall_status": "pass",
+  "lifecycle_status": "ready_for_user_submission_not_submitted_not_solver_validated",
+  "checks": {
+    "fresh_static_readiness": {
+      "status": "pass",
+      "sha256": "sha256:5609bef8a3e9777d60a50bbd4b9d92c6b6e882de6f841b739bcc3e4bbf1a97a4"
+    },
+    "explicit_release_file_set": {
+      "status": "pass",
+      "file_count": 9
+    },
+    "zip_internal_external_identity": {
+      "status": "pass",
+      "bundles": [
+        {
+          "status": "pass",
+          "job_id": "r06e_0800_ctrl",
+          "zip": "uav_hf_r06e_0800_ctrl.zip",
+          "size_bytes": 414188,
+          "sha256": "sha256:2d160db9e9c357a517f56fec610c1040c7714e1f332f20d26bc45ea533f7249e",
+          "member_count": 10,
+          "head_deck": "r06e_0800_ctrl.k"
+        },
+        {
+          "status": "pass",
+          "job_id": "r06e_2000_ctrl",
+          "zip": "uav_hf_r06e_2000_ctrl.zip",
+          "size_bytes": 424385,
+          "sha256": "sha256:fc27fe9c45147ba458e436e1045576d4883ae78f6205c431d9417d260445e640",
+          "member_count": 10,
+          "head_deck": "r06e_2000_ctrl.k"
+        },
+        {
+          "status": "pass",
+          "job_id": "r06e_0800_tend008",
+          "zip": "uav_hf_r06e_0800_tend008.zip",
+          "size_bytes": 414248,
+          "sha256": "sha256:02632989ca7b78b3fe28397e7ffae11a17bceaff040a49c4cad8234d7d6f6697",
+          "member_count": 10,
+          "head_deck": "r06e_0800_tend008.k"
+        },
+        {
+          "status": "pass",
+          "job_id": "r06e_2000_psfail_plate",
+          "zip": "uav_hf_r06e_2000_psfail_plate.zip",
+          "size_bytes": 424472,
+          "sha256": "sha256:b3a5d9ddcbf01023b11c7c7279b86237a0f4092758c18e99ec6e7f6ae4797466",
+          "member_count": 10,
+          "head_deck": "r06e_2000_psfail_plate.k"
+        }
+      ]
+    },
+    "historical_r05_candidate_immutable": {
+      "status": "pass",
+      "files": {
+        "p0_velocity_mesh_calibration.k": "sha256:6fbd753a113d0214e7ba4ff5136dc526d151e6f2c52c94e70399b29c4b9d3d0c",
+        "p0_cases_r05.json": "sha256:b1d2027d57fc6d9cd1ee3f932ea044fd16a112344d8f2b6f508071f45191a06f",
+        "p0_case_part_map.csv": "sha256:b05b59249e49c3e9d15904f475c2f9478bdff1638fb797d1b552298490aa5295",
+        "manifest.json": "sha256:e178b6c28832519aaa2befdc969dcd93d2141ea4073ad740b52b17968d92ba44",
+        "static_validation.json": "sha256:491753050734ba46ded5460221e35a70e37bbccd179b6b172d753bfc18c8b17e"
+      }
+    },
+    "historical_r05_return_immutable": {
+      "status": "pass",
+      "run_id": "72252362",
+      "hash_verified_file_count": 75,
+      "hash_verified_total_bytes": 2944160835,
+      "full_inventory_file_count": 120,
+      "full_inventory_total_bytes": 3606867357
+    }
+  },
+  "submission_order": {
+    "wave_0": [
+      "r06e_0800_ctrl"
+    ],
+    "wave_0_gate": "Target R15.0.2 reports zero KEY errors and zero excess-field warnings for the repaired cards, advances beyond cycle 0, terminates normally, and returns readable d3part and intfor families.",
+    "wave_1": [
+      "r06e_2000_ctrl"
+    ],
+    "wave_1_gate": "Both repaired controls pass parser, normal-termination, run-integrity, and required-output readability gates before any treatment is submitted.",
+    "wave_2": [
+      "r06e_0800_tend008",
+      "r06e_2000_psfail_plate"
+    ],
+    "wave_2_gate": "Interpret each treatment only against its hash-bound repaired control; do not pool the two pairs as four calibration points.",
+    "resource_identity": "Use exactly one node, 32 ranks, LS-DYNA R15 MPP double precision, and identical memory settings for all four jobs."
+  },
+  "local_solver_precheck": {
+    "status": "unavailable",
+    "reason": "No local LS-DYNA executable was found; target parser/runtime acceptance is an external submission gate."
+  },
+  "admission": {
+    "r06_diagnostic_submission": "ready_for_user_submission_in_staged_canary",
+    "p0_response_calibration": "denied",
+    "p1_submission": "denied",
+    "local_engine_fitting": "denied",
+    "reference_dataset_generation": "denied",
+    "physical_validity": "not_established"
+  },
+  "claim_boundary": "PASS means the R06 diagnostic release is internally consistent and ready for user submission. It does not mean solver, numerical, response, or physical acceptance."
+}

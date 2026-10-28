@@ -1,0 +1,8 @@
+﻿case_id,role,impact_speed_mps,mesh_mm,plate_part_id,fragment_part_id,plate_negative_volume_events,fragment_negative_volume_events,total_negative_volume_events,first_event_time,last_event_time
+p0_v1200_h0p75,hf_response_fit,1200.0,0.75,1001,2001,49,69,118,0.0021628,0.018942
+p0_v1600_h0p75,hf_response_fit,1600.0,0.75,1002,2002,72,62,134,0.001721,0.015436
+p0_v2000_h0p75,hf_response_holdout,2000.0,0.75,1003,2003,85,52,137,0.0014681,0.014323
+p0_v2300_h0p75,hf_response_fit,2300.0,0.75,1004,2004,101,68,169,0.0013244,0.011815
+p0_v2600_h0p75,hf_response_fit,2600.0,0.75,1005,2005,72,46,118,0.0012192,0.010611
+p0_v2000_h1p00,hf_numerical_verification,2000.0,1.0,1006,2006,69,59,128,0.0018147,0.014026
+p0_v2000_h0p50,hf_numerical_verification,2000.0,0.5,1007,2007,53,17,70,0.0013244,0.0035618

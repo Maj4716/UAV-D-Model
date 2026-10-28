@@ -14,3 +14,18 @@ build/
 .mypy_cache/
 .ruff_cache/
 .venv/
+
+# Local high-fidelity solver returns and large reproducible evidence stay outside Git.
+/.tmp/
+/.codex-tmp/
+/.codex_tmp/
+/uav_hf_*/
+/raw_data/dataset_5000_*/
+/scnet_lsdyna_plate_calibration_20261017/.tmp/
+/scnet_lsdyna_plate_calibration_20261017/.vendor/
+/scnet_lsdyna_plate_calibration_20261017/05/
+/scnet_lsdyna_plate_calibration_20261017/results/
+/scnet_lsdyna_plate_calibration_20261017/analysis/**/raw_return/
+/scnet_lsdyna_plate_calibration_20261017/analysis/**/source_archive/
+/scnet_lsdyna_plate_calibration_20261017/analysis/**/superseded_*/
+/scnet_lsdyna_plate_calibration_20261017/analysis/**/r06f_single_job_analysis*.json

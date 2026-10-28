@@ -1,0 +1,52 @@
+{
+  "schema_version": "1.0.0",
+  "method": "two_sided_normal_binomial_planning_approximation",
+  "prevalence": 0.0056,
+  "confidence": 0.95,
+  "z_value": 1.9599639845400536,
+  "effective_sample_fraction": 1.0,
+  "event_count_plans": [
+    {
+      "target_expected_events": 50,
+      "iid_case_count": 8929,
+      "design_adjusted_case_count": 8929
+    },
+    {
+      "target_expected_events": 100,
+      "iid_case_count": 17858,
+      "design_adjusted_case_count": 17858
+    }
+  ],
+  "precision_plans": [
+    {
+      "target_absolute_half_width": 0.0014,
+      "iid_case_count": 10915,
+      "design_adjusted_case_count": 10915
+    },
+    {
+      "target_absolute_half_width": 0.001,
+      "iid_case_count": 21392,
+      "design_adjusted_case_count": 21392
+    }
+  ],
+  "evidence_boundary": "Planning approximation only. Freeze the reference distribution and split before labels; grouped dependence, unequal weights, prevalence drift, and model-comparison uncertainty can require a larger set.",
+  "soft_event_mass_planning": {
+    "schema_version": "1.0.0",
+    "method": "expected_soft_event_mass_planning_approximation",
+    "mean_soft_label": 0.004,
+    "effective_sample_fraction": 1.0,
+    "soft_event_mass_plans": [
+      {
+        "target_expected_soft_event_mass": 50.0,
+        "iid_case_count": 12500,
+        "design_adjusted_case_count": 12500
+      },
+      {
+        "target_expected_soft_event_mass": 100.0,
+        "iid_case_count": 25000,
+        "design_adjusted_case_count": 25000
+      }
+    ],
+    "evidence_boundary": "Planning approximation only. It does not account for pilot uncertainty, group dependence, task subgroups, Monte Carlo label noise, or prevalence drift."
+  }
+}

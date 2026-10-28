@@ -1,0 +1,36 @@
+{
+  "schema_version": "hf-p0-r06-batch-manifest@1.0.0",
+  "package_revision": "R06_timestep_refinement_20261028",
+  "status": "generated_pending_static_validation_not_submitted",
+  "design": {
+    "path": "p0_r06g_timestep_refinement_design.json",
+    "sha256": "sha256:f38539285164c4955b52ab692109bd3952c02eeb279ec88cdfa743139cc90de2"
+  },
+  "material": {
+    "path": "jc4340_reference.json",
+    "sha256": "sha256:9b462b920459e57641d5f89d10d36c0aa0498c86f2478fef8e4c3efa96888311"
+  },
+  "successor_contract": {
+    "path": "p0_r06g_timestep_output_contract.json",
+    "sha256": "sha256:8c2ada9502bc8088ac1de1513bf81b4b23963e4142fdcea6e87b7b9b7bb13831",
+    "frozen_pre_generation_snapshot": true
+  },
+  "submission_matrix": {
+    "path": "submission_matrix.csv",
+    "sha256": "sha256:ae2fa8cab8f0f87cb7852e0464518b5b4342ba67cb3e4bea5683ff8ef97df95b"
+  },
+  "job_count": 1,
+  "paired_experiment_count": 1,
+  "jobs": [
+    {
+      "job_id": "r06g_0800_tssfac02",
+      "directory": "job_01_v0800_tssfac02",
+      "experiment_id": "r06g_timestep_refinement_800",
+      "role": "no_mass_scaling_timestep_refinement",
+      "deck": "r06g_0800_tssfac02.k",
+      "deck_sha256": "sha256:b5f4da367e9ef6eaae7098e47a84610eb55c51760cc9bf8dbb4721693b7a732a",
+      "manifest_sha256": "sha256:a10bddc365f66cec935524b4c9191f209b7ed145aef457b911b5319a1784fced"
+    }
+  ],
+  "prohibited_inference": "Generation and static validation do not establish target-solver parsing, numerical response, physical validity, or P0/P1 admission."
+}

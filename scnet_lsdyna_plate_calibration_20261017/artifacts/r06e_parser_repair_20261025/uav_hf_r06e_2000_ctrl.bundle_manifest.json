@@ -1,0 +1,63 @@
+{
+  "schema_version": "hf-p0-r06-diagnostic-bundle@1.0.0",
+  "package_revision": "R06_keyword_parser_repair_20261025",
+  "job_id": "r06e_2000_ctrl",
+  "experiment_id": "r06_diag_2000_psfail",
+  "role": "paired_control",
+  "status": "prepared_not_submitted_not_solver_validated",
+  "head_deck": "r06e_2000_ctrl.k",
+  "file_policy": "explicit_whitelist_one_head_deck",
+  "files": [
+    {
+      "path": "UPLOAD_README.txt",
+      "size_bytes": 1823,
+      "sha256": "sha256:00ff9acd2f9eeb259e9af49ab04d5ef8629052cd1ebc0db0865e9d3d2d3f4219"
+    },
+    {
+      "path": "jc4340_reference.json",
+      "size_bytes": 3144,
+      "sha256": "sha256:9b462b920459e57641d5f89d10d36c0aa0498c86f2478fef8e4c3efa96888311"
+    },
+    {
+      "path": "job_contract.json",
+      "size_bytes": 1703,
+      "sha256": "sha256:c247d3b1205533aa3490f39f20496bad1c3bbbc9af88485fb80970e0e265884f"
+    },
+    {
+      "path": "manifest.json",
+      "size_bytes": 2448,
+      "sha256": "sha256:7a0cf586642461691465adf7105ed45f77548930c205a04201449d3c0acb8e6c"
+    },
+    {
+      "path": "p0_case_part_map.csv",
+      "size_bytes": 458,
+      "sha256": "sha256:2e921e5e2e57f77eb5c3de5ed6f3e1451a77b238d8b61877ae8cc9df6e8423bd"
+    },
+    {
+      "path": "p0_r06_keyword_parser_repair_design.json",
+      "size_bytes": 13841,
+      "sha256": "sha256:508ec347a884dd124ef0bf3ffd7bb40f0c57fd466953b5a4b085ff066693c111"
+    },
+    {
+      "path": "p0_r06_real_output_contract.json",
+      "size_bytes": 6077,
+      "sha256": "sha256:71371ee8726fe95899de33aef163d8a9725d9f43781d5775de10fa2afc150795"
+    },
+    {
+      "path": "r06e_2000_ctrl.k",
+      "size_bytes": 2718983,
+      "sha256": "sha256:911e6deb40b393428cb2250fec348c24bf9747c09a2ce047921c3e792cc2025e"
+    },
+    {
+      "path": "static_validation.json",
+      "size_bytes": 2486,
+      "sha256": "sha256:eb4f8d276d09df4e5807457f84ee6620df056d525edbc2c8985d1c46a3331e5e"
+    }
+  ],
+  "prohibited_inference": "Bundle and static PASS do not establish parser/runtime, numerical response, physical validity, or P0/P1 admission.",
+  "bundle": {
+    "path": "uav_hf_r06e_2000_ctrl.zip",
+    "size_bytes": 424385,
+    "sha256": "sha256:fc27fe9c45147ba458e436e1045576d4883ae78f6205c431d9417d260445e640"
+  }
+}

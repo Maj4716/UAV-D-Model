@@ -1,0 +1,126 @@
+{
+  "schema_version": "hf-p0-r05-job-audit@1.0.0",
+  "audit_date": "2026-10-23",
+  "source_directory": "D:/Desktop/UAV新/scnet_lsdyna_plate_calibration_20261017/05",
+  "raw_source_modified": false,
+  "run_identity": {
+    "job_id": "72252362",
+    "job_name": "uav_hf_p0_plate_r05_retry1",
+    "compute_host": "h05r2n31",
+    "solver_build": "LS-DYNA MPP double R15.0.2-1-g1e7cfa42b1 I8R8 Intel-MPI 2018",
+    "nodes": 1,
+    "mpi_ranks": 32,
+    "head_memory_mb": 512,
+    "child_memory_mb": 256,
+    "problem_time_ms": 0.040003,
+    "cycles": 5344,
+    "normal_termination": true
+  },
+  "artifact_identity": {
+    "all_eight_returned_candidate_files_match_authoritative_candidate": true,
+    "deck_sha256": "sha256:6fbd753a113d0214e7ba4ff5136dc526d151e6f2c52c94e70399b29c4b9d3d0c",
+    "design_sha256": "sha256:b1d2027d57fc6d9cd1ee3f932ea044fd16a112344d8f2b6f508071f45191a06f",
+    "case_map_sha256": "sha256:b05b59249e49c3e9d15904f475c2f9478bdff1638fb797d1b552298490aa5295",
+    "manifest_sha256": "sha256:e178b6c28832519aaa2befdc969dcd93d2141ea4073ad740b52b17968d92ba44",
+    "d3part_family_sha256": "sha256:8f24005080f09cbfd1b81dd2f0f97d4abb3158e7133207f44beccb9852346af7"
+  },
+  "returned_data": {
+    "file_count": 120,
+    "total_bytes": 3606867357,
+    "d3part_file_count": 8,
+    "d3part_total_bytes": 776146944,
+    "d3plot_file_count": 19,
+    "d3plot_total_bytes": 2077720576,
+    "rank_message_file_count": 32,
+    "d3part": {
+      "readable_by_lasso_python_2_0_4": true,
+      "state_count": 802,
+      "first_time_ms": 0.0,
+      "last_time_ms": 0.040002637597628225,
+      "minimum_state_interval_ms": 0.000006027376444617261,
+      "maximum_state_interval_ms": 0.00006462719373816848,
+      "node_count": 7737,
+      "solid_count": 5680,
+      "used_solid_part_ids": [2001, 2002, 2003, 2004, 2005, 2006, 2007],
+      "zero_solid_catalog_part_ids": [1001, 1002, 1003, 1004, 1005, 1006, 1007]
+    }
+  },
+  "solver_side_gates": {
+    "license_checkout": "pass",
+    "keyword_reader": "pass_with_warning",
+    "all_32_ranks_normal_termination": "pass",
+    "fatal_or_error_termination": "pass_none_found",
+    "total_energy_ratio": {
+      "status": "pass",
+      "minimum": 0.968466,
+      "maximum": 1.00216,
+      "frozen_limits": [0.95, 1.05]
+    },
+    "hourglass_to_internal": {
+      "status": "pass",
+      "maximum_absolute_ratio": 0.0,
+      "frozen_maximum": 0.05
+    },
+    "mass_scaling": {
+      "solver_evidence_status": "pass",
+      "parts_with_added_mass": 0,
+      "dt2ms": 0.0,
+      "formal_hash_bound_evidence_document": "not_yet_generated"
+    },
+    "negative_volume_and_erosion": {
+      "status": "fail_requires_case_level_resolution",
+      "negative_volume_unique_elements": 628,
+      "other_failed_solid_elements": 1620,
+      "total_failed_solid_elements": 2248,
+      "final_fragment_solid_deletions": 1396,
+      "initial_fragment_solid_count": 5680
+    }
+  },
+  "r15_keyword_compatibility": {
+    "status": "fail_for_next_candidate",
+    "warning": "KEY+457 too many items in line only 5 expected",
+    "deck_d3part_field_count": 8,
+    "r15_accepted_field_count": 5,
+    "psetid_in_field_5_effective": true,
+    "decision": "preserve R05 evidence; generate R06 with the R15-compatible five-field D3PART card"
+  },
+  "formal_d3part_extraction": {
+    "status": "fail_closed",
+    "first_error": "maximum D3PART state interval exceeds the frozen output interval",
+    "frozen_interval_ms": 0.00005,
+    "frozen_tolerance_upper_bound_ms": 0.00005005,
+    "actual_maximum_interval_ms": 0.00006462719373816848,
+    "intervals_exceeding_current_bound": 392,
+    "interval_count": 801,
+    "second_error_after_diagnostic_time_gate_bypass": "D3PART PID set differs from the exact fragment PID set",
+    "second_error_cause": "reader part catalog includes seven plate PIDs with zero solids; the actually referenced solid PID set is exactly the seven fragment PIDs",
+    "qualification_payload_generated": false
+  },
+  "diagnostic_only_capture_ledger": {
+    "qualification_use_forbidden": true,
+    "nonqualifying_normalizations": [
+      "temporarily changed the in-memory interval bound from 0.00005 to 0.000065 ms",
+      "ignored zero-solid plate PID metadata and remapped the seven used fragment PIDs"
+    ],
+    "cases": [
+      {"case_id": "p0_v0600_h0p75", "classification": "confirmed_nonperforation", "deleted_upstream_mass_fraction": 0.0, "tail_qM": 0.0},
+      {"case_id": "p0_v0800_h0p75", "classification": "unavailable", "deleted_upstream_mass_fraction": 0.19825072619906742, "tail_qM": 0.026239067301984945},
+      {"case_id": "p0_v1000_h0p75", "classification": "unavailable", "deleted_upstream_mass_fraction": 0.24781340758212825, "tail_qM": 0.12682215661006777},
+      {"case_id": "p0_v1200_h0p75", "classification": "unavailable", "deleted_upstream_mass_fraction": 0.24344022985400898, "tail_qM": 0.0},
+      {"case_id": "p0_v2000_h0p75", "classification": "unavailable", "deleted_upstream_mass_fraction": 0.6530612148685321, "tail_qM": 0.0},
+      {"case_id": "p0_v2000_h1p00", "classification": "unavailable", "deleted_upstream_mass_fraction": 0.7559999865564393, "tail_qM": 0.0},
+      {"case_id": "p0_v2000_h0p50", "classification": "unavailable", "deleted_upstream_mass_fraction": 0.12199999668040871, "tail_qM": 0.0}
+    ],
+    "interpretation": "Even after removing the two software-integration false negatives, six of seven cases remain unavailable and the speed and mesh gates necessarily fail."
+  },
+  "admission": {
+    "solver_execution": "pass",
+    "formal_d3part_integration": "fail_closed",
+    "p0_response_calibration": "denied",
+    "p1_submission": "denied",
+    "engine_fit": "denied",
+    "dataset_generator_promotion": "denied",
+    "sealed_test_accessed": false
+  },
+  "recommended_next_action": "Repair and regression-test the real-output adapter and run-integrity evidence contract locally, then map deletion modes and locations from this frozen run before designing reduced single-case R06 diagnostics. Do not submit another seven-case job yet."
+}

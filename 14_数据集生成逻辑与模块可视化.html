@@ -1,0 +1,280 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>数据集生成：逻辑与模块</title>
+<style>
+:root{color-scheme:light dark;--bg:#f6f7f9;--surface:#fff;--text:#202832;--muted:#56616d;--line:#d8dde4;--active:#174a62;--active-text:#fff;--soft:#e9f1f5;--warn:#805219;--warn-bg:#fff4df;--reserved:#696078;--reserved-bg:#f3eef8}
+@media(prefers-color-scheme:dark){:root{--bg:#141a20;--surface:#1b242c;--text:#e7edf2;--muted:#b3bfca;--line:#3c4955;--active:#b2d7e8;--active-text:#152c38;--soft:#263a46;--warn:#f2cd87;--warn-bg:#352b1c;--reserved:#d3bce9;--reserved-bg:#2d2635}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,"Segoe UI","Microsoft YaHei",sans-serif;line-height:1.65}main{max-width:1320px;margin:auto;padding:32px clamp(16px,4vw,48px) 48px}h1,h2,h3,p{margin-top:0}h1{font-size:clamp(24px,3vw,34px);font-weight:600;line-height:1.3;margin-bottom:10px}h2{font-size:20px;font-weight:600}h3{font-size:16px;font-weight:600;margin-bottom:8px}p{margin-bottom:12px}.sub,.small{color:var(--muted)}.small{font-size:13px}code,pre{font-family:ui-monospace,"Cascadia Code",Consolas,monospace}code{font-size:.9em;overflow-wrap:anywhere}pre{margin:0;white-space:pre-wrap;overflow-wrap:anywhere;font-size:13px;line-height:1.7}button{font:inherit;color:inherit;background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:8px 14px;cursor:pointer}button:hover{background:var(--soft)}button:focus-visible,a:focus-visible,summary:focus-visible{outline:3px solid var(--active);outline-offset:3px}button[aria-pressed=true],button[role=tab][aria-selected=true]{background:var(--active);border-color:var(--active);color:var(--active-text)}button[aria-pressed=true] .small{color:inherit}.modebar{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin:20px 0 16px}.mode-label{font-size:14px;color:var(--muted)}.version{margin-left:auto;font-size:13px;color:var(--muted)}.tabs{display:flex;gap:6px;flex-wrap:wrap;border-bottom:1px solid var(--line);padding-bottom:14px;margin-bottom:24px}.tabs button{background:transparent;border-color:transparent}.tabs button[aria-selected=true]{background:var(--active)}[hidden]{display:none!important}.notice{padding:12px 16px;border-left:3px solid var(--warn);background:var(--warn-bg);color:var(--text);margin:16px 0 24px}.notice p:last-child{margin-bottom:0}.layout{display:grid;grid-template-columns:minmax(270px,.82fr) minmax(0,1.6fr);gap:32px;align-items:start}.timeline{list-style:none;margin:0;padding:0}.timeline li{position:relative;padding-left:34px;padding-bottom:16px}.timeline li:not(:last-child):before{content:"";position:absolute;left:14px;top:32px;bottom:-8px;border-left:1px solid var(--line)}.timeline .number{position:absolute;left:0;top:14px;border-radius:50%;width:28px;height:28px;text-align:center;font-size:13px;background:var(--soft);line-height:28px;font-variant-numeric:tabular-nums}.stage{display:block;text-align:left;width:100%;border-color:transparent;padding:12px 14px}.stage .title{display:block;font-weight:600}.stage .small{display:block;font-size:12px}.detail{background:var(--surface);padding:24px;border-radius:12px;min-width:0}.detail h2{margin-bottom:12px}.detail h3{margin-top:22px}.detail ul{padding-left:20px;margin:8px 0 0}.detail li{margin:5px 0}.io{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin:20px 0}.io div{padding-top:10px;border-top:2px solid var(--line)}.io h3{margin:0 0 8px}.io p{font-size:14px;margin:0}.code-list{display:flex;gap:7px;flex-wrap:wrap}.code-list code{background:var(--soft);padding:3px 7px;border-radius:4px}.source{font-size:12px;color:var(--muted);margin-top:24px;border-top:1px solid var(--line);padding-top:12px}.tag{display:inline-block;font-size:12px;line-height:1.6;background:var(--soft);color:var(--text);padding:3px 8px;border-radius:4px;margin-bottom:10px}.flow-note{font-size:13px;color:var(--muted);margin-top:8px}.module-lanes{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:22px;position:relative;margin-bottom:24px}.lane{min-width:0}.lane h3{border-top:2px solid var(--line);padding-top:12px}.lane:not(:last-child) h3:after{content:" →";color:var(--muted)}.module-button{display:block;width:100%;margin:8px 0;text-align:left;font-size:13px;line-height:1.5;padding:10px;overflow-wrap:anywhere}.module-button .small{display:block;font-size:12px;margin-top:4px}.reserved{border:1px dashed var(--reserved);color:var(--reserved);padding:14px 16px;margin-top:18px;background:var(--reserved-bg);border-radius:8px}.reserved button{background:transparent;color:inherit}.relations{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:20px}.relations .item{padding:5px 10px;background:var(--soft);border-radius:4px;font-size:13px}.table-wrap{overflow-x:auto}table{border-collapse:collapse;width:100%;text-align:left;font-size:14px}th,td{padding:12px 10px;vertical-align:top;border-bottom:1px solid var(--line)}th{font-weight:600;color:var(--muted)}td:first-child{min-width:180px}caption{text-align:left;font-weight:600;margin-bottom:12px}td code{font-size:12px}.axis{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:16px;margin-bottom:24px}.axis-box{padding:18px;background:var(--surface);border-radius:8px}.axis-box p{font-size:14px;margin-bottom:0}.axis-box h3{margin-bottom:6px}.axis-arrow{color:var(--muted);font-size:24px}.contract-sections{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:28px}.contract-sections section{min-width:0}.mask-list{display:grid;grid-template-columns:minmax(160px,.8fr) 1.2fr;gap:0 18px;margin:0;font-size:14px}.mask-list dt,.mask-list dd{margin:0;padding:10px 0;border-bottom:1px solid var(--line)}.contract-sections h3{margin-top:0}.files{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:28px}.tree,.states{background:var(--surface);padding:22px;border-radius:10px;min-width:0}.tree pre{font-size:12px}.state-line{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin:18px 0}.state-line span{background:var(--soft);padding:8px 10px;border-radius:5px;font-size:13px}.state-line b{font-weight:400;color:var(--muted)}.states ul{padding-left:18px;font-size:14px}.state-title{border-top:1px solid var(--line);padding-top:22px;margin-top:24px}.warning-title{color:var(--warn)}.boundaries{margin-top:26px;display:grid;grid-template-columns:1fr 1fr;gap:20px}.boundaries section{border-top:2px solid var(--line);padding-top:16px}.boundaries ul{font-size:14px;padding-left:20px}.evidence{border-top:1px solid var(--line);margin-top:28px;padding-top:18px;color:var(--muted);font-size:13px}.evidence summary{cursor:pointer}.evidence ul{columns:2;padding-left:20px}.evidence code{font-size:12px}footer{margin-top:30px;color:var(--muted);font-size:12px;border-top:1px solid var(--line);padding-top:16px}noscript{display:block;padding:24px;background:var(--warn-bg)}
+@media(max-width:1040px){.module-lanes{grid-template-columns:repeat(3,minmax(0,1fr))}.version{width:100%;margin-left:0}.files{grid-template-columns:1fr}.layout{grid-template-columns:minmax(260px,.8fr) minmax(0,1.2fr);gap:20px}}
+@media(max-width:720px){main{padding-top:22px}.layout,.contract-sections,.boundaries{grid-template-columns:1fr}.detail{padding:18px}.timeline{display:grid;grid-template-columns:1fr 1fr;gap:6px}.timeline li{padding-left:0;padding-bottom:0}.timeline li:not(:last-child):before{display:none}.timeline .number{display:none}.stage{height:100%;padding:10px}.stage .title{font-size:14px}.stage .small{font-size:12px}.io{grid-template-columns:1fr}.module-lanes{grid-template-columns:1fr 1fr;gap:16px}.axis{grid-template-columns:1fr}.axis-arrow{text-align:center;transform:rotate(90deg)}.mask-list{grid-template-columns:1fr;gap:0}.mask-list dt{border:0;padding-bottom:0}.mask-list dd{padding-top:3px}.evidence ul{columns:1}.modebar button{flex:1}.mode-label{width:100%}td:first-child{min-width:150px}}
+@media(max-width:380px){.timeline,.module-lanes{grid-template-columns:1fr}.tabs button{padding:8px 10px;font-size:14px}}
+@media(pointer:coarse){button{min-height:44px}}
+@media print{body{background:white;color:black}main{max-width:none;padding:0}.tabs,.modebar button{display:none}.detail,.tree,.states{break-inside:avoid}footer{color:black}}
+</style>
+</head>
+<body>
+<main id="dataset-map">
+<header>
+<p class="small">当前工作区代码导览 · 2026-10-11 · 0.6.0.dev2</p>
+<h1>数据集生成：逻辑与模块</h1>
+<p class="sub">从案例与采样计划，到可审计的归档，再到 PyTorch 样本。点击流程节点或模块，查看它负责什么、接收什么、产出什么。</p>
+</header>
+<div class="modebar" role="group" aria-label="生成入口">
+<span class="mode-label">生成入口</span>
+<button type="button" data-mode="sampling" aria-pressed="true">采样计划 / pilot</button>
+<button type="button" data-mode="direct" aria-pressed="false">已有案例 / generate</button>
+<span id="version-label" class="version">manifest 1.4.0 · tensor 1.6.0</span>
+</div>
+<nav class="tabs" role="tablist" aria-label="代码可视化视图">
+<button type="button" id="tab-flow" role="tab" aria-controls="view-flow" aria-selected="true" data-view="flow">生成流程</button>
+<button type="button" id="tab-modules" role="tab" aria-controls="view-modules" aria-selected="false" data-view="modules">模块关系</button>
+<button type="button" id="tab-contract" role="tab" aria-controls="view-contract" aria-selected="false" data-view="contract">张量与 mask</button>
+<button type="button" id="tab-archive" role="tab" aria-controls="view-archive" aria-selected="false" data-view="archive">文件与恢复</button>
+</nav>
+<section id="view-flow" role="tabpanel" aria-labelledby="tab-flow">
+<p id="entry-summary" class="flow-note"></p>
+<div class="layout">
+<ol id="flow-nodes" class="timeline" aria-label="按执行顺序排列的生成阶段"></ol>
+<article id="flow-detail" class="detail" aria-live="polite" aria-atomic="true"></article>
+</div>
+<div class="notice"><p><strong>两条入口共用同一套 writer 与 loader。</strong>普通 generate 不会自动替你设计参考分布，也不会自动建立采样计划；pilot 先固定计划与 validation/test，再调用分片 writer。这里把计算引擎作为单案例结果服务，不展开领域机理。</p></div>
+</section>
+<section id="view-modules" role="tabpanel" aria-labelledby="tab-modules" hidden>
+<h2>模块按职责分层，而不是各自独立生成数据</h2>
+<p class="sub">下列列序表示主依赖方向；安全检查贯穿多层。点击任意模块，下方显示关键调用与源码位置。</p>
+<div id="module-lanes" class="module-lanes" aria-label="输入契约、计划、生产、归档和读取五层模块"></div>
+<article id="module-detail" class="detail" aria-live="polite" aria-atomic="true"></article>
+<div class="reserved"><h3>预留原语，不是已经运行的主动学习闭环</h3><p>当前 CLI 仅有 validate-plan / init / pilot / audit。pilot 全选参考候选；没有自动训练模型、候选评分、筛选标签与多轮选样的循环。</p><button type="button" data-module="adaptive">查看 adaptive_sampling.py 的接入边界</button></div>
+</section>
+<section id="view-contract" role="tabpanel" aria-labelledby="tab-contract" hidden>
+<h2>成功样本与完整输入，是两条不同的轴</h2>
+<div class="axis" aria-label="完整输入经状态分流，成功结果进入标签轴，拒绝项保留身份映射">
+<div class="axis-box"><h3>N：全部输入</h3><p><code>input_case_ids / input_case_status</code><br>成功与拒算记录都保留；1.6 还保留完整候选身份与冻结 split。</p></div>
+<span class="axis-arrow" aria-hidden="true">→</span>
+<div class="axis-box"><h3>B：执行成功的样本</h3><p><code>input_to_valid_index</code> 映射到 B 轴。<br>拒算项对应 <code>-1</code>，不伪造零标签；B 不代表科研准入数。</p></div>
+</div>
+<p id="contract-summary" class="sub"></p>
+<div class="table-wrap"><table><caption id="contract-caption">主要张量族</caption><thead><tr><th scope="col">字段 / 张量族</th><th scope="col">形状</th><th scope="col">数据角色与解释</th></tr></thead><tbody id="contract-rows"></tbody></table></div>
+<p class="small">符号：C 部件，A 外部结构，M 机制，S 状态，K 外部结构指标，U 辅助标签，O 系统输出，T 标签任务，G 图节点，E_edge 图边，E_standard 评价标准。F_* 为特征轴；每个命名轴、单位、dtype 都由 manifest 声明，不能凭数组长度猜语义。</p>
+<div class="contract-sections">
+<section><h3>mask 不是一张总开关</h3><dl id="mask-list" class="mask-list"></dl></section>
+<section><h3>归档字段 ≠ 模型的全部输入</h3><p id="input-separation"></p><div class="relations" aria-label="数据加载后由调用方选择模型输入"><span class="item">归档：完整审计字段</span><span aria-hidden="true">→</span><span class="item">Dataset：返回选定字段</span><span aria-hidden="true">→</span><span class="item">调用方：明确 forward 输入</span></div><div class="notice"><p>标签、辅助输出与不确定性都是输出侧信息，不能无意混入输入侧。当前工程提供字段分离与可用性校验，但不自动训练网络或保证无泄漏研究设计。</p></div><h3>标签定义与数值估计分开核对</h3><p>LabelSpec 约束多标签、序数、互斥等任务的含义；概率是否合法，与任务语义是否完整，是两项检查。互斥任务要求显式背景类别与概率和；多标签事件不应被强制解释为互斥类别。</p><p>仅一次重复可以保留均值，但无法估计标准差与区间。归档用 uncertainty mask 与 sample_count 表达这一差别，而不是填写“零不确定性”。</p></section>
+</div>
+<p class="source">源码：dataset.py:1403、1519、1556、1570、1656；label_spec.py:163；archive_validation.py:170；torch_dataset.py:57、1016。</p>
+</section>
+<section id="view-archive" role="tabpanel" aria-labelledby="tab-archive" hidden>
+<h2>文件组织与恢复边界</h2>
+<p id="archive-summary" class="sub"></p>
+<div class="files">
+<section class="tree"><h3>实际文件关系</h3><pre id="file-tree"></pre><p class="source">每个 part 是完整的单目标单包归档。根 manifest 汇总已提交的精确文件集合，不依赖 part-* 通配符。</p></section>
+<section class="states"><h3>分片 checkpoint 2.0：计算归档层</h3><div class="state-line" aria-label="分片提交顺序"><span>完整输入冻结</span><b>→</b><span>临时分片</span><b>→</b><span>分片改名提交</span><b>→</b><span>checkpoint 更新</span><b>→</b><span>根 manifest 发布</span><b>→</b><span>complete</span></div><p>提交次序是文件关系的一部分。每片通过 DatasetWriter 生成；提交后保存案例身份、候选身份和文件哈希；全部片完成后才形成根 manifest。</p><ul><li>恢复要求输入数量、顺序、外部内容、执行环境和配置一致。</li><li>已提交片必须重新校验；匹配后跳过计算。完成后的 resume 是验证完整归档，不是追加案例。</li><li>孤儿分片、未知临时目录与残留写锁会阻止恢复；程序不自行删掉不明证据。</li></ul><div id="sampling-state"><h3 class="state-title">sampling checkpoint 2.0：计划与完成核验层</h3><div class="state-line"><span>initialized</span><b>→</b><span>正式分片档案 complete</span><b>→</b><span>全输入与文件一致性核验</span><b>→</b><span>archive_complete</span></div><p>核对候选 / 正式输入 / 结果 / 分片 / registry 的身份与次序，并分别记录 selected、executed、successful、refused、admitted-by-purpose 集合。</p><p class="warning-title"><strong>archive_complete 只表示归档核验完成，不授予科学验证或研究训练准入。</strong></p><p class="small">sampler audit 验证 checkpoint 并读取固定的计划审计，不等于重新评估成功样本集合的实际覆盖质量。</p></div><p class="source">sharded_dataset.py:406、509、591；sampling_checkpoint.py:240、349、502。</p></section>
+</div>
+<div class="boundaries">
+<section><h3>目前已有的工程保护</h3><ul><li>输入先完整落到快照，再执行；外部文件按内容与格式绑定，路径另外保存。</li><li>排他写锁、incomplete 标志、临时文件原子替换和精确提交清单。</li><li>拒算留档；输入轴与成功标签轴可追溯。</li><li>loader 在子集读取之前核验完整档案；默认 copy_on_read 防止原地修改污染缓存。</li></ul></section>
+<section><h3>目前不能由本图推定的能力</h3><ul><li>不是无限流生成器：有限输入先全部 spool；单包 writer 将一批数据物化在内存中。</li><li>分片限制单片张量规模，但全局身份和 split 元数据仍是 O(N)，累计 checkpoint 重写量可能二次增长。</li><li>分片 loader 初始化逐片解压校验；LRU 只是后续访问缓存，不等于启动不读全库。</li><li>原子替换与 fsync 不构成已验证的掉电事务保障；旧档案不会自动升级新契约。</li></ul></section>
+</div>
+</section>
+<details class="evidence"><summary>源码依据、版本和阅读边界</summary><p>本图依据当前工作区源码，而不是仅依据已提交的 HEAD（473c735）。版本信息来自 pyproject.toml；合同版本来自 DatasetWriter 的实际分支。标注的行号是生成页面时的位置，后续源码变动后需要重新核对。</p><ul id="source-index"></ul><p>新输出采用 synthetic_teacher 来源。通过 schema、哈希、档案一致性或软件测试，并不证明物理有效性、现实独立性、覆盖充分或研究用途准入。本次仅整理软件模块与数据流，没有运行领域计算、生成训练数据或训练模型。</p></details>
+<footer>单文件离线页面 · 无外部脚本、字体或网络请求 · 只新增此导览文件，未改变引擎行为。</footer>
+<noscript>本页面需要浏览器允许本地 JavaScript 才能显示可点击流程与模块细节。静态的轴关系、文件提交顺序与工程边界仍可阅读。</noscript>
+</main>
+<script>
+(() => {
+"use strict";
+const root = document.getElementById("dataset-map");
+const byId = id => document.getElementById(id);
+const esc = value => String(value).replace(/[&<>"']/g, ch => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[ch]));
+const modules = {
+cli:{name:"cli.py",group:0,short:"选择入口与执行选项",about:"把命令行参数路由到已有案例生成器或参考 pilot 协调器。generate 根据 shard_size 选择单包/分片；sampler 把初始化、执行和完成核验串在一起。",calls:["command_generate → DatasetWriter / ShardedDatasetWriter","command_sampler_pilot → initialize_sampling_run → ShardedDatasetWriter → mark_pilot_complete"],inputs:"目标、参数注册表、案例/模板、采样与标签合同、执行参数",outputs:"writer manifest 或采样状态摘要",checks:["resume 必须配合分片生成；workers / chunksize / shard_size 合法。","validate-plan 不执行标签，也不发布档案；audit 读取固定审计并先验证 checkpoint。"],sources:["cli.py:122","cli.py:203","cli.py:231","cli.py:253","cli.py:319"]},
+sampling:{name:"sampling_spec.py",group:0,short:"参考设计、预算与随机种子",about:"SamplingSpec 以版本化文档定义采样设计，不由执行结果倒推设计。JSON Schema 与额外语义检查约束变量、分布和独立种子。",calls:["SamplingSpec.from_file → SamplingSpec","CaseFactory 使用 variables / seeds / budgets"],inputs:"sampling_spec.json",outputs:"规范化可访问的采样合同、定义哈希",checks:["变量名和 JSON Pointer 路径不可冲突；定义边界与预算须有效。","当前 pilot 是参考计划；实际覆盖是否充分仍需独立研究设计。"],sources:["sampling_spec.py:35"]},
+label:{name:"label_spec.py",group:0,short:"任务含义与输出可用性",about:"LabelSpec 把学习任务定义与事件计算分开。它绑定当前输出定义，并校验输出值和整项任务可用性；不实现网络训练。",calls:["validate_output_vocabulary","validate_system_outputs → task availability","system_output_availability"],inputs:"label_spec.json、输出词表、标签数组和来源 mask",outputs:"任务定义、task mask、定义哈希",checks:["多标签、序数和互斥任务不是同一种数组语义。","序数/互斥任务要求完整输出；互斥类别含显式背景并满足概率和。","序数转换和阈值模糊辅助函数未自动接入 pilot 标签转换。"],sources:["label_spec.py:61","label_spec.py:147","label_spec.py:163","label_spec.py:208"]},
+factory:{name:"case_factory.py",group:1,short:"模板变成正式案例与候选账本",about:"CaseFactory 采用随机 LHS 建立参考候选，把采样值写入模板，检查约束，建立候选/谱系/种子身份，冻结 registry 后才把完整采样 envelope 放入正式案例。",calls:["build_reference_plan → randomized_lhs","learning_input_fingerprint → SplitRegistry.register → freeze"],inputs:"基准案例、SamplingSpec、LabelSpec、目标/定义/代码哈希",outputs:"ReferencePlan：formal cases、candidate rows、冻结 registry",checks:["validation → test → train_pilot 角色在观测标签前固定。","参考 pilot 候选全选：入选概率与原始设计权重均为 1。","screen_count=0；没有筛选标签执行；rare_stress_test 非零预算当前拒绝。"],sources:["case_factory.py:163","case_factory.py:194","case_factory.py:240","case_factory.py:300"]},
+split:{name:"split_registry.py",group:1,short:"预先固定 train / validation / test",about:"按 lineage 与 epistemic group 登记唯一 split。冻结后不接受新指派；反序列化会重新计算定义哈希，不相信一个孤立的哈希字符串。",calls:["register → freeze","from_dict → 重算摘要"],inputs:"候选谱系、角色、群组与 split",outputs:"可解析的冻结 registry 文档和哈希",checks:["同组不能横跨 split；adaptive_train 只准进入 train。","结果盲切分与哈希分组不等于现实样本的物理/统计独立性。"],sources:["split_registry.py:35","split_registry.py:48","split_registry.py:94","split_registry.py:155"]},
+samplingCheckpoint:{name:"sampling_checkpoint.py",group:1,short:"计划提交与 archive_complete 核验",about:"采样运行的上层事务：固定计划、输入快照、注册表与文件清单，之后检查正式归档是否真的完整。完成状态与研究准入分开。",calls:["initialize_sampling_run → CaseFactory → validate_inputs → 固定文件","mark_pilot_complete → _verify_formal_archive → archive_complete"],inputs:"参考合同、模板快照、ReferencePlan、正式档案 manifest",outputs:"sampling_checkpoint.json 2.0、plan、round-000、audits",checks:["采样锁覆盖初始化、正式执行和完成核验；当前仅轮次 [0]。","既验证输入顺序与候选身份，也核对拒算项与用途准入数量。","archive_complete 不证明 realized sampling quality 或科学有效性。"],sources:["sampling_checkpoint.py:40","sampling_checkpoint.py:240","sampling_checkpoint.py:288","sampling_checkpoint.py:349","sampling_checkpoint.py:502"]},
+samplingAudit:{name:"sampling_audit.py",group:1,short:"设计层审计与权重诊断",about:"核对完整候选、选中集合、指派、入选概率与原始设计权重，计算 ESS 等描述性诊断。初始化审计是设计层，不等于对实际成功样本的覆盖放行。",calls:["audit_sampling → validate_candidate_set","effective_sample_size"],inputs:"候选账本、latent design、quality_gates、registry，可选执行/成功/准入候选集合",outputs:"audits/sampling_quality.json",checks:["覆盖状态明确为 descriptive_only；无 coverage guarantee。","raw design weight 不是类别权重，也不是 minibatch 抽样概率。"],sources:["sampling_audit.py:25","sampling_audit.py:84","sampling_audit.py:160"]},
+input:{name:"input_identity.py",group:2,short:"全输入快照、外部内容身份与写锁",about:"完整有限输入先写入磁盘 spool，外部引用文件复制为内容快照。身份包含数量、顺序摘要与依赖内容/格式；原路径另作为执行 provenance。",calls:["freeze_case_inputs → FrozenCaseInputs","case_identity_hash / capture_environment_identity","single_writer_lock"],inputs:"案例 iterable、cases_base_directory、外部引用文件",outputs:"FrozenCase、输入身份、依赖快照、执行环境身份",checks:["捕获期间外部内容变化会拒绝。相同内容移位置不改变逻辑身份。","Python API 中相对引用必须提供 base directory。","冻结是有限输入先全部 spool，不是无限在线输入流。"],sources:["input_identity.py:34","input_identity.py:114","input_identity.py:149","input_identity.py:254"]},
+learningIdentity:{name:"learning_input_identity.py",group:2,short:"重复学习输入与泄漏指纹",about:"剔除案例 ID、metadata、执行种子、重复次数与停止控制等，不把同一学习输入的不同 Monte Carlo 执行当作不同研究对象。",calls:["learning_input_fingerprint","DatasetWriter._physical_case_key","CaseFactory 重复输入检查"],inputs:"案例定义",outputs:"保守学习输入指纹 / leakage key",checks:["用于组切分和精确重复泄漏审计。","不能识别所有近似重复，也不证明现实独立研究单位。"],sources:["learning_input_identity.py:8","dataset.py:604","case_factory.py:240"]},
+writer:{name:"dataset.py",group:2,short:"单批执行、特征标签整理与单包发布",about:"DatasetWriter 是两条入口共用的生产核心。它执行一批案例，核对结果 provenance，把成功记录整理为数组和长表，保留完整输入审计并发布 manifest。",calls:["run_cases → _run_frozen_cases → _run_case","write → validate_precomputed_results → _write_frozen","_write_frozen → NPZ / Parquet / manifest"],inputs:"引擎、冻结案例、EngineResult，或已生成的结果",outputs:"results.jsonl、tensors.npz、9 张 Parquet、manifest",checks:["case_id 唯一且非空；多进程 map 保持输入顺序。","sampling envelope 必须与当前目标/注册表/代码/标签定义匹配。","单包 writer 会将一批案例、结果、数组和行表物化在内存。"],sources:["dataset.py:796","dataset.py:818","dataset.py:835","dataset.py:883","dataset.py:932"]},
+engine:{name:"engine.py",group:2,short:"单案例计算服务（本图黑盒）",about:"DamageEngine.run 返回单案例 EngineResult。这里仅画它与数据生产器的接口：成功结果带输出、统计与 provenance，拒算带结构化原因；不展开或优化领域计算机理。",calls:["DatasetWriter._run_case → DamageEngine.run","_initialize_worker → 每进程引擎实例"],inputs:"已校验且绑定身份的单案例",outputs:"EngineResult：ok 或 refused",checks:["默认失败隔离并记录；fail-fast 可中止整批。","执行成功不是现实真值或研究准入证明。"],sources:["dataset.py:221","dataset.py:226","dataset.py:241","dataset.py:253"]},
+sharded:{name:"sharded_dataset.py",group:3,short:"逐片提交、checkpoint 与根 manifest",about:"ShardedDatasetWriter 复用 DatasetWriter，不是另一套标签算法。它冻结完整输入，按片执行与提交，累计身份与 split 审计，最后发布根 manifest。",calls:["run_cases → freeze_case_inputs → _run_frozen_cases","新片 → DatasetWriter.run_cases → rename → checkpoint","_aggregate_manifest → root manifest → complete"],inputs:"完整案例序列、shard_size、执行与恢复配置",outputs:"shards/part-*、checkpoint.json 2.0、根 manifest",checks:["只接受精确提交集合；已提交片逐片重验。","完整态 resume 不接受追加、缩短或重排输入。","全局元数据 O(N)；累计 checkpoint 写入可能二次增长。"],sources:["sharded_dataset.py:406","sharded_dataset.py:433","sharded_dataset.py:509","sharded_dataset.py:591","sharded_dataset.py:821"]},
+parquet:{name:"parquet_schema.py",group:3,short:"正式长表显式类型合同",about:"为每张正式 Parquet 表声明 Arrow schema。先验证行字段，再构建 Table，避免空表或全空统计字段改变 dtype。",calls:["table_schema → validate_rows → Table.from_pylist","DatasetWriter._write_parquet"],inputs:"正式表名称与行记录",outputs:"table_schema_version 1.0.0 的正式 Parquet",checks:["未知列与未知嵌套字段拒绝。","列式分析接口与 NPZ 是同一归档的不同视图，不是两个独立真值来源。"],sources:["parquet_schema.py:17","parquet_schema.py:78","dataset.py:271"]},
+candidateSchema:{name:"sampling_candidate_schema.py",group:3,short:"候选账本的独立表合同",about:"候选表不是正式 labels 表。它保存被选样/未进入成功标签轴的设计身份，以显式 schema 固化候选档案。",calls:["sampling_checkpoint._write_candidates_parquet"],inputs:"candidate rows",outputs:"candidates.parquet，sampling-candidates@2.0.0",checks:["候选身份与正式输入、registry 在上层完成检查中交叉核对。"],sources:["sampling_candidate_schema.py","sampling_checkpoint.py:76"]},
+archive:{name:"archive_validation.py",group:3,short:"完整性与张量语义校验",about:"先验证 manifest、用途、文件哈希和完成标志，再核对完整数组的名称/形状/类型/单位/词表/mask/索引与保存的定义。",calls:["load_archive_manifest","validate_tensor_arrays","manifest_label_spec / semantic_vocabulary"],inputs:"manifest、被声明的文件、完整 NPZ arrays",outputs:"受支持且语义一致的归档，或拒绝原因",checks:["子集读取之前仍先检查完整归档。","按合同能力区分版本，不按最大字符串版本推定兼容。","label document、registry document 与全输入映射均要自洽。"],sources:["archive_validation.py:94","archive_validation.py:110","archive_validation.py:170"]},
+samplingValidation:{name:"sampling_validation.py",group:3,short:"候选与 registry 的跨文件核对",about:"把完整 registry 文档重新解析与哈希，验证真实指派。检查所有候选，包括拒算或 masked 的输入，而不是只检查成功样本。",calls:["load_verified_split_registry","validate_registry_assignments / validate_candidate_set","input_sampling_rows_from_arrays"],inputs:"registry document、candidate rows、NPZ 全输入轴",outputs:"已核验的指派与输入候选集合",checks:["candidate ID 全局唯一，同组不得跨 split。","adaptive_train 仅 train；身份字符串必须能被保存定义证实。"],sources:["sampling_validation.py:13","sampling_validation.py:46","sampling_validation.py:56","sampling_validation.py:77"]},
+quality:{name:"quality.py",group:3,short:"预计算结果绑定与用途准入",about:"写入前验证结果是否对应当前输入与引擎。读取时按 purpose 检查独立证据与批准用途；数据结构有效与科学有效分开。",calls:["validate_precomputed_results","synthetic_label_admission / validate_label_admission"],inputs:"结果/provenance、manifest、purpose 与准入证据",outputs:"结果校验、label_admission 或用途拒绝",checks:["默认来源 synthetic_teacher，仅批准 software_development。","research_training / validation / test 需要匹配范围、定义与有效期的独立证据。","n_valid 指执行成功数，不是研究准入数。"],sources:["quality.py:14","quality.py:143","quality.py:158"]},
+torch:{name:"torch_dataset.py：单包",group:4,short:"TorchDamageDataset",about:"Map-style PyTorch Dataset：初始化验证归档，在进程中解压数组，按 split/fields 返回样本。默认 copy_on_read=True。",calls:["TorchDamageDataset → load_archive_manifest → validate_tensor_arrays","__getitem__ → 复制 / 转换所选样本字段"],inputs:"单包目录、split、fields、purpose",outputs:"按字段命名的单样本字典",checks:["1.5/1.6 默认 case_physics_x，不默认返回 solver_context_x。","种子和重复数等审计字段仍可返回；forward 应明确选输入。","Windows spawn 时清空数组缓存，各 worker 重开。"],sources:["torch_dataset.py:57","torch_dataset.py:105","torch_dataset.py:194","torch_dataset.py:264","torch_dataset.py:286"]},
+torchSharded:{name:"torch_dataset.py：分片",group:4,short:"TorchShardedDamageDataset",about:"初始化要求 checkpoint complete，并逐片完整语义验证。访问样本时按需打开片，LRU 控制打开的片缓存。",calls:["_inspect_shard → 全片校验","_open_shard → TorchDamageDataset","__getitem__ → 根据累计片偏移定位"],inputs:"分片根目录、split、max_cached_shards",outputs:"与单包语义一致的样本字典",checks:["根 manifest hash、dataset ID 与精确文件/目录清单必须一致。","默认 2 片 LRU，不等于初始化跳过全库校验。","pickle 丢弃片缓存。"],sources:["torch_dataset.py:361","torch_dataset.py:542","torch_dataset.py:622","torch_dataset.py:654"]},
+multi:{name:"torch_dataset.py：多目标",group:4,short:"TorchMultiTargetDataset + collate",about:"跨单目标档案拼接时先固定全局词表，再按语义名字对齐输出和状态。collate 为变长对象补齐，并将图合成不相交批图。",calls:["TorchMultiTargetDataset → 冻结 semantic vocabulary","DamageBatchCollator → collate_damage_batch"],inputs:"多个单包/分片 Dataset 与样本列表",outputs:"padding + presence mask + 对齐语义轴 + 批图",checks:["同名但未知或不同任务/输出定义，默认拒绝合并。","使用 multi_target.collate_fn；batch 子集不能重定义语义位置。","图索引按图节点偏移，而不是把部件与节点编号混用。"],sources:["torch_dataset.py:739","torch_dataset.py:877","torch_dataset.py:1016","torch_dataset.py:1246"]},
+adaptive:{name:"adaptive_sampling.py",group:5,short:"辅助原语；自动选样循环未接入",about:"提供概率选样与加权诊断的通用原语，但不直接调用计算引擎。不能把这些函数存在于代码库，解释成协调器已实现主动学习。",calls:["effective_sample_size → 已接入 sampling_audit","其余 inclusion_probabilities / select_bernoulli / hajek_mean → 未接入当前 CLI 选样回路"],inputs:"外部给定的分数、概率或权重",outputs:"可调用的选样/加权辅助量",checks:["没有当前 pilot 自动训练模型、获取模型评分、筛选标签或多轮增量计划。","未来接入仍需独立方案与 train-only 身份合同。"],sources:["adaptive_sampling.py:17","adaptive_sampling.py:29","adaptive_sampling.py:87","adaptive_sampling.py:108","sampling_audit.py:84"]}
+};
+const stage = (title,subtitle,body,input,output,ids,checks,sources) => ({title,subtitle,body,input,output,ids,checks,sources});
+const flows = {
+sampling:[
+stage("读取设计与标签合同","sampler validate-plan / init / pilot","读取模板、目标和参数注册表，再载入 SamplingSpec 与 LabelSpec。标签合同绑定当前输出定义；validate-plan 仅在内存构建与校验计划，不执行标签。","基准案例 + 目标/注册表 + 两份合同","可校验、可哈希的设计与任务定义",["cli","sampling","label"],["当前 CLI 仅提供 validate-plan、init、pilot、audit。","当前 demo 采样与标签定义为 provisional；载入合同或通过计划校验不自动获得研究批准。"],["cli.py:195","cli.py:203"]),
+stage("构建并固定无标签计划","CaseFactory + SplitRegistry + init","先冻结模板的外部内容，再生成参考候选、正式案例、谱系与种子身份。validation/test/train_pilot 的指派在计算结果之前固定；通过输入校验后写入精确计划文件。","冻结模板 + 参考采样设计","candidate ledger + formal_cases + registry + initialized",["factory","split","samplingCheckpoint","samplingAudit","candidateSchema"],["正式与 screening 种子分离；当前 screen_count=0。","pilot 全选参考候选；init 完成后运行 pilot 必须同目录显式 resume。"],["case_factory.py:194","sampling_checkpoint.py:288"]),
+stage("冻结正式输入，验证恢复身份","ShardedDatasetWriter.run_cases","pilot 调用分片 writer。取得写锁，完整正式输入先 spool；外部引用按内容快照固定。核对数量、顺序、候选与 registry，再读取或建立计算层 checkpoint。","formal_cases.jsonl + 分片/执行配置","FrozenCaseInputs + checkpoint identity",["input","sharded","samplingValidation"],["输入是完整有限序列，不是一边新增案例一边无限执行。","身份、环境、内容或顺序不同，恢复会 fail closed。"],["cli.py:291","sharded_dataset.py:406","sharded_dataset.py:433"]),
+stage("按片执行单案例计算","DatasetWriter + worker / engine.run","每片交给 DatasetWriter。单进程逐案，或 ProcessPoolExecutor.map 多进程；每个 worker 初始化自己的引擎实例，结果仍按输入顺序返回。","当前片的冻结案例","EngineResult 列表：ok / refused",["writer","engine"],["默认异常隔离，拒算原因保留；fail-fast 则中止整批。","执行器只负责结果生产，不在此处训练神经网络。"],["dataset.py:221","dataset.py:241","dataset.py:835"]),
+stage("整理成功标签，保留全输入轴","DatasetWriter.write → _write_frozen","先绑定结果和输入/引擎 provenance。成功结果进入 B 轴，全部输入进入 N 轴并保留映射。创建特征、标签、统计、mask、词表、split、图和长表；LabelSpec 核对任务语义。","案例 + 对应结果 + 采样 envelope","NPZ + 9 张 Parquet + results.jsonl + 单片 manifest",["writer","quality","label","parquet"],["case_physics_x 与 solver_context_x 分开保存。","拒算不填写零标签；无可估计 CI 不填写零不确定性。","实际 registry assignment 与保存定义交叉核对。"],["dataset.py:932","dataset.py:1403","dataset.py:1519","dataset.py:1566"]),
+stage("提交分片与根归档","临时片 → rename → checkpoint → manifest","单片先在临时目录完整写入，再改名提交并更新 checkpoint。全部片通过完整性、词表、定义与全局切分审计后，发布精确根 manifest，计算层 checkpoint 设为 complete。","已写好的临时片与片身份","shards/part-* + 根 manifest + complete",["sharded","archive"],["未知孤儿片、临时目录不会自动删除。","完整态恢复只验证不可变归档，不能追加案例。"],["sharded_dataset.py:509","sharded_dataset.py:591"]),
+stage("核验正式档案并记录完成","mark_pilot_complete","把正式档案与原计划逐项比对：完整正式输入、候选与案例次序、拒算映射、registry 指派、分片提交清单和各用途准入数。核验后采样 checkpoint 进入 archive_complete。","已 complete 的 formal_dataset + 冻结计划","archive_complete + 成功/拒算/准入集合摘要",["samplingCheckpoint","samplingValidation","quality"],["archive_complete 不是 scientific_validated。","sampler audit 仍读取固定设计审计，不是自动完成实际覆盖质量放行。"],["sampling_checkpoint.py:349","sampling_checkpoint.py:502"]),
+stage("校验读取与语义批处理","Torch Dataset → collate → DataLoader","loader 先检查完整归档再选择 split/fields。分片 loader 逐片校验、按需 LRU 访问；多目标 loader 固定全局词表，collate 对齐语义、补齐对象轴并输出 presence mask。","单包/分片档案 + 明确用途","PyTorch 样本字典与对齐 batch",["archive","quality","torch","torchSharded","multi"],["默认仅软件开发准入；正式研究用途需独立证据。","加载与批处理适配不等于项目已实现训练或控制闭环。"],["torch_dataset.py:105","torch_dataset.py:361","torch_dataset.py:739","torch_dataset.py:1016"])
+],
+direct:[
+stage("读取已有案例，选择 writer","generate：有无 shard_size","输入由调用者提供，CLI 不自动建立参考分布。无 shard_size 使用 DatasetWriter；有 shard_size 使用 ShardedDatasetWriter，并可显式 resume。此视图描述不带 sampling envelope 的普通案例。","目标/注册表 + 已有案例文件","单包或分片 writer",["cli","writer","sharded"],["采样感知合同由案例 envelope 是否存在决定，而不单由命令名决定。","普通已有案例仍需调用者负责采样设计与研究独立单位。"],["cli.py:122","dataset.py:701"]),
+stage("完整输入与外部内容冻结","freeze_case_inputs","在执行之前固定有限输入序列和依赖内容。外部相对引用以案例文件目录为基准；Python API 需显式 cases_base_directory。单包 writer 将冻结序列读成列表；分片 writer 按片读取。","案例 iterable + 外部引用","FrozenCaseInputs + 完整输入身份",["input","writer","sharded"],["同内容移路径不改变逻辑身份；路径另存 provenance。","捕获期间内容变化、格式不支持或引用无法解析会拒绝。"],["input_identity.py:149","dataset.py:818","sharded_dataset.py:406"]),
+stage("单进程 / 多进程批计算","_run_case → engine.run","单包执行整批；分片模式逐片复用同一 writer 实现，每片内部建立多进程池。多进程 map 保持输入顺序，worker 独立初始化引擎。领域机理在本图中视为结果服务。","冻结案例 + 执行配置","ok / refused 的结果序列",["writer","engine"],["默认隔离并记录错误，不让一个病态案例丢弃整批。","fail-fast 明确改变失败策略；恢复配置必须一致。"],["dataset.py:241","dataset.py:835"]),
+stage("结果绑定与分组切分","quality + learning_input_fingerprint","write 先检查结果是否对应当前输入、目标、注册表与代码。普通路径按 split_group → condition_cluster → learning input hash 的优先级，在写入时计算组的 split 并审计泄漏。","案例/结果/provenance + 切分 seed / ratios","通过绑定检查的结果、group 与 leakage key",["quality","learningIdentity","writer"],["哈希切分比例是分配概率，不保证有限样本恰好达到该比例。","不同 seed/replicate 不应让重复学习输入跨 split。","不是采样计划路径的预先冻结 registry。"],["quality.py:14","dataset.py:604","dataset.py:614","dataset.py:2081"]),
+stage("特征 / 标签 / 长表整理","普通合同 tensor 1.4 / manifest 1.2","成功结果进入 B，拒算保留在 results.jsonl 与 N 轴映射中。生成兼容 case_x、对象特征、标签、统计、mask、图/顶点和名称单位；正式长表使用显式 Arrow schema。","通过核对的案例与结果","NPZ + 9 张 Parquet + results.jsonl",["writer","parquet"],["普通合同没有自动提供采样感知的 case_physics_x / solver_context_x 拆分。","禁用或无来源标签必须依赖 mask，不当作零真值。"],["dataset.py:1403","dataset.py:1593","dataset.py:1829"]),
+stage("发布单包，或逐片提交","单包 manifest / 分片 checkpoint","单包在内容写完后发布 manifest 并清除 incomplete 标志。分片模式每片提交后更新 checkpoint，最后汇总根 manifest。单包 writer 不提供分片式 resume。","已写结果、长表、张量和文件哈希","可完整性检查的单包 / 分片档案",["writer","sharded"],["manifest 列出精确已提交文件与哈希。","分片会检查孤儿目录与不匹配身份；不自动清理不明残留。"],["dataset.py:2072","sharded_dataset.py:509","sharded_dataset.py:591"]),
+stage("完整性、语义与用途校验","archive_validation + quality","加载前按 manifest 检查完成状态、文件哈希、tensor dtype/shape/axis/mask/索引、切分审计与标签来源。结构通过与科研证据通过是独立判断。","完整归档 + purpose","可被请求用途读取的档案，或拒绝",["archive","quality"],["n_valid 仅表示 execution_success_count。","默认 synthetic_teacher 只批准 software_development。"],["archive_validation.py:110","archive_validation.py:170","quality.py:158"]),
+stage("训练框架读取与批对齐","Torch Dataset → collate → DataLoader","单包与分片返回命名字段字典。多目标封装冻结全局语义；collate 对齐输出/状态/标准，补齐对象轴，生成 presence mask 与不相交批图。","合格单包 / 分片 Dataset","可由调用方选择输入输出的 batch",["torch","torchSharded","multi"],["普通合同默认返回 case_x；不要把运行控制不加区分地当作学习输入。","适配器未实现网络训练；模型与训练研究方案仍由调用方定义。"],["torch_dataset.py:73","torch_dataset.py:105","torch_dataset.py:1016"])
+]
+};
+const tensorRows = [
+["case_x + case_feature_mask","[B,F_case]","兼容的完整案例特征 bundle；普通路径与旧接口使用。","all"],
+["case_physics_x + case_physics_feature_mask","[B,F_case_physics]","工况特征，采样感知 loader 的默认案例输入。","sampling"],
+["solver_context_x + solver_context_feature_mask","[B,F_solver]","数值求解上下文独立归档；默认 loader 不返回，显式 fields 可选择。","sampling"],
+["component_x / armor_x","[B,C,F_component] / [B,A,F_armor]","对象输入特征，与对应 feature mask、名称、单位配套。","all"],
+["component_armor_path_x","[B,C,A,F_path]","对象间关系特征及其 mask。","all"],
+["component_y / armor_y / system_y","[B,C,M,S] / [B,A,K] / [B,O]","部件、外部结构与系统层标签；可用性由各自 label mask 决定。","all"],
+["component_aux_y / component_frechet_y","[B,C,U] / [B,C,S,2]","辅助输出与上下界输出；属于输出侧，不是额外独立真值。","all"],
+["*_y_stddev / *_y_ci95","与对应标签同形 / 末尾增加 2","估计离散度与区间；有效性另由 uncertainty mask 和 sample_count 表达。","all"],
+["requested_standard_mask / standard_output_mask","[B,E_standard] / [E_standard,O]","本案例要求的标准，与每个标准包含的系统输出。","all"],
+["system_source_available_mask","[B,O]","系统输出的来源依赖可用性；不要只看是否请求该输出。","all"],
+["label_task_available_mask + label_task_names","[B,T] / [T]","由保存的 LabelSpec 解释完整任务可用性。","sampling"],
+["sampling_selection_probability / sampling_design_weight_raw / sampling_weight_mask","[B]","原始入选概率与 1/ρ 设计权重；mask=false 时数值保留但不能用于加权诊断。","sampling"],
+["sampling_candidate_ids / sampling_lineage_ids / sampling_round / sampling_role_index / sampling_stratum_index","[B] + 名称词表","成功样本的候选、谱系、轮次、角色与分层身份。完整字段名见 manifest。","sampling"],
+["input_case_* / input_to_valid_index","[N]","包括拒算项的全部输入身份、状态、有效性与 N→B 映射。","all"],
+["input_sampling_* / input_frozen_splits","[N]","包括拒算项的候选、谱系、角色、群组与冻结 split。","sampling"],
+["tree_edge_index / graph_node_ids / vertices + offsets","[2,E_edge] / [G] / CSR","静态关系与变长顶点，图索引在独立节点命名空间中。","all"],
+["split_names / leakage_keys / seeds / replicate_counts","[B]","切分、重复输入审计与执行记录；不能因为返回在字典里，就全部传入模型。","all"]
+];
+const maskRows = [
+["*_feature_mask","特征是否适用/有意义；不是预测标签。","all"],
+["*_label_mask","标签均值是否可用；缺失不是 0。","all"],
+["*_uncertainty_mask + *_sample_count","标准差/区间是否可估计；均值可用不保证 CI 可用。","all"],
+["system_source_available_mask","由来源机制与依赖图保守传播的系统输出可用性。","all"],
+["requested_standard_mask + standard_output_mask","请求了哪个标准、这个标准包含哪些输出。","all"],
+["label_task_available_mask","保存任务定义所要求的整项任务是否可用。","sampling"],
+["sampling_weight_mask","原始设计权重是否可用于加权诊断。","sampling"],
+["component_presence_mask / armor_presence_mask","collate 时哪些位置是真对象，哪些只是 padding。","all"]
+];
+const packageTree = `单包归档（每个 part 内也如此）
+├─ results.jsonl          全输入结果 / 拒算原因
+├─ tensors.npz           B 轴 + N 轴映射 + 静态语义
+├─ cases.parquet
+├─ components.parquet
+├─ armor.parquet
+├─ armor_labels.parquet
+├─ labels.parquet
+├─ component_aux.parquet
+├─ edges.parquet
+├─ splits.parquet
+├─ tree_outputs.parquet
+└─ manifest.json         身份 / 哈希 / 质量 / 准入`;
+const trees = {
+sampling:`采样运行目录/
+├─ sampling_checkpoint.json  计划/完成层，2.0
+├─ plan/
+│  ├─ sampling_spec.json
+│  ├─ label_spec.json
+│  ├─ base_case.json
+│  ├─ input_snapshot.json
+│  ├─ formal_input_identity.json
+│  ├─ split_registry.json
+│  ├─ frozen_hashes.json
+│  └─ input_snapshots/...   按需冻结外部内容
+├─ rounds/round-000/
+│  ├─ candidates.jsonl
+│  ├─ candidates.parquet   候选合同 2.0
+│  ├─ formal_cases.jsonl
+│  └─ round_manifest.json
+├─ audits/sampling_quality.json
+└─ formal_dataset/         pilot 阶段才产生
+   ├─ checkpoint.json     分片计算层，2.0
+   ├─ manifest.json       manifest 1.4
+   └─ shards/
+      ├─ part-000000/
+      └─ part-000001/ ...
+
+${packageTree}`,
+direct:`generate 输出目录/
+├─ manifest.json          manifest 1.2
+├─ checkpoint.json        仅分片模式；2.0
+└─ shards/                仅分片模式
+   ├─ part-000000/
+   └─ part-000001/ ...
+
+不分片时，以下单包文件直接在输出目录。
+分片时，根目录保留汇总 manifest，以下在每片内。
+
+${packageTree}`
+};
+const state = {mode:"sampling",view:"flow",stage:0,module:"writer"};
+function detailHtml(item, kind) {
+ const title = item.title || item.name;
+ const body = item.body || item.about;
+ const ids = item.ids || [];
+ return `<span class="tag">${kind === "flow" ? "阶段 " + (state.stage+1) : "模块职责"}</span><h2>${esc(title)}</h2><p>${esc(body)}</p><div class="io"><div><h3>输入</h3><p>${esc(item.input || item.inputs)}</p></div><div><h3>输出</h3><p>${esc(item.output || item.outputs)}</p></div></div>${ids.length ? `<h3>对应模块</h3><div class="code-list">${ids.map(id=>`<code>${esc(modules[id].name)}</code>`).join("")}</div>` : `<h3>关键调用关系</h3><ul>${item.calls.map(c=>`<li><code>${esc(c)}</code></li>`).join("")}</ul>`}<h3>需要分清的边界</h3><ul>${item.checks.map(c=>`<li>${esc(c)}</li>`).join("")}</ul><p class="source">源码依据：${item.sources.map(s=>`<code>damage_engine/${esc(s)}</code>`).join(" · ")}</p>`;
+}
+function renderFlow() {
+ const items=flows[state.mode];
+ byId("entry-summary").textContent=state.mode === "sampling" ? "采样入口：合同 → 无标签计划固定 → 正式分片生成 → 上层完成核验 → 框架读取。" : "已有案例入口：不设计采样计划；调用者提供案例，writer 负责结果生产与归档。";
+ byId("flow-nodes").innerHTML=items.map((item,i)=>`<li><span class="number" aria-hidden="true">${i+1}</span><button type="button" class="stage" data-stage="${i}" aria-pressed="${i===state.stage}"><span class="title">${i+1}. ${esc(item.title)}</span><span class="small">${esc(item.subtitle)}</span></button></li>`).join("");
+ byId("flow-detail").innerHTML=detailHtml(items[state.stage],"flow");
+}
+function renderModules() {
+ const groups=["入口与契约","计划与切分","执行与整理","归档与检查","框架读取"];
+ byId("module-lanes").innerHTML=groups.map((name,i)=>`<section class="lane"><h3>${esc(name)}</h3>${Object.entries(modules).filter(([,m])=>m.group===i).map(([id,m])=>`<button type="button" class="module-button" data-module="${id}" aria-pressed="${state.module===id}"><code>${esc(m.name)}</code><span class="small">${esc(m.short)}</span></button>`).join("")}</section>`).join("");
+ byId("module-detail").innerHTML=detailHtml(modules[state.module],"module");
+ root.querySelectorAll('[data-module="adaptive"]').forEach(b=>b.setAttribute("aria-pressed",String(state.module === "adaptive")));
+}
+function renderContract() {
+ const sampling=state.mode === "sampling";
+ byId("contract-summary").textContent=sampling ? "当前采样感知合同：tensor 1.6.0 / manifest 1.4.0。下列列表是核心族，不替代完整 manifest 字段清单。1.5 历史读取支持不等于旧档案被自动升级。" : "当前普通非采样合同：tensor 1.4.0 / manifest 1.2.0。没有采样 envelope 的 generate 不自动得到 1.6 的采样身份/任务定义与输入分离。";
+ byId("contract-caption").textContent=sampling ? "核心字段族 · tensor 1.6.0" : "核心字段族 · tensor 1.4.0";
+ byId("contract-rows").innerHTML=tensorRows.filter(r=>r[3]==="all"||sampling).map(r=>`<tr><td><code>${esc(r[0])}</code></td><td><code>${esc(r[1])}</code></td><td>${esc(r[2])}</td></tr>`).join("");
+ byId("mask-list").innerHTML=maskRows.filter(r=>r[2]==="all"||sampling).map(r=>`<dt><code>${esc(r[0])}</code></dt><dd>${esc(r[1])}</dd>`).join("");
+ byId("input-separation").textContent=sampling ? "1.6 同时保留兼容 case_x、工况 case_physics_x 与运行 solver_context_x。Torch 默认用工况字段替代 case_x，但仍返回部分审计信息；默认不返回 solver_context_x。输入维度与含义必须查各自名称/单位轴。" : "普通 1.4 loader 默认返回 case_x。这一兼容 bundle 包含工况与运行控制，不能未经选择就解释成已经隔离好的网络输入。新路径的字段拆分是合同能力，不能仅更改版本号套用到旧数组。";
+}
+function renderArchive() {
+ byId("file-tree").textContent=trees[state.mode];
+ byId("archive-summary").textContent=state.mode === "sampling" ? "两个 checkpoint 分别管计划完成和分片生成，不能互相替代。采样锁贯穿初始化、执行和完成核验；下层另有正式数据目录的写锁。" : "普通 generate 没有采样计划层 checkpoint。单包直接发布；分片模式额外保存 checkpoint.json，要求同一完整输入和配置恢复。";
+ byId("sampling-state").hidden=state.mode !== "sampling";
+}
+function renderMode() {
+ root.querySelectorAll("[data-mode]").forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.mode===state.mode)));
+ byId("version-label").textContent=state.mode === "sampling" ? "manifest 1.4.0 · tensor 1.6.0" : "普通案例：manifest 1.2.0 · tensor 1.4.0";
+ renderFlow(); renderContract(); renderArchive();
+}
+function showView(name) {
+ state.view=name;
+ root.querySelectorAll("[data-view]").forEach(b=>b.setAttribute("aria-selected",String(b.dataset.view===name)));
+ ["flow","modules","contract","archive"].forEach(id=>byId("view-"+id).hidden=id!==name);
+}
+root.addEventListener("click",event=>{
+ const button=event.target.closest("button");
+ if(!button||!root.contains(button)) return;
+ if(button.dataset.mode){state.mode=button.dataset.mode;state.stage=0;renderMode();}
+ if(button.dataset.view) showView(button.dataset.view);
+ if(button.dataset.stage!==undefined){state.stage=Number(button.dataset.stage);renderFlow();}
+ if(button.dataset.module){state.module=button.dataset.module;renderModules();}
+});
+root.querySelector('[role="tablist"]').addEventListener("keydown",event=>{
+ if(!["ArrowLeft","ArrowRight","Home","End"].includes(event.key)) return;
+ const tabs=Array.from(root.querySelectorAll("[data-view]"));
+ const index=tabs.indexOf(event.target);
+ if(index<0) return;
+ let next=event.key==="Home"?0:event.key==="End"?tabs.length-1:(index+(event.key==="ArrowRight"?1:-1)+tabs.length)%tabs.length;
+ event.preventDefault();tabs[next].focus();showView(tabs[next].dataset.view);
+});
+byId("source-index").innerHTML=Object.values(modules).map(m=>`<li><code>damage_engine/${esc(m.name)}</code> — ${esc(m.short)}</li>`).join("");
+renderMode();renderModules();showView(state.view);
+})();
+</script>
+</body>
+</html>

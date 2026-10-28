@@ -1,0 +1,99 @@
+{
+  "schema_version": "hf-p0-r06-release-verification@1.0.0",
+  "package_revision": "R06_paired_diagnostics_preregistered_20261023",
+  "overall_status": "pass",
+  "lifecycle_status": "ready_for_user_submission_not_submitted_not_solver_validated",
+  "checks": {
+    "fresh_static_readiness": {
+      "status": "pass",
+      "sha256": "sha256:57ea35602a874897b4b52cf8c1c3c462f4e82c278b25101d42ae81aa7152b754"
+    },
+    "explicit_release_file_set": {
+      "status": "pass",
+      "file_count": 9
+    },
+    "zip_internal_external_identity": {
+      "status": "pass",
+      "bundles": [
+        {
+          "status": "pass",
+          "job_id": "r06d_0800_ctrl",
+          "zip": "uav_hf_r06d_0800_ctrl.zip",
+          "size_bytes": 412925,
+          "sha256": "sha256:5298582d8fe163f5141eb29738f4a2ab514635a1de41610317f8e4734099f7d7",
+          "member_count": 10,
+          "head_deck": "r06d_0800_ctrl.k"
+        },
+        {
+          "status": "pass",
+          "job_id": "r06d_2000_ctrl",
+          "zip": "uav_hf_r06d_2000_ctrl.zip",
+          "size_bytes": 423125,
+          "sha256": "sha256:bd4e0a5ba8eeebee2d6e26d15a8791e57d6a86fe8f3f688cec2f96d7065abbc2",
+          "member_count": 10,
+          "head_deck": "r06d_2000_ctrl.k"
+        },
+        {
+          "status": "pass",
+          "job_id": "r06d_0800_tend008",
+          "zip": "uav_hf_r06d_0800_tend008.zip",
+          "size_bytes": 412996,
+          "sha256": "sha256:97743dbc58f4e5aa6fc07a3c4c3f2e89bb007209e901805fd307d4ce1c8e9859",
+          "member_count": 10,
+          "head_deck": "r06d_0800_tend008.k"
+        },
+        {
+          "status": "pass",
+          "job_id": "r06d_2000_psfail_plate",
+          "zip": "uav_hf_r06d_2000_psfail_plate.zip",
+          "size_bytes": 423223,
+          "sha256": "sha256:a71db73c63bd6430053e84ac890ee264ce52c95900283d3dac3217a564b84816",
+          "member_count": 10,
+          "head_deck": "r06d_2000_psfail_plate.k"
+        }
+      ]
+    },
+    "historical_r05_candidate_immutable": {
+      "status": "pass",
+      "files": {
+        "p0_velocity_mesh_calibration.k": "sha256:6fbd753a113d0214e7ba4ff5136dc526d151e6f2c52c94e70399b29c4b9d3d0c",
+        "p0_cases_r05.json": "sha256:b1d2027d57fc6d9cd1ee3f932ea044fd16a112344d8f2b6f508071f45191a06f",
+        "p0_case_part_map.csv": "sha256:b05b59249e49c3e9d15904f475c2f9478bdff1638fb797d1b552298490aa5295",
+        "manifest.json": "sha256:e178b6c28832519aaa2befdc969dcd93d2141ea4073ad740b52b17968d92ba44",
+        "static_validation.json": "sha256:491753050734ba46ded5460221e35a70e37bbccd179b6b172d753bfc18c8b17e"
+      }
+    },
+    "historical_r05_return_immutable": {
+      "status": "pass",
+      "run_id": "72252362",
+      "hash_verified_file_count": 75,
+      "hash_verified_total_bytes": 2944160835,
+      "full_inventory_file_count": 120,
+      "full_inventory_total_bytes": 3606867357
+    }
+  },
+  "submission_order": {
+    "wave_1": [
+      "r06d_0800_ctrl",
+      "r06d_2000_ctrl"
+    ],
+    "wave_2": [
+      "r06d_0800_tend008",
+      "r06d_2000_psfail_plate"
+    ],
+    "wave_2_condition": "Only after both controls pass target R15.0.2 parse, normal termination, and real D3PART/INTFOR readability."
+  },
+  "local_solver_precheck": {
+    "status": "unavailable",
+    "reason": "No local LS-DYNA executable was found; target parser/runtime acceptance is an external submission gate."
+  },
+  "admission": {
+    "r06_diagnostic_submission": "ready_for_user_submission_in_two_waves",
+    "p0_response_calibration": "denied",
+    "p1_submission": "denied",
+    "local_engine_fitting": "denied",
+    "reference_dataset_generation": "denied",
+    "physical_validity": "not_established"
+  },
+  "claim_boundary": "PASS means the R06 diagnostic release is internally consistent and ready for user submission. It does not mean solver, numerical, response, or physical acceptance."
+}

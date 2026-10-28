@@ -1,0 +1,49 @@
+{
+  "schema_version": "hf-p0-r06-job-manifest@1.0.0",
+  "package_revision": "R06_timestep_sensitivity_20261028",
+  "job_id": "r06f_0800_tssfac04",
+  "status": "generated_not_solver_validated",
+  "evidence_class": "high_fidelity_synthetic_diagnostic_candidate",
+  "deck": {
+    "path": "r06f_0800_tssfac04.k",
+    "size_bytes": 2557654,
+    "sha256": "sha256:afb0f34112ccfdfcfd95bf442c9b45e2cb1590fdad8d76e98fbbc3fb5d6baee7",
+    "node_count": 23775,
+    "element_count": 20902,
+    "node_id_span": [
+      23776,
+      47550
+    ],
+    "element_id_span": [
+      20903,
+      41804
+    ]
+  },
+  "design": {
+    "path": "p0_r06f_timestep_sensitivity_design.json",
+    "sha256": "sha256:cef4dd7142d4ae7a2501aba7c8989764d40d05b11e6d36c9092785282f7e5e9a"
+  },
+  "material": {
+    "path": "jc4340_reference.json",
+    "sha256": "sha256:9b462b920459e57641d5f89d10d36c0aa0498c86f2478fef8e4c3efa96888311"
+  },
+  "successor_contract": {
+    "path": "p0_r06f_timestep_output_contract.json",
+    "sha256": "sha256:0ea99802c51cd9479a887b51149e7f81bae891b58e05cc1ad0d2fbafbef0cc95",
+    "historical_status_preserved": "frozen_after_r06f_recanary_pass_before_timestep_solver_outcome"
+  },
+  "case_map": {
+    "path": "p0_case_part_map.csv",
+    "sha256": "sha256:e04aae1aad114a9a1b528b2791b03f6ba7eaa155e99fce904f02ee3ee4ee4c09"
+  },
+  "job_contract": {
+    "path": "job_contract.json",
+    "sha256": "sha256:8967d61a4020951a5e8a8131e3806574754a174264e1ce77953e40d0e491c288"
+  },
+  "limitations": [
+    "The resource-matched R06f recanary passed; its formal primary QoI remains unavailable.",
+    "This package changes only TSSFAC from 0.8 to 0.4 and keeps DT2MS=0.",
+    "INTFOR is not requested; missing evidence is never a zero response.",
+    "Static PASS and normal termination do not establish numerical robustness, physical validity, P0/P1 admission, engine fitting, or dataset-label admission."
+  ]
+}

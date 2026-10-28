@@ -1,0 +1,1060 @@
+{
+  "review_date": "2026-10-15",
+  "timezone": "Asia/Shanghai",
+  "scope": "generic software integrity, availability semantics and evidence governance; no simulation or model training",
+  "python": "D:\\ProgramData\\Anaconda\\envs\\pytorch312-lmdt\\python.exe",
+  "python_version": "3.12.13 | packaged by conda-forge | (main, Aug 11 2026, 10:18:27) [MSC v.1944 64 bit (AMD64)]",
+  "dependencies": {
+    "numpy": "2.4.6",
+    "torch": "2.8.0+cu128",
+    "pyarrow": "22.0.0",
+    "pytest": "9.1.1",
+    "jsonschema": "4.26.0",
+    "scipy": "1.18.0",
+    "damage-dataset-engine": null
+  },
+  "torch_cuda_available": true,
+  "source_version": "0.7.0.dev2",
+  "source_tree_hash": "sha256:4e767ff2c20a310d08b9cf8dad6de09988e75a8956f6eb18aa4af6d7aef298b3",
+  "engine_code_hash": "sha256:55cf8377026d7fc3c8ef5a4828f3403991de61b825ecc7b23b4ba8905a70aa41",
+  "head": "473c7353917d5d802406335021d3234bc810348f",
+  "git_status_porcelain": " M README.md\n M damage_engine/__init__.py\n M damage_engine/cli.py\n M damage_engine/damage_tree.py\n M damage_engine/dataset.py\n M damage_engine/engine.py\n M damage_engine/fragments.py\n M damage_engine/geometry.py\n M damage_engine/normalization.py\n M damage_engine/schemas/dataset_manifest.schema.json\n M damage_engine/schemas/physics_registry.schema.json\n M damage_engine/schemas/simulation_case.schema.json\n M damage_engine/schemas/target.schema.json\n M damage_engine/sharded_dataset.py\n M damage_engine/torch_dataset.py\n M damage_engine/utils.py\n M damage_engine/validation.py\n D dataset_demo/armor.parquet\n D dataset_demo/cases.parquet\n D dataset_demo/component_aux.parquet\n D dataset_demo/components.parquet\n D dataset_demo/edges.parquet\n D dataset_demo/labels.parquet\n D dataset_demo/manifest.json\n D dataset_demo/results.jsonl\n D dataset_demo/splits.parquet\n D dataset_demo/tensors.npz\n D dataset_demo/tree_outputs.parquet\n D dataset_demo_parallel/armor.parquet\n D dataset_demo_parallel/cases.parquet\n D dataset_demo_parallel/component_aux.parquet\n D dataset_demo_parallel/components.parquet\n D dataset_demo_parallel/edges.parquet\n D dataset_demo_parallel/labels.parquet\n D dataset_demo_parallel/manifest.json\n D dataset_demo_parallel/results.jsonl\n D dataset_demo_parallel/splits.parquet\n D dataset_demo_parallel/tensors.npz\n D dataset_demo_parallel/tree_outputs.parquet\n M pyproject.toml\n D raw_data/dataset_smoke/checkpoint.json\n D raw_data/dataset_smoke/manifest.json\n D raw_data/dataset_smoke/shards/part-000000/armor.parquet\n D raw_data/dataset_smoke/shards/part-000000/armor_labels.parquet\n D raw_data/dataset_smoke/shards/part-000000/cases.parquet\n D raw_data/dataset_smoke/shards/part-000000/component_aux.parquet\n D raw_data/dataset_smoke/shards/part-000000/components.parquet\n D raw_data/dataset_smoke/shards/part-000000/edges.parquet\n D raw_data/dataset_smoke/shards/part-000000/labels.parquet\n D raw_data/dataset_smoke/shards/part-000000/manifest.json\n D raw_data/dataset_smoke/shards/part-000000/results.jsonl\n D raw_data/dataset_smoke/shards/part-000000/splits.parquet\n D raw_data/dataset_smoke/shards/part-000000/tensors.npz\n D raw_data/dataset_smoke/shards/part-000000/tree_outputs.parquet\n D raw_data/dataset_smoke/shards/part-000001/armor.parquet\n D raw_data/dataset_smoke/shards/part-000001/armor_labels.parquet\n D raw_data/dataset_smoke/shards/part-000001/cases.parquet\n D raw_data/dataset_smoke/shards/part-000001/component_aux.parquet\n D raw_data/dataset_smoke/shards/part-000001/components.parquet\n D raw_data/dataset_smoke/shards/part-000001/edges.parquet\n D raw_data/dataset_smoke/shards/part-000001/labels.parquet\n D raw_data/dataset_smoke/shards/part-000001/manifest.json\n D raw_data/dataset_smoke/shards/part-000001/results.jsonl\n D raw_data/dataset_smoke/shards/part-000001/splits.parquet\n D raw_data/dataset_smoke/shards/part-000001/tensors.npz\n D raw_data/dataset_smoke/shards/part-000001/tree_outputs.parquet\n D raw_data/result.smoke.json\n D result.demo.json\n M tests/test_dataset.py\n M tests/test_physics.py\n M tests/test_schema_resources.py\n M tests/test_sharded_dataset.py\n?? 06_代码科研审查与深度学习数据衔接修改意见.md\n?? 07_审查整改工作日志_2026-10-09.md\n?? 08_数据契约与研究准入说明.md\n?? 09_神经网络训练数据集生成器与引擎改造指导.md\n?? 10_当前毁伤树与部件关系可视化.html\n?? 11_采样协调器与数据集生成器实现日志_2026-10-10.md\n?? 12_更新后代码科研审查与引擎数据集一致性评估_2026-10-10.md\n?? 13_审查整改工作日志_2026-10-11.md\n?? 14_数据集生成逻辑与模块可视化.html\n?? 15_2000条数据集深度学习质量诊断.html\n?? 16_当前2000条数据分布深度审计与优化修改意见_2026-10-11.md\n?? 17_数据集生成深度优化工作日志_2026-10-11.md\n?? 18_5000条数据集生成与质量复审工作日志_2026-10-11.md\n?? 19_5000条数据集质量深度诊断与科学修改建议_2026-10-11.md\n?? 20_5000条数据集质量诊断仪表板.html\n?? 21_新数据集结构与深度学习影响可视化.html\n?? 22_全张量语义与代码定位可视化.html\n?? 23_无人机控制输入重构与生成仿真优化工作日志_2026-10-13.md\n?? 24_UAV控制数据集全张量语义与代码定位可视化.html\n?? 25_UAV控制5000条数据集质量与深度学习影响可视化.html\n?? 26_当前UAV控制5000条数据分布深度复审与优化修改意见_2026-10-13.md\n?? 27_仿真引擎可变参数与代码位置可视化.html\n?? 28_装甲车毁伤目标导入诊断可视化.html\n?? 29_巡飞弹碰撞起爆与三弹型改造工作日志_2026-10-14.md\n?? 30_5000条巡飞弹数据集去冗余生成与科学审计工作日志_2026-10-14.md\n?? 31_5000条巡飞弹数据集分布科学性与神经网络修改建议_2026-10-14.md\n?? 32_5000条巡飞弹数据集科学性与神经网络优化工作日志_2026-10-14.md\n?? damage_engine/adaptive_sampling.py\n?? damage_engine/archive_validation.py\n?? damage_engine/case_factory.py\n?? damage_engine/dataset_policy.py\n?? damage_engine/evaluation_planning.py\n?? damage_engine/fragment_audit.py\n?? damage_engine/impact.py\n?? damage_engine/input_identity.py\n?? damage_engine/label_spec.py\n?? damage_engine/learning_input_identity.py\n?? damage_engine/multitask_targets.py\n?? damage_engine/munition_profiles.py\n?? damage_engine/parquet_schema.py\n?? damage_engine/prelabel_geometry.py\n?? damage_engine/quality.py\n?? damage_engine/replicate_convergence.py\n?? damage_engine/result_ledger.py\n?? damage_engine/sampling_audit.py\n?? damage_engine/sampling_candidate_schema.py\n?? damage_engine/sampling_checkpoint.py\n?? damage_engine/sampling_spec.py\n?? damage_engine/sampling_validation.py\n?? damage_engine/schemas/label_spec.schema.json\n?? damage_engine/schemas/sampling_spec.schema.json\n?? damage_engine/scientific_validation.py\n?? damage_engine/split_registry.py\n?? damage_engine/system_learning.py\n?? damage_engine/training_view.py\n?? examples/case.uav_control.demo.json\n?? examples/label_spec.demo.json\n?? examples/physics.loitering_impact.json\n?? examples/sampling_spec.demo.json\n?? examples/sampling_spec.uav_control.demo.json\n?? examples/scientific_validation_record.template.json\n?? paper-workspace/\n?? raw_data/case.2000.software_demo.json\n?? raw_data/case.5000.software_demo.v2.json\n?? raw_data/case.5000.uav_control.v3.json\n?? raw_data/case.loitering_impact.fragment_only.v1.json\n?? raw_data/case.loitering_impact.v1.json\n?? raw_data/dataset_5000_loitering_impact_fragment_only_v1/\n?? raw_data/label_spec.loitering_impact.fragment_only.v1.json\n?? raw_data/label_spec.loitering_impact.v1.json\n?? raw_data/sampling_spec.2000.software_demo.json\n?? raw_data/sampling_spec.5000.loitering_impact.fragment_only.v1.json\n?? raw_data/sampling_spec.5000.software_demo.v2.json\n?? raw_data/sampling_spec.5000.uav_control.v3.json\n?? raw_data/sampling_spec.loitering_impact.smoke.v1.json\n?? raw_data/target.rebuilt.fragment_only.v1.json\n?? requirements-validation-pytorch312-20261009.txt\n?? requirements-validation-pytorch312-20261011.txt\n?? review_evidence/\n?? schemas/\n?? tests/test_adaptive_cli.py\n?? tests/test_adaptive_execution_chain.py\n?? tests/test_adaptive_inclusion.py\n?? tests/test_build_dataset_health_report.py\n?? tests/test_case_factory_geometry.py\n?? tests/test_dataset_policy.py\n?? tests/test_dataset_policy_cli.py\n?? tests/test_distribution_design_contract.py\n?? tests/test_distribution_manifest_integration.py\n?? tests/test_evaluation_planning.py\n?? tests/test_fragment_audit.py\n?? tests/test_input_identity_performance.py\n?? tests/test_label_spec.py\n?? tests/test_loader_contract_review.py\n?? tests/test_loader_stream_separation.py\n?? tests/test_loitering_model_input_contract.py\n?? tests/test_multiround_sampling.py\n?? tests/test_multitask_targets.py\n?? tests/test_munition_impact.py\n?? tests/test_prelabel_geometry.py\n?? tests/test_reaudit_audit_fix.py\n?? tests/test_reaudit_contract_fix.py\n?? tests/test_reaudit_sampling_fix.py\n?? tests/test_reaudit_serialization_fix.py\n?? tests/test_reference_soft_event_planning.py\n?? tests/test_replicate_trace.py\n?? tests/test_result_ledger_compression.py\n?? tests/test_sampling_checkpoint.py\n?? tests/test_sampling_compact_freeze.py\n?? tests/test_sampling_contract.py\n?? tests/test_sampling_process_storage.py\n?? tests/test_sampling_result_compression.py\n?? tests/test_sampling_spec.py\n?? tests/test_sampling_split.py\n?? tests/test_scientific_validation.py\n?? tests/test_shard_integrity_review.py\n?? tests/test_statistics_cli_review.py\n?? tests/test_system_learning.py\n?? tests/test_training_readiness_result_ledger.py\n?? tests/test_training_view_contract.py\n?? tests/test_uav_model_input_contract.py\n?? tests/test_validate_uav_control_dataset.py\n?? tests/test_validation_cache.py\n?? tests/test_writer_integrity_review.py\n?? tools/audit_dataset_distribution.py\n?? tools/audit_dataset_training_readiness.py\n?? tools/audit_fragment_reachability.py\n?? tools/audit_loitering_impact_dataset.py\n?? tools/audit_system_learning_contract.py\n?? tools/benchmark_engine_hotpath.py\n?? tools/benchmark_plan_identity.py\n?? tools/build_armored_target_dashboard.cjs\n?? tools/build_dataset_health_report.py\n?? tools/build_dataset_review_dashboard.py\n?? tools/build_engine_parameter_dashboard.py\n?? tools/build_loitering_fragment_only_plan.py\n?? tools/build_tensor_semantics_dashboard.py\n?? tools/estimate_sampling_plan_storage.py\n?? tools/plan_reference_evaluation.py\n?? tools/run_replicate_convergence_study.py\n?? tools/validate_uav_control_dataset.py\n",
+  "source_files": {
+    "damage_engine/__init__.py": "sha256:a4a846d23e3638880676163faf497177d95c615c3e59c5a96bd8a85aad429cda",
+    "damage_engine/__main__.py": "sha256:2cdd23d4f5cd6c3b3e4cb690ad16d560637767b9ca5b2a3cf129fcc0a5ebc82b",
+    "damage_engine/adaptive_sampling.py": "sha256:20b72e958e4c3f50a820e26b44fe5007cb0bd655dc0b234e278a595a169e6349",
+    "damage_engine/archive_validation.py": "sha256:f2983ee93f3e604117dc252ab684b24a09da62e90b9ab1877f47b2fbf2752800",
+    "damage_engine/blast.py": "sha256:e464fd71e83a05b8e13d761d1e058386831b79ca377494e1578512d5e4dae02b",
+    "damage_engine/case_factory.py": "sha256:0697f866bc8f96a973cecfabea3490a96e14ea37b8f0d9f1e038d6aa62ded54a",
+    "damage_engine/cli.py": "sha256:bc3907d758b92b2d6156e17d4b9845d5b7c04c4ced2d670813de6d7ffdcb617b",
+    "damage_engine/damage_tree.py": "sha256:d330268b136ab9b4888f14b3de5e79052737a0b05d3c387c1373608db5b63c2c",
+    "damage_engine/dataset.py": "sha256:aa9670842fb7161e555c8614ac2f34cf88a0e36b3d192e24b6502713a2174308",
+    "damage_engine/dataset_policy.py": "sha256:38e190e3c9b3274a2264f878bb652038a17e48a6f31dd3df75e2114e9ef504ae",
+    "damage_engine/engine.py": "sha256:cc292dd49c16479bd7e53b60571cb56482868167b7d316373070248dea360d09",
+    "damage_engine/errors.py": "sha256:20006d05d602497edce6a5065b56b8e7b1717fbf4d0f1f158396497ff78bf1f8",
+    "damage_engine/evaluation_planning.py": "sha256:01abcf4eefaa78ce0b94a61ea6b96d66b2524115e8b85a740cc5db2126acc114",
+    "damage_engine/fragment_audit.py": "sha256:c4c5ab5e8c150b1f49103a08b49e9606f44246c6030560680970e0040a93c598",
+    "damage_engine/fragments.py": "sha256:b915560153425beaa8addcd78e8a99873af14da02ccbd43b9b31a280c91865d9",
+    "damage_engine/geometry.py": "sha256:6a04cf66a77ea8f560ff5ea2c06b64ebeb49ff4654532938b30d8bf41d209840",
+    "damage_engine/impact.py": "sha256:66f8498f22dea454e857f34487737924c6eb749c986bddb078d8bc48cb8f3758",
+    "damage_engine/input_identity.py": "sha256:2a33516bdd5ad2348572e2bdd5255b2b2445db00a8b86b2d9766b785476719a6",
+    "damage_engine/label_spec.py": "sha256:1dee9ccc39a031c00aec04d269165c2675ab9a661e8c5a97c0df744be0a7765b",
+    "damage_engine/learning_input_identity.py": "sha256:5ef724ed192e51abf15471ad79788de2a12b766da6c7d94f47e8f23a226aaef0",
+    "damage_engine/multitask_targets.py": "sha256:dc2b9539dfa1f72314ff5692507dc5dfaa82d53ed74eb022a04e11caccf8e083",
+    "damage_engine/munition_profiles.py": "sha256:178b5f03026fdcbabebb4a2173fddb9b50c45f397d99ca6e62c03706ebe3091f",
+    "damage_engine/normalization.py": "sha256:ea659df4ff138d3aa8e49da89df5ed8388f7a6d705a290a813be5bac43470e1c",
+    "damage_engine/parameters.py": "sha256:72151bb0dccfd9f066fb03a4a5c402176f901e45074b440e39660866b3d5e6a6",
+    "damage_engine/parquet_schema.py": "sha256:5a0f8a44d040c1c24cc00597e05db5e61f25afb9976bb664875ef6eedbb5dbc6",
+    "damage_engine/prelabel_geometry.py": "sha256:481dd8b79bbfae234e28aed45aa254d84404ced71ebce7731fa9be2d1ece870a",
+    "damage_engine/quality.py": "sha256:caba6e9309eb31474d568781986570e65074024b36b0ae02544f550077d8a460",
+    "damage_engine/raw_import.py": "sha256:e214256af441112e0a1124e4382bc0373d8e5c74bbd83b157266e33d7b3cad63",
+    "damage_engine/registry.py": "sha256:c5c7cdffa01a65d0c52a5bd05b9f2e035a2b0dfed282b84ac6343ffb9c48c43e",
+    "damage_engine/replicate_convergence.py": "sha256:8dad480ea40ccf9050ed579ccc67c0ee5270358b848990f21c04bf7282f64dcb",
+    "damage_engine/result_ledger.py": "sha256:780dfd5da66c48591020e00e6fe915f707f8de7926126015e2c32bc893c36ab6",
+    "damage_engine/sampling_audit.py": "sha256:08aae4fff6a91663c36abe434feb9ab137d2cdcb6c9c6f015cd5479c4160cca0",
+    "damage_engine/sampling_candidate_schema.py": "sha256:7a8e16ef899854a0b916419420fa3ec99a2aa298f7810540b61c97f11cbb8993",
+    "damage_engine/sampling_checkpoint.py": "sha256:82f92e85c58a05e19ea1c1ca2bf49742d39a5f13aca4bce4caa7028f20f8b9f0",
+    "damage_engine/sampling_spec.py": "sha256:c0fe6b2728c41f129770f753b269b8492986a7bedaccec702ca3723bcfcdaa35",
+    "damage_engine/sampling_validation.py": "sha256:fdbc01c7327fb8c69e00696443ffe6706af5adcc4ff1a00165bd89f08dc788f9",
+    "damage_engine/schema_resources.py": "sha256:1ec41b6693c2fc55d62fc1dd21747eb5f0aa325f1f7882586e9fadbf04e969dc",
+    "damage_engine/schemas/__init__.py": "sha256:48e5406a6713b73f39139a1632ca88e398802325a8ba4a8cfcdb475b659438a3",
+    "damage_engine/schemas/dataset_manifest.schema.json": "sha256:d84b3f726ab6a5cee3913e047dcbb04d83df0ecc8c83ecf6b0efd85c40967942",
+    "damage_engine/schemas/label_spec.schema.json": "sha256:518947853c9ffb9814d74c5b4ac0ed96f93977c04ff91543e29d8aefe47a8bca",
+    "damage_engine/schemas/physics_registry.schema.json": "sha256:b33f25bb1c4efca8a7247bf3c141a5a4a8fc6f7035b13bd751aacf20af497e5e",
+    "damage_engine/schemas/sampling_spec.schema.json": "sha256:86e5dc135f35ddd91fd3869624c83ff0183f2794d78b0288208228fecb2270c4",
+    "damage_engine/schemas/simulation_case.schema.json": "sha256:47dbad190c75897680443f03558c4ccfdc030e17532c1cd872cd6336112a8050",
+    "damage_engine/schemas/target.schema.json": "sha256:423c7987d773767739278775f04c1083809fccbb8105f3d96655eb3006c1ba9f",
+    "damage_engine/scientific_validation.py": "sha256:ce47b338c6548205e0b4f155121056571e4f52398bfa0b2a1cf49f7bb6451cee",
+    "damage_engine/sharded_dataset.py": "sha256:ec1d724932e890896a9341942fafc8c1d244ebd0261335fca6eb20cb85e6b59d",
+    "damage_engine/split_registry.py": "sha256:64a104f6337775727e535bc4b1a6c00ece9023593498f20655a56641dc524519",
+    "damage_engine/system_learning.py": "sha256:06554fe5e41bf0b4b9b87d8212239cfc0ffda4e5d3c0bf87084f637bbf61172a",
+    "damage_engine/torch_dataset.py": "sha256:93c3f90970bb9bb543087b061f31bac37e8a236a02c02cf189cb93bcb997fd28",
+    "damage_engine/training_view.py": "sha256:7deb446d4103426d70aa2157590a1c7b0bfd0484a9661e3f105ae2a988876ec7",
+    "damage_engine/utils.py": "sha256:76fa4eab570091fddf8ae6a48c01fc8b0e5b105c19ad1de557a6e41c2faabfd5",
+    "damage_engine/validation.py": "sha256:2437b20c38ee85a821799012cb9805ae0b4cd2a2b69eef0be5cf7d110042bcba",
+    "tools/audit_dataset_distribution.py": "sha256:c286959b75817e0b2db453a3f7e5905c06ac35947341e429aacf2c196f271210",
+    "tools/audit_dataset_training_readiness.py": "sha256:144a0e8cad15d3d3bcc506107e0fc79abaadfeac7cf51abbfd62179935b1eaaf",
+    "tools/audit_fragment_reachability.py": "sha256:117f3346500e293f0532b4e7d69d97be5a38c9d67162ca0411dd09e9e0cbc462",
+    "tools/audit_loitering_impact_dataset.py": "sha256:4325cc633f482dfe9966907cd5437c6dd5366b563da8f74d96ab13a38f338497",
+    "tools/audit_system_learning_contract.py": "sha256:8c98099d885d077271205d33a7c94441af6dc896560e6b746a13c4981f1ebbd9",
+    "tools/benchmark_engine_hotpath.py": "sha256:3ccfd50f9ea015e57928b491196eae146b088486c6ce8a96bf4f798fac251d61",
+    "tools/benchmark_plan_identity.py": "sha256:3456d62495e63554ecd5d3e0c0742f954377fd69f2baa984bd34c1d05379dfef",
+    "tools/build_dataset_health_report.py": "sha256:bd6cdd1b19261677fd5b1d7e6ccf52f442d6135002530933e436404e9327297f",
+    "tools/build_dataset_review_dashboard.py": "sha256:df16ac3428ebfee5c9fb8698be818562e107f1c57fb54e3f0efd034a686e5b61",
+    "tools/build_engine_audit_report.py": "sha256:30b503fa06249f3641378bfa843b63ca67bd33fc2d2114a8ff86c647c50b8ad0",
+    "tools/build_engine_parameter_dashboard.py": "sha256:592185dd4f8bcf4d99a60b05d8c6a2f8dc727fe13f9f1941e7ac69d2d96b0b39",
+    "tools/build_loitering_fragment_only_plan.py": "sha256:be8a7f40b3590b981cb2bdef78b394489565477847930b581a2e61473d585e9f",
+    "tools/build_tensor_semantics_dashboard.py": "sha256:5962277a7a632fe00f3d8919c8e08b88a22c80481d345bc530a4a9a2fea551ec",
+    "tools/estimate_sampling_plan_storage.py": "sha256:bf3cb0d32639235ee51e6733afc1fbe6b95c33a73cafb1c9a48ae6afbc8ef719",
+    "tools/plan_reference_evaluation.py": "sha256:7fc7b6ad80d1ce541977d08f59660e1bf396dae0935e6fc99e18ed94ed48f2b4",
+    "tools/run_replicate_convergence_study.py": "sha256:76d6d486c8913d6c161d46603aa660400259f2c2ee12fec8fe03d09239f9be46",
+    "tools/validate_uav_control_dataset.py": "sha256:514724865763435359101987573f81938eaa942e6e37733254a38922b5faba98",
+    "tests/conftest.py": "sha256:d6fc33d7aea758cdc75f67058dddb99f5791e5ba84e84274da949dcb29444952",
+    "tests/test_adaptive_cli.py": "sha256:2e8d0dc5966f1bb24df843ab1c006753f69d38026f42d190000771751dcb5020",
+    "tests/test_adaptive_convergence.py": "sha256:0f025ff199214c24b4a0e99156800fad536f3da072bd86021a1b52cb688b03f6",
+    "tests/test_adaptive_execution_chain.py": "sha256:2327ce05df07ef09f95f2a42fa34d06ae61d238bf4d3ed5c088e3b0d621e1c31",
+    "tests/test_adaptive_inclusion.py": "sha256:494c66d1f3d50722c8490c4811965c334dcd1313df72f37cafca46c06a823e0e",
+    "tests/test_build_dataset_health_report.py": "sha256:0d055a65e59074cd2fac0427d11ca4484b4b2c5480264630bf68f0054811a09e",
+    "tests/test_bvh.py": "sha256:56b0bf4dceee5eab2457fd967c1a6de161da056b268fa7e3acea534a4c9d6c98",
+    "tests/test_case_factory_geometry.py": "sha256:52a75f057b6d755dfb6cf620cca9c6b78590b192294ef39ab07728d98b50cc27",
+    "tests/test_damage_tree.py": "sha256:07f0d1bfe127696e55d4ab7cccf05ccec7247f86cb74151c844d820203832619",
+    "tests/test_dataset.py": "sha256:779ce73511ac00e669b631686837fdc1f8a616e1e86035eff60bf84c04a1688d",
+    "tests/test_dataset_policy.py": "sha256:a48a32fdf277b421e410cbc9abec723be4c3dce7d2422a92ec7c5eb1ca9c3768",
+    "tests/test_dataset_policy_cli.py": "sha256:da824e68bb4b4fd1555b0c0bc2b3df1a0f9e7c2b52dd5b9a4d95651f47485e45",
+    "tests/test_distribution_design_contract.py": "sha256:abe1c99f6e42ba01488da137e2fa7fcb6cefb488df73d8cbba270f374d86c46c",
+    "tests/test_distribution_manifest_integration.py": "sha256:c71c92d221bc9dfdda8cd03c5e2f40da90e59bf13c5a717165c201974e3508ce",
+    "tests/test_engine.py": "sha256:c0cb05f9627057441847b7ae717f154e16336bf2243c7c3bf478623ce1e63af3",
+    "tests/test_evaluation_planning.py": "sha256:0e728342f07f0a38b619b9661bbf87ff61a9746a2b9d7405f0be0d5d7f80fdd7",
+    "tests/test_fragment_audit.py": "sha256:3e6507dfb52406db2aba31ec32f046bf87c096447e0126aa0103b7ac81cfb465",
+    "tests/test_fragment_list.py": "sha256:41303cf602662091bc2b98184a71918212b297d48aecb68dc95f86d9d5ecc43f",
+    "tests/test_geometry.py": "sha256:7d6c4d748ce07558aa77fe8beb11d2fd7f445571e614341042aaa95f0eedfac8",
+    "tests/test_input_identity_performance.py": "sha256:f3d4a4976a08df70c095ac5701998b77ec18e931944c7ab51f1a86cbb8eb4891",
+    "tests/test_label_spec.py": "sha256:76f7691fcc173daa1eee7d477102f02ef2d0cfb7e9bf1e550c5f87a4f8b71e3f",
+    "tests/test_loader_contract_review.py": "sha256:75a83d272b7b2c0dd953a01276167e3f3cec2f084e916fcc6fdc9d27db9ef26e",
+    "tests/test_loader_stream_separation.py": "sha256:5073448095fa23aaf5f680ff031d79b14b97fc7e6555113f19003dcc548ffec9",
+    "tests/test_loitering_model_input_contract.py": "sha256:5dafe50946dd6b1ef45bbade1b9e851cdff254ca8d002cc272505df72d4d914c",
+    "tests/test_multiround_sampling.py": "sha256:5ef581d49f0938d8729e458d9df13033593ae449d90c0dfffecf1fcc5fdb3de2",
+    "tests/test_multitask_targets.py": "sha256:9f33145acfb4521467c88bf29bdc8463eea4c7df8ae96a167f61e195f8ec80c6",
+    "tests/test_munition_impact.py": "sha256:93cc35f100a951ed07bbe9305576d994c5f11000056b3115ef4917277e3a0839",
+    "tests/test_normalization.py": "sha256:adcdc0a0f956bb2d7b86b68ca80e3098807d010e7cf926fbf50aecc9dcc94056",
+    "tests/test_physics.py": "sha256:3481dcff5c443d82a6b3116761f693d9c30d08cb5563cb6f64efefbfda3e13b1",
+    "tests/test_prelabel_geometry.py": "sha256:98829219139da2d4402117f3a143cfc424df60a2ae8638c5cd121ec8848d628e",
+    "tests/test_raw_import.py": "sha256:02b7dc8277218eadfac735db1bd134d607bbf761852c2bb60a66235cc8183e90",
+    "tests/test_reaudit_audit_fix.py": "sha256:cdbbe8a02531b2c5dc3e7502ddd297fb9afa38ca3bc5aaac73685c811c0bc2bf",
+    "tests/test_reaudit_contract_fix.py": "sha256:7cef3b3a17037f6cf05c1342de828e7a167cb6b8324c1dd1364036812a7adc83",
+    "tests/test_reaudit_sampling_fix.py": "sha256:7b4a4b0a020c9c4046e22ddb9823551516f7038f3b7f4f584abe2c054440dc0b",
+    "tests/test_reaudit_serialization_fix.py": "sha256:4fa7e3de73ad2e88c85ca804b0676adf3689f28c310cefd5ea7dab31625429e5",
+    "tests/test_reference_soft_event_planning.py": "sha256:485f445c90bbf8b9af4f5fba90a183c69a2e92b828aa0c05c17854df2f51480f",
+    "tests/test_replicate_trace.py": "sha256:d7c05234f480558123b258918e0527769f1066f99b0799c3867b7d8c93bcd904",
+    "tests/test_result_ledger_compression.py": "sha256:7e1a0c0c9f8990f7cdf04916abe7b2fb24c5ae5fcc6394d175765e7edb2b24aa",
+    "tests/test_sampling_checkpoint.py": "sha256:31d506fececfce9d7b587288e612abef7da67135632455ddff045caa9cadf3da",
+    "tests/test_sampling_compact_freeze.py": "sha256:8b47df2388c3b752c5a5b59ce750753c4b5f318c7147bd09b9a39da71dd02507",
+    "tests/test_sampling_contract.py": "sha256:d2e768a10934dc560f42f93642b70a006d4fa761722a1676b210db6431507694",
+    "tests/test_sampling_process_storage.py": "sha256:f4610c2fe3d6f3830293fc98268ea3f910cc25019ce4a1a36a6947f170c9ad9a",
+    "tests/test_sampling_result_compression.py": "sha256:a58d3e86d9367f5b13c943d3a0e5f4cb9cba0d817608371c24a313b6764d70b7",
+    "tests/test_sampling_spec.py": "sha256:676eb6e150ea8a6ea35ea2eca48bb0e211f301bef2d1baf3376e70f8229141aa",
+    "tests/test_sampling_split.py": "sha256:fee00a35f819ab29323137076c37aff724ae6b927954b8c2e46032010acff6a3",
+    "tests/test_schema_resources.py": "sha256:ce55c2125e659332589942a38cbae49d2305e03502a37a25d6b6ed7f75d47c1f",
+    "tests/test_scientific_validation.py": "sha256:f81ab463d3a0aa3a93f27eb4a4835c64c772653be12f9792d8fd3d0332bd2254",
+    "tests/test_shard_integrity_review.py": "sha256:a1e259525b19e4d842bdfe8c589b2a81fb41cc2373d56cd13c3dbdeb5889679c",
+    "tests/test_sharded_dataset.py": "sha256:e498258859cfa70764b01be93e848d1da6eedd215a1ff1beb9aa63f73648b6ea",
+    "tests/test_statistics_cli_review.py": "sha256:ef8cb8cbb54f7746cb44bcfdbb06ea980a3b8ca5ae82ae6be92d02a26da4a255",
+    "tests/test_system_learning.py": "sha256:57db4167f1e7c0dfd1de6541c581d897a3f32bec958c24188677a9ef27fb2249",
+    "tests/test_training_readiness_result_ledger.py": "sha256:d2ffc29c2c0b369b5e0669a15e614a322335c38dc5a039c78439128f12cfeaeb",
+    "tests/test_training_view_contract.py": "sha256:83325d466d802d05cecdec0b1bfcd98533e7f6d43671e2b53dde3284b89b10db",
+    "tests/test_uav_model_input_contract.py": "sha256:b05937b2e60787d82d7accfb451bfa1a26d68e13c0868b2074c712bfa9444944",
+    "tests/test_utils.py": "sha256:bd8d425a43296e427ca205b463776e1f0d47e0db239d74b2c24cfd333783beb7",
+    "tests/test_validate_uav_control_dataset.py": "sha256:1c2169f1694b8dbb963a15add7f47e77c9e3048fa6182ccaa3d22d0586b5e5b8",
+    "tests/test_validation.py": "sha256:201e6f91a811e18af098f0343c894075991680114ecb370ab549f17ce8924d00",
+    "tests/test_validation_cache.py": "sha256:1c9dfa17573ff83df835ebce1c13362d2cc398d99b823aff2728dead454088a7",
+    "tests/test_writer_integrity_review.py": "sha256:5d5f68184f9e2cda7abe38b56c01fb4a527fd52f132ec7c17f899238631f920c",
+    "README.md": "sha256:0f9bca98c4481768f632ff2943cc9f47a56be89a1405b86589a4688d7905c506",
+    "pyproject.toml": "sha256:47585d2dcc0e4cdc351223acdbbcea51cb7a61c51c9392a27473d4556d12d5dc",
+    "requirements.txt": "sha256:4d67dc1b773e23e17c98947ed0aa751bca012fb3ad70d0ccf9d42c7d566a63c7",
+    "requirements-lock.txt": "sha256:58fcdaf3c27506a81598fa4f1e78e571e1beac22ad5235fedb08d4d1fa05f30e"
+  },
+  "archive": {
+    "root": "D:\\Desktop\\UAV新\\raw_data\\dataset_5000_loitering_impact_fragment_only_v1",
+    "manifest_hash": "sha256:f8702b39623fc53c9a2334cf728263af2d261fe4a8ef19eaf713bf04c32cb4c4",
+    "dataset_id": "damage-dataset-fb1af45b41880da2e8ef368a",
+    "schema_version": "1.7.0",
+    "tensor_version": "1.8.0",
+    "engine": {
+      "version": "0.7.0.dev1",
+      "code_hash": "sha256:bf3b325e5504d180a22a14aab4948751f374f8a67eb77d6db956707d2770e787",
+      "configuration_hash": "sha256:9e38d58b3a9e22c4d991fa889ad8945ad42700c0db1deb4b4984a2c4c781de66",
+      "fidelity_level": "L2",
+      "fidelity_levels": [
+        "L2"
+      ],
+      "validation_record_id": null
+    },
+    "label_admission": {
+      "label_source_type": "synthetic_teacher",
+      "input_integrity_status": "verified",
+      "scientific_evidence_status": "not_evaluated",
+      "approved_uses": [
+        "software_development"
+      ],
+      "validation_record_status": "missing",
+      "coverage_report_status": "not_performed",
+      "evaluation_definition_approval_status": "not_independently_verified",
+      "source_object_completeness_status": "not_independently_verified",
+      "reason": "Execution and archive integrity do not establish independent scientific validation.",
+      "evidence_record": null
+    },
+    "n_shards": 4,
+    "quality_summary": {
+      "n_total": 5000,
+      "n_valid": 5000,
+      "n_valid_semantics": "execution_success_count",
+      "execution_success_count": 5000,
+      "purpose_admission_counts": {
+        "software_development": 5000,
+        "research_training": 0,
+        "research_validation": 0,
+        "research_test": 0
+      },
+      "n_refused": 0,
+      "refusal_counts": {},
+      "unverified_parameter_fraction": 1.0,
+      "mc_ci_half_width_quantiles": [
+        0.0,
+        0.0,
+        2.910829355329313e-12
+      ],
+      "coverage_report_id": null,
+      "sampling_diagnostics": {
+        "set": "successful_weight_eligible",
+        "weighted_successful_count": 5000,
+        "coverage_status": "not_validated_from_successful_execution_subset",
+        "positivity_min": 1.0,
+        "effective_sample_size": 5000.0,
+        "ess_fraction": 1.0,
+        "weight_cv": 0.0,
+        "raw_weight_preserved": true,
+        "candidate_ledger_external": true
+      }
+    },
+    "first_shard_tensor_fields": {
+      "case_x": {
+        "shape": [
+          1250,
+          71
+        ],
+        "dtype": "float32"
+      },
+      "case_feature_mask": {
+        "shape": [
+          1250,
+          71
+        ],
+        "dtype": "bool"
+      },
+      "component_x": {
+        "shape": [
+          1250,
+          67,
+          38
+        ],
+        "dtype": "float32"
+      },
+      "component_feature_mask": {
+        "shape": [
+          1250,
+          67,
+          38
+        ],
+        "dtype": "bool"
+      },
+      "armor_x": {
+        "shape": [
+          1250,
+          2,
+          18
+        ],
+        "dtype": "float32"
+      },
+      "armor_feature_mask": {
+        "shape": [
+          1250,
+          2,
+          18
+        ],
+        "dtype": "bool"
+      },
+      "armor_y": {
+        "shape": [
+          1250,
+          2,
+          13
+        ],
+        "dtype": "float32"
+      },
+      "armor_y_stddev": {
+        "shape": [
+          1250,
+          2,
+          13
+        ],
+        "dtype": "float32"
+      },
+      "armor_y_ci95": {
+        "shape": [
+          1250,
+          2,
+          13,
+          2
+        ],
+        "dtype": "float32"
+      },
+      "armor_label_mask": {
+        "shape": [
+          1250,
+          2,
+          13
+        ],
+        "dtype": "bool"
+      },
+      "component_armor_path_x": {
+        "shape": [
+          1250,
+          67,
+          2,
+          4
+        ],
+        "dtype": "float32"
+      },
+      "component_armor_path_mask": {
+        "shape": [
+          1250,
+          67,
+          2,
+          4
+        ],
+        "dtype": "bool"
+      },
+      "component_y": {
+        "shape": [
+          1250,
+          67,
+          3,
+          2
+        ],
+        "dtype": "float32"
+      },
+      "component_y_stddev": {
+        "shape": [
+          1250,
+          67,
+          3,
+          2
+        ],
+        "dtype": "float32"
+      },
+      "component_y_ci95": {
+        "shape": [
+          1250,
+          67,
+          3,
+          2,
+          2
+        ],
+        "dtype": "float32"
+      },
+      "component_label_mask": {
+        "shape": [
+          1250,
+          67,
+          3,
+          2
+        ],
+        "dtype": "bool"
+      },
+      "component_frechet_y": {
+        "shape": [
+          1250,
+          67,
+          2,
+          2
+        ],
+        "dtype": "float32"
+      },
+      "component_frechet_y_stddev": {
+        "shape": [
+          1250,
+          67,
+          2,
+          2
+        ],
+        "dtype": "float32"
+      },
+      "component_frechet_y_ci95": {
+        "shape": [
+          1250,
+          67,
+          2,
+          2,
+          2
+        ],
+        "dtype": "float32"
+      },
+      "component_frechet_label_mask": {
+        "shape": [
+          1250,
+          67,
+          2,
+          2
+        ],
+        "dtype": "bool"
+      },
+      "component_aux_y": {
+        "shape": [
+          1250,
+          67,
+          14
+        ],
+        "dtype": "float32"
+      },
+      "component_aux_y_stddev": {
+        "shape": [
+          1250,
+          67,
+          14
+        ],
+        "dtype": "float32"
+      },
+      "component_aux_y_ci95": {
+        "shape": [
+          1250,
+          67,
+          14,
+          2
+        ],
+        "dtype": "float32"
+      },
+      "component_aux_label_mask": {
+        "shape": [
+          1250,
+          67,
+          14
+        ],
+        "dtype": "bool"
+      },
+      "system_y": {
+        "shape": [
+          1250,
+          7
+        ],
+        "dtype": "float32"
+      },
+      "system_y_stddev": {
+        "shape": [
+          1250,
+          7
+        ],
+        "dtype": "float32"
+      },
+      "system_y_ci95": {
+        "shape": [
+          1250,
+          7,
+          2
+        ],
+        "dtype": "float32"
+      },
+      "system_label_mask": {
+        "shape": [
+          1250,
+          7
+        ],
+        "dtype": "bool"
+      },
+      "system_source_available_mask": {
+        "shape": [
+          1250,
+          7
+        ],
+        "dtype": "bool"
+      },
+      "requested_standard_mask": {
+        "shape": [
+          1250,
+          1
+        ],
+        "dtype": "bool"
+      },
+      "case_ids": {
+        "shape": [
+          1250
+        ],
+        "dtype": "<U31"
+      },
+      "case_hashes": {
+        "shape": [
+          1250
+        ],
+        "dtype": "<U71"
+      },
+      "split_names": {
+        "shape": [
+          1250
+        ],
+        "dtype": "<U10"
+      },
+      "split_group_ids": {
+        "shape": [
+          1250
+        ],
+        "dtype": "<U32"
+      },
+      "split_group_sources": {
+        "shape": [
+          1250
+        ],
+        "dtype": "<U21"
+      },
+      "leakage_keys": {
+        "shape": [
+          1250
+        ],
+        "dtype": "<U71"
+      },
+      "aleatory_seeds": {
+        "shape": [
+          1250
+        ],
+        "dtype": "int64"
+      },
+      "epistemic_sample_ids": {
+        "shape": [
+          1250
+        ],
+        "dtype": "<U32"
+      },
+      "replicate_counts": {
+        "shape": [
+          1250
+        ],
+        "dtype": "int64"
+      },
+      "input_case_ids": {
+        "shape": [
+          1250
+        ],
+        "dtype": "<U31"
+      },
+      "input_case_status": {
+        "shape": [
+          1250
+        ],
+        "dtype": "<U2"
+      },
+      "input_case_valid_mask": {
+        "shape": [
+          1250
+        ],
+        "dtype": "bool"
+      },
+      "input_to_valid_index": {
+        "shape": [
+          1250
+        ],
+        "dtype": "int64"
+      },
+      "component_ids": {
+        "shape": [
+          67
+        ],
+        "dtype": "<U13"
+      },
+      "armor_ids": {
+        "shape": [
+          2
+        ],
+        "dtype": "<U9"
+      },
+      "mechanism_names": {
+        "shape": [
+          3
+        ],
+        "dtype": "<U8"
+      },
+      "state_names": {
+        "shape": [
+          2
+        ],
+        "dtype": "<U8"
+      },
+      "frechet_bound_names": {
+        "shape": [
+          2
+        ],
+        "dtype": "<U5"
+      },
+      "frechet_bound_units": {
+        "shape": [
+          2
+        ],
+        "dtype": "<U1"
+      },
+      "system_output_names": {
+        "shape": [
+          7
+        ],
+        "dtype": "<U9"
+      },
+      "evaluation_standard_ids": {
+        "shape": [
+          1
+        ],
+        "dtype": "<U42"
+      },
+      "standard_output_mask": {
+        "shape": [
+          1,
+          7
+        ],
+        "dtype": "bool"
+      },
+      "case_feature_names": {
+        "shape": [
+          71
+        ],
+        "dtype": "<U29"
+      },
+      "case_feature_units": {
+        "shape": [
+          71
+        ],
+        "dtype": "<U6"
+      },
+      "component_feature_names": {
+        "shape": [
+          38
+        ],
+        "dtype": "<U28"
+      },
+      "component_feature_units": {
+        "shape": [
+          38
+        ],
+        "dtype": "<U5"
+      },
+      "armor_feature_names": {
+        "shape": [
+          18
+        ],
+        "dtype": "<U28"
+      },
+      "armor_feature_units": {
+        "shape": [
+          18
+        ],
+        "dtype": "<U5"
+      },
+      "armor_label_names": {
+        "shape": [
+          13
+        ],
+        "dtype": "<U32"
+      },
+      "armor_label_units": {
+        "shape": [
+          13
+        ],
+        "dtype": "<U4"
+      },
+      "armor_path_feature_names": {
+        "shape": [
+          4
+        ],
+        "dtype": "<U16"
+      },
+      "armor_path_feature_units": {
+        "shape": [
+          4
+        ],
+        "dtype": "<U1"
+      },
+      "component_aux_label_names": {
+        "shape": [
+          14
+        ],
+        "dtype": "<U37"
+      },
+      "component_aux_label_units": {
+        "shape": [
+          14
+        ],
+        "dtype": "<U5"
+      },
+      "component_material_ids": {
+        "shape": [
+          67
+        ],
+        "dtype": "<U16"
+      },
+      "component_type_ids": {
+        "shape": [
+          67
+        ],
+        "dtype": "<U24"
+      },
+      "fragment_response_model_ids": {
+        "shape": [
+          67
+        ],
+        "dtype": "<U23"
+      },
+      "blast_response_model_ids": {
+        "shape": [
+          67
+        ],
+        "dtype": "<U22"
+      },
+      "armor_material_ids": {
+        "shape": [
+          2
+        ],
+        "dtype": "<U10"
+      },
+      "armor_fragment_response_model_ids": {
+        "shape": [
+          2
+        ],
+        "dtype": "<U19"
+      },
+      "armor_blast_response_model_ids": {
+        "shape": [
+          2
+        ],
+        "dtype": "<U21"
+      },
+      "armor_vertices_m": {
+        "shape": [
+          12,
+          3
+        ],
+        "dtype": "float32"
+      },
+      "armor_vertex_offsets": {
+        "shape": [
+          3
+        ],
+        "dtype": "int64"
+      },
+      "component_vertices_m": {
+        "shape": [
+          0,
+          3
+        ],
+        "dtype": "float32"
+      },
+      "component_vertex_offsets": {
+        "shape": [
+          68
+        ],
+        "dtype": "int64"
+      },
+      "graph_node_ids": {
+        "shape": [
+          128
+        ],
+        "dtype": "<U27"
+      },
+      "graph_node_types": {
+        "shape": [
+          128
+        ],
+        "dtype": "<U11"
+      },
+      "tree_edge_index": {
+        "shape": [
+          2,
+          110
+        ],
+        "dtype": "int64"
+      },
+      "tree_edge_type": {
+        "shape": [
+          110
+        ],
+        "dtype": "int16"
+      },
+      "tree_edge_type_names": {
+        "shape": [
+          2
+        ],
+        "dtype": "<U23"
+      },
+      "case_physics_x": {
+        "shape": [
+          1250,
+          60
+        ],
+        "dtype": "float32"
+      },
+      "case_physics_feature_mask": {
+        "shape": [
+          1250,
+          60
+        ],
+        "dtype": "bool"
+      },
+      "solver_context_x": {
+        "shape": [
+          1250,
+          11
+        ],
+        "dtype": "float32"
+      },
+      "solver_context_feature_mask": {
+        "shape": [
+          1250,
+          11
+        ],
+        "dtype": "bool"
+      },
+      "case_physics_feature_names": {
+        "shape": [
+          60
+        ],
+        "dtype": "<U29"
+      },
+      "case_physics_feature_units": {
+        "shape": [
+          60
+        ],
+        "dtype": "<U6"
+      },
+      "solver_context_feature_names": {
+        "shape": [
+          11
+        ],
+        "dtype": "<U26"
+      },
+      "solver_context_feature_units": {
+        "shape": [
+          11
+        ],
+        "dtype": "<U5"
+      },
+      "sampling_selection_probability": {
+        "shape": [
+          1250
+        ],
+        "dtype": "float64"
+      },
+      "sampling_design_weight_raw": {
+        "shape": [
+          1250
+        ],
+        "dtype": "float64"
+      },
+      "sampling_weight_mask": {
+        "shape": [
+          1250
+        ],
+        "dtype": "bool"
+      },
+      "sampling_round": {
+        "shape": [
+          1250
+        ],
+        "dtype": "int64"
+      },
+      "sampling_stratum_index": {
+        "shape": [
+          1250
+        ],
+        "dtype": "int64"
+      },
+      "sampling_role_index": {
+        "shape": [
+          1250
+        ],
+        "dtype": "int64"
+      },
+      "sampling_stratum_names": {
+        "shape": [
+          1
+        ],
+        "dtype": "<U2"
+      },
+      "sampling_role_names": {
+        "shape": [
+          3
+        ],
+        "dtype": "<U20"
+      },
+      "sampling_candidate_ids": {
+        "shape": [
+          1250
+        ],
+        "dtype": "<U34"
+      },
+      "sampling_lineage_ids": {
+        "shape": [
+          1250
+        ],
+        "dtype": "<U32"
+      },
+      "sampling_epistemic_group_ids": {
+        "shape": [
+          1250
+        ],
+        "dtype": "<U32"
+      },
+      "loitering_impact_x": {
+        "shape": [
+          1250,
+          6
+        ],
+        "dtype": "float32"
+      },
+      "loitering_impact_feature_mask": {
+        "shape": [
+          1250,
+          6
+        ],
+        "dtype": "bool"
+      },
+      "loitering_impact_feature_names": {
+        "shape": [
+          6
+        ],
+        "dtype": "<U29"
+      },
+      "loitering_impact_feature_units": {
+        "shape": [
+          6
+        ],
+        "dtype": "<U3"
+      },
+      "loitering_impact_feature_source_paths": {
+        "shape": [
+          6
+        ],
+        "dtype": "<U32"
+      },
+      "loitering_impact_feature_transforms": {
+        "shape": [
+          6
+        ],
+        "dtype": "<U29"
+      },
+      "loitering_impact_feature_semantics": {
+        "shape": [
+          6
+        ],
+        "dtype": "<U86"
+      },
+      "input_sampling_candidate_ids": {
+        "shape": [
+          1250
+        ],
+        "dtype": "<U34"
+      },
+      "input_sampling_lineage_ids": {
+        "shape": [
+          1250
+        ],
+        "dtype": "<U32"
+      },
+      "input_sampling_roles": {
+        "shape": [
+          1250
+        ],
+        "dtype": "<U20"
+      },
+      "input_sampling_epistemic_group_ids": {
+        "shape": [
+          1250
+        ],
+        "dtype": "<U32"
+      },
+      "input_frozen_splits": {
+        "shape": [
+          1250
+        ],
+        "dtype": "<U10"
+      },
+      "label_task_names": {
+        "shape": [
+          1
+        ],
+        "dtype": "<U17"
+      },
+      "label_task_available_mask": {
+        "shape": [
+          1250,
+          1
+        ],
+        "dtype": "bool"
+      },
+      "armor_sample_count": {
+        "shape": [
+          1250,
+          2,
+          13
+        ],
+        "dtype": "int64"
+      },
+      "armor_uncertainty_mask": {
+        "shape": [
+          1250,
+          2,
+          13
+        ],
+        "dtype": "bool"
+      },
+      "component_sample_count": {
+        "shape": [
+          1250,
+          67,
+          3,
+          2
+        ],
+        "dtype": "int64"
+      },
+      "component_uncertainty_mask": {
+        "shape": [
+          1250,
+          67,
+          3,
+          2
+        ],
+        "dtype": "bool"
+      },
+      "component_frechet_sample_count": {
+        "shape": [
+          1250,
+          67,
+          2,
+          2
+        ],
+        "dtype": "int64"
+      },
+      "component_frechet_uncertainty_mask": {
+        "shape": [
+          1250,
+          67,
+          2,
+          2
+        ],
+        "dtype": "bool"
+      },
+      "component_aux_sample_count": {
+        "shape": [
+          1250,
+          67,
+          14
+        ],
+        "dtype": "int64"
+      },
+      "component_aux_uncertainty_mask": {
+        "shape": [
+          1250,
+          67,
+          14
+        ],
+        "dtype": "bool"
+      },
+      "system_sample_count": {
+        "shape": [
+          1250,
+          7
+        ],
+        "dtype": "int64"
+      },
+      "system_uncertainty_mask": {
+        "shape": [
+          1250,
+          7
+        ],
+        "dtype": "bool"
+      }
+    }
+  }
+}

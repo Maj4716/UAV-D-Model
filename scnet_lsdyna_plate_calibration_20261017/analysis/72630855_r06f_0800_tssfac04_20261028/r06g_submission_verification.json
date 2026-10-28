@@ -1,0 +1,69 @@
+{
+  "schema_version": "hf-p0-r06g-tssfac02-delivery-verification@1.0.0",
+  "verified_at_local_date": "2026-10-28",
+  "parent_platform_job_id": "72630855",
+  "parent_audit_classification": "successful_run_but_severe_timestep_sensitivity",
+  "package_revision": "R06_timestep_refinement_20261028",
+  "job_id": "r06g_0800_tssfac02",
+  "status": "ready_for_user_submission_not_submitted_not_solver_validated",
+  "canonical_directory": "D:\\Desktop\\UAV新\\scnet_lsdyna_plate_calibration_20261017\\artifacts\\r06g_tssfac02_submission_20261028_v2",
+  "submission_artifact": {
+    "path": "D:\\Desktop\\UAV新\\scnet_lsdyna_plate_calibration_20261017\\artifacts\\r06g_tssfac02_submission_20261028_v2\\uav_hf_r06g_0800_tssfac02.zip",
+    "size_bytes": 414046,
+    "sha256": "sha256:0d7af79e4e9399edecb8d87a9ebd7ef0cd0090db5a61a6eab1aba24cee1ef8f3",
+    "member_count": 10,
+    "head_deck": "r06g_0800_tssfac02.k",
+    "head_deck_size_bytes": 2557651,
+    "head_deck_sha256": "sha256:b5f4da367e9ef6eaae7098e47a84610eb55c51760cc9bf8dbb4721693b7a732a"
+  },
+  "single_factor": {
+    "field": "CONTROL_TIMESTEP.TSSFAC",
+    "baseline_platform_job_id": "72630855",
+    "baseline_value": 0.4,
+    "treatment_value": 0.2,
+    "dt2ms": 0.0,
+    "factor_isolation": "pass_title_and_control_timestep_field_2_only"
+  },
+  "static_checks": {
+    "batch_readiness": "pass",
+    "zip_internal_external_identity": "pass",
+    "explicit_zip_members": "pass",
+    "resource_identity": "pass_1_node_32_ranks",
+    "no_mass_scaling": "pass",
+    "no_timestep_erosion": "pass",
+    "deterministic_independent_bundle_build": "pass",
+    "python_compile": "pass"
+  },
+  "test_evidence": {
+    "full_available_suite": {
+      "passed": 129,
+      "failed": 0,
+      "deselected": 1,
+      "deselected_reason": "Historical parser-repair fixture expects D:\\Downloads\\uav_hf_r06d_0800_ctrl.zip, which is not present on this machine."
+    },
+    "r06g_targeted_suite": {
+      "passed": 5,
+      "failed": 0
+    }
+  },
+  "platform_settings": {
+    "software": "ls-dyna_R15_mmp_d",
+    "nodes": 1,
+    "ranks": 32,
+    "walltime": "04:00:00",
+    "head_memory": "512MB",
+    "child_memory": "256MB",
+    "command_line_parameters": "",
+    "auto_fill_previous_parameters": false
+  },
+  "unmet_external_gates": [
+    "target LS-DYNA R15.0.2 keyword parse",
+    "one-node 32-rank resource handshake",
+    "normal termination and run-integrity",
+    "D3PART/full-D3PLOT HVAR6 and NCFORC readability",
+    "no-crossing-aware convergence comparison against Job 72630855",
+    "physical and dataset admission"
+  ],
+  "superseded_directory": "D:\\Desktop\\UAV新\\scnet_lsdyna_plate_calibration_20261017\\artifacts\\r06g_tssfac02_submission_20261028",
+  "next_gate": "Submit only the canonical _v2 ZIP. Keep 2000 m/s and all treatments frozen until the returned TSSFAC=0.2 result is audited."
+}

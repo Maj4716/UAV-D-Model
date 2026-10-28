@@ -1,0 +1,83 @@
+{
+  "scope": "Artificial arrays and artificial two-shard directory only; no real domain inputs, engine, labels, training or parameter tuning",
+  "cases": {
+    "distinct_constant_splits": {
+      "description": "Each split is internally constant, and the three values differ",
+      "reported_smds": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "reported_ks": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "defect": "zero within-split variance and different means is reported as SMD=0 instead of a degenerate/undefined standardized effect with explicit mean separation"
+    },
+    "ess_scale_invariance": {
+      "unit": {
+        "expected_ess": 3.0,
+        "core_ess": 3.0,
+        "stratum_ess": 3.0
+      },
+      "large_finite": {
+        "expected_ess": 3.0,
+        "core_ess": "nonfinite",
+        "stratum_ess": "nonfinite"
+      },
+      "small_finite": {
+        "expected_ess": 3.0,
+        "core_ess": "nonfinite",
+        "stratum_ess": 0.0
+      }
+    },
+    "invalid_eligible_weight_and_probability": {
+      "eligible_input_count": 3,
+      "accepted_weight_count": 2,
+      "reported_ess_fraction": 1.0,
+      "reported_probability_violations": 0,
+      "invalid_weight_count_field_present": false,
+      "raised_validation_error": false,
+      "defect": "negative eligible weight silently filtered; probability above 1 omitted from violation count"
+    },
+    "bin_contract": {
+      "constant_axis_declared_range": [
+        2.0,
+        2.0
+      ],
+      "constant_axis_histogram_range": [
+        1.5,
+        2.5
+      ],
+      "constant_axis_explicit_not_estimable_status_present": false,
+      "ordinary_boundary_input_count": 6,
+      "finite_observed_count": 5,
+      "out_of_range_count": 2,
+      "binned_count": 3,
+      "missing_count_field_present": false
+    },
+    "summary_missingness": {
+      "input_count": 4,
+      "reported_count": 2,
+      "reported_unique": 1,
+      "invalid_count_field_present": false,
+      "boundary": "helper removes nonfinite values; caller must disclose/check the original eligible denominator"
+    },
+    "glob_includes_uncommitted_shard": {
+      "fixture": "review_evidence/reaudit_20261015/io_toy_uncommitted_shards_13b1f0ed",
+      "declared_shard_count": 1,
+      "loaded_shard_count": 2,
+      "loaded_case_count": 2,
+      "uncommitted_case_loaded": true,
+      "manifest_and_checkpoint_validated": false,
+      "boundary": "fixture is intentionally minimal; helper does not consult either file, so it also does not establish a complete archive contract"
+    }
+  },
+  "source_hashes": {
+    "damage_engine/adaptive_sampling.py": "sha256:20b72e958e4c3f50a820e26b44fe5007cb0bd655dc0b234e278a595a169e6349",
+    "damage_engine/sampling_audit.py": "sha256:08aae4fff6a91663c36abe434feb9ab137d2cdcb6c9c6f015cd5479c4160cca0",
+    "tools/audit_dataset_distribution.py": "sha256:c286959b75817e0b2db453a3f7e5905c06ac35947341e429aacf2c196f271210",
+    "tools/audit_loitering_impact_dataset.py": "sha256:4325cc633f482dfe9966907cd5437c6dd5366b563da8f74d96ab13a38f338497"
+  }
+}

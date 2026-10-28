@@ -1,0 +1,58 @@
+{
+  "schema_version": "hf-p0-r06-diagnostic-bundle@1.0.0",
+  "package_revision": "R06_measurement_contract_repair_20261027",
+  "job_id": "r06f_0800_ctrl",
+  "experiment_id": "r06f_recanary_800_measurement_contract",
+  "role": "measurement_repair_recanary_control",
+  "status": "prepared_not_submitted_not_solver_validated",
+  "head_deck": "r06f_0800_ctrl.k",
+  "file_policy": "explicit_whitelist_one_head_deck",
+  "files": [
+    {
+      "path": "UPLOAD_README.txt",
+      "size_bytes": 1903,
+      "sha256": "sha256:94c00f8d269071e5a4b869d8828102fce76dcba122cd437d8bef82055250abc1"
+    },
+    {
+      "path": "jc4340_reference.json",
+      "size_bytes": 3144,
+      "sha256": "sha256:9b462b920459e57641d5f89d10d36c0aa0498c86f2478fef8e4c3efa96888311"
+    },
+    {
+      "path": "job_contract.json",
+      "size_bytes": 1827,
+      "sha256": "sha256:cd0e528fd8e15038234e15053b6d9fe377596018093227a8d91a2567172aa969"
+    },
+    {
+      "path": "manifest.json",
+      "size_bytes": 2124,
+      "sha256": "sha256:3660bc8166b2b8bb5f029ba33122cd3132699afe0f4b3b111d15f28f84789077"
+    },
+    {
+      "path": "p0_case_part_map.csv",
+      "size_bytes": 495,
+      "sha256": "sha256:691ce1f9c68d24657a865522d139aac0fc69a0d66bea08635dcc8c510d2245d2"
+    },
+    {
+      "path": "p0_r06f_measurement_repair_design.json",
+      "size_bytes": 10175,
+      "sha256": "sha256:d4e2bd9b6a58efdc9b56e9a4c2d9f87ed78e6b5f0db1bd057579b079b430d6cf"
+    },
+    {
+      "path": "p0_r06f_real_output_contract.json",
+      "size_bytes": 6768,
+      "sha256": "sha256:566b00de9f897e2f63133b9bb8a3dd7d72f702d9e8029d97e94ee9ffdc202128"
+    },
+    {
+      "path": "r06f_0800_ctrl.k",
+      "size_bytes": 2557676,
+      "sha256": "sha256:111911562b703b8af1e96810b08edd8c31fbeea739ddddd2921b8bcd07c517af"
+    },
+    {
+      "path": "static_validation.json",
+      "size_bytes": 3271,
+      "sha256": "sha256:9805cba77d0f59571d70cab9889f2d1c8398f94d0e64608bf17985fc0f3d6983"
+    }
+  ],
+  "prohibited_inference": "Bundle and static PASS do not establish parser/runtime, numerical response, physical validity, or P0/P1 admission."
+}

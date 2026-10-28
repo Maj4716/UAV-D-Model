@@ -1,0 +1,53 @@
+{
+  "schema_version": "hf-p0-r06-job-manifest@1.0.0",
+  "package_revision": "R06_keyword_parser_repair_20261025",
+  "job_id": "r06e_2000_ctrl",
+  "status": "generated_not_solver_validated",
+  "evidence_class": "high_fidelity_synthetic_diagnostic_candidate",
+  "deck": {
+    "path": "r06e_2000_ctrl.k",
+    "size_bytes": 2718983,
+    "sha256": "sha256:911e6deb40b393428cb2250fec348c24bf9747c09a2ce047921c3e792cc2025e",
+    "node_count": 23775,
+    "element_count": 20902,
+    "node_id_span": [
+      95101,
+      118875
+    ],
+    "element_id_span": [
+      83609,
+      104510
+    ]
+  },
+  "design": {
+    "path": "p0_r06_keyword_parser_repair_design.json",
+    "sha256": "sha256:508ec347a884dd124ef0bf3ffd7bb40f0c57fd466953b5a4b085ff066693c111"
+  },
+  "material": {
+    "path": "jc4340_reference.json",
+    "sha256": "sha256:9b462b920459e57641d5f89d10d36c0aa0498c86f2478fef8e4c3efa96888311"
+  },
+  "successor_contract": {
+    "path": "p0_r06_real_output_contract.json",
+    "sha256": "sha256:71371ee8726fe95899de33aef163d8a9725d9f43781d5775de10fa2afc150795",
+    "historical_status_preserved": "frozen_after_r05_diagnostic_before_any_r06_deck_or_solver_outcome"
+  },
+  "case_map": {
+    "path": "p0_case_part_map.csv",
+    "sha256": "sha256:2e921e5e2e57f77eb5c3de5ed6f3e1451a77b238d8b61877ae8cc9df6e8423bd"
+  },
+  "job_contract": {
+    "path": "job_contract.json",
+    "sha256": "sha256:c247d3b1205533aa3490f39f20496bad1c3bbbc9af88485fb80970e0e265884f"
+  },
+  "limitations": [
+    "Four jobs implement two paired single-factor diagnostics; they are not four independent calibration points.",
+    "Static validation establishes serialization and identity only, not LS-DYNA parser/runtime acceptance.",
+    "A solver-completed diagnostic is not automatically an admissible P0 response.",
+    "The generic 4340 material and generic-steel EOS remain unvalidated for the real target system.",
+    "Unavailable response is never replaced with zero and targeted diagnostic data stay outside the reference response distribution.",
+    "The R06d failures establish a parser-contract defect only; they do not evaluate numerical or physical response.",
+    "R06e changes only shared database-output serialization and explicit documented defaults; the paired physics factors remain unchanged.",
+    "A local static PASS cannot promote Wave 0 without returned target-R15 parser and runtime evidence."
+  ]
+}

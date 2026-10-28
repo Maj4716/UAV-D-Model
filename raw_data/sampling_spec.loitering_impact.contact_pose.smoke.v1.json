@@ -1,0 +1,470 @@
+{
+  "schema_version": "1.4.0",
+  "sampling_spec_id": "loitering-impact-contact-pose-smoke-v1",
+  "revision": "1.0.0-provisional",
+  "status": "provisional",
+  "reference_distribution": {
+    "distribution_id": "loitering-impact-contact-pose-design-v1",
+    "interpretation": "design_distribution",
+    "variables": [
+      {
+        "name": "munition_profile",
+        "path": "/munition/profile_id",
+        "distribution": "choice",
+        "values": [
+          "small_front",
+          "medium_front",
+          "large_front"
+        ]
+      }
+    ],
+    "constraints": []
+  },
+  "budgets": {
+    "train_pilot": 6,
+    "validation": 6,
+    "test": 6,
+    "rare_stress_test": 0
+  },
+  "seeds": {
+    "design": 2026101401,
+    "selection": 2026101402,
+    "split": 2026101403,
+    "screening": 2026101404,
+    "formal": 2026101405
+  },
+  "formal_policy": {
+    "replicates": 2,
+    "adaptive_ci_half_width": null,
+    "epistemic_policy": "unique_per_lineage"
+  },
+  "split_policy": {
+    "registry_id": "loitering-impact-contact-pose-smoke-splits-v1",
+    "freeze_before_outcomes": true,
+    "adaptive_train_only": true
+  },
+  "quality_gates": {
+    "positivity_min": 0.1,
+    "min_ess_fraction": 0.5,
+    "max_weight_cv": 2.0
+  },
+  "feature_roles": [
+    {
+      "feature_id": "munition_profile",
+      "path": "/munition/profile_id",
+      "tensor_feature_names": [
+        "munition_profile_small_front",
+        "munition_profile_medium_front",
+        "munition_profile_large_front"
+      ],
+      "role": "learnable_variable",
+      "availability_stage": "raw_input",
+      "deployment_available": true
+    },
+    {
+      "feature_id": "trajectory_origin",
+      "path": "/encounter/trajectory_origin_m",
+      "tensor_feature_names": [
+        "trajectory_origin_x_m",
+        "trajectory_origin_y_m",
+        "trajectory_origin_z_m"
+      ],
+      "role": "learnable_variable",
+      "availability_stage": "raw_input",
+      "deployment_available": true
+    },
+    {
+      "feature_id": "approach_velocity",
+      "path": "/encounter/velocity_target_mps",
+      "tensor_feature_names": [
+        "approach_velocity_target_x_mps",
+        "approach_velocity_target_y_mps",
+        "approach_velocity_target_z_mps"
+      ],
+      "role": "learnable_variable",
+      "availability_stage": "raw_input",
+      "deployment_available": true
+    },
+    {
+      "feature_id": "body_to_target_attitude",
+      "path": "/encounter/body_to_target_orientation_xyzw",
+      "tensor_feature_names": [
+        "body_to_target_rotation_6d_col0_x",
+        "body_to_target_rotation_6d_col0_y",
+        "body_to_target_rotation_6d_col0_z",
+        "body_to_target_rotation_6d_col1_x",
+        "body_to_target_rotation_6d_col1_y",
+        "body_to_target_rotation_6d_col1_z"
+      ],
+      "role": "learnable_variable",
+      "availability_stage": "raw_input",
+      "deployment_available": true
+    }
+  ],
+  "variable_blocks": [],
+  "geometry_strata": [],
+  "stream_roles": [
+    {
+      "role": "reference_train",
+      "stream": "reference",
+      "split": "train",
+      "train_eligible": true
+    },
+    {
+      "role": "reference_validation",
+      "stream": "reference",
+      "split": "validation",
+      "train_eligible": false
+    },
+    {
+      "role": "reference_test",
+      "stream": "reference",
+      "split": "test",
+      "train_eligible": false
+    }
+  ],
+  "round_budgets": [
+    {
+      "round": 0,
+      "allocations": [
+        {
+          "role": "reference_validation",
+          "stratum_id": "p0",
+          "proposal_id": "loitering-impact-contact-pose-design-v1",
+          "count": 6
+        },
+        {
+          "role": "reference_test",
+          "stratum_id": "p0",
+          "proposal_id": "loitering-impact-contact-pose-design-v1",
+          "count": 6
+        },
+        {
+          "role": "reference_train",
+          "stratum_id": "p0",
+          "proposal_id": "loitering-impact-contact-pose-design-v1",
+          "count": 6
+        }
+      ]
+    }
+  ],
+  "replicate_policy": {
+    "default_replicates": 2,
+    "outcome_adaptive": false,
+    "overrides": []
+  },
+  "key_projections": [
+    {
+      "projection_id": "profile-contact-pose",
+      "paths": [
+        "/munition/profile_id",
+        "/encounter/trajectory_origin_m",
+        "/encounter/velocity_target_mps",
+        "/encounter/body_to_target_orientation_xyzw"
+      ],
+      "purpose": "coverage_audit",
+      "pre_label_only": true
+    }
+  ],
+  "proxy_scope": {
+    "scope": "fixed_target",
+    "geometry_boundary": "end_to_end",
+    "target_identity_policy": "fixed_target_hash",
+    "deployment_features_match_training": true,
+    "evidence_status": "unverified"
+  },
+  "legal_sampling": {
+    "invalid_candidate_policy": "reject_and_resample",
+    "max_attempts_per_allocation": 120
+  },
+  "model_input_contract": "loitering_impact_contact_pose@1.0.0",
+  "contact_conditioning": {
+    "contract_id": "s-contact-first-armor@1.0.0",
+    "mode": "contact_conditioned_first_armor",
+    "estimand": "criterion_exceedance_probability_given_first_armor_contact",
+    "selection_declaration": {
+      "schema_version": "1.0.0",
+      "selection_rule_id": "contact-manifold-input-admission-v1",
+      "selection_stage": "pre_outcome",
+      "outcome_blind": true,
+      "dependency_paths": [
+        "/munition/profile_id",
+        "/encounter/trajectory_origin_m",
+        "/encounter/velocity_target_mps",
+        "/encounter/body_to_target_orientation_xyzw"
+      ]
+    }
+  },
+  "contact_manifold": {
+    "schema_version": "1.0.0",
+    "sampler_id": "target-facing-ray-manifold@1.0.0",
+    "mode": "target_facing_ray_with_body_x_roll",
+    "approach_weight_semantics": "declared_design_mass_not_hit_probability_or_operational_prevalence",
+    "approaches": [
+      {
+        "approach_id": "left_to_right_pos_x",
+        "selection_weight": 1.0,
+        "direction_target_xyz": [
+          1,
+          0,
+          0
+        ],
+        "tangent_u_target_xyz": [
+          0,
+          1,
+          0
+        ],
+        "tangent_v_target_xyz": [
+          0,
+          0,
+          1
+        ],
+        "aim_center_target_m": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "aim_u_range_m": [
+          -2.5,
+          1.5
+        ],
+        "aim_v_range_m": [
+          0.75,
+          1.7
+        ],
+        "standoff_range_m": [
+          8.0,
+          12.0
+        ],
+        "speed_range_mps": [
+          80.0,
+          160.0
+        ],
+        "body_x_roll_range_rad": [
+          -3.141592653589793,
+          3.141592653589793
+        ]
+      },
+      {
+        "approach_id": "right_to_left_neg_x",
+        "selection_weight": 1.0,
+        "direction_target_xyz": [
+          -1,
+          0,
+          0
+        ],
+        "tangent_u_target_xyz": [
+          0,
+          -1,
+          0
+        ],
+        "tangent_v_target_xyz": [
+          0,
+          0,
+          1
+        ],
+        "aim_center_target_m": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "aim_u_range_m": [
+          -1.5,
+          2.5
+        ],
+        "aim_v_range_m": [
+          0.75,
+          1.7
+        ],
+        "standoff_range_m": [
+          8.0,
+          12.0
+        ],
+        "speed_range_mps": [
+          80.0,
+          160.0
+        ],
+        "body_x_roll_range_rad": [
+          -3.141592653589793,
+          3.141592653589793
+        ]
+      },
+      {
+        "approach_id": "rear_to_front_pos_y",
+        "selection_weight": 1.0,
+        "direction_target_xyz": [
+          0,
+          1,
+          0
+        ],
+        "tangent_u_target_xyz": [
+          -1,
+          0,
+          0
+        ],
+        "tangent_v_target_xyz": [
+          0,
+          0,
+          1
+        ],
+        "aim_center_target_m": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "aim_u_range_m": [
+          -1.25,
+          1.25
+        ],
+        "aim_v_range_m": [
+          0.75,
+          1.7
+        ],
+        "standoff_range_m": [
+          8.0,
+          12.0
+        ],
+        "speed_range_mps": [
+          80.0,
+          160.0
+        ],
+        "body_x_roll_range_rad": [
+          -3.141592653589793,
+          3.141592653589793
+        ]
+      },
+      {
+        "approach_id": "front_to_rear_neg_y",
+        "selection_weight": 1.0,
+        "direction_target_xyz": [
+          0,
+          -1,
+          0
+        ],
+        "tangent_u_target_xyz": [
+          1,
+          0,
+          0
+        ],
+        "tangent_v_target_xyz": [
+          0,
+          0,
+          1
+        ],
+        "aim_center_target_m": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "aim_u_range_m": [
+          -1.25,
+          1.25
+        ],
+        "aim_v_range_m": [
+          0.75,
+          1.7
+        ],
+        "standoff_range_m": [
+          8.0,
+          12.0
+        ],
+        "speed_range_mps": [
+          80.0,
+          160.0
+        ],
+        "body_x_roll_range_rad": [
+          -3.141592653589793,
+          3.141592653589793
+        ]
+      },
+      {
+        "approach_id": "top_down_neg_z",
+        "selection_weight": 1.0,
+        "direction_target_xyz": [
+          0,
+          0,
+          -1
+        ],
+        "tangent_u_target_xyz": [
+          -1,
+          0,
+          0
+        ],
+        "tangent_v_target_xyz": [
+          0,
+          1,
+          0
+        ],
+        "aim_center_target_m": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "aim_u_range_m": [
+          -1.25,
+          1.25
+        ],
+        "aim_v_range_m": [
+          -2.5,
+          2.0
+        ],
+        "standoff_range_m": [
+          8.0,
+          12.0
+        ],
+        "speed_range_mps": [
+          80.0,
+          160.0
+        ],
+        "body_x_roll_range_rad": [
+          -3.141592653589793,
+          3.141592653589793
+        ]
+      },
+      {
+        "approach_id": "bottom_up_pos_z",
+        "selection_weight": 1.0,
+        "direction_target_xyz": [
+          0,
+          0,
+          1
+        ],
+        "tangent_u_target_xyz": [
+          1,
+          0,
+          0
+        ],
+        "tangent_v_target_xyz": [
+          0,
+          1,
+          0
+        ],
+        "aim_center_target_m": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "aim_u_range_m": [
+          -1.25,
+          1.25
+        ],
+        "aim_v_range_m": [
+          -2.5,
+          2.0
+        ],
+        "standoff_range_m": [
+          8.0,
+          12.0
+        ],
+        "speed_range_mps": [
+          80.0,
+          160.0
+        ],
+        "body_x_roll_range_rad": [
+          -3.141592653589793,
+          3.141592653589793
+        ]
+      }
+    ]
+  }
+}

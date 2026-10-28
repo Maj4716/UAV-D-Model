@@ -1,0 +1,37 @@
+{
+  "d3plot_expected_names": [
+    "d3plot",
+    "d3plot01",
+    "d3plot02",
+    "d3plot03",
+    "d3plot04",
+    "d3plot05",
+    "d3plot06",
+    "d3plot07",
+    "d3plot08",
+    "d3plot09",
+    "d3plot10"
+  ],
+  "d3plot_missing_names": [],
+  "rank_logs_expected": 32,
+  "rank_logs_missing_names": [],
+  "ascii_database_presence": {
+    "d3hsp": false,
+    "glstat": true,
+    "matsum": false,
+    "sleout": false,
+    "nodout": false,
+    "rcforc": false,
+    "elout": false
+  },
+  "binout_presence": true,
+  "restart_file_count": 32,
+  "standalone_log_presence": {
+    "status.out": true,
+    "std.out.72095164": true,
+    "std.err.72095164": true,
+    "job_uav_hf_p0_plate_r04_72095164.log": true,
+    "job_uav_hf_p0_plate_r04_72095164.out": true
+  },
+  "warning": "Filename presence and ZIP CRC do not establish binary database readability or numerical validity."
+}

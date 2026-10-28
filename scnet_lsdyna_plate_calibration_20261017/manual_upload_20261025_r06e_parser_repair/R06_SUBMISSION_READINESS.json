@@ -1,0 +1,484 @@
+{
+  "schema_version": "hf-p0-r06-submission-readiness@1.0.0",
+  "package_revision": "R06_keyword_parser_repair_20261025",
+  "overall_status": "pass",
+  "lifecycle_status": "prepared_not_submitted_not_solver_validated",
+  "job_count": 4,
+  "paired_experiment_count": 2,
+  "checks": {
+    "batch_hash_bindings": {
+      "status": "pass"
+    },
+    "historical_r05_deck_immutable": {
+      "status": "pass",
+      "sha256": "sha256:6fbd753a113d0214e7ba4ff5136dc526d151e6f2c52c94e70399b29c4b9d3d0c"
+    },
+    "four_single_case_packages": {
+      "status": "pass"
+    },
+    "per_job_static_validation": {
+      "status": "pass",
+      "jobs": {
+        "r06e_0800_ctrl": {
+          "schema_version": "hf-p0-r06-static-validation@1.0.0",
+          "package_revision": "R06_keyword_parser_repair_20261025",
+          "job_id": "r06e_0800_ctrl",
+          "overall_status": "pass",
+          "solver_validation_status": "not_run_no_local_lsdyna_executable",
+          "checks": {
+            "keyword_input_format": {
+              "status": "pass",
+              "mode": "long",
+              "active_numeric_width": 20,
+              "numeric_item_count": 306969,
+              "maximum_numeric_item_chars": 16,
+              "standard_width_exceedance_count": 71459
+            },
+            "keyword_schema": {
+              "status": "pass",
+              "keyword_type_count": 30,
+              "keyword_block_count": 40,
+              "extent_binary_cards": 2,
+              "intfor_file_cards": 3,
+              "extent_intfor_cards": 2
+            },
+            "manifest_and_hashes": {
+              "status": "pass"
+            },
+            "single_case_identity": {
+              "status": "pass",
+              "case_id": "p0_v0800_h0p75"
+            },
+            "immutable_r05_mesh_parity": {
+              "status": "pass",
+              "historical_deck_sha256": "sha256:6fbd753a113d0214e7ba4ff5136dc526d151e6f2c52c94e70399b29c4b9d3d0c",
+              "node_count": 23775,
+              "element_count": 20902
+            },
+            "r06_output_contract": {
+              "status": "pass",
+              "d3part_fields": [
+                "5.000000000e-05",
+                "0",
+                "0",
+                "0",
+                "900001"
+              ],
+              "neiph": 6,
+              "extent_binary_cards": [
+                [
+                  "6",
+                  "0",
+                  "3",
+                  "0",
+                  "1",
+                  "1",
+                  "1",
+                  "1"
+                ],
+                [
+                  "0",
+                  "0",
+                  "0",
+                  "1",
+                  "1",
+                  "1",
+                  "2",
+                  "1"
+                ]
+              ],
+              "contact_print_flags": [
+                1,
+                1
+              ],
+              "intfor_filename": "intfor",
+              "npresu": 1,
+              "ngapc": 1,
+              "nforc": 1,
+              "npen": 1
+            },
+            "no_mass_scaling_or_timestep_erosion": {
+              "status": "pass",
+              "dt2ms": 0.0,
+              "erode": 0
+            },
+            "psfail_scope": {
+              "status": "pass",
+              "psfail": 0,
+              "plate_only_set": [
+                1002
+              ]
+            },
+            "resource_identity": {
+              "status": "pass",
+              "nodes": 1,
+              "ranks": 32
+            }
+          },
+          "limitations": [
+            "Static PASS does not establish LS-DYNA parser or runtime acceptance.",
+            "INTFOR and MAT_015 history-variable readability remain untested until target-solver return.",
+            "This diagnostic job is not an admissible P0 response or training label."
+          ]
+        },
+        "r06e_0800_tend008": {
+          "schema_version": "hf-p0-r06-static-validation@1.0.0",
+          "package_revision": "R06_keyword_parser_repair_20261025",
+          "job_id": "r06e_0800_tend008",
+          "overall_status": "pass",
+          "solver_validation_status": "not_run_no_local_lsdyna_executable",
+          "checks": {
+            "keyword_input_format": {
+              "status": "pass",
+              "mode": "long",
+              "active_numeric_width": 20,
+              "numeric_item_count": 306969,
+              "maximum_numeric_item_chars": 16,
+              "standard_width_exceedance_count": 71459
+            },
+            "keyword_schema": {
+              "status": "pass",
+              "keyword_type_count": 30,
+              "keyword_block_count": 40,
+              "extent_binary_cards": 2,
+              "intfor_file_cards": 3,
+              "extent_intfor_cards": 2
+            },
+            "manifest_and_hashes": {
+              "status": "pass"
+            },
+            "single_case_identity": {
+              "status": "pass",
+              "case_id": "p0_v0800_h0p75"
+            },
+            "immutable_r05_mesh_parity": {
+              "status": "pass",
+              "historical_deck_sha256": "sha256:6fbd753a113d0214e7ba4ff5136dc526d151e6f2c52c94e70399b29c4b9d3d0c",
+              "node_count": 23775,
+              "element_count": 20902
+            },
+            "r06_output_contract": {
+              "status": "pass",
+              "d3part_fields": [
+                "5.000000000e-05",
+                "0",
+                "0",
+                "0",
+                "900001"
+              ],
+              "neiph": 6,
+              "extent_binary_cards": [
+                [
+                  "6",
+                  "0",
+                  "3",
+                  "0",
+                  "1",
+                  "1",
+                  "1",
+                  "1"
+                ],
+                [
+                  "0",
+                  "0",
+                  "0",
+                  "1",
+                  "1",
+                  "1",
+                  "2",
+                  "1"
+                ]
+              ],
+              "contact_print_flags": [
+                1,
+                1
+              ],
+              "intfor_filename": "intfor",
+              "npresu": 1,
+              "ngapc": 1,
+              "nforc": 1,
+              "npen": 1
+            },
+            "no_mass_scaling_or_timestep_erosion": {
+              "status": "pass",
+              "dt2ms": 0.0,
+              "erode": 0
+            },
+            "psfail_scope": {
+              "status": "pass",
+              "psfail": 0,
+              "plate_only_set": [
+                1002
+              ]
+            },
+            "resource_identity": {
+              "status": "pass",
+              "nodes": 1,
+              "ranks": 32
+            }
+          },
+          "limitations": [
+            "Static PASS does not establish LS-DYNA parser or runtime acceptance.",
+            "INTFOR and MAT_015 history-variable readability remain untested until target-solver return.",
+            "This diagnostic job is not an admissible P0 response or training label."
+          ]
+        },
+        "r06e_2000_ctrl": {
+          "schema_version": "hf-p0-r06-static-validation@1.0.0",
+          "package_revision": "R06_keyword_parser_repair_20261025",
+          "job_id": "r06e_2000_ctrl",
+          "overall_status": "pass",
+          "solver_validation_status": "not_run_no_local_lsdyna_executable",
+          "checks": {
+            "keyword_input_format": {
+              "status": "pass",
+              "mode": "long",
+              "active_numeric_width": 20,
+              "numeric_item_count": 306969,
+              "maximum_numeric_item_chars": 16,
+              "standard_width_exceedance_count": 71459
+            },
+            "keyword_schema": {
+              "status": "pass",
+              "keyword_type_count": 30,
+              "keyword_block_count": 40,
+              "extent_binary_cards": 2,
+              "intfor_file_cards": 3,
+              "extent_intfor_cards": 2
+            },
+            "manifest_and_hashes": {
+              "status": "pass"
+            },
+            "single_case_identity": {
+              "status": "pass",
+              "case_id": "p0_v2000_h0p75"
+            },
+            "immutable_r05_mesh_parity": {
+              "status": "pass",
+              "historical_deck_sha256": "sha256:6fbd753a113d0214e7ba4ff5136dc526d151e6f2c52c94e70399b29c4b9d3d0c",
+              "node_count": 23775,
+              "element_count": 20902
+            },
+            "r06_output_contract": {
+              "status": "pass",
+              "d3part_fields": [
+                "5.000000000e-05",
+                "0",
+                "0",
+                "0",
+                "900001"
+              ],
+              "neiph": 6,
+              "extent_binary_cards": [
+                [
+                  "6",
+                  "0",
+                  "3",
+                  "0",
+                  "1",
+                  "1",
+                  "1",
+                  "1"
+                ],
+                [
+                  "0",
+                  "0",
+                  "0",
+                  "1",
+                  "1",
+                  "1",
+                  "2",
+                  "1"
+                ]
+              ],
+              "contact_print_flags": [
+                1,
+                1
+              ],
+              "intfor_filename": "intfor",
+              "npresu": 1,
+              "ngapc": 1,
+              "nforc": 1,
+              "npen": 1
+            },
+            "no_mass_scaling_or_timestep_erosion": {
+              "status": "pass",
+              "dt2ms": 0.0,
+              "erode": 0
+            },
+            "psfail_scope": {
+              "status": "pass",
+              "psfail": 0,
+              "plate_only_set": [
+                1005
+              ]
+            },
+            "resource_identity": {
+              "status": "pass",
+              "nodes": 1,
+              "ranks": 32
+            }
+          },
+          "limitations": [
+            "Static PASS does not establish LS-DYNA parser or runtime acceptance.",
+            "INTFOR and MAT_015 history-variable readability remain untested until target-solver return.",
+            "This diagnostic job is not an admissible P0 response or training label."
+          ]
+        },
+        "r06e_2000_psfail_plate": {
+          "schema_version": "hf-p0-r06-static-validation@1.0.0",
+          "package_revision": "R06_keyword_parser_repair_20261025",
+          "job_id": "r06e_2000_psfail_plate",
+          "overall_status": "pass",
+          "solver_validation_status": "not_run_no_local_lsdyna_executable",
+          "checks": {
+            "keyword_input_format": {
+              "status": "pass",
+              "mode": "long",
+              "active_numeric_width": 20,
+              "numeric_item_count": 306969,
+              "maximum_numeric_item_chars": 16,
+              "standard_width_exceedance_count": 71459
+            },
+            "keyword_schema": {
+              "status": "pass",
+              "keyword_type_count": 30,
+              "keyword_block_count": 40,
+              "extent_binary_cards": 2,
+              "intfor_file_cards": 3,
+              "extent_intfor_cards": 2
+            },
+            "manifest_and_hashes": {
+              "status": "pass"
+            },
+            "single_case_identity": {
+              "status": "pass",
+              "case_id": "p0_v2000_h0p75"
+            },
+            "immutable_r05_mesh_parity": {
+              "status": "pass",
+              "historical_deck_sha256": "sha256:6fbd753a113d0214e7ba4ff5136dc526d151e6f2c52c94e70399b29c4b9d3d0c",
+              "node_count": 23775,
+              "element_count": 20902
+            },
+            "r06_output_contract": {
+              "status": "pass",
+              "d3part_fields": [
+                "5.000000000e-05",
+                "0",
+                "0",
+                "0",
+                "900001"
+              ],
+              "neiph": 6,
+              "extent_binary_cards": [
+                [
+                  "6",
+                  "0",
+                  "3",
+                  "0",
+                  "1",
+                  "1",
+                  "1",
+                  "1"
+                ],
+                [
+                  "0",
+                  "0",
+                  "0",
+                  "1",
+                  "1",
+                  "1",
+                  "2",
+                  "1"
+                ]
+              ],
+              "contact_print_flags": [
+                1,
+                1
+              ],
+              "intfor_filename": "intfor",
+              "npresu": 1,
+              "ngapc": 1,
+              "nforc": 1,
+              "npen": 1
+            },
+            "no_mass_scaling_or_timestep_erosion": {
+              "status": "pass",
+              "dt2ms": 0.0,
+              "erode": 0
+            },
+            "psfail_scope": {
+              "status": "pass",
+              "psfail": 910001,
+              "plate_only_set": [
+                1005
+              ]
+            },
+            "resource_identity": {
+              "status": "pass",
+              "nodes": 1,
+              "ranks": 32
+            }
+          },
+          "limitations": [
+            "Static PASS does not establish LS-DYNA parser or runtime acceptance.",
+            "INTFOR and MAT_015 history-variable readability remain untested until target-solver return.",
+            "This diagnostic job is not an admissible P0 response or training label."
+          ]
+        }
+      }
+    },
+    "paired_single_factor_isolation": {
+      "status": "pass",
+      "pairs": [
+        {
+          "experiment_id": "r06_diag_800_window",
+          "factor": "termination_time_ms",
+          "control_job_id": "r06e_0800_ctrl",
+          "treatment_job_id": "r06e_0800_tend008",
+          "status": "pass"
+        },
+        {
+          "experiment_id": "r06_diag_2000_psfail",
+          "factor": "control_solid_psfail_part_set",
+          "control_job_id": "r06e_2000_ctrl",
+          "treatment_job_id": "r06e_2000_psfail_plate",
+          "status": "pass"
+        }
+      ]
+    },
+    "wave_order": {
+      "status": "pass",
+      "wave_0": [
+        "r06e_0800_ctrl"
+      ],
+      "wave_0_gate": "Target R15.0.2 reports zero KEY errors and zero excess-field warnings for the repaired cards, advances beyond cycle 0, terminates normally, and returns readable d3part and intfor families.",
+      "wave_1": [
+        "r06e_2000_ctrl"
+      ],
+      "wave_1_gate": "Both repaired controls pass parser, normal-termination, run-integrity, and required-output readability gates before any treatment is submitted.",
+      "wave_2": [
+        "r06e_0800_tend008",
+        "r06e_2000_psfail_plate"
+      ],
+      "wave_2_gate": "Interpret each treatment only against its hash-bound repaired control; do not pool the two pairs as four calibration points.",
+      "resource_identity": "Use exactly one node, 32 ranks, LS-DYNA R15 MPP double precision, and identical memory settings for all four jobs."
+    }
+  },
+  "unmet_external_gates": [
+    "target LS-DYNA R15.0.2 keyword parse",
+    "normal solver termination and run-integrity",
+    "real D3PART/INTFOR/history-variable readability",
+    "paired response and failure-mechanism analysis",
+    "P0 response admission and independent physical validation"
+  ],
+  "admission": {
+    "r06_diagnostic_submission": "ready_for_user_submission_in_staged_canary",
+    "p0_response_calibration": "denied",
+    "p1_submission": "denied",
+    "local_engine_fitting": "denied",
+    "reference_dataset_generation": "denied",
+    "physical_validity": "not_established"
+  }
+}

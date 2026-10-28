@@ -1,0 +1,22 @@
+{
+  "schema_version": "1.0.0",
+  "dataset_id": "damage-dataset-fb1af45b41880da2e8ef368a",
+  "manifest_hash": "sha256:f8702b39623fc53c9a2334cf728263af2d261fe4a8ef19eaf713bf04c32cb4c4",
+  "reference_test_state": "observed_diagnostic_only",
+  "observation_evidence": [
+    {
+      "path": "raw_data/dataset_5000_loitering_impact_fragment_only_v1/audits/loitering_impact_scientific_audit.json",
+      "sha256": "sha256:69560299bab6e1dabfc26c920aa48da9fcc87f2582039c2b8cd372ffd3fb90fa"
+    },
+    {
+      "path": "31_5000条巡飞弹数据集分布科学性与神经网络修改建议_2026-10-14.md",
+      "sha256": "sha256:888f969e5c4d6da0f2b776cb47a6fc61e109f7fb3845ab325d934625f6af757c"
+    }
+  ],
+  "confirmatory_use_allowed": false,
+  "allowed_uses": [
+    "software_regression",
+    "diagnostic_audit"
+  ],
+  "requires_new_outcome_blind_reference_test": true
+}

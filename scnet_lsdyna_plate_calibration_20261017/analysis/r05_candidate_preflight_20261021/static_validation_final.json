@@ -1,0 +1,211 @@
+{
+  "schema_version": "hf-static-validation@1.2.0",
+  "package_revision": "R05_capture_ledger_preregistered",
+  "overall_status": "pass",
+  "scope": "Static R05 package validation only; LS-DYNA parsing/execution and D3PART readability remain pending.",
+  "checks": {
+    "frozen_qualification_gates": {
+      "status": "pass",
+      "gate_groups": [
+        "admission",
+        "capture_ledger",
+        "gate_status",
+        "mesh_scan_2000_mps",
+        "numerical_perforation_classification",
+        "run_integrity",
+        "speed_scan"
+      ]
+    },
+    "frozen_measurement_contract": {
+      "status": "pass",
+      "schema_version": "hf-p0-capture-ledger@1.0.0"
+    },
+    "frozen_design_and_material_baseline": {
+      "status": "pass",
+      "material_id": "jc4340_reference_central",
+      "scope": [
+        "material",
+        "EOS",
+        "contact",
+        "section",
+        "geometry",
+        "timestep"
+      ]
+    },
+    "frozen_physics_deck": {
+      "status": "pass",
+      "material_blocks": 2,
+      "eos_blocks": 2,
+      "boundary_set_count": 21,
+      "locked_controls": [
+        "termination",
+        "timestep",
+        "energy",
+        "contact",
+        "section",
+        "material",
+        "EOS",
+        "boundary"
+      ]
+    },
+    "keyword_input_format": {
+      "status": "pass",
+      "mode": "long",
+      "active_numeric_width": 20,
+      "numeric_item_count": 2396769,
+      "maximum_numeric_item_chars": 16,
+      "standard_width_exceedance_count": 555106
+    },
+    "required_card_layouts": {
+      "status": "pass",
+      "control_contact_cards": 2,
+      "control_contact_fields_per_card": [
+        8,
+        8
+      ],
+      "initial_velocity_block_count": 7,
+      "initial_velocity_fields_per_card": [
+        8,
+        8
+      ],
+      "integer_field_serialization": "pass",
+      "eroding_contact_card4": {
+        "isym": 1,
+        "erosop": 1,
+        "iadj": 1
+      },
+      "database_binary_d3plot_cards": 1
+    },
+    "base_keyword_schema_contracts": {
+      "status": "pass",
+      "manual_target": "LS-DYNA R15",
+      "validated_keyword_count": 23,
+      "validated_block_count": 110,
+      "integer_fields_strict": true,
+      "history_node_count": 7
+    },
+    "frozen_case_semantics": {
+      "status": "pass",
+      "case_count": 7
+    },
+    "cohort_identity": {
+      "status": "pass",
+      "speed_scan_mps": [
+        600.0,
+        800.0,
+        1000.0,
+        1200.0,
+        2000.0
+      ],
+      "mesh_scan_speed_mps": 2000.0,
+      "mesh_scan_mm": [
+        1.0,
+        0.75,
+        0.5
+      ]
+    },
+    "d3part_contract": {
+      "status": "pass",
+      "interval_ms": 5e-05,
+      "part_set_id": 900001,
+      "fragment_part_ids": [
+        2001,
+        2002,
+        2003,
+        2004,
+        2005,
+        2006,
+        2007
+      ],
+      "card_1_field_count": 8,
+      "r15_psetid_semantics": "include_only_parts_in_set"
+    },
+    "measurement_contract": {
+      "status": "pass",
+      "capture_plane_z_mm": -12.0,
+      "full_model_d3plot_interval_ms": 0.0005,
+      "fragment_d3part_interval_ms": 5e-05,
+      "maximum_nominal_fragment_travel_per_d3part_state_mm": 0.1,
+      "finest_mesh_half_cell_mm": 0.25,
+      "primary_qois": [
+        "qM",
+        "qP",
+        "qE",
+        "qV_over_v0"
+      ],
+      "center_history_node": "diagnostic_only",
+      "threshold_status": "frozen_candidate_engineering_gates"
+    },
+    "mesh_references": {
+      "status": "pass",
+      "node_count": 184949,
+      "element_count": 163730
+    },
+    "keyword_reference_integrity": {
+      "status": "pass",
+      "part_count": 14,
+      "velocity_target_count": 7,
+      "diagnostic_history_node_count": 7
+    },
+    "element_orientation": {
+      "status": "pass",
+      "minimum_mm3": 0.125,
+      "maximum_mm3": 6.25
+    },
+    "initial_separation_and_case_isolation": {
+      "status": "pass",
+      "gap_mm": 1.0,
+      "minimum_pairwise_xy_gap_mm": 90.0
+    },
+    "meshed_part_integrals": {
+      "status": "pass",
+      "expected_quarter_fragment_mass_kg": 0.002,
+      "expected_quarter_plate_volume_mm3": 36000.0,
+      "cases": [
+        {
+          "case_id": "p0_v0600_h0p75",
+          "quarter_mass_kg": 0.0020000000000416213
+        },
+        {
+          "case_id": "p0_v0800_h0p75",
+          "quarter_mass_kg": 0.001999999982170018
+        },
+        {
+          "case_id": "p0_v1000_h0p75",
+          "quarter_mass_kg": 0.001999999982170012
+        },
+        {
+          "case_id": "p0_v1200_h0p75",
+          "quarter_mass_kg": 0.001999999982170018
+        },
+        {
+          "case_id": "p0_v2000_h0p75",
+          "quarter_mass_kg": 0.0019999999642984273
+        },
+        {
+          "case_id": "p0_v2000_h1p00",
+          "quarter_mass_kg": 0.001999999964298438
+        },
+        {
+          "case_id": "p0_v2000_h0p50",
+          "quarter_mass_kg": 0.001999999982170024
+        }
+      ]
+    },
+    "hash_binding": {
+      "status": "pass"
+    },
+    "p1_remains_preregistered_not_submitted": {
+      "status": "pass",
+      "case_count": 24,
+      "role_counts": {
+        "hf_response_fit": 18,
+        "hf_response_holdout": 6
+      }
+    },
+    "claim_boundary": {
+      "status": "pass"
+    }
+  },
+  "prohibited_inference": "This PASS does not establish solver acceptance, QoI availability, numerical convergence, physical validity, P0 response-calibration admission, or P1 admission."
+}

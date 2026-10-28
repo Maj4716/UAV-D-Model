@@ -1,0 +1,117 @@
+{
+  "schema_version": "hf-p0-r05-stage-ab-acceptance@1.0.0",
+  "date": "2026-10-23",
+  "job_id": "72252362",
+  "scope": "stage_a_local_evidence_chain_and_stage_b_failure_mode_diagnosis",
+  "source_boundary": {
+    "return_directory": "D:\\Desktop\\UAV新\\scnet_lsdyna_plate_calibration_20261017\\05",
+    "return_file_count": 120,
+    "return_total_bytes": 3606867357,
+    "latest_return_file_write_time": "2026-10-23T10:16:44+08:00",
+    "first_stage_ab_artifact_write_time": "2026-10-23T11:47:09+08:00",
+    "write_observation": "no_stage_ab_write_detected_in_return_directory",
+    "hash_scope_limitation": "the run artifact manifest binds 75 qualification-relevant files, not all 120 returned files"
+  },
+  "stage_a": {
+    "run_integrity": {
+      "status": "pass",
+      "audit_path": "run_integrity_audit.json",
+      "audit_sha256": "sha256:3f261d5e726485d07e0615d40968b96eddd37111f9380baa47ee67bee204e93a",
+      "selected_artifact_count": 75,
+      "selected_artifact_total_bytes": 2944160835,
+      "selected_artifact_manifest_sha256": "sha256:8a0ec2d4ad22a3d068b9bb260a4fcfd89df904a80b36153e229a0a2034ad7239"
+    },
+    "real_d3part_adapter": {
+      "status": "real_d3part_exercised_pending_independent_integration_acceptance",
+      "extraction_path": "r05_d3part_extraction_integration_pending.json",
+      "extraction_sha256": "sha256:96725461f9cd22c81067cad2cdea6b15c83c555c02b519b51661a1cdee83a9f7",
+      "d3part_family_sha256": "sha256:8f24005080f09cbfd1b81dd2f0f97d4abb3158e7133207f44beccb9852346af7",
+      "state_count": 802,
+      "solid_count": 5680,
+      "used_solid_part_ids": [2001, 2002, 2003, 2004, 2005, 2006, 2007],
+      "zero_solid_catalog_part_ids": [1001, 1002, 1003, 1004, 1005, 1006, 1007],
+      "temporal_gate": "pass",
+      "maximum_state_interval_ms": 0.00006462719373816848,
+      "maximum_interval_to_solver_realizable_bound_ratio": 0.995374309399858,
+      "alive_to_alive_half_mesh_overlimit_case_count": 0
+    },
+    "successor_contract": {
+      "status": "frozen_before_any_r06_deck_or_submission",
+      "path": "../../design/p0_r06_real_output_contract.json",
+      "sha256": "sha256:71371ee8726fe95899de33aef163d8a9725d9f43781d5775de10fa2afc150795",
+      "r06_deck_status": "not_generated",
+      "r06_submission_status": "not_submitted",
+      "historical_r05_retroactive_admission": false
+    }
+  },
+  "stage_b": {
+    "status": "diagnostic_complete_no_admission",
+    "analysis_path": "failure_mode_analysis.json",
+    "analysis_sha256": "sha256:173c152aa250335569b05eba731e116a831b0df59a60123e4fbe28ec6c2e3296",
+    "stage_b_manifest_path": "stage_b_analysis_manifest.json",
+    "stage_b_manifest_sha256": "sha256:6830ecbc94317a4acbfe6518afe4616a3bddbcf8206b422b2072ca6cf17cbb77",
+    "unique_failure_element_count": 2248,
+    "negative_volume_count": 628,
+    "other_solid_failure_count": 1620,
+    "cross_type_overlap_count": 0,
+    "fragment_reference_centroid_match_count": 1396,
+    "fragment_reference_centroid_mismatch_count": 0,
+    "case_qoi_availability": {
+      "available_diagnostic_only": ["p0_v0600_h0p75"],
+      "unavailable": [
+        "p0_v0800_h0p75",
+        "p0_v1000_h0p75",
+        "p0_v1200_h0p75",
+        "p0_v2000_h0p75",
+        "p0_v2000_h1p00",
+        "p0_v2000_h0p50"
+      ]
+    },
+    "deleted_upstream_mass_fraction_at_2000_mps": {
+      "mesh_1p00_mm": 0.7559999865564393,
+      "mesh_0p75_mm": 0.6530612148685321,
+      "mesh_0p50_mm": 0.12199999668040871
+    },
+    "focus_solid_history": {
+      "summary_path": "d3plot_focus_response_summary.json",
+      "summary_sha256": "sha256:280395fe94a42799b3c3ec9fed6b813c05f0e140151b3c42c7b3e7eb5958ce4f",
+      "d3plot_family_sha256": "sha256:a02b188281ed86b4c4234b54b67ca1f4fbb73c3c8d4f938b15751523dc6e321b",
+      "d3plot_state_count": 82,
+      "focus_cases": ["p0_v0800_h0p75", "p0_v2000_h0p75"],
+      "solid_pressure_formula": "p=-(sxx+syy+szz)/3",
+      "solid_pressure_unit": "GPa",
+      "solid_pressure_is_contact_pressure": false,
+      "contact_penetration": "unavailable_not_written",
+      "contact_pressure": "unavailable_not_written"
+    },
+    "diagnostic_visualization": {
+      "manifest_path": "r05_failure_visualization_manifest.json",
+      "manifest_sha256": "sha256:1608fa43e2e666f11d3e16ce119a07432b9a926cfbed3e96959c48c19f1ab2f7",
+      "plot_script_sha256": "sha256:2a94af8e12db765588a4a12078f313f44f26649480bdebc907c503a1868bed72",
+      "panel_count": 3,
+      "png_visual_review": "pass",
+      "uncertainty_displayed": false,
+      "uncertainty_reason": "single deterministic solver return with no replicate distribution"
+    }
+  },
+  "verification": {
+    "r05_tests": 82,
+    "r06_contract_tests": 1,
+    "total_tests": 83,
+    "status": "pass",
+    "python_compile": "pass",
+    "strict_json_parse": "pass",
+    "stage_b_manifest_hash_verification": "pass"
+  },
+  "admission": {
+    "run_integrity": "pass",
+    "historical_r05_keyword_compatibility": "fail_nonblocking_for_run_integrity_and_blocking_for_reuse",
+    "independent_d3part_integration_acceptance": "not_issued",
+    "p0_response_calibration": "denied",
+    "p1_submission": "denied",
+    "engine_fitting": "denied",
+    "dataset_reference_promotion": "denied",
+    "sealed_test_access": "not_performed"
+  },
+  "claim_boundary": "Stages A and B establish a repaired software seam, hash-bound execution evidence, and a failure-mode diagnosis. They do not establish numerical convergence, material truth, experimental validation, or physical admission."
+}

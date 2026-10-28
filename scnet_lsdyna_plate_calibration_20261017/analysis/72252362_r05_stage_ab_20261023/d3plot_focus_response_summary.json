@@ -1,0 +1,214 @@
+{
+  "schema_version": "hf-p0-r05-focus-solid-history@1.0.0",
+  "analysis_status": "diagnostic_history_complete_no_admission",
+  "qualification_use_forbidden": true,
+  "integration_acceptance_status": "pending_independent_integration_acceptance_no_retroactive_admission",
+  "artifact_identity": {
+    "package_revision": "R05_capture_ledger_preregistered",
+    "job_id": "72252362",
+    "design_sha256": "sha256:b1d2027d57fc6d9cd1ee3f932ea044fd16a112344d8f2b6f508071f45191a06f",
+    "deck_sha256": "sha256:6fbd753a113d0214e7ba4ff5136dc526d151e6f2c52c94e70399b29c4b9d3d0c",
+    "case_map_sha256": "sha256:b05b59249e49c3e9d15904f475c2f9478bdff1638fb797d1b552298490aa5295",
+    "material_sha256": "sha256:9b462b920459e57641d5f89d10d36c0aa0498c86f2478fef8e4c3efa96888311",
+    "upload_manifest_sha256": "sha256:e178b6c28832519aaa2befdc969dcd93d2141ea4073ad740b52b17968d92ba44",
+    "d3part_family_sha256": "sha256:8f24005080f09cbfd1b81dd2f0f97d4abb3158e7133207f44beccb9852346af7",
+    "d3plot_family_sha256": "sha256:a02b188281ed86b4c4234b54b67ca1f4fbb73c3c8d4f938b15751523dc6e321b",
+    "d3plot_family_file_count": 19,
+    "d3plot_family_identity_contract": "sha256 of canonical JSON name/size_bytes/file_sha256 entries in numbered-family order",
+    "analyzer_sha256": "sha256:da6ce61fb4c58637eb53e5dc2da81451bd2eb046ddc7a587efff655561318416"
+  },
+  "run_integrity_binding": {
+    "schema_version": "hf-p0-r05-run-integrity-evidence@1.0.0",
+    "evidence_id": "job-72252362-hash-bound-run-integrity",
+    "status": "pass",
+    "run_id": "72252362",
+    "solver_build": "LS-DYNA MPP double R15.0.2-1-g1e7cfa42b1 I8R8 Intel-MPI 2018",
+    "d3part_family_sha256": "sha256:8f24005080f09cbfd1b81dd2f0f97d4abb3158e7133207f44beccb9852346af7",
+    "returned_artifact_sha256": "sha256:8a0ec2d4ad22a3d068b9bb260a4fcfd89df904a80b36153e229a0a2034ad7239",
+    "evidence_sha256": "sha256:9561d88dac2fffdf04dc2b3b3d6823e1e78ccc5651419a95ca1791c6c12ab66f",
+    "claim_boundary": "This existing pass establishes run/returned-evidence integrity only; it is not D3PART integration acceptance or physical admission."
+  },
+  "reader": "project-local lasso-python 2.0.4 D3plot",
+  "d3plot_summary": {
+    "state_count": 82,
+    "first_time_ms": 0.0,
+    "last_time_ms": 0.040002637597628225,
+    "node_count": 184949,
+    "solid_count": 163730,
+    "solid_result_layer_count": 1,
+    "solid_state_variable_count": 8,
+    "solid_history_variable_count": 1,
+    "has_solid_stress": true
+  },
+  "statistics_contract": {
+    "population": "unweighted_alive_solid_elements",
+    "quantile_method": "numpy.quantile linear",
+    "effective_plastic_strain": "D3PLOT element_solid_effective_plastic_strain",
+    "derived_solid_hydrostatic_pressure": {
+      "formula": "p=-(sxx+syy+szz)/3",
+      "unit": "GPa",
+      "source": "D3PLOT element_solid_stress normal components",
+      "is_contact_pressure": false
+    },
+    "extrema_interpretation": "diagnostic saved-state extrema only; they do not identify or prove a material, contact, or fracture mechanism"
+  },
+  "cases": [
+    {
+      "case_id": "p0_v0800_h0p75",
+      "parts": [
+        {
+          "part_kind": "plate",
+          "part_id": 1002,
+          "total_element_count": 20216,
+          "initial_alive_element_count": 20216,
+          "final_alive_element_count": 20197,
+          "minimum_alive_element_count": 20197,
+          "maximum_effective_plastic_strain_among_alive": 2.477141068153924,
+          "maximum_effective_plastic_strain_time_ms": 0.03999661022118361,
+          "maximum_derived_solid_hydrostatic_pressure_gpa_among_alive": 10.402915284233538,
+          "maximum_derived_solid_hydrostatic_pressure_time_ms": 0.001991868873800035,
+          "minimum_derived_solid_hydrostatic_pressure_gpa_among_alive": -2.0708683148575897,
+          "minimum_derived_solid_hydrostatic_pressure_time_ms": 0.003991769996756563
+        },
+        {
+          "part_kind": "fragment",
+          "part_id": 2002,
+          "total_element_count": 686,
+          "initial_alive_element_count": 686,
+          "final_alive_element_count": 550,
+          "minimum_alive_element_count": 550,
+          "maximum_effective_plastic_strain_among_alive": 3.499311050229765,
+          "maximum_effective_plastic_strain_time_ms": 0.016995534265894438,
+          "maximum_derived_solid_hydrostatic_pressure_gpa_among_alive": 10.705242803900875,
+          "maximum_derived_solid_hydrostatic_pressure_time_ms": 0.001991868873800035,
+          "minimum_derived_solid_hydrostatic_pressure_gpa_among_alive": -2.9897553725318353,
+          "minimum_derived_solid_hydrostatic_pressure_time_ms": 0.003991769996756563
+        }
+      ],
+      "first_failure_element": {
+        "element_id": 39675,
+        "part_kind": "plate",
+        "part_id": 1002,
+        "failure_type": "negative_volume",
+        "mes_first_failure_time_ms": 0.003171,
+        "alive_history_state_count": 7,
+        "last_alive_d3plot_time_ms": 0.002991050296125369,
+        "first_deleted_d3plot_time_ms": 0.0034924290147063694,
+        "maximum_effective_plastic_strain_while_alive": 0.5842422943699593,
+        "maximum_derived_solid_hydrostatic_pressure_gpa_while_alive": 8.192124290346525,
+        "minimum_derived_solid_hydrostatic_pressure_gpa_while_alive": 0.0,
+        "interpretation": "saved-state history while the element is alive; MES failure time and the following saved deletion state do not establish a material mechanism"
+      }
+    },
+    {
+      "case_id": "p0_v2000_h0p75",
+      "parts": [
+        {
+          "part_kind": "plate",
+          "part_id": 1005,
+          "total_element_count": 20216,
+          "initial_alive_element_count": 20216,
+          "final_alive_element_count": 19990,
+          "minimum_alive_element_count": 19990,
+          "maximum_effective_plastic_strain_among_alive": 3.409545834353283,
+          "maximum_effective_plastic_strain_time_ms": 0.009994611684155354,
+          "maximum_derived_solid_hydrostatic_pressure_gpa_among_alive": 24.677920825112114,
+          "maximum_derived_solid_hydrostatic_pressure_time_ms": 0.0009931082009673872,
+          "minimum_derived_solid_hydrostatic_pressure_gpa_among_alive": -7.33414349295409,
+          "minimum_derived_solid_hydrostatic_pressure_time_ms": 0.002991050296125369
+        },
+        {
+          "part_kind": "fragment",
+          "part_id": 2005,
+          "total_element_count": 686,
+          "initial_alive_element_count": 686,
+          "final_alive_element_count": 220,
+          "minimum_alive_element_count": 220,
+          "maximum_effective_plastic_strain_among_alive": 3.12649764465855,
+          "maximum_effective_plastic_strain_time_ms": 0.015498901351173983,
+          "maximum_derived_solid_hydrostatic_pressure_gpa_among_alive": 23.20287795818678,
+          "maximum_derived_solid_hydrostatic_pressure_time_ms": 0.0009931082009673872,
+          "minimum_derived_solid_hydrostatic_pressure_gpa_among_alive": -10.72505508328395,
+          "minimum_derived_solid_hydrostatic_pressure_time_ms": 0.002991050296125369
+        }
+      ],
+      "first_failure_element": {
+        "element_id": 102381,
+        "part_kind": "plate",
+        "part_id": 1005,
+        "failure_type": "negative_volume",
+        "mes_first_failure_time_ms": 0.0014569,
+        "alive_history_state_count": 3,
+        "last_alive_d3plot_time_ms": 0.0009931082009673872,
+        "first_deleted_d3plot_time_ms": 0.0014896172923838024,
+        "maximum_effective_plastic_strain_while_alive": 0.19935760502167488,
+        "maximum_derived_solid_hydrostatic_pressure_gpa_while_alive": 15.839404751083565,
+        "minimum_derived_solid_hydrostatic_pressure_gpa_while_alive": 0.0,
+        "interpretation": "saved-state history while the element is alive; MES failure time and the following saved deletion state do not establish a material mechanism"
+      }
+    }
+  ],
+  "contact_output_availability": {
+    "d3plot_header_flags": {
+      "has_node_max_contact_penetration_absolute": false,
+      "has_node_max_contact_penetration_relative": false,
+      "has_node_contact_energy_density": false
+    },
+    "binout_logical_directories": [
+      "glstat",
+      "jobinfo",
+      "matsum",
+      "nodout",
+      "sleout"
+    ],
+    "sleout_variables": [
+      "build_id",
+      "cycle",
+      "date",
+      "friction_energy",
+      "ids",
+      "is_transducer",
+      "legend",
+      "legend_ids",
+      "revision",
+      "single_sided",
+      "slave",
+      "slave+master",
+      "time",
+      "title",
+      "total_energy",
+      "total_friction",
+      "total_master",
+      "total_slave",
+      "version"
+    ],
+    "contact_penetration": {
+      "status": "unavailable_not_written",
+      "reason": "D3PLOT absolute/relative penetration flags are false and no BINOUT penetration variable is present"
+    },
+    "contact_pressure": {
+      "status": "unavailable_not_written",
+      "reason": "no D3PLOT contact-pressure array or contact-force/interface BINOUT pressure variable is present"
+    },
+    "derived_solid_hydrostatic_pressure": {
+      "available": true,
+      "formula": "p=-(sxx+syy+szz)/3",
+      "unit": "GPa",
+      "is_contact_pressure": false
+    },
+    "claim_boundary": "SLEOUT energy channels and derived solid hydrostatic pressure do not replace direct contact penetration or contact-pressure histories."
+  },
+  "csv_artifacts": [
+    {
+      "name": "d3plot_focus_part_history.csv",
+      "size_bytes": 94228,
+      "sha256": "sha256:39a608b6cbbbc1f806cfc710b304755572fc644b9d7b5abca92c59a78699381c"
+    },
+    {
+      "name": "d3plot_first_failure_element_history.csv",
+      "size_bytes": 1804,
+      "sha256": "sha256:bcef10d832c63b47f4c885121d58d05aa674132a40dd8d2035e9771dffcbfe7e"
+    }
+  ],
+  "claim_boundary": "Diagnostic D3PLOT solid-state history only; no direct contact penetration or contact pressure is available, and no response, physical, engine, or dataset admission follows from these extrema."
+}

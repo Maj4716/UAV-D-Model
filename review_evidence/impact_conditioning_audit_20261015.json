@@ -1,0 +1,197 @@
+{
+  "schema_version": "1.0.0",
+  "audit_id": "impact-conditioning-formal-5000-current-source-20261015",
+  "audit_date": "2026-10-15",
+  "scope": "read_only_existing_formal_archive_diagnostic",
+  "result": "pass",
+  "audit_script": {
+    "path": "review_evidence/audit_impact_conditioning_20261015.py",
+    "sha256": "sha256:e01cc322e2414987866cb4b5d0ace04687943b22bbfd0b50534d5a0b1dbfcdec"
+  },
+  "formal_input": {
+    "path": "raw_data/dataset_5000_loitering_impact_fragment_only_v1/rounds/round-000/formal_cases.jsonl.gz",
+    "file_size_bytes": 952489,
+    "sha256_before": "sha256:e55a86e9a36cb5f88d58ae9aa2fb3606c8dceec0df01f9ce3f0394bbc1375791",
+    "sha256_after": "sha256:e55a86e9a36cb5f88d58ae9aa2fb3606c8dceec0df01f9ce3f0394bbc1375791",
+    "unchanged_during_audit": true,
+    "round_manifest_declared_sha256": "sha256:e55a86e9a36cb5f88d58ae9aa2fb3606c8dceec0df01f9ce3f0394bbc1375791",
+    "matches_round_manifest": true,
+    "round_manifest_candidate_count": 5000,
+    "round_manifest_selected_count": 5000
+  },
+  "execution_environment": {
+    "python_executable": "D:\\ProgramData\\Anaconda\\envs\\pytorch312-lmdt\\python.exe",
+    "python_version": "3.12.13",
+    "numpy_version": "2.4.6",
+    "platform": "Windows-11-10.0.26200-SP0"
+  },
+  "archive_identity": {
+    "archive_engine_version": "0.7.0.dev1",
+    "archive_engine_code_hash": "sha256:bf3b325e5504d180a22a14aab4948751f374f8a67eb77d6db956707d2770e787",
+    "frozen_target_hash": "sha256:a3b382ff006420c132f60f5bce780d746a6eab2a18518d81296bbd34187c077f",
+    "frozen_physics_registry_hash": "sha256:9e38d58b3a9e22c4d991fa889ad8945ad42700c0db1deb4b4984a2c4c781de66"
+  },
+  "current_source_identity": {
+    "damage_engine_version": "0.7.0.dev2",
+    "engine_code_hash": "sha256:55cf8377026d7fc3c8ef5a4828f3403991de61b825ecc7b23b4ba8905a70aa41",
+    "engine_code_matches_archive": false,
+    "target_path": "raw_data/target.rebuilt.fragment_only.v1.json",
+    "target_file_sha256": "sha256:c465477c831698fbe6f47b1d4f45c6fe09372252ab7bf6ccd43bbdc9594301fb",
+    "normalized_target_hash": "sha256:a3b382ff006420c132f60f5bce780d746a6eab2a18518d81296bbd34187c077f",
+    "normalized_target_matches_frozen": true,
+    "physics_registry_path": "examples/physics.loitering_impact.json",
+    "physics_registry_hash": "sha256:9e38d58b3a9e22c4d991fa889ad8945ad42700c0db1deb4b4984a2c4c781de66",
+    "physics_registry_matches_frozen": true,
+    "physics_registry_validation_status": "unverified",
+    "impact_trigger": "first_armor_contact",
+    "impact_model_id": "continuous-ray-first-armor-v1",
+    "alignment_cosine_minimum": 0.999999,
+    "position_tolerance_m": 1e-08
+  },
+  "population": {
+    "nonblank_record_count": 5000,
+    "parsed_record_count": 5000,
+    "unique_case_id_count": 5000,
+    "duplicate_case_id_count": 0,
+    "duplicate_case_ids": [],
+    "trigger_counts": {
+      "first_armor_contact": 5000
+    },
+    "munition_profile_counts": {
+      "large_front": 1668,
+      "medium_front": 1670,
+      "small_front": 1662
+    },
+    "frozen_split_counts": {
+      "test": 1500,
+      "train": 3000,
+      "validation": 500
+    },
+    "persisted_collision_armor_id_counts": {
+      "armor-001": 2789,
+      "armor-002": 2211
+    }
+  },
+  "criterion_counts": {
+    "json_record_parsed": {
+      "passed": 5000,
+      "failed": 0
+    },
+    "first_armor_contact_trigger": {
+      "passed": 5000,
+      "failed": 0
+    },
+    "velocity_finite_nonzero": {
+      "passed": 5000,
+      "failed": 0
+    },
+    "body_plus_x_aligned_with_velocity": {
+      "passed": 5000,
+      "failed": 0
+    },
+    "origin_outside_target_armor": {
+      "passed": 5000,
+      "failed": 0
+    },
+    "forward_ray_has_armor_intersection": {
+      "passed": 5000,
+      "failed": 0
+    },
+    "computed_first_collision_nonnegative": {
+      "passed": 5000,
+      "failed": 0
+    },
+    "persisted_collision_distance_present_finite_nonnegative": {
+      "passed": 5000,
+      "failed": 0
+    },
+    "persisted_collision_id_present_and_in_target": {
+      "passed": 5000,
+      "failed": 0
+    },
+    "persisted_collision_id_matches_computed_first_contact": {
+      "passed": 5000,
+      "failed": 0
+    },
+    "current_validate_impact_detonation_pass": {
+      "passed": 5000,
+      "failed": 0
+    },
+    "all_requested_conditions_pass": {
+      "passed": 5000,
+      "failed": 0
+    }
+  },
+  "numeric_ranges": {
+    "speed_mps": {
+      "minimum": 80.0100468107011,
+      "maximum": 159.9883745143265
+    },
+    "alignment_cosine": {
+      "minimum": 1.0,
+      "maximum": 1.0
+    },
+    "body_velocity_angular_error_deg": {
+      "minimum": 0.0,
+      "maximum": 0.0
+    },
+    "detonation_position_x_m": {
+      "minimum": -1.6302649974822998,
+      "maximum": -1.1874800523122122
+    },
+    "detonation_position_y_m": {
+      "minimum": -2.999902705628113,
+      "maximum": 1.9998231430923283
+    },
+    "detonation_position_z_m": {
+      "minimum": 0.6504389674018017,
+      "maximum": 1.7999260628714482
+    },
+    "trajectory_origin_x_m": {
+      "minimum": -10.0,
+      "maximum": -10.0
+    },
+    "trajectory_origin_y_m": {
+      "minimum": -2.999902705628113,
+      "maximum": 1.9998231430923283
+    },
+    "trajectory_origin_z_m": {
+      "minimum": 0.6504389674018017,
+      "maximum": 1.7999260628714482
+    },
+    "computed_first_collision_distance_m": {
+      "minimum": 8.3697350025177,
+      "maximum": 8.812519947687788
+    },
+    "persisted_collision_distance_m": {
+      "minimum": 8.3697350025177,
+      "maximum": 8.812519947687788
+    }
+  },
+  "input_bias_diagnostics": {
+    "normalized_velocity_direction_unique_count": 1,
+    "normalized_velocity_direction_counts": {
+      "[1.0,0.0,0.0]": 5000
+    },
+    "body_orientation_unique_count_sign_canonicalized": 1,
+    "body_orientation_counts_sign_canonicalized": {
+      "[0.0,0.0,0.0,1.0]": 5000
+    },
+    "single_velocity_direction": true,
+    "single_body_orientation": true,
+    "interpretation": "Passing the contact contract does not establish directional or attitude coverage. A single normalized direction or body orientation is a frozen-design bias and must either remain an explicit scope restriction or be varied in a new contact-conditioned design with the corresponding variables exposed to the learner."
+  },
+  "failure_reason_counts": {},
+  "failure_examples": [],
+  "contract_interpretation": {
+    "admitted_population": "Cases conditioned on a valid target-facing, first-armor-contact impact under the frozen design distribution.",
+    "supported_claim": "The persisted formal encounters are compatible with the current geometric impact checks when every requested criterion passes.",
+    "unsupported_claims": [
+      "Unconditional probability of hitting the vehicle.",
+      "Guidance, navigation, or end-to-end mission success.",
+      "Physical validity of target geometry, source strength, penetration, or damage response.",
+      "Equivalence of all archived simulation outputs to a rerun with the current engine source."
+    ]
+  },
+  "evidence_boundary": "This read-only audit includes all already-observed train, validation, and test cases. It validates stored encounter geometry against the current source and the current normalized target; it does not rerun the archived engine or inspect rejected proposal attempts. Therefore it is diagnostic evidence of an impact-conditioned data contract, not confirmatory model-performance evidence or real-world physical validation. A current engine-code mismatch with the archive is reported explicitly and prevents claiming full current-source/archive execution equivalence."
+}

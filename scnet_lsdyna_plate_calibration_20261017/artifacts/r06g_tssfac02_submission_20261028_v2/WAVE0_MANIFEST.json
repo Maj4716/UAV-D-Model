@@ -1,0 +1,56 @@
+{
+  "schema_version": "hf-p0-r06g-timestep-refinement-stage@1.0.0",
+  "package_revision": "R06_timestep_refinement_20261028",
+  "job_id": "r06g_0800_tssfac02",
+  "status": "ready_for_user_submission_not_submitted_not_solver_validated",
+  "upload_only": "uav_hf_r06g_0800_tssfac02.zip",
+  "head_deck": "r06g_0800_tssfac02.k",
+  "parent_control": {
+    "platform_job_id": "72630855",
+    "deck_sha256": "sha256:afb0f34112ccfdfcfd95bf442c9b45e2cb1590fdad8d76e98fbbc3fb5d6baee7",
+    "audit": {
+      "path": "D:\\Desktop\\UAV新\\scnet_lsdyna_plate_calibration_20261017\\analysis\\72630855_r06f_0800_tssfac04_20261028\\r06f_tssfac04_return_audit.json",
+      "sha256": "sha256:7a42b1381dc5153fa625c9a8de2b5e801048a8c03a73aa02c7acd27f3e461e5f"
+    }
+  },
+  "single_factor": {
+    "field": "CONTROL_TIMESTEP.TSSFAC",
+    "control": 0.4,
+    "treatment": 0.2,
+    "dt2ms": 0.0
+  },
+  "source_release_manifest": {
+    "path": "D:\\Desktop\\UAV新\\scnet_lsdyna_plate_calibration_20261017\\artifacts\\r06g_timestep_refinement_20261028_v2\\R06_RELEASE_MANIFEST.json",
+    "sha256": "sha256:b5b46bdec074f50f531ea96c0d0a45983bba9f5be07825f05f7ae43389e47d26"
+  },
+  "zip": {
+    "path": "uav_hf_r06g_0800_tssfac02.zip",
+    "size_bytes": 414046,
+    "sha256": "sha256:0d7af79e4e9399edecb8d87a9ebd7ef0cd0090db5a61a6eab1aba24cee1ef8f3"
+  },
+  "external_manifest": {
+    "path": "uav_hf_r06g_0800_tssfac02.bundle_manifest.json",
+    "size_bytes": 2337,
+    "sha256": "sha256:5a26bf0e8e75c3dfdda34d554253eb473f08ce688c67522a0437f6ab3985076d"
+  },
+  "instructions": {
+    "path": "SUBMIT_ONLY_THIS_JOB.md",
+    "sha256": "sha256:bf69cadbd99c1b6a8ee3d4368aeca3692ba414608b4fb17f395dee93e8f6229b"
+  },
+  "zip_verification": {
+    "status": "pass",
+    "job_id": "r06g_0800_tssfac02",
+    "zip": "uav_hf_r06g_0800_tssfac02.zip",
+    "size_bytes": 414046,
+    "sha256": "sha256:0d7af79e4e9399edecb8d87a9ebd7ef0cd0090db5a61a6eab1aba24cee1ef8f3",
+    "member_count": 10,
+    "head_deck": "r06g_0800_tssfac02.k"
+  },
+  "next_gate_if_return_passes": "audit_local_timestep_convergence_before_any_2000_control",
+  "prohibited": [
+    "submitting any other job in parallel with this refinement diagnostic",
+    "using nodes/ranks other than one node and 32 total MPP ranks",
+    "enabling mass scaling or changing any factor other than TSSFAC",
+    "treating static PASS as solver, convergence, physical, P0/P1, engine, or dataset acceptance"
+  ]
+}

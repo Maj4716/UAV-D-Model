@@ -1,0 +1,111 @@
+{
+  "schema_version": "hf-p0-package-manifest@1.1.0",
+  "package_revision": "R05_capture_ledger_preregistered",
+  "status": "generated_not_solver_validated",
+  "evidence_class": "high_fidelity_synthetic_reference_candidate",
+  "design": {
+    "path": "p0_cases_r05.json",
+    "sha256": "sha256:b1d2027d57fc6d9cd1ee3f932ea044fd16a112344d8f2b6f508071f45191a06f",
+    "status": "frozen_before_r05_solver_outcomes_after_r04_diagnostic"
+  },
+  "design_hash": "sha256:b1d2027d57fc6d9cd1ee3f932ea044fd16a112344d8f2b6f508071f45191a06f",
+  "material_register": {
+    "path": "jc4340_reference.json",
+    "sha256": "sha256:9b462b920459e57641d5f89d10d36c0aa0498c86f2478fef8e4c3efa96888311"
+  },
+  "material_register_hash": "sha256:9b462b920459e57641d5f89d10d36c0aa0498c86f2478fef8e4c3efa96888311",
+  "deck": {
+    "path": "p0_velocity_mesh_calibration.k",
+    "sha256": "sha256:6fbd753a113d0214e7ba4ff5136dc526d151e6f2c52c94e70399b29c4b9d3d0c",
+    "node_count": 184949,
+    "element_count": 163730,
+    "case_count": 7
+  },
+  "case_map": {
+    "path": "p0_case_part_map.csv",
+    "sha256": "sha256:b05b59249e49c3e9d15904f475c2f9478bdff1638fb797d1b552298490aa5295"
+  },
+  "p1_design": {
+    "path": "p1_preregistered_cases.csv",
+    "sha256": "sha256:22262e09c1d1bddd4da19eaecc9439a2f9ce81af4245495aeb61e854436b322e",
+    "case_count": 24,
+    "status": "preregistered_not_submitted"
+  },
+  "measurement_contract": {
+    "schema_version": "hf-p0-capture-ledger@1.0.0",
+    "full_model_d3plot_interval_ms": 0.0005,
+    "fragment_d3part_interval_ms": 5e-05,
+    "ascii_interval_ms": 5e-05,
+    "fragment_part_set_id": 900001,
+    "capture_plane": {
+      "axis": "z",
+      "coordinate_mm": -12.0,
+      "undeformed_plate_back_mm": -10.0,
+      "offset_behind_plate_mm": 2.0,
+      "travel_direction": "negative",
+      "element_position": "8-node arithmetic centroid; element contributions are aggregated with initial reference-mass weights",
+      "crossing_velocity": "linear interpolation between bracketing d3part states",
+      "crossing_policy": "first negative-z crossing only"
+    },
+    "reference_mass_basis": "initial fragment solid-element reference volumes times density; the D3PART quarter-model ledger is compared against the per-case expected quarter mass before any symmetry scaling",
+    "expected_reference_mass_source": "p0_case_part_map.csv fragment_initial_reference_mass_kg, identity-bound by case_id and fragment_part_id",
+    "runtime_completeness_policy": "sum of D3PART fragment element reference masses must match the identity-bound expected quarter mass within initial_discrete_mass_relative_error_max; otherwise all primary QoI are unavailable",
+    "ledger_states": [
+      "alive_crossed",
+      "alive_upstream",
+      "deleted_upstream",
+      "deleted_after_crossing",
+      "temporal_ambiguity"
+    ],
+    "primary_qois": [
+      {
+        "name": "qM",
+        "definition": "first-crossing fragment reference mass divided by the identity-bound expected initial fragment quarter mass"
+      },
+      {
+        "name": "qP",
+        "definition": "outward-positive scalar first-crossing momentum sum(mass*max(-vz,0)) divided by the positive initial incident momentum magnitude expected_reference_mass_kg*v0"
+      },
+      {
+        "name": "qE",
+        "definition": "first-crossing element-centroid translational kinetic energy divided by 0.5*expected_reference_mass_kg*v0^2; it excludes unresolved intra-element velocity-gradient energy"
+      },
+      {
+        "name": "qV_over_v0",
+        "definition": "reference-mass-weighted outward-positive first-crossing speed divided by impact speed; available only when qM is at least the numerical-perforation mass threshold; qV_mps is derived exactly as qV_over_v0*impact_speed_mps"
+      }
+    ],
+    "diagnostic_only": [
+      "fragment_center_history_node",
+      "surviving-part terminal average velocity",
+      "MATSUM part averages"
+    ],
+    "required_return_files": [
+      "d3hsp",
+      "mes*",
+      "glstat",
+      "matsum",
+      "sleout",
+      "nodout",
+      "binout*",
+      "d3plot*",
+      "d3part*",
+      "solver stdout/stderr",
+      "Slurm script and resource record"
+    ]
+  },
+  "solver": {
+    "requested_family": "LS-DYNA MPP double precision",
+    "actual_build": null,
+    "executable_sha256": null,
+    "mpi_implementation": null,
+    "status": "bind_on_scnet_submission"
+  },
+  "limitations": [
+    "The R05 keyword deck has not been parsed or executed by LS-DYNA.",
+    "Static validation cannot establish D3PART readability, numerical convergence, or physical validity.",
+    "The capture ledger is a numerical qualification contract, not an experimental perforation or V50 definition.",
+    "Material, EOS, contact, erosion, section, and geometry are retained from R04 and remain uncalibrated to experiment.",
+    "P1 submission, local-engine fitting, dataset generation, and training remain denied until all R05 gates pass."
+  ]
+}

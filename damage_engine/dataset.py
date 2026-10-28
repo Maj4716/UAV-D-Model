@@ -749,10 +749,15 @@ _SAMPLING_REQUIRED_FIELDS_V1_2 = _SAMPLING_REQUIRED_FIELDS_V1_1 | {
     "round_lineage_id", "parent_round_lineage_id", "candidate_case_hash",
     "learning_input_hash", "selected_case_set_hash", "design_weight_formula",
 }
+_SAMPLING_REQUIRED_FIELDS_V1_3 = _SAMPLING_REQUIRED_FIELDS_V1_1 | {
+    "contact_conditioning",
+}
 _SAMPLING_REQUIRED_FIELDS_BY_VERSION = {
     "1.0.0": _SAMPLING_REQUIRED_FIELDS_V1_0,
     "1.1.0": _SAMPLING_REQUIRED_FIELDS_V1_1,
     "1.2.0": _SAMPLING_REQUIRED_FIELDS_V1_2,
+    "1.3.0": _SAMPLING_REQUIRED_FIELDS_V1_3,
+    "1.4.0": _SAMPLING_REQUIRED_FIELDS_V1_3,
 }
 
 
@@ -891,7 +896,7 @@ def _sampling_context(cases: list[dict]) -> list[dict] | None:
         if int(record["formal_seed"]) != int(case["analysis"]["aleatory_seed"]):
             raise InputValidationError("formal seed in sampling envelope differs from the executed case")
         active_fixed_fields = set(fixed_fields)
-        if version in {"1.1.0", "1.2.0"}:
+        if version in {"1.1.0", "1.2.0", "1.3.0", "1.4.0"}:
             active_fixed_fields.update(
                 {"sampling_spec_document", "training_design_document", "training_design_hash"}
             )
@@ -922,7 +927,12 @@ def _sampling_context(cases: list[dict]) -> list[dict] | None:
         raise InputValidationError("label specification document differs from the declared identity")
     if spec.data["source"]["damage_tree_definition_hash"] != validated[0]["damage_tree_definition_hash"]:
         raise InputValidationError("label specification document is bound to a different tree definition")
-    if validated[0]["schema_version"] in {"1.1.0", "1.2.0"}:
+    if validated[0]["schema_version"] in {
+        "1.1.0",
+        "1.2.0",
+        "1.3.0",
+        "1.4.0",
+    }:
         from .sampling_spec import SamplingSpec
 
         sampling_spec = SamplingSpec(validated[0]["sampling_spec_document"])
@@ -941,6 +951,41 @@ def _sampling_context(cases: list[dict]) -> list[dict] | None:
             raise InputValidationError(
                 "training design document differs from the declared identity"
             )
+        if sampling_spec.has_contact_conditioning:
+            declaration = sampling_spec.contact_conditioning
+            if declaration is None:
+                raise InputValidationError(
+                    "contact-conditioned sampling specification lacks its declaration"
+                )
+            expected_binding = {
+                "contract_id": declaration["contract_id"],
+                "contract_hash": declaration["contract_hash"],
+                "mode": declaration["mode"],
+                "estimand": declaration["estimand"],
+                "selection_declaration_hash": declaration[
+                    "selection_declaration_hash"
+                ],
+            }
+            for record in validated:
+                binding = record.get("contact_conditioning")
+                if not isinstance(binding, dict) or {
+                    key: binding.get(key) for key in expected_binding
+                } != expected_binding:
+                    raise InputValidationError(
+                        "case contact-conditioning binding differs from SamplingSpec"
+                    )
+                eligibility = binding.get("eligibility_record")
+                if (
+                    not isinstance(eligibility, dict)
+                    or eligibility.get("status")
+                    != "eligible_contact_conditioned"
+                    or eligibility.get("formal_label_allowed") is not True
+                    or eligibility.get("contract_hash")
+                    != declaration["contract_hash"]
+                ):
+                    raise InputValidationError(
+                        "formal case lacks successful S-CONTACT eligibility evidence"
+                    )
     return validated
 
 
@@ -1136,7 +1181,8 @@ class DatasetWriter:
         )
         if (
             isinstance(sampling_spec_document, dict)
-            and sampling_spec_document.get("schema_version") == "1.2.0"
+            and sampling_spec_document.get("schema_version")
+            in {"1.2.0", "1.3.0", "1.4.0"}
         ):
             candidate_definition = model_input_definition_for_sampling_contract(
                 sampling_spec_document.get("model_input_contract")
@@ -2048,7 +2094,7 @@ class DatasetWriter:
         mask_fields = {name for name in tensor_values if name.endswith("mask")}
         feature_fields = {
             "case_x", "case_physics_x", "solver_context_x", "uav_state_x",
-            "loitering_impact_x",
+            "loitering_impact_x", "loitering_impact_contact_pose_x",
             "component_x", "armor_x",
             "component_armor_path_x",
         }
@@ -2065,6 +2111,9 @@ class DatasetWriter:
             "uav_state_x": "mixed; see uav_state_feature_units",
             "loitering_impact_x": (
                 "mixed; see loitering_impact_feature_units"
+            ),
+            "loitering_impact_contact_pose_x": (
+                "mixed; see loitering_impact_contact_pose_feature_units"
             ),
             "component_x": "mixed; see component_feature_units",
             "armor_x": "mixed; see armor_feature_units",
@@ -2248,7 +2297,12 @@ class DatasetWriter:
                     "label_task_semantics": "externally_versioned; see label_spec",
                 }
             )
-            if sampling_fixed["schema_version"] in {"1.1.0", "1.2.0"}:
+            if sampling_fixed["schema_version"] in {
+                "1.1.0",
+                "1.2.0",
+                "1.3.0",
+                "1.4.0",
+            }:
                 source_contracts.update(
                     {
                         "sampling_spec_document": sampling_fixed[

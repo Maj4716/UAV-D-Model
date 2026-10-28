@@ -1,0 +1,204 @@
+{
+  "schema_version": "1.0.0",
+  "overall_pass": true,
+  "report": "49_毁伤分布稀疏性根因裁决与数据生成整改研究报告_2026-10-23.md",
+  "report_sha256": "sha256:b05bb18086117e689e4d2de684f31283d4e56860bf7f0fa070f99df1caaf80a6",
+  "current_engine_code_hash": "sha256:8866e874dd6bc306e6c087251312a53d6f6681dbb6c5e7da6fd2bed32412e00a",
+  "checks": {
+    "required_files_exist": {
+      "pass": true,
+      "actual": [],
+      "expected": []
+    },
+    "report_has_no_placeholder": {
+      "pass": true,
+      "actual": false,
+      "expected": false
+    },
+    "controlled_diagnostic_validation_passed": {
+      "pass": true,
+      "actual": true,
+      "expected": true
+    },
+    "engine_identity_is_current_and_consistent": {
+      "pass": true,
+      "actual": {
+        "current": "sha256:8866e874dd6bc306e6c087251312a53d6f6681dbb6c5e7da6fd2bed32412e00a",
+        "controlled_diagnostic": "sha256:8866e874dd6bc306e6c087251312a53d6f6681dbb6c5e7da6fd2bed32412e00a",
+        "contact_pose_smoke": "sha256:8866e874dd6bc306e6c087251312a53d6f6681dbb6c5e7da6fd2bed32412e00a",
+        "contact_pose_manifest": "sha256:8866e874dd6bc306e6c087251312a53d6f6681dbb6c5e7da6fd2bed32412e00a"
+      },
+      "expected": {
+        "all_equal": true,
+        "hash_appears_in_report": true
+      }
+    },
+    "controlled_design_counts": {
+      "pass": true,
+      "actual": {
+        "attempted": 324,
+        "accepted": 324,
+        "unique_candidates": 162,
+        "replicates": 2592
+      },
+      "expected": {
+        "attempted": 324,
+        "accepted": 324,
+        "unique_candidates": 162,
+        "replicates": 2592
+      }
+    },
+    "controlled_contact_and_seed_contract": {
+      "pass": true,
+      "actual": {
+        "first_contact": true,
+        "target_facing": true,
+        "body_forward_aligned": true,
+        "unique_seeds": 162,
+        "paired_axes": true
+      },
+      "expected": {
+        "first_contact": true,
+        "target_facing": true,
+        "body_forward_aligned": true,
+        "unique_seeds": 162,
+        "paired_axes": true
+      }
+    },
+    "r8_support_rates": {
+      "pass": true,
+      "actual": {
+        "archived_minus_body_x": {
+          "K": 0.08641975308641975,
+          "M": 0.1111111111111111,
+          "F": 0.14814814814814814,
+          "C": 0.07407407407407407
+        },
+        "counterfactual_plus_body_x": {
+          "K": 0.7222222222222222,
+          "M": 1.0,
+          "F": 0.8271604938271605,
+          "C": 0.9938271604938271
+        }
+      },
+      "expected": {
+        "archived_minus_body_x": {
+          "K": 0.08641975308641975,
+          "M": 0.1111111111111111,
+          "F": 0.14814814814814814,
+          "C": 0.07407407407407407
+        },
+        "counterfactual_plus_body_x": {
+          "K": 0.7222222222222222,
+          "M": 1.0,
+          "F": 0.8271604938271605,
+          "C": 0.9938271604938271
+        }
+      }
+    },
+    "paired_axis_risk_differences": {
+      "pass": true,
+      "actual": {
+        "K": 0.6358024691358025,
+        "M": 0.8888888888888888,
+        "F": 0.6790123456790124,
+        "C": 0.9197530864197531
+      },
+      "expected": {
+        "K": 0.6358024691358025,
+        "M": 0.8888888888888888,
+        "F": 0.6790123456790124,
+        "C": 0.9197530864197531
+      }
+    },
+    "zero_anchor_total_variation_lower_bounds": {
+      "pass": true,
+      "actual": {
+        "K": 0.580246913580247,
+        "M": 0.5555555555555556,
+        "F": 0.5185185185185186,
+        "C": 0.5925925925925926
+      },
+      "expected": {
+        "K": 0.5802469135802469,
+        "M": 0.5555555555555556,
+        "F": 0.5185185185185185,
+        "C": 0.5925925925925926
+      }
+    },
+    "contact_pose_smoke_contract": {
+      "pass": true,
+      "actual": {
+        "all_s_contact_admitted": true,
+        "approach_counts": {
+          "bottom_up_pos_z": 3,
+          "front_to_rear_neg_y": 3,
+          "left_to_right_pos_x": 3,
+          "rear_to_front_pos_y": 3,
+          "right_to_left_neg_x": 3,
+          "top_down_neg_z": 3
+        },
+        "archive_model_input_shape": [
+          18,
+          15
+        ],
+        "minimum_body_x_velocity_cosine": 1.0,
+        "rejected_noncontact_count": 4,
+        "rejected_teacher_executed_values": [
+          false
+        ],
+        "targeted_test_count": 47
+      },
+      "expected": {
+        "six_approaches_with_three_cases_each": true,
+        "archive_model_input_shape": [
+          18,
+          15
+        ],
+        "minimum_body_x_velocity_cosine": 1.0,
+        "rejected_noncontact_count": 4,
+        "rejected_teacher_executed_values": [
+          false
+        ],
+        "targeted_test_count": 47
+      }
+    },
+    "provisional_tree_not_admitted": {
+      "pass": true,
+      "actual": {
+        "legacy_tree_direct_kmfc_ordinal_relabel": "rejected",
+        "legacy_tree_physical_validity": "not_established",
+        "software_prototype": "software_properties_passed_not_admitted",
+        "physical_calibration": "not_performed",
+        "research_training_admission": false,
+        "legacy_tree_mutated": false
+      },
+      "expected": {
+        "research_training_admission": false,
+        "physical_calibration": "not_performed",
+        "software_prototype": "software_properties_passed_not_admitted"
+      }
+    },
+    "final_junit_suite": {
+      "pass": true,
+      "actual": {
+        "tests": 892,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "expected": {
+        "tests": 892,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      }
+    },
+    "report_contains_frozen_results": {
+      "pass": true,
+      "actual": [],
+      "expected": []
+    }
+  },
+  "claim_boundary": "This verifies internal consistency and frozen software evidence only. It does not establish physical source-axis correctness, parameter calibration, operational prevalence, or formal research-training admission."
+}

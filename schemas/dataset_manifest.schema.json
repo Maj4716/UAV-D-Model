@@ -1,0 +1,1073 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/schemas/dataset_manifest.schema.json",
+  "title": "Damage dataset manifest",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "dataset_id",
+    "created_at",
+    "engine",
+    "source_contracts",
+    "generation",
+    "randomness",
+    "partitions",
+    "tensor_contract",
+    "split_policy",
+    "quality_summary",
+    "prohibited_uses"
+  ],
+  "properties": {
+    "schema_version": {
+      "enum": [
+        "1.1.0",
+        "1.2.0",
+        "1.3.0",
+        "1.4.0",
+        "1.5.0",
+        "1.6.0",
+        "1.7.0"
+      ]
+    },
+    "dataset_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "engine": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "version",
+        "code_hash",
+        "configuration_hash",
+        "fidelity_level"
+      ],
+      "properties": {
+        "version": {
+          "type": "string",
+          "minLength": 1
+        },
+        "code_hash": {
+          "type": "string",
+          "minLength": 16
+        },
+        "configuration_hash": {
+          "type": "string",
+          "minLength": 16
+        },
+        "fidelity_level": {
+          "enum": [
+            "L0",
+            "L1",
+            "L2",
+            "L3",
+            "mixed",
+            "unknown"
+          ]
+        },
+        "fidelity_levels": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "enum": [
+              "L0",
+              "L1",
+              "L2",
+              "L3"
+            ]
+          }
+        },
+        "validation_record_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "source_contracts": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "target_schema",
+        "case_schema",
+        "evaluation_standards"
+      ],
+      "properties": {
+        "target_schema": {
+          "type": "string",
+          "minLength": 1
+        },
+        "case_schema": {
+          "type": "string",
+          "minLength": 1
+        },
+        "damage_tree_versions": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "evaluation_standards": {
+          "type": "object",
+          "minProperties": 1,
+          "propertyNames": {
+            "type": "string",
+            "minLength": 1
+          },
+          "additionalProperties": {
+            "type": "array",
+            "minItems": 1,
+            "uniqueItems": true,
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        },
+        "parameter_set_hashes": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "minLength": 16
+          }
+        },
+        "parameter_set_ids": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "target_hashes": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "minLength": 16
+          }
+        },
+        "damage_tree_definition_hash": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"},
+        "label_spec_id": {"type": "string", "minLength": 1},
+        "label_spec_hash": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"},
+        "label_spec_document": {"type": "object"},
+        "sampling_spec_id": {"type": "string", "minLength": 1},
+        "sampling_design_hash": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"},
+        "sampling_spec_document": {"type": "object"},
+        "training_design_document": {"type": "object"},
+        "training_design_hash": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"},
+        "stratification_spec_id": {"type": "string", "minLength": 1},
+        "stratification_spec_hash": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"},
+        "split_registry_id": {"type": "string", "minLength": 1},
+        "split_registry_hash": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"},
+        "label_task_semantics": {"type": "string", "minLength": 1},
+        "fixed_scenario_hash": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"},
+        "fixed_scenario_identity_version": {
+          "enum": [
+            "fixed-scenario-json@1.0.0",
+            "loitering-impact-fixed-scenario-json@1.0.0",
+            "loitering-impact-contact-pose-fixed-scenario-json@1.0.0"
+          ]
+        },
+        "learning_input_identity_version": {
+          "enum": [
+            "uav-state-learning-input@2.0.0",
+            "loitering-impact-learning-input@1.0.0",
+            "loitering-impact-contact-pose-learning-input@1.0.0"
+          ]
+        }
+      }
+    },
+    "generation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "workers",
+        "chunksize",
+        "failure_policy",
+        "input_order_preserved",
+        "tensor_compression"
+      ],
+      "properties": {
+        "workers": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "chunksize": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "failure_policy": {
+          "enum": [
+            "fail_fast",
+            "isolate_and_record",
+            "precomputed_results"
+          ]
+        },
+        "input_order_preserved": {
+          "const": true
+        },
+        "tensor_compression": {
+          "enum": [
+            "compressed",
+            "none"
+          ]
+        },
+        "result_compression": {
+          "enum": ["none", "gzip"]
+        },
+        "environment": {
+          "type": "object"
+        },
+        "input_snapshot": {
+          "type": "object"
+        },
+        "storage_guarantees": {
+          "type": "object"
+        },
+        "resource_policy": {
+          "type": "object"
+        },
+        "sampling": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["rounds", "streams", "roles", "strata", "selection_probability_field", "raw_design_weight_field"],
+          "properties": {
+            "sampling_envelope_version": {"enum": ["1.0.0", "1.1.0", "1.2.0", "1.3.0", "1.4.0"]},
+            "rounds": {"type": "array", "uniqueItems": true, "items": {"type": "integer", "minimum": 0}},
+            "streams": {"type": "array", "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+            "roles": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+            "strata": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+            "selection_probability_field": {"const": "sampling_selection_probability"},
+            "raw_design_weight_field": {"const": "sampling_design_weight_raw"},
+            "raw_design_weight_semantics": {"enum": ["inverse_inclusion_probability_for_weight_mask_true_reference_cases", "general_two_stage_reference_joint_design"]},
+            "split_registry_document": {"type": "object"},
+            "design_weight_formula": {"const": "p0_density*p0_hierarchy_probability/(proposal_density*proposal_hierarchy_probability*inclusion_probability)"},
+            "proposal_hash": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"},
+            "adaptive_proposal_hash": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"},
+            "acquisition_model_hash": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"},
+            "round_lineage_id": {"type": "string", "minLength": 1},
+            "parent_round_lineage_id": {"type": "string", "minLength": 1},
+            "selected_case_set_hash": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"},
+            "adaptive_factor_fields": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["p0_density", "adaptive_density", "proposal_density", "p0_hierarchy_probability", "proposal_hierarchy_probability"],
+              "properties": {
+                "p0_density": {"const": "sampling_p0_density"},
+                "adaptive_density": {"const": "sampling_adaptive_density"},
+                "proposal_density": {"const": "sampling_proposal_density"},
+                "p0_hierarchy_probability": {"const": "sampling_p0_hierarchy_probability"},
+                "proposal_hierarchy_probability": {"const": "sampling_proposal_hierarchy_probability"}
+              }
+            }
+          }
+        }
+      }
+    },
+    "randomness": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "split_seed",
+        "aleatory_seed_field",
+        "epistemic_sample_id_field",
+        "parallel_result_order_deterministic"
+      ],
+      "properties": {
+        "split_seed": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "aleatory_seed_field": {
+          "type": "string",
+          "minLength": 1
+        },
+        "epistemic_sample_id_field": {
+          "type": "string",
+          "minLength": 1
+        },
+        "parallel_result_order_deterministic": {
+          "type": "boolean"
+        }
+      }
+    },
+    "partitions": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "name",
+          "format",
+          "path_glob",
+          "row_count",
+          "content_hash"
+        ],
+        "properties": {
+          "name": {
+            "enum": [
+              "cases",
+              "components",
+              "armor",
+              "armor_labels",
+              "edges",
+              "fragment_summary",
+              "labels",
+              "component_aux",
+              "tree_outputs",
+              "audits",
+              "splits",
+              "tensors"
+            ]
+          },
+          "format": {
+            "enum": [
+              "parquet",
+              "arrow_ipc",
+              "jsonl",
+              "jsonl_gzip",
+              "npz"
+            ]
+          },
+          "path_glob": {
+            "type": "string",
+            "minLength": 1
+          },
+          "row_count": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "content_hash": {
+            "type": "string",
+            "minLength": 16
+          }
+        }
+      }
+    },
+    "tensor_contract": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "version",
+        "fields"
+      ],
+      "properties": {
+        "version": {
+          "type": "string",
+          "minLength": 1
+        },
+        "fields": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "name",
+              "dtype",
+              "shape",
+              "semantic_role"
+            ],
+            "properties": {
+              "name": {
+                "type": "string",
+                "minLength": 1
+              },
+              "dtype": {
+                "enum": [
+                  "float32",
+                  "float64",
+                  "int16",
+                  "int32",
+                  "int64",
+                  "bool",
+                  "string"
+                ]
+              },
+              "shape": {
+                "type": "string",
+                "minLength": 1
+              },
+              "semantic_role": {
+                "enum": [
+                  "feature",
+                  "label",
+                  "mask",
+                  "uncertainty",
+                  "index",
+                  "metadata"
+                ]
+              },
+              "unit": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "normalization_id": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              }
+            }
+          }
+        },
+        "axes": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "axis_id",
+              "size",
+              "names_field",
+              "units_field"
+            ],
+            "properties": {
+              "axis_id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "size": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "names_field": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "units_field": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "model_input_contract": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "version", "tensor_field", "mask_field", "dtype", "shape",
+        "feature_axis", "features", "excluded_tensor_fields",
+        "fixed_scenario_policy", "fixed_scenario_hash", "evidence_boundary"
+      ],
+      "properties": {
+        "version": {
+          "enum": [
+            "uav-state-input@1.0.0",
+            "loitering-impact-state-input@1.0.0",
+            "loitering-impact-contact-pose-input@1.0.0"
+          ]
+        },
+        "tensor_field": {"enum": ["uav_state_x", "loitering_impact_x", "loitering_impact_contact_pose_x"]},
+        "mask_field": {"enum": ["uav_state_feature_mask", "loitering_impact_feature_mask", "loitering_impact_contact_pose_feature_mask"]},
+        "dtype": {"const": "float32"},
+        "shape": {"enum": ["[B,F_uav_state]", "[B,F_loitering_impact]", "[B,F_loitering_impact_contact_pose]"]},
+        "feature_axis": {"enum": ["F_uav_state", "F_loitering_impact", "F_loitering_impact_contact_pose"]},
+        "features": {
+          "type": "array",
+          "minItems": 6,
+          "maxItems": 15,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["name", "unit", "semantic", "source_path", "transformation"],
+            "properties": {
+              "name": {"type": "string", "minLength": 1},
+              "unit": {"type": "string", "minLength": 1},
+              "semantic": {"type": "string", "minLength": 1},
+              "source_path": {"type": "string", "pattern": "^/"},
+              "transformation": {"type": "string", "minLength": 1}
+            }
+          }
+        },
+        "excluded_tensor_fields": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {"type": "string", "minLength": 1}
+        },
+        "fixed_scenario_policy": {"const": "single_frozen_scenario_per_archive"},
+        "fixed_scenario_hash": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"},
+        "evidence_boundary": {"type": "string", "minLength": 1}
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {"version": {"const": "uav-state-input@1.0.0"}},
+            "required": ["version"]
+          },
+          "then": {
+            "properties": {
+              "tensor_field": {"const": "uav_state_x"},
+              "mask_field": {"const": "uav_state_feature_mask"},
+              "shape": {"const": "[B,F_uav_state]"},
+              "feature_axis": {"const": "F_uav_state"},
+              "features": {"minItems": 10, "maxItems": 10}
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {"version": {"const": "loitering-impact-state-input@1.0.0"}},
+            "required": ["version"]
+          },
+          "then": {
+            "properties": {
+              "tensor_field": {"const": "loitering_impact_x"},
+              "mask_field": {"const": "loitering_impact_feature_mask"},
+              "shape": {"const": "[B,F_loitering_impact]"},
+              "feature_axis": {"const": "F_loitering_impact"},
+              "features": {"minItems": 6, "maxItems": 6}
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {"version": {"const": "loitering-impact-contact-pose-input@1.0.0"}},
+            "required": ["version"]
+          },
+          "then": {
+            "properties": {
+              "tensor_field": {"const": "loitering_impact_contact_pose_x"},
+              "mask_field": {"const": "loitering_impact_contact_pose_feature_mask"},
+              "shape": {"const": "[B,F_loitering_impact_contact_pose]"},
+              "feature_axis": {"const": "F_loitering_impact_contact_pose"},
+              "features": {"minItems": 15, "maxItems": 15}
+            }
+          }
+        }
+      ]
+    },
+    "split_policy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "method",
+        "group_keys",
+        "seed",
+        "leakage_audit_passed"
+      ],
+      "properties": {
+        "method": {
+          "const": "grouped"
+        },
+        "group_keys": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "enum": [
+              "target_topology",
+              "warhead_family",
+              "condition_cluster",
+              "parameter_set",
+              "split_group",
+              "physical_case_hash"
+            ]
+          }
+        },
+        "seed": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "ratios": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "train",
+            "validation",
+            "test"
+          ],
+          "properties": {
+            "train": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            },
+            "validation": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            },
+            "test": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            }
+          }
+        },
+        "leakage_audit_passed": {
+          "type": "boolean"
+        },
+        "split_counts": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "train",
+            "validation",
+            "test"
+          ],
+          "properties": {
+            "train": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "validation": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "test": {
+              "type": "integer",
+              "minimum": 0
+            }
+          }
+        },
+        "independent_unit_status": {
+          "type": "string"
+        },
+        "split_registry_status": {
+          "type": "string"
+        },
+        "split_registry_hash": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"},
+        "independence_guaranteed": {
+          "type": "boolean"
+        },
+        "coverage_guaranteed": {
+          "type": "boolean"
+        }
+      }
+    },
+    "quality_summary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "n_total",
+        "n_valid",
+        "n_refused",
+        "refusal_counts",
+        "unverified_parameter_fraction"
+      ],
+      "properties": {
+        "n_total": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "n_valid": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "n_refused": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "refusal_counts": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "integer",
+            "minimum": 0
+          }
+        },
+        "unverified_parameter_fraction": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "mc_ci_half_width_quantiles": {
+          "type": "array",
+          "items": {
+            "type": "number",
+            "minimum": 0
+          }
+        },
+        "coverage_report_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "execution_success_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "n_valid_semantics": {
+          "const": "execution_success_count"
+        },
+        "purpose_admission_counts": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "software_development": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "research_training": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "research_validation": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "research_test": {
+              "type": "integer",
+              "minimum": 0
+            }
+          }
+        },
+        "sampling_diagnostics": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["positivity_min", "effective_sample_size", "ess_fraction", "weight_cv", "raw_weight_preserved", "candidate_ledger_external"],
+          "properties": {
+            "positivity_min": {"type": ["number", "null"], "exclusiveMinimum": 0, "maximum": 1},
+            "effective_sample_size": {"type": "number", "minimum": 0},
+            "ess_fraction": {"type": "number", "minimum": 0, "maximum": 1},
+            "weight_cv": {"type": ["number", "null"], "minimum": 0},
+            "raw_weight_preserved": {"const": true},
+            "candidate_ledger_external": {"type": "boolean"},
+            "diagnostic_population": {"type": "string"},
+            "usable_weight_count": {"type": "integer", "minimum": 0},
+            "set": {"type": "string"},
+            "weighted_successful_count": {"type": "integer", "minimum": 0},
+            "coverage_status": {"type": "string"}
+          }
+        }
+      }
+    },
+    "known_limitations": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "prohibited_uses": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "semantic_vocabulary": {
+      "type": "object",
+      "required": [
+        "version",
+        "names",
+        "content_hash"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "version": {
+          "type": "string"
+        },
+        "names": {
+          "type": "object",
+          "required": [
+            "mechanism_names",
+            "state_names",
+            "system_output_names",
+            "evaluation_standard_ids"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "mechanism_names": {
+              "type": "array",
+              "uniqueItems": true,
+              "items": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "state_names": {
+              "type": "array",
+              "uniqueItems": true,
+              "items": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "system_output_names": {
+              "type": "array",
+              "uniqueItems": true,
+              "items": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "evaluation_standard_ids": {
+              "type": "array",
+              "uniqueItems": true,
+              "items": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          }
+        },
+        "content_hash": {
+          "type": "string",
+          "pattern": "^sha256:[0-9a-f]{64}$"
+        }
+      }
+    },
+    "label_admission": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "label_source_type",
+        "input_integrity_status",
+        "scientific_evidence_status",
+        "approved_uses",
+        "reason"
+      ],
+      "properties": {
+        "label_source_type": {
+          "type": "string"
+        },
+        "input_integrity_status": {
+          "type": "string"
+        },
+        "scientific_evidence_status": {
+          "type": "string"
+        },
+        "validation_record_status": {
+          "type": "string"
+        },
+        "coverage_report_status": {
+          "type": "string"
+        },
+        "evaluation_definition_approval_status": {
+          "type": "string"
+        },
+        "source_object_completeness_status": {
+          "type": "string"
+        },
+        "reason": {
+          "type": "string"
+        },
+        "approved_uses": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "enum": [
+              "software_development",
+              "research_training",
+              "research_validation",
+              "research_test"
+            ]
+          }
+        },
+        "evidence_record": {
+          "type": [
+            "object",
+            "null"
+          ]
+        }
+      }
+    },
+    "capabilities": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "storage_layout": {
+          "enum": [
+            "monolithic",
+            "sharded"
+          ]
+        },
+        "bounded_tensor_batch": {
+          "type": "boolean"
+        },
+        "checkpoint_resume": {
+          "type": "boolean"
+        },
+        "sharded_writer_available": {
+          "type": "boolean"
+        },
+        "single_target_topology_per_archive": {
+          "type": "boolean"
+        },
+        "semantic_vocabulary_frozen": {
+          "type": "boolean"
+        },
+        "independent_scientific_validation": {
+          "type": "boolean"
+        }
+      }
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "schema_version": {
+            "enum": [
+              "1.2.0",
+              "1.3.0",
+              "1.4.0",
+              "1.5.0",
+              "1.6.0",
+              "1.7.0"
+            ]
+          }
+        }
+      },
+      "then": {
+        "required": [
+          "semantic_vocabulary",
+          "label_admission",
+          "capabilities"
+        ],
+        "properties": {
+          "quality_summary": {
+            "required": [
+              "execution_success_count",
+              "n_valid_semantics",
+              "purpose_admission_counts"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "schema_version": {
+            "enum": ["1.3.0", "1.4.0", "1.5.0", "1.6.0", "1.7.0"]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "source_contracts": {
+            "required": [
+              "damage_tree_definition_hash",
+              "label_spec_id",
+              "label_spec_hash",
+              "sampling_spec_id",
+              "sampling_design_hash",
+              "stratification_spec_id",
+              "stratification_spec_hash",
+              "split_registry_id",
+              "split_registry_hash",
+              "label_task_semantics"
+            ]
+          },
+          "generation": {
+            "required": [
+              "sampling"
+            ]
+          },
+          "tensor_contract": {
+            "properties": {
+              "version": {
+                "enum": ["1.5.0", "1.6.0", "1.7.0", "1.8.0"]
+              }
+            }
+          },
+          "split_policy": {
+            "required": [
+              "split_registry_status",
+              "split_registry_hash",
+              "independence_guaranteed",
+              "coverage_guaranteed"
+            ],
+            "properties": {
+              "split_registry_status": {
+                "const": "frozen_pre_outcome"
+              }
+            }
+          },
+          "quality_summary": {
+            "required": [
+              "sampling_diagnostics"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "if": {"properties": {"schema_version": {"const": "1.4.0"}}},
+      "then": {
+        "properties": {
+          "source_contracts": {"required": ["label_spec_document"]},
+          "generation": {"properties": {"sampling": {"required": ["split_registry_document"]}}},
+          "tensor_contract": {"properties": {"version": {"const": "1.6.0"}}},
+          "split_policy": {"properties": {"coverage_guaranteed": {"const": false}, "independence_guaranteed": {"const": false}}}
+        }
+      }
+    },
+    {
+      "if": {"properties": {"schema_version": {"const": "1.5.0"}}},
+      "then": {
+        "properties": {
+          "source_contracts": {"required": ["label_spec_document", "sampling_spec_document", "training_design_document", "training_design_hash"]},
+          "generation": {"properties": {"sampling": {"required": ["split_registry_document", "sampling_envelope_version", "raw_design_weight_semantics"], "properties": {"sampling_envelope_version": {"const": "1.1.0"}}}}},
+          "tensor_contract": {"properties": {"version": {"const": "1.6.0"}}},
+          "split_policy": {"properties": {"coverage_guaranteed": {"const": false}, "independence_guaranteed": {"const": false}}}
+        }
+      }
+    },
+    {
+      "if": {"properties": {"schema_version": {"const": "1.6.0"}}},
+      "then": {
+        "properties": {
+          "source_contracts": {"required": ["label_spec_document", "sampling_spec_document", "training_design_document", "training_design_hash"]},
+          "generation": {"properties": {"sampling": {"required": ["split_registry_document", "sampling_envelope_version", "raw_design_weight_semantics", "design_weight_formula", "proposal_hash", "adaptive_proposal_hash", "acquisition_model_hash", "round_lineage_id", "parent_round_lineage_id", "selected_case_set_hash", "adaptive_factor_fields"], "properties": {"sampling_envelope_version": {"const": "1.2.0"}, "raw_design_weight_semantics": {"const": "general_two_stage_reference_joint_design"}}}}},
+          "tensor_contract": {"properties": {"version": {"const": "1.7.0"}}},
+          "split_policy": {"properties": {"coverage_guaranteed": {"const": false}, "independence_guaranteed": {"const": false}}}
+        }
+      }
+    },
+    {
+      "if": {"properties": {"schema_version": {"const": "1.7.0"}}},
+      "then": {
+        "required": ["model_input_contract"],
+        "properties": {
+          "source_contracts": {
+            "required": [
+              "label_spec_document", "sampling_spec_document",
+              "training_design_document", "training_design_hash",
+              "fixed_scenario_hash", "fixed_scenario_identity_version",
+              "learning_input_identity_version"
+            ]
+          },
+          "generation": {
+            "properties": {
+              "sampling": {
+                "required": ["split_registry_document", "sampling_envelope_version", "raw_design_weight_semantics"]
+              }
+            }
+          },
+          "tensor_contract": {"properties": {"version": {"const": "1.8.0"}}},
+          "split_policy": {"properties": {"coverage_guaranteed": {"const": false}, "independence_guaranteed": {"const": false}}}
+        }
+      }
+    },
+    {
+      "if": {"properties": {"schema_version": {"const": "1.3.0"}}},
+      "then": {"properties": {"tensor_contract": {"properties": {"version": {"const": "1.5.0"}}}}}
+    }
+  ]
+}

@@ -1,0 +1,94 @@
+{
+  "scope": "abstract records, artificial scalar arrays and adapter metadata only; no engine, domain labels, model fitting or pilot generation",
+  "python": "3.12.13",
+  "numpy": "2.4.6",
+  "scientific_structure_gate": {
+    "zero_observed_coverage_with_passed_true": {
+      "accepted_by_structure_gate": true,
+      "coverage_record": {
+        "metric_id": "abstract-coverage",
+        "mechanism": "generic-system",
+        "nominal": 0.95,
+        "observed": 0.0,
+        "sample_count": 20,
+        "passed": true
+      },
+      "interpretation": "The gate does not bind or recompute a coverage acceptance criterion. Acceptance is a shape/declaration result, not demonstrated statistical adequacy."
+    },
+    "same_content_claimed_calibration_and_holdout": {
+      "accepted_by_structure_gate": true,
+      "source_records": [
+        {
+          "source_id": "abstract-heldout-source",
+          "role": "validation",
+          "content_hash": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+          "used_for_calibration": false
+        },
+        {
+          "source_id": "abstract-calibration-source",
+          "role": "calibration",
+          "content_hash": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+          "used_for_calibration": true
+        }
+      ],
+      "interpretation": "Conflicting uses of the same content identity are not cross-checked; no distinct subset-membership identity is recorded."
+    },
+    "boolean_sample_count": {
+      "accepted_by_structure_gate": true,
+      "sample_count": true
+    }
+  },
+  "adapter_cross_archive_identity": {
+    "contract_dataset_id": "abstract-dataset-A",
+    "contract_manifest_hash": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "metadata_dataset_id": "abstract-dataset-B",
+    "metadata_manifest_hash": "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+    "construction_accepted": true,
+    "eligibility_enforced": true,
+    "selected_task_names": [
+      "abstract-task-A"
+    ],
+    "interpretation": "Vocabulary equality is enforced, but actual archive identity is not verified by this adapter."
+  },
+  "adapter_task_order_mismatch": {
+    "bound_vocabulary": [
+      "abstract-task-A",
+      "abstract-task-B"
+    ],
+    "task_record_order": [
+      "abstract-task-B",
+      "abstract-task-A"
+    ],
+    "requested_task_names": [
+      "abstract-task-A"
+    ],
+    "selected_task_names": [
+      "abstract-task-B"
+    ],
+    "selected_indices": [
+      1
+    ],
+    "eligibility_enforced": true,
+    "interpretation": "Task-record position is used as the tensor-axis index even though the declared vocabulary provides a separate name order."
+  },
+  "label_availability_vs_weight_availability": {
+    "input_label_mask": [
+      [
+        true
+      ],
+      [
+        true
+      ]
+    ],
+    "input_design_weight_mask": [
+      false,
+      false
+    ],
+    "reported_available_count": 0,
+    "reported_label_available": false,
+    "status": "excluded_no_train_labels",
+    "reason": "Train contains no available labels for this task.",
+    "interpretation": "Label availability and applicability of design weights share one filtered denominator and one no-label reason."
+  },
+  "boundary": "These reproduce API consistency gaps only; outer archive admission and actual research use were not exercised. No acceptance thresholds or domain calibration choices are proposed."
+}

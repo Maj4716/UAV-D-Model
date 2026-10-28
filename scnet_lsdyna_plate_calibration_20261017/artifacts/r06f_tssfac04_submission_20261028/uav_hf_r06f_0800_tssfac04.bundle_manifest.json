@@ -1,0 +1,63 @@
+{
+  "schema_version": "hf-p0-r06-diagnostic-bundle@1.0.0",
+  "package_revision": "R06_timestep_sensitivity_20261028",
+  "job_id": "r06f_0800_tssfac04",
+  "experiment_id": "r06f_timestep_sensitivity_800",
+  "role": "no_mass_scaling_timestep_sensitivity",
+  "status": "prepared_not_submitted_not_solver_validated",
+  "head_deck": "r06f_0800_tssfac04.k",
+  "file_policy": "explicit_whitelist_one_head_deck",
+  "files": [
+    {
+      "path": "UPLOAD_README.txt",
+      "size_bytes": 1908,
+      "sha256": "sha256:27e5ba7a0c0bc65cd3d87528c9091a3edb6fe93e27c9d32cb5c7c3c643876ea5"
+    },
+    {
+      "path": "jc4340_reference.json",
+      "size_bytes": 3144,
+      "sha256": "sha256:9b462b920459e57641d5f89d10d36c0aa0498c86f2478fef8e4c3efa96888311"
+    },
+    {
+      "path": "job_contract.json",
+      "size_bytes": 1770,
+      "sha256": "sha256:8967d61a4020951a5e8a8131e3806574754a174264e1ce77953e40d0e491c288"
+    },
+    {
+      "path": "manifest.json",
+      "size_bytes": 1944,
+      "sha256": "sha256:cfc170c7338bf3b22605ac820f45ebac15f25b680de4e3a8112452f3c5e5edb9"
+    },
+    {
+      "path": "p0_case_part_map.csv",
+      "size_bytes": 491,
+      "sha256": "sha256:e04aae1aad114a9a1b528b2791b03f6ba7eaa155e99fce904f02ee3ee4ee4c09"
+    },
+    {
+      "path": "p0_r06f_timestep_output_contract.json",
+      "size_bytes": 7807,
+      "sha256": "sha256:0ea99802c51cd9479a887b51149e7f81bae891b58e05cc1ad0d2fbafbef0cc95"
+    },
+    {
+      "path": "p0_r06f_timestep_sensitivity_design.json",
+      "size_bytes": 9966,
+      "sha256": "sha256:cef4dd7142d4ae7a2501aba7c8989764d40d05b11e6d36c9092785282f7e5e9a"
+    },
+    {
+      "path": "r06f_0800_tssfac04.k",
+      "size_bytes": 2557654,
+      "sha256": "sha256:afb0f34112ccfdfcfd95bf442c9b45e2cb1590fdad8d76e98fbbc3fb5d6baee7"
+    },
+    {
+      "path": "static_validation.json",
+      "size_bytes": 3504,
+      "sha256": "sha256:6bff16d3478afe4aef773f11c20f363991271f786d749bd0ee9885e32c73caa5"
+    }
+  ],
+  "prohibited_inference": "Bundle and static PASS do not establish parser/runtime, numerical response, physical validity, or P0/P1 admission.",
+  "bundle": {
+    "path": "uav_hf_r06f_0800_tssfac04.zip",
+    "size_bytes": 413598,
+    "sha256": "sha256:54bb13c10c93da23925c75009c8a8ef9552fb86bd0052c1f2f5ad4718269e3cc"
+  }
+}

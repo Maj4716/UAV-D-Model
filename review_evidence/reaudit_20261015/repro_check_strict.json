@@ -1,0 +1,112 @@
+{
+  "path": ".",
+  "essentials": [
+    {
+      "name": "README",
+      "status": "OK",
+      "detail": "found README.md"
+    },
+    {
+      "name": "ENV",
+      "status": "OK",
+      "detail": "PEP 621 / poetry project, pip requirements (pinned)"
+    },
+    {
+      "name": "SEED",
+      "status": "OK",
+      "detail": "seeding found in 10 file(s), e.g. benchmarks/benchmark_geometry.py"
+    },
+    {
+      "name": "ENTRYPOINT",
+      "status": "OK",
+      "detail": "__main__ guard"
+    },
+    {
+      "name": "DATA",
+      "status": "OK",
+      "detail": "README data instructions"
+    },
+    {
+      "name": "RESULTS_CMD",
+      "status": "OK",
+      "detail": "README shows command(s) to run / reproduce"
+    }
+  ],
+  "tests_present": true,
+  "test_files": [
+    "tests/test_adaptive_cli.py",
+    "tests/test_adaptive_convergence.py",
+    "tests/test_adaptive_execution_chain.py",
+    "tests/test_adaptive_inclusion.py",
+    "tests/test_build_dataset_health_report.py",
+    "tests/test_bvh.py",
+    "tests/test_case_factory_geometry.py",
+    "tests/test_damage_tree.py",
+    "tests/test_dataset.py",
+    "tests/test_dataset_policy.py",
+    "tests/test_dataset_policy_cli.py",
+    "tests/test_distribution_design_contract.py",
+    "tests/test_distribution_manifest_integration.py",
+    "tests/test_engine.py",
+    "tests/test_evaluation_planning.py",
+    "tests/test_fragment_audit.py",
+    "tests/test_fragment_list.py",
+    "tests/test_geometry.py",
+    "tests/test_input_identity_performance.py",
+    "tests/test_label_spec.py",
+    "tests/test_loader_contract_review.py",
+    "tests/test_loader_stream_separation.py",
+    "tests/test_loitering_model_input_contract.py",
+    "tests/test_multiround_sampling.py",
+    "tests/test_multitask_targets.py",
+    "tests/test_munition_impact.py",
+    "tests/test_normalization.py",
+    "tests/test_physics.py",
+    "tests/test_prelabel_geometry.py",
+    "tests/test_raw_import.py",
+    "tests/test_reaudit_audit_fix.py",
+    "tests/test_reaudit_contract_fix.py",
+    "tests/test_reaudit_sampling_fix.py",
+    "tests/test_reaudit_serialization_fix.py",
+    "tests/test_reference_soft_event_planning.py",
+    "tests/test_replicate_trace.py",
+    "tests/test_result_ledger_compression.py",
+    "tests/test_sampling_checkpoint.py",
+    "tests/test_sampling_compact_freeze.py",
+    "tests/test_sampling_contract.py",
+    "tests/test_sampling_process_storage.py",
+    "tests/test_sampling_result_compression.py",
+    "tests/test_sampling_spec.py",
+    "tests/test_sampling_split.py",
+    "tests/test_schema_resources.py",
+    "tests/test_scientific_validation.py",
+    "tests/test_shard_integrity_review.py",
+    "tests/test_sharded_dataset.py",
+    "tests/test_statistics_cli_review.py",
+    "tests/test_system_learning.py",
+    "tests/test_training_readiness_result_ledger.py",
+    "tests/test_training_view_contract.py",
+    "tests/test_uav_model_input_contract.py",
+    "tests/test_utils.py",
+    "tests/test_validate_uav_control_dataset.py",
+    "tests/test_validation.py",
+    "tests/test_validation_cache.py",
+    "tests/test_writer_integrity_review.py"
+  ],
+  "deps_pinned": true,
+  "summary": {
+    "missing": [],
+    "warn": [],
+    "ok": [
+      "README",
+      "ENV",
+      "SEED",
+      "ENTRYPOINT",
+      "DATA",
+      "RESULTS_CMD"
+    ]
+  },
+  "scanned_files": 138,
+  "source_files": 138,
+  "truncated": false
+}

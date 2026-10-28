@@ -1,0 +1,66 @@
+{
+  "scope": "synthetic mask and dtype contract tests; no simulator or training",
+  "executable": "D:\\ProgramData\\Anaconda\\envs\\pytorch312-lmdt\\python.exe",
+  "torch": "2.8.0+cu128",
+  "unavailable_gate_placeholder_changes_dependent_mask": {
+    "scope": "only adapter array-selection behavior; explicit software-audit override",
+    "gate_available_first": [
+      false
+    ],
+    "gate_available_second": [
+      false
+    ],
+    "dependent_mask_with_positive_masked_placeholder": [
+      [
+        true,
+        true,
+        true,
+        true
+      ]
+    ],
+    "dependent_mask_with_zero_masked_placeholder": [
+      [
+        false,
+        false,
+        false,
+        false
+      ]
+    ]
+  },
+  "task_weight_cast_invalidates_validated_contract": [
+    {
+      "input_float64": 1e+300,
+      "accepted": true,
+      "output_dtype": "torch.float32",
+      "output_value_text": "inf",
+      "output_is_finite": false,
+      "output_is_positive": true,
+      "warnings": [
+        "overflow encountered in cast"
+      ]
+    },
+    {
+      "input_float64": 1e-300,
+      "accepted": true,
+      "output_dtype": "torch.float32",
+      "output_value_text": "0.0",
+      "output_is_finite": true,
+      "output_is_positive": false,
+      "warnings": []
+    }
+  ],
+  "finite_generic_input_and_valid_artifact_produce_nonfinite_normalization": {
+    "fitted_scale": 4.99997305055738e-41,
+    "input": [
+      1.0
+    ],
+    "input_available": [
+      true
+    ],
+    "output_value_text": "inf",
+    "output_is_finite": false,
+    "warnings": [
+      "overflow encountered in divide"
+    ]
+  }
+}

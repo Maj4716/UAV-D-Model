@@ -1,0 +1,352 @@
+{
+  "schema_version": "hf-p0-r06f-tssfac04-return-audit@1.0.0",
+  "audit_date": "2026-10-28",
+  "source_evidence": {
+    "directory": "D:/Desktop/UAV新/uav_hf_r06f_0800_tssfac04",
+    "evidence_policy": "read_only_immutable",
+    "file_count": 113,
+    "total_bytes": 2129839228,
+    "platform_job_id": "72630855",
+    "job_id": "r06f_0800_tssfac04",
+    "package_revision": "R06_timestep_sensitivity_20261028",
+    "deck_sha256": "sha256:afb0f34112ccfdfcfd95bf442c9b45e2cb1590fdad8d76e98fbbc3fb5d6baee7",
+    "solver_build": "LS-DYNA MPP double R15.0.2-1-g1e7cfa42b1 I8R8 Intel-MPI 2018"
+  },
+  "execution": {
+    "input_identity": "pass",
+    "resource_identity": "pass",
+    "normal_termination": true,
+    "rank_log_count": 32,
+    "normal_termination_rank_count": 32,
+    "stderr_size_bytes": 0,
+    "cycle_count": 7066,
+    "final_problem_time_ms": 0.040005,
+    "numbered_error_count": 0,
+    "warning_counts": [
+      {
+        "id": "30364",
+        "code": "INI+364",
+        "occurrences": 32
+      },
+      {
+        "id": "40509",
+        "code": "SOL+509",
+        "occurrences": 10
+      }
+    ],
+    "negative_volume_unique_element_count": 10,
+    "dt2ms": 0.0,
+    "parts_with_added_mass": 0
+  },
+  "returned_outputs": {
+    "d3plot": {
+      "file_count": 14,
+      "total_bytes": 1699008512,
+      "state_count": 402,
+      "readability": "pass"
+    },
+    "d3part": {
+      "file_count": 3,
+      "total_bytes": 121683968,
+      "state_count": 802,
+      "readability": "pass"
+    },
+    "binout": {
+      "file_count": 2,
+      "total_bytes": 177944606,
+      "readability": "pass",
+      "logical_databases": [
+        "JOBINFO",
+        "glstat",
+        "matsum",
+        "ncforc",
+        "nodout",
+        "sleout"
+      ]
+    },
+    "glstat": {
+      "record_count": 801,
+      "minimum_total_energy_ratio": 0.987558,
+      "maximum_total_energy_ratio": 1.00263,
+      "maximum_absolute_hourglass_energy": 0.0,
+      "final_eroded_energy_fraction_of_initial": 0.038498140625
+    }
+  },
+  "measurement_contract": {
+    "status": "pass",
+    "d3part_full_d3plot_crosscheck": {
+      "status": "pass",
+      "d3part_history_shape": [
+        802,
+        686,
+        1,
+        7
+      ],
+      "full_d3plot_history_shape": [
+        402,
+        20902,
+        1,
+        7
+      ],
+      "d3part_state_count": 802,
+      "full_d3plot_state_count": 402,
+      "shared_state_count": 402,
+      "fragment_element_id_count": 686,
+      "alive_value_comparison_count": 266529,
+      "maximum_absolute_difference_all_7_channels": 0.0,
+      "alive_mask_mismatch_count": 0,
+      "maximum_time_mismatch_ms": 0.0,
+      "hvar6_alive_status": "available",
+      "hvar6_alive_minimum": 0.0,
+      "hvar6_alive_maximum": 0.64566653167946,
+      "hvar6_invalid_alive_count": 0,
+      "initial_alive_fragment_count": 686,
+      "final_alive_fragment_count": 656
+    },
+    "full_d3plot_hvar6": {
+      "status": "available",
+      "state_count": 402,
+      "solid_count": 20902,
+      "invalid_alive_value_count": 0,
+      "plate": {
+        "part": "plate",
+        "part_id": 1002,
+        "element_count": 20216,
+        "invalid_alive_value_count": 0,
+        "status": "available",
+        "reason": null,
+        "minimum": 0.0,
+        "mean": 0.004857738038151582,
+        "p50": 0.0,
+        "p95": 0.033375652595223994,
+        "p99": 0.07747410312243938,
+        "maximum": 0.8290038866936642
+      },
+      "fragment": {
+        "part": "fragment",
+        "part_id": 2002,
+        "element_count": 686,
+        "invalid_alive_value_count": 0,
+        "status": "available",
+        "reason": null,
+        "minimum": 0.0,
+        "mean": 0.08782636098074738,
+        "p50": 0.06757694278547226,
+        "p95": 0.2835835809284053,
+        "p99": 0.36667915167598264,
+        "maximum": 0.6387139100587207
+      }
+    },
+    "ncforc": {
+      "status": "available_ragged_pending_semantic_validation",
+      "path": "ncforc/surfa_1",
+      "logical_databases": [
+        "JOBINFO",
+        "glstat",
+        "matsum",
+        "ncforc",
+        "nodout",
+        "sleout"
+      ],
+      "state_count": 801,
+      "first_time_ms": 0.0,
+      "last_time_ms": 0.039999590594660954,
+      "minimum_nodes_per_state": 3365,
+      "maximum_nodes_per_state": 3398,
+      "union_node_count": 3424,
+      "all_state_intersection_node_count": 3338,
+      "node_count_change_count": 18,
+      "all_ids_unique_per_state": true,
+      "all_coordinates_forces_pressure_finite": true,
+      "raw_model_unit_ranges": {
+        "pressure": [
+          -4.753666305354291,
+          53.93901344617183
+        ],
+        "x_force": [
+          -2.2537285885106346,
+          1.8126745990291337
+        ],
+        "y_force": [
+          -2.364221402117119,
+          2.4106209412115738
+        ],
+        "z_force": [
+          -11.585670694817761,
+          10.659333644489763
+        ]
+      },
+      "claim_boundary": "Units, sign convention, contact-side mapping, impulse and energy closure are not yet validated."
+    },
+    "sleout": {
+      "status": "available_energy_only",
+      "direct_contact_substitute": false
+    },
+    "intfor": {
+      "status": "not_requested_under_contract",
+      "value": null,
+      "reason": "the R06f measurement contract does not request unsupported binary INTFOR",
+      "files": []
+    },
+    "baseline_context": {
+      "d3part_history": {
+        "shape": [
+          802,
+          686,
+          1,
+          7
+        ],
+        "hvar6_zero_based_index": 5,
+        "alive_hvar6_status": "available",
+        "alive_hvar6_minimum": 0.0,
+        "alive_hvar6_maximum": 0.7106432313331785,
+        "alive_hvar6_invalid_count": 0,
+        "initial_alive_fragment_count": 686,
+        "final_alive_fragment_count": 612
+      },
+      "full_d3plot_hvar6": {
+        "status": "available",
+        "state_count": 402,
+        "solid_count": 20902,
+        "invalid_alive_value_count": 0,
+        "plate_maximum": 0.5542500914343516,
+        "fragment_maximum": 0.7106432313331785
+      },
+      "ncforc": {
+        "status": "available_ragged_pending_semantic_validation",
+        "path": "ncforc/surfa_1",
+        "state_count": 801,
+        "minimum_nodes_per_state": 3365,
+        "maximum_nodes_per_state": 3427,
+        "union_node_count": 3518,
+        "all_state_intersection_node_count": 3285,
+        "node_count_change_count": 47,
+        "all_ids_unique_per_state": true,
+        "all_coordinates_forces_pressure_finite": true,
+        "raw_model_unit_ranges": {
+          "pressure": [
+            -1.5248724543318302,
+            24.312986689516034
+          ],
+          "x_force": [
+            -2.14860405616208,
+            1.7413646829694251
+          ],
+          "y_force": [
+            -2.048875895861517,
+            2.084197314442901
+          ],
+          "z_force": [
+            -6.4135504001462245,
+            6.63122133922494
+          ]
+        },
+        "claim_boundary": "Units, sign convention, contact-side mapping, impulse and energy closure are not yet validated."
+      }
+    }
+  },
+  "diagnostic_response": {
+    "primary_qoi_available": true,
+    "unavailable_reasons": [],
+    "classification": "transition_or_indeterminate",
+    "diagnostic_values_before_availability_gate": {
+      "qM": 0.0,
+      "qP": 0.0,
+      "qE": 0.0,
+      "qV_over_v0": null
+    },
+    "deleted_upstream_mass_fraction": 0.043731777359567736,
+    "worst_case_crossing_mass_fraction": 0.04373178627455844,
+    "crossing_event_count": 0,
+    "tail_window": {
+      "start_time_ms": 0.03600422206679052,
+      "increment_qM": 0.0,
+      "increment_qP": 0.0,
+      "increment_qE": 0.0,
+      "qV_relative_range": 0.0
+    },
+    "final_alive_fragment_count": 656
+  },
+  "formal_timestep_comparison_to_job_72617857": {
+    "status": "fail",
+    "control_tssfac": 0.8,
+    "candidate_tssfac": 0.4,
+    "gates": {
+      "qM": {
+        "status": "fail",
+        "candidate": 0.0,
+        "baseline": 0.873177834689523,
+        "absolute_difference": 0.873177834689523,
+        "tolerance": 0.01
+      },
+      "qP": {
+        "status": "fail",
+        "candidate": 0.0,
+        "baseline": 0.56130745469677,
+        "absolute_difference": 0.56130745469677,
+        "tolerance": 0.01
+      },
+      "qE": {
+        "status": "fail",
+        "candidate": 0.0,
+        "baseline": 0.3608752905192748,
+        "absolute_difference": 0.3608752905192748,
+        "tolerance": 0.01
+      },
+      "qV": {
+        "status": "fail_unavailable_mismatch",
+        "candidate": null,
+        "baseline": 0.642832917187316,
+        "relative_difference": null,
+        "tolerance": 0.05
+      }
+    },
+    "supporting_changes": {
+      "cycle_count": {
+        "control": 2863,
+        "candidate": 7066
+      },
+      "negative_volume_unique_element_count": {
+        "control": 66,
+        "candidate": 10
+      },
+      "final_alive_fragment_count": {
+        "control": 612,
+        "candidate": 656
+      },
+      "energy_ratio_range": {
+        "control": [
+          0.957156,
+          1.00268
+        ],
+        "candidate": [
+          0.987558,
+          1.00263
+        ]
+      }
+    },
+    "interpretation": "Halving TSSFAC materially changes the diagnostic response and deletion pattern; the frozen 0.8 result is not timestep-robust."
+  },
+  "decision": {
+    "solver_parser_runtime": "pass",
+    "input_identity": "pass",
+    "resource_identity": "pass",
+    "measurement_channels": "pass",
+    "timestep_sensitivity_gate": "fail",
+    "classification": "successful_run_but_severe_timestep_sensitivity",
+    "release_r06g_0800_tssfac02": true,
+    "release_r06f_2000_ctrl": false,
+    "release_treatments": false,
+    "p0_response_calibration": "denied",
+    "p1_submission": "denied",
+    "engine_fitting": "denied",
+    "dataset_reference_promotion": "denied"
+  },
+  "recommended_next_sequence": [
+    "Generate one TSSFAC=0.2, DT2MS=0, 800 m/s, 0.75 mm refinement from the byte-identical TSSFAC=0.4 deck.",
+    "Submit only that job at one node and 32 MPP ranks in a fresh work directory.",
+    "Compare TSSFAC=0.2 against Job 72630855 using preregistered no-crossing-aware convergence gates.",
+    "Keep 2000 m/s, all treatments, engine fitting and dataset-reference promotion frozen until convergence is established."
+  ],
+  "claim_boundary": "This audit establishes a successful target-solver run and a failed timestep-sensitivity gate. It does not establish physical validity, a converged response, P0/P1 admission, engine calibration or dataset-label admission."
+}

@@ -1,0 +1,22 @@
+{
+  "scope": "abstract metadata and array API only; no simulator or training",
+  "python": "D:\\ProgramData\\Anaconda\\envs\\pytorch312-lmdt\\python.exe",
+  "manifest_scientific_status": "not_evaluated",
+  "manifest_has_independent_evidence": false,
+  "toy_is_minimal_loader_archive_not_complete_manifest_schema": true,
+  "toy_directory": "C:\\Users\\Administrator\\.codex\\visualizations\\2026\\10\\09\\01a11ff4-76f9-7262-9bf8-10f9bed66e97\\policy_toy_20261015_a89d4feb",
+  "policy_operations_accept_declarations_without_evidence": true,
+  "direct_research_evidence_gate_rejects": "independent evidence is required for research-purpose admission",
+  "loader_software_development": {
+    "accepted": true,
+    "length": 1,
+    "effective_purpose": "software_development",
+    "operation": "training",
+    "audit_overrides": []
+  },
+  "loader_research_training": {
+    "accepted": false,
+    "error_type": "InputValidationError",
+    "error": "independent evidence is required for research-purpose admission"
+  }
+}

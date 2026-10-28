@@ -1,0 +1,211 @@
+{
+  "schema_version": "hf-plate-p0-design@1.3.0",
+  "package_revision": "R05_capture_ledger_preregistered",
+  "design_status": "frozen_before_r05_solver_outcomes_after_r04_diagnostic",
+  "title": "SCNet P0 R05 capture-ledger velocity bracket and 2000 m/s mesh qualification",
+  "seed": 20261017,
+  "unit_system": "kg-mm-ms-kN-GPa-K",
+  "provenance": {
+    "parent_revision": "R04_full_keyword_type_contract",
+    "parent_job_id": "72095164",
+    "parent_assessment": "P0 response calibration denied; all five medium-mesh speeds perforated and the 2000 m/s mesh response was inconsistent",
+    "change_scope": "case design and measurement contract only; material, EOS, contact, section, geometry, and timestep controls remain unchanged"
+  },
+  "symmetry": {
+    "type": "quarter_model",
+    "full_model_scale_factor": 4.0,
+    "validity": "normal incidence, face-on cube, centered impact only"
+  },
+  "solver_controls": {
+    "control_contact_card1": {
+      "slsfac": 0.0,
+      "rwpnal": 0.0,
+      "islchk": 2,
+      "shlthk": 0,
+      "penopt": 1,
+      "thkchg": 0,
+      "orien": 1,
+      "enmass": 0
+    },
+    "control_contact_card2": {
+      "usrstr": 0,
+      "usrfrc": 0,
+      "nsbcs": 0,
+      "interm": 0,
+      "xpene": 0.0,
+      "ssthk": 0,
+      "ecdt": 0,
+      "tiedprj": 0
+    },
+    "eroding_contact_card4": {
+      "isym": 1,
+      "erosop": 1,
+      "iadj": 1
+    },
+    "rationale": "Retain the solver-read R04 control cards so R05 isolates the lower-speed design and measurement-contract repair. No material or erosion parameter is tuned against R04 outcomes."
+  },
+  "common": {
+    "fragment_mass_g": 8.0,
+    "fragment_density_kg_m3": 7830.0,
+    "plate_thickness_mm": 10.0,
+    "obliquity_deg_from_normal": 0.0,
+    "fragment_orientation": "face_on",
+    "material_set": "jc4340_reference_central",
+    "plate_half_span_mm": 60.0,
+    "refined_half_span_mm": 15.0,
+    "outer_target_spacing_mm": 2.5,
+    "initial_gap_mm": 1.0,
+    "termination_time_ms": 0.04
+  },
+  "measurement_contract": {
+    "schema_version": "hf-p0-capture-ledger@1.0.0",
+    "full_model_d3plot_interval_ms": 0.0005,
+    "fragment_d3part_interval_ms": 0.00005,
+    "ascii_interval_ms": 0.00005,
+    "fragment_part_set_id": 900001,
+    "capture_plane": {
+      "axis": "z",
+      "coordinate_mm": -12.0,
+      "undeformed_plate_back_mm": -10.0,
+      "offset_behind_plate_mm": 2.0,
+      "travel_direction": "negative",
+      "element_position": "8-node arithmetic centroid; element contributions are aggregated with initial reference-mass weights",
+      "crossing_velocity": "linear interpolation between bracketing d3part states",
+      "crossing_policy": "first negative-z crossing only"
+    },
+    "reference_mass_basis": "initial fragment solid-element reference volumes times density; the D3PART quarter-model ledger is compared against the per-case expected quarter mass before any symmetry scaling",
+    "expected_reference_mass_source": "p0_case_part_map.csv fragment_initial_reference_mass_kg, identity-bound by case_id and fragment_part_id",
+    "runtime_completeness_policy": "sum of D3PART fragment element reference masses must match the identity-bound expected quarter mass within initial_discrete_mass_relative_error_max; otherwise all primary QoI are unavailable",
+    "ledger_states": [
+      "alive_crossed",
+      "alive_upstream",
+      "deleted_upstream",
+      "deleted_after_crossing",
+      "temporal_ambiguity"
+    ],
+    "primary_qois": [
+      {
+        "name": "qM",
+        "definition": "first-crossing fragment reference mass divided by the identity-bound expected initial fragment quarter mass"
+      },
+      {
+        "name": "qP",
+        "definition": "outward-positive scalar first-crossing momentum sum(mass*max(-vz,0)) divided by the positive initial incident momentum magnitude expected_reference_mass_kg*v0"
+      },
+      {
+        "name": "qE",
+        "definition": "first-crossing element-centroid translational kinetic energy divided by 0.5*expected_reference_mass_kg*v0^2; it excludes unresolved intra-element velocity-gradient energy"
+      },
+      {
+        "name": "qV_over_v0",
+        "definition": "reference-mass-weighted outward-positive first-crossing speed divided by impact speed; available only when qM is at least the numerical-perforation mass threshold; qV_mps is derived exactly as qV_over_v0*impact_speed_mps"
+      }
+    ],
+    "diagnostic_only": [
+      "fragment_center_history_node",
+      "surviving-part terminal average velocity",
+      "MATSUM part averages"
+    ],
+    "required_return_files": [
+      "d3hsp",
+      "mes*",
+      "glstat",
+      "matsum",
+      "sleout",
+      "nodout",
+      "binout*",
+      "d3plot*",
+      "d3part*",
+      "solver stdout/stderr",
+      "Slurm script and resource record"
+    ]
+  },
+  "qualification_gates": {
+    "gate_status": "preregistered_candidate_engineering_thresholds_not_universal_lsdyna_standards",
+    "run_integrity": {
+      "all_ranks_normal_termination": true,
+      "fatal_or_error_count_max": 0,
+      "total_energy_ratio_min": 0.95,
+      "total_energy_ratio_max": 1.05,
+      "absolute_hourglass_to_peak_internal_energy_max": 0.05,
+      "added_mass_fraction_max": 0.0,
+      "evaluation_window": "all finite records from the first record with a finite nonzero total-energy denominator through normal termination, inclusive; report any excluded initialization records",
+      "total_energy_ratio_definition": "GLSTAT total_energy(t) divided by total_energy at the first finite nonzero baseline record; every finite record in the evaluation window must lie within the limits",
+      "hourglass_ratio_definition": "maximum over the evaluation window of abs(GLSTAT hourglass_energy(t)) divided by the maximum positive GLSTAT internal_energy over the same window",
+      "added_mass_fraction_definition": "maximum nonnegative solver-reported added mass divided by the initial physical model mass",
+      "missing_or_nonfinite_policy": "unavailable and fail-closed"
+    },
+    "capture_ledger": {
+      "initial_discrete_mass_relative_error_max": 0.005,
+      "mass_accounting_relative_error_max": 0.000001,
+      "temporal_ambiguity_mass_fraction_max": 0.01,
+      "deleted_upstream_mass_fraction_max": 0.05,
+      "tail_window_fraction": 0.10,
+      "tail_increment_qM_max": 0.01,
+      "tail_increment_qP_max": 0.01,
+      "tail_increment_qE_max": 0.01,
+      "tail_qV_relative_range_max": 0.05,
+      "failure_policy": "mark primary QoI unavailable; never replace unavailable with zero"
+    },
+    "numerical_perforation_classification": {
+      "confirmed_perforation_qM_min": 0.02,
+      "confirmed_perforation_qP_min": 0.01,
+      "confirmed_nonperforation_qM_max": 0.005,
+      "confirmed_nonperforation_qP_max": 0.005,
+      "confirmed_nonperforation_worst_case_crossing_mass_max": 0.005,
+      "confirmed_nonperforation_worst_case_crossing_mass_definition": "qM + temporal_ambiguity_mass_fraction + deleted_upstream_mass_fraction + max(expected_reference_mass-observed_reference_mass,0)/expected_reference_mass",
+      "otherwise": "transition_or_indeterminate"
+    },
+    "speed_scan": {
+      "minimum_confirmed_perforation_points": 1,
+      "minimum_confirmed_nonperforation_points": 1,
+      "maximum_nearest_bracket_width_mps": 200.0,
+      "forbid_perforation_to_nonperforation_reversal": true,
+      "confirmed_perforation_qV_downward_jump_mps_max": 100.0,
+      "qV_mps_definition": "qV_over_v0 multiplied by that case's impact_speed_mps",
+      "qV_downward_jump_comparison": "compare only adjacent cases in the complete speed-sorted scan when both cases are confirmed_perforation; pairs containing transition, indeterminate, unavailable, or confirmed_nonperforation are not silently bridged",
+      "reporting_boundary": "deterministic numerical transition bracket only; do not report experimental V50 or confidence intervals"
+    },
+    "mesh_scan_2000_mps": {
+      "all_primary_qois_available": true,
+      "classification_must_match": true,
+      "metrics": [
+        "qM",
+        "qP",
+        "qE",
+        "qV_over_v0",
+        "deleted_upstream_mass_fraction"
+      ],
+      "coarse_to_medium_absolute_difference_max": 0.10,
+      "medium_to_fine_absolute_difference_max": 0.05
+    },
+    "admission": {
+      "p0_response_calibration": "allow only if every applicable gate passes",
+      "p1_submission": "remain denied until P0 response calibration is allowed",
+      "physical_validation": "requires independent experimental evidence; cannot be established by R05"
+    }
+  },
+  "cohorts": {
+    "speed_scan_case_ids": [
+      "p0_v0600_h0p75",
+      "p0_v0800_h0p75",
+      "p0_v1000_h0p75",
+      "p0_v1200_h0p75",
+      "p0_v2000_h0p75"
+    ],
+    "mesh_scan_2000_mps_case_ids": [
+      "p0_v2000_h1p00",
+      "p0_v2000_h0p75",
+      "p0_v2000_h0p50"
+    ]
+  },
+  "cases": [
+    {"case_id": "p0_v0600_h0p75", "role": "hf_response_fit", "impact_speed_mps": 600.0, "mesh_mm": 0.75},
+    {"case_id": "p0_v0800_h0p75", "role": "hf_response_fit", "impact_speed_mps": 800.0, "mesh_mm": 0.75},
+    {"case_id": "p0_v1000_h0p75", "role": "hf_response_holdout", "impact_speed_mps": 1000.0, "mesh_mm": 0.75},
+    {"case_id": "p0_v1200_h0p75", "role": "hf_response_fit", "impact_speed_mps": 1200.0, "mesh_mm": 0.75},
+    {"case_id": "p0_v2000_h0p75", "role": "hf_response_fit", "impact_speed_mps": 2000.0, "mesh_mm": 0.75},
+    {"case_id": "p0_v2000_h1p00", "role": "hf_numerical_verification", "impact_speed_mps": 2000.0, "mesh_mm": 1.0},
+    {"case_id": "p0_v2000_h0p50", "role": "hf_numerical_verification", "impact_speed_mps": 2000.0, "mesh_mm": 0.5}
+  ]
+}

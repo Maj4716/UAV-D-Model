@@ -1,0 +1,729 @@
+{
+  "schema_version": "1.0.0",
+  "audit_date": "2026-10-15",
+  "scope": "frozen_archive_direct_ordinalization_feasibility_diagnostic",
+  "audit_script": {
+    "path": "review_evidence/kmfc_ordinal_feasibility_audit_20261015.py",
+    "sha256": "sha256:7f7b68140e55f9f391b86ebff2ab127e9c3f7f53d684ccadc90823b8c7546349"
+  },
+  "sources": {
+    "dataset_id": "damage-dataset-fb1af45b41880da2e8ef368a",
+    "case_count": 5000,
+    "shards": [
+      "raw_data/dataset_5000_loitering_impact_fragment_only_v1/formal_dataset/shards/part-000000/tensors.npz",
+      "raw_data/dataset_5000_loitering_impact_fragment_only_v1/formal_dataset/shards/part-000001/tensors.npz",
+      "raw_data/dataset_5000_loitering_impact_fragment_only_v1/formal_dataset/shards/part-000002/tensors.npz",
+      "raw_data/dataset_5000_loitering_impact_fragment_only_v1/formal_dataset/shards/part-000003/tensors.npz"
+    ],
+    "target": {
+      "path": "raw_data/target.rebuilt.fragment_only.v1.json",
+      "file_sha256": "sha256:c465477c831698fbe6f47b1d4f45c6fe09372252ab7bf6ccd43bbdc9594301fb",
+      "damage_tree_definition_hash": "sha256:9ca8d192986ffd35a2944c2007b592ca818854d177d8230f851fe34b9e019411",
+      "archive_frozen_damage_tree_definition_hash": "sha256:9ca8d192986ffd35a2944c2007b592ca818854d177d8230f851fe34b9e019411",
+      "matches_archive": true
+    },
+    "label_spec": {
+      "path": "raw_data/label_spec.loitering_impact.fragment_only.v1.json",
+      "file_sha256": "sha256:3057ac12bf74b0bddd53954e5c1c69f87f7523a22250fbd6d8b06539c04aaa58",
+      "label_spec_hash": "sha256:071d4a1b6dccacb9ec19b2585bda13ce8b01b566452cb0cbd15de17c754ebe2f",
+      "archive_frozen_label_spec_hash": "sha256:071d4a1b6dccacb9ec19b2585bda13ce8b01b566452cb0cbd15de17c754ebe2f",
+      "matches_archive": true,
+      "status": "provisional",
+      "approval_status": "not_approved"
+    },
+    "manifest": {
+      "path": "raw_data/dataset_5000_loitering_impact_fragment_only_v1/formal_dataset/manifest.json",
+      "file_sha256": "sha256:f8702b39623fc53c9a2334cf728263af2d261fe4a8ef19eaf713bf04c32cb4c4"
+    },
+    "checkpoint": {
+      "path": "raw_data/dataset_5000_loitering_impact_fragment_only_v1/formal_dataset/checkpoint.json",
+      "file_sha256": "sha256:0dea32d2fde430e67368569e546c2f2dfff008bbd29a1c7d44abf47c8100b9c8",
+      "status": "complete",
+      "committed_shard_count": 4,
+      "strict_inventory_validated": true
+    }
+  },
+  "legacy_output_contract": {
+    "outputs": [
+      "effect-m2",
+      "effect-k1",
+      "effect-m1",
+      "effect-k2",
+      "effect-f1",
+      "effect-c1",
+      "effect-c2"
+    ],
+    "output_count": 7,
+    "required_four_category_two_level_outputs": [
+      "effect-k1",
+      "effect-k2",
+      "effect-m1",
+      "effect-m2",
+      "effect-f1",
+      "effect-f2",
+      "effect-c1",
+      "effect-c2"
+    ],
+    "required_output_count": 8,
+    "missing_required_outputs": [
+      "effect-f2"
+    ],
+    "safe_in_place_relabel": false,
+    "required_action": "create a new damage-tree version and label-spec version, then regenerate a new archive; preserve this seven-output archive unchanged"
+  },
+  "output_support": [
+    {
+      "output": "effect-m2",
+      "available_count": 5000,
+      "nonzero_count": 1770,
+      "exact_zero_count": 3230,
+      "soft_mass": 1737.4997063875198,
+      "minimum": 0.0,
+      "maximum": 1.0,
+      "by_split": {
+        "test": {
+          "available_count": 1500,
+          "nonzero_count": 524,
+          "exact_zero_count": 976,
+          "soft_mass": 514.499944627285
+        },
+        "train": {
+          "available_count": 3000,
+          "nonzero_count": 1064,
+          "exact_zero_count": 1936,
+          "soft_mass": 1041.9997751414776
+        },
+        "validation": {
+          "available_count": 500,
+          "nonzero_count": 182,
+          "exact_zero_count": 318,
+          "soft_mass": 180.99998661875725
+        }
+      }
+    },
+    {
+      "output": "effect-k1",
+      "available_count": 5000,
+      "nonzero_count": 0,
+      "exact_zero_count": 5000,
+      "soft_mass": 0.0,
+      "minimum": 0.0,
+      "maximum": 0.0,
+      "by_split": {
+        "test": {
+          "available_count": 1500,
+          "nonzero_count": 0,
+          "exact_zero_count": 1500,
+          "soft_mass": 0.0
+        },
+        "train": {
+          "available_count": 3000,
+          "nonzero_count": 0,
+          "exact_zero_count": 3000,
+          "soft_mass": 0.0
+        },
+        "validation": {
+          "available_count": 500,
+          "nonzero_count": 0,
+          "exact_zero_count": 500,
+          "soft_mass": 0.0
+        }
+      }
+    },
+    {
+      "output": "effect-m1",
+      "available_count": 5000,
+      "nonzero_count": 996,
+      "exact_zero_count": 4004,
+      "soft_mass": 957.4998293817043,
+      "minimum": 0.0,
+      "maximum": 1.0,
+      "by_split": {
+        "test": {
+          "available_count": 1500,
+          "nonzero_count": 302,
+          "exact_zero_count": 1198,
+          "soft_mass": 286.49994656443596
+        },
+        "train": {
+          "available_count": 3000,
+          "nonzero_count": 590,
+          "exact_zero_count": 2410,
+          "soft_mass": 569.4999022185802
+        },
+        "validation": {
+          "available_count": 500,
+          "nonzero_count": 104,
+          "exact_zero_count": 396,
+          "soft_mass": 101.49998059868813
+        }
+      }
+    },
+    {
+      "output": "effect-k2",
+      "available_count": 5000,
+      "nonzero_count": 0,
+      "exact_zero_count": 5000,
+      "soft_mass": 0.0,
+      "minimum": 0.0,
+      "maximum": 0.0,
+      "by_split": {
+        "test": {
+          "available_count": 1500,
+          "nonzero_count": 0,
+          "exact_zero_count": 1500,
+          "soft_mass": 0.0
+        },
+        "train": {
+          "available_count": 3000,
+          "nonzero_count": 0,
+          "exact_zero_count": 3000,
+          "soft_mass": 0.0
+        },
+        "validation": {
+          "available_count": 500,
+          "nonzero_count": 0,
+          "exact_zero_count": 500,
+          "soft_mass": 0.0
+        }
+      }
+    },
+    {
+      "output": "effect-f1",
+      "available_count": 5000,
+      "nonzero_count": 28,
+      "exact_zero_count": 4972,
+      "soft_mass": 19.999518394470215,
+      "minimum": 0.0,
+      "maximum": 1.0,
+      "by_split": {
+        "test": {
+          "available_count": 1500,
+          "nonzero_count": 15,
+          "exact_zero_count": 1485,
+          "soft_mass": 10.49976235628128
+        },
+        "train": {
+          "available_count": 3000,
+          "nonzero_count": 11,
+          "exact_zero_count": 2989,
+          "soft_mass": 7.4997963309288025
+        },
+        "validation": {
+          "available_count": 500,
+          "nonzero_count": 2,
+          "exact_zero_count": 498,
+          "soft_mass": 1.9999597072601318
+        }
+      }
+    },
+    {
+      "output": "effect-c1",
+      "available_count": 5000,
+      "nonzero_count": 0,
+      "exact_zero_count": 5000,
+      "soft_mass": 0.0,
+      "minimum": 0.0,
+      "maximum": 0.0,
+      "by_split": {
+        "test": {
+          "available_count": 1500,
+          "nonzero_count": 0,
+          "exact_zero_count": 1500,
+          "soft_mass": 0.0
+        },
+        "train": {
+          "available_count": 3000,
+          "nonzero_count": 0,
+          "exact_zero_count": 3000,
+          "soft_mass": 0.0
+        },
+        "validation": {
+          "available_count": 500,
+          "nonzero_count": 0,
+          "exact_zero_count": 500,
+          "soft_mass": 0.0
+        }
+      }
+    },
+    {
+      "output": "effect-c2",
+      "available_count": 5000,
+      "nonzero_count": 0,
+      "exact_zero_count": 5000,
+      "soft_mass": 0.0,
+      "minimum": 0.0,
+      "maximum": 0.0,
+      "by_split": {
+        "test": {
+          "available_count": 1500,
+          "nonzero_count": 0,
+          "exact_zero_count": 1500,
+          "soft_mass": 0.0
+        },
+        "train": {
+          "available_count": 3000,
+          "nonzero_count": 0,
+          "exact_zero_count": 3000,
+          "soft_mass": 0.0
+        },
+        "validation": {
+          "available_count": 500,
+          "nonzero_count": 0,
+          "exact_zero_count": 500,
+          "soft_mass": 0.0
+        }
+      }
+    }
+  ],
+  "leaf_events_by_output": {
+    "effect-m2": [
+      {
+        "component_id": "component-001",
+        "mechanism": "fragment",
+        "damage_state": "failed"
+      },
+      {
+        "component_id": "component-002",
+        "mechanism": "fragment",
+        "damage_state": "failed"
+      },
+      {
+        "component_id": "component-003",
+        "mechanism": "fragment",
+        "damage_state": "failed"
+      },
+      {
+        "component_id": "component-004",
+        "mechanism": "fragment",
+        "damage_state": "failed"
+      },
+      {
+        "component_id": "component-005",
+        "mechanism": "fragment",
+        "damage_state": "failed"
+      },
+      {
+        "component_id": "component-032",
+        "mechanism": "fragment",
+        "damage_state": "degraded"
+      },
+      {
+        "component_id": "component-033",
+        "mechanism": "fragment",
+        "damage_state": "degraded"
+      },
+      {
+        "component_id": "component-034",
+        "mechanism": "fragment",
+        "damage_state": "degraded"
+      },
+      {
+        "component_id": "component-035",
+        "mechanism": "fragment",
+        "damage_state": "degraded"
+      },
+      {
+        "component_id": "component-036",
+        "mechanism": "fragment",
+        "damage_state": "degraded"
+      },
+      {
+        "component_id": "component-037",
+        "mechanism": "fragment",
+        "damage_state": "degraded"
+      },
+      {
+        "component_id": "component-038",
+        "mechanism": "fragment",
+        "damage_state": "degraded"
+      },
+      {
+        "component_id": "component-039",
+        "mechanism": "fragment",
+        "damage_state": "degraded"
+      },
+      {
+        "component_id": "component-058",
+        "mechanism": "fragment",
+        "damage_state": "failed"
+      }
+    ],
+    "effect-k1": [
+      {
+        "component_id": "component-003",
+        "mechanism": "fragment",
+        "damage_state": "failed"
+      }
+    ],
+    "effect-m1": [
+      {
+        "component_id": "component-006",
+        "mechanism": "fragment",
+        "damage_state": "degraded"
+      },
+      {
+        "component_id": "component-007",
+        "mechanism": "fragment",
+        "damage_state": "degraded"
+      },
+      {
+        "component_id": "component-008",
+        "mechanism": "fragment",
+        "damage_state": "degraded"
+      },
+      {
+        "component_id": "component-009",
+        "mechanism": "fragment",
+        "damage_state": "degraded"
+      },
+      {
+        "component_id": "component-010",
+        "mechanism": "fragment",
+        "damage_state": "degraded"
+      },
+      {
+        "component_id": "component-011",
+        "mechanism": "fragment",
+        "damage_state": "degraded"
+      },
+      {
+        "component_id": "component-012",
+        "mechanism": "fragment",
+        "damage_state": "degraded"
+      },
+      {
+        "component_id": "component-013",
+        "mechanism": "fragment",
+        "damage_state": "degraded"
+      },
+      {
+        "component_id": "component-014",
+        "mechanism": "fragment",
+        "damage_state": "degraded"
+      },
+      {
+        "component_id": "component-015",
+        "mechanism": "fragment",
+        "damage_state": "degraded"
+      },
+      {
+        "component_id": "component-016",
+        "mechanism": "fragment",
+        "damage_state": "degraded"
+      },
+      {
+        "component_id": "component-017",
+        "mechanism": "fragment",
+        "damage_state": "degraded"
+      },
+      {
+        "component_id": "component-030",
+        "mechanism": "fragment",
+        "damage_state": "failed"
+      },
+      {
+        "component_id": "component-031",
+        "mechanism": "fragment",
+        "damage_state": "failed"
+      }
+    ],
+    "effect-k2": [
+      {
+        "component_id": "component-046",
+        "mechanism": "fragment",
+        "damage_state": "failed"
+      }
+    ],
+    "effect-f1": [
+      {
+        "component_id": "component-047",
+        "mechanism": "fragment",
+        "damage_state": "failed"
+      },
+      {
+        "component_id": "component-048",
+        "mechanism": "fragment",
+        "damage_state": "failed"
+      },
+      {
+        "component_id": "component-051",
+        "mechanism": "fragment",
+        "damage_state": "failed"
+      },
+      {
+        "component_id": "component-052",
+        "mechanism": "fragment",
+        "damage_state": "failed"
+      },
+      {
+        "component_id": "component-053",
+        "mechanism": "fragment",
+        "damage_state": "failed"
+      },
+      {
+        "component_id": "component-054",
+        "mechanism": "fragment",
+        "damage_state": "failed"
+      }
+    ],
+    "effect-c1": [
+      {
+        "component_id": "component-058",
+        "mechanism": "fragment",
+        "damage_state": "degraded"
+      },
+      {
+        "component_id": "component-059",
+        "mechanism": "fragment",
+        "damage_state": "degraded"
+      },
+      {
+        "component_id": "component-060",
+        "mechanism": "fragment",
+        "damage_state": "degraded"
+      },
+      {
+        "component_id": "component-061",
+        "mechanism": "fragment",
+        "damage_state": "degraded"
+      },
+      {
+        "component_id": "component-062",
+        "mechanism": "fragment",
+        "damage_state": "degraded"
+      },
+      {
+        "component_id": "component-063",
+        "mechanism": "fragment",
+        "damage_state": "degraded"
+      },
+      {
+        "component_id": "component-064",
+        "mechanism": "fragment",
+        "damage_state": "degraded"
+      },
+      {
+        "component_id": "component-065",
+        "mechanism": "fragment",
+        "damage_state": "degraded"
+      },
+      {
+        "component_id": "component-066",
+        "mechanism": "fragment",
+        "damage_state": "degraded"
+      },
+      {
+        "component_id": "component-067",
+        "mechanism": "fragment",
+        "damage_state": "degraded"
+      }
+    ],
+    "effect-c2": [
+      {
+        "component_id": "component-058",
+        "mechanism": "fragment",
+        "damage_state": "failed"
+      },
+      {
+        "component_id": "component-059",
+        "mechanism": "fragment",
+        "damage_state": "failed"
+      },
+      {
+        "component_id": "component-060",
+        "mechanism": "fragment",
+        "damage_state": "failed"
+      },
+      {
+        "component_id": "component-061",
+        "mechanism": "fragment",
+        "damage_state": "failed"
+      },
+      {
+        "component_id": "component-062",
+        "mechanism": "fragment",
+        "damage_state": "failed"
+      },
+      {
+        "component_id": "component-063",
+        "mechanism": "fragment",
+        "damage_state": "failed"
+      },
+      {
+        "component_id": "component-064",
+        "mechanism": "fragment",
+        "damage_state": "failed"
+      },
+      {
+        "component_id": "component-065",
+        "mechanism": "fragment",
+        "damage_state": "failed"
+      },
+      {
+        "component_id": "component-066",
+        "mechanism": "fragment",
+        "damage_state": "failed"
+      },
+      {
+        "component_id": "component-067",
+        "mechanism": "fragment",
+        "damage_state": "failed"
+      }
+    ]
+  },
+  "direct_ordinalization": [
+    {
+      "category": "K",
+      "level1_output": "effect-k1",
+      "level2_output": "effect-k2",
+      "missing_outputs": [],
+      "direct_ordinalization_status": "rejected_structurally_distinct_outputs",
+      "reason": "legacy levels use different component/mechanism event sets; zero empirical violations would therefore be vacuous rather than proof of ordered semantics",
+      "structural": {
+        "level1_leaf_count": 1,
+        "level2_leaf_count": 1,
+        "component_mechanism_sets_equal": false,
+        "level2_leaves_with_level1_component_mechanism": 0,
+        "level2_leaves_with_ordered_level1_state": 0,
+        "structurally_nested_component_states": false
+      },
+      "empirical": {
+        "usable_count": 5000,
+        "strict_tolerance": 1e-12,
+        "strict_violation_count": 0,
+        "label_contract_tolerance": 1e-06,
+        "label_contract_violation_count": 0,
+        "maximum_level2_minus_level1": 0.0,
+        "level1_positive_level2_zero": 0,
+        "level2_positive_level1_zero": 0,
+        "both_positive": 0,
+        "both_zero": 5000,
+        "by_split": {
+          "test": {
+            "usable_count": 1500,
+            "strict_violation_count": 0,
+            "label_contract_violation_count": 0
+          },
+          "train": {
+            "usable_count": 3000,
+            "strict_violation_count": 0,
+            "label_contract_violation_count": 0
+          },
+          "validation": {
+            "usable_count": 500,
+            "strict_violation_count": 0,
+            "label_contract_violation_count": 0
+          }
+        }
+      }
+    },
+    {
+      "category": "M",
+      "level1_output": "effect-m1",
+      "level2_output": "effect-m2",
+      "missing_outputs": [],
+      "direct_ordinalization_status": "rejected_structurally_distinct_outputs",
+      "reason": "legacy levels use different component/mechanism event sets; zero empirical violations would therefore be vacuous rather than proof of ordered semantics",
+      "structural": {
+        "level1_leaf_count": 14,
+        "level2_leaf_count": 14,
+        "component_mechanism_sets_equal": false,
+        "level2_leaves_with_level1_component_mechanism": 0,
+        "level2_leaves_with_ordered_level1_state": 0,
+        "structurally_nested_component_states": false
+      },
+      "empirical": {
+        "usable_count": 5000,
+        "strict_tolerance": 1e-12,
+        "strict_violation_count": 1346,
+        "label_contract_tolerance": 1e-06,
+        "label_contract_violation_count": 1310,
+        "maximum_level2_minus_level1": 1.0,
+        "level1_positive_level2_zero": 433,
+        "level2_positive_level1_zero": 1207,
+        "both_positive": 563,
+        "both_zero": 2797,
+        "by_split": {
+          "test": {
+            "usable_count": 1500,
+            "strict_violation_count": 399,
+            "label_contract_violation_count": 392
+          },
+          "train": {
+            "usable_count": 3000,
+            "strict_violation_count": 809,
+            "label_contract_violation_count": 786
+          },
+          "validation": {
+            "usable_count": 500,
+            "strict_violation_count": 138,
+            "label_contract_violation_count": 132
+          }
+        }
+      }
+    },
+    {
+      "category": "F",
+      "level1_output": "effect-f1",
+      "level2_output": "effect-f2",
+      "missing_outputs": [
+        "effect-f2"
+      ],
+      "direct_ordinalization_status": "rejected_missing_output",
+      "reason": "the legacy seven-output vocabulary does not define both levels"
+    },
+    {
+      "category": "C",
+      "level1_output": "effect-c1",
+      "level2_output": "effect-c2",
+      "missing_outputs": [],
+      "direct_ordinalization_status": "structurally_compatible_semantics_unapproved",
+      "reason": "component-state nesting is compatible with an ordinal pair, but the label specification remains provisional and not approved",
+      "structural": {
+        "level1_leaf_count": 10,
+        "level2_leaf_count": 10,
+        "component_mechanism_sets_equal": true,
+        "level2_leaves_with_level1_component_mechanism": 10,
+        "level2_leaves_with_ordered_level1_state": 10,
+        "structurally_nested_component_states": true
+      },
+      "empirical": {
+        "usable_count": 5000,
+        "strict_tolerance": 1e-12,
+        "strict_violation_count": 0,
+        "label_contract_tolerance": 1e-06,
+        "label_contract_violation_count": 0,
+        "maximum_level2_minus_level1": 0.0,
+        "level1_positive_level2_zero": 0,
+        "level2_positive_level1_zero": 0,
+        "both_positive": 0,
+        "both_zero": 5000,
+        "by_split": {
+          "test": {
+            "usable_count": 1500,
+            "strict_violation_count": 0,
+            "label_contract_violation_count": 0
+          },
+          "train": {
+            "usable_count": 3000,
+            "strict_violation_count": 0,
+            "label_contract_violation_count": 0
+          },
+          "validation": {
+            "usable_count": 500,
+            "strict_violation_count": 0,
+            "label_contract_violation_count": 0
+          }
+        }
+      }
+    }
+  ],
+  "conclusion": {
+    "feasibility": "conditional_only",
+    "existing_outputs_can_be_directly_reused_as_four_ordinal_pairs": false,
+    "supported_software_claim": "the archive can mechanically test an ordinal contract and shows that the legacy C pair is structurally compatible while M and K are distinct events and F2 is absent",
+    "unsupported_scientific_claim": "this audit does not define or validate KMFC semantics, component membership, weights, thresholds, activation functions, dependence, or real-world damage"
+  },
+  "evidence_boundary": "Read-only diagnostic over an already-observed synthetic archive. It performs no new simulation and no physical calibration. Empirical zero violations for constant-zero pairs are vacuous; smooth gates must not manufacture nonzero labels from zero inputs."
+}

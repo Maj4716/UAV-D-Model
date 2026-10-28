@@ -1,0 +1,13 @@
+{
+  "schema_version": "1.0.0",
+  "identical": true,
+  "before_inventory_hash": "sha256:9c20b914361bd80e478516ba740908e1300a6c34396d0260cc7cfbf5ebfba59e",
+  "after_inventory_hash": "sha256:9c20b914361bd80e478516ba740908e1300a6c34396d0260cc7cfbf5ebfba59e",
+  "before_file_count": 64,
+  "after_file_count": 64,
+  "before_total_bytes": 68975696,
+  "after_total_bytes": 68975696,
+  "added": [],
+  "removed": [],
+  "changed": []
+}

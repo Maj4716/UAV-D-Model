@@ -1,0 +1,1117 @@
+{
+  "schema_version": "1.0.0",
+  "audit_date": "2026-10-15",
+  "scope": "read_only_observed_archive_component_support_diagnostic",
+  "audit_script": {
+    "path": "review_evidence/kmfc_v0_component_support_audit_20261015.py",
+    "sha256": "sha256:1c71ffcea4bd2c91061807d3231757466a2c84d2dded7931da613b125b2b0e1b"
+  },
+  "sources": {
+    "dataset_id": "damage-dataset-fb1af45b41880da2e8ef368a",
+    "case_count": 5000,
+    "checkpoint_status": "complete",
+    "strict_committed_shard_inventory_validated": true,
+    "tensor_paths": [
+      "raw_data/dataset_5000_loitering_impact_fragment_only_v1/formal_dataset/shards/part-000000/tensors.npz",
+      "raw_data/dataset_5000_loitering_impact_fragment_only_v1/formal_dataset/shards/part-000001/tensors.npz",
+      "raw_data/dataset_5000_loitering_impact_fragment_only_v1/formal_dataset/shards/part-000002/tensors.npz",
+      "raw_data/dataset_5000_loitering_impact_fragment_only_v1/formal_dataset/shards/part-000003/tensors.npz"
+    ],
+    "target_path": "raw_data/target.rebuilt.fragment_only.v1.json",
+    "target_sha256": "sha256:c465477c831698fbe6f47b1d4f45c6fe09372252ab7bf6ccd43bbdc9594301fb",
+    "metric": "fragment_deposited_energy_j",
+    "metric_level": "archived_case_level_replicate_mean",
+    "positive_rule": "available and value > 0 J"
+  },
+  "kmfc_v0_branches": {
+    "K": {
+      "fuel_store": [
+        "component-003"
+      ],
+      "ammunition_store": [
+        "component-046",
+        "component-053",
+        "component-054"
+      ]
+    },
+    "M": {
+      "powertrain": [
+        "component-001",
+        "component-002",
+        "component-003"
+      ],
+      "drive_and_idler": [
+        "component-004",
+        "component-005",
+        "component-030",
+        "component-031"
+      ],
+      "right_carrying": [
+        "component-006",
+        "component-007",
+        "component-008",
+        "component-009",
+        "component-010",
+        "component-011",
+        "component-018",
+        "component-019",
+        "component-020"
+      ],
+      "left_carrying": [
+        "component-012",
+        "component-013",
+        "component-014",
+        "component-015",
+        "component-016",
+        "component-017",
+        "component-021",
+        "component-022",
+        "component-023"
+      ],
+      "suspension": [
+        "component-024",
+        "component-025",
+        "component-026",
+        "component-027",
+        "component-028",
+        "component-029"
+      ],
+      "right_track": [
+        "component-032",
+        "component-033",
+        "component-034",
+        "component-035"
+      ],
+      "left_track": [
+        "component-036",
+        "component-037",
+        "component-038",
+        "component-039"
+      ],
+      "mobility_operator": [
+        "component-058"
+      ]
+    },
+    "F": {
+      "sensing": [
+        "component-040",
+        "component-041",
+        "component-042"
+      ],
+      "fire_control": [
+        "component-043",
+        "component-044"
+      ],
+      "weapon": [
+        "component-045",
+        "component-050",
+        "component-051",
+        "component-052"
+      ],
+      "feed_and_ammunition": [
+        "component-046",
+        "component-049",
+        "component-053",
+        "component-054"
+      ],
+      "countermeasure": [
+        "component-047",
+        "component-048"
+      ]
+    },
+    "C": {
+      "essential_crew": [
+        "component-058",
+        "component-059",
+        "component-060"
+      ],
+      "embarked_personnel": [
+        "component-061",
+        "component-062",
+        "component-063",
+        "component-064",
+        "component-065",
+        "component-066",
+        "component-067"
+      ]
+    }
+  },
+  "component_support": {
+    "component-001": {
+      "name": "传动机构",
+      "positive_case_count": 0,
+      "positive_case_count_by_split": {
+        "test": 0,
+        "train": 0,
+        "validation": 0
+      },
+      "positive_energy_distinct_value_count": 0,
+      "positive_energy_minimum_j": null,
+      "positive_energy_maximum_j": null
+    },
+    "component-002": {
+      "name": "发动机",
+      "positive_case_count": 0,
+      "positive_case_count_by_split": {
+        "test": 0,
+        "train": 0,
+        "validation": 0
+      },
+      "positive_energy_distinct_value_count": 0,
+      "positive_energy_minimum_j": null,
+      "positive_energy_maximum_j": null
+    },
+    "component-003": {
+      "name": "油箱",
+      "positive_case_count": 0,
+      "positive_case_count_by_split": {
+        "test": 0,
+        "train": 0,
+        "validation": 0
+      },
+      "positive_energy_distinct_value_count": 0,
+      "positive_energy_minimum_j": null,
+      "positive_energy_maximum_j": null
+    },
+    "component-004": {
+      "name": "右主动轮",
+      "positive_case_count": 0,
+      "positive_case_count_by_split": {
+        "test": 0,
+        "train": 0,
+        "validation": 0
+      },
+      "positive_energy_distinct_value_count": 0,
+      "positive_energy_minimum_j": null,
+      "positive_energy_maximum_j": null
+    },
+    "component-005": {
+      "name": "左主动轮",
+      "positive_case_count": 333,
+      "positive_case_count_by_split": {
+        "test": 102,
+        "train": 201,
+        "validation": 30
+      },
+      "positive_energy_distinct_value_count": 333,
+      "positive_energy_minimum_j": 564.7314453125,
+      "positive_energy_maximum_j": 574906.0
+    },
+    "component-006": {
+      "name": "右负重轮1",
+      "positive_case_count": 0,
+      "positive_case_count_by_split": {
+        "test": 0,
+        "train": 0,
+        "validation": 0
+      },
+      "positive_energy_distinct_value_count": 0,
+      "positive_energy_minimum_j": null,
+      "positive_energy_maximum_j": null
+    },
+    "component-007": {
+      "name": "右负重轮2",
+      "positive_case_count": 0,
+      "positive_case_count_by_split": {
+        "test": 0,
+        "train": 0,
+        "validation": 0
+      },
+      "positive_energy_distinct_value_count": 0,
+      "positive_energy_minimum_j": null,
+      "positive_energy_maximum_j": null
+    },
+    "component-008": {
+      "name": "右负重轮3",
+      "positive_case_count": 0,
+      "positive_case_count_by_split": {
+        "test": 0,
+        "train": 0,
+        "validation": 0
+      },
+      "positive_energy_distinct_value_count": 0,
+      "positive_energy_minimum_j": null,
+      "positive_energy_maximum_j": null
+    },
+    "component-009": {
+      "name": "右负重轮4",
+      "positive_case_count": 0,
+      "positive_case_count_by_split": {
+        "test": 0,
+        "train": 0,
+        "validation": 0
+      },
+      "positive_energy_distinct_value_count": 0,
+      "positive_energy_minimum_j": null,
+      "positive_energy_maximum_j": null
+    },
+    "component-010": {
+      "name": "右负重轮5",
+      "positive_case_count": 0,
+      "positive_case_count_by_split": {
+        "test": 0,
+        "train": 0,
+        "validation": 0
+      },
+      "positive_energy_distinct_value_count": 0,
+      "positive_energy_minimum_j": null,
+      "positive_energy_maximum_j": null
+    },
+    "component-011": {
+      "name": "右负重轮6",
+      "positive_case_count": 0,
+      "positive_case_count_by_split": {
+        "test": 0,
+        "train": 0,
+        "validation": 0
+      },
+      "positive_energy_distinct_value_count": 0,
+      "positive_energy_minimum_j": null,
+      "positive_energy_maximum_j": null
+    },
+    "component-012": {
+      "name": "左负重轮1",
+      "positive_case_count": 72,
+      "positive_case_count_by_split": {
+        "test": 18,
+        "train": 46,
+        "validation": 8
+      },
+      "positive_energy_distinct_value_count": 72,
+      "positive_energy_minimum_j": 536.5225219726562,
+      "positive_energy_maximum_j": 327784.0625
+    },
+    "component-013": {
+      "name": "左负重轮2",
+      "positive_case_count": 205,
+      "positive_case_count_by_split": {
+        "test": 67,
+        "train": 115,
+        "validation": 23
+      },
+      "positive_energy_distinct_value_count": 205,
+      "positive_energy_minimum_j": 575.821044921875,
+      "positive_energy_maximum_j": 444217.28125
+    },
+    "component-014": {
+      "name": "左负重轮3",
+      "positive_case_count": 207,
+      "positive_case_count_by_split": {
+        "test": 67,
+        "train": 119,
+        "validation": 21
+      },
+      "positive_energy_distinct_value_count": 207,
+      "positive_energy_minimum_j": 542.70458984375,
+      "positive_energy_maximum_j": 480163.21875
+    },
+    "component-015": {
+      "name": "左负重轮4",
+      "positive_case_count": 189,
+      "positive_case_count_by_split": {
+        "test": 47,
+        "train": 120,
+        "validation": 22
+      },
+      "positive_energy_distinct_value_count": 189,
+      "positive_energy_minimum_j": 554.7979125976562,
+      "positive_energy_maximum_j": 483442.6875
+    },
+    "component-016": {
+      "name": "左负重轮5",
+      "positive_case_count": 209,
+      "positive_case_count_by_split": {
+        "test": 68,
+        "train": 119,
+        "validation": 22
+      },
+      "positive_energy_distinct_value_count": 209,
+      "positive_energy_minimum_j": 563.7648315429688,
+      "positive_energy_maximum_j": 466091.25
+    },
+    "component-017": {
+      "name": "左负重轮6",
+      "positive_case_count": 190,
+      "positive_case_count_by_split": {
+        "test": 53,
+        "train": 118,
+        "validation": 19
+      },
+      "positive_energy_distinct_value_count": 190,
+      "positive_energy_minimum_j": 548.2808227539062,
+      "positive_energy_maximum_j": 465046.125
+    },
+    "component-018": {
+      "name": "右托带轮1",
+      "positive_case_count": 0,
+      "positive_case_count_by_split": {
+        "test": 0,
+        "train": 0,
+        "validation": 0
+      },
+      "positive_energy_distinct_value_count": 0,
+      "positive_energy_minimum_j": null,
+      "positive_energy_maximum_j": null
+    },
+    "component-019": {
+      "name": "右托带轮2",
+      "positive_case_count": 0,
+      "positive_case_count_by_split": {
+        "test": 0,
+        "train": 0,
+        "validation": 0
+      },
+      "positive_energy_distinct_value_count": 0,
+      "positive_energy_minimum_j": null,
+      "positive_energy_maximum_j": null
+    },
+    "component-020": {
+      "name": "右托带轮3",
+      "positive_case_count": 0,
+      "positive_case_count_by_split": {
+        "test": 0,
+        "train": 0,
+        "validation": 0
+      },
+      "positive_energy_distinct_value_count": 0,
+      "positive_energy_minimum_j": null,
+      "positive_energy_maximum_j": null
+    },
+    "component-021": {
+      "name": "左托带轮1",
+      "positive_case_count": 311,
+      "positive_case_count_by_split": {
+        "test": 80,
+        "train": 199,
+        "validation": 32
+      },
+      "positive_energy_distinct_value_count": 289,
+      "positive_energy_minimum_j": 549.9959716796875,
+      "positive_energy_maximum_j": 520169.5625
+    },
+    "component-022": {
+      "name": "左托带轮2",
+      "positive_case_count": 316,
+      "positive_case_count_by_split": {
+        "test": 97,
+        "train": 182,
+        "validation": 37
+      },
+      "positive_energy_distinct_value_count": 290,
+      "positive_energy_minimum_j": 604.6002807617188,
+      "positive_energy_maximum_j": 556373.0625
+    },
+    "component-023": {
+      "name": "左托带轮3",
+      "positive_case_count": 282,
+      "positive_case_count_by_split": {
+        "test": 88,
+        "train": 165,
+        "validation": 29
+      },
+      "positive_energy_distinct_value_count": 246,
+      "positive_energy_minimum_j": 671.7083129882812,
+      "positive_energy_maximum_j": 528553.25
+    },
+    "component-024": {
+      "name": "悬挂装置1",
+      "positive_case_count": 0,
+      "positive_case_count_by_split": {
+        "test": 0,
+        "train": 0,
+        "validation": 0
+      },
+      "positive_energy_distinct_value_count": 0,
+      "positive_energy_minimum_j": null,
+      "positive_energy_maximum_j": null
+    },
+    "component-025": {
+      "name": "悬挂装置2",
+      "positive_case_count": 7,
+      "positive_case_count_by_split": {
+        "test": 1,
+        "train": 5,
+        "validation": 1
+      },
+      "positive_energy_distinct_value_count": 7,
+      "positive_energy_minimum_j": 435.0913391113281,
+      "positive_energy_maximum_j": 53774.14453125
+    },
+    "component-026": {
+      "name": "悬挂装置3",
+      "positive_case_count": 6,
+      "positive_case_count_by_split": {
+        "test": 1,
+        "train": 5,
+        "validation": 0
+      },
+      "positive_energy_distinct_value_count": 6,
+      "positive_energy_minimum_j": 1213.5977783203125,
+      "positive_energy_maximum_j": 294589.0625
+    },
+    "component-027": {
+      "name": "悬挂装置4",
+      "positive_case_count": 3,
+      "positive_case_count_by_split": {
+        "test": 1,
+        "train": 1,
+        "validation": 1
+      },
+      "positive_energy_distinct_value_count": 3,
+      "positive_energy_minimum_j": 372.3595275878906,
+      "positive_energy_maximum_j": 84622.5703125
+    },
+    "component-028": {
+      "name": "悬挂装置5",
+      "positive_case_count": 6,
+      "positive_case_count_by_split": {
+        "test": 1,
+        "train": 5,
+        "validation": 0
+      },
+      "positive_energy_distinct_value_count": 6,
+      "positive_energy_minimum_j": 2982.1806640625,
+      "positive_energy_maximum_j": 300237.375
+    },
+    "component-029": {
+      "name": "悬挂装置6",
+      "positive_case_count": 6,
+      "positive_case_count_by_split": {
+        "test": 1,
+        "train": 4,
+        "validation": 1
+      },
+      "positive_energy_distinct_value_count": 6,
+      "positive_energy_minimum_j": 1840.6741943359375,
+      "positive_energy_maximum_j": 71458.515625
+    },
+    "component-030": {
+      "name": "右诱导轮",
+      "positive_case_count": 0,
+      "positive_case_count_by_split": {
+        "test": 0,
+        "train": 0,
+        "validation": 0
+      },
+      "positive_energy_distinct_value_count": 0,
+      "positive_energy_minimum_j": null,
+      "positive_energy_maximum_j": null
+    },
+    "component-031": {
+      "name": "左诱导轮",
+      "positive_case_count": 0,
+      "positive_case_count_by_split": {
+        "test": 0,
+        "train": 0,
+        "validation": 0
+      },
+      "positive_energy_distinct_value_count": 0,
+      "positive_energy_minimum_j": null,
+      "positive_energy_maximum_j": null
+    },
+    "component-032": {
+      "name": "右履带上段",
+      "positive_case_count": 0,
+      "positive_case_count_by_split": {
+        "test": 0,
+        "train": 0,
+        "validation": 0
+      },
+      "positive_energy_distinct_value_count": 0,
+      "positive_energy_minimum_j": null,
+      "positive_energy_maximum_j": null
+    },
+    "component-033": {
+      "name": "右履带下段",
+      "positive_case_count": 0,
+      "positive_case_count_by_split": {
+        "test": 0,
+        "train": 0,
+        "validation": 0
+      },
+      "positive_energy_distinct_value_count": 0,
+      "positive_energy_minimum_j": null,
+      "positive_energy_maximum_j": null
+    },
+    "component-034": {
+      "name": "右履带前段",
+      "positive_case_count": 0,
+      "positive_case_count_by_split": {
+        "test": 0,
+        "train": 0,
+        "validation": 0
+      },
+      "positive_energy_distinct_value_count": 0,
+      "positive_energy_minimum_j": null,
+      "positive_energy_maximum_j": null
+    },
+    "component-035": {
+      "name": "右履带后段",
+      "positive_case_count": 0,
+      "positive_case_count_by_split": {
+        "test": 0,
+        "train": 0,
+        "validation": 0
+      },
+      "positive_energy_distinct_value_count": 0,
+      "positive_energy_minimum_j": null,
+      "positive_energy_maximum_j": null
+    },
+    "component-036": {
+      "name": "左履带上段",
+      "positive_case_count": 1696,
+      "positive_case_count_by_split": {
+        "test": 505,
+        "train": 1018,
+        "validation": 173
+      },
+      "positive_energy_distinct_value_count": 1425,
+      "positive_energy_minimum_j": 928.1209106445312,
+      "positive_energy_maximum_j": 711277.8125
+    },
+    "component-037": {
+      "name": "左履带下段",
+      "positive_case_count": 0,
+      "positive_case_count_by_split": {
+        "test": 0,
+        "train": 0,
+        "validation": 0
+      },
+      "positive_energy_distinct_value_count": 0,
+      "positive_energy_minimum_j": null,
+      "positive_energy_maximum_j": null
+    },
+    "component-038": {
+      "name": "左履带前段",
+      "positive_case_count": 0,
+      "positive_case_count_by_split": {
+        "test": 0,
+        "train": 0,
+        "validation": 0
+      },
+      "positive_energy_distinct_value_count": 0,
+      "positive_energy_minimum_j": null,
+      "positive_energy_maximum_j": null
+    },
+    "component-039": {
+      "name": "左履带后段",
+      "positive_case_count": 47,
+      "positive_case_count_by_split": {
+        "test": 16,
+        "train": 26,
+        "validation": 5
+      },
+      "positive_energy_distinct_value_count": 47,
+      "positive_energy_minimum_j": 1138.0692138671875,
+      "positive_energy_maximum_j": 393857.375
+    },
+    "component-040": {
+      "name": "测距仪",
+      "positive_case_count": 0,
+      "positive_case_count_by_split": {
+        "test": 0,
+        "train": 0,
+        "validation": 0
+      },
+      "positive_energy_distinct_value_count": 0,
+      "positive_energy_minimum_j": null,
+      "positive_energy_maximum_j": null
+    },
+    "component-041": {
+      "name": "主观瞄",
+      "positive_case_count": 0,
+      "positive_case_count_by_split": {
+        "test": 0,
+        "train": 0,
+        "validation": 0
+      },
+      "positive_energy_distinct_value_count": 0,
+      "positive_energy_minimum_j": null,
+      "positive_energy_maximum_j": null
+    },
+    "component-042": {
+      "name": "辅助观瞄",
+      "positive_case_count": 0,
+      "positive_case_count_by_split": {
+        "test": 0,
+        "train": 0,
+        "validation": 0
+      },
+      "positive_energy_distinct_value_count": 0,
+      "positive_energy_minimum_j": null,
+      "positive_energy_maximum_j": null
+    },
+    "component-043": {
+      "name": "右火控计算机",
+      "positive_case_count": 0,
+      "positive_case_count_by_split": {
+        "test": 0,
+        "train": 0,
+        "validation": 0
+      },
+      "positive_energy_distinct_value_count": 0,
+      "positive_energy_minimum_j": null,
+      "positive_energy_maximum_j": null
+    },
+    "component-044": {
+      "name": "左火控计算机",
+      "positive_case_count": 0,
+      "positive_case_count_by_split": {
+        "test": 0,
+        "train": 0,
+        "validation": 0
+      },
+      "positive_energy_distinct_value_count": 0,
+      "positive_energy_minimum_j": null,
+      "positive_energy_maximum_j": null
+    },
+    "component-045": {
+      "name": "主炮",
+      "positive_case_count": 0,
+      "positive_case_count_by_split": {
+        "test": 0,
+        "train": 0,
+        "validation": 0
+      },
+      "positive_energy_distinct_value_count": 0,
+      "positive_energy_minimum_j": null,
+      "positive_energy_maximum_j": null
+    },
+    "component-046": {
+      "name": "弹药架",
+      "positive_case_count": 0,
+      "positive_case_count_by_split": {
+        "test": 0,
+        "train": 0,
+        "validation": 0
+      },
+      "positive_energy_distinct_value_count": 0,
+      "positive_energy_minimum_j": null,
+      "positive_energy_maximum_j": null
+    },
+    "component-047": {
+      "name": "右烟幕弹发射器",
+      "positive_case_count": 0,
+      "positive_case_count_by_split": {
+        "test": 0,
+        "train": 0,
+        "validation": 0
+      },
+      "positive_energy_distinct_value_count": 0,
+      "positive_energy_minimum_j": null,
+      "positive_energy_maximum_j": null
+    },
+    "component-048": {
+      "name": "左烟幕弹发射器",
+      "positive_case_count": 0,
+      "positive_case_count_by_split": {
+        "test": 0,
+        "train": 0,
+        "validation": 0
+      },
+      "positive_energy_distinct_value_count": 0,
+      "positive_energy_minimum_j": null,
+      "positive_energy_maximum_j": null
+    },
+    "component-049": {
+      "name": "供弹装置",
+      "positive_case_count": 0,
+      "positive_case_count_by_split": {
+        "test": 0,
+        "train": 0,
+        "validation": 0
+      },
+      "positive_energy_distinct_value_count": 0,
+      "positive_energy_minimum_j": null,
+      "positive_energy_maximum_j": null
+    },
+    "component-050": {
+      "name": "并列机关炮",
+      "positive_case_count": 0,
+      "positive_case_count_by_split": {
+        "test": 0,
+        "train": 0,
+        "validation": 0
+      },
+      "positive_energy_distinct_value_count": 0,
+      "positive_energy_minimum_j": null,
+      "positive_energy_maximum_j": null
+    },
+    "component-051": {
+      "name": "右航向机炮",
+      "positive_case_count": 0,
+      "positive_case_count_by_split": {
+        "test": 0,
+        "train": 0,
+        "validation": 0
+      },
+      "positive_energy_distinct_value_count": 0,
+      "positive_energy_minimum_j": null,
+      "positive_energy_maximum_j": null
+    },
+    "component-052": {
+      "name": "左航向机炮",
+      "positive_case_count": 0,
+      "positive_case_count_by_split": {
+        "test": 0,
+        "train": 0,
+        "validation": 0
+      },
+      "positive_energy_distinct_value_count": 0,
+      "positive_energy_minimum_j": null,
+      "positive_energy_maximum_j": null
+    },
+    "component-053": {
+      "name": "辅助弹药1",
+      "positive_case_count": 0,
+      "positive_case_count_by_split": {
+        "test": 0,
+        "train": 0,
+        "validation": 0
+      },
+      "positive_energy_distinct_value_count": 0,
+      "positive_energy_minimum_j": null,
+      "positive_energy_maximum_j": null
+    },
+    "component-054": {
+      "name": "辅助弹药2",
+      "positive_case_count": 28,
+      "positive_case_count_by_split": {
+        "test": 15,
+        "train": 11,
+        "validation": 2
+      },
+      "positive_energy_distinct_value_count": 28,
+      "positive_energy_minimum_j": 222.21070861816406,
+      "positive_energy_maximum_j": 2171.6171875
+    },
+    "component-058": {
+      "name": "驾驶员",
+      "positive_case_count": 0,
+      "positive_case_count_by_split": {
+        "test": 0,
+        "train": 0,
+        "validation": 0
+      },
+      "positive_energy_distinct_value_count": 0,
+      "positive_energy_minimum_j": null,
+      "positive_energy_maximum_j": null
+    },
+    "component-059": {
+      "name": "车长",
+      "positive_case_count": 0,
+      "positive_case_count_by_split": {
+        "test": 0,
+        "train": 0,
+        "validation": 0
+      },
+      "positive_energy_distinct_value_count": 0,
+      "positive_energy_minimum_j": null,
+      "positive_energy_maximum_j": null
+    },
+    "component-060": {
+      "name": "炮长",
+      "positive_case_count": 0,
+      "positive_case_count_by_split": {
+        "test": 0,
+        "train": 0,
+        "validation": 0
+      },
+      "positive_energy_distinct_value_count": 0,
+      "positive_energy_minimum_j": null,
+      "positive_energy_maximum_j": null
+    },
+    "component-061": {
+      "name": "车载步兵1",
+      "positive_case_count": 0,
+      "positive_case_count_by_split": {
+        "test": 0,
+        "train": 0,
+        "validation": 0
+      },
+      "positive_energy_distinct_value_count": 0,
+      "positive_energy_minimum_j": null,
+      "positive_energy_maximum_j": null
+    },
+    "component-062": {
+      "name": "车载步兵2",
+      "positive_case_count": 0,
+      "positive_case_count_by_split": {
+        "test": 0,
+        "train": 0,
+        "validation": 0
+      },
+      "positive_energy_distinct_value_count": 0,
+      "positive_energy_minimum_j": null,
+      "positive_energy_maximum_j": null
+    },
+    "component-063": {
+      "name": "车载步兵3",
+      "positive_case_count": 0,
+      "positive_case_count_by_split": {
+        "test": 0,
+        "train": 0,
+        "validation": 0
+      },
+      "positive_energy_distinct_value_count": 0,
+      "positive_energy_minimum_j": null,
+      "positive_energy_maximum_j": null
+    },
+    "component-064": {
+      "name": "车载步兵4",
+      "positive_case_count": 0,
+      "positive_case_count_by_split": {
+        "test": 0,
+        "train": 0,
+        "validation": 0
+      },
+      "positive_energy_distinct_value_count": 0,
+      "positive_energy_minimum_j": null,
+      "positive_energy_maximum_j": null
+    },
+    "component-065": {
+      "name": "车载步兵5",
+      "positive_case_count": 0,
+      "positive_case_count_by_split": {
+        "test": 0,
+        "train": 0,
+        "validation": 0
+      },
+      "positive_energy_distinct_value_count": 0,
+      "positive_energy_minimum_j": null,
+      "positive_energy_maximum_j": null
+    },
+    "component-066": {
+      "name": "车载步兵6",
+      "positive_case_count": 0,
+      "positive_case_count_by_split": {
+        "test": 0,
+        "train": 0,
+        "validation": 0
+      },
+      "positive_energy_distinct_value_count": 0,
+      "positive_energy_minimum_j": null,
+      "positive_energy_maximum_j": null
+    },
+    "component-067": {
+      "name": "车载步兵7",
+      "positive_case_count": 0,
+      "positive_case_count_by_split": {
+        "test": 0,
+        "train": 0,
+        "validation": 0
+      },
+      "positive_energy_distinct_value_count": 0,
+      "positive_energy_minimum_j": null,
+      "positive_energy_maximum_j": null
+    }
+  },
+  "category_support": {
+    "K": {
+      "branch_component_ids": {
+        "fuel_store": [
+          "component-003"
+        ],
+        "ammunition_store": [
+          "component-046",
+          "component-053",
+          "component-054"
+        ]
+      },
+      "branch_positive_case_counts": {
+        "fuel_store": 0,
+        "ammunition_store": 28
+      },
+      "any_positive_case_count": 28,
+      "any_positive_case_count_by_split": {
+        "test": 15,
+        "train": 11,
+        "validation": 2
+      },
+      "active_branch_count_distribution": {
+        "0": 4972,
+        "1": 28
+      },
+      "exactly_one_active_branch_count": 28,
+      "at_least_two_active_branches_count": 0
+    },
+    "M": {
+      "branch_component_ids": {
+        "powertrain": [
+          "component-001",
+          "component-002",
+          "component-003"
+        ],
+        "drive_and_idler": [
+          "component-004",
+          "component-005",
+          "component-030",
+          "component-031"
+        ],
+        "right_carrying": [
+          "component-006",
+          "component-007",
+          "component-008",
+          "component-009",
+          "component-010",
+          "component-011",
+          "component-018",
+          "component-019",
+          "component-020"
+        ],
+        "left_carrying": [
+          "component-012",
+          "component-013",
+          "component-014",
+          "component-015",
+          "component-016",
+          "component-017",
+          "component-021",
+          "component-022",
+          "component-023"
+        ],
+        "suspension": [
+          "component-024",
+          "component-025",
+          "component-026",
+          "component-027",
+          "component-028",
+          "component-029"
+        ],
+        "right_track": [
+          "component-032",
+          "component-033",
+          "component-034",
+          "component-035"
+        ],
+        "left_track": [
+          "component-036",
+          "component-037",
+          "component-038",
+          "component-039"
+        ],
+        "mobility_operator": [
+          "component-058"
+        ]
+      },
+      "branch_positive_case_counts": {
+        "powertrain": 0,
+        "drive_and_idler": 333,
+        "right_carrying": 0,
+        "left_carrying": 1502,
+        "suspension": 28,
+        "right_track": 0,
+        "left_track": 1716,
+        "mobility_operator": 0
+      },
+      "any_positive_case_count": 2205,
+      "any_positive_case_count_by_split": {
+        "test": 657,
+        "train": 1322,
+        "validation": 226
+      },
+      "active_branch_count_distribution": {
+        "0": 2795,
+        "1": 874,
+        "2": 1288,
+        "3": 43
+      },
+      "exactly_one_active_branch_count": 874,
+      "at_least_two_active_branches_count": 1331
+    },
+    "F": {
+      "branch_component_ids": {
+        "sensing": [
+          "component-040",
+          "component-041",
+          "component-042"
+        ],
+        "fire_control": [
+          "component-043",
+          "component-044"
+        ],
+        "weapon": [
+          "component-045",
+          "component-050",
+          "component-051",
+          "component-052"
+        ],
+        "feed_and_ammunition": [
+          "component-046",
+          "component-049",
+          "component-053",
+          "component-054"
+        ],
+        "countermeasure": [
+          "component-047",
+          "component-048"
+        ]
+      },
+      "branch_positive_case_counts": {
+        "sensing": 0,
+        "fire_control": 0,
+        "weapon": 0,
+        "feed_and_ammunition": 28,
+        "countermeasure": 0
+      },
+      "any_positive_case_count": 28,
+      "any_positive_case_count_by_split": {
+        "test": 15,
+        "train": 11,
+        "validation": 2
+      },
+      "active_branch_count_distribution": {
+        "0": 4972,
+        "1": 28
+      },
+      "exactly_one_active_branch_count": 28,
+      "at_least_two_active_branches_count": 0
+    },
+    "C": {
+      "branch_component_ids": {
+        "essential_crew": [
+          "component-058",
+          "component-059",
+          "component-060"
+        ],
+        "embarked_personnel": [
+          "component-061",
+          "component-062",
+          "component-063",
+          "component-064",
+          "component-065",
+          "component-066",
+          "component-067"
+        ]
+      },
+      "branch_positive_case_counts": {
+        "essential_crew": 0,
+        "embarked_personnel": 0
+      },
+      "any_positive_case_count": 0,
+      "any_positive_case_count_by_split": {
+        "test": 0,
+        "train": 0,
+        "validation": 0
+      },
+      "active_branch_count_distribution": {
+        "0": 5000
+      },
+      "exactly_one_active_branch_count": 0,
+      "at_least_two_active_branches_count": 0
+    }
+  },
+  "cross_category_support": {
+    "K_and_F_positive_count": 28,
+    "K_positive_F_zero_count": 0,
+    "F_positive_K_zero_count": 0,
+    "K_and_F_positive_case_sets_identical": true
+  },
+  "conclusion": {
+    "M_structure_prototyping": "supported_for_independent_calibration",
+    "K_fixed_threshold_calibration_from_current_archive": "rejected_sparse_single_branch_support",
+    "F_fixed_threshold_calibration_from_current_archive": "rejected_sparse_single_branch_support",
+    "C_fixed_threshold_calibration_from_current_archive": "rejected_structural_zero"
+  },
+  "evidence_boundary": "This audit reads already-observed Train, Validation, and Test rows and therefore is diagnostic only. It measures positive support in archived case-level mean deposited energy, not replicate-level continuous dose, calibrated severity, physical validity, or admissible final thresholds. Its counts may justify a new calibration design but must not be used to fit the formal tree or evaluate a model."
+}

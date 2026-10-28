@@ -1,0 +1,41 @@
+{
+  "schema_version": "hf-p0-speed-assessment@1.0.0",
+  "impact_speed_mps": [
+    1200.0,
+    1600.0,
+    2000.0,
+    2300.0,
+    2600.0
+  ],
+  "perforation_proxy": [
+    true,
+    true,
+    true,
+    true,
+    true
+  ],
+  "has_perforated_point": true,
+  "has_unperforated_point": false,
+  "perforation_transition_bracketed": false,
+  "survivor_average_residual_speed_mps": [
+    525.9696204419838,
+    855.1523191276807,
+    1300.1533018170833,
+    758.5359113125045,
+    1206.6454290216438
+  ],
+  "survivor_speed_monotonic_with_impact_speed": false,
+  "fragment_surviving_mass_fraction": [
+    0.7303206997000068,
+    0.4504373148949727,
+    0.3804664714656715,
+    0.19387754979450994,
+    0.16618075648450645
+  ],
+  "velocity_response_fit_gate": "fail",
+  "reasons": [
+    "All five medium-mesh cases place surviving fragment material beyond the initial rear face; no non-perforated boundary point is present.",
+    "The surviving-fragment part-average speed is non-monotonic because surviving mass changes substantially with impact speed.",
+    "A deterministic all-perforated scan cannot identify an experimental V50 and does not bracket even a numerical transition proxy."
+  ]
+}

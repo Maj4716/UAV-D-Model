@@ -1,0 +1,131 @@
+[2026-10-23T00:24:44.0174986+08:00] frozen-source controlled factorial run
+Interpreter: D:/ProgramData/Anaconda/envs/pytorch312-lmdt/python.exe
+Main: review_evidence/human_factor_remediation_20261022/controlled_factorial_diagnostic.py
+Validator: review_evidence/human_factor_remediation_20261022/validate_controlled_factorial_diagnostic.py
+
+{
+  "attempted": 324,
+  "accepted": 324,
+  "statuses": {
+    "accepted": 324
+  },
+  "elapsed_seconds": 155.35165540000162,
+  "result_path": "review_evidence/human_factor_remediation_20261022/controlled_factorial_diagnostic.json",
+  "report_path": "review_evidence/human_factor_remediation_20261022/controlled_factorial_diagnostic.md",
+  "ledger_path": "review_evidence/human_factor_remediation_20261022/candidate_ledger.jsonl"
+}
+{
+  "schema_version": "1.0.0",
+  "created_at_utc": "2026-10-22T16:27:23.151217+00:00",
+  "overall_pass": true,
+  "source_result": "review_evidence/human_factor_remediation_20261022/controlled_factorial_diagnostic.json",
+  "source_result_sha256": "sha256:362fa6abe44c756130ecb0f3777d175a3021d5d6375d18c543f2bce2c2fbcaa4",
+  "checks": {
+    "required_files_exist": {
+      "pass": true,
+      "observed": []
+    },
+    "ledger_length_matches_attempted": {
+      "pass": true,
+      "observed": {
+        "ledger": 324,
+        "attempted": 324
+      }
+    },
+    "accepted_rows_match_ledger": {
+      "pass": true,
+      "observed": {
+        "rows": 324,
+        "statuses": {
+          "accepted": 324
+        }
+      }
+    },
+    "label_denominator_is_accepted_only": {
+      "pass": true,
+      "observed": []
+    },
+    "contact_and_pairing_contracts_pass": {
+      "pass": true,
+      "observed": {
+        "all_accepted_use_first_contact_model": true,
+        "all_accepted_target_facing": true,
+        "all_accepted_body_forward_aligned": true,
+        "all_accepted_have_eight_replicates": true,
+        "accepted_candidate_sets_equal_across_axis_conditions": true
+      }
+    },
+    "six_directions_eighteen_orientations": {
+      "pass": true,
+      "observed": {
+        "directions": 6,
+        "orientations": 18
+      }
+    },
+    "unique_aleatory_seed_count_is_162": {
+      "pass": true,
+      "observed": {
+        "observed": 162,
+        "expected": 162
+      }
+    },
+    "each_seed_pairs_one_candidate_across_two_axes": {
+      "pass": true,
+      "observed": []
+    },
+    "reported_seed_contract_matches_recomputation": {
+      "pass": true,
+      "observed": {
+        "reported_unique": 162,
+        "recomputed_unique": 162,
+        "reported_expected": 162,
+        "reported_pairing": true
+      }
+    },
+    "each_candidate_key_has_one_axis_shared_seed": {
+      "pass": true,
+      "observed": {
+        "candidate_count": 162,
+        "violations": {}
+      }
+    },
+    "single_epistemic_realization_is_explicit": {
+      "pass": true,
+      "observed": {
+        "unique_count": 1,
+        "values": [
+          "hfdiag-fixed-target-realization-20261022-v1"
+        ],
+        "declared_count": 1
+      }
+    },
+    "prefix_replicate_counts_exact": {
+      "pass": true,
+      "observed": []
+    },
+    "nested_ever_positive_is_monotone": {
+      "pass": true,
+      "observed": []
+    },
+    "reported_nested_transitions_have_no_one_to_zero": {
+      "pass": true,
+      "observed": []
+    },
+    "aggregate_counts_recompute": {
+      "pass": true,
+      "observed": []
+    },
+    "recorded_identity_matches_current_files": {
+      "pass": true,
+      "observed": {}
+    }
+  },
+  "claim_boundary": "PASS establishes internal bookkeeping and identity consistency only; it does not establish physical validity, operational representativeness, or training admission."
+}
+Temporary cleanup: removed verified empty directory; exists_after=false.
+{
+  "durable_bytes_excluding_space_records": 3695695,
+  "space_json_bytes": 3255,
+  "space_markdown_bytes": 2473,
+  "temporary_directory_exists": false
+}

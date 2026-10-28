@@ -1,0 +1,63 @@
+{
+  "schema_version": "hf-p0-r06-batch-manifest@1.0.0",
+  "package_revision": "R06_keyword_parser_repair_20261025",
+  "status": "generated_pending_static_validation_not_submitted",
+  "design": {
+    "path": "p0_r06_keyword_parser_repair_design.json",
+    "sha256": "sha256:508ec347a884dd124ef0bf3ffd7bb40f0c57fd466953b5a4b085ff066693c111"
+  },
+  "material": {
+    "path": "jc4340_reference.json",
+    "sha256": "sha256:9b462b920459e57641d5f89d10d36c0aa0498c86f2478fef8e4c3efa96888311"
+  },
+  "successor_contract": {
+    "path": "p0_r06_real_output_contract.json",
+    "sha256": "sha256:71371ee8726fe95899de33aef163d8a9725d9f43781d5775de10fa2afc150795",
+    "frozen_pre_generation_snapshot": true
+  },
+  "submission_matrix": {
+    "path": "submission_matrix.csv",
+    "sha256": "sha256:0092ba68529660aa056cc64efcb1ebd8466fdc4194e65638de663071253b47c5"
+  },
+  "job_count": 4,
+  "paired_experiment_count": 2,
+  "jobs": [
+    {
+      "job_id": "r06e_0800_ctrl",
+      "directory": "job_01_v0800_control",
+      "experiment_id": "r06_diag_800_window",
+      "role": "paired_control",
+      "deck": "r06e_0800_ctrl.k",
+      "deck_sha256": "sha256:47c5fcacbec9ba3edac10d06611b6ba602f58a135b27b62d968290334a763a70",
+      "manifest_sha256": "sha256:fd3085a8c4ce839b3afec9e8f596ab8d473749cbbf9acc111296b2b00d0485f6"
+    },
+    {
+      "job_id": "r06e_0800_tend008",
+      "directory": "job_02_v0800_tend_0p08",
+      "experiment_id": "r06_diag_800_window",
+      "role": "single_factor_treatment",
+      "deck": "r06e_0800_tend008.k",
+      "deck_sha256": "sha256:69703c8eb719f43cf3c79115b4a3a43562b7f5904c7b3f113d99ecd2c05cb7d4",
+      "manifest_sha256": "sha256:41541a14f930653a95db70b946e5ed91cf1eb1fdbfae5d0ef570ee8467235b97"
+    },
+    {
+      "job_id": "r06e_2000_ctrl",
+      "directory": "job_03_v2000_control",
+      "experiment_id": "r06_diag_2000_psfail",
+      "role": "paired_control",
+      "deck": "r06e_2000_ctrl.k",
+      "deck_sha256": "sha256:911e6deb40b393428cb2250fec348c24bf9747c09a2ce047921c3e792cc2025e",
+      "manifest_sha256": "sha256:7a0cf586642461691465adf7105ed45f77548930c205a04201449d3c0acb8e6c"
+    },
+    {
+      "job_id": "r06e_2000_psfail_plate",
+      "directory": "job_04_v2000_psfail_plate_only",
+      "experiment_id": "r06_diag_2000_psfail",
+      "role": "single_factor_treatment",
+      "deck": "r06e_2000_psfail_plate.k",
+      "deck_sha256": "sha256:5ab033a61c9fc0ea10dd47dade6955653ad03b46e0fed94d3152355dc4f3a67d",
+      "manifest_sha256": "sha256:d15e3e6448d9d43f73e73981746e1151641add1e7c7840bb37a8f3d528987b3c"
+    }
+  ],
+  "prohibited_inference": "Generation and static validation do not establish target-solver parsing, numerical response, physical validity, or P0/P1 admission."
+}

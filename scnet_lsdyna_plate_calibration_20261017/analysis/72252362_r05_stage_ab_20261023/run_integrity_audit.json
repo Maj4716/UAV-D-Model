@@ -1,0 +1,298 @@
+{
+  "schema_version": "hf-p0-r05-run-integrity-audit@1.0.0",
+  "run_identity": {
+    "run_id": "72252362",
+    "solver_build": "LS-DYNA MPP double R15.0.2-1-g1e7cfa42b1 I8R8 Intel-MPI 2018",
+    "solver_output": "job_uav_hf_p0_plate_r05_retry1_72252362.out",
+    "solver_output_command_bound": true,
+    "d3part_family_sha256": "sha256:8f24005080f09cbfd1b81dd2f0f97d4abb3158e7133207f44beccb9852346af7"
+  },
+  "artifact_manifest": {
+    "path": "run_artifact_manifest.json",
+    "sha256": "sha256:8a0ec2d4ad22a3d068b9bb260a4fcfd89df904a80b36153e229a0a2034ad7239",
+    "file_count": 75,
+    "total_bytes": 2944160835
+  },
+  "returned_evidence_contract": {
+    "status": "pass",
+    "items": {
+      "d3hsp": {
+        "satisfied": true,
+        "mode": "solver_o_output",
+        "sources": [
+          "job_uav_hf_p0_plate_r05_retry1_72252362.out"
+        ],
+        "rule": "the explicit LS-DYNA o= text output is the accepted d3hsp-equivalent stream"
+      },
+      "mes*": {
+        "satisfied": true,
+        "mode": "standalone_file_family",
+        "sources": [
+          "mes0000",
+          "mes0001",
+          "mes0002",
+          "mes0003",
+          "mes0004",
+          "mes0005",
+          "mes0006",
+          "mes0007",
+          "mes0008",
+          "mes0009",
+          "mes0010",
+          "mes0011",
+          "mes0012",
+          "mes0013",
+          "mes0014",
+          "mes0015",
+          "mes0016",
+          "mes0017",
+          "mes0018",
+          "mes0019",
+          "mes0020",
+          "mes0021",
+          "mes0022",
+          "mes0023",
+          "mes0024",
+          "mes0025",
+          "mes0026",
+          "mes0027",
+          "mes0028",
+          "mes0029",
+          "mes0030",
+          "mes0031"
+        ]
+      },
+      "glstat": {
+        "satisfied": true,
+        "mode": "standalone_file_family",
+        "sources": [
+          "glstat"
+        ]
+      },
+      "matsum": {
+        "satisfied": true,
+        "mode": "binout_logical_database",
+        "sources": [
+          "binout0000"
+        ]
+      },
+      "sleout": {
+        "satisfied": true,
+        "mode": "binout_logical_database",
+        "sources": [
+          "binout0000"
+        ]
+      },
+      "nodout": {
+        "satisfied": true,
+        "mode": "binout_logical_database",
+        "sources": [
+          "binout0000"
+        ]
+      },
+      "binout*": {
+        "satisfied": true,
+        "mode": "standalone_file_family",
+        "sources": [
+          "binout0000"
+        ]
+      },
+      "d3plot*": {
+        "satisfied": true,
+        "mode": "standalone_file_family",
+        "sources": [
+          "d3plot",
+          "d3plot01",
+          "d3plot02",
+          "d3plot03",
+          "d3plot04",
+          "d3plot05",
+          "d3plot06",
+          "d3plot07",
+          "d3plot08",
+          "d3plot09",
+          "d3plot10",
+          "d3plot11",
+          "d3plot12",
+          "d3plot13",
+          "d3plot14",
+          "d3plot15",
+          "d3plot16",
+          "d3plot17",
+          "d3plot18"
+        ]
+      },
+      "d3part*": {
+        "satisfied": true,
+        "mode": "standalone_file_family",
+        "sources": [
+          "d3part",
+          "d3part01",
+          "d3part02",
+          "d3part03",
+          "d3part04",
+          "d3part05",
+          "d3part06",
+          "d3part07"
+        ]
+      },
+      "solver stdout/stderr": {
+        "satisfied": true,
+        "mode": "paired_scheduler_streams",
+        "sources": [
+          "std.out.72252362",
+          "std.err.72252362"
+        ]
+      },
+      "Slurm script and resource record": {
+        "satisfied": true,
+        "mode": "scheduler_submission_and_resource_records",
+        "sources": [
+          "job_LS_DYNA_20261023101233289_978140.slurm",
+          "job_uav_hf_p0_plate_r05_retry1_72252362.log",
+          "job_uav_hf_p0_plate_r05_retry1_72252362_32c_1n.ma"
+        ]
+      }
+    },
+    "claim_boundary": "These equivalence rules establish returned-evidence completeness only. They do not establish numerical response availability or physical validity."
+  },
+  "binout_logical_directories": [
+    "JOBINFO",
+    "glstat",
+    "matsum",
+    "nodout",
+    "sleout"
+  ],
+  "observed": {
+    "rank_log_count": 32,
+    "normal_termination_rank_count": 32,
+    "normal_termination": true,
+    "error_termination": false,
+    "fatal_or_error_count": 0,
+    "nonfinite_token_count": 0,
+    "total_energy_ratio_minimum": 0.968466,
+    "total_energy_ratio_maximum": 1.00216,
+    "hourglass_to_peak_internal_energy": 0.0,
+    "added_mass_parts": 0,
+    "dt2ms": 0.0,
+    "return_contract_status": "pass"
+  },
+  "assessment": {
+    "status": "pass",
+    "gates": {
+      "all_ranks_normal_termination": {
+        "status": "pass",
+        "observed": {
+          "rank_log_count": 32,
+          "normal_termination_rank_count": 32,
+          "normal_termination": true
+        },
+        "required_rank_count": 32
+      },
+      "fatal_error_and_nonfinite": {
+        "status": "pass",
+        "observed": {
+          "fatal_or_error_count": 0,
+          "error_termination": false,
+          "nonfinite_token_count": 0
+        },
+        "fatal_or_error_count_max": 0
+      },
+      "total_energy_ratio": {
+        "status": "pass",
+        "observed_minimum": 0.968466,
+        "observed_maximum": 1.00216,
+        "limits": [
+          0.95,
+          1.05
+        ]
+      },
+      "hourglass_to_peak_internal_energy": {
+        "status": "pass",
+        "observed": 0.0,
+        "maximum": 0.05
+      },
+      "added_mass": {
+        "status": "pass",
+        "observed_added_mass_parts": 0,
+        "observed_added_mass_fraction": 0.0,
+        "observed_dt2ms": 0.0,
+        "maximum_added_mass_fraction": 0.0
+      },
+      "returned_evidence_contract": {
+        "status": "pass",
+        "observed": "pass"
+      }
+    }
+  },
+  "source_evidence": {
+    "added_mass_parts": {
+      "path": "job_uav_hf_p0_plate_r05_retry1_72252362.out",
+      "line": 1379,
+      "text": "number of parts with added mass................       0"
+    },
+    "control_timestep": {
+      "path": "p0_velocity_mesh_calibration.k",
+      "card_line": 11,
+      "dt2ms": 0.0,
+      "configured_mass_scaling": false
+    },
+    "rank_messages": [
+      "mes0000",
+      "mes0001",
+      "mes0002",
+      "mes0003",
+      "mes0004",
+      "mes0005",
+      "mes0006",
+      "mes0007",
+      "mes0008",
+      "mes0009",
+      "mes0010",
+      "mes0011",
+      "mes0012",
+      "mes0013",
+      "mes0014",
+      "mes0015",
+      "mes0016",
+      "mes0017",
+      "mes0018",
+      "mes0019",
+      "mes0020",
+      "mes0021",
+      "mes0022",
+      "mes0023",
+      "mes0024",
+      "mes0025",
+      "mes0026",
+      "mes0027",
+      "mes0028",
+      "mes0029",
+      "mes0030",
+      "mes0031"
+    ],
+    "glstat": [
+      "glstat"
+    ],
+    "binout": [
+      "binout0000"
+    ]
+  },
+  "nonblocking_keyword_compatibility_finding": {
+    "status_for_next_candidate": "fail",
+    "solver_output_occurrences": 2,
+    "scheduler_stdout_occurrences": 2,
+    "unique_parser_event_count": 2,
+    "decision": "Run integrity is assessed separately from the R15 D3PART-card compatibility finding. The historical R05 input remains immutable; R06 must use five fields."
+  },
+  "bridge_compatible_evidence": {
+    "schema_version": "hf-p0-r05-run-integrity-evidence@1.0.0",
+    "evidence_id": "job-72252362-hash-bound-run-integrity",
+    "status": "pass",
+    "run_id": "72252362",
+    "solver_build": "LS-DYNA MPP double R15.0.2-1-g1e7cfa42b1 I8R8 Intel-MPI 2018",
+    "d3part_family_sha256": "sha256:8f24005080f09cbfd1b81dd2f0f97d4abb3158e7133207f44beccb9852346af7",
+    "returned_artifact_sha256": "sha256:8a0ec2d4ad22a3d068b9bb260a4fcfd89df904a80b36153e229a0a2034ad7239"
+  },
+  "claim_boundary": "A passing run-integrity result establishes execution and returned-evidence integrity only. D3PART integration, case QoI availability, numerical response qualification, and physical validity remain separate fail-closed gates."
+}

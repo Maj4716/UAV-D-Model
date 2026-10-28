@@ -1,0 +1,37 @@
+{
+  "schema_version": "hf-p0-package-manifest@1.0.0",
+  "status": "generated_not_solver_validated",
+  "evidence_class": "high_fidelity_synthetic_reference_candidate",
+  "design_hash": "sha256:47471ffd1319e86f65f0eaf874a078fe1936da311726a8656eddbb3ad9f768c8",
+  "material_register_hash": "sha256:9b462b920459e57641d5f89d10d36c0aa0498c86f2478fef8e4c3efa96888311",
+  "deck": {
+    "path": "decks/p0_velocity_mesh_calibration.k",
+    "sha256": "sha256:076b52f43371155e3c28957eb934046cb38acd95e64f10b5641b14d6a706bb69",
+    "node_count": 184949,
+    "element_count": 163730,
+    "case_count": 7
+  },
+  "case_map": {
+    "path": "decks/p0_case_part_map.csv",
+    "sha256": "sha256:7ef72a22eec38691a8662e0efff4d0e8ca5aeaa5757720ac8958ce2dfd1e453a"
+  },
+  "solver": {
+    "requested_family": "LS-DYNA MPP double precision",
+    "actual_build": null,
+    "executable_sha256": null,
+    "mpi_implementation": null,
+    "status": "bind_on_scnet_submission"
+  },
+  "limitations": [
+    "The keyword deck has not been parsed or executed by LS-DYNA locally.",
+    "P0 uses quarter symmetry and is valid only for centered, normal, face-on impact.",
+    "The central material card is a generic 4340 reference; its EOS transfer is an explicit epistemic assumption.",
+    "P0 qualifies the central velocity response and mesh behavior only; it does not cover the full mass-thickness-angle-orientation domain."
+  ],
+  "p1_design": {
+    "path": "design/p1_preregistered_cases.csv",
+    "sha256": "sha256:22262e09c1d1bddd4da19eaecc9439a2f9ce81af4245495aeb61e854436b322e",
+    "case_count": 24,
+    "status": "preregistered_not_submitted"
+  }
+}

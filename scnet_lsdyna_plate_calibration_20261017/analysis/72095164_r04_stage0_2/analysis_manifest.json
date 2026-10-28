@@ -1,0 +1,64 @@
+{
+  "schema_version": "hf-stage0-2-analysis-manifest@1.0.0",
+  "created_at": "2026-10-21T16:32:48.847789+08:00",
+  "analyzer": "D:\\Desktop\\UAV新\\scnet_lsdyna_plate_calibration_20261017\\scripts\\analyze_r04_numerical_qa.py",
+  "analyzer_sha256": "64369eded16014832a955205e7a5b49d187a7f78c2da09e38d16b1f2e39c717b",
+  "parser_sha256": "a9f487b83cce3c64b3cabd86f52bbcd2937a8344dc79aa738eb7049bcac107a3",
+  "artifacts": [
+    {
+      "name": "binary_readability.json",
+      "bytes": 1522,
+      "sha256": "8b8f3c7df0d49f79a3545ccb4a184554de0cd72135381c9efaa596c4c94970fb"
+    },
+    {
+      "name": "element_erosion_by_case.csv",
+      "bytes": 799,
+      "sha256": "811c75a3381c129bf478943a10e0b848dbf2ad320d8a89acd444dba7e4200955"
+    },
+    {
+      "name": "energy_history.csv",
+      "bytes": 40777,
+      "sha256": "3620c3ae8fa000d9533a0299ac193003e724dfcd15db4169b892477255f07c5e"
+    },
+    {
+      "name": "energy_history.png",
+      "bytes": 131895,
+      "sha256": "1f73c4f8b078ef43d6fe0de6f74a4d4670273c3c7ace0101f9fa8216d8c5cb8f"
+    },
+    {
+      "name": "high_fidelity_integration_recommendations.md",
+      "bytes": 2761,
+      "sha256": "f6e7a37717229ab90b1c14b1401229339a02857db3a207dfb30c52b2ce0d88ed"
+    },
+    {
+      "name": "intake_verification.json",
+      "bytes": 788,
+      "sha256": "525924d3252240fb09a88e02419b507b8ba4ce0ed588ff53323310a3dc633fd9"
+    },
+    {
+      "name": "numerical_qa.json",
+      "bytes": 7999,
+      "sha256": "803033e746696d9dd580e655103878a327aad4bf76823328b8cc8ac25b208da0"
+    },
+    {
+      "name": "numerical_qa.md",
+      "bytes": 1823,
+      "sha256": "9007b92a776ec28f2fe7f5b848eedfe35049732ba9893c1aa9de778ac91e1540"
+    },
+    {
+      "name": "warning_events.csv",
+      "bytes": 89019,
+      "sha256": "2acfda422f51d61c76c2cdec66fcd9912f5ca24d01d2bd4f1cb88636e778f0fc"
+    },
+    {
+      "name": "warning_summary.csv",
+      "bytes": 61,
+      "sha256": "a611f23d8b8722d3ce3b9d2bd803b1598545599fbcd62a9102fb86e0673a3465"
+    },
+    {
+      "name": "worklog.md",
+      "bytes": 2191,
+      "sha256": "b2bc185fab0645b662003d962d4cd6467730a902741682e963e4f7d9202697b4"
+    }
+  ]
+}

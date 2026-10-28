@@ -1,0 +1,63 @@
+{
+  "schema_version": "hf-p0-r06-diagnostic-bundle@1.0.0",
+  "package_revision": "R06_keyword_parser_repair_20261025",
+  "job_id": "r06e_2000_psfail_plate",
+  "experiment_id": "r06_diag_2000_psfail",
+  "role": "single_factor_treatment",
+  "status": "prepared_not_submitted_not_solver_validated",
+  "head_deck": "r06e_2000_psfail_plate.k",
+  "file_policy": "explicit_whitelist_one_head_deck",
+  "files": [
+    {
+      "path": "UPLOAD_README.txt",
+      "size_bytes": 1847,
+      "sha256": "sha256:206efad0d5d60d8ef5c4aa2c547376e7f0bec62223f89992fb336d49fa43e37f"
+    },
+    {
+      "path": "jc4340_reference.json",
+      "size_bytes": 3144,
+      "sha256": "sha256:9b462b920459e57641d5f89d10d36c0aa0498c86f2478fef8e4c3efa96888311"
+    },
+    {
+      "path": "job_contract.json",
+      "size_bytes": 1738,
+      "sha256": "sha256:ee8e42e2c2f9f8da7b3d0fbdfd58854ed3a7e89d9acbc33efd7306709ff1e940"
+    },
+    {
+      "path": "manifest.json",
+      "size_bytes": 2464,
+      "sha256": "sha256:d15e3e6448d9d43f73e73981746e1151641add1e7c7840bb37a8f3d528987b3c"
+    },
+    {
+      "path": "p0_case_part_map.csv",
+      "size_bytes": 480,
+      "sha256": "sha256:0435a9766110662f8c4fc5d30c902a2753718a485646081eb81134bd8f76e21e"
+    },
+    {
+      "path": "p0_r06_keyword_parser_repair_design.json",
+      "size_bytes": 13841,
+      "sha256": "sha256:508ec347a884dd124ef0bf3ffd7bb40f0c57fd466953b5a4b085ff066693c111"
+    },
+    {
+      "path": "p0_r06_real_output_contract.json",
+      "size_bytes": 6077,
+      "sha256": "sha256:71371ee8726fe95899de33aef163d8a9725d9f43781d5775de10fa2afc150795"
+    },
+    {
+      "path": "r06e_2000_psfail_plate.k",
+      "size_bytes": 2719005,
+      "sha256": "sha256:5ab033a61c9fc0ea10dd47dade6955653ad03b46e0fed94d3152355dc4f3a67d"
+    },
+    {
+      "path": "static_validation.json",
+      "size_bytes": 2499,
+      "sha256": "sha256:66e5ccabfa6c1eb754200313796cbd0c59739221af627f07ce829c23cd80d65c"
+    }
+  ],
+  "prohibited_inference": "Bundle and static PASS do not establish parser/runtime, numerical response, physical validity, or P0/P1 admission.",
+  "bundle": {
+    "path": "uav_hf_r06e_2000_psfail_plate.zip",
+    "size_bytes": 424472,
+    "sha256": "sha256:b3a5d9ddcbf01023b11c7c7279b86237a0f4092758c18e99ec6e7f6ae4797466"
+  }
+}

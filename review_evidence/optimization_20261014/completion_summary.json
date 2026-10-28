@@ -1,0 +1,74 @@
+{
+  "schema_version": "1.0.0",
+  "review_source": "31_5000条巡飞弹数据集分布科学性与神经网络修改建议_2026-10-14.md",
+  "engine_version": "0.7.0.dev2",
+  "dataset_id": "damage-dataset-fb1af45b41880da2e8ef368a",
+  "final_status": {
+    "software_contracts": "passed",
+    "research_admission": "refused",
+    "reference_test": "observed_diagnostic_only",
+    "formal_r128_convergence_study": "not_run_quota_unreachable",
+    "new_research_dataset": "not_generated_scientific_inputs_unresolved"
+  },
+  "default_system_training_tasks": [
+    "effect-m2",
+    "effect-m1"
+  ],
+  "excluded_constant_zero_tasks": [
+    "effect-k1",
+    "effect-k2",
+    "effect-c1",
+    "effect-c2"
+  ],
+  "blocked_tasks": {
+    "effect-f1": [
+      "component-050 threshold unresolved",
+      "soft event mass below engineering gate"
+    ]
+  },
+  "verification": {
+    "compileall": "passed",
+    "focused_tests": {
+      "passed": 33,
+      "failed": 0
+    },
+    "full_test_suite": {
+      "collected": 678,
+      "passed": 678,
+      "failed": 0,
+      "temp_root": "D:\\tmp\\uav_review31_final_20261014",
+      "temp_root_removed_after_run": true,
+      "pytest_cache_provider": "disabled"
+    },
+    "fragment_audit": {
+      "selected_train_cases": 18,
+      "replicate_records": 36,
+      "audit_events": 10566,
+      "intersection_events": 4446,
+      "fragment_trace_events": 6120,
+      "component_trace_classifications": 110160,
+      "all_selected_component_classifications": "no_geometric_intersection",
+      "scope_limit": "selected input strata only; not proof over the full physical domain"
+    },
+    "frozen_archive_preservation": {
+      "identical": true,
+      "file_count": 64,
+      "total_bytes": 68975696,
+      "inventory_hash": "sha256:9c20b914361bd80e478516ba740908e1300a6c34396d0260cc7cfbf5ebfba59e",
+      "added": [],
+      "removed": [],
+      "changed": []
+    }
+  },
+  "evidence_sha256": {
+    "system_learning_contract.json": "6eb85baf4121b68a581b015e8c52c93bfa7976dea358544a29b41d10d46c81d3",
+    "current_dataset_development_policy.json": "255058ac0f4b44e9cb30e8d8fefca1bb98514c14725f43f48aa91a114d4cb193",
+    "current_dataset_test_access_ledger.json": "1b6e53a612e64c4abe02ea0441762949c5f14b7a5f6caf4dd888eae97e3552a3",
+    "fragment_reachability_train_audit.json": "a4e35767b87645b45a88846e7062de9703b93666f04c76be0d456a424d5239a9",
+    "fragment_reachability_train_trace.jsonl.gz": "b12e604aeed9ca6d76de596a1b2df9e7ed57d4575b4df89c0918c25f7beecd8d",
+    "f1_reference_budget_plan.json": "d4f9a177729cdce98ebffe99141a36bce929271c6ca1fbde3eb9a0c08ffac00e",
+    "replicate_convergence_selection_readiness.json": "b4110d8390e0cff258a821ff13359b3437778ec8b5a899fbc4550e908d747c8b",
+    "dataset_preservation_comparison.json": "41da78d7d6be50f4cafa000476b52b70c2f950a96a2df196cdde4f316ee71a14"
+  },
+  "evidence_boundary": "Passing software tests and archive checks does not establish physical validity, external validity, real-world prevalence, model performance, or research admission."
+}

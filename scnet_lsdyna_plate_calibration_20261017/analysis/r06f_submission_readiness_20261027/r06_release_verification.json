@@ -1,0 +1,69 @@
+{
+  "schema_version": "hf-p0-r06-release-verification@1.0.0",
+  "package_revision": "R06_measurement_contract_repair_20261027",
+  "overall_status": "pass",
+  "lifecycle_status": "ready_for_user_submission_not_submitted_not_solver_validated",
+  "checks": {
+    "fresh_static_readiness": {
+      "status": "pass",
+      "sha256": "sha256:8f3e77bad47507f4237ecee72391c5c2673688c7215bc487bd03499bcfe7a187"
+    },
+    "explicit_release_file_set": {
+      "status": "pass",
+      "file_count": 3
+    },
+    "zip_internal_external_identity": {
+      "status": "pass",
+      "bundles": [
+        {
+          "status": "pass",
+          "job_id": "r06f_0800_ctrl",
+          "zip": "uav_hf_r06f_0800_ctrl.zip",
+          "size_bytes": 413370,
+          "sha256": "sha256:8d9735ca52a29a336379827bdff5b5b20dd29a3ae75887f4f38ac6fdfce112b3",
+          "member_count": 10,
+          "head_deck": "r06f_0800_ctrl.k"
+        }
+      ]
+    },
+    "historical_r05_candidate_immutable": {
+      "status": "pass",
+      "files": {
+        "p0_velocity_mesh_calibration.k": "sha256:6fbd753a113d0214e7ba4ff5136dc526d151e6f2c52c94e70399b29c4b9d3d0c",
+        "p0_cases_r05.json": "sha256:b1d2027d57fc6d9cd1ee3f932ea044fd16a112344d8f2b6f508071f45191a06f",
+        "p0_case_part_map.csv": "sha256:b05b59249e49c3e9d15904f475c2f9478bdff1638fb797d1b552298490aa5295",
+        "manifest.json": "sha256:e178b6c28832519aaa2befdc969dcd93d2141ea4073ad740b52b17968d92ba44",
+        "static_validation.json": "sha256:491753050734ba46ded5460221e35a70e37bbccd179b6b172d753bfc18c8b17e"
+      }
+    },
+    "historical_r05_return_immutable": {
+      "status": "pass",
+      "run_id": "72252362",
+      "hash_verified_file_count": 75,
+      "hash_verified_total_bytes": 2944160835,
+      "full_inventory_file_count": 120,
+      "full_inventory_total_bytes": 3606867357
+    }
+  },
+  "submission_order": {
+    "wave_0": [
+      "r06f_0800_ctrl"
+    ],
+    "wave_0_gate": "Zero KEY errors, normal termination, run-integrity PASS, readable D3PART capture ledger, readable full-D3PLOT HVAR6 with alive masking, and frozen repeatability tolerances.",
+    "hold_after_wave_0": "Do not submit the TSSFAC=0.4 diagnostic, 2000 m/s control, or any treatment until the returned R06f recanary is audited.",
+    "resource_identity": "Use exactly one node, 32 ranks, LS-DYNA R15 MPP double precision, and the same memory settings as Job 72397333."
+  },
+  "local_solver_precheck": {
+    "status": "unavailable",
+    "reason": "No local LS-DYNA executable was found; target parser/runtime acceptance is an external submission gate."
+  },
+  "admission": {
+    "r06_diagnostic_submission": "ready_for_user_submission_in_staged_canary",
+    "p0_response_calibration": "denied",
+    "p1_submission": "denied",
+    "local_engine_fitting": "denied",
+    "reference_dataset_generation": "denied",
+    "physical_validity": "not_established"
+  },
+  "claim_boundary": "PASS means the R06 diagnostic release is internally consistent and ready for user submission. It does not mean solver, numerical, response, or physical acceptance."
+}

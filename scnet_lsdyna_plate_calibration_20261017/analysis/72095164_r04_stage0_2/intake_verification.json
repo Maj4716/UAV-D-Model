@@ -1,0 +1,15 @@
+{
+  "schema_version": "hf-return-intake-verification@1.0.0",
+  "verification_time": "2026-10-21T16:32:46.317968+08:00",
+  "stored_inventory": "scnet_lsdyna_plate_calibration_20261017\\analysis\\72095164_return_audit_20261021\\file_inventory.json",
+  "files_checked_in_each_copy": 100,
+  "result_dir": "scnet_lsdyna_plate_calibration_20261017\\results\\72095164_R15_mpp_d",
+  "download_dir": "uav_hf_p0_plate_r04",
+  "mismatches": [],
+  "all_files_match_stored_zip_inventory": true,
+  "archive_path": "uav_hf_p0_plate_r04.zip",
+  "stored_archive_sha256": "2d1339f14b742eecdd121d57d400bc6c279c6dedfdbb08add7d4c634abe2f8c5",
+  "current_archive_sha256": "2d1339f14b742eecdd121d57d400bc6c279c6dedfdbb08add7d4c634abe2f8c5",
+  "archive_hash_unchanged": true,
+  "status": "pass"
+}

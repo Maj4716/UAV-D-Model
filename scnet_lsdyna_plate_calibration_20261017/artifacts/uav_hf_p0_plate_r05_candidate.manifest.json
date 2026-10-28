@@ -1,0 +1,54 @@
+{
+  "schema_version": "hf-p0-candidate-bundle@1.0.0",
+  "package_revision": "R05_capture_ledger_preregistered",
+  "status": "prepared_not_submitted_not_solver_validated",
+  "file_policy": "explicit_whitelist",
+  "files": [
+    {
+      "path": "UPLOAD_README.txt",
+      "size_bytes": 2748,
+      "sha256": "sha256:2e873f731308fa2027b06184c658a31fe31dabe3d084ac0abe7c0159083deb8d"
+    },
+    {
+      "path": "jc4340_reference.json",
+      "size_bytes": 3144,
+      "sha256": "sha256:9b462b920459e57641d5f89d10d36c0aa0498c86f2478fef8e4c3efa96888311"
+    },
+    {
+      "path": "manifest.json",
+      "size_bytes": 5054,
+      "sha256": "sha256:e178b6c28832519aaa2befdc969dcd93d2141ea4073ad740b52b17968d92ba44"
+    },
+    {
+      "path": "p0_case_part_map.csv",
+      "size_bytes": 1135,
+      "sha256": "sha256:b05b59249e49c3e9d15904f475c2f9478bdff1638fb797d1b552298490aa5295"
+    },
+    {
+      "path": "p0_cases_r05.json",
+      "size_bytes": 9615,
+      "sha256": "sha256:b1d2027d57fc6d9cd1ee3f932ea044fd16a112344d8f2b6f508071f45191a06f"
+    },
+    {
+      "path": "p0_velocity_mesh_calibration.k",
+      "size_bytes": 20605206,
+      "sha256": "sha256:6fbd753a113d0214e7ba4ff5136dc526d151e6f2c52c94e70399b29c4b9d3d0c"
+    },
+    {
+      "path": "p1_preregistered_cases.csv",
+      "size_bytes": 3521,
+      "sha256": "sha256:22262e09c1d1bddd4da19eaecc9439a2f9ce81af4245495aeb61e854436b322e"
+    },
+    {
+      "path": "static_validation.json",
+      "size_bytes": 5633,
+      "sha256": "sha256:491753050734ba46ded5460221e35a70e37bbccd179b6b172d753bfc18c8b17e"
+    }
+  ],
+  "prohibited_inference": "Bundle creation and static PASS do not establish solver, numerical, or physical acceptance.",
+  "bundle": {
+    "path": "uav_hf_p0_plate_r05_candidate.zip",
+    "size_bytes": 3160411,
+    "sha256": "sha256:4d52697f1ea2c3f56cc7aea1c6753b49a95764e72c16a3fe141c5f5ecfb86372"
+  }
+}

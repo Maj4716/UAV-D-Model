@@ -1,0 +1,86 @@
+{
+  "schema_version": "hf-p0-r06-diagnostic-release@1.0.0",
+  "package_revision": "R06_keyword_parser_repair_20261025",
+  "status": "prepared_not_submitted_not_solver_validated",
+  "submission_policy": "Follow the frozen design wave order and do not bypass any parser/runtime/output gate.",
+  "bundle_count": 4,
+  "bundles": [
+    {
+      "wave": 0,
+      "job_id": "r06e_0800_ctrl",
+      "experiment_id": "r06_diag_800_window",
+      "role": "paired_control",
+      "zip": {
+        "path": "uav_hf_r06e_0800_ctrl.zip",
+        "size_bytes": 414188,
+        "sha256": "sha256:2d160db9e9c357a517f56fec610c1040c7714e1f332f20d26bc45ea533f7249e"
+      },
+      "external_manifest": {
+        "path": "uav_hf_r06e_0800_ctrl.bundle_manifest.json",
+        "size_bytes": 2289,
+        "sha256": "sha256:deecaede80be365509670ee151d22de67b3cea3a5dfee5fb2d481f081e6f8ce9"
+      }
+    },
+    {
+      "wave": 1,
+      "job_id": "r06e_2000_ctrl",
+      "experiment_id": "r06_diag_2000_psfail",
+      "role": "paired_control",
+      "zip": {
+        "path": "uav_hf_r06e_2000_ctrl.zip",
+        "size_bytes": 424385,
+        "sha256": "sha256:fc27fe9c45147ba458e436e1045576d4883ae78f6205c431d9417d260445e640"
+      },
+      "external_manifest": {
+        "path": "uav_hf_r06e_2000_ctrl.bundle_manifest.json",
+        "size_bytes": 2290,
+        "sha256": "sha256:85d690a4dcfe9008d9432e48f199f0cc75b09ac775f30275225f90712547e8a4"
+      }
+    },
+    {
+      "wave": 2,
+      "job_id": "r06e_0800_tend008",
+      "experiment_id": "r06_diag_800_window",
+      "role": "single_factor_treatment",
+      "zip": {
+        "path": "uav_hf_r06e_0800_tend008.zip",
+        "size_bytes": 414248,
+        "sha256": "sha256:02632989ca7b78b3fe28397e7ffae11a17bceaff040a49c4cad8234d7d6f6697"
+      },
+      "external_manifest": {
+        "path": "uav_hf_r06e_0800_tend008.bundle_manifest.json",
+        "size_bytes": 2310,
+        "sha256": "sha256:d414b94661a4d90e7b603d0bab5c46c966c773151da338ef30fd7ba719be007e"
+      }
+    },
+    {
+      "wave": 2,
+      "job_id": "r06e_2000_psfail_plate",
+      "experiment_id": "r06_diag_2000_psfail",
+      "role": "single_factor_treatment",
+      "zip": {
+        "path": "uav_hf_r06e_2000_psfail_plate.zip",
+        "size_bytes": 424472,
+        "sha256": "sha256:b3a5d9ddcbf01023b11c7c7279b86237a0f4092758c18e99ec6e7f6ae4797466"
+      },
+      "external_manifest": {
+        "path": "uav_hf_r06e_2000_psfail_plate.bundle_manifest.json",
+        "size_bytes": 2331,
+        "sha256": "sha256:93cd3318ed081f5c147660600553620304653791303db7883b0021fc6968c544"
+      }
+    }
+  ],
+  "source_readiness": {
+    "path": "manual_upload_20261025_r06e_parser_repair/R06_SUBMISSION_READINESS.json",
+    "sha256": "sha256:5609bef8a3e9777d60a50bbd4b9d92c6b6e882de6f841b739bcc3e4bbf1a97a4",
+    "overall_status": "pass"
+  },
+  "admission": {
+    "r06_diagnostic_submission": "ready_for_user_submission_in_staged_canary",
+    "p0_response_calibration": "denied",
+    "p1_submission": "denied",
+    "local_engine_fitting": "denied",
+    "reference_dataset_generation": "denied",
+    "physical_validity": "not_established"
+  }
+}

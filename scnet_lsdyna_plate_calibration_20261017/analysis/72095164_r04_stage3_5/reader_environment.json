@@ -1,0 +1,21 @@
+{
+  "schema_version": "hf-reader-environment@1.0.0",
+  "created_at": "2026-10-21T17:10:13.555097+08:00",
+  "python": "3.12.13 | packaged by conda-forge | (main, Aug 11 2026, 10:18:27) [MSC v.1944 64 bit (AMD64)]",
+  "python_executable": "D:\\ProgramData\\Anaconda\\envs\\pytorch312-lmdt\\python.exe",
+  "vendor_dir": "D:\\Desktop\\UAV新\\scnet_lsdyna_plate_calibration_20261017\\.vendor\\lasso-python-2.0.4",
+  "lasso_import_path": "D:\\Desktop\\UAV新\\scnet_lsdyna_plate_calibration_20261017\\.vendor\\lasso-python-2.0.4\\lasso\\__init__.py",
+  "versions": {
+    "lasso-python": "2.0.4",
+    "h5py": "3.16.0",
+    "numpy": "2.4.6",
+    "scipy": "1.18.0",
+    "pandas": "2.3.3",
+    "plotly": "6.9.0",
+    "psutil": "7.2.2",
+    "rich": "15.0.0",
+    "scikit-learn": "1.9.0",
+    "matplotlib": "3.11.1"
+  },
+  "note": "LASSO and h5py are project-local. Other numerical packages come from the project interpreter; Plotly/psutil/rich are not used by this extraction path."
+}

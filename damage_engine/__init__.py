@@ -13,6 +13,16 @@ from .contact_contract import (
 )
 from .dataset_policy import DatasetUsePolicy
 from .label_spec import LabelSpec
+from .kmfc_ordinal_teacher import (
+    EvidenceChannelSpec,
+    KMFCCategoryTeacherConfig,
+    KMFCCategoryTeacherResult,
+    KMFCOrdinalTeacherConfig,
+    KMFCOrdinalTeacherResult,
+    aggregate_kmfc_ordinal_teacher,
+    compile_kmfc_ordinal_teacher,
+    evaluate_kmfc_ordinal_teacher,
+)
 from .normalization import (
     apply_training_normalization,
     load_training_normalization_artifact,
@@ -61,6 +71,14 @@ __all__ = [
     "validate_outcome_blind_selection",
     "DatasetUsePolicy",
     "LabelSpec",
+    "EvidenceChannelSpec",
+    "KMFCCategoryTeacherConfig",
+    "KMFCCategoryTeacherResult",
+    "KMFCOrdinalTeacherConfig",
+    "KMFCOrdinalTeacherResult",
+    "aggregate_kmfc_ordinal_teacher",
+    "compile_kmfc_ordinal_teacher",
+    "evaluate_kmfc_ordinal_teacher",
     "OrdinalProjectionConfig",
     "OrdinalProjectionResult",
     "aggregate_ordinal_projection",

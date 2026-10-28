@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import numpy as np
+import pytest
 
 from damage_engine.case_factory import _haar_quaternion, _unit_direction, randomized_lhs
 
@@ -19,6 +20,29 @@ def test_randomized_lhs_is_replayable_and_uses_each_stratum_once() -> None:
     for axis in range(dimension):
         occupied = np.sort(np.floor(first[:, axis] * sample_count).astype(int))
         np.testing.assert_array_equal(occupied, np.arange(sample_count))
+
+
+def test_randomized_lhs_clips_theoretical_zero_to_open_cube(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    class BoundaryGenerator:
+        @staticmethod
+        def permutation(sample_count: int) -> np.ndarray:
+            return np.arange(sample_count)
+
+        @staticmethod
+        def random(sample_count: int) -> np.ndarray:
+            return np.zeros(sample_count, dtype=np.float64)
+
+    monkeypatch.setattr(
+        "damage_engine.case_factory.np.random.default_rng",
+        lambda _seed: BoundaryGenerator(),
+    )
+
+    design = randomized_lhs(4, 2, seed=1)
+
+    assert np.all((0.0 < design) & (design < 1.0))
+    assert design[0, 0] == np.nextafter(0.0, 1.0)
 
 
 def test_unit_sphere_transform_has_unit_norm_and_is_directionally_balanced() -> None:

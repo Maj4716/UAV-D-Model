@@ -1,0 +1,54 @@
+{
+  "path": "D:\\Desktop\\UAV\u65b0\\scnet_lsdyna_plate_calibration_20261017",
+  "essentials": [
+    {
+      "name": "README",
+      "status": "OK",
+      "detail": "found README.md"
+    },
+    {
+      "name": "ENV",
+      "status": "MISSING",
+      "detail": "no dependency/environment manifest (requirements.txt, environment.yml, pyproject.toml, Dockerfile, ...) -- evaluators cannot recreate the runtime"
+    },
+    {
+      "name": "SEED",
+      "status": "OK",
+      "detail": "seeding found in 1 file(s), e.g. scripts/generate_p1_design.py"
+    },
+    {
+      "name": "ENTRYPOINT",
+      "status": "OK",
+      "detail": "__main__ guard"
+    },
+    {
+      "name": "DATA",
+      "status": "MISSING",
+      "detail": "no data instructions (no data/ dir, no download script, README does not say where the data lives) -- state how to obtain inputs, or note 'no external data'"
+    },
+    {
+      "name": "RESULTS_CMD",
+      "status": "OK",
+      "detail": "README shows command(s) to run / reproduce"
+    }
+  ],
+  "tests_present": false,
+  "test_files": [],
+  "deps_pinned": false,
+  "summary": {
+    "missing": [
+      "ENV",
+      "DATA"
+    ],
+    "warn": [],
+    "ok": [
+      "README",
+      "SEED",
+      "ENTRYPOINT",
+      "RESULTS_CMD"
+    ]
+  },
+  "scanned_files": 10,
+  "source_files": 10,
+  "truncated": false
+}

@@ -1,0 +1,49 @@
+{
+  "review_date": "2026-10-15",
+  "timezone": "Asia/Shanghai",
+  "python_executable": "D:\\ProgramData\\Anaconda\\envs\\pytorch312-lmdt\\python.exe",
+  "python_version": "3.12.13",
+  "torch_version": "2.8.0+cu128",
+  "numpy_version": "2.4.6",
+  "scipy_version": "1.18.0",
+  "pyarrow_version": "22.0.0",
+  "pytest": {
+    "tests": 678,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "seconds": 79.459,
+    "junit_xml": "review_evidence/reaudit_20261015/pytest_full.xml",
+    "temporary_directory_note": "The first sandboxed run used the protected Windows TEMP directory and failed with PermissionError. The reported result is the rerun with TEMP/TMP/TMPDIR and pytest basetemp bound to a writable ASCII path; the first run is not treated as a product failure."
+  },
+  "static_reproducibility_check": {
+    "strict_exit_code": 0,
+    "checks_ok": [
+      "README",
+      "ENV",
+      "SEED",
+      "ENTRYPOINT",
+      "DATA",
+      "RESULTS_CMD"
+    ],
+    "report": "review_evidence/reaudit_20261015/repro_check_strict.json"
+  },
+  "current_source": {
+    "package_version": "0.7.0.dev2",
+    "engine_code_hash": "sha256:55cf8377026d7fc3c8ef5a4828f3403991de61b825ecc7b23b4ba8905a70aa41"
+  },
+  "formal_archive": {
+    "dataset_id": "damage-dataset-fb1af45b41880da2e8ef368a",
+    "manifest_schema_version": "1.7.0",
+    "tensor_contract_version": "1.8.0",
+    "engine_version": "0.7.0.dev1",
+    "engine_code_hash": "sha256:bf3b325e5504d180a22a14aab4948751f374f8a67eb77d6db956707d2770e787",
+    "case_count": 5000,
+    "split_counts": {
+      "train": 3000,
+      "validation": 500,
+      "test": 1500
+    }
+  },
+  "evidence_boundary": "Passing tests and representation checks establish software behavior and archive consistency only; they do not establish physical validity, operational representativeness, Monte Carlo interval coverage, or research admission."
+}

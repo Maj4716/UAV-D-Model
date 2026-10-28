@@ -1,0 +1,8 @@
+case_id,role,plate_part_id,fragment_part_id,fragment_center_history_node_id,impact_speed_mps,mesh_mm,plate_elements,fragment_elements,symmetry_scale_factor
+p0_v1200_h0p75,hf_response_fit,1001,2001,23264,1200.0,0.75,20216,686,4.0
+p0_v1600_h0p75,hf_response_fit,1002,2002,47039,1600.0,0.75,20216,686,4.0
+p0_v2000_h0p75,hf_response_holdout,1003,2003,70814,2000.0,0.75,20216,686,4.0
+p0_v2300_h0p75,hf_response_fit,1004,2004,94589,2300.0,0.75,20216,686,4.0
+p0_v2600_h0p75,hf_response_fit,1005,2005,118364,2600.0,0.75,20216,686,4.0
+p0_v2000_h1p00,hf_numerical_verification,1006,2006,131772,2000.0,1.0,10890,250,4.0
+p0_v2000_h0p50,hf_numerical_verification,1007,2007,183619,2000.0,0.5,46080,2000,4.0

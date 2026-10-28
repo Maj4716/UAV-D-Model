@@ -1,0 +1,6 @@
+command=D:\ProgramData\Anaconda\envs\pytorch312-lmdt\python.exe -m pytest tests/test_kmfc_ordinal_teacher.py tests/test_ordinal_projection.py -q -p no:cacheprovider --basetemp review_evidence/human_factor_remediation_20261022/pytest_tmp/run
+python=3.12.13 | packaged by conda-forge | (main, Aug 11 2026, 10:18:27) [MSC v.1944 64 bit (AMD64)]
+executable=D:\ProgramData\Anaconda\envs\pytorch312-lmdt\python.exe
+torch=2.8.0+cu128
+...................................................                      [100%]
+exit_code=0

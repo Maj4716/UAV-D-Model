@@ -1,0 +1,49 @@
+{
+  "independently_rehashed_files": 100,
+  "mismatches": [],
+  "csv_inventory_rows": 100,
+  "original_zip_hash_unchanged": true,
+  "json_files": [
+    {
+      "file": "archive_identity.json",
+      "encoding": "utf-8",
+      "valid_json": true
+    },
+    {
+      "file": "audit_environment.json",
+      "encoding": "utf-8",
+      "valid_json": true
+    },
+    {
+      "file": "availability.json",
+      "encoding": "utf-8",
+      "valid_json": true
+    },
+    {
+      "file": "file_inventory.json",
+      "encoding": "utf-8",
+      "valid_json": true
+    },
+    {
+      "file": "input_identity.json",
+      "encoding": "utf-8",
+      "valid_json": true
+    },
+    {
+      "file": "repro_check.json",
+      "encoding": "utf-8",
+      "valid_json": true
+    },
+    {
+      "file": "runtime_evidence.json",
+      "encoding": "utf-8",
+      "valid_json": true
+    },
+    {
+      "file": "run_receipt.json",
+      "encoding": "utf-8",
+      "valid_json": true
+    }
+  ],
+  "scripts_compile": true
+}

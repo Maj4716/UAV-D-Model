@@ -1,0 +1,829 @@
+{
+  "schema_version": "1.0.0",
+  "dataset_binding": {
+    "dataset_id": "damage-dataset-fb1af45b41880da2e8ef368a",
+    "manifest_hash": "sha256:f8702b39623fc53c9a2334cf728263af2d261fe4a8ef19eaf713bf04c32cb4c4",
+    "source_contract_hashes": {
+      "label_spec_hash": "sha256:071d4a1b6dccacb9ec19b2585bda13ce8b01b566452cb0cbd15de17c754ebe2f",
+      "sampling_design_hash": "sha256:a35c45e766fc2c7b8134b01b404955bf12d6a2aa496e5baf207fb7ba39be542f",
+      "split_registry_hash": "sha256:6662437f50bf519903c8966c6c0dded9518477e8ff534715998499577dc45e59",
+      "training_design_hash": "sha256:da110cb66b0dd0ecd594207cfc66257de37977f263aa5b8be4e01768a58102dd"
+    },
+    "system_output_names": [
+      "effect-m2",
+      "effect-k1",
+      "effect-m1",
+      "effect-k2",
+      "effect-f1",
+      "effect-c1",
+      "effect-c2"
+    ]
+  },
+  "task_semantics": {
+    "type": "overlapping_soft_event_probabilities",
+    "activation": "independent_sigmoid",
+    "prohibited": [
+      "softmax",
+      "argmax",
+      "row_normalization",
+      "hard_label_rewrite"
+    ]
+  },
+  "selection_policy": {
+    "eligibility_basis": "Train outcomes only",
+    "validation_and_test_cannot_enable_a_task": true,
+    "minimum_soft_event_mass": {
+      "train": 200.0,
+      "validation": 50.0,
+      "test": 100.0
+    },
+    "threshold_status": "engineering_starting_point_to_preregister_not_a_scientific_law",
+    "zero_tolerance": 1e-12,
+    "default_task_names": [
+      "effect-m2",
+      "effect-m1"
+    ],
+    "default_task_indices": [
+      0,
+      2
+    ],
+    "system_training_eligibility_mask": [
+      true,
+      false,
+      true,
+      false,
+      false,
+      false,
+      false
+    ],
+    "exploratory_task_names": [],
+    "excluded_task_names": [
+      "effect-k1",
+      "effect-k2",
+      "effect-f1",
+      "effect-c1",
+      "effect-c2"
+    ],
+    "blocked_task_names": [
+      "effect-f1"
+    ]
+  },
+  "test_policy": {
+    "status": "observed_diagnostic_only",
+    "confirmatory_use_allowed": false,
+    "requires_new_sealed_reference_test": true,
+    "challenge_reported_separately": true
+  },
+  "loss_policy": {
+    "primary": [
+      "masked_soft_bce_with_logits",
+      "masked_brier_from_logits"
+    ],
+    "constant_tasks_in_aggregate_loss": "forbidden",
+    "design_weight": "reference-risk correction only",
+    "task_weight": "separate model configuration",
+    "minibatch_probability": "separate sampler configuration",
+    "two_part_model": "allowed only when Train has both exact zero and positive support"
+  },
+  "evaluation_protocol": {
+    "baselines": [
+      "train_prevalence",
+      "linear_or_gam",
+      "tree"
+    ],
+    "primary_metrics": [
+      "brier",
+      "log_loss",
+      "calibration_intercept",
+      "calibration_slope",
+      "ece"
+    ],
+    "rare_event_metrics": [
+      "soft_average_precision",
+      "binary_pr_auc_requires_preregistered_event_definition",
+      "case_level_bootstrap_requires_preregistered_resampling_contract"
+    ],
+    "supplementary_only": [
+      "auroc"
+    ],
+    "report_per_task": true,
+    "reference_and_challenge_metrics_must_not_be_pooled": true,
+    "training_seeds": [
+      1729,
+      3253,
+      4933,
+      6521,
+      8161
+    ]
+  },
+  "tasks": [
+    {
+      "task_name": "effect-m2",
+      "status": "default_train_eligible",
+      "reason": "Train is nonconstant and reaches the declared soft-event-mass gate.",
+      "secondary_issues": [],
+      "support": {
+        "reference_train": {
+          "available_count": 3000,
+          "nonzero_count": 1064,
+          "zero_count": 1936,
+          "soft_event_mass": 1041.9997751414776,
+          "minimum": 0.0,
+          "maximum": 1.0,
+          "mean": 0.3473332583804925,
+          "is_constant": false,
+          "design_weight_sum": 3000.0,
+          "effective_sample_size": 3000.0,
+          "soft_event_effective_sample_size": 1053.117318183147
+        },
+        "enriched_train": {
+          "available_count": 0,
+          "nonzero_count": 0,
+          "zero_count": 0,
+          "soft_event_mass": 0.0,
+          "minimum": null,
+          "maximum": null,
+          "mean": null,
+          "is_constant": null,
+          "design_weight_sum": 0.0,
+          "effective_sample_size": 0.0,
+          "soft_event_effective_sample_size": 0.0
+        },
+        "all_train": {
+          "available_count": 3000,
+          "nonzero_count": 1064,
+          "zero_count": 1936,
+          "soft_event_mass": 1041.9997751414776,
+          "minimum": 0.0,
+          "maximum": 1.0,
+          "mean": 0.3473332583804925,
+          "is_constant": false,
+          "design_weight_sum": 3000.0,
+          "effective_sample_size": 3000.0,
+          "soft_event_effective_sample_size": 1053.117318183147
+        },
+        "reference_validation": {
+          "available_count": 500,
+          "nonzero_count": 182,
+          "zero_count": 318,
+          "soft_event_mass": 180.99998661875725,
+          "minimum": 0.0,
+          "maximum": 1.0,
+          "mean": 0.3619999732375145,
+          "is_constant": false,
+          "design_weight_sum": 500.0,
+          "effective_sample_size": 500.0,
+          "soft_event_effective_sample_size": 181.50138460640517
+        },
+        "reference_test": {
+          "available_count": 1500,
+          "nonzero_count": 524,
+          "zero_count": 976,
+          "soft_event_mass": 514.499944627285,
+          "minimum": 0.0,
+          "maximum": 1.0,
+          "mean": 0.3429999630848567,
+          "is_constant": false,
+          "design_weight_sum": 1500.0,
+          "effective_sample_size": 1500.0,
+          "soft_event_effective_sample_size": 519.2942474505599
+        },
+        "challenge": {
+          "available_count": 0,
+          "nonzero_count": 0,
+          "zero_count": 0,
+          "soft_event_mass": 0.0,
+          "minimum": null,
+          "maximum": null,
+          "mean": null,
+          "is_constant": null,
+          "design_weight_sum": 0.0,
+          "effective_sample_size": 0.0,
+          "soft_event_effective_sample_size": 0.0
+        }
+      },
+      "label_available": true,
+      "train_eligible": true,
+      "two_part_gate_eligible": true,
+      "two_part_positive_magnitude_eligible": true,
+      "two_part_model_eligible": true,
+      "reference_evaluation_mass_gate": {
+        "validation": true,
+        "test": true
+      },
+      "eligibility_selected_from": "all_train_only",
+      "task_definition_complete": true,
+      "task_definition_blockers": []
+    },
+    {
+      "task_name": "effect-k1",
+      "status": "excluded_constant_zero_train",
+      "reason": "Train labels are constant; the input-to-output relation is not identifiable.",
+      "secondary_issues": [
+        "constant_train",
+        "below_train_soft_event_mass_gate"
+      ],
+      "support": {
+        "reference_train": {
+          "available_count": 3000,
+          "nonzero_count": 0,
+          "zero_count": 3000,
+          "soft_event_mass": 0.0,
+          "minimum": 0.0,
+          "maximum": 0.0,
+          "mean": 0.0,
+          "is_constant": true,
+          "design_weight_sum": 3000.0,
+          "effective_sample_size": 3000.0,
+          "soft_event_effective_sample_size": 0.0
+        },
+        "enriched_train": {
+          "available_count": 0,
+          "nonzero_count": 0,
+          "zero_count": 0,
+          "soft_event_mass": 0.0,
+          "minimum": null,
+          "maximum": null,
+          "mean": null,
+          "is_constant": null,
+          "design_weight_sum": 0.0,
+          "effective_sample_size": 0.0,
+          "soft_event_effective_sample_size": 0.0
+        },
+        "all_train": {
+          "available_count": 3000,
+          "nonzero_count": 0,
+          "zero_count": 3000,
+          "soft_event_mass": 0.0,
+          "minimum": 0.0,
+          "maximum": 0.0,
+          "mean": 0.0,
+          "is_constant": true,
+          "design_weight_sum": 3000.0,
+          "effective_sample_size": 3000.0,
+          "soft_event_effective_sample_size": 0.0
+        },
+        "reference_validation": {
+          "available_count": 500,
+          "nonzero_count": 0,
+          "zero_count": 500,
+          "soft_event_mass": 0.0,
+          "minimum": 0.0,
+          "maximum": 0.0,
+          "mean": 0.0,
+          "is_constant": true,
+          "design_weight_sum": 500.0,
+          "effective_sample_size": 500.0,
+          "soft_event_effective_sample_size": 0.0
+        },
+        "reference_test": {
+          "available_count": 1500,
+          "nonzero_count": 0,
+          "zero_count": 1500,
+          "soft_event_mass": 0.0,
+          "minimum": 0.0,
+          "maximum": 0.0,
+          "mean": 0.0,
+          "is_constant": true,
+          "design_weight_sum": 1500.0,
+          "effective_sample_size": 1500.0,
+          "soft_event_effective_sample_size": 0.0
+        },
+        "challenge": {
+          "available_count": 0,
+          "nonzero_count": 0,
+          "zero_count": 0,
+          "soft_event_mass": 0.0,
+          "minimum": null,
+          "maximum": null,
+          "mean": null,
+          "is_constant": null,
+          "design_weight_sum": 0.0,
+          "effective_sample_size": 0.0,
+          "soft_event_effective_sample_size": 0.0
+        }
+      },
+      "label_available": true,
+      "train_eligible": false,
+      "two_part_gate_eligible": false,
+      "two_part_positive_magnitude_eligible": false,
+      "two_part_model_eligible": false,
+      "reference_evaluation_mass_gate": {
+        "validation": false,
+        "test": false
+      },
+      "eligibility_selected_from": "all_train_only",
+      "task_definition_complete": true,
+      "task_definition_blockers": []
+    },
+    {
+      "task_name": "effect-m1",
+      "status": "default_train_eligible",
+      "reason": "Train is nonconstant and reaches the declared soft-event-mass gate.",
+      "secondary_issues": [],
+      "support": {
+        "reference_train": {
+          "available_count": 3000,
+          "nonzero_count": 590,
+          "zero_count": 2410,
+          "soft_event_mass": 569.4999022185802,
+          "minimum": 0.0,
+          "maximum": 1.0,
+          "mean": 0.18983330073952676,
+          "is_constant": false,
+          "design_weight_sum": 3000.0,
+          "effective_sample_size": 3000.0,
+          "soft_event_effective_sample_size": 579.9378448243135
+        },
+        "enriched_train": {
+          "available_count": 0,
+          "nonzero_count": 0,
+          "zero_count": 0,
+          "soft_event_mass": 0.0,
+          "minimum": null,
+          "maximum": null,
+          "mean": null,
+          "is_constant": null,
+          "design_weight_sum": 0.0,
+          "effective_sample_size": 0.0,
+          "soft_event_effective_sample_size": 0.0
+        },
+        "all_train": {
+          "available_count": 3000,
+          "nonzero_count": 590,
+          "zero_count": 2410,
+          "soft_event_mass": 569.4999022185802,
+          "minimum": 0.0,
+          "maximum": 1.0,
+          "mean": 0.18983330073952676,
+          "is_constant": false,
+          "design_weight_sum": 3000.0,
+          "effective_sample_size": 3000.0,
+          "soft_event_effective_sample_size": 579.9378448243135
+        },
+        "reference_validation": {
+          "available_count": 500,
+          "nonzero_count": 104,
+          "zero_count": 396,
+          "soft_event_mass": 101.49998059868813,
+          "minimum": 0.0,
+          "maximum": 1.0,
+          "mean": 0.20299996119737626,
+          "is_constant": false,
+          "design_weight_sum": 500.0,
+          "effective_sample_size": 500.0,
+          "soft_event_effective_sample_size": 102.76558368355698
+        },
+        "reference_test": {
+          "available_count": 1500,
+          "nonzero_count": 302,
+          "zero_count": 1198,
+          "soft_event_mass": 286.49994656443596,
+          "minimum": 0.0,
+          "maximum": 1.0,
+          "mean": 0.19099996437629063,
+          "is_constant": false,
+          "design_weight_sum": 1500.0,
+          "effective_sample_size": 1500.0,
+          "soft_event_effective_sample_size": 294.46545429221726
+        },
+        "challenge": {
+          "available_count": 0,
+          "nonzero_count": 0,
+          "zero_count": 0,
+          "soft_event_mass": 0.0,
+          "minimum": null,
+          "maximum": null,
+          "mean": null,
+          "is_constant": null,
+          "design_weight_sum": 0.0,
+          "effective_sample_size": 0.0,
+          "soft_event_effective_sample_size": 0.0
+        }
+      },
+      "label_available": true,
+      "train_eligible": true,
+      "two_part_gate_eligible": true,
+      "two_part_positive_magnitude_eligible": true,
+      "two_part_model_eligible": true,
+      "reference_evaluation_mass_gate": {
+        "validation": true,
+        "test": true
+      },
+      "eligibility_selected_from": "all_train_only",
+      "task_definition_complete": true,
+      "task_definition_blockers": []
+    },
+    {
+      "task_name": "effect-k2",
+      "status": "excluded_constant_zero_train",
+      "reason": "Train labels are constant; the input-to-output relation is not identifiable.",
+      "secondary_issues": [
+        "constant_train",
+        "below_train_soft_event_mass_gate"
+      ],
+      "support": {
+        "reference_train": {
+          "available_count": 3000,
+          "nonzero_count": 0,
+          "zero_count": 3000,
+          "soft_event_mass": 0.0,
+          "minimum": 0.0,
+          "maximum": 0.0,
+          "mean": 0.0,
+          "is_constant": true,
+          "design_weight_sum": 3000.0,
+          "effective_sample_size": 3000.0,
+          "soft_event_effective_sample_size": 0.0
+        },
+        "enriched_train": {
+          "available_count": 0,
+          "nonzero_count": 0,
+          "zero_count": 0,
+          "soft_event_mass": 0.0,
+          "minimum": null,
+          "maximum": null,
+          "mean": null,
+          "is_constant": null,
+          "design_weight_sum": 0.0,
+          "effective_sample_size": 0.0,
+          "soft_event_effective_sample_size": 0.0
+        },
+        "all_train": {
+          "available_count": 3000,
+          "nonzero_count": 0,
+          "zero_count": 3000,
+          "soft_event_mass": 0.0,
+          "minimum": 0.0,
+          "maximum": 0.0,
+          "mean": 0.0,
+          "is_constant": true,
+          "design_weight_sum": 3000.0,
+          "effective_sample_size": 3000.0,
+          "soft_event_effective_sample_size": 0.0
+        },
+        "reference_validation": {
+          "available_count": 500,
+          "nonzero_count": 0,
+          "zero_count": 500,
+          "soft_event_mass": 0.0,
+          "minimum": 0.0,
+          "maximum": 0.0,
+          "mean": 0.0,
+          "is_constant": true,
+          "design_weight_sum": 500.0,
+          "effective_sample_size": 500.0,
+          "soft_event_effective_sample_size": 0.0
+        },
+        "reference_test": {
+          "available_count": 1500,
+          "nonzero_count": 0,
+          "zero_count": 1500,
+          "soft_event_mass": 0.0,
+          "minimum": 0.0,
+          "maximum": 0.0,
+          "mean": 0.0,
+          "is_constant": true,
+          "design_weight_sum": 1500.0,
+          "effective_sample_size": 1500.0,
+          "soft_event_effective_sample_size": 0.0
+        },
+        "challenge": {
+          "available_count": 0,
+          "nonzero_count": 0,
+          "zero_count": 0,
+          "soft_event_mass": 0.0,
+          "minimum": null,
+          "maximum": null,
+          "mean": null,
+          "is_constant": null,
+          "design_weight_sum": 0.0,
+          "effective_sample_size": 0.0,
+          "soft_event_effective_sample_size": 0.0
+        }
+      },
+      "label_available": true,
+      "train_eligible": false,
+      "two_part_gate_eligible": false,
+      "two_part_positive_magnitude_eligible": false,
+      "two_part_model_eligible": false,
+      "reference_evaluation_mass_gate": {
+        "validation": false,
+        "test": false
+      },
+      "eligibility_selected_from": "all_train_only",
+      "task_definition_complete": true,
+      "task_definition_blockers": []
+    },
+    {
+      "task_name": "effect-f1",
+      "status": "blocked_task_definition_incomplete",
+      "reason": "The provisional damage-tree mapping omits an unresolved source component.",
+      "secondary_issues": [
+        "below_train_soft_event_mass_gate"
+      ],
+      "support": {
+        "reference_train": {
+          "available_count": 3000,
+          "nonzero_count": 11,
+          "zero_count": 2989,
+          "soft_event_mass": 7.4997963309288025,
+          "minimum": 0.0,
+          "maximum": 1.0,
+          "mean": 0.0024999321103096007,
+          "is_constant": false,
+          "design_weight_sum": 3000.0,
+          "effective_sample_size": 3000.0,
+          "soft_event_effective_sample_size": 9.782559766216675
+        },
+        "enriched_train": {
+          "available_count": 0,
+          "nonzero_count": 0,
+          "zero_count": 0,
+          "soft_event_mass": 0.0,
+          "minimum": null,
+          "maximum": null,
+          "mean": null,
+          "is_constant": null,
+          "design_weight_sum": 0.0,
+          "effective_sample_size": 0.0,
+          "soft_event_effective_sample_size": 0.0
+        },
+        "all_train": {
+          "available_count": 3000,
+          "nonzero_count": 11,
+          "zero_count": 2989,
+          "soft_event_mass": 7.4997963309288025,
+          "minimum": 0.0,
+          "maximum": 1.0,
+          "mean": 0.0024999321103096007,
+          "is_constant": false,
+          "design_weight_sum": 3000.0,
+          "effective_sample_size": 3000.0,
+          "soft_event_effective_sample_size": 9.782559766216675
+        },
+        "reference_validation": {
+          "available_count": 500,
+          "nonzero_count": 2,
+          "zero_count": 498,
+          "soft_event_mass": 1.9999597072601318,
+          "minimum": 0.0,
+          "maximum": 0.9999963045120239,
+          "mean": 0.003999919414520264,
+          "is_constant": false,
+          "design_weight_sum": 500.0,
+          "effective_sample_size": 500.0,
+          "soft_event_effective_sample_size": 1.9999999994587152
+        },
+        "reference_test": {
+          "available_count": 1500,
+          "nonzero_count": 15,
+          "zero_count": 1485,
+          "soft_event_mass": 10.49976235628128,
+          "minimum": 0.0,
+          "maximum": 1.0,
+          "mean": 0.006999841570854187,
+          "is_constant": false,
+          "design_weight_sum": 1500.0,
+          "effective_sample_size": 1500.0,
+          "soft_event_effective_sample_size": 13.363480109701836
+        },
+        "challenge": {
+          "available_count": 0,
+          "nonzero_count": 0,
+          "zero_count": 0,
+          "soft_event_mass": 0.0,
+          "minimum": null,
+          "maximum": null,
+          "mean": null,
+          "is_constant": null,
+          "design_weight_sum": 0.0,
+          "effective_sample_size": 0.0,
+          "soft_event_effective_sample_size": 0.0
+        }
+      },
+      "label_available": true,
+      "train_eligible": false,
+      "two_part_gate_eligible": true,
+      "two_part_positive_magnitude_eligible": false,
+      "two_part_model_eligible": false,
+      "reference_evaluation_mass_gate": {
+        "validation": false,
+        "test": false
+      },
+      "eligibility_selected_from": "all_train_only",
+      "task_definition_complete": false,
+      "task_definition_blockers": [
+        {
+          "component_id": "component-050",
+          "component_name": "并列机关炮",
+          "source_id": "raw_data/List.csv:row:51",
+          "reason": "unresolved_damage_threshold_not_in_provisional_tree"
+        }
+      ]
+    },
+    {
+      "task_name": "effect-c1",
+      "status": "excluded_constant_zero_train",
+      "reason": "Train labels are constant; the input-to-output relation is not identifiable.",
+      "secondary_issues": [
+        "constant_train",
+        "below_train_soft_event_mass_gate"
+      ],
+      "support": {
+        "reference_train": {
+          "available_count": 3000,
+          "nonzero_count": 0,
+          "zero_count": 3000,
+          "soft_event_mass": 0.0,
+          "minimum": 0.0,
+          "maximum": 0.0,
+          "mean": 0.0,
+          "is_constant": true,
+          "design_weight_sum": 3000.0,
+          "effective_sample_size": 3000.0,
+          "soft_event_effective_sample_size": 0.0
+        },
+        "enriched_train": {
+          "available_count": 0,
+          "nonzero_count": 0,
+          "zero_count": 0,
+          "soft_event_mass": 0.0,
+          "minimum": null,
+          "maximum": null,
+          "mean": null,
+          "is_constant": null,
+          "design_weight_sum": 0.0,
+          "effective_sample_size": 0.0,
+          "soft_event_effective_sample_size": 0.0
+        },
+        "all_train": {
+          "available_count": 3000,
+          "nonzero_count": 0,
+          "zero_count": 3000,
+          "soft_event_mass": 0.0,
+          "minimum": 0.0,
+          "maximum": 0.0,
+          "mean": 0.0,
+          "is_constant": true,
+          "design_weight_sum": 3000.0,
+          "effective_sample_size": 3000.0,
+          "soft_event_effective_sample_size": 0.0
+        },
+        "reference_validation": {
+          "available_count": 500,
+          "nonzero_count": 0,
+          "zero_count": 500,
+          "soft_event_mass": 0.0,
+          "minimum": 0.0,
+          "maximum": 0.0,
+          "mean": 0.0,
+          "is_constant": true,
+          "design_weight_sum": 500.0,
+          "effective_sample_size": 500.0,
+          "soft_event_effective_sample_size": 0.0
+        },
+        "reference_test": {
+          "available_count": 1500,
+          "nonzero_count": 0,
+          "zero_count": 1500,
+          "soft_event_mass": 0.0,
+          "minimum": 0.0,
+          "maximum": 0.0,
+          "mean": 0.0,
+          "is_constant": true,
+          "design_weight_sum": 1500.0,
+          "effective_sample_size": 1500.0,
+          "soft_event_effective_sample_size": 0.0
+        },
+        "challenge": {
+          "available_count": 0,
+          "nonzero_count": 0,
+          "zero_count": 0,
+          "soft_event_mass": 0.0,
+          "minimum": null,
+          "maximum": null,
+          "mean": null,
+          "is_constant": null,
+          "design_weight_sum": 0.0,
+          "effective_sample_size": 0.0,
+          "soft_event_effective_sample_size": 0.0
+        }
+      },
+      "label_available": true,
+      "train_eligible": false,
+      "two_part_gate_eligible": false,
+      "two_part_positive_magnitude_eligible": false,
+      "two_part_model_eligible": false,
+      "reference_evaluation_mass_gate": {
+        "validation": false,
+        "test": false
+      },
+      "eligibility_selected_from": "all_train_only",
+      "task_definition_complete": true,
+      "task_definition_blockers": []
+    },
+    {
+      "task_name": "effect-c2",
+      "status": "excluded_constant_zero_train",
+      "reason": "Train labels are constant; the input-to-output relation is not identifiable.",
+      "secondary_issues": [
+        "constant_train",
+        "below_train_soft_event_mass_gate"
+      ],
+      "support": {
+        "reference_train": {
+          "available_count": 3000,
+          "nonzero_count": 0,
+          "zero_count": 3000,
+          "soft_event_mass": 0.0,
+          "minimum": 0.0,
+          "maximum": 0.0,
+          "mean": 0.0,
+          "is_constant": true,
+          "design_weight_sum": 3000.0,
+          "effective_sample_size": 3000.0,
+          "soft_event_effective_sample_size": 0.0
+        },
+        "enriched_train": {
+          "available_count": 0,
+          "nonzero_count": 0,
+          "zero_count": 0,
+          "soft_event_mass": 0.0,
+          "minimum": null,
+          "maximum": null,
+          "mean": null,
+          "is_constant": null,
+          "design_weight_sum": 0.0,
+          "effective_sample_size": 0.0,
+          "soft_event_effective_sample_size": 0.0
+        },
+        "all_train": {
+          "available_count": 3000,
+          "nonzero_count": 0,
+          "zero_count": 3000,
+          "soft_event_mass": 0.0,
+          "minimum": 0.0,
+          "maximum": 0.0,
+          "mean": 0.0,
+          "is_constant": true,
+          "design_weight_sum": 3000.0,
+          "effective_sample_size": 3000.0,
+          "soft_event_effective_sample_size": 0.0
+        },
+        "reference_validation": {
+          "available_count": 500,
+          "nonzero_count": 0,
+          "zero_count": 500,
+          "soft_event_mass": 0.0,
+          "minimum": 0.0,
+          "maximum": 0.0,
+          "mean": 0.0,
+          "is_constant": true,
+          "design_weight_sum": 500.0,
+          "effective_sample_size": 500.0,
+          "soft_event_effective_sample_size": 0.0
+        },
+        "reference_test": {
+          "available_count": 1500,
+          "nonzero_count": 0,
+          "zero_count": 1500,
+          "soft_event_mass": 0.0,
+          "minimum": 0.0,
+          "maximum": 0.0,
+          "mean": 0.0,
+          "is_constant": true,
+          "design_weight_sum": 1500.0,
+          "effective_sample_size": 1500.0,
+          "soft_event_effective_sample_size": 0.0
+        },
+        "challenge": {
+          "available_count": 0,
+          "nonzero_count": 0,
+          "zero_count": 0,
+          "soft_event_mass": 0.0,
+          "minimum": null,
+          "maximum": null,
+          "mean": null,
+          "is_constant": null,
+          "design_weight_sum": 0.0,
+          "effective_sample_size": 0.0,
+          "soft_event_effective_sample_size": 0.0
+        }
+      },
+      "label_available": true,
+      "train_eligible": false,
+      "two_part_gate_eligible": false,
+      "two_part_positive_magnitude_eligible": false,
+      "two_part_model_eligible": false,
+      "reference_evaluation_mass_gate": {
+        "validation": false,
+        "test": false
+      },
+      "eligibility_selected_from": "all_train_only",
+      "task_definition_complete": true,
+      "task_definition_blockers": []
+    }
+  ],
+  "research_boundary": "This contract checks label information and experimental separation. It does not validate physical parameters, real-world prevalence, or external validity."
+}

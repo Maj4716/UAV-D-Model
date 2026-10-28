@@ -1,0 +1,156 @@
+{
+  "schema_version": "hf-static-validation@1.0.0",
+  "overall_status": "pass",
+  "scope": "Static package validation only; LS-DYNA keyword parsing and numerical execution remain pending.",
+  "checks": {
+    "keyword_input_format": {
+      "status": "pass",
+      "mode": "long",
+      "active_numeric_width": 20,
+      "numeric_item_count": 2396750,
+      "maximum_numeric_item_chars": 16,
+      "standard_width_exceedance_count": 555102
+    },
+    "required_card_layouts": {
+      "status": "pass",
+      "control_contact_cards": 2,
+      "control_contact_fields_per_card": [
+        8,
+        8
+      ],
+      "initial_velocity_block_count": 7,
+      "initial_velocity_fields_per_card": [
+        8,
+        8
+      ],
+      "integer_field_serialization": "pass",
+      "eroding_contact_card4": {
+        "isym": 1,
+        "erosop": 1,
+        "iadj": 1
+      },
+      "database_binary_d3plot_cards": 1
+    },
+    "required_keywords": {
+      "status": "pass",
+      "count": 15
+    },
+    "frozen_case_identity": {
+      "status": "pass",
+      "case_count": 7
+    },
+    "identity_uniqueness": {
+      "status": "pass",
+      "part_count": 14
+    },
+    "mesh_references": {
+      "status": "pass",
+      "node_count": 184949,
+      "element_count": 163730
+    },
+    "element_orientation": {
+      "status": "pass",
+      "method": "signed triple product at node 1 for generated orthogonal hexahedra",
+      "minimum_mm3": 0.125,
+      "maximum_mm3": 6.25
+    },
+    "initial_separation": {
+      "status": "pass",
+      "expected_gap_mm": 1.0,
+      "minimum_gap_mm": 1.0,
+      "maximum_gap_mm": 1.0
+    },
+    "fragment_mass_geometry": {
+      "status": "pass",
+      "full_cube_side_mm": 10.071853689930165,
+      "full_mass_kg": 0.008000000000000005,
+      "relative_error": 6.505213034913027e-16
+    },
+    "meshed_part_integrals": {
+      "status": "pass",
+      "expected_quarter_fragment_mass_kg": 0.002,
+      "expected_quarter_plate_volume_mm3": 36000.0,
+      "cases": [
+        {
+          "case_id": "p0_v1200_h0p75",
+          "quarter_mass_kg": 0.0020000000000416213
+        },
+        {
+          "case_id": "p0_v1600_h0p75",
+          "quarter_mass_kg": 0.001999999982170018
+        },
+        {
+          "case_id": "p0_v2000_h0p75",
+          "quarter_mass_kg": 0.001999999982170012
+        },
+        {
+          "case_id": "p0_v2300_h0p75",
+          "quarter_mass_kg": 0.001999999982170018
+        },
+        {
+          "case_id": "p0_v2600_h0p75",
+          "quarter_mass_kg": 0.0019999999642984273
+        },
+        {
+          "case_id": "p0_v2000_h1p00",
+          "quarter_mass_kg": 0.001999999964298438
+        },
+        {
+          "case_id": "p0_v2000_h0p50",
+          "quarter_mass_kg": 0.001999999982170024
+        }
+      ]
+    },
+    "hash_binding": {
+      "status": "pass"
+    },
+    "p1_stratification": {
+      "status": "pass",
+      "role_counts": {
+        "hf_response_fit": 18,
+        "hf_response_holdout": 6
+      },
+      "categorical_counts": {
+        "hf_response_fit": {
+          "fragment_mass_g": {
+            "5.0": 6,
+            "8.0": 6,
+            "10.0": 6
+          },
+          "fragment_orientation": {
+            "face": 6,
+            "edge": 6,
+            "corner": 6
+          },
+          "material_variant": {
+            "low": 6,
+            "central": 6,
+            "high": 6
+          }
+        },
+        "hf_response_holdout": {
+          "fragment_mass_g": {
+            "5.0": 2,
+            "8.0": 2,
+            "10.0": 2
+          },
+          "fragment_orientation": {
+            "face": 2,
+            "edge": 2,
+            "corner": 2
+          },
+          "material_variant": {
+            "low": 2,
+            "central": 2,
+            "high": 2
+          }
+        }
+      },
+      "continuous_design": "independent seeded Latin hypercube within fit and holdout roles"
+    },
+    "claim_boundary": {
+      "status": "pass"
+    }
+  },
+  "prohibited_inference": "This PASS does not establish solver acceptance, numerical convergence, or physical validity."
+}

@@ -1,0 +1,38 @@
+{
+  "schema_version": "hf-p0-r06-diagnostic-release@1.0.0",
+  "package_revision": "R06_timestep_refinement_20261028",
+  "status": "prepared_not_submitted_not_solver_validated",
+  "submission_policy": "Follow the frozen design wave order and do not bypass any parser/runtime/output gate.",
+  "bundle_count": 1,
+  "bundles": [
+    {
+      "wave": 0,
+      "job_id": "r06g_0800_tssfac02",
+      "experiment_id": "r06g_timestep_refinement_800",
+      "role": "no_mass_scaling_timestep_refinement",
+      "zip": {
+        "path": "uav_hf_r06g_0800_tssfac02.zip",
+        "size_bytes": 414046,
+        "sha256": "sha256:0d7af79e4e9399edecb8d87a9ebd7ef0cd0090db5a61a6eab1aba24cee1ef8f3"
+      },
+      "external_manifest": {
+        "path": "uav_hf_r06g_0800_tssfac02.bundle_manifest.json",
+        "size_bytes": 2337,
+        "sha256": "sha256:5a26bf0e8e75c3dfdda34d554253eb473f08ce688c67522a0437f6ab3985076d"
+      }
+    }
+  ],
+  "source_readiness": {
+    "path": "manual_upload_20261028_r06g_timestep_refinement_v2/R06_SUBMISSION_READINESS.json",
+    "sha256": "sha256:0322eb174e422d8791c53847a8581f000e48d959b182012d0d990643f116e921",
+    "overall_status": "pass"
+  },
+  "admission": {
+    "r06_diagnostic_submission": "ready_for_user_submission_in_staged_canary",
+    "p0_response_calibration": "denied",
+    "p1_submission": "denied",
+    "local_engine_fitting": "denied",
+    "reference_dataset_generation": "denied",
+    "physical_validity": "not_established"
+  }
+}

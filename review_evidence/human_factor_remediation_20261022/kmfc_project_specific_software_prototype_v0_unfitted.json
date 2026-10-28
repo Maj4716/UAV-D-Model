@@ -1,0 +1,354 @@
+{
+  "schema_version": "1.0.0",
+  "teacher_id": "kmfc-project-specific-branch-prototype-v0-unfitted",
+  "status": "provisional",
+  "execution_scope": "software_only",
+  "scientific_claim_scope": "project_specific_simulator_emulation",
+  "physical_validity_status": "not_established",
+  "deployment_status": "prototype_not_admitted",
+  "legacy_tree_policy": "preserve_unchanged",
+  "availability_policy": "all_required_evidence_and_gate_conditions",
+  "evaluation_order": "per_replicate_smooth_then_hard_gate_before_outer_aggregation",
+  "parameter_selection_policy": "tree_design_fit_only_no_validation_or_test",
+  "parameter_status": "software_fixture_not_calibrated",
+  "category_order": [
+    "K",
+    "M",
+    "F",
+    "C"
+  ],
+  "categories": {
+    "K": {
+      "evidence_model": "approved_branch_severity",
+      "evidence_channels": [
+        {
+          "name": "K.fuel_store",
+          "quantity": "approved_branch_severity_score",
+          "unit": "1",
+          "source_field": "per_replicate.kmfc_branch.K.fuel_store.severity_score",
+          "required": true
+        },
+        {
+          "name": "K.ammunition_store",
+          "quantity": "approved_branch_severity_score",
+          "unit": "1",
+          "source_field": "per_replicate.kmfc_branch.K.ammunition_store.severity_score",
+          "required": true
+        }
+      ],
+      "projection": {
+        "schema_version": "1.0.0",
+        "projection_id": "kmfc-k-branch-prototype-v0-unfitted",
+        "category_id": "K",
+        "status": "provisional",
+        "execution_scope": "software_only",
+        "scientific_claim_scope": "project_specific_simulator_emulation",
+        "physical_validity_status": "not_established",
+        "threshold_approval_status": "not_approved_for_real_world_kmfc",
+        "threshold_source_id": "software-fixture-only-awaiting-tree-design-fit",
+        "input_names": [
+          "K.fuel_store",
+          "K.ammunition_store"
+        ],
+        "evidence_scales": [
+          0.25,
+          0.25
+        ],
+        "evidence_exponents": [
+          1.0,
+          1.0
+        ],
+        "maximum_slopes": [
+          4.0,
+          4.0
+        ],
+        "numeric_tolerance": 1e-12,
+        "aggregate_weights": [
+          1.0,
+          1.0
+        ],
+        "aggregate_power": 2.0,
+        "tau1": 0.3,
+        "tau2": 0.65,
+        "minimum_threshold_gap": 0.2,
+        "calibration_artifact_hash": null
+      }
+    },
+    "M": {
+      "evidence_model": "approved_branch_severity",
+      "evidence_channels": [
+        {
+          "name": "M.powertrain",
+          "quantity": "approved_branch_severity_score",
+          "unit": "1",
+          "source_field": "per_replicate.kmfc_branch.M.powertrain.severity_score",
+          "required": true
+        },
+        {
+          "name": "M.drive_and_idler",
+          "quantity": "approved_branch_severity_score",
+          "unit": "1",
+          "source_field": "per_replicate.kmfc_branch.M.drive_and_idler.severity_score",
+          "required": true
+        },
+        {
+          "name": "M.right_carrying",
+          "quantity": "approved_branch_severity_score",
+          "unit": "1",
+          "source_field": "per_replicate.kmfc_branch.M.right_carrying.severity_score",
+          "required": true
+        },
+        {
+          "name": "M.left_carrying",
+          "quantity": "approved_branch_severity_score",
+          "unit": "1",
+          "source_field": "per_replicate.kmfc_branch.M.left_carrying.severity_score",
+          "required": true
+        },
+        {
+          "name": "M.suspension",
+          "quantity": "approved_branch_severity_score",
+          "unit": "1",
+          "source_field": "per_replicate.kmfc_branch.M.suspension.severity_score",
+          "required": true
+        },
+        {
+          "name": "M.right_track",
+          "quantity": "approved_branch_severity_score",
+          "unit": "1",
+          "source_field": "per_replicate.kmfc_branch.M.right_track.severity_score",
+          "required": true
+        },
+        {
+          "name": "M.left_track",
+          "quantity": "approved_branch_severity_score",
+          "unit": "1",
+          "source_field": "per_replicate.kmfc_branch.M.left_track.severity_score",
+          "required": true
+        },
+        {
+          "name": "M.mobility_operator",
+          "quantity": "approved_branch_severity_score",
+          "unit": "1",
+          "source_field": "per_replicate.kmfc_branch.M.mobility_operator.severity_score",
+          "required": true
+        }
+      ],
+      "projection": {
+        "schema_version": "1.0.0",
+        "projection_id": "kmfc-m-branch-prototype-v0-unfitted",
+        "category_id": "M",
+        "status": "provisional",
+        "execution_scope": "software_only",
+        "scientific_claim_scope": "project_specific_simulator_emulation",
+        "physical_validity_status": "not_established",
+        "threshold_approval_status": "not_approved_for_real_world_kmfc",
+        "threshold_source_id": "software-fixture-only-awaiting-tree-design-fit",
+        "input_names": [
+          "M.powertrain",
+          "M.drive_and_idler",
+          "M.right_carrying",
+          "M.left_carrying",
+          "M.suspension",
+          "M.right_track",
+          "M.left_track",
+          "M.mobility_operator"
+        ],
+        "evidence_scales": [
+          0.25,
+          0.25,
+          0.25,
+          0.25,
+          0.25,
+          0.25,
+          0.25,
+          0.25
+        ],
+        "evidence_exponents": [
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ],
+        "maximum_slopes": [
+          4.0,
+          4.0,
+          4.0,
+          4.0,
+          4.0,
+          4.0,
+          4.0,
+          4.0
+        ],
+        "numeric_tolerance": 1e-12,
+        "aggregate_weights": [
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ],
+        "aggregate_power": 2.0,
+        "tau1": 0.3,
+        "tau2": 0.65,
+        "minimum_threshold_gap": 0.2,
+        "calibration_artifact_hash": null
+      }
+    },
+    "F": {
+      "evidence_model": "approved_branch_severity",
+      "evidence_channels": [
+        {
+          "name": "F.sensing",
+          "quantity": "approved_branch_severity_score",
+          "unit": "1",
+          "source_field": "per_replicate.kmfc_branch.F.sensing.severity_score",
+          "required": true
+        },
+        {
+          "name": "F.fire_control",
+          "quantity": "approved_branch_severity_score",
+          "unit": "1",
+          "source_field": "per_replicate.kmfc_branch.F.fire_control.severity_score",
+          "required": true
+        },
+        {
+          "name": "F.weapon",
+          "quantity": "approved_branch_severity_score",
+          "unit": "1",
+          "source_field": "per_replicate.kmfc_branch.F.weapon.severity_score",
+          "required": true
+        },
+        {
+          "name": "F.feed_and_ammunition",
+          "quantity": "approved_branch_severity_score",
+          "unit": "1",
+          "source_field": "per_replicate.kmfc_branch.F.feed_and_ammunition.severity_score",
+          "required": true
+        },
+        {
+          "name": "F.countermeasure",
+          "quantity": "approved_branch_severity_score",
+          "unit": "1",
+          "source_field": "per_replicate.kmfc_branch.F.countermeasure.severity_score",
+          "required": true
+        }
+      ],
+      "projection": {
+        "schema_version": "1.0.0",
+        "projection_id": "kmfc-f-branch-prototype-v0-unfitted",
+        "category_id": "F",
+        "status": "provisional",
+        "execution_scope": "software_only",
+        "scientific_claim_scope": "project_specific_simulator_emulation",
+        "physical_validity_status": "not_established",
+        "threshold_approval_status": "not_approved_for_real_world_kmfc",
+        "threshold_source_id": "software-fixture-only-awaiting-tree-design-fit",
+        "input_names": [
+          "F.sensing",
+          "F.fire_control",
+          "F.weapon",
+          "F.feed_and_ammunition",
+          "F.countermeasure"
+        ],
+        "evidence_scales": [
+          0.25,
+          0.25,
+          0.25,
+          0.25,
+          0.25
+        ],
+        "evidence_exponents": [
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ],
+        "maximum_slopes": [
+          4.0,
+          4.0,
+          4.0,
+          4.0,
+          4.0
+        ],
+        "numeric_tolerance": 1e-12,
+        "aggregate_weights": [
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ],
+        "aggregate_power": 2.0,
+        "tau1": 0.3,
+        "tau2": 0.65,
+        "minimum_threshold_gap": 0.2,
+        "calibration_artifact_hash": null
+      }
+    },
+    "C": {
+      "evidence_model": "approved_branch_severity",
+      "evidence_channels": [
+        {
+          "name": "C.essential_crew",
+          "quantity": "approved_branch_severity_score",
+          "unit": "1",
+          "source_field": "per_replicate.kmfc_branch.C.essential_crew.severity_score",
+          "required": true
+        },
+        {
+          "name": "C.embarked_personnel",
+          "quantity": "approved_branch_severity_score",
+          "unit": "1",
+          "source_field": "per_replicate.kmfc_branch.C.embarked_personnel.severity_score",
+          "required": true
+        }
+      ],
+      "projection": {
+        "schema_version": "1.0.0",
+        "projection_id": "kmfc-c-branch-prototype-v0-unfitted",
+        "category_id": "C",
+        "status": "provisional",
+        "execution_scope": "software_only",
+        "scientific_claim_scope": "project_specific_simulator_emulation",
+        "physical_validity_status": "not_established",
+        "threshold_approval_status": "not_approved_for_real_world_kmfc",
+        "threshold_source_id": "software-fixture-only-awaiting-tree-design-fit",
+        "input_names": [
+          "C.essential_crew",
+          "C.embarked_personnel"
+        ],
+        "evidence_scales": [
+          0.25,
+          0.25
+        ],
+        "evidence_exponents": [
+          1.0,
+          1.0
+        ],
+        "maximum_slopes": [
+          4.0,
+          4.0
+        ],
+        "numeric_tolerance": 1e-12,
+        "aggregate_weights": [
+          1.0,
+          1.0
+        ],
+        "aggregate_power": 2.0,
+        "tau1": 0.3,
+        "tau2": 0.65,
+        "minimum_threshold_gap": 0.2,
+        "calibration_artifact_hash": null
+      }
+    }
+  }
+}

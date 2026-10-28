@@ -1,0 +1,74 @@
+{
+  "schema_version": "1.0.0",
+  "created_at_utc": "2026-10-22T16:27:23.292559+00:00",
+  "scope": "controlled_factorial_diagnostic_artifacts_only",
+  "pre_run_workspace_disk": {
+    "captured_at_utc": "2026-10-22T16:24:46.139104+00:00",
+    "workspace_free_bytes": 184070041600,
+    "workspace_total_bytes": 807072165888,
+    "workspace_used_bytes": 623002124288
+  },
+  "post_cleanup_workspace_disk": {
+    "workspace_free_bytes": 184068247552,
+    "workspace_total_bytes": 807072165888,
+    "workspace_used_bytes": 623003918336
+  },
+  "durable_artifacts_excluding_space_records": [
+    {
+      "path": "review_evidence/human_factor_remediation_20261022/controlled_factorial_diagnostic.py",
+      "bytes": 66574,
+      "sha256": "sha256:90f142cd1182ded9ff240dcf191cc502cd5267bb37cad13305ea12b4700d0ae6"
+    },
+    {
+      "path": "review_evidence/human_factor_remediation_20261022/controlled_factorial_diagnostic.json",
+      "bytes": 3318160,
+      "sha256": "sha256:362fa6abe44c756130ecb0f3777d175a3021d5d6375d18c543f2bce2c2fbcaa4"
+    },
+    {
+      "path": "review_evidence/human_factor_remediation_20261022/controlled_factorial_diagnostic.md",
+      "bytes": 15233,
+      "sha256": "sha256:c982fd97faa647bc84d7aa8bba8a1e7d76000a4dc5485c21c7826e166afc37f7"
+    },
+    {
+      "path": "review_evidence/human_factor_remediation_20261022/candidate_ledger.jsonl",
+      "bytes": 267670,
+      "sha256": "sha256:f87b49500e642b71f71db22775190b8d4896b6af27933db75d3f870e78b51582"
+    },
+    {
+      "path": "review_evidence/human_factor_remediation_20261022/validate_controlled_factorial_diagnostic.py",
+      "bytes": 12124,
+      "sha256": "sha256:b7a708c535ddf38270cfe50043b2e622b7febda54bb45cd4c643286ac81896f0"
+    },
+    {
+      "path": "review_evidence/human_factor_remediation_20261022/controlled_factorial_validation.json",
+      "bytes": 3009,
+      "sha256": "sha256:243ea222d909b1bac9e90f14e045ed6214ad73a66218e13f8bb95821c7359cff"
+    },
+    {
+      "path": "review_evidence/human_factor_remediation_20261022/write_space_and_cleanup_record.py",
+      "bytes": 5597,
+      "sha256": "sha256:0d4fd2d57cc9f5d9fa6227746fd632281ec1996e36a1742cdc0571aa3ebedd26"
+    },
+    {
+      "path": "review_evidence/human_factor_remediation_20261022/run_controlled_factorial_after_freeze.ps1",
+      "bytes": 3459,
+      "sha256": "sha256:98e6273de0177741e0f35c656c6f1407a0461a5a9e21cc965c8620d4983759e4"
+    },
+    {
+      "path": "review_evidence/human_factor_remediation_20261022/run.log",
+      "bytes": 3869,
+      "sha256": "sha256:59a3d45513673259ee423004923110e99e588e7443ec956a3a6f43a04160e8d5"
+    }
+  ],
+  "durable_bytes_excluding_space_records": 3695695,
+  "temporary_workspace": {
+    "path": ".tmp/pilot_distribution_exp_20261023",
+    "verified_resolved_inside_workspace": true,
+    "bytes_before_cleanup": 0,
+    "items_before_cleanup": 0,
+    "cleanup_method": "non_recursive_Remove-Item_after_empty_directory_verification",
+    "exists_after_cleanup": false
+  },
+  "concurrency_guard": "Free-space delta is recorded but not attributed to this experiment because other agents and processes used the same volume concurrently.",
+  "status": "validated_current_identity"
+}

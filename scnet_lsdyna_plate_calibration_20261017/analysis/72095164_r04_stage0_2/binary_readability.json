@@ -1,0 +1,74 @@
+{
+  "schema_version": "hf-binary-readability-inventory@1.0.0",
+  "files": [
+    {
+      "name": "binout0000",
+      "present": true,
+      "bytes": 2664314
+    },
+    {
+      "name": "d3plot",
+      "present": true,
+      "bytes": 19021824
+    },
+    {
+      "name": "d3plot01",
+      "present": true,
+      "bytes": 125530112
+    },
+    {
+      "name": "d3plot02",
+      "present": true,
+      "bytes": 125530112
+    },
+    {
+      "name": "d3plot03",
+      "present": true,
+      "bytes": 125530112
+    },
+    {
+      "name": "d3plot04",
+      "present": true,
+      "bytes": 125530112
+    },
+    {
+      "name": "d3plot05",
+      "present": true,
+      "bytes": 125530112
+    },
+    {
+      "name": "d3plot06",
+      "present": true,
+      "bytes": 125530112
+    },
+    {
+      "name": "d3plot07",
+      "present": true,
+      "bytes": 125530112
+    },
+    {
+      "name": "d3plot08",
+      "present": true,
+      "bytes": 125530112
+    },
+    {
+      "name": "d3plot09",
+      "present": true,
+      "bytes": 25108480
+    },
+    {
+      "name": "d3plot10",
+      "present": true,
+      "bytes": 25108480
+    }
+  ],
+  "reader_availability": {
+    "lasso": false,
+    "lasso.dyna": false,
+    "qd": false,
+    "qd.cae": false,
+    "lsprepost_on_path": false
+  },
+  "readability_status": "not_checked_reader_unavailable",
+  "interpretation": "Presence and size are recorded only. No binary payload or d3plot state was interpreted in Stage 0-2."
+}

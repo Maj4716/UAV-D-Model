@@ -1,0 +1,104 @@
+{
+  "schema_version": "hf-p0-r05-change-inventory@1.0.0",
+  "date": "2026-10-21",
+  "authoritative_revision": "R05_capture_ledger_preregistered",
+  "changes": [
+    {
+      "path": "design/p0_cases_r05.json",
+      "kind": "new_frozen_design",
+      "purpose": "freeze seven-case speed and mesh cohort, capture-plane measurement contract, and fail-closed qualification gates"
+    },
+    {
+      "path": "scripts/generate_p0_r05.py",
+      "kind": "new_generator",
+      "purpose": "generate R05 deterministically in a staging directory, refuse overwrite, and preserve R04"
+    },
+    {
+      "path": "scripts/validate_p0_r05.py",
+      "kind": "new_static_validator",
+      "purpose": "bind exact design and cases and reject changes to physics, control, output, threshold, and hash contracts"
+    },
+    {
+      "path": "scripts/r05_capture_ledger.py",
+      "kind": "new_measurement_core",
+      "purpose": "compute qM, outward qP, centroid-translational qE, and qV from mutually exclusive first-crossing and deletion states using expected reference mass"
+    },
+    {
+      "path": "scripts/extract_r05_d3part.py",
+      "kind": "new_binary_adapter",
+      "purpose": "strictly read D3PART arrays, reconstruct initial element masses, build per-case ledgers, and block assessor export until real integration evidence passes"
+    },
+    {
+      "path": "scripts/assess_r05_response.py",
+      "kind": "new_response_gate",
+      "purpose": "strictly validate identity and JSON, recompute case states, and apply speed-bracket, adjacent-qV, and mesh gates"
+    },
+    {
+      "path": "scripts/build_p0_r05_candidate_bundle.py",
+      "kind": "new_bundle_builder",
+      "purpose": "rerun live validation, reject stale PASS and unsafe destinations, and create an explicit-whitelist audit ZIP"
+    },
+    {
+      "path": "tests/test_r05_package.py",
+      "kind": "new_regression_tests",
+      "purpose": "validate deterministic generation, R04 preservation, frozen semantics, and physics-card tamper rejection"
+    },
+    {
+      "path": "tests/test_r05_capture_ledger.py",
+      "kind": "new_regression_tests",
+      "purpose": "cover expected-mass normalization, crossing/deletion ambiguity, unavailable states, and non-finite fail-closed behavior"
+    },
+    {
+      "path": "tests/test_r05_d3part_adapter.py",
+      "kind": "new_regression_tests",
+      "purpose": "cover D3PART identity, arrays, shapes, time coverage, artifact hashes, ledger extraction, and the evidence-gated assessor bridge"
+    },
+    {
+      "path": "tests/test_r05_response_gates.py",
+      "kind": "new_regression_tests",
+      "purpose": "cover strict JSON, identity, availability and classification recomputation, transition adjacency, and mesh fail-closed rules"
+    },
+    {
+      "path": "tests/test_r05_bundle.py",
+      "kind": "new_regression_tests",
+      "purpose": "cover stale validation, output collision, package-internal destination rejection, and valid bundle construction"
+    },
+    {
+      "path": "manual_upload_20261021_r05_candidate/",
+      "kind": "authoritative_candidate",
+      "purpose": "self-contained statically validated R05 upload set; prepared but not submitted or solver-validated"
+    },
+    {
+      "path": "artifacts/uav_hf_p0_plate_r05_candidate.zip",
+      "kind": "authoritative_audit_bundle",
+      "purpose": "nine-entry integrity-verified transfer artifact; not the LS-DYNA head file"
+    },
+    {
+      "path": "analysis/r05_candidate_preflight_20261021/superseded_pre_review_*",
+      "kind": "retained_superseded_evidence",
+      "purpose": "preserve the withdrawn first candidate and bundle without allowing accidental submission"
+    },
+    {
+      "path": "analysis/r05_candidate_preflight_20261021/superseded_before_qv_wording_clarification_bundle/",
+      "kind": "retained_superseded_evidence",
+      "purpose": "preserve the valid pre-clarification bundle after correcting the explanatory qV normalization wording"
+    }
+  ],
+  "explicitly_unchanged": [
+    "manual_upload_20261021_r04/",
+    "results/72095164_R15_mpp_d/",
+    "design/p0_cases.json",
+    "design/p1_preregistered_cases.csv",
+    "materials/jc4340_reference.json",
+    "damage_engine/",
+    "dataset generator outputs and split assignments",
+    "training data and sealed Test"
+  ],
+  "verification_summary": {
+    "r05_tests": "50_of_50_pass",
+    "static_validation": "pass",
+    "zip_and_hash_chain": "pass",
+    "r04_preservation": "pass",
+    "real_solver_and_physical_acceptance": "pending"
+  }
+}

@@ -1,0 +1,56 @@
+{
+  "schema_version": "hf-p0-r06f-timestep-stage@1.0.0",
+  "package_revision": "R06_timestep_sensitivity_20261028",
+  "job_id": "r06f_0800_tssfac04",
+  "status": "ready_for_user_submission_not_submitted_not_solver_validated",
+  "upload_only": "uav_hf_r06f_0800_tssfac04.zip",
+  "head_deck": "r06f_0800_tssfac04.k",
+  "parent_control": {
+    "platform_job_id": "72617857",
+    "deck_sha256": "sha256:111911562b703b8af1e96810b08edd8c31fbeea739ddddd2921b8bcd07c517af",
+    "audit": {
+      "path": "D:\\Desktop\\UAV新\\scnet_lsdyna_plate_calibration_20261017\\analysis\\72617857_r06f_0800_ctrl_20261028\\r06f_return_audit.json",
+      "sha256": "sha256:e2367d86421be6509e929c15e9e4de32baaa4b7ce8a4c8da7b354166045c862f"
+    }
+  },
+  "single_factor": {
+    "field": "CONTROL_TIMESTEP.TSSFAC",
+    "control": 0.8,
+    "treatment": 0.4,
+    "dt2ms": 0.0
+  },
+  "source_release_manifest": {
+    "path": "D:\\Desktop\\UAV新\\scnet_lsdyna_plate_calibration_20261017\\artifacts\\r06f_timestep_sensitivity_20261028\\R06_RELEASE_MANIFEST.json",
+    "sha256": "sha256:7e172c1becc558eb09b7a347e040147be9fe82c3b500494a01b3663c3fc026b9"
+  },
+  "zip": {
+    "path": "uav_hf_r06f_0800_tssfac04.zip",
+    "size_bytes": 413598,
+    "sha256": "sha256:54bb13c10c93da23925c75009c8a8ef9552fb86bd0052c1f2f5ad4718269e3cc"
+  },
+  "external_manifest": {
+    "path": "uav_hf_r06f_0800_tssfac04.bundle_manifest.json",
+    "size_bytes": 2340,
+    "sha256": "sha256:c4b59eb87124427623a8063f0eefa4d581bf51a89d7d426afd3ef0de5022c33e"
+  },
+  "instructions": {
+    "path": "SUBMIT_ONLY_THIS_JOB.md",
+    "sha256": "sha256:e9f157e413edf169c3dc3116bee44791162f454b4f4b546c84d4a63779ddead0"
+  },
+  "zip_verification": {
+    "status": "pass",
+    "job_id": "r06f_0800_tssfac04",
+    "zip": "uav_hf_r06f_0800_tssfac04.zip",
+    "size_bytes": 413598,
+    "sha256": "sha256:54bb13c10c93da23925c75009c8a8ef9552fb86bd0052c1f2f5ad4718269e3cc",
+    "member_count": 10,
+    "head_deck": "r06f_0800_tssfac04.k"
+  },
+  "next_gate_if_return_passes": "release_only_r06f_2000_control",
+  "prohibited": [
+    "submitting any other job in parallel with this timestep diagnostic",
+    "using nodes/ranks other than one node and 32 total MPP ranks",
+    "enabling mass scaling or changing any factor other than TSSFAC",
+    "treating static PASS as solver, numerical, response, physical, P0/P1, engine, or dataset acceptance"
+  ]
+}

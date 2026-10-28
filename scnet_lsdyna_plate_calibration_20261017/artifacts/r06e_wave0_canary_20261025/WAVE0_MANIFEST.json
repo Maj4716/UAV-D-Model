@@ -1,0 +1,41 @@
+{
+  "schema_version": "hf-p0-r06e-wave0-stage@1.0.0",
+  "package_revision": "R06_keyword_parser_repair_20261025",
+  "job_id": "r06e_0800_ctrl",
+  "status": "ready_for_user_submission_not_submitted_not_solver_validated",
+  "upload_only": "uav_hf_r06e_0800_ctrl.zip",
+  "head_deck": "r06e_0800_ctrl.k",
+  "source_release_manifest": {
+    "path": "D:\\Desktop\\UAV新\\scnet_lsdyna_plate_calibration_20261017\\artifacts\\r06e_parser_repair_20261025\\R06_RELEASE_MANIFEST.json",
+    "sha256": "sha256:10b44ddfb93bb461103acbb4ffe371e9017ff5774c82e3417b50e6eb64af3208"
+  },
+  "zip": {
+    "path": "uav_hf_r06e_0800_ctrl.zip",
+    "size_bytes": 414188,
+    "sha256": "sha256:2d160db9e9c357a517f56fec610c1040c7714e1f332f20d26bc45ea533f7249e"
+  },
+  "external_manifest": {
+    "path": "uav_hf_r06e_0800_ctrl.bundle_manifest.json",
+    "size_bytes": 2289,
+    "sha256": "sha256:deecaede80be365509670ee151d22de67b3cea3a5dfee5fb2d481f081e6f8ce9"
+  },
+  "instructions": {
+    "path": "SUBMIT_ONLY_THIS_JOB.md",
+    "sha256": "sha256:15214a8511172a7400a5d550ead4eaef751d4cb7820f6854cc301a6c1b6d3e88"
+  },
+  "zip_verification": {
+    "status": "pass",
+    "job_id": "r06e_0800_ctrl",
+    "zip": "uav_hf_r06e_0800_ctrl.zip",
+    "size_bytes": 414188,
+    "sha256": "sha256:2d160db9e9c357a517f56fec610c1040c7714e1f332f20d26bc45ea533f7249e",
+    "member_count": 10,
+    "head_deck": "r06e_0800_ctrl.k"
+  },
+  "prohibited": [
+    "submitting another R06e job before Wave 0 passes",
+    "reusing either withdrawn R06d ZIP",
+    "treating static PASS as target-solver acceptance",
+    "using this diagnostic as a P0/P1 calibration or training label"
+  ]
+}

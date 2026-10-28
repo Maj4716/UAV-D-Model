@@ -1,0 +1,108 @@
+{
+  "schema_version": "hf-scnet-startup-failure-diagnosis@1.0.0",
+  "date": "2026-10-23",
+  "job": {
+    "job_id": "72197064",
+    "job_name": "uav_hf_p0_plate_r05",
+    "start_time": "2026-10-22T11:21:06+08:00",
+    "compute_host": "b12r4n09",
+    "nodes": 1,
+    "mpi_ranks": 32,
+    "queue": "xahcnormal"
+  },
+  "source_archive": {
+    "path": "D:/Downloads/uav_hf_p0_plate_r05.zip",
+    "preserved_copy": "analysis/72197064_r05_failure_20261023/source_archive/uav_hf_p0_plate_r05.zip",
+    "size_bytes": 3164360,
+    "sha256": "sha256:d543cf5f084b458b93c8428b33f103ed7e5b2372417eeb3f4a162ad526327706",
+    "entry_count": 14,
+    "unique_names": true,
+    "zip_crc": "pass",
+    "unsafe_paths": []
+  },
+  "submitted_identity": {
+    "package_revision": "R05_capture_ledger_preregistered",
+    "all_eight_candidate_files_byte_identical_to_authoritative_candidate": true,
+    "deck_size_bytes": 20605206,
+    "deck_sha256": "sha256:6fbd753a113d0214e7ba4ff5136dc526d151e6f2c52c94e70399b29c4b9d3d0c",
+    "design_sha256": "sha256:b1d2027d57fc6d9cd1ee3f932ea044fd16a112344d8f2b6f508071f45191a06f",
+    "case_map_sha256": "sha256:b05b59249e49c3e9d15904f475c2f9478bdff1638fb797d1b552298490aa5295",
+    "package_manifest_sha256": "sha256:e178b6c28832519aaa2befdc969dcd93d2141ea4073ad740b52b17968d92ba44",
+    "returned_input_static_revalidation": "pass"
+  },
+  "runtime_identity": {
+    "solver": "LS-DYNA MPP double precision R15",
+    "revision": "R15.0.2-1-g1e7cfa42b1",
+    "platform": "Intel-MPI 2018 Xeon64",
+    "precision": "I8R8",
+    "head_memory_mb": 512,
+    "child_memory_mb": 256,
+    "input_path": "/work/home/acd7dt5yv4/LS_DYNA/uav_hf_p0_plate_r05/p0_velocity_mesh_calibration.k",
+    "command_line_extra_parameters": ""
+  },
+  "failure": {
+    "stage": "license_checkout_before_keyword_parse",
+    "classification": "platform_license_connectivity_failure",
+    "confidence": 0.99,
+    "feature": "dyna",
+    "license_server": "login01",
+    "license_path": "27890@login01:",
+    "flexnet_error": "-15,570",
+    "system_error": "115 Operation now in progress",
+    "ls_dyna_error": "70022 (OTH+22)",
+    "application_exit_code": 12,
+    "evidence": [
+      "raw_return/std.out.72197064:91-98",
+      "raw_return/std.out.72197064:100-107",
+      "raw_return/std.out.72197064:109-115"
+    ]
+  },
+  "negative_evidence": {
+    "keyword_parser_reached": false,
+    "d3hsp_present": false,
+    "mes_files_present": false,
+    "solver_out_present": false,
+    "binout_present": false,
+    "d3plot_present": false,
+    "d3part_present": false,
+    "std_err_size_bytes": 0,
+    "fort_59_size_bytes": 0,
+    "scheduler_signal_evidence": "none",
+    "messages_xml_warning_is_causal": false
+  },
+  "successful_control": {
+    "job_id": "72095164",
+    "date": "2026-10-21",
+    "compute_host": "i15r4n06",
+    "same_solver_revision": true,
+    "same_license_mode": "check ansys licenses only",
+    "dyna_checkout": "pass",
+    "dysmp_checkout_count": 31,
+    "solver_start": "pass"
+  },
+  "causal_decision": {
+    "deck_syntax_or_keyword_failure_supported": false,
+    "memory_or_rank_misconfiguration_supported": false,
+    "numerical_instability_supported": false,
+    "d3part_contract_failure_supported": false,
+    "platform_license_failure_supported": true,
+    "license_subcause_resolved": false,
+    "unresolved_subcauses": [
+      "lmgrd or vendor daemon unavailable",
+      "license host or port configuration changed",
+      "compute-node DNS, routing, firewall, or transient network failure"
+    ]
+  },
+  "resolution": {
+    "new_deck_revision_required": false,
+    "material_or_control_change_required": false,
+    "resource_change_required": false,
+    "action": "restore or confirm ANSYS license service, then retry the same frozen R05 candidate in a new empty run directory",
+    "retry_job_name": "uav_hf_p0_plate_r05_retry1",
+    "retry_work_directory": "/work/home/acd7dt5yv4/LS_DYNA/uav_hf_p0_plate_r05_retry1",
+    "repeat_failure_stop_condition": "If FlexNet -15,570 repeats once, stop resubmitting and open an SCNet support case with both job IDs and stdout evidence.",
+    "p0_response_admission": "denied_pending_real_r05_results",
+    "p1_submission_admission": "denied"
+  },
+  "claim_boundary": "This diagnosis establishes a pre-parser platform-license failure. It does not establish LS-DYNA keyword acceptance, D3PART readability, numerical qualification, physical validity, P0 calibration admission, or P1 admission."
+}

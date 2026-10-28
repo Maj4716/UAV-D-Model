@@ -1,0 +1,36 @@
+{
+  "schema_version": "hf-p0-r06-batch-manifest@1.0.0",
+  "package_revision": "R06_measurement_contract_repair_20261027",
+  "status": "generated_pending_static_validation_not_submitted",
+  "design": {
+    "path": "p0_r06f_measurement_repair_design.json",
+    "sha256": "sha256:d4e2bd9b6a58efdc9b56e9a4c2d9f87ed78e6b5f0db1bd057579b079b430d6cf"
+  },
+  "material": {
+    "path": "jc4340_reference.json",
+    "sha256": "sha256:9b462b920459e57641d5f89d10d36c0aa0498c86f2478fef8e4c3efa96888311"
+  },
+  "successor_contract": {
+    "path": "p0_r06f_real_output_contract.json",
+    "sha256": "sha256:566b00de9f897e2f63133b9bb8a3dd7d72f702d9e8029d97e94ee9ffdc202128",
+    "frozen_pre_generation_snapshot": true
+  },
+  "submission_matrix": {
+    "path": "submission_matrix.csv",
+    "sha256": "sha256:52f5d66cd4d3e075462f661eff23675db94432bc9530ddd80c56dd924456ce82"
+  },
+  "job_count": 1,
+  "paired_experiment_count": 1,
+  "jobs": [
+    {
+      "job_id": "r06f_0800_ctrl",
+      "directory": "job_01_v0800_control",
+      "experiment_id": "r06f_recanary_800_measurement_contract",
+      "role": "measurement_repair_recanary_control",
+      "deck": "r06f_0800_ctrl.k",
+      "deck_sha256": "sha256:111911562b703b8af1e96810b08edd8c31fbeea739ddddd2921b8bcd07c517af",
+      "manifest_sha256": "sha256:3660bc8166b2b8bb5f029ba33122cd3132699afe0f4b3b111d15f28f84789077"
+    }
+  ],
+  "prohibited_inference": "Generation and static validation do not establish target-solver parsing, numerical response, physical validity, or P0/P1 admission."
+}

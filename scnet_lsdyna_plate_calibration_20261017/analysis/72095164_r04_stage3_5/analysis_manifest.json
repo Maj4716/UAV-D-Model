@@ -1,0 +1,65 @@
+{
+  "schema_version": "hf-stage3-5-analysis-manifest@1.0.0",
+  "created_at": "2026-10-21T17:10:15.934030+08:00",
+  "analyzer": "D:\\Desktop\\UAV新\\scnet_lsdyna_plate_calibration_20261017\\scripts\\analyze_r04_stage3_5.py",
+  "analyzer_sha256": "0d4357fa115b41d73fead88f997e1df1a6cf81b681ece15952e78b14a9c00a01",
+  "stage0_2_qa_sha256": "803033e746696d9dd580e655103878a327aad4bf76823328b8cc8ac25b208da0",
+  "case_map_sha256": "7ef72a22eec38691a8662e0efff4d0e8ca5aeaa5757720ac8958ce2dfd1e453a",
+  "artifacts": [
+    {
+      "name": "case_response.csv",
+      "bytes": 4384,
+      "sha256": "62a4f8ed25be87f7012783e6297e02eb3e2c79e7f8f75ab0060abb6260ce3f50"
+    },
+    {
+      "name": "case_response_timeseries.csv",
+      "bytes": 459108,
+      "sha256": "14db961f271dca97ce202f33940ca86959d88d2f61153919865281c2e6b1b826"
+    },
+    {
+      "name": "database_readability.json",
+      "bytes": 4205,
+      "sha256": "2f582f776d3aeee09140e30a2e3fb9fe204f5776d4ec95e4f406ce733cd9de2a"
+    },
+    {
+      "name": "final_state_spatial_review.png",
+      "bytes": 1175304,
+      "sha256": "a62540734b886062d00695c723527b081cc4ab36a48f1b0aa99fc90d0de18519"
+    },
+    {
+      "name": "mesh_assessment.json",
+      "bytes": 1427,
+      "sha256": "b51749eed54157b015e1bd10b84d3ca85ae0dee7eb993302716b9c404cdaa9bf"
+    },
+    {
+      "name": "reader_environment.json",
+      "bytes": 996,
+      "sha256": "69f3497f202abd2fdb484fc593d23bd1474fbd768dc1db43cbba28508abab9e8"
+    },
+    {
+      "name": "response_diagnostics.png",
+      "bytes": 224755,
+      "sha256": "b3306afa10d1debbdd4c30bd8ef2ba3622eceb3b746c8155b79ae077a929a9c0"
+    },
+    {
+      "name": "speed_assessment.json",
+      "bytes": 1227,
+      "sha256": "24919ae11f5911ac82da68770275d33bd96dc7654de997adec5ccd88b383655b"
+    },
+    {
+      "name": "stage3_5_assessment.json",
+      "bytes": 23814,
+      "sha256": "820ad90baaa7a4999f7be1e60cb8bad4e6730a96e9ed471eea83007d2ecf9b0e"
+    },
+    {
+      "name": "stage3_5_report.md",
+      "bytes": 4190,
+      "sha256": "7601b287af982b54d6bc7de81803fb4641932f83cd9d3fbac44bf3890d0e406d"
+    },
+    {
+      "name": "worklog.md",
+      "bytes": 2991,
+      "sha256": "34eca856a06d501a9fee83906f9444f6ca6393ad59b02ad7931d690c34df84b9"
+    }
+  ]
+}

@@ -1,0 +1,751 @@
+{
+  "schema_version": "hf-p0-r05-d3part-extraction@1.0.0",
+  "package_revision": "R05_capture_ledger_preregistered",
+  "integration_status": "real_d3part_exercised_pending_independent_integration_acceptance",
+  "artifact_identity": {
+    "package_revision": "R05_capture_ledger_preregistered",
+    "design_sha256": "sha256:b1d2027d57fc6d9cd1ee3f932ea044fd16a112344d8f2b6f508071f45191a06f",
+    "deck_sha256": "sha256:6fbd753a113d0214e7ba4ff5136dc526d151e6f2c52c94e70399b29c4b9d3d0c",
+    "case_map_sha256": "sha256:b05b59249e49c3e9d15904f475c2f9478bdff1638fb797d1b552298490aa5295",
+    "material_sha256": "sha256:9b462b920459e57641d5f89d10d36c0aa0498c86f2478fef8e4c3efa96888311"
+  },
+  "run_identity": {
+    "run_id": "72252362",
+    "solver_build": "LS-DYNA MPP double R15.0.2-1-g1e7cfa42b1 I8R8 Intel-MPI 2018",
+    "d3part_family_sha256": "sha256:8f24005080f09cbfd1b81dd2f0f97d4abb3158e7133207f44beccb9852346af7",
+    "d3part_family": [
+      {
+        "path": "d3part",
+        "size_bytes": 708608,
+        "sha256": "sha256:810aa8cea6cdec18803fea6cd05e8995022b7404f33734aa2199197820415ecf"
+      },
+      {
+        "path": "d3part01",
+        "size_bytes": 145997824,
+        "sha256": "sha256:63bd452362f3cf83c721d17fb9263f2406549ad7c476fed9fd021416805cae9d"
+      },
+      {
+        "path": "d3part02",
+        "size_bytes": 145997824,
+        "sha256": "sha256:bf974457b2db5bcd5b08cdba40c34d8e4b76700eebd97ec25b24ba706c9c3800"
+      },
+      {
+        "path": "d3part03",
+        "size_bytes": 145997824,
+        "sha256": "sha256:a8b9cf6b053a747cf76feac6122771e44e77169d0c2d95105591bdb77b1edb00"
+      },
+      {
+        "path": "d3part04",
+        "size_bytes": 145997824,
+        "sha256": "sha256:c3bbe7d63024bd9ecfdd8916e6072f666aca8f8ce98803fffe33878e7e804773"
+      },
+      {
+        "path": "d3part05",
+        "size_bytes": 145997824,
+        "sha256": "sha256:79a12ac794a2e78cc52499a49d0c022d0b568a4228115d1e35e053b490704fa4"
+      },
+      {
+        "path": "d3part06",
+        "size_bytes": 44478464,
+        "sha256": "sha256:405f378f8ba8a88ceab8dd9134030034af22f773c5062ae59210668c12171597"
+      },
+      {
+        "path": "d3part07",
+        "size_bytes": 970752,
+        "sha256": "sha256:8d439fdbc10289b8d16fdbba98743c76a0de410e9782c0cc8769c29dec2ff3b7"
+      }
+    ]
+  },
+  "reader_identity": {
+    "name": "lasso-python",
+    "version": "2.0.4",
+    "api": "lasso.dyna.D3plot+Binout",
+    "d3plot_source_sha256": "sha256:31380983a92f0a149b8055febd4e8b38ece6ebdf604b5d77c8e98eee788c9c97",
+    "binout_source_sha256": "sha256:87ee86b89314ae50d235d8e99e0a721c1b1c00141d24b7b9d2460b42f3f3fc7d",
+    "array_type_source_sha256": "sha256:d6641f8bbbb2b7f9bf8cd50b95104a122f5560a11022828058003b8900a38724"
+  },
+  "extractor_identity": {
+    "name": "extract_r05_d3part",
+    "version": "1.1.0",
+    "source_sha256": "sha256:381b5bc657aaec87ce8c5dbb4c67140f648040b0a57178d397b8b388431ae9e8"
+  },
+  "d3part_summary": {
+    "coordinate_mode": "absolute_coordinates",
+    "alive_encoding": "zero_deleted_nonzero_alive",
+    "state_count": 802,
+    "node_count": 7737,
+    "solid_count": 5680,
+    "part_ids": [
+      2001,
+      2002,
+      2003,
+      2004,
+      2005,
+      2006,
+      2007
+    ],
+    "catalog_part_ids": [
+      1001,
+      2001,
+      1002,
+      2002,
+      1003,
+      2003,
+      1004,
+      2004,
+      1005,
+      2005,
+      1006,
+      2006,
+      1007,
+      2007
+    ],
+    "zero_solid_catalog_part_ids": [
+      1001,
+      1002,
+      1003,
+      1004,
+      1005,
+      1006,
+      1007
+    ],
+    "first_time_ms": 0.0,
+    "last_time_ms": 0.040002637597628225,
+    "minimum_state_interval_ms": 6.027376444617261e-06,
+    "maximum_state_interval_ms": 6.462719373816848e-05,
+    "expected_state_interval_ms": 5e-05,
+    "termination_time_ms": 0.04,
+    "termination_coverage_tolerance_ms": 0.00011462719373816848,
+    "temporal_gate": {
+      "schema_version": "hf-p0-d3part-temporal-gate@1.0.0",
+      "status": "pass",
+      "schedule_rule": "each actual D3PART interval must be no greater than the nominal output interval plus the maximum positive GLSTAT explicit solver step in that interval",
+      "crossing_spatial_resolution_rule": "an alive-to-alive element-centroid capture-plane crossing is resolved only when its directional cross-step travel is no greater than 0.5 times that case mesh; otherwise its reference mass is temporal_ambiguity",
+      "crossing_spatial_resolution_mesh_fraction": 0.5,
+      "time_word_tolerance_ulps": 4,
+      "time_word_tolerance_ms": 1.4901161193847656e-08,
+      "nominal_output_interval_ms": 5e-05,
+      "solver_state_count": 801,
+      "maximum_explicit_solver_step_ms": 6.462719373816848e-05,
+      "maximum_actual_state_interval_ms": 6.462719373816848e-05,
+      "maximum_solver_realizable_interval_ms": 0.00011462719373816848,
+      "maximum_interval_to_solver_realizable_bound_ratio": 0.9953743093998582,
+      "case_crossing_resolution": [
+        {
+          "case_id": "p0_v0600_h0p75",
+          "spatial_resolution_limit_mm": 0.375,
+          "alive_crossing_count": 0,
+          "overlimit_alive_crossing_count": 0,
+          "maximum_alive_crossing_step_mm": null
+        },
+        {
+          "case_id": "p0_v0800_h0p75",
+          "spatial_resolution_limit_mm": 0.375,
+          "alive_crossing_count": 18,
+          "overlimit_alive_crossing_count": 0,
+          "maximum_alive_crossing_step_mm": 0.013155102866226898
+        },
+        {
+          "case_id": "p0_v1000_h0p75",
+          "spatial_resolution_limit_mm": 0.375,
+          "alive_crossing_count": 482,
+          "overlimit_alive_crossing_count": 0,
+          "maximum_alive_crossing_step_mm": 0.02500285127708679
+        },
+        {
+          "case_id": "p0_v1200_h0p75",
+          "spatial_resolution_limit_mm": 0.375,
+          "alive_crossing_count": 519,
+          "overlimit_alive_crossing_count": 0,
+          "maximum_alive_crossing_step_mm": 0.04150044697969335
+        },
+        {
+          "case_id": "p0_v2000_h0p75",
+          "spatial_resolution_limit_mm": 0.375,
+          "alive_crossing_count": 236,
+          "overlimit_alive_crossing_count": 0,
+          "maximum_alive_crossing_step_mm": 0.09916069164034624
+        },
+        {
+          "case_id": "p0_v2000_h1p00",
+          "spatial_resolution_limit_mm": 0.5,
+          "alive_crossing_count": 60,
+          "overlimit_alive_crossing_count": 0,
+          "maximum_alive_crossing_step_mm": 0.047424251917799864
+        },
+        {
+          "case_id": "p0_v2000_h0p50",
+          "spatial_resolution_limit_mm": 0.25,
+          "alive_crossing_count": 1756,
+          "overlimit_alive_crossing_count": 0,
+          "maximum_alive_crossing_step_mm": 0.1111781183485192
+        }
+      ]
+    }
+  },
+  "cases": [
+    {
+      "ledger_schema_version": "hf-p0-capture-ledger-result@1.1.0",
+      "case_id": "p0_v0600_h0p75",
+      "role": "hf_response_fit",
+      "fragment_part_id": 2001,
+      "impact_speed_mps": 600.0,
+      "mesh_mm": 0.75,
+      "run_integrity_gate": "not_assessed_by_d3part_extractor",
+      "provenance": {
+        "finite_input_validation": "pass",
+        "state_count": 802,
+        "node_count": 7737,
+        "element_count": 686,
+        "expected_reference_mass_kg": 0.002,
+        "capture_plane_z_mm": -12.0,
+        "impact_speed_mps": 600.0,
+        "maximum_unambiguous_step_mm": 0.375,
+        "tail_window_fraction": 0.1,
+        "thresholds": {
+          "initial_discrete_mass_relative_error_max": 0.005,
+          "mass_accounting_relative_error_max": 1e-06,
+          "temporal_ambiguity_mass_fraction_max": 0.01,
+          "deleted_upstream_mass_fraction_max": 0.05,
+          "tail_increment_qM_max": 0.01,
+          "tail_increment_qP_max": 0.01,
+          "tail_increment_qE_max": 0.01,
+          "tail_qV_relative_range_max": 0.05,
+          "confirmed_perforation_qM_min": 0.02,
+          "confirmed_perforation_qP_min": 0.01,
+          "confirmed_nonperforation_qM_max": 0.005,
+          "confirmed_nonperforation_qP_max": 0.005,
+          "confirmed_nonperforation_worst_case_crossing_mass_max": 0.005
+        }
+      },
+      "primary_qoi_available": true,
+      "unavailable_reasons": [],
+      "classification": "confirmed_nonperforation",
+      "qM": 0.0,
+      "qP": 0.0,
+      "qE": 0.0,
+      "qV_over_v0": null,
+      "diagnostic_values_before_availability_gate": {
+        "qM": 0.0,
+        "qP": 0.0,
+        "qE": 0.0,
+        "qV_over_v0": null
+      },
+      "reference_mass_kg": 0.0020000000000416017,
+      "expected_reference_mass_kg": 0.002,
+      "initial_discrete_mass_relative_error": 2.0800852360003397e-11,
+      "mass_by_ledger_state_kg": {
+        "alive_crossed": 0.0,
+        "alive_upstream": 0.0020000000000416017,
+        "deleted_upstream": 0.0,
+        "deleted_after_crossing": 0.0,
+        "temporal_ambiguity": 0.0
+      },
+      "mass_fraction_by_ledger_state": {
+        "alive_crossed": 0.0,
+        "alive_upstream": 1.000000000020801,
+        "deleted_upstream": 0.0,
+        "deleted_after_crossing": 0.0,
+        "temporal_ambiguity": 0.0
+      },
+      "mass_accounting_relative_error": 0.0,
+      "unresolved_crossing_mass_fraction": 0.0,
+      "missing_reference_mass_fraction": 0.0,
+      "worst_case_crossing_mass_fraction": 0.0,
+      "tail_window": {
+        "start_time_ms": 0.036002373837865406,
+        "increment_qM": 0.0,
+        "increment_qP": 0.0,
+        "increment_qE": 0.0,
+        "qV_relative_range": 0.0
+      },
+      "crossing_event_count": 0,
+      "element_count": 686
+    },
+    {
+      "ledger_schema_version": "hf-p0-capture-ledger-result@1.1.0",
+      "case_id": "p0_v0800_h0p75",
+      "role": "hf_response_fit",
+      "fragment_part_id": 2002,
+      "impact_speed_mps": 800.0,
+      "mesh_mm": 0.75,
+      "run_integrity_gate": "not_assessed_by_d3part_extractor",
+      "provenance": {
+        "finite_input_validation": "pass",
+        "state_count": 802,
+        "node_count": 7737,
+        "element_count": 686,
+        "expected_reference_mass_kg": 0.002,
+        "capture_plane_z_mm": -12.0,
+        "impact_speed_mps": 800.0,
+        "maximum_unambiguous_step_mm": 0.375,
+        "tail_window_fraction": 0.1,
+        "thresholds": {
+          "initial_discrete_mass_relative_error_max": 0.005,
+          "mass_accounting_relative_error_max": 1e-06,
+          "temporal_ambiguity_mass_fraction_max": 0.01,
+          "deleted_upstream_mass_fraction_max": 0.05,
+          "tail_increment_qM_max": 0.01,
+          "tail_increment_qP_max": 0.01,
+          "tail_increment_qE_max": 0.01,
+          "tail_qV_relative_range_max": 0.05,
+          "confirmed_perforation_qM_min": 0.02,
+          "confirmed_perforation_qP_min": 0.01,
+          "confirmed_nonperforation_qM_max": 0.005,
+          "confirmed_nonperforation_qP_max": 0.005,
+          "confirmed_nonperforation_worst_case_crossing_mass_max": 0.005
+        }
+      },
+      "primary_qoi_available": false,
+      "unavailable_reasons": [
+        "deleted_upstream_mass",
+        "unstable_tail_qM"
+      ],
+      "classification": "unavailable",
+      "qM": null,
+      "qP": null,
+      "qE": null,
+      "qV_over_v0": null,
+      "diagnostic_values_before_availability_gate": {
+        "qM": 0.026239067301984945,
+        "qP": 0.007945758372528852,
+        "qE": 0.0024067348523059374,
+        "qV_over_v0": 0.3028216773516095
+      },
+      "reference_mass_kg": 0.0019999999821700186,
+      "expected_reference_mass_kg": 0.002,
+      "initial_discrete_mass_relative_error": 8.91499070745927e-09,
+      "mass_by_ledger_state_kg": {
+        "alive_crossed": 5.247813460396989e-05,
+        "alive_upstream": 0.0015510203951679138,
+        "deleted_upstream": 0.00039650145239813485,
+        "deleted_after_crossing": 0.0,
+        "temporal_ambiguity": 0.0
+      },
+      "mass_fraction_by_ledger_state": {
+        "alive_crossed": 0.026239067301984945,
+        "alive_upstream": 0.7755101975839569,
+        "deleted_upstream": 0.19825072619906742,
+        "deleted_after_crossing": 0.0,
+        "temporal_ambiguity": 0.0
+      },
+      "mass_accounting_relative_error": 0.0,
+      "unresolved_crossing_mass_fraction": 0.19825073511405814,
+      "missing_reference_mass_fraction": 8.91499070745927e-09,
+      "worst_case_crossing_mass_fraction": 0.22448980241604308,
+      "tail_window": {
+        "start_time_ms": 0.036002373837865406,
+        "increment_qM": 0.026239067301984945,
+        "increment_qP": 0.007945758372528852,
+        "increment_qE": 0.0024067348523059374,
+        "qV_relative_range": 0.00891900107586575
+      },
+      "crossing_event_count": 18,
+      "element_count": 686
+    },
+    {
+      "ledger_schema_version": "hf-p0-capture-ledger-result@1.1.0",
+      "case_id": "p0_v1000_h0p75",
+      "role": "hf_response_holdout",
+      "fragment_part_id": 2003,
+      "impact_speed_mps": 1000.0,
+      "mesh_mm": 0.75,
+      "run_integrity_gate": "not_assessed_by_d3part_extractor",
+      "provenance": {
+        "finite_input_validation": "pass",
+        "state_count": 802,
+        "node_count": 7737,
+        "element_count": 686,
+        "expected_reference_mass_kg": 0.002,
+        "capture_plane_z_mm": -12.0,
+        "impact_speed_mps": 1000.0,
+        "maximum_unambiguous_step_mm": 0.375,
+        "tail_window_fraction": 0.1,
+        "thresholds": {
+          "initial_discrete_mass_relative_error_max": 0.005,
+          "mass_accounting_relative_error_max": 1e-06,
+          "temporal_ambiguity_mass_fraction_max": 0.01,
+          "deleted_upstream_mass_fraction_max": 0.05,
+          "tail_increment_qM_max": 0.01,
+          "tail_increment_qP_max": 0.01,
+          "tail_increment_qE_max": 0.01,
+          "tail_qV_relative_range_max": 0.05,
+          "confirmed_perforation_qM_min": 0.02,
+          "confirmed_perforation_qP_min": 0.01,
+          "confirmed_nonperforation_qM_max": 0.005,
+          "confirmed_nonperforation_qP_max": 0.005,
+          "confirmed_nonperforation_worst_case_crossing_mass_max": 0.005
+        }
+      },
+      "primary_qoi_available": false,
+      "unavailable_reasons": [
+        "deleted_upstream_mass",
+        "unstable_tail_qM",
+        "unstable_tail_qP",
+        "unstable_tail_qE"
+      ],
+      "classification": "unavailable",
+      "qM": null,
+      "qP": null,
+      "qE": null,
+      "qV_over_v0": null,
+      "diagnostic_values_before_availability_gate": {
+        "qM": 0.7026239025279205,
+        "qP": 0.31034907983142845,
+        "qE": 0.1371442713656525,
+        "qV_over_v0": 0.4417001452908812
+      },
+      "reference_mass_kg": 0.0019999999821700364,
+      "expected_reference_mass_kg": 0.002,
+      "initial_discrete_mass_relative_error": 8.914981817001455e-09,
+      "mass_by_ledger_state_kg": {
+        "alive_crossed": 0.0013965014488089658,
+        "alive_upstream": 9.91253619499389e-05,
+        "deleted_upstream": 0.0004956268151642565,
+        "deleted_after_crossing": 8.746356246875396e-06,
+        "temporal_ambiguity": 0.0
+      },
+      "mass_fraction_by_ledger_state": {
+        "alive_crossed": 0.6982507244044829,
+        "alive_upstream": 0.04956268097496945,
+        "deleted_upstream": 0.24781340758212825,
+        "deleted_after_crossing": 0.004373178123437698,
+        "temporal_ambiguity": 0.0
+      },
+      "mass_accounting_relative_error": 0.0,
+      "unresolved_crossing_mass_fraction": 0.24781341649711006,
+      "missing_reference_mass_fraction": 8.914981817001455e-09,
+      "worst_case_crossing_mass_fraction": 0.9504373190250306,
+      "tail_window": {
+        "start_time_ms": 0.036002373837865406,
+        "increment_qM": 0.12682215661006777,
+        "increment_qP": 0.055130310079542034,
+        "increment_qE": 0.023985142221634014,
+        "qV_relative_range": 0.0034479931156628464
+      },
+      "crossing_event_count": 482,
+      "element_count": 686
+    },
+    {
+      "ledger_schema_version": "hf-p0-capture-ledger-result@1.1.0",
+      "case_id": "p0_v1200_h0p75",
+      "role": "hf_response_fit",
+      "fragment_part_id": 2004,
+      "impact_speed_mps": 1200.0,
+      "mesh_mm": 0.75,
+      "run_integrity_gate": "not_assessed_by_d3part_extractor",
+      "provenance": {
+        "finite_input_validation": "pass",
+        "state_count": 802,
+        "node_count": 7737,
+        "element_count": 686,
+        "expected_reference_mass_kg": 0.002,
+        "capture_plane_z_mm": -12.0,
+        "impact_speed_mps": 1200.0,
+        "maximum_unambiguous_step_mm": 0.375,
+        "tail_window_fraction": 0.1,
+        "thresholds": {
+          "initial_discrete_mass_relative_error_max": 0.005,
+          "mass_accounting_relative_error_max": 1e-06,
+          "temporal_ambiguity_mass_fraction_max": 0.01,
+          "deleted_upstream_mass_fraction_max": 0.05,
+          "tail_increment_qM_max": 0.01,
+          "tail_increment_qP_max": 0.01,
+          "tail_increment_qE_max": 0.01,
+          "tail_qV_relative_range_max": 0.05,
+          "confirmed_perforation_qM_min": 0.02,
+          "confirmed_perforation_qP_min": 0.01,
+          "confirmed_nonperforation_qM_max": 0.005,
+          "confirmed_nonperforation_qP_max": 0.005,
+          "confirmed_nonperforation_worst_case_crossing_mass_max": 0.005
+        }
+      },
+      "primary_qoi_available": false,
+      "unavailable_reasons": [
+        "deleted_upstream_mass"
+      ],
+      "classification": "unavailable",
+      "qM": null,
+      "qP": null,
+      "qE": null,
+      "qV_over_v0": null,
+      "diagnostic_values_before_availability_gate": {
+        "qM": 0.7565597612310038,
+        "qP": 0.4264825628573447,
+        "qE": 0.2407958979669273,
+        "qV_over_v0": 0.5637129870129649
+      },
+      "reference_mass_kg": 0.0019999999821700256,
+      "expected_reference_mass_kg": 0.002,
+      "initial_discrete_mass_relative_error": 8.914987238012317e-09,
+      "mass_by_ledger_state_kg": {
+        "alive_crossed": 0.0014956268107787587,
+        "alive_upstream": 0.0,
+        "deleted_upstream": 0.000486880459708018,
+        "deleted_after_crossing": 1.7492711683248765e-05,
+        "temporal_ambiguity": 0.0
+      },
+      "mass_fraction_by_ledger_state": {
+        "alive_crossed": 0.7478134053893793,
+        "alive_upstream": 0.0,
+        "deleted_upstream": 0.24344022985400898,
+        "deleted_after_crossing": 0.008746355841624382,
+        "temporal_ambiguity": 0.0
+      },
+      "mass_accounting_relative_error": 0.0,
+      "unresolved_crossing_mass_fraction": 0.24344023876899623,
+      "missing_reference_mass_fraction": 8.914987238012317e-09,
+      "worst_case_crossing_mass_fraction": 1.0,
+      "tail_window": {
+        "start_time_ms": 0.036002373837865406,
+        "increment_qM": 0.0,
+        "increment_qP": 0.0,
+        "increment_qE": 0.0,
+        "qV_relative_range": 0.0
+      },
+      "crossing_event_count": 519,
+      "element_count": 686
+    },
+    {
+      "ledger_schema_version": "hf-p0-capture-ledger-result@1.1.0",
+      "case_id": "p0_v2000_h0p75",
+      "role": "hf_response_fit",
+      "fragment_part_id": 2005,
+      "impact_speed_mps": 2000.0,
+      "mesh_mm": 0.75,
+      "run_integrity_gate": "not_assessed_by_d3part_extractor",
+      "provenance": {
+        "finite_input_validation": "pass",
+        "state_count": 802,
+        "node_count": 7737,
+        "element_count": 686,
+        "expected_reference_mass_kg": 0.002,
+        "capture_plane_z_mm": -12.0,
+        "impact_speed_mps": 2000.0,
+        "maximum_unambiguous_step_mm": 0.375,
+        "tail_window_fraction": 0.1,
+        "thresholds": {
+          "initial_discrete_mass_relative_error_max": 0.005,
+          "mass_accounting_relative_error_max": 1e-06,
+          "temporal_ambiguity_mass_fraction_max": 0.01,
+          "deleted_upstream_mass_fraction_max": 0.05,
+          "tail_increment_qM_max": 0.01,
+          "tail_increment_qP_max": 0.01,
+          "tail_increment_qE_max": 0.01,
+          "tail_qV_relative_range_max": 0.05,
+          "confirmed_perforation_qM_min": 0.02,
+          "confirmed_perforation_qP_min": 0.01,
+          "confirmed_nonperforation_qM_max": 0.005,
+          "confirmed_nonperforation_qP_max": 0.005,
+          "confirmed_nonperforation_worst_case_crossing_mass_max": 0.005
+        }
+      },
+      "primary_qoi_available": false,
+      "unavailable_reasons": [
+        "deleted_upstream_mass"
+      ],
+      "classification": "unavailable",
+      "qM": null,
+      "qP": null,
+      "qE": null,
+      "qV_over_v0": null,
+      "diagnostic_values_before_availability_gate": {
+        "qM": 0.3440233155563692,
+        "qP": 0.275039922528787,
+        "qE": 0.2231331304316071,
+        "qV_over_v0": 0.7994804715022895
+      },
+      "reference_mass_kg": 0.001999999964298442,
+      "expected_reference_mass_kg": 0.002,
+      "initial_discrete_mass_relative_error": 1.7850779014672025e-08,
+      "mass_by_ledger_state_kg": {
+        "alive_crossed": 0.0006355684971936428,
+        "alive_upstream": 5.830903448639853e-06,
+        "deleted_upstream": 0.0013061224297370641,
+        "deleted_after_crossing": 5.247813391909567e-05,
+        "temporal_ambiguity": 0.0
+      },
+      "mass_fraction_by_ledger_state": {
+        "alive_crossed": 0.3177842485968214,
+        "alive_upstream": 0.0029154517243199264,
+        "deleted_upstream": 0.6530612148685321,
+        "deleted_after_crossing": 0.026239066959547835,
+        "temporal_ambiguity": 0.0
+      },
+      "mass_accounting_relative_error": 2.1684043836787162e-16,
+      "unresolved_crossing_mass_fraction": 0.653061232719311,
+      "missing_reference_mass_fraction": 1.7850779014672025e-08,
+      "worst_case_crossing_mass_fraction": 0.9970845482756803,
+      "tail_window": {
+        "start_time_ms": 0.036002373837865406,
+        "increment_qM": 0.0,
+        "increment_qP": 0.0,
+        "increment_qE": 0.0,
+        "qV_relative_range": 0.0
+      },
+      "crossing_event_count": 236,
+      "element_count": 686
+    },
+    {
+      "ledger_schema_version": "hf-p0-capture-ledger-result@1.1.0",
+      "case_id": "p0_v2000_h1p00",
+      "role": "hf_numerical_verification",
+      "fragment_part_id": 2006,
+      "impact_speed_mps": 2000.0,
+      "mesh_mm": 1.0,
+      "run_integrity_gate": "not_assessed_by_d3part_extractor",
+      "provenance": {
+        "finite_input_validation": "pass",
+        "state_count": 802,
+        "node_count": 7737,
+        "element_count": 250,
+        "expected_reference_mass_kg": 0.002,
+        "capture_plane_z_mm": -12.0,
+        "impact_speed_mps": 2000.0,
+        "maximum_unambiguous_step_mm": 0.5,
+        "tail_window_fraction": 0.1,
+        "thresholds": {
+          "initial_discrete_mass_relative_error_max": 0.005,
+          "mass_accounting_relative_error_max": 1e-06,
+          "temporal_ambiguity_mass_fraction_max": 0.01,
+          "deleted_upstream_mass_fraction_max": 0.05,
+          "tail_increment_qM_max": 0.01,
+          "tail_increment_qP_max": 0.01,
+          "tail_increment_qE_max": 0.01,
+          "tail_qV_relative_range_max": 0.05,
+          "confirmed_perforation_qM_min": 0.02,
+          "confirmed_perforation_qP_min": 0.01,
+          "confirmed_nonperforation_qM_max": 0.005,
+          "confirmed_nonperforation_qP_max": 0.005,
+          "confirmed_nonperforation_worst_case_crossing_mass_max": 0.005
+        }
+      },
+      "primary_qoi_available": false,
+      "unavailable_reasons": [
+        "deleted_upstream_mass"
+      ],
+      "classification": "unavailable",
+      "qM": null,
+      "qP": null,
+      "qE": null,
+      "qV_over_v0": null,
+      "diagnostic_values_before_availability_gate": {
+        "qM": 0.23999999614076073,
+        "qP": 0.08327613313321183,
+        "qE": 0.02949340914733184,
+        "qV_over_v0": 0.3469838936346071
+      },
+      "reference_mass_kg": 0.001999999964298443,
+      "expected_reference_mass_kg": 0.002,
+      "initial_discrete_mass_relative_error": 1.7850778580991156e-08,
+      "mass_by_ledger_state_kg": {
+        "alive_crossed": 0.00044799999269388784,
+        "alive_upstream": 7.999998904042646e-06,
+        "deleted_upstream": 0.0015119999731128787,
+        "deleted_after_crossing": 3.199999958763368e-05,
+        "temporal_ambiguity": 0.0
+      },
+      "mass_fraction_by_ledger_state": {
+        "alive_crossed": 0.22399999634694392,
+        "alive_upstream": 0.003999999452021323,
+        "deleted_upstream": 0.7559999865564393,
+        "deleted_after_crossing": 0.01599999979381684,
+        "temporal_ambiguity": 0.0
+      },
+      "mass_accounting_relative_error": 0.0,
+      "unresolved_crossing_mass_fraction": 0.7560000044072179,
+      "missing_reference_mass_fraction": 1.7850778580991156e-08,
+      "worst_case_crossing_mass_fraction": 0.9960000005479787,
+      "tail_window": {
+        "start_time_ms": 0.036002373837865406,
+        "increment_qM": 0.0,
+        "increment_qP": 0.0,
+        "increment_qE": 0.0,
+        "qV_relative_range": 0.0
+      },
+      "crossing_event_count": 60,
+      "element_count": 250
+    },
+    {
+      "ledger_schema_version": "hf-p0-capture-ledger-result@1.1.0",
+      "case_id": "p0_v2000_h0p50",
+      "role": "hf_numerical_verification",
+      "fragment_part_id": 2007,
+      "impact_speed_mps": 2000.0,
+      "mesh_mm": 0.5,
+      "run_integrity_gate": "not_assessed_by_d3part_extractor",
+      "provenance": {
+        "finite_input_validation": "pass",
+        "state_count": 802,
+        "node_count": 7737,
+        "element_count": 2000,
+        "expected_reference_mass_kg": 0.002,
+        "capture_plane_z_mm": -12.0,
+        "impact_speed_mps": 2000.0,
+        "maximum_unambiguous_step_mm": 0.25,
+        "tail_window_fraction": 0.1,
+        "thresholds": {
+          "initial_discrete_mass_relative_error_max": 0.005,
+          "mass_accounting_relative_error_max": 1e-06,
+          "temporal_ambiguity_mass_fraction_max": 0.01,
+          "deleted_upstream_mass_fraction_max": 0.05,
+          "tail_increment_qM_max": 0.01,
+          "tail_increment_qP_max": 0.01,
+          "tail_increment_qE_max": 0.01,
+          "tail_qV_relative_range_max": 0.05,
+          "confirmed_perforation_qM_min": 0.02,
+          "confirmed_perforation_qP_min": 0.01,
+          "confirmed_nonperforation_qM_max": 0.005,
+          "confirmed_nonperforation_qP_max": 0.005,
+          "confirmed_nonperforation_worst_case_crossing_mass_max": 0.005
+        }
+      },
+      "primary_qoi_available": false,
+      "unavailable_reasons": [
+        "deleted_upstream_mass"
+      ],
+      "classification": "unavailable",
+      "qM": null,
+      "qP": null,
+      "qE": null,
+      "qV_over_v0": null,
+      "diagnostic_values_before_availability_gate": {
+        "qM": 0.8779999944046055,
+        "qP": 0.8226036514081616,
+        "qE": 0.7707382586645061,
+        "qV_over_v0": 0.9369062148639197
+      },
+      "reference_mass_kg": 0.001999999982170028,
+      "expected_reference_mass_kg": 0.002,
+      "initial_discrete_mass_relative_error": 8.91498593696971e-09,
+      "mass_by_ledger_state_kg": {
+        "alive_crossed": 0.0017449999890552124,
+        "alive_upstream": 0.0,
+        "deleted_upstream": 0.00024399999336081744,
+        "deleted_after_crossing": 1.0999999753998411e-05,
+        "temporal_ambiguity": 0.0
+      },
+      "mass_fraction_by_ledger_state": {
+        "alive_crossed": 0.8724999945276062,
+        "alive_upstream": 0.0,
+        "deleted_upstream": 0.12199999668040871,
+        "deleted_after_crossing": 0.005499999876999205,
+        "temporal_ambiguity": 0.0
+      },
+      "mass_accounting_relative_error": 0.0,
+      "unresolved_crossing_mass_fraction": 0.12200000559539464,
+      "missing_reference_mass_fraction": 8.91498593696971e-09,
+      "worst_case_crossing_mass_fraction": 1.0000000000000002,
+      "tail_window": {
+        "start_time_ms": 0.036002373837865406,
+        "increment_qM": 0.0,
+        "increment_qP": 0.0,
+        "increment_qE": 0.0,
+        "qV_relative_range": 0.0
+      },
+      "crossing_event_count": 1756,
+      "element_count": 2000
+    }
+  ],
+  "claim_boundary": "Real D3PART readability has been exercised at the adapter seam for the R05 family, but this hash-bound extraction remains pending independent integration acceptance and does not itself establish run integrity, numerical qualification, or physical validity."
+}

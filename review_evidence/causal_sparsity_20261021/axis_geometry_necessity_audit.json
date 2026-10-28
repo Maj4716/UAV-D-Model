@@ -1,0 +1,740 @@
+{
+  "schema_version": "1.0.0",
+  "audit_date": "2026-10-21",
+  "scope": "read_only_axis_geometry_necessary_condition_diagnostic",
+  "inputs": {
+    "target": {
+      "path": "raw_data/target.rebuilt.fragment_only.v1.json",
+      "sha256": "sha256:c465477c831698fbe6f47b1d4f45c6fe09372252ab7bf6ccd43bbdc9594301fb"
+    },
+    "physics": {
+      "path": "examples/physics.loitering_impact.json",
+      "sha256": "sha256:283964f9a36a1b2229a757589b169f8768b927ab48d1906551da69101a9b7719"
+    },
+    "case_template": {
+      "path": "raw_data/case.loitering_impact.fragment_only.v1.json",
+      "sha256": "sha256:f523a075b18f84edfc32e01a726288f283b2c3db9adbecbbfc45e795215e902a"
+    },
+    "formal_manifest": {
+      "path": "raw_data/dataset_5000_loitering_impact_fragment_only_v1/formal_dataset/manifest.json",
+      "sha256": "sha256:f8702b39623fc53c9a2334cf728263af2d261fe4a8ef19eaf713bf04c32cb4c4"
+    },
+    "formal_cases": {
+      "path": "raw_data/dataset_5000_loitering_impact_fragment_only_v1/rounds/round-000/formal_cases.jsonl.gz",
+      "sha256": "sha256:e55a86e9a36cb5f88d58ae9aa2fb3606c8dceec0df01f9ce3f0394bbc1375791"
+    },
+    "fragment_trace": {
+      "path": "review_evidence/optimization_20261014/fragment_reachability_train_trace.jsonl.gz",
+      "sha256": "sha256:b12e604aeed9ca6d76de596a1b2df9e7ed57d4575b4df89c0918c25f7beecd8d"
+    },
+    "fragment_trace_audit": {
+      "path": "review_evidence/optimization_20261014/fragment_reachability_train_audit.json",
+      "sha256": "sha256:a4e35767b87645b45a88846e7062de9703b93666f04c76be0d456a424d5239a9"
+    },
+    "kmfc_support": {
+      "path": "review_evidence/kmfc_v0_component_support_audit_20261015.json",
+      "sha256": "sha256:e87bb3606a2e25973b06cb1f51948e5cf91f9e4e8bb8b8ba600ea99cfa9076b2"
+    }
+  },
+  "environment": {
+    "python": "3.12.13 | packaged by conda-forge | (main, Aug 11 2026, 10:18:27) [MSC v.1944 64 bit (AMD64)]",
+    "executable": "D:\\ProgramData\\Anaconda\\envs\\pytorch312-lmdt\\python.exe",
+    "platform": "Windows-11-10.0.26200-SP0",
+    "numpy": "2.4.6"
+  },
+  "software_identity": {
+    "current": {
+      "engine_version": "0.7.0.dev3",
+      "engine_code_hash": "sha256:e2bb0c4a6e2606783531ceb5b3baae921b2e78d29dd7fc98be24d408decb211a"
+    },
+    "formal_archive": {
+      "engine_version": "0.7.0.dev1",
+      "engine_code_hash": "sha256:bf3b325e5504d180a22a14aab4948751f374f8a67eb77d6db956707d2770e787"
+    },
+    "historical_train_only_trace": {
+      "engine_code_hash": "sha256:55cf8377026d7fc3c8ef5a4828f3403991de61b825ecc7b23b4ba8905a70aa41"
+    },
+    "formal_archive_matches_current_engine": false,
+    "historical_trace_matches_current_engine": false
+  },
+  "formal_case_count": 5000,
+  "formal_design": {
+    "normalized_velocity_direction_unique_count": 1,
+    "normalized_velocity_directions": [
+      "[1.0,0.0,0.0]"
+    ],
+    "canonical_orientation_unique_count": 1,
+    "canonical_orientations_xyzw": [
+      "[0.0,0.0,0.0,1.0]"
+    ],
+    "contact_x_by_armor": {
+      "armor-001": {
+        "case_count": 2789,
+        "unique_x_count": 1,
+        "contact_x_minimum_m": -1.6302649974822998,
+        "contact_x_maximum_m": -1.6302649974822998,
+        "contact_x_span_m": 0.0
+      },
+      "armor-002": {
+        "case_count": 2211,
+        "unique_x_count": 2,
+        "contact_x_minimum_m": -1.1874800523122158,
+        "contact_x_maximum_m": -1.1874800523122122,
+        "contact_x_span_m": 3.552713678800501e-15
+      }
+    }
+  },
+  "declared_support_contact_probe": {
+    "trajectory_origin_x_m": -10.0,
+    "direction_target_xyz": [
+      1.0,
+      0.0,
+      0.0
+    ],
+    "declared_y_bounds_m": [
+      -3.0,
+      2.0
+    ],
+    "declared_z_bounds_m": [
+      0.65,
+      1.8
+    ],
+    "grid_probe": {
+      "point_count": 2601,
+      "contact_count": 2601,
+      "no_contact_count": 0,
+      "first_contact_armor_counts": {
+        "armor-001": 1479,
+        "armor-002": 1122
+      }
+    },
+    "fixed_seed_uniform_probe": {
+      "seed": 20261021,
+      "point_count": 20000,
+      "contact_count": 20000,
+      "no_contact_count": 0,
+      "first_contact_armor_counts": {
+        "armor-001": 11215,
+        "armor-002": 8785
+      }
+    },
+    "evidence_boundary": "Finite grid and fixed-seed probes show behavior inside the declared rectangle; they do not mathematically prove contact for every real-valued point."
+  },
+  "declared_fragment_source_axes": {
+    "loitering_large_front_taylor_source": {
+      "axis_body": [
+        -1.0,
+        0.0,
+        0.0
+      ],
+      "axis_dot_body_plus_x": -1.0,
+      "direction_kind": "taylor_ring",
+      "source_id": "BISHE-SIMULATION-ENGINE-PARAMETERS-UNVERIFIED"
+    },
+    "loitering_medium_front_taylor_source": {
+      "axis_body": [
+        -1.0,
+        0.0,
+        0.0
+      ],
+      "axis_dot_body_plus_x": -1.0,
+      "direction_kind": "taylor_ring",
+      "source_id": "BISHE-SIMULATION-ENGINE-PARAMETERS-UNVERIFIED"
+    },
+    "loitering_small_front_taylor_source": {
+      "axis_body": [
+        -1.0,
+        0.0,
+        0.0
+      ],
+      "axis_dot_body_plus_x": -1.0,
+      "direction_kind": "taylor_ring",
+      "source_id": "BISHE-SIMULATION-ENGINE-PARAMETERS-UNVERIFIED"
+    }
+  },
+  "current_dev3_template_fragment_trace": {
+    "case_id": "loitering-impact-fragment-only-template-v1",
+    "fragment_trace_count": 120,
+    "direction_x_minimum": -0.8741029262788552,
+    "direction_x_maximum": -0.687311116140104,
+    "nonnegative_direction_x_count": 0,
+    "all_direction_x_strictly_negative": true
+  },
+  "observed_train_only_fragment_trace": {
+    "selected_case_count": 18,
+    "profile_summary": {
+      "large_front": {
+        "fragment_trace_count": 3600,
+        "direction_x_minimum": -0.9431889960303887,
+        "direction_x_median": -0.8432624093921784,
+        "direction_x_maximum": -0.7310815463299256,
+        "nonnegative_direction_x_count": 0,
+        "initial_speed_mps_minimum": 1732.5237128677359,
+        "initial_speed_mps_median": 1781.368765010734,
+        "initial_speed_mps_maximum": 1801.804969741298
+      },
+      "medium_front": {
+        "fragment_trace_count": 1800,
+        "direction_x_minimum": -0.8986064725106844,
+        "direction_x_median": -0.7955373146336715,
+        "direction_x_maximum": -0.6692464852085994,
+        "nonnegative_direction_x_count": 0,
+        "initial_speed_mps_minimum": 1842.976646945195,
+        "initial_speed_mps_median": 1862.4393846102714,
+        "initial_speed_mps_maximum": 1908.4409941869296
+      },
+      "small_front": {
+        "fragment_trace_count": 720,
+        "direction_x_minimum": -0.8887288087768148,
+        "direction_x_median": -0.7944425333118128,
+        "direction_x_maximum": -0.6646521313435998,
+        "nonnegative_direction_x_count": 0,
+        "initial_speed_mps_minimum": 1891.4787801630928,
+        "initial_speed_mps_median": 1943.793011098488,
+        "initial_speed_mps_maximum": 1966.0366934391109
+      }
+    },
+    "all_observed_direction_x_strictly_negative": true
+  },
+  "kmfc_aabb_necessary_reachability": {
+    "K": {
+      "component_count": 4,
+      "component_bounds_x_m": {
+        "component-003": {
+          "aabb_min_x_m": -1.122095,
+          "aabb_max_x_m": 1.122095
+        },
+        "component-046": {
+          "aabb_min_x_m": -0.934,
+          "aabb_max_x_m": 0.934
+        },
+        "component-053": {
+          "aabb_min_x_m": -0.73488,
+          "aabb_max_x_m": 0.73488
+        },
+        "component-054": {
+          "aabb_min_x_m": -1.462025,
+          "aabb_max_x_m": -1.198275
+        }
+      },
+      "by_contact_armor": {
+        "armor-001": {
+          "contact_x_minimum_m": -1.6302649974822998,
+          "contact_x_maximum_m": -1.6302649974822998,
+          "conservative_exclusion_uses_maximum_contact_x": true,
+          "component_count": 4,
+          "aabb_necessary_condition_failed_count": 4,
+          "aabb_necessary_condition_not_ruled_out_count": 0,
+          "failed_component_ids": [
+            "component-003",
+            "component-046",
+            "component-053",
+            "component-054"
+          ],
+          "not_ruled_out_component_ids": []
+        },
+        "armor-002": {
+          "contact_x_minimum_m": -1.1874800523122158,
+          "contact_x_maximum_m": -1.1874800523122122,
+          "conservative_exclusion_uses_maximum_contact_x": true,
+          "component_count": 4,
+          "aabb_necessary_condition_failed_count": 3,
+          "aabb_necessary_condition_not_ruled_out_count": 1,
+          "failed_component_ids": [
+            "component-003",
+            "component-046",
+            "component-053"
+          ],
+          "not_ruled_out_component_ids": [
+            "component-054"
+          ]
+        }
+      }
+    },
+    "M": {
+      "component_count": 40,
+      "component_bounds_x_m": {
+        "component-001": {
+          "aabb_min_x_m": -0.750405,
+          "aabb_max_x_m": -0.18421500000000002
+        },
+        "component-002": {
+          "aabb_min_x_m": -0.15703999999999996,
+          "aabb_max_x_m": 0.7139
+        },
+        "component-003": {
+          "aabb_min_x_m": -1.122095,
+          "aabb_max_x_m": 1.122095
+        },
+        "component-004": {
+          "aabb_min_x_m": 1.19143,
+          "aabb_max_x_m": 1.5354299999999999
+        },
+        "component-005": {
+          "aabb_min_x_m": -1.5354299999999999,
+          "aabb_max_x_m": -1.19143
+        },
+        "component-006": {
+          "aabb_min_x_m": 1.2211699999999999,
+          "aabb_max_x_m": 1.5051700000000001
+        },
+        "component-007": {
+          "aabb_min_x_m": 1.2211699999999999,
+          "aabb_max_x_m": 1.5051700000000001
+        },
+        "component-008": {
+          "aabb_min_x_m": 1.2211699999999999,
+          "aabb_max_x_m": 1.5051700000000001
+        },
+        "component-009": {
+          "aabb_min_x_m": 1.2211699999999999,
+          "aabb_max_x_m": 1.5051700000000001
+        },
+        "component-010": {
+          "aabb_min_x_m": 1.2211699999999999,
+          "aabb_max_x_m": 1.5051700000000001
+        },
+        "component-011": {
+          "aabb_min_x_m": 1.2211699999999999,
+          "aabb_max_x_m": 1.5051700000000001
+        },
+        "component-012": {
+          "aabb_min_x_m": -1.5051700000000001,
+          "aabb_max_x_m": -1.2211699999999999
+        },
+        "component-013": {
+          "aabb_min_x_m": -1.5051700000000001,
+          "aabb_max_x_m": -1.2211699999999999
+        },
+        "component-014": {
+          "aabb_min_x_m": -1.5051700000000001,
+          "aabb_max_x_m": -1.2211699999999999
+        },
+        "component-015": {
+          "aabb_min_x_m": -1.5051700000000001,
+          "aabb_max_x_m": -1.2211699999999999
+        },
+        "component-016": {
+          "aabb_min_x_m": -1.5051700000000001,
+          "aabb_max_x_m": -1.2211699999999999
+        },
+        "component-017": {
+          "aabb_min_x_m": -1.5051700000000001,
+          "aabb_max_x_m": -1.2211699999999999
+        },
+        "component-018": {
+          "aabb_min_x_m": 1.11771,
+          "aabb_max_x_m": 1.48371
+        },
+        "component-019": {
+          "aabb_min_x_m": 1.11771,
+          "aabb_max_x_m": 1.48371
+        },
+        "component-020": {
+          "aabb_min_x_m": 1.11771,
+          "aabb_max_x_m": 1.48371
+        },
+        "component-021": {
+          "aabb_min_x_m": -1.48371,
+          "aabb_max_x_m": -1.11771
+        },
+        "component-022": {
+          "aabb_min_x_m": -1.48371,
+          "aabb_max_x_m": -1.11771
+        },
+        "component-023": {
+          "aabb_min_x_m": -1.48371,
+          "aabb_max_x_m": -1.11771
+        },
+        "component-024": {
+          "aabb_min_x_m": -1.2385000000000002,
+          "aabb_max_x_m": 1.2385000000000002
+        },
+        "component-025": {
+          "aabb_min_x_m": -1.2385000000000002,
+          "aabb_max_x_m": 1.2385000000000002
+        },
+        "component-026": {
+          "aabb_min_x_m": -1.2385000000000002,
+          "aabb_max_x_m": 1.2385000000000002
+        },
+        "component-027": {
+          "aabb_min_x_m": -1.2385000000000002,
+          "aabb_max_x_m": 1.2385000000000002
+        },
+        "component-028": {
+          "aabb_min_x_m": -1.2385000000000002,
+          "aabb_max_x_m": 1.2385000000000002
+        },
+        "component-029": {
+          "aabb_min_x_m": -1.2385000000000002,
+          "aabb_max_x_m": 1.2385000000000002
+        },
+        "component-030": {
+          "aabb_min_x_m": 1.22457,
+          "aabb_max_x_m": 1.5005700000000002
+        },
+        "component-031": {
+          "aabb_min_x_m": -1.5005800000000002,
+          "aabb_max_x_m": -1.22458
+        },
+        "component-032": {
+          "aabb_min_x_m": 1.1874799999999999,
+          "aabb_max_x_m": 1.53748
+        },
+        "component-033": {
+          "aabb_min_x_m": 1.1874799999999999,
+          "aabb_max_x_m": 1.53748
+        },
+        "component-034": {
+          "aabb_min_x_m": 1.1874799999999999,
+          "aabb_max_x_m": 1.53748
+        },
+        "component-035": {
+          "aabb_min_x_m": 1.1874799999999999,
+          "aabb_max_x_m": 1.53748
+        },
+        "component-036": {
+          "aabb_min_x_m": -1.53748,
+          "aabb_max_x_m": -1.1874799999999999
+        },
+        "component-037": {
+          "aabb_min_x_m": -1.53748,
+          "aabb_max_x_m": -1.1874799999999999
+        },
+        "component-038": {
+          "aabb_min_x_m": -1.53748,
+          "aabb_max_x_m": -1.1874799999999999
+        },
+        "component-039": {
+          "aabb_min_x_m": -1.53748,
+          "aabb_max_x_m": -1.1874799999999999
+        },
+        "component-058": {
+          "aabb_min_x_m": -0.27456,
+          "aabb_max_x_m": 0.27456
+        }
+      },
+      "by_contact_armor": {
+        "armor-001": {
+          "contact_x_minimum_m": -1.6302649974822998,
+          "contact_x_maximum_m": -1.6302649974822998,
+          "conservative_exclusion_uses_maximum_contact_x": true,
+          "component_count": 40,
+          "aabb_necessary_condition_failed_count": 40,
+          "aabb_necessary_condition_not_ruled_out_count": 0,
+          "failed_component_ids": [
+            "component-001",
+            "component-002",
+            "component-003",
+            "component-004",
+            "component-005",
+            "component-006",
+            "component-007",
+            "component-008",
+            "component-009",
+            "component-010",
+            "component-011",
+            "component-012",
+            "component-013",
+            "component-014",
+            "component-015",
+            "component-016",
+            "component-017",
+            "component-018",
+            "component-019",
+            "component-020",
+            "component-021",
+            "component-022",
+            "component-023",
+            "component-024",
+            "component-025",
+            "component-026",
+            "component-027",
+            "component-028",
+            "component-029",
+            "component-030",
+            "component-031",
+            "component-032",
+            "component-033",
+            "component-034",
+            "component-035",
+            "component-036",
+            "component-037",
+            "component-038",
+            "component-039",
+            "component-058"
+          ],
+          "not_ruled_out_component_ids": []
+        },
+        "armor-002": {
+          "contact_x_minimum_m": -1.1874800523122158,
+          "contact_x_maximum_m": -1.1874800523122122,
+          "conservative_exclusion_uses_maximum_contact_x": true,
+          "component_count": 40,
+          "aabb_necessary_condition_failed_count": 19,
+          "aabb_necessary_condition_not_ruled_out_count": 21,
+          "failed_component_ids": [
+            "component-001",
+            "component-002",
+            "component-003",
+            "component-004",
+            "component-006",
+            "component-007",
+            "component-008",
+            "component-009",
+            "component-010",
+            "component-011",
+            "component-018",
+            "component-019",
+            "component-020",
+            "component-030",
+            "component-032",
+            "component-033",
+            "component-034",
+            "component-035",
+            "component-058"
+          ],
+          "not_ruled_out_component_ids": [
+            "component-005",
+            "component-012",
+            "component-013",
+            "component-014",
+            "component-015",
+            "component-016",
+            "component-017",
+            "component-021",
+            "component-022",
+            "component-023",
+            "component-024",
+            "component-025",
+            "component-026",
+            "component-027",
+            "component-028",
+            "component-029",
+            "component-031",
+            "component-036",
+            "component-037",
+            "component-038",
+            "component-039"
+          ]
+        }
+      }
+    },
+    "F": {
+      "component_count": 15,
+      "component_bounds_x_m": {
+        "component-040": {
+          "aabb_min_x_m": -0.11523,
+          "aabb_max_x_m": 0.11523
+        },
+        "component-041": {
+          "aabb_min_x_m": 0.30846000000000007,
+          "aabb_max_x_m": 0.55542
+        },
+        "component-042": {
+          "aabb_min_x_m": -0.7358150000000001,
+          "aabb_max_x_m": -0.25294500000000003
+        },
+        "component-043": {
+          "aabb_min_x_m": 0.34199,
+          "aabb_max_x_m": 0.57807
+        },
+        "component-044": {
+          "aabb_min_x_m": -0.6029100000000001,
+          "aabb_max_x_m": -0.36683
+        },
+        "component-045": {
+          "aabb_min_x_m": -0.084,
+          "aabb_max_x_m": 0.084
+        },
+        "component-046": {
+          "aabb_min_x_m": -0.934,
+          "aabb_max_x_m": 0.934
+        },
+        "component-047": {
+          "aabb_min_x_m": 0.916655,
+          "aabb_max_x_m": 1.173505
+        },
+        "component-048": {
+          "aabb_min_x_m": -1.173505,
+          "aabb_max_x_m": -0.916655
+        },
+        "component-049": {
+          "aabb_min_x_m": -0.892,
+          "aabb_max_x_m": 0.892
+        },
+        "component-050": {
+          "aabb_min_x_m": 0.12223000000000002,
+          "aabb_max_x_m": 0.23023000000000005
+        },
+        "component-051": {
+          "aabb_min_x_m": 1.185055,
+          "aabb_max_x_m": 1.360285
+        },
+        "component-052": {
+          "aabb_min_x_m": -1.360285,
+          "aabb_max_x_m": -1.185055
+        },
+        "component-053": {
+          "aabb_min_x_m": -0.73488,
+          "aabb_max_x_m": 0.73488
+        },
+        "component-054": {
+          "aabb_min_x_m": -1.462025,
+          "aabb_max_x_m": -1.198275
+        }
+      },
+      "by_contact_armor": {
+        "armor-001": {
+          "contact_x_minimum_m": -1.6302649974822998,
+          "contact_x_maximum_m": -1.6302649974822998,
+          "conservative_exclusion_uses_maximum_contact_x": true,
+          "component_count": 15,
+          "aabb_necessary_condition_failed_count": 15,
+          "aabb_necessary_condition_not_ruled_out_count": 0,
+          "failed_component_ids": [
+            "component-040",
+            "component-041",
+            "component-042",
+            "component-043",
+            "component-044",
+            "component-045",
+            "component-046",
+            "component-047",
+            "component-048",
+            "component-049",
+            "component-050",
+            "component-051",
+            "component-052",
+            "component-053",
+            "component-054"
+          ],
+          "not_ruled_out_component_ids": []
+        },
+        "armor-002": {
+          "contact_x_minimum_m": -1.1874800523122158,
+          "contact_x_maximum_m": -1.1874800523122122,
+          "conservative_exclusion_uses_maximum_contact_x": true,
+          "component_count": 15,
+          "aabb_necessary_condition_failed_count": 13,
+          "aabb_necessary_condition_not_ruled_out_count": 2,
+          "failed_component_ids": [
+            "component-040",
+            "component-041",
+            "component-042",
+            "component-043",
+            "component-044",
+            "component-045",
+            "component-046",
+            "component-047",
+            "component-048",
+            "component-049",
+            "component-050",
+            "component-051",
+            "component-053"
+          ],
+          "not_ruled_out_component_ids": [
+            "component-052",
+            "component-054"
+          ]
+        }
+      }
+    },
+    "C": {
+      "component_count": 10,
+      "component_bounds_x_m": {
+        "component-058": {
+          "aabb_min_x_m": -0.27456,
+          "aabb_max_x_m": 0.27456
+        },
+        "component-059": {
+          "aabb_min_x_m": -0.7706500000000001,
+          "aabb_max_x_m": -0.22153
+        },
+        "component-060": {
+          "aabb_min_x_m": 0.16224,
+          "aabb_max_x_m": 0.71136
+        },
+        "component-061": {
+          "aabb_min_x_m": -1.08444,
+          "aabb_max_x_m": -0.53532
+        },
+        "component-062": {
+          "aabb_min_x_m": 0.5491799999999999,
+          "aabb_max_x_m": 1.0983
+        },
+        "component-063": {
+          "aabb_min_x_m": -1.1051100000000003,
+          "aabb_max_x_m": -0.5559900000000001
+        },
+        "component-064": {
+          "aabb_min_x_m": 0.5491799999999999,
+          "aabb_max_x_m": 1.0983
+        },
+        "component-065": {
+          "aabb_min_x_m": 0.5491799999999999,
+          "aabb_max_x_m": 1.0983
+        },
+        "component-066": {
+          "aabb_min_x_m": -0.27456,
+          "aabb_max_x_m": 0.27456
+        },
+        "component-067": {
+          "aabb_min_x_m": -1.09875,
+          "aabb_max_x_m": -0.54963
+        }
+      },
+      "by_contact_armor": {
+        "armor-001": {
+          "contact_x_minimum_m": -1.6302649974822998,
+          "contact_x_maximum_m": -1.6302649974822998,
+          "conservative_exclusion_uses_maximum_contact_x": true,
+          "component_count": 10,
+          "aabb_necessary_condition_failed_count": 10,
+          "aabb_necessary_condition_not_ruled_out_count": 0,
+          "failed_component_ids": [
+            "component-058",
+            "component-059",
+            "component-060",
+            "component-061",
+            "component-062",
+            "component-063",
+            "component-064",
+            "component-065",
+            "component-066",
+            "component-067"
+          ],
+          "not_ruled_out_component_ids": []
+        },
+        "armor-002": {
+          "contact_x_minimum_m": -1.1874800523122158,
+          "contact_x_maximum_m": -1.1874800523122122,
+          "conservative_exclusion_uses_maximum_contact_x": true,
+          "component_count": 10,
+          "aabb_necessary_condition_failed_count": 10,
+          "aabb_necessary_condition_not_ruled_out_count": 0,
+          "failed_component_ids": [
+            "component-058",
+            "component-059",
+            "component-060",
+            "component-061",
+            "component-062",
+            "component-063",
+            "component-064",
+            "component-065",
+            "component-066",
+            "component-067"
+          ],
+          "not_ruled_out_component_ids": []
+        }
+      }
+    }
+  },
+  "logical_interpretation": {
+    "lemma": "For a ray starting at x0 with direction_x < 0, x(t)=x0+t*direction_x strictly decreases for t>0. A component whose AABB minimum x is greater than x0 therefore cannot be intersected by that ray.",
+    "strength": "Failing the AABB condition proves impossibility for the audited ray family; passing it is only necessary and does not prove geometric intersection, penetration, response, or damage.",
+    "causal_use": "The result localizes a deterministic support restriction jointly induced by the frozen contact surface and source-axis convention. It does not establish that the convention is physically wrong or that flipping it is a valid model."
+  },
+  "evidence_boundary": "The 6,120 traces are an outcome-blind Train-only diagnostic drawn from 18 frozen cases, not a complete physical-domain survey. Target geometry and response models remain unverified. This audit proves only a necessary geometric exclusion under the observed negative-x ray family and frozen contact coordinates."
+}

@@ -17,6 +17,10 @@ import numpy as np
 
 from .errors import InputValidationError
 from .learning_input_identity import (
+    LOITERING_IMPACT_CONTACT_POSE_MODEL_INPUT_DEFINITION,
+    LOITERING_IMPACT_CONTACT_POSE_QUATERNION_FEATURE_NAMES,
+    LOITERING_IMPACT_CONTACT_POSE_ROTATION_6D_FEATURE_NAMES,
+    LOITERING_IMPACT_CONTACT_POSE_SAMPLING_MODEL_INPUT_CONTRACT,
     LOITERING_IMPACT_SAMPLING_MODEL_INPUT_CONTRACT,
     LOITERING_IMPACT_STATE_FEATURE_NAMES,
     LOITERING_IMPACT_STATE_FEATURE_UNITS,
@@ -64,6 +68,12 @@ ROTATION_6D_FEATURES = (
 )
 UAV_QUATERNION_FEATURES = UAV_STATE_FEATURE_NAMES[6:]
 UAV_ROTATION_6D_FEATURES = UAV_ROTATION_6D_FEATURE_NAMES
+CONTACT_POSE_QUATERNION_FEATURES = (
+    LOITERING_IMPACT_CONTACT_POSE_QUATERNION_FEATURE_NAMES
+)
+CONTACT_POSE_ROTATION_6D_FEATURES = (
+    LOITERING_IMPACT_CONTACT_POSE_ROTATION_6D_FEATURE_NAMES
+)
 
 
 def _as_numpy(value: Any, *, dtype: np.dtype | type | None = None) -> np.ndarray:
@@ -80,7 +90,10 @@ def _training_schema(
     if len(names) != len(units) or len(set(names)) != len(names):
         raise InputValidationError("model-input feature names/units are invalid")
     has_position = all(name in names for name in POSITION_FEATURES)
-    if all(name in names for name in UAV_QUATERNION_FEATURES):
+    if all(name in names for name in CONTACT_POSE_QUATERNION_FEATURES):
+        quaternion_features = CONTACT_POSE_QUATERNION_FEATURES
+        rotation_features = CONTACT_POSE_ROTATION_6D_FEATURES
+    elif all(name in names for name in UAV_QUATERNION_FEATURES):
         quaternion_features = UAV_QUATERNION_FEATURES
         rotation_features = UAV_ROTATION_6D_FEATURES
     else:
@@ -153,11 +166,12 @@ def transform_case_physics(
     masks: list[np.ndarray] = []
 
     has_position = all(name in names for name in POSITION_FEATURES)
-    quaternion_features = (
-        UAV_QUATERNION_FEATURES
-        if all(name in names for name in UAV_QUATERNION_FEATURES)
-        else QUATERNION_FEATURES
-    )
+    if all(name in names for name in CONTACT_POSE_QUATERNION_FEATURES):
+        quaternion_features = CONTACT_POSE_QUATERNION_FEATURES
+    elif all(name in names for name in UAV_QUATERNION_FEATURES):
+        quaternion_features = UAV_QUATERNION_FEATURES
+    else:
+        quaternion_features = QUATERNION_FEATURES
     has_quaternion = all(name in names for name in quaternion_features)
     position_indices = [names.index(name) for name in POSITION_FEATURES] if has_position else []
     quaternion_indices = [names.index(name) for name in quaternion_features] if has_quaternion else []
@@ -274,10 +288,38 @@ def transform_loitering_impact_state(
     return transform_case_physics(values, mask, feature_names, feature_units)
 
 
+def transform_loitering_impact_contact_pose(
+    values: np.ndarray,
+    mask: np.ndarray,
+    feature_names: Sequence[str],
+    feature_units: Sequence[str],
+) -> tuple[np.ndarray, np.ndarray, list[str], list[str], list[dict[str, Any]]]:
+    """Validate the archive-native continuous contact-pose learner vector.
+
+    The archive contract already stores profile one-hot3, target-frame origin3,
+    velocity3 and rotation-6D6. The generic transform therefore preserves all
+    15 coordinates and their masks without exposing a quaternion to learners.
+    """
+
+    definition = LOITERING_IMPACT_CONTACT_POSE_MODEL_INPUT_DEFINITION
+    if tuple(map(str, feature_names)) != definition.feature_names:
+        raise InputValidationError(
+            "loitering-impact contact-pose feature names do not match the versioned contract"
+        )
+    if tuple(map(str, feature_units)) != definition.feature_units:
+        raise InputValidationError(
+            "loitering-impact contact-pose feature units do not match the versioned contract"
+        )
+    return transform_case_physics(values, mask, feature_names, feature_units)
+
+
 _MODEL_INPUT_TRAINING_TRANSFORMS = {
     UAV_MODEL_INPUT_DEFINITION.version: transform_uav_state,
     LOITERING_IMPACT_MODEL_INPUT_DEFINITION.version: (
         transform_loitering_impact_state
+    ),
+    LOITERING_IMPACT_CONTACT_POSE_MODEL_INPUT_DEFINITION.version: (
+        transform_loitering_impact_contact_pose
     ),
 }
 
@@ -298,9 +340,14 @@ def _model_input_binding(
             or units != list(definition.feature_units)
         ):
             label = (
-                "loitering-impact"
-                if definition is LOITERING_IMPACT_MODEL_INPUT_DEFINITION
-                else "UAV"
+                "loitering-impact contact-pose"
+                if definition
+                is LOITERING_IMPACT_CONTACT_POSE_MODEL_INPUT_DEFINITION
+                else (
+                    "loitering-impact"
+                    if definition is LOITERING_IMPACT_MODEL_INPUT_DEFINITION
+                    else "UAV"
+                )
             )
             raise InputValidationError(
                 f"dataset {label} model-input metadata is inconsistent"
@@ -422,6 +469,8 @@ def _declared_feature_roles(
         "distribution_design_1.1",
         "uav_control_state_only_1.2",
         "loitering_impact_state_only_1.2",
+        "loitering_impact_contact_conditioned_1.3",
+        "loitering_impact_contact_pose_1.4",
     }:
         raise InputValidationError(
             "embedded training design is not a supported SamplingSpec distribution design"
@@ -432,12 +481,23 @@ def _declared_feature_roles(
         raise InputValidationError(
             "embedded UAV training design has an invalid model-input contract"
         )
-    if contract_mode == "loitering_impact_state_only_1.2" and (
+    if contract_mode in {
+        "loitering_impact_state_only_1.2",
+        "loitering_impact_contact_conditioned_1.3",
+    } and (
         document.get("model_input_contract")
         != LOITERING_IMPACT_SAMPLING_MODEL_INPUT_CONTRACT
     ):
         raise InputValidationError(
             "embedded loitering-impact training design has an invalid model-input contract"
+        )
+    if contract_mode == "loitering_impact_contact_pose_1.4" and (
+        document.get("model_input_contract")
+        != LOITERING_IMPACT_CONTACT_POSE_SAMPLING_MODEL_INPUT_CONTRACT
+        or not isinstance(document.get("contact_manifold"), dict)
+    ):
+        raise InputValidationError(
+            "embedded contact-pose training design has an invalid manifold/model-input contract"
         )
     feature_roles = document.get("feature_roles")
     if not isinstance(feature_roles, list) or not feature_roles:
@@ -541,6 +601,7 @@ def fit_training_view_artifact(
     if input_tensor_field in {
         "uav_state_x",
         "loitering_impact_x",
+        "loitering_impact_contact_pose_x",
     } and proxy_boundary != "end_to_end":
         raise InputValidationError(
             "the versioned state-only model-input contract supports the end_to_end proxy boundary only"
@@ -716,6 +777,7 @@ class TrainingViewDataset:
         if self.input_tensor_field in {
             "uav_state_x",
             "loitering_impact_x",
+            "loitering_impact_contact_pose_x",
         } and proxy_boundary != "end_to_end":
             raise InputValidationError(
                 "the versioned state-only model-input contract supports the end_to_end proxy boundary only"

@@ -1,0 +1,8 @@
+Command:
+D:\ProgramData\Anaconda\envs\pytorch312-lmdt\python.exe tools\audit_dataset_training_readiness.py raw_data\dataset_5000_loitering_impact_fragment_only_v1\formal_dataset --output review_evidence\scnet_lsdyna_20261017\training_readiness.json
+
+Result:
+RuntimeError: missing replicate trace in D:\Desktop\UAV新\raw_data\dataset_5000_loitering_impact_fragment_only_v1\formal_dataset\shards\part-000000\results.jsonl.gz
+
+Interpretation:
+The audit failed closed as designed. No training_readiness.json artifact was created.

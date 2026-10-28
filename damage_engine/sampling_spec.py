@@ -2,9 +2,9 @@
 
 Version 1.0 remains the compact, independent-variable pilot contract.  Version
 1.1 adds explicit design roles without treating an engineering design as an
-operational distribution or as evidence of physical validity.  Version 1.3 is
-an opt-in loitering-impact contract that binds S-CONTACT admission and its
-complete outcome-blind selection declaration into the sampling identity.
+operational distribution or as evidence of physical validity. Version 1.3
+binds S-CONTACT admission. Version 1.4 adds a coupled target-facing contact
+manifold and a learner-visible direction/attitude contract.
 """
 
 from __future__ import annotations
@@ -22,6 +22,7 @@ from .utils import content_hash
 SAMPLING_SPEC_SCHEMA_VERSION = "1.1.0"
 UAV_SAMPLING_SPEC_SCHEMA_VERSION = "1.2.0"
 CONTACT_CONDITIONED_SAMPLING_SPEC_SCHEMA_VERSION = "1.3.0"
+CONTACT_MANIFOLD_SAMPLING_SPEC_SCHEMA_VERSION = "1.4.0"
 LEGACY_SAMPLING_SPEC_SCHEMA_VERSION = "1.0.0"
 _EXTENDED_FIELDS = frozenset(
     {
@@ -81,6 +82,7 @@ class SamplingSpec:
             SAMPLING_SPEC_SCHEMA_VERSION,
             UAV_SAMPLING_SPEC_SCHEMA_VERSION,
             CONTACT_CONDITIONED_SAMPLING_SPEC_SCHEMA_VERSION,
+            CONTACT_MANIFOLD_SAMPLING_SPEC_SCHEMA_VERSION,
         }:
             missing = sorted(_EXTENDED_FIELDS - set(document))
             if missing:
@@ -135,8 +137,10 @@ class SamplingSpec:
         if version in {
             UAV_SAMPLING_SPEC_SCHEMA_VERSION,
             CONTACT_CONDITIONED_SAMPLING_SPEC_SCHEMA_VERSION,
+            CONTACT_MANIFOLD_SAMPLING_SPEC_SCHEMA_VERSION,
         }:
             from .learning_input_identity import (
+                LOITERING_IMPACT_CONTACT_POSE_SAMPLING_MODEL_INPUT_CONTRACT,
                 LOITERING_IMPACT_SAMPLING_MODEL_INPUT_CONTRACT,
                 UAV_SAMPLING_MODEL_INPUT_CONTRACT,
             )
@@ -144,9 +148,19 @@ class SamplingSpec:
             if model_input_contract not in {
                 UAV_SAMPLING_MODEL_INPUT_CONTRACT,
                 LOITERING_IMPACT_SAMPLING_MODEL_INPUT_CONTRACT,
+                LOITERING_IMPACT_CONTACT_POSE_SAMPLING_MODEL_INPUT_CONTRACT,
             }:
                 raise InputValidationError(
                     f"SamplingSpec {version} requires a supported versioned model-input contract"
+                )
+            if (
+                model_input_contract
+                == LOITERING_IMPACT_CONTACT_POSE_SAMPLING_MODEL_INPUT_CONTRACT
+                and version != CONTACT_MANIFOLD_SAMPLING_SPEC_SCHEMA_VERSION
+            ):
+                raise InputValidationError(
+                    "the loitering-impact contact-pose model-input contract "
+                    "requires SamplingSpec schema_version 1.4.0"
                 )
             if (
                 version == CONTACT_CONDITIONED_SAMPLING_SPEC_SCHEMA_VERSION
@@ -157,15 +171,31 @@ class SamplingSpec:
                     "SamplingSpec 1.3.0 contact conditioning is limited to the "
                     "loitering-impact model-input contract"
                 )
+            if (
+                version == CONTACT_MANIFOLD_SAMPLING_SPEC_SCHEMA_VERSION
+                and model_input_contract
+                != LOITERING_IMPACT_CONTACT_POSE_SAMPLING_MODEL_INPUT_CONTRACT
+            ):
+                raise InputValidationError(
+                    "SamplingSpec 1.4.0 contact-manifold sampling requires the "
+                    "loitering-impact contact-pose model-input contract"
+                )
         conditioning = document.get("contact_conditioning")
         if (
-            version != CONTACT_CONDITIONED_SAMPLING_SPEC_SCHEMA_VERSION
+            version
+            not in {
+                CONTACT_CONDITIONED_SAMPLING_SPEC_SCHEMA_VERSION,
+                CONTACT_MANIFOLD_SAMPLING_SPEC_SCHEMA_VERSION,
+            }
             and conditioning is not None
         ):
             raise InputValidationError(
-                "contact_conditioning requires SamplingSpec schema_version 1.3.0"
+                "contact_conditioning requires SamplingSpec schema_version 1.3.0 or 1.4.0"
             )
-        if version == CONTACT_CONDITIONED_SAMPLING_SPEC_SCHEMA_VERSION:
+        if version in {
+            CONTACT_CONDITIONED_SAMPLING_SPEC_SCHEMA_VERSION,
+            CONTACT_MANIFOLD_SAMPLING_SPEC_SCHEMA_VERSION,
+        }:
             from .contact_contract import (
                 S_CONTACT_CONTRACT_HASH,
                 S_CONTACT_CONTRACT_ID,
@@ -176,7 +206,7 @@ class SamplingSpec:
 
             if not isinstance(conditioning, dict):
                 raise InputValidationError(
-                    "SamplingSpec 1.3.0 requires an S-CONTACT conditioning object"
+                    f"SamplingSpec {version} requires an S-CONTACT conditioning object"
                 )
             expected_identity = {
                 "contract_id": S_CONTACT_CONTRACT_ID,
@@ -188,7 +218,7 @@ class SamplingSpec:
             }
             if observed_identity != expected_identity:
                 raise InputValidationError(
-                    "SamplingSpec 1.3.0 contact conditioning identity is unsupported",
+                    f"SamplingSpec {version} contact conditioning identity is unsupported",
                     context={
                         "expected": expected_identity,
                         "observed": observed_identity,
@@ -197,7 +227,7 @@ class SamplingSpec:
             declared_contract_hash = conditioning.get("contract_hash")
             if declared_contract_hash not in {None, S_CONTACT_CONTRACT_HASH}:
                 raise InputValidationError(
-                    "SamplingSpec 1.3.0 S-CONTACT contract hash is inconsistent",
+                    f"SamplingSpec {version} S-CONTACT contract hash is inconsistent",
                     context={
                         "expected": S_CONTACT_CONTRACT_HASH,
                         "observed": declared_contract_hash,
@@ -211,7 +241,7 @@ class SamplingSpec:
             )
             if declared_selection_hash not in {None, selection["content_hash"]}:
                 raise InputValidationError(
-                    "SamplingSpec 1.3.0 selection declaration hash is inconsistent",
+                    f"SamplingSpec {version} selection declaration hash is inconsistent",
                     context={
                         "expected": selection["content_hash"],
                         "observed": declared_selection_hash,
@@ -221,10 +251,27 @@ class SamplingSpec:
             # supplied only the complete source declarations.
             conditioning["contract_hash"] = S_CONTACT_CONTRACT_HASH
             conditioning["selection_declaration_hash"] = selection["content_hash"]
+        manifold = document.get("contact_manifold")
+        if (
+            version != CONTACT_MANIFOLD_SAMPLING_SPEC_SCHEMA_VERSION
+            and manifold is not None
+        ):
+            raise InputValidationError(
+                "contact_manifold requires SamplingSpec schema_version 1.4.0"
+            )
+        if version == CONTACT_MANIFOLD_SAMPLING_SPEC_SCHEMA_VERSION:
+            from .contact_manifold_sampling import validate_contact_manifold
+
+            if document["reference_distribution"]["interpretation"] != "design_distribution":
+                raise InputValidationError(
+                    "contact-manifold approach weights are a design distribution, not operational prevalence"
+                )
+            document["contact_manifold"] = validate_contact_manifold(manifold)
         if version in {
             SAMPLING_SPEC_SCHEMA_VERSION,
             UAV_SAMPLING_SPEC_SCHEMA_VERSION,
             CONTACT_CONDITIONED_SAMPLING_SPEC_SCHEMA_VERSION,
+            CONTACT_MANIFOLD_SAMPLING_SPEC_SCHEMA_VERSION,
         }:
             self._validate_extended_contract(document, names, paths)
         seeds = document["seeds"]
@@ -260,8 +307,11 @@ class SamplingSpec:
         if document["schema_version"] in {
             UAV_SAMPLING_SPEC_SCHEMA_VERSION,
             CONTACT_CONDITIONED_SAMPLING_SPEC_SCHEMA_VERSION,
+            CONTACT_MANIFOLD_SAMPLING_SPEC_SCHEMA_VERSION,
         }:
             from .learning_input_identity import (
+                LOITERING_IMPACT_CONTACT_POSE_SAMPLING_MODEL_INPUT_CONTRACT,
+                LOITERING_IMPACT_CONTACT_POSE_TRAINING_FEATURE_NAMES,
                 LOITERING_IMPACT_SAMPLING_MODEL_INPUT_CONTRACT,
                 LOITERING_IMPACT_TRAINING_FEATURE_NAMES,
                 UAV_TRAINING_FEATURE_NAMES,
@@ -271,17 +321,23 @@ class SamplingSpec:
                 document["model_input_contract"]
                 == LOITERING_IMPACT_SAMPLING_MODEL_INPUT_CONTRACT
             )
-            expected_names = (
-                LOITERING_IMPACT_TRAINING_FEATURE_NAMES
-                if loitering_contract
-                else UAV_TRAINING_FEATURE_NAMES
+            contact_pose_contract = (
+                document["model_input_contract"]
+                == LOITERING_IMPACT_CONTACT_POSE_SAMPLING_MODEL_INPUT_CONTRACT
             )
-            if tuple(tensor_feature_names) != tuple(expected_names):
+            if loitering_contract:
+                expected_names = LOITERING_IMPACT_TRAINING_FEATURE_NAMES
+                description = "profile one-hot3, trajectory origin y/z and impact speed"
+            elif contact_pose_contract:
+                expected_names = LOITERING_IMPACT_CONTACT_POSE_TRAINING_FEATURE_NAMES
                 description = (
-                    "profile one-hot3, trajectory origin y/z and impact speed"
-                    if loitering_contract
-                    else "position3, velocity3 and attitude rotation6d6"
+                    "profile one-hot3, trajectory origin3, velocity3 and "
+                    "body-to-target attitude rotation6d6"
                 )
+            else:
+                expected_names = UAV_TRAINING_FEATURE_NAMES
+                description = "position3, velocity3 and attitude rotation6d6"
+            if tuple(tensor_feature_names) != tuple(expected_names):
                 raise InputValidationError(
                     "SamplingSpec versioned feature roles must exactly declare "
                     f"{description}",
@@ -290,7 +346,32 @@ class SamplingSpec:
                         "observed": tensor_feature_names,
                     },
                 )
-            if loitering_contract:
+            if contact_pose_contract:
+                expected_paths = {
+                    **{
+                        name: {"/munition/profile_id"}
+                        for name in expected_names[:3]
+                    },
+                    **{
+                        name: {
+                            "/encounter/trajectory_origin_m",
+                            f"/encounter/trajectory_origin_m/{axis}",
+                        }
+                        for axis, name in enumerate(expected_names[3:6])
+                    },
+                    **{
+                        name: {
+                            "/encounter/velocity_target_mps",
+                            f"/encounter/velocity_target_mps/{axis}",
+                        }
+                        for axis, name in enumerate(expected_names[6:9])
+                    },
+                    **{
+                        name: {"/encounter/body_to_target_orientation_xyzw"}
+                        for name in expected_names[9:]
+                    },
+                }
+            elif loitering_contract:
                 expected_paths = {
                     **{
                         name: {"/munition/profile_id"}
@@ -331,9 +412,13 @@ class SamplingSpec:
             ]
             if invalid_features:
                 state_name = (
-                    "raw loitering-impact state"
-                    if loitering_contract
-                    else "raw UAV state"
+                    "raw loitering-impact contact-pose state"
+                    if contact_pose_contract
+                    else (
+                        "raw loitering-impact state"
+                        if loitering_contract
+                        else "raw UAV state"
+                    )
                 )
                 raise InputValidationError(
                     "SamplingSpec versioned model inputs must come only from "
@@ -349,6 +434,38 @@ class SamplingSpec:
                 "every sampled variable path must be declared learnable_variable",
                 context={"paths": missing_learnable},
             )
+        if (
+            document["schema_version"]
+            == CONTACT_MANIFOLD_SAMPLING_SPEC_SCHEMA_VERSION
+        ):
+            manifold_paths = {
+                "/encounter/trajectory_origin_m",
+                "/encounter/velocity_target_mps",
+                "/encounter/body_to_target_orientation_xyzw",
+            }
+            missing_manifold_roles = sorted(
+                path
+                for path in manifold_paths
+                if roles_by_path.get(path) != "learnable_variable"
+            )
+            if missing_manifold_roles:
+                raise InputValidationError(
+                    "every contact-manifold output must be declared learnable_variable",
+                    context={"paths": missing_manifold_roles},
+                )
+            conflicting = sorted(
+                path
+                for path in variable_paths
+                if any(
+                    path == manifold_path or path.startswith(manifold_path + "/")
+                    for manifold_path in manifold_paths
+                )
+            )
+            if conflicting:
+                raise InputValidationError(
+                    "independent variables cannot overwrite contact-manifold outputs",
+                    context={"paths": conflicting},
+                )
         for feature in feature_roles:
             if (
                 feature["role"] == "derived_input"
@@ -565,6 +682,7 @@ class SamplingSpec:
         if document["schema_version"] in {
             UAV_SAMPLING_SPEC_SCHEMA_VERSION,
             CONTACT_CONDITIONED_SAMPLING_SPEC_SCHEMA_VERSION,
+            CONTACT_MANIFOLD_SAMPLING_SPEC_SCHEMA_VERSION,
         } and (
             scope["scope"] != "fixed_target"
             or scope["geometry_boundary"] != "end_to_end"
@@ -609,6 +727,7 @@ class SamplingSpec:
             SAMPLING_SPEC_SCHEMA_VERSION,
             UAV_SAMPLING_SPEC_SCHEMA_VERSION,
             CONTACT_CONDITIONED_SAMPLING_SPEC_SCHEMA_VERSION,
+            CONTACT_MANIFOLD_SAMPLING_SPEC_SCHEMA_VERSION,
         }
 
     @property
@@ -624,15 +743,30 @@ class SamplingSpec:
         if self.schema_version not in {
             UAV_SAMPLING_SPEC_SCHEMA_VERSION,
             CONTACT_CONDITIONED_SAMPLING_SPEC_SCHEMA_VERSION,
+            CONTACT_MANIFOLD_SAMPLING_SPEC_SCHEMA_VERSION,
         }:
             return False
         from .learning_input_identity import (
+            LOITERING_IMPACT_CONTACT_POSE_SAMPLING_MODEL_INPUT_CONTRACT,
             LOITERING_IMPACT_SAMPLING_MODEL_INPUT_CONTRACT,
+        )
+
+        return self.data.get("model_input_contract") in {
+            LOITERING_IMPACT_SAMPLING_MODEL_INPUT_CONTRACT,
+            LOITERING_IMPACT_CONTACT_POSE_SAMPLING_MODEL_INPUT_CONTRACT,
+        }
+
+    @property
+    def is_contact_pose_model_input(self) -> bool:
+        if self.schema_version != CONTACT_MANIFOLD_SAMPLING_SPEC_SCHEMA_VERSION:
+            return False
+        from .learning_input_identity import (
+            LOITERING_IMPACT_CONTACT_POSE_SAMPLING_MODEL_INPUT_CONTRACT,
         )
 
         return (
             self.data.get("model_input_contract")
-            == LOITERING_IMPACT_SAMPLING_MODEL_INPUT_CONTRACT
+            == LOITERING_IMPACT_CONTACT_POSE_SAMPLING_MODEL_INPUT_CONTRACT
         )
 
     @property
@@ -641,10 +775,10 @@ class SamplingSpec:
 
     @property
     def has_contact_conditioning(self) -> bool:
-        return (
-            self.schema_version
-            == CONTACT_CONDITIONED_SAMPLING_SPEC_SCHEMA_VERSION
-        )
+        return self.schema_version in {
+            CONTACT_CONDITIONED_SAMPLING_SPEC_SCHEMA_VERSION,
+            CONTACT_MANIFOLD_SAMPLING_SPEC_SCHEMA_VERSION,
+        }
 
     @property
     def contact_conditioning(self) -> dict[str, Any] | None:
@@ -661,6 +795,17 @@ class SamplingSpec:
         )
 
     @property
+    def has_contact_manifold(self) -> bool:
+        return (
+            self.schema_version == CONTACT_MANIFOLD_SAMPLING_SPEC_SCHEMA_VERSION
+        )
+
+    @property
+    def contact_manifold(self) -> dict[str, Any] | None:
+        value = self.data.get("contact_manifold")
+        return dict(value) if value is not None else None
+
+    @property
     def distribution_id(self) -> str:
         return str(self.data["reference_distribution"]["distribution_id"])
 
@@ -669,7 +814,7 @@ class SamplingSpec:
         return tuple(self.data["reference_distribution"]["variables"])
 
     @property
-    def latent_dimension(self) -> int:
+    def independent_latent_dimension(self) -> int:
         if not self.is_extended:
             return sum(_LATENT_DIMENSIONS[item["distribution"]] for item in self.variables)
         joint_members: set[str] = set()
@@ -682,6 +827,21 @@ class SamplingSpec:
             _LATENT_DIMENSIONS[item["distribution"]]
             for item in self.variables
             if item["name"] not in joint_members
+        )
+
+    @property
+    def contact_manifold_latent_dimension(self) -> int:
+        if not self.has_contact_manifold:
+            return 0
+        from .contact_manifold_sampling import CONTACT_MANIFOLD_LATENT_DIMENSION
+
+        return CONTACT_MANIFOLD_LATENT_DIMENSION
+
+    @property
+    def latent_dimension(self) -> int:
+        return (
+            self.independent_latent_dimension
+            + self.contact_manifold_latent_dimension
         )
 
     @property
@@ -753,16 +913,20 @@ class SamplingSpec:
         return {
             "schema_version": "1.0.0",
             "contract_mode": (
-                "uav_control_state_only_1.2"
-                if self.is_uav_model_input
+                "loitering_impact_contact_pose_1.4"
+                if self.is_contact_pose_model_input
                 else (
-                    (
-                        "loitering_impact_contact_conditioned_1.3"
-                        if self.has_contact_conditioning
-                        else "loitering_impact_state_only_1.2"
+                    "uav_control_state_only_1.2"
+                    if self.is_uav_model_input
+                    else (
+                        (
+                            "loitering_impact_contact_conditioned_1.3"
+                            if self.has_contact_conditioning
+                            else "loitering_impact_state_only_1.2"
+                        )
+                        if self.is_loitering_impact_model_input
+                        else "distribution_design_1.1"
                     )
-                    if self.is_loitering_impact_model_input
-                    else "distribution_design_1.1"
                 )
             ),
             **(
@@ -773,6 +937,11 @@ class SamplingSpec:
             **(
                 {"contact_conditioning": data["contact_conditioning"]}
                 if self.has_contact_conditioning
+                else {}
+            ),
+            **(
+                {"contact_manifold": data["contact_manifold"]}
+                if self.has_contact_manifold
                 else {}
             ),
             **{key: data[key] for key in (

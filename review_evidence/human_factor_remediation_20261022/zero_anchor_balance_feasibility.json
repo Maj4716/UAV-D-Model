@@ -1,0 +1,357 @@
+{
+  "schema_version": "1.0.0",
+  "scope": "zero_anchored_three_class_balance_necessary_condition",
+  "historical_5000_diagnostic": {
+    "K": {
+      "case_count": 5000,
+      "positive_support_count": 28,
+      "positive_support_fraction": 0.0056,
+      "class0_fraction_lower_bound": 0.9944,
+      "uniform_three_class_support_necessary_condition": false,
+      "minimum_total_variation_distance_from_uniform_lower_bound": 0.6610666666666667,
+      "interpretation": "necessary condition only; passing does not prove that two stable, scientifically acceptable thresholds exist"
+    },
+    "M": {
+      "case_count": 5000,
+      "positive_support_count": 2205,
+      "positive_support_fraction": 0.441,
+      "class0_fraction_lower_bound": 0.5589999999999999,
+      "uniform_three_class_support_necessary_condition": false,
+      "minimum_total_variation_distance_from_uniform_lower_bound": 0.22566666666666663,
+      "interpretation": "necessary condition only; passing does not prove that two stable, scientifically acceptable thresholds exist"
+    },
+    "F": {
+      "case_count": 5000,
+      "positive_support_count": 28,
+      "positive_support_fraction": 0.0056,
+      "class0_fraction_lower_bound": 0.9944,
+      "uniform_three_class_support_necessary_condition": false,
+      "minimum_total_variation_distance_from_uniform_lower_bound": 0.6610666666666667,
+      "interpretation": "necessary condition only; passing does not prove that two stable, scientifically acceptable thresholds exist"
+    },
+    "C": {
+      "case_count": 5000,
+      "positive_support_count": 0,
+      "positive_support_fraction": 0.0,
+      "class0_fraction_lower_bound": 1.0,
+      "uniform_three_class_support_necessary_condition": false,
+      "minimum_total_variation_distance_from_uniform_lower_bound": 0.6666666666666667,
+      "interpretation": "necessary condition only; passing does not prove that two stable, scientifically acceptable thresholds exist"
+    }
+  },
+  "controlled_pilot_by_axis_and_r": {
+    "1": {
+      "archived_minus_body_x": {
+        "K": {
+          "case_count": 162,
+          "positive_support_count": 9,
+          "positive_support_fraction": 0.05555555555555555,
+          "class0_fraction_lower_bound": 0.9444444444444444,
+          "uniform_three_class_support_necessary_condition": false,
+          "minimum_total_variation_distance_from_uniform_lower_bound": 0.6111111111111112,
+          "interpretation": "necessary condition only; passing does not prove that two stable, scientifically acceptable thresholds exist"
+        },
+        "M": {
+          "case_count": 162,
+          "positive_support_count": 18,
+          "positive_support_fraction": 0.1111111111111111,
+          "class0_fraction_lower_bound": 0.8888888888888888,
+          "uniform_three_class_support_necessary_condition": false,
+          "minimum_total_variation_distance_from_uniform_lower_bound": 0.5555555555555556,
+          "interpretation": "necessary condition only; passing does not prove that two stable, scientifically acceptable thresholds exist"
+        },
+        "F": {
+          "case_count": 162,
+          "positive_support_count": 18,
+          "positive_support_fraction": 0.1111111111111111,
+          "class0_fraction_lower_bound": 0.8888888888888888,
+          "uniform_three_class_support_necessary_condition": false,
+          "minimum_total_variation_distance_from_uniform_lower_bound": 0.5555555555555556,
+          "interpretation": "necessary condition only; passing does not prove that two stable, scientifically acceptable thresholds exist"
+        },
+        "C": {
+          "case_count": 162,
+          "positive_support_count": 10,
+          "positive_support_fraction": 0.06172839506172839,
+          "class0_fraction_lower_bound": 0.9382716049382716,
+          "uniform_three_class_support_necessary_condition": false,
+          "minimum_total_variation_distance_from_uniform_lower_bound": 0.6049382716049383,
+          "interpretation": "necessary condition only; passing does not prove that two stable, scientifically acceptable thresholds exist"
+        }
+      },
+      "counterfactual_plus_body_x": {
+        "K": {
+          "case_count": 162,
+          "positive_support_count": 115,
+          "positive_support_fraction": 0.7098765432098766,
+          "class0_fraction_lower_bound": 0.2901234567901234,
+          "uniform_three_class_support_necessary_condition": true,
+          "minimum_total_variation_distance_from_uniform_lower_bound": 0.0,
+          "interpretation": "necessary condition only; passing does not prove that two stable, scientifically acceptable thresholds exist"
+        },
+        "M": {
+          "case_count": 162,
+          "positive_support_count": 162,
+          "positive_support_fraction": 1.0,
+          "class0_fraction_lower_bound": 0.0,
+          "uniform_three_class_support_necessary_condition": true,
+          "minimum_total_variation_distance_from_uniform_lower_bound": 0.0,
+          "interpretation": "necessary condition only; passing does not prove that two stable, scientifically acceptable thresholds exist"
+        },
+        "F": {
+          "case_count": 162,
+          "positive_support_count": 132,
+          "positive_support_fraction": 0.8148148148148148,
+          "class0_fraction_lower_bound": 0.18518518518518523,
+          "uniform_three_class_support_necessary_condition": true,
+          "minimum_total_variation_distance_from_uniform_lower_bound": 0.0,
+          "interpretation": "necessary condition only; passing does not prove that two stable, scientifically acceptable thresholds exist"
+        },
+        "C": {
+          "case_count": 162,
+          "positive_support_count": 159,
+          "positive_support_fraction": 0.9814814814814815,
+          "class0_fraction_lower_bound": 0.01851851851851849,
+          "uniform_three_class_support_necessary_condition": true,
+          "minimum_total_variation_distance_from_uniform_lower_bound": 0.0,
+          "interpretation": "necessary condition only; passing does not prove that two stable, scientifically acceptable thresholds exist"
+        }
+      }
+    },
+    "2": {
+      "archived_minus_body_x": {
+        "K": {
+          "case_count": 162,
+          "positive_support_count": 10,
+          "positive_support_fraction": 0.06172839506172839,
+          "class0_fraction_lower_bound": 0.9382716049382716,
+          "uniform_three_class_support_necessary_condition": false,
+          "minimum_total_variation_distance_from_uniform_lower_bound": 0.6049382716049383,
+          "interpretation": "necessary condition only; passing does not prove that two stable, scientifically acceptable thresholds exist"
+        },
+        "M": {
+          "case_count": 162,
+          "positive_support_count": 18,
+          "positive_support_fraction": 0.1111111111111111,
+          "class0_fraction_lower_bound": 0.8888888888888888,
+          "uniform_three_class_support_necessary_condition": false,
+          "minimum_total_variation_distance_from_uniform_lower_bound": 0.5555555555555556,
+          "interpretation": "necessary condition only; passing does not prove that two stable, scientifically acceptable thresholds exist"
+        },
+        "F": {
+          "case_count": 162,
+          "positive_support_count": 19,
+          "positive_support_fraction": 0.11728395061728394,
+          "class0_fraction_lower_bound": 0.8827160493827161,
+          "uniform_three_class_support_necessary_condition": false,
+          "minimum_total_variation_distance_from_uniform_lower_bound": 0.5493827160493827,
+          "interpretation": "necessary condition only; passing does not prove that two stable, scientifically acceptable thresholds exist"
+        },
+        "C": {
+          "case_count": 162,
+          "positive_support_count": 10,
+          "positive_support_fraction": 0.06172839506172839,
+          "class0_fraction_lower_bound": 0.9382716049382716,
+          "uniform_three_class_support_necessary_condition": false,
+          "minimum_total_variation_distance_from_uniform_lower_bound": 0.6049382716049383,
+          "interpretation": "necessary condition only; passing does not prove that two stable, scientifically acceptable thresholds exist"
+        }
+      },
+      "counterfactual_plus_body_x": {
+        "K": {
+          "case_count": 162,
+          "positive_support_count": 116,
+          "positive_support_fraction": 0.7160493827160493,
+          "class0_fraction_lower_bound": 0.28395061728395066,
+          "uniform_three_class_support_necessary_condition": true,
+          "minimum_total_variation_distance_from_uniform_lower_bound": 0.0,
+          "interpretation": "necessary condition only; passing does not prove that two stable, scientifically acceptable thresholds exist"
+        },
+        "M": {
+          "case_count": 162,
+          "positive_support_count": 162,
+          "positive_support_fraction": 1.0,
+          "class0_fraction_lower_bound": 0.0,
+          "uniform_three_class_support_necessary_condition": true,
+          "minimum_total_variation_distance_from_uniform_lower_bound": 0.0,
+          "interpretation": "necessary condition only; passing does not prove that two stable, scientifically acceptable thresholds exist"
+        },
+        "F": {
+          "case_count": 162,
+          "positive_support_count": 132,
+          "positive_support_fraction": 0.8148148148148148,
+          "class0_fraction_lower_bound": 0.18518518518518523,
+          "uniform_three_class_support_necessary_condition": true,
+          "minimum_total_variation_distance_from_uniform_lower_bound": 0.0,
+          "interpretation": "necessary condition only; passing does not prove that two stable, scientifically acceptable thresholds exist"
+        },
+        "C": {
+          "case_count": 162,
+          "positive_support_count": 160,
+          "positive_support_fraction": 0.9876543209876543,
+          "class0_fraction_lower_bound": 0.012345679012345734,
+          "uniform_three_class_support_necessary_condition": true,
+          "minimum_total_variation_distance_from_uniform_lower_bound": 0.0,
+          "interpretation": "necessary condition only; passing does not prove that two stable, scientifically acceptable thresholds exist"
+        }
+      }
+    },
+    "4": {
+      "archived_minus_body_x": {
+        "K": {
+          "case_count": 162,
+          "positive_support_count": 12,
+          "positive_support_fraction": 0.07407407407407407,
+          "class0_fraction_lower_bound": 0.9259259259259259,
+          "uniform_three_class_support_necessary_condition": false,
+          "minimum_total_variation_distance_from_uniform_lower_bound": 0.5925925925925926,
+          "interpretation": "necessary condition only; passing does not prove that two stable, scientifically acceptable thresholds exist"
+        },
+        "M": {
+          "case_count": 162,
+          "positive_support_count": 18,
+          "positive_support_fraction": 0.1111111111111111,
+          "class0_fraction_lower_bound": 0.8888888888888888,
+          "uniform_three_class_support_necessary_condition": false,
+          "minimum_total_variation_distance_from_uniform_lower_bound": 0.5555555555555556,
+          "interpretation": "necessary condition only; passing does not prove that two stable, scientifically acceptable thresholds exist"
+        },
+        "F": {
+          "case_count": 162,
+          "positive_support_count": 22,
+          "positive_support_fraction": 0.13580246913580246,
+          "class0_fraction_lower_bound": 0.8641975308641976,
+          "uniform_three_class_support_necessary_condition": false,
+          "minimum_total_variation_distance_from_uniform_lower_bound": 0.5308641975308643,
+          "interpretation": "necessary condition only; passing does not prove that two stable, scientifically acceptable thresholds exist"
+        },
+        "C": {
+          "case_count": 162,
+          "positive_support_count": 10,
+          "positive_support_fraction": 0.06172839506172839,
+          "class0_fraction_lower_bound": 0.9382716049382716,
+          "uniform_three_class_support_necessary_condition": false,
+          "minimum_total_variation_distance_from_uniform_lower_bound": 0.6049382716049383,
+          "interpretation": "necessary condition only; passing does not prove that two stable, scientifically acceptable thresholds exist"
+        }
+      },
+      "counterfactual_plus_body_x": {
+        "K": {
+          "case_count": 162,
+          "positive_support_count": 117,
+          "positive_support_fraction": 0.7222222222222222,
+          "class0_fraction_lower_bound": 0.2777777777777778,
+          "uniform_three_class_support_necessary_condition": true,
+          "minimum_total_variation_distance_from_uniform_lower_bound": 0.0,
+          "interpretation": "necessary condition only; passing does not prove that two stable, scientifically acceptable thresholds exist"
+        },
+        "M": {
+          "case_count": 162,
+          "positive_support_count": 162,
+          "positive_support_fraction": 1.0,
+          "class0_fraction_lower_bound": 0.0,
+          "uniform_three_class_support_necessary_condition": true,
+          "minimum_total_variation_distance_from_uniform_lower_bound": 0.0,
+          "interpretation": "necessary condition only; passing does not prove that two stable, scientifically acceptable thresholds exist"
+        },
+        "F": {
+          "case_count": 162,
+          "positive_support_count": 133,
+          "positive_support_fraction": 0.8209876543209876,
+          "class0_fraction_lower_bound": 0.17901234567901236,
+          "uniform_three_class_support_necessary_condition": true,
+          "minimum_total_variation_distance_from_uniform_lower_bound": 0.0,
+          "interpretation": "necessary condition only; passing does not prove that two stable, scientifically acceptable thresholds exist"
+        },
+        "C": {
+          "case_count": 162,
+          "positive_support_count": 161,
+          "positive_support_fraction": 0.9938271604938271,
+          "class0_fraction_lower_bound": 0.006172839506172867,
+          "uniform_three_class_support_necessary_condition": true,
+          "minimum_total_variation_distance_from_uniform_lower_bound": 0.0,
+          "interpretation": "necessary condition only; passing does not prove that two stable, scientifically acceptable thresholds exist"
+        }
+      }
+    },
+    "8": {
+      "archived_minus_body_x": {
+        "K": {
+          "case_count": 162,
+          "positive_support_count": 14,
+          "positive_support_fraction": 0.08641975308641975,
+          "class0_fraction_lower_bound": 0.9135802469135803,
+          "uniform_three_class_support_necessary_condition": false,
+          "minimum_total_variation_distance_from_uniform_lower_bound": 0.580246913580247,
+          "interpretation": "necessary condition only; passing does not prove that two stable, scientifically acceptable thresholds exist"
+        },
+        "M": {
+          "case_count": 162,
+          "positive_support_count": 18,
+          "positive_support_fraction": 0.1111111111111111,
+          "class0_fraction_lower_bound": 0.8888888888888888,
+          "uniform_three_class_support_necessary_condition": false,
+          "minimum_total_variation_distance_from_uniform_lower_bound": 0.5555555555555556,
+          "interpretation": "necessary condition only; passing does not prove that two stable, scientifically acceptable thresholds exist"
+        },
+        "F": {
+          "case_count": 162,
+          "positive_support_count": 24,
+          "positive_support_fraction": 0.14814814814814814,
+          "class0_fraction_lower_bound": 0.8518518518518519,
+          "uniform_three_class_support_necessary_condition": false,
+          "minimum_total_variation_distance_from_uniform_lower_bound": 0.5185185185185186,
+          "interpretation": "necessary condition only; passing does not prove that two stable, scientifically acceptable thresholds exist"
+        },
+        "C": {
+          "case_count": 162,
+          "positive_support_count": 12,
+          "positive_support_fraction": 0.07407407407407407,
+          "class0_fraction_lower_bound": 0.9259259259259259,
+          "uniform_three_class_support_necessary_condition": false,
+          "minimum_total_variation_distance_from_uniform_lower_bound": 0.5925925925925926,
+          "interpretation": "necessary condition only; passing does not prove that two stable, scientifically acceptable thresholds exist"
+        }
+      },
+      "counterfactual_plus_body_x": {
+        "K": {
+          "case_count": 162,
+          "positive_support_count": 117,
+          "positive_support_fraction": 0.7222222222222222,
+          "class0_fraction_lower_bound": 0.2777777777777778,
+          "uniform_three_class_support_necessary_condition": true,
+          "minimum_total_variation_distance_from_uniform_lower_bound": 0.0,
+          "interpretation": "necessary condition only; passing does not prove that two stable, scientifically acceptable thresholds exist"
+        },
+        "M": {
+          "case_count": 162,
+          "positive_support_count": 162,
+          "positive_support_fraction": 1.0,
+          "class0_fraction_lower_bound": 0.0,
+          "uniform_three_class_support_necessary_condition": true,
+          "minimum_total_variation_distance_from_uniform_lower_bound": 0.0,
+          "interpretation": "necessary condition only; passing does not prove that two stable, scientifically acceptable thresholds exist"
+        },
+        "F": {
+          "case_count": 162,
+          "positive_support_count": 134,
+          "positive_support_fraction": 0.8271604938271605,
+          "class0_fraction_lower_bound": 0.1728395061728395,
+          "uniform_three_class_support_necessary_condition": true,
+          "minimum_total_variation_distance_from_uniform_lower_bound": 0.0,
+          "interpretation": "necessary condition only; passing does not prove that two stable, scientifically acceptable thresholds exist"
+        },
+        "C": {
+          "case_count": 162,
+          "positive_support_count": 161,
+          "positive_support_fraction": 0.9938271604938271,
+          "class0_fraction_lower_bound": 0.006172839506172867,
+          "uniform_three_class_support_necessary_condition": true,
+          "minimum_total_variation_distance_from_uniform_lower_bound": 0.0,
+          "interpretation": "necessary condition only; passing does not prove that two stable, scientifically acceptable thresholds exist"
+        }
+      }
+    }
+  },
+  "claim_boundary": "Support-count lower bounds only; no threshold fitting, operational prevalence estimation, or physical validation."
+}

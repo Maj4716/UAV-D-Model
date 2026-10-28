@@ -1,0 +1,42 @@
+{
+  "schema_version": "hf-p0-mesh-assessment@1.0.0",
+  "ordered_mesh_mm": [
+    1.0,
+    0.75,
+    0.5
+  ],
+  "perforation_proxy_consistent": true,
+  "perforation_proxy_values": [
+    true,
+    true,
+    true
+  ],
+  "center_history_node_qoi_available": [
+    false,
+    false,
+    true
+  ],
+  "center_history_node_gate": "unavailable",
+  "survivor_average_residual_speed_mps": [
+    322.608406164252,
+    1300.1533018170833,
+    1854.4214898552082
+  ],
+  "survivor_speed_monotonic_with_refinement": true,
+  "relative_difference_coarse_to_medium": 0.7518689482898845,
+  "relative_difference_medium_to_fine": 0.2988900803136194,
+  "fragment_surviving_mass_fraction": [
+    0.46400000193409996,
+    0.3804664714656715,
+    0.8795000023863536
+  ],
+  "mass_fraction_spread_percentage_points": 49.903353092068215,
+  "pre_registered_numeric_error_band_found": false,
+  "response_consistency_gate": "fail",
+  "reasons": [
+    "The frozen design/report requires a preregistered residual-velocity error band but contains no numeric tolerance.",
+    "The center history node has no live supporting solid at the final state for the 1.00 and 0.75 mm cases.",
+    "The surviving-fragment part-average residual speed changes strongly across the three meshes.",
+    "Fragment surviving mass fraction is strongly mesh dependent, so the part-average speed does not compare like-for-like residue."
+  ]
+}
