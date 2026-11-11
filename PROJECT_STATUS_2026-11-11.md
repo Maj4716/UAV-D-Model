@@ -2,7 +2,7 @@
 
 更新日期：2026-11-11（Asia/Shanghai）
 
-GitHub：`https://github.com/Maj4716/UAV-Damage-Model`
+GitHub：`https://github.com/Maj4716/UAV-D-Model`
 
 主分支：`main`
 
