@@ -1,0 +1,2 @@
+wave,job_id,directory,experiment_id,role,speed_mps,mesh_mm,termination_time_ms,psfail_part_set_id,deck
+0,r06j_0800_fragment_erod1,job_01_v0800_fragment_erod1,r06j_fragment_erosion_isolation_800,fragment_failure_erosion_suppression_diagnostic,800.0,0.75,0.04,0,r06j_0800_fragment_erod1.k

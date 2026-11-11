@@ -1,0 +1,35 @@
+{
+  "schema_version": "hf-p0-r06s-static-validation@1.0.0",
+  "overall_status": "pass",
+  "parent_deck_sha256": "sha256:511cbde9d33b1422981bc5716b0c9ae16a3fcd14f091e1dec003d053f3808e48",
+  "permitted_differences": [
+    "TITLE_identifier_line",
+    "DATABASE_BINARY_D3PLOT_dt_0p0001_to_0p00015",
+    "DATABASE_BINARY_D3PART_dt_0p0001_to_0p00015",
+    "INITIAL_VELOCITY_GENERATION_part_2002_vz_minus2000_to_minus1200"
+  ],
+  "differing_line_numbers": [
+    3,
+    19,
+    24,
+    45102
+  ],
+  "all_other_deck_lines_byte_identical": true,
+  "single_physical_factor": "fragment_initial_speed_mps_2000_to_1200",
+  "measurement_control_changes": [
+    "d3plot_interval_ms",
+    "d3part_interval_ms"
+  ],
+  "termination_time_ms": 0.5,
+  "maximum_cycle_count": 2500000,
+  "impact_speed_mps": 1200.0,
+  "d3plot_interval_ms": 0.00015,
+  "d3part_interval_ms": 0.00015,
+  "ascii_interval_ms": 0.00025,
+  "plate_erod": 1,
+  "fragment_erod": 1,
+  "tssfac": 0.05,
+  "dt2ms": 0.0,
+  "resource_identity_is_external_to_deck": true,
+  "candidate_deck_sha256": "sha256:eac511d8579d9cad92f08c41b5241129801df46b297140a3f601acacd5b0dd0e"
+}

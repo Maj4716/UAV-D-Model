@@ -1,0 +1,47 @@
+{
+  "schema_version": "hf-p0-r06-job-contract@1.1.0",
+  "package_revision": "R06_plate_negative_volume_psfail_scope_20261103",
+  "job_id": "r06t_1200_fragment_only_psfail_diagnostic",
+  "experiment_id": "r06t_plate_negative_volume_psfail_scope_1200",
+  "role": "plate_negative_volume_psfail_scope_model_form_diagnostic",
+  "factor": "CONTROL_SOLID.PSFAIL",
+  "factor_level": "fragment_only_set_900001",
+  "factor_layer": "single_model_form_mechanism_diagnostic",
+  "case": {
+    "case_id": "p0_v1200_h0p75_psfail_fragment_only",
+    "impact_speed_mps": 1200.0,
+    "mesh_mm": 0.75,
+    "plate_part_id": 1002,
+    "fragment_solid_part_id": 2002,
+    "adaptive_sph_part_id": 2003,
+    "termination_time_ms": 0.5,
+    "maximum_cycle_count": 2500000,
+    "control_solid_psfail": 900001,
+    "psfail_set_part_ids": [
+      2002
+    ]
+  },
+  "output_intervals_ms": {
+    "d3plot": 0.00015,
+    "d3part": 0.00015,
+    "ascii_databases": 0.00025
+  },
+  "head_deck": "r06t_1200_fragment_only_psfail_diagnostic.k",
+  "resource_contract": {
+    "software_platform_label": "ls-dyna_R15_mmp_d",
+    "solver_family": "LS-DYNA R15 MPP double precision",
+    "nodes": 1,
+    "ranks": 32,
+    "walltime": "12:00:00",
+    "head_memory_mb": 512,
+    "child_memory_mb": 256,
+    "command_line_parameters": "",
+    "resource_identity_is_a_hard_gate": true
+  },
+  "required_return_families": [
+    "stage1: submitted .k, manifest, job_contract, all mes*, glstat, stdout/stderr, Slurm and resource log",
+    "stage2 only after stage1 pass: all d3plot*",
+    "stage3 only after stage2 pass: all d3part* and binout*"
+  ],
+  "status": "prepared_not_submitted_not_solver_validated"
+}

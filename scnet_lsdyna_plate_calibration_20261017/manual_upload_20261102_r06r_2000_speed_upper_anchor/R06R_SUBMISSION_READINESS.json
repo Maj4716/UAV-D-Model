@@ -1,0 +1,19 @@
+{
+  "schema_version": "hf-p0-r06r-submission-readiness@1.0.0",
+  "overall_status": "pass",
+  "package_revision": "R06_speed_upper_anchor_2000_20261102",
+  "job_id": "r06r_2000_speed_upper_anchor",
+  "allowed_deck_differences": [
+    "TITLE_identifier_line",
+    "CONTROL_TERMINATION_endcyc_829930_to_2500000",
+    "DATABASE_BINARY_D3PLOT_dt_0p00025_to_0p0001",
+    "DATABASE_BINARY_D3PART_dt_0p00025_to_0p0001",
+    "INITIAL_VELOCITY_GENERATION_part_2002_vz_minus800_to_minus2000"
+  ],
+  "required_resources": {
+    "nodes": 1,
+    "ranks": 32
+  },
+  "archive_policy": "no_archive_direct_folder_delivery",
+  "solver_status": "not_submitted_not_solver_validated"
+}

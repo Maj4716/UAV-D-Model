@@ -1,0 +1,115 @@
+{
+  "schema_version": "hf-p0-r06u-plate-adaptive-sph-design@1.0.0",
+  "package_revision": "R06_plate_adaptive_sph_canary_20261104",
+  "status": "frozen_before_r06u_outcome",
+  "objective": "test a local same-material SPH replacement for failed plate solids beyond the R06t collapse time",
+  "branch_parent": {
+    "job_id": "r06s_1200_speed_stability_diagnostic",
+    "platform_job_id": "73059442",
+    "deck_sha256": "sha256:eac511d8579d9cad92f08c41b5241129801df46b297140a3f601acacd5b0dd0e"
+  },
+  "rejected_predecessor": {
+    "job_id": "r06t_1200_fragment_only_psfail_diagnostic",
+    "platform_job_id": "73087868"
+  },
+  "jobs": [
+    {
+      "job_id": "r06u_1200_plate_adaptive_sph_canary",
+      "experiment_id": "r06u_plate_adaptive_sph_capability_1200",
+      "role": "plate_adaptive_sph_parser_runtime_mass_energy_capability_canary",
+      "impact_speed_mps": 1200.0,
+      "termination_time_ms": 0.15,
+      "maximum_cycle_count": 2500000,
+      "d3plot_interval_ms": 0.00015,
+      "d3part_interval_ms": 0.00015,
+      "ascii_interval_ms": 0.00025,
+      "nodes": 1,
+      "ranks": 32
+    }
+  ],
+  "model_form_bundle": {
+    "branch_rule": "branch_from_completed_R06s_not_failed_R06t",
+    "control_solid_psfail": 0,
+    "plate_adaptive_solid_to_sph": {
+      "solid_part_id": 1002,
+      "sph_part_id": 1003,
+      "sph_section_id": 2,
+      "material_id": 1,
+      "eos_id": 1,
+      "nq": 2,
+      "particles_per_failed_hexahedron": 8,
+      "icpl": 0,
+      "iopt": 0,
+      "interpretation": "local conversion occurs only when a plate solid fails"
+    },
+    "plate_sph_to_solid_contact": {
+      "keyword": "CONTACT_AUTOMATIC_NODES_TO_SURFACE",
+      "slave_part_id": 1003,
+      "master_part_set_id": 920001,
+      "sstyp": 3,
+      "mstyp": 2,
+      "soft": 1,
+      "sofscl": 0.1
+    },
+    "retained_fragment_adaptive_sph": {
+      "solid_part_id": 2002,
+      "sph_part_id": 2003,
+      "unchanged": true
+    },
+    "sph_sph_interpart_contact": "not_added_in_capability_canary_terminal_physical_response_remains_denied",
+    "registered_deck_changes": [
+      "TITLE_and_identity_comments",
+      "CONTROL_TERMINATION_endtim_0p50_to_0p15",
+      "add_plate_SPH_part_1003_same_material_and_EOS_as_plate",
+      "add_plate_SPH_to_solid_contact",
+      "add_plate_adaptive_solid_to_SPH_definition"
+    ]
+  },
+  "frozen_controls": {
+    "impact_speed_mps": 1200.0,
+    "mesh_mm": 0.75,
+    "termination_time_ms": 0.15,
+    "maximum_cycle_count": 2500000,
+    "tssfac": 0.05,
+    "dt2ms": 0.0,
+    "plate_mat015_erod": 1,
+    "fragment_mat015_erod": 1,
+    "solid_eroding_contact_soft": 2,
+    "fragment_sph_to_solid_contact_soft": 1,
+    "d3plot_interval_ms": 0.00015,
+    "d3part_interval_ms": 0.00015,
+    "ascii_database_interval_ms": 0.00025,
+    "nodes": 1,
+    "ranks": 32,
+    "solver_family": "LS-DYNA R15 MPP double precision"
+  },
+  "staged_return_policy": {
+    "stage1_download": [
+      "submitted deck",
+      "manifest.json",
+      "job_contract.json",
+      "Slurm script",
+      "platform log",
+      "std.out",
+      "std.err",
+      "glstat",
+      "matsum",
+      "sleout",
+      "nodout",
+      "ncforc",
+      "sldsph_frag if present",
+      "all mes0000 through mes0031"
+    ],
+    "stage1_expected_size_mib": 35,
+    "if_stage1_fails": "stop_without_downloading_d3plot_d3part_or_binout",
+    "if_stage1_passes": "download complete d3plot then d3part and binout families for conversion and mass ledgers"
+  },
+  "acceptance_contract": "p0_r06u_plate_adaptive_sph_canary_output_contract.json",
+  "release_scope": "one R06u 0.15 ms high-fidelity capability canary only",
+  "prohibited": [
+    "submitting the failed R06t PSFAIL scope again",
+    "changing speed, material constants, mesh, timestep scale, output cadence or resources",
+    "running the full 0.50 ms model before this canary passes",
+    "using R06u directly for engine fitting, damage-tree fitting or a reference label"
+  ]
+}

@@ -1,0 +1,114 @@
+{
+  "schema_version": "hf-p0-r06p-terminal-horizon-design@1.0.0",
+  "package_revision": "R06_terminal_horizon_0p50_20261102",
+  "status": "frozen_before_r06p_outcome",
+  "objective": "acquire the first qualified late-time solid/adaptive-SPH capture-plane response without changing model semantics",
+  "parent": {
+    "job_id": "r06o_0800_plate_erod1_isolation",
+    "platform_job_id": "72894870",
+    "deck_sha256": "sha256:d71d2d11091a813f35ca98656c31fb7ad4f8174b024828a62e0f874daab3524f",
+    "audit_classification": "successful_plate_erod1_engineering_isolation_response_horizon_still_unqualified"
+  },
+  "jobs": [
+    {
+      "job_id": "r06p_0800_terminal_horizon_0p50",
+      "experiment_id": "r06p_terminal_response_horizon_0p50_800",
+      "role": "terminal_response_horizon_0p50_canary",
+      "impact_speed_mps": 800.0,
+      "termination_time_ms": 0.5,
+      "maximum_cycle_count": 829930,
+      "d3plot_interval_ms": 0.0005,
+      "d3part_interval_ms": 0.00025,
+      "ascii_interval_ms": 0.00025,
+      "nodes": 1,
+      "ranks": 32
+    }
+  ],
+  "single_factor": {
+    "factor": "terminal_response_horizon_ms",
+    "parent_level": 0.04,
+    "candidate_level": 0.5,
+    "permitted_model_difference": "CONTROL_TERMINATION_endtim_0p04_to_0p50",
+    "measurement_only_changes": {
+      "d3plot_interval_ms": {
+        "parent": 0.0001,
+        "candidate": 0.0005
+      },
+      "d3part_interval_ms": {
+        "parent": 5e-05,
+        "candidate": 0.00025
+      },
+      "ascii_database_interval_ms": {
+        "parent": 5e-05,
+        "candidate": 0.00025
+      },
+      "ascii_database_cards": [
+        "GLSTAT",
+        "MATSUM",
+        "SLEOUT",
+        "NODOUT",
+        "NCFORC"
+      ]
+    },
+    "permitted_deck_differences": [
+      "TITLE_identifier_line",
+      "CONTROL_TERMINATION_endtim_0p04_to_0p50",
+      "DATABASE_BINARY_D3PLOT_dt_0p0001_to_0p0005",
+      "DATABASE_BINARY_D3PART_dt_0p00005_to_0p00025",
+      "DATABASE_GLSTAT_dt_0p00005_to_0p00025",
+      "DATABASE_MATSUM_dt_0p00005_to_0p00025",
+      "DATABASE_SLEOUT_dt_0p00005_to_0p00025",
+      "DATABASE_NODOUT_dt_0p00005_to_0p00025",
+      "DATABASE_NCFORC_dt_0p00005_to_0p00025"
+    ],
+    "model_semantics_unchanged": true
+  },
+  "frozen_controls": {
+    "impact_speed_mps": 800.0,
+    "mesh_mm": 0.75,
+    "maximum_cycle_count": 829930,
+    "tssfac": 0.05,
+    "dt2ms": 0.0,
+    "plate_part_id": 1002,
+    "fragment_solid_part_id": 2002,
+    "adaptive_sph_part_id": 2003,
+    "plate_mat015_erod": 1,
+    "fragment_mat015_erod": 1,
+    "particles_per_failed_hexahedron": 8,
+    "solid_contact_soft": 2,
+    "dedicated_sph_to_solid_contact_soft": 1,
+    "control_solid_psfail": 0,
+    "nodes": 1,
+    "ranks": 32,
+    "solver_family": "LS-DYNA R15 MPP double precision"
+  },
+  "run_planning": {
+    "linear_cycle_projection": 735113,
+    "cycle_guard": 829930,
+    "projected_cycle_guard_buffer": 94817,
+    "projected_cycle_guard_buffer_fraction": 0.1142469846854554,
+    "cycle_projection_claim_boundary": "diagnostic only; later distortion/contact can change timestep and may trigger the guard",
+    "observed_parent_solver_seconds": 229,
+    "linear_solver_seconds_projection": 2862.5,
+    "requested_walltime": "12:00:00",
+    "projected_output": {
+      "source_return_total_bytes": 3452750701,
+      "source_d3plot_bytes": 2422915072,
+      "source_d3part_bytes": 121729024,
+      "source_binout_bytes": 671868235,
+      "projected_d3plot_bytes": 6033179072,
+      "projected_d3part_bytes": 303715433,
+      "projected_binout_bytes": 1678412407,
+      "projected_total_bytes_conservative": 8605902837,
+      "projection_basis": "R06o observed family sizes scaled by requested state-count ratios; nonbinary remainder conservatively multiplied by 2.5",
+      "storage_claim_boundary": "planning estimate only; adaptive output segmentation and later state content can change actual size"
+    }
+  },
+  "acceptance_contract": "p0_r06p_terminal_horizon_0p50_output_contract.json",
+  "release_scope": "one R06p high-fidelity job only",
+  "prohibited": [
+    "changing material, contact, adaptive-SPH, timestep, mesh or resource settings",
+    "restarting or tuning after a cycle-guard or numerical failure",
+    "treating a completed run as physical validation, engine fitting or damage-tree fitting"
+  ]
+}

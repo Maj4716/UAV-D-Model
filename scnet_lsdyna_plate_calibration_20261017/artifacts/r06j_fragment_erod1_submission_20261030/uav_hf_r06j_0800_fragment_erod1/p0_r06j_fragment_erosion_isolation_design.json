@@ -1,0 +1,332 @@
+{
+  "schema_version": "hf-p0-r06-diagnostic-design@1.7.0",
+  "package_revision": "R06_fragment_erosion_isolation_20261030",
+  "design_status": "frozen_after_r06i_terminal_timestep_stable_but_response_unavailable_before_fragment_erod1_outcome",
+  "title": "SCNet P0 R06j 800 m/s fragment Johnson-Cook erosion isolation",
+  "created_date": "2026-10-30",
+  "seed": 20261017,
+  "unit_system": "kg-mm-ms-kN-GPa-K",
+  "purpose": "Isolate whether the unavailable R06i response is caused by deletion of failed fragment elements, while keeping the terminal TSSFAC=0.05 policy and every other model field frozen.",
+  "provenance": {
+    "parent_revision": "R06_timestep_terminal_refinement_20261030",
+    "parent_job_id": "r06i_0800_tssfac005",
+    "parent_platform_job_id": "72740022",
+    "parent_deck_sha256": "sha256:e2e8da8e55304b7fe2deb2c1790e00bf7fea9c64145c6c09a954c50492f3dd88",
+    "parent_result": "successful_run_terminal_timestep_locally_stable_but_response_unavailable",
+    "parent_return_audit": "analysis/72740022_r06i_0800_tssfac005_20261030/r06i_tssfac005_return_audit.json",
+    "successor_contract": "design/p0_r06j_fragment_erosion_output_contract.json",
+    "identity_rule": "Mesh, coordinates, connectivity, IDs, PIDs, post-explosion initial state, material strength and failure coefficients, EOS, contact, section, boundaries, speed, termination, timestep, output cards and resources remain identical to Job 72740022. Only fragment MAT_015 Card 4 EROD changes 0 to 1.",
+    "factor_scope": "fragment MAT_015 Card 4 field 3 EROD only, 0 to 1"
+  },
+  "symmetry": {
+    "type": "quarter_model",
+    "full_model_scale_factor": 4.0,
+    "validity": "normal incidence, face-on cube, centered impact only"
+  },
+  "frozen_common": {
+    "fragment_mass_g": 8.0,
+    "fragment_density_kg_m3": 7830.0,
+    "plate_thickness_mm": 10.0,
+    "obliquity_deg_from_normal": 0.0,
+    "fragment_orientation": "face_on",
+    "material_set": "jc4340_reference_central",
+    "plate_half_span_mm": 60.0,
+    "refined_half_span_mm": 15.0,
+    "outer_target_spacing_mm": 2.5,
+    "initial_gap_mm": 1.0,
+    "mesh_mm": 0.75
+  },
+  "frozen_solver_controls": {
+    "control_timestep": {
+      "dtinit": 0.0,
+      "tssfac": 0.05,
+      "isdo": 0,
+      "tslimit": 0.0,
+      "dt2ms": 0.0,
+      "lctm": 0,
+      "erode": 0,
+      "ms1st": 0
+    },
+    "control_contact_card1": {
+      "slsfac": 0.0,
+      "rwpnal": 0.0,
+      "islchk": 2,
+      "shlthk": 0,
+      "penopt": 1,
+      "thkchg": 0,
+      "orien": 1,
+      "enmass": 0
+    },
+    "control_contact_card2": {
+      "usrstr": 0,
+      "usrfrc": 0,
+      "nsbcs": 0,
+      "interm": 0,
+      "xpene": 0.0,
+      "ssthk": 0,
+      "ecdt": 0,
+      "tiedprj": 0
+    },
+    "eroding_contact_card4": {
+      "isym": 1,
+      "erosop": 1,
+      "iadj": 1
+    },
+    "control_solid_default": "absent",
+    "termination_dtmin": 0.0
+  },
+  "shared_measurement_upgrade": {
+    "status": "validated_on_job_72740022_and_frozen_for_fragment_erod1_isolation",
+    "full_model_d3plot_interval_ms": 0.0001,
+    "fragment_d3part_interval_ms": 5e-05,
+    "ascii_interval_ms": 5e-05,
+    "fragment_part_set_id": 900001,
+    "plate_psfail_part_set_id": 910001,
+    "database_extent_binary_neiph": 6,
+    "mat015_history_variable_6": "Johnson-Cook damage D",
+    "contact_output_flags": {
+      "spr_or_sapr": 1,
+      "mpr_or_sbpr": 1
+    },
+    "capture_plane": {
+      "axis": "z",
+      "coordinate_mm": -12.0,
+      "undeformed_plate_back_mm": -10.0,
+      "offset_behind_plate_mm": 2.0,
+      "travel_direction": "negative",
+      "crossing_policy": "R06 successor real-output contract"
+    },
+    "required_return_families": [
+      "submitted .k",
+      "solver o= output or d3hsp",
+      "mes*",
+      "glstat",
+      "matsum",
+      "sleout",
+      "nodout",
+      "binout*",
+      "d3plot*",
+      "d3part*",
+      "solver stdout/stderr",
+      "Slurm script and resource record"
+    ],
+    "r15_parser_contract": {
+      "target_solver": "LS-DYNA R15.0.2",
+      "database_extent_binary_cards": [
+        [
+          6,
+          0,
+          3,
+          0,
+          1,
+          1,
+          1,
+          1
+        ],
+        [
+          0,
+          0,
+          0,
+          1,
+          1,
+          1,
+          2,
+          1
+        ]
+      ],
+      "intfor_file_timing_card_tail": [
+        0,
+        0,
+        0
+      ],
+      "intfor_file_ioopt_card": [
+        0
+      ]
+    },
+    "database_extent_binary_policy": "Set NEIPH=6 and explicitly preserve all other R15.0.2 documented Card 1/Card 2 defaults; Card 2 is mandatory.",
+    "d3part_extent_cards": [
+      [
+        6,
+        0,
+        3,
+        0,
+        1,
+        1,
+        1,
+        1
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    ],
+    "direct_contact_output_policy": {
+      "request_binary_intfor": false,
+      "request_ascii_ncforc": true,
+      "intfor_status": "unavailable_by_solver_for_eroding_contact_warning_20340",
+      "ncforc_status": "best_effort_nonblocking",
+      "missing_is_zero": false,
+      "unexpected_file_policy": "preserve_and_report"
+    },
+    "damage_source": {
+      "primary_artifact": "full d3plot*",
+      "array": "element_solid_history_variables",
+      "history_variable_number_one_based": 6,
+      "array_index_zero_based": 5,
+      "material": "*MAT_015/*MAT_JOHNSON_COOK",
+      "required": true,
+      "alive_mask_required": true,
+      "post_deletion_zero_policy": "never_interpret_as_damage_recovery",
+      "sentinel_policy": "absolute value at or above 1e29 is unavailable with a reason, never zero"
+    },
+    "optional_return_families": [
+      "intfor*",
+      "ncforc*"
+    ],
+    "database_extent_d3part_policy": "Explicit NEIPH=6 request is a redundant-channel experiment; full D3PLOT HVAR6 remains authoritative."
+  },
+  "paired_experiments": [
+    {
+      "experiment_id": "r06j_fragment_erosion_isolation_800",
+      "question": "Does suppressing fragment element erosion remove the upstream deleted-mass mechanism while Johnson-Cook damage/failure evidence remains observable?",
+      "case_identity": {
+        "r05_case_id": "p0_v0800_h0p75",
+        "r05_original_index": 2,
+        "impact_speed_mps": 800.0,
+        "mesh_mm": 0.75,
+        "plate_part_id": 1002,
+        "fragment_part_id": 2002
+      },
+      "factor": "fragment_mat015_erod_flag",
+      "control_level": 0,
+      "treatment_level": 1,
+      "external_control": {
+        "job_id": "r06i_0800_tssfac005",
+        "platform_job_id": "72740022",
+        "deck_sha256": "sha256:e2e8da8e55304b7fe2deb2c1790e00bf7fea9c64145c6c09a954c50492f3dd88",
+        "resource_identity": "one_node_32_ranks",
+        "tssfac": 0.05,
+        "fragment_mat015_erod": 0,
+        "primary_qoi_available": false,
+        "unavailable_reasons": [
+          "deleted_upstream_mass"
+        ],
+        "deleted_upstream_mass_fraction": 0.06851311815869016,
+        "crossing_event_count": 0
+      },
+      "jobs": [
+        {
+          "job_id": "r06j_0800_fragment_erod1",
+          "directory": "job_01_v0800_fragment_erod1",
+          "role": "fragment_failure_erosion_suppression_diagnostic",
+          "termination_time_ms": 0.04,
+          "plate_only_psfail": false,
+          "tssfac": 0.05,
+          "fragment_mat015_erod": 1,
+          "factor_level": 1,
+          "platform_job_name": "uav_hf_r06j_0800_ferod1",
+          "parent_r06i_job_id": "r06i_0800_tssfac005",
+          "parent_platform_job_id": "72740022"
+        }
+      ],
+      "preregistered_evaluation": {
+        "factor": "fragment MAT_015 Card 4 field 3 EROD",
+        "control_job_id": "r06i_0800_tssfac005",
+        "control_platform_job_id": "72740022",
+        "control_level": 0,
+        "treatment_job_id": "r06j_0800_fragment_erod1",
+        "treatment_level": 1,
+        "plate_mat015_erod": 0,
+        "tssfac": 0.05,
+        "dt2ms": 0.0,
+        "single_factor_rule": "The R06j deck may differ from the returned R06i deck only in TITLE and fragment material MAT_015 Card 4 field 3 EROD, 0 to 1. Plate EROD remains 0.",
+        "solver_semantics": {
+          "erod_0": "element erosion is allowed after failure (default)",
+          "erod_nonzero": "the failed element is not eroded; its deviatoric stresses are set to zero after failure",
+          "source": "ANSYS LS-DYNA Materials Manual R14, MAT_015 Card 4 EROD"
+        },
+        "diagnostic_gates": {
+          "normal_termination_and_32_ranks": true,
+          "no_mass_scaling": true,
+          "d3part_full_d3plot_hvar6_crosscheck": "required",
+          "fragment_deleted_upstream_mass_fraction": "compare_to_job_72740022",
+          "fragment_hvar6_failure_evidence": "must_remain_available_and_finite",
+          "negative_volume_topology": "report_fail_closed_if_solver_aborts",
+          "energy_and_contact_outputs": "mechanism_evidence_only"
+        },
+        "interpretation_rules": {
+          "deletion_suppressed_with_failure_damage_present": "supports fragment failure erosion as the cause of the upstream deletion mechanism only",
+          "negative_volume_or_solver_failure": "supports numerical dependence on erosion but does not validate the material or contact model",
+          "primary_qoi_policy": "never promote EROD=1 response values to physical labels, calibration targets or reference data"
+        }
+      }
+    }
+  ],
+  "paired_comparison_tolerances": {
+    "fragment_deleted_upstream_mass_fraction_control": 0.06851311815869016,
+    "suppression_direction": "treatment_less_than_control",
+    "zero_deletion_is_expected_but_not_required_for_mechanism_inference": true,
+    "hvar6_invalid_alive_count_max": 0,
+    "energy_ratio_range": [
+      0.95,
+      1.05
+    ],
+    "hourglass_to_peak_internal_energy_max": 0.05,
+    "added_mass_fraction_max": 0.0,
+    "missing_or_nonfinite_policy": "fail_closed"
+  },
+  "submission_sequence": {
+    "wave_0": [
+      "r06j_0800_fragment_erod1"
+    ],
+    "wave_0_gate": "Zero KEY errors, 1 node/32 ranks, no mass scaling, readable D3PART/full-D3PLOT HVAR6/NCFORC, and a formal comparison with Job 72740022. Solver failure/negative volume is retained as diagnostic evidence.",
+    "hold_after_wave_0": "Do not release 2000 m/s, treatments, fitting or labels. Audit the single-factor erosion mechanism first.",
+    "resource_identity": "Use exactly one node, 32 ranks, LS-DYNA R15 MPP double precision, and the same memory settings as Job 72740022."
+  },
+  "deferred_not_generated": [
+    {
+      "candidate": "TSSFAC=0.025",
+      "reason": "Denied by the terminal timestep stop rule."
+    },
+    {
+      "candidate": "plate EROD change",
+      "reason": "Outside the isolated fragment-only factor."
+    },
+    {
+      "candidate": "2000 m/s and all treatments",
+      "reason": "Hold until the deletion mechanism is resolved."
+    }
+  ],
+  "admission": {
+    "fragment_erod1_diagnostic_submission": "allowed_after_static_release_verification",
+    "production_material_policy": "pending_external_target_solver_diagnostic",
+    "further_timestep_halving": "denied",
+    "r06f_2000_control": "denied",
+    "treatments": "denied",
+    "p0_response_calibration": "denied",
+    "p1_submission": "denied",
+    "engine_fitting": "denied",
+    "damage_tree_fitting": "denied",
+    "reference_dataset_generation": "denied",
+    "physical_validity": "not_established_requires_independent_experimental_evidence"
+  },
+  "claim_boundary": [
+    "R06i established local timestep consistency but not response availability.",
+    "R06j changes only the fragment material EROD flag from 0 to 1; plate erosion remains enabled with EROD=0.",
+    "EROD=1 intentionally changes the post-failure numerical treatment and is diagnostic, not a physical treatment.",
+    "The model continues to start from the same post-explosion fragment state.",
+    "Neither static PASS nor a normal R06j termination authorizes engine fitting, damage-tree fitting or dataset admission."
+  ],
+  "explosion_instant_start_policy": {
+    "current_model_status": "already_starts_from_post_explosion_fragment_initial_state",
+    "pre_explosion_detonation_or_flight_simulated": false,
+    "r06h_rule": "initial geometry, velocity and all other state remain byte-equivalent to Job 72639935",
+    "future_full_warhead_rule": "A full-warhead high-fidelity model may start at explosion time only after the mapped mass, momentum, energy, fragment-state and boundary-state transfer is frozen and audited."
+  }
+}

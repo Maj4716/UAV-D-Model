@@ -1,0 +1,87 @@
+{
+  "schema_version": "hf-p0-r06t-fragment-only-psfail-design@1.0.0",
+  "package_revision": "R06_plate_negative_volume_psfail_scope_20261103",
+  "status": "frozen_before_r06t_outcome",
+  "objective": "isolate whether plate negative-volume events arise from the global PSFAIL scope",
+  "parent": {
+    "job_id": "r06s_1200_speed_stability_diagnostic",
+    "platform_job_id": "73059442",
+    "deck_sha256": "sha256:eac511d8579d9cad92f08c41b5241129801df46b297140a3f601acacd5b0dd0e",
+    "audit_classification": "completed_energy_pass_but_plate_negative_volume_persists"
+  },
+  "jobs": [
+    {
+      "job_id": "r06t_1200_fragment_only_psfail_diagnostic",
+      "experiment_id": "r06t_plate_negative_volume_psfail_scope_1200",
+      "role": "plate_negative_volume_psfail_scope_model_form_diagnostic",
+      "impact_speed_mps": 1200.0,
+      "termination_time_ms": 0.5,
+      "maximum_cycle_count": 2500000,
+      "d3plot_interval_ms": 0.00015,
+      "d3part_interval_ms": 0.00015,
+      "ascii_interval_ms": 0.00025,
+      "nodes": 1,
+      "ranks": 32
+    }
+  ],
+  "factor_model": {
+    "single_model_form_factor": {
+      "keyword": "CONTROL_SOLID",
+      "field": "PSFAIL",
+      "parent_level": 0,
+      "candidate_level": 900001,
+      "candidate_set_semantics": "existing fragment-only part set containing part 2002",
+      "plate_part_1002_excluded": true,
+      "role": "mechanism_isolation_not_calibration"
+    },
+    "permitted_deck_differences": [
+      "TITLE_identifier_line",
+      "CONTROL_SOLID_PSFAIL_0_to_fragment_only_set_900001"
+    ]
+  },
+  "frozen_controls": {
+    "impact_speed_mps": 1200.0,
+    "mesh_mm": 0.75,
+    "termination_time_ms": 0.5,
+    "maximum_cycle_count": 2500000,
+    "tssfac": 0.05,
+    "dt2ms": 0.0,
+    "plate_mat015_erod": 1,
+    "fragment_mat015_erod": 1,
+    "plate_part_id": 1002,
+    "fragment_solid_part_id": 2002,
+    "adaptive_sph_part_id": 2003,
+    "adaptive_solid_to_sph": "2002_to_2003_8_particles_per_failed_hex",
+    "solid_contact_soft": 2,
+    "dedicated_sph_to_solid_contact_soft": 1,
+    "d3plot_interval_ms": 0.00015,
+    "d3part_interval_ms": 0.00015,
+    "ascii_database_interval_ms": 0.00025,
+    "nodes": 1,
+    "ranks": 32,
+    "solver_family": "LS-DYNA R15 MPP double precision"
+  },
+  "staged_return_policy": {
+    "stage1_download": [
+      "submitted deck",
+      "manifest.json",
+      "job_contract.json",
+      "Slurm script",
+      "platform log",
+      "std.out",
+      "std.err",
+      "glstat",
+      "all mes0000 through mes0031"
+    ],
+    "stage1_expected_size_mib": 26,
+    "if_stage1_fails": "stop_without_downloading_d3plot_d3part_or_binout",
+    "if_stage1_passes": "download_complete_d3plot_family_then_complete_d3part_and_binout_families"
+  },
+  "acceptance_contract": "p0_r06t_fragment_only_psfail_output_contract.json",
+  "release_scope": "one R06t high-fidelity model-form mechanism diagnostic only",
+  "prohibited": [
+    "changing speed, material, contact, adaptive-SPH, timestep, output cadence, horizon, mesh or resources",
+    "relaxing energy, timestep or plate-negative-volume gates after observing R06t",
+    "using R06t directly for engine fitting, damage-tree fitting or a reference label"
+  ]
+}

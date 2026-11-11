@@ -1,0 +1,54 @@
+{
+  "schema_version": "hf-p0-r06u-job-manifest@1.0.0",
+  "package_revision": "R06_plate_adaptive_sph_canary_20261104",
+  "job_id": "r06u_1200_plate_adaptive_sph_canary",
+  "status": "generated_not_solver_validated",
+  "evidence_class": "high_fidelity_synthetic_plate_adaptive_sph_capability_candidate",
+  "deck": {
+    "path": "r06u_1200_plate_adaptive_sph_canary.k",
+    "size_bytes": 2558798,
+    "sha256": "sha256:7bfb99a49bb757632237b2e2c625500fef27e811988eac3149df7a3e056647d4",
+    "registered_changes": [
+      "TITLE_and_identity_comments",
+      "CONTROL_TERMINATION_endtim_0p50_to_0p15",
+      "add_plate_SPH_part_1003_same_material_and_EOS_as_plate",
+      "add_plate_SPH_to_solid_contact",
+      "add_plate_adaptive_solid_to_SPH_definition"
+    ]
+  },
+  "immutable_branch_parent": {
+    "job_id": "r06s_1200_speed_stability_diagnostic",
+    "platform_job_id": "73059442",
+    "deck_sha256": "sha256:eac511d8579d9cad92f08c41b5241129801df46b297140a3f601acacd5b0dd0e"
+  },
+  "rejected_predecessor": {
+    "job_id": "r06t_1200_fragment_only_psfail_diagnostic",
+    "platform_job_id": "73087868",
+    "classification": "plate_material_state_collapse"
+  },
+  "design": {
+    "path": "p0_r06u_plate_adaptive_sph_canary_design.json",
+    "sha256": "sha256:66468404544bbeeaa2a8bf68341c30bda83bdb683b1d55da3bf43c2695c328cb"
+  },
+  "successor_contract": {
+    "path": "p0_r06u_plate_adaptive_sph_canary_output_contract.json",
+    "sha256": "sha256:984bfe2b6a5e2c2331aa52d55839cfb14b06161daee67dd19c63ca99161ad9f6"
+  },
+  "material": {
+    "path": "jc4340_reference.json",
+    "sha256": "sha256:9b462b920459e57641d5f89d10d36c0aa0498c86f2478fef8e4c3efa96888311"
+  },
+  "case_map": {
+    "path": "p0_case_part_map.csv",
+    "sha256": "sha256:64d8c1bac95e1a00e8d71d70df242cb835a179d1ecc058122cdb343592e62f66"
+  },
+  "job_contract": {
+    "path": "job_contract.json",
+    "sha256": "sha256:1832609418375618e8b2afd1333d5905f9c86f812aa4fffaabd0ff96205567cb"
+  },
+  "limitations": [
+    "Static validation does not prove target-platform parsing, plate conversion or numerical stability.",
+    "R06u stops at 0.15 ms and cannot provide the terminal 0.50 ms response.",
+    "No SPH-SPH interpart contact is added; terminal physical response remains denied."
+  ]
+}

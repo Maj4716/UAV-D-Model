@@ -1,0 +1,390 @@
+{
+  "schema_version": "hf-p0-r06-diagnostic-design@1.9.0",
+  "package_revision": "R06_contact_soft1_isolation_20261031",
+  "design_status": "frozen_after_r06k_fragment_deletion_suppressed_but_contact_energy_timestep_unstable_before_soft1_outcome",
+  "title": "SCNet P0 R06l 800 m/s contact SOFT=1 isolation",
+  "created_date": "2026-10-31",
+  "seed": 20261017,
+  "unit_system": "kg-mm-ms-kN-GPa-K",
+  "purpose": "Test whether changing only the eroding single-surface contact formulation from SOFT=2 to SOFT=1 removes the severe sliding-energy and timestep instability exposed when R06k retained failed fragment solids.",
+  "provenance": {
+    "parent_revision": "R06_fragment_negative_volume_isolation_20261030",
+    "parent_job_id": "r06k_0800_fragment_psfail_plate",
+    "parent_platform_job_id": "72764387",
+    "parent_deck_sha256": "sha256:f78396a9fd15114fe411507a7774d68cecb10a25460413474772f2b99e8a17ca",
+    "parent_result": "successful_mechanism_isolation_but_numerically_unstable_not_calibration_admissible",
+    "parent_return_audit": "analysis/72764387_r06k_0800_fragment_psfail_plate_20261031/r06k_fragment_psfail_return_audit.json",
+    "successor_contract": "design/p0_r06l_contact_soft1_output_contract.json",
+    "identity_rule": "Mesh, IDs, post-explosion initial state, both MAT_015 definitions, EOS, contact cards except SOFT, PSFAIL=910001, section, boundaries, speed, termination, timestep, outputs and resources remain identical to Job 72764387. Only Optional Card A SOFT changes 2 to 1.",
+    "factor_scope": "CONTACT_ERODING_SINGLE_SURFACE Optional Card A field 1 SOFT only, 2 to 1"
+  },
+  "symmetry": {
+    "type": "quarter_model",
+    "full_model_scale_factor": 4.0,
+    "validity": "normal incidence, face-on cube, centered impact only"
+  },
+  "frozen_common": {
+    "fragment_mass_g": 8.0,
+    "fragment_density_kg_m3": 7830.0,
+    "plate_thickness_mm": 10.0,
+    "obliquity_deg_from_normal": 0.0,
+    "fragment_orientation": "face_on",
+    "material_set": "jc4340_reference_central",
+    "plate_half_span_mm": 60.0,
+    "refined_half_span_mm": 15.0,
+    "outer_target_spacing_mm": 2.5,
+    "initial_gap_mm": 1.0,
+    "mesh_mm": 0.75
+  },
+  "frozen_solver_controls": {
+    "control_timestep": {
+      "dtinit": 0.0,
+      "tssfac": 0.05,
+      "isdo": 0,
+      "tslimit": 0.0,
+      "dt2ms": 0.0,
+      "lctm": 0,
+      "erode": 0,
+      "ms1st": 0
+    },
+    "control_contact_card1": {
+      "slsfac": 0.0,
+      "rwpnal": 0.0,
+      "islchk": 2,
+      "shlthk": 0,
+      "penopt": 1,
+      "thkchg": 0,
+      "orien": 1,
+      "enmass": 0
+    },
+    "control_contact_card2": {
+      "usrstr": 0,
+      "usrfrc": 0,
+      "nsbcs": 0,
+      "interm": 0,
+      "xpene": 0.0,
+      "ssthk": 0,
+      "ecdt": 0,
+      "tiedprj": 0
+    },
+    "eroding_contact_card4": {
+      "isym": 1,
+      "erosop": 1,
+      "iadj": 1
+    },
+    "control_solid_default": "absent",
+    "termination_dtmin": 0.0
+  },
+  "shared_measurement_upgrade": {
+    "status": "validated_on_job_72764387_and_frozen_for_contact_soft1_isolation",
+    "full_model_d3plot_interval_ms": 0.0001,
+    "fragment_d3part_interval_ms": 5e-05,
+    "ascii_interval_ms": 5e-05,
+    "fragment_part_set_id": 900001,
+    "plate_psfail_part_set_id": 910001,
+    "database_extent_binary_neiph": 6,
+    "mat015_history_variable_6": "Johnson-Cook damage D",
+    "contact_output_flags": {
+      "spr_or_sapr": 1,
+      "mpr_or_sbpr": 1
+    },
+    "capture_plane": {
+      "axis": "z",
+      "coordinate_mm": -12.0,
+      "undeformed_plate_back_mm": -10.0,
+      "offset_behind_plate_mm": 2.0,
+      "travel_direction": "negative",
+      "crossing_policy": "R06 successor real-output contract"
+    },
+    "required_return_families": [
+      "submitted .k",
+      "solver o= output or d3hsp",
+      "mes*",
+      "glstat",
+      "matsum",
+      "sleout",
+      "nodout",
+      "binout*",
+      "d3plot*",
+      "d3part*",
+      "solver stdout/stderr",
+      "Slurm script and resource record"
+    ],
+    "r15_parser_contract": {
+      "target_solver": "LS-DYNA R15.0.2",
+      "database_extent_binary_cards": [
+        [
+          6,
+          0,
+          3,
+          0,
+          1,
+          1,
+          1,
+          1
+        ],
+        [
+          0,
+          0,
+          0,
+          1,
+          1,
+          1,
+          2,
+          1
+        ]
+      ],
+      "intfor_file_timing_card_tail": [
+        0,
+        0,
+        0
+      ],
+      "intfor_file_ioopt_card": [
+        0
+      ]
+    },
+    "database_extent_binary_policy": "Set NEIPH=6 and explicitly preserve all other R15.0.2 documented Card 1/Card 2 defaults; Card 2 is mandatory.",
+    "d3part_extent_cards": [
+      [
+        6,
+        0,
+        3,
+        0,
+        1,
+        1,
+        1,
+        1
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    ],
+    "direct_contact_output_policy": {
+      "request_binary_intfor": false,
+      "request_ascii_ncforc": true,
+      "intfor_status": "unavailable_by_solver_for_eroding_contact_warning_20340",
+      "ncforc_status": "best_effort_nonblocking",
+      "missing_is_zero": false,
+      "unexpected_file_policy": "preserve_and_report"
+    },
+    "damage_source": {
+      "primary_artifact": "full d3plot*",
+      "array": "element_solid_history_variables",
+      "history_variable_number_one_based": 6,
+      "array_index_zero_based": 5,
+      "material": "*MAT_015/*MAT_JOHNSON_COOK",
+      "required": true,
+      "alive_mask_required": true,
+      "post_deletion_zero_policy": "never_interpret_as_damage_recovery",
+      "sentinel_policy": "absolute value at or above 1e29 is unavailable with a reason, never zero"
+    },
+    "optional_return_families": [
+      "intfor*",
+      "ncforc*"
+    ],
+    "database_extent_d3part_policy": "Explicit NEIPH=6 request is a redundant-channel experiment; full D3PLOT HVAR6 remains authoritative."
+  },
+  "paired_experiments": [
+    {
+      "experiment_id": "r06l_contact_soft_isolation_800",
+      "question": "Does SOFT=1 remove the R06k contact-energy and timestep instability without restoring fragment deletion?",
+      "case_identity": {
+        "r05_case_id": "p0_v0800_h0p75",
+        "r05_original_index": 2,
+        "impact_speed_mps": 800.0,
+        "mesh_mm": 0.75,
+        "plate_part_id": 1002,
+        "fragment_part_id": 2002
+      },
+      "factor": "contact_optional_card_a_soft",
+      "control_level": 2,
+      "treatment_level": 1,
+      "external_control": {
+        "job_id": "r06k_0800_fragment_psfail_plate",
+        "platform_job_id": "72764387",
+        "deck_sha256": "sha256:f78396a9fd15114fe411507a7774d68cecb10a25460413474772f2b99e8a17ca",
+        "resource_identity": "one_node_32_ranks",
+        "tssfac": 0.05,
+        "fragment_mat015_erod": 1,
+        "psfail_part_set_id": 910001,
+        "contact_soft": 2,
+        "fragment_deleted_element_count": 0,
+        "negative_volume_fragment_element_count": 0,
+        "cycle_count": 5547044,
+        "minimum_time_step_ms": 1.49828e-09,
+        "final_sliding_energy_fraction_of_initial": -4.609109375
+      },
+      "jobs": [
+        {
+          "job_id": "r06l_0800_contact_soft1",
+          "directory": "job_01_v0800_contact_soft1",
+          "role": "contact_soft1_numerical_stability_diagnostic",
+          "termination_time_ms": 0.04,
+          "plate_only_psfail": true,
+          "tssfac": 0.05,
+          "fragment_mat015_erod": 1,
+          "contact_soft": 1,
+          "factor_level": 1,
+          "platform_job_name": "uav_hf_r06l_0800_soft1",
+          "parent_r06k_job_id": "r06k_0800_fragment_psfail_plate",
+          "parent_platform_job_id": "72764387"
+        }
+      ],
+      "preregistered_evaluation": {
+        "factor": "CONTACT_ERODING_SINGLE_SURFACE Optional Card A field 1 SOFT",
+        "control_job_id": "r06k_0800_fragment_psfail_plate",
+        "control_platform_job_id": "72764387",
+        "control_level": 2,
+        "treatment_job_id": "r06l_0800_contact_soft1",
+        "treatment_level": 1,
+        "fixed_controls": {
+          "psfail_part_set_id": 910001,
+          "psfail_part_ids": [
+            1002
+          ],
+          "fragment_part_id": 2002,
+          "fragment_mat015_erod": 1,
+          "plate_mat015_erod": 0,
+          "tssfac": 0.05,
+          "dt2ms": 0.0,
+          "post_explosion_initial_state": "unchanged"
+        },
+        "single_factor_rule": "The R06l deck may differ from returned R06k only in TITLE and CONTACT_ERODING_SINGLE_SURFACE Optional Card A field 1 SOFT, 2 to 1.",
+        "rationale": "R06k retained all heavily damaged fragment solids under segment-based SOFT=2 and exposed extreme negative sliding energy plus a late explicit-timestep collapse. SOFT=1 is a documented contact-stability diagnostic, not a physical calibration.",
+        "sources": [
+          "Ansys LS-DYNA instability guidance: inspect penetrations/contact energy and consider automatic contact with SOFT=1",
+          "LS-DYNA Keyword User's Manual Volume I: SOFT selects the contact formulation"
+        ],
+        "diagnostic_gates": {
+          "parser_and_resource_identity": "required",
+          "normal_termination": "required_for_response_review",
+          "no_mass_scaling": true,
+          "fragment_deleted_element_count": {
+            "required": 0
+          },
+          "fragment_negative_volume_element_count": {
+            "required": 0
+          },
+          "hvar6_invalid_alive_count_max": 0,
+          "total_energy_ratio": {
+            "minimum": 0.95,
+            "maximum": 1.05,
+            "classification": "candidate_engineering_gate"
+          },
+          "absolute_final_sliding_energy_fraction_of_initial": {
+            "maximum": 0.05,
+            "classification": "candidate_engineering_gate"
+          },
+          "cycle_count": {
+            "control": 5547044,
+            "treatment_maximum": 554704,
+            "meaning": "at_least_tenfold_reduction_from_r06k_contact_instability",
+            "classification": "diagnostic_efficiency_gate_not_physical_standard"
+          },
+          "minimum_time_step_ms": {
+            "control": 1.49828e-09,
+            "treatment_minimum": 1.49828e-08,
+            "meaning": "at_least_tenfold_improvement_from_r06k_late_step_collapse",
+            "classification": "diagnostic_efficiency_gate_not_physical_standard"
+          },
+          "direct_contact_force_semantics": "pending_sign_side_unit_and_closure_validation"
+        },
+        "interpretation_rules": {
+          "all_numerical_gates_pass": "supports SOFT=1 as a numerically preferable candidate for a later controlled convergence and physical-validation program; does not admit calibration",
+          "fragment_deletion_or_negative_volume_reappears": "rejects the candidate numerical mechanism",
+          "energy_or_timestep_gate_fails": "stop contact-parameter tuning and redesign failed-fragment model form, with adaptive solid-to-SPH as the next documented candidate",
+          "primary_qoi_policy": "never promote this contact-algorithm diagnostic response to a physical label, calibration target or reference dataset"
+        }
+      }
+    }
+  ],
+  "paired_comparison_tolerances": {
+    "parser_and_resource_identity": "required",
+    "normal_termination": "required_for_response_review",
+    "no_mass_scaling": true,
+    "fragment_deleted_element_count": {
+      "required": 0
+    },
+    "fragment_negative_volume_element_count": {
+      "required": 0
+    },
+    "hvar6_invalid_alive_count_max": 0,
+    "total_energy_ratio": {
+      "minimum": 0.95,
+      "maximum": 1.05,
+      "classification": "candidate_engineering_gate"
+    },
+    "absolute_final_sliding_energy_fraction_of_initial": {
+      "maximum": 0.05,
+      "classification": "candidate_engineering_gate"
+    },
+    "cycle_count": {
+      "control": 5547044,
+      "treatment_maximum": 554704,
+      "meaning": "at_least_tenfold_reduction_from_r06k_contact_instability",
+      "classification": "diagnostic_efficiency_gate_not_physical_standard"
+    },
+    "minimum_time_step_ms": {
+      "control": 1.49828e-09,
+      "treatment_minimum": 1.49828e-08,
+      "meaning": "at_least_tenfold_improvement_from_r06k_late_step_collapse",
+      "classification": "diagnostic_efficiency_gate_not_physical_standard"
+    },
+    "direct_contact_force_semantics": "pending_sign_side_unit_and_closure_validation"
+  },
+  "submission_sequence": {
+    "wave_0": [
+      "r06l_0800_contact_soft1"
+    ],
+    "wave_0_gate": "Target parser/resource identity, normal completion, no mass scaling, zero fragment deletion/negative volume, energy/contact-energy gates and timestep/cycle improvement are all reviewed before any successor.",
+    "hold_after_wave_0": "Do not release 2000 m/s, treatments, fitting or labels. Audit the single SOFT factor first.",
+    "resource_identity": "Use exactly one node, 32 ranks, LS-DYNA R15 MPP double precision, and the same memory settings as Job 72764387."
+  },
+  "deferred_not_generated": [
+    {
+      "candidate": "adaptive solid-to-SPH failed-fragment redesign",
+      "reason": "Generate only if the SOFT=1 diagnostic remains unstable."
+    },
+    {
+      "candidate": "additional contact parameter sweeps",
+      "reason": "Denied after a failed SOFT=1 result; model-form redesign takes precedence."
+    },
+    {
+      "candidate": "2000 m/s and all treatments",
+      "reason": "Hold until numerical stability, convergence and physical validation are resolved."
+    }
+  ],
+  "admission": {
+    "contact_soft1_isolation_submission": "allowed_after_static_release_verification",
+    "production_contact_or_erosion_policy": "pending_external_target_solver_diagnostic",
+    "further_contact_parameter_tuning_if_failed": "denied_model_form_redesign_required",
+    "r06f_2000_control": "denied",
+    "treatments": "denied",
+    "p0_response_calibration": "denied",
+    "p1_submission": "denied",
+    "engine_fitting": "denied",
+    "damage_tree_fitting": "denied",
+    "reference_dataset_generation": "denied",
+    "physical_validity": "not_established_requires_independent_experimental_evidence"
+  },
+  "claim_boundary": [
+    "R06k isolated the ERODING-contact negative-volume deletion path by removing all 35 fragment deletions.",
+    "R06k is numerically inadmissible because of a 66.8-fold cycle increase, explicit-timestep collapse and extreme negative sliding energy.",
+    "R06l changes only contact SOFT from 2 to 1 while retaining PSFAIL=910001 and all other model controls.",
+    "The model continues to start from the same post-explosion fragment state.",
+    "Any R06l result is numerical-mechanism evidence only and cannot authorize engine fitting, damage-tree fitting or dataset admission."
+  ],
+  "explosion_instant_start_policy": {
+    "current_model_status": "already_starts_from_post_explosion_fragment_initial_state",
+    "pre_explosion_detonation_or_flight_simulated": false,
+    "r06h_rule": "initial geometry, velocity and all other state remain byte-equivalent to Job 72639935",
+    "future_full_warhead_rule": "A full-warhead high-fidelity model may start at explosion time only after the mapped mass, momentum, energy, fragment-state and boundary-state transfer is frozen and audited."
+  }
+}

@@ -1,0 +1,50 @@
+{
+  "schema_version": "hf-p0-r06-job-manifest@1.0.0",
+  "package_revision": "R06_timestep_confirmation_20261029",
+  "job_id": "r06h_0800_tssfac01",
+  "status": "generated_not_solver_validated",
+  "evidence_class": "high_fidelity_synthetic_diagnostic_candidate",
+  "deck": {
+    "path": "r06h_0800_tssfac01.k",
+    "size_bytes": 2557657,
+    "sha256": "sha256:6e4fb3806722df91df8500ea3e2a6758ef6a07c36e913f4e8eccc7a9083374c3",
+    "node_count": 23775,
+    "element_count": 20902,
+    "node_id_span": [
+      23776,
+      47550
+    ],
+    "element_id_span": [
+      20903,
+      41804
+    ]
+  },
+  "design": {
+    "path": "p0_r06h_timestep_confirmation_design.json",
+    "sha256": "sha256:3d807392c9127d32909b4daa361f17757626a3e94380eaadac99b1c548af9e08"
+  },
+  "material": {
+    "path": "jc4340_reference.json",
+    "sha256": "sha256:9b462b920459e57641d5f89d10d36c0aa0498c86f2478fef8e4c3efa96888311"
+  },
+  "successor_contract": {
+    "path": "p0_r06h_timestep_output_contract.json",
+    "sha256": "sha256:0bbb21d74314e9ba6a35c379bc9c04d1e681186a8bb8acb3b2df6b5f45a7b35f",
+    "historical_status_preserved": "frozen_after_r06g_tssfac02_local_gate_pass_before_tssfac01_outcome"
+  },
+  "case_map": {
+    "path": "p0_case_part_map.csv",
+    "sha256": "sha256:8bc12163061b082b4a3270c6b770b03679926cc5e7f8a8ea40c0fd830977df5f"
+  },
+  "job_contract": {
+    "path": "job_contract.json",
+    "sha256": "sha256:51e6e7963b3aefe4fe943cd424d8786606c0420ac7dbaa75f207d8ed2b7c0a0d"
+  },
+  "limitations": [
+    "Job 72639935 passed the frozen 0.4-versus-0.2 local timestep-refinement gate for one 800 m/s case.",
+    "This package changes only TSSFAC from 0.2 to 0.1 and keeps DT2MS=0.",
+    "The current fragment-plate model already begins from a post-explosion fragment state, so no pre-explosion phase is added.",
+    "A null qV is not zero and is only a convergence non-applicable case when both runs have zero confirmed crossing mass.",
+    "Static PASS and normal termination do not establish physical validity, P0/P1 admission, engine or damage-tree fitting, or dataset-label admission."
+  ]
+}

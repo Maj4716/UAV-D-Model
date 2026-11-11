@@ -1,0 +1,190 @@
+{
+  "schema_version": "hf-p0-r06s-speed-stability-diagnostic-contract@1.0.0",
+  "contract_id": "p0_r06s_1200_speed_stability_output_contract",
+  "status": "frozen_after_r06r_stage1_failure_before_r06s_outcome",
+  "version_boundary": {
+    "applies_to_package_revision": "R06_speed_stability_diagnostic_1200_20261103",
+    "effective_scope": "one_prospective_mid_speed_numerical_stability_diagnostic",
+    "retroactive_gate_rewrite": false
+  },
+  "evidence_chain": {
+    "parent_job_id": "r06r_2000_speed_upper_anchor",
+    "parent_platform_job_id": "72963617",
+    "parent_deck_sha256": "sha256:511cbde9d33b1422981bc5716b0c9ae16a3fcd14f091e1dec003d053f3808e48",
+    "parent_classification": "completed_but_engineering_failed_plate_negative_volume_and_sliding_energy",
+    "parent_cycle_count": 1076078,
+    "parent_solver_elapsed_seconds": 10608,
+    "parent_plate_negative_volume_count": 1374,
+    "parent_target_plate_negative_volume_event": true,
+    "parent_absolute_final_sliding_fraction": 0.0689495
+  },
+  "experimental_question": "At 1200 m/s, does the exact R06r physical model avoid the 2000 m/s plate negative-volume and sliding-energy failures while preserving the admitted measurement and resource contracts?",
+  "factor_model": {
+    "physical_factor": {
+      "name": "fragment_initial_speed_mps",
+      "parent_level": 2000.0,
+      "candidate_level": 1200.0,
+      "reference_admitted_level": 800.0,
+      "single_physical_factor_change": true,
+      "role": "stability_diagnostic_not_midpoint_calibration"
+    },
+    "measurement_controls": {
+      "d3plot_interval_ms": {
+        "parent": 0.0001,
+        "candidate": 0.00015
+      },
+      "d3part_interval_ms": {
+        "parent": 0.0001,
+        "candidate": 0.00015
+      },
+      "reason": "use the coarsest prospective cadence that remains below the frozen 0.25 mm carrier-step gate",
+      "physical_model_semantics_unchanged": true
+    },
+    "execution_safety_control": {
+      "maximum_cycle_count": 2500000,
+      "changed_from_parent": false
+    },
+    "permitted_deck_differences": [
+      "TITLE_identifier_line",
+      "DATABASE_BINARY_D3PLOT_dt_0p0001_to_0p00015",
+      "DATABASE_BINARY_D3PART_dt_0p0001_to_0p00015",
+      "INITIAL_VELOCITY_GENERATION_part_2002_vz_minus2000_to_minus1200"
+    ]
+  },
+  "prospective_resolution": {
+    "r06q_observed_maximum_downward_step_mm": 0.22859651895222832,
+    "reference_speed_mps": 800.0,
+    "candidate_speed_mps": 1200.0,
+    "candidate_binary_interval_ms": 0.00015,
+    "projected_maximum_downward_step_mm": 0.20573686705700545,
+    "required_maximum_downward_step_mm": 0.25,
+    "projection_status": "pass",
+    "claim_boundary": "linear speed/cadence scaling is planning only; observed R06s output must pass"
+  },
+  "explosion_instant_start_policy": {
+    "required": true,
+    "implementation": "retain the R06r post-explosion initial geometry and apply the preregistered 1200 m/s fragment velocity",
+    "pre_impact_flight_or_detonation_simulation": "not_included"
+  },
+  "frozen_controls": {
+    "mesh_mm": 0.75,
+    "termination_time_ms": 0.5,
+    "maximum_cycle_count": 2500000,
+    "tssfac": 0.05,
+    "dt2ms": 0.0,
+    "plate_mat015_erod": 1,
+    "fragment_mat015_erod": 1,
+    "plate_part_id": 1002,
+    "fragment_solid_part_id": 2002,
+    "adaptive_sph_part_id": 2003,
+    "particles_per_failed_hexahedron": 8,
+    "solid_contact_soft": 2,
+    "dedicated_sph_to_solid_contact_soft": 1,
+    "control_solid_psfail": 0,
+    "ascii_database_interval_ms": 0.00025,
+    "nodes": 1,
+    "ranks": 32,
+    "solver_family": "LS-DYNA R15 MPP double precision"
+  },
+  "staged_return_policy": {
+    "stage1_download": [
+      "submitted deck",
+      "manifest.json",
+      "job_contract.json",
+      "Slurm script",
+      "platform log",
+      "std.out",
+      "std.err",
+      "glstat",
+      "all mes0000 through mes0031"
+    ],
+    "stage1_expected_size_mib": 26,
+    "if_stage1_fails": "stop_without_downloading_d3plot_d3part_or_binout",
+    "if_stage1_passes": "download_complete_d3plot_family_then_complete_d3part_and_binout_families"
+  },
+  "run_planning": {
+    "requested_walltime": "12:00:00",
+    "maximum_cycle_count": 2500000,
+    "projected_d3plot_state_count": 3335,
+    "projected_d3part_state_count": 3335,
+    "projected_total_output_bytes": 22510000000,
+    "projected_total_output_gb_decimal": 22.51,
+    "storage_claim_boundary": "R06r binary families scaled by state count; actual segmentation and size can differ"
+  },
+  "preregistered_stage1_gates": {
+    "input_deck_parent_hash": "sha256:511cbde9d33b1422981bc5716b0c9ae16a3fcd14f091e1dec003d053f3808e48",
+    "deck_difference": "exactly_four_registered_lines",
+    "resource_identity": {
+      "nodes": 1,
+      "ranks": 32,
+      "required": true
+    },
+    "normal_termination_at_problem_time_ms": {
+      "required": 0.5,
+      "tolerance_ms": 1e-05
+    },
+    "cycle_guard": {
+      "maximum": 2500000
+    },
+    "no_mass_scaling": true,
+    "plate_negative_volume_element_count": {
+      "required": 0
+    },
+    "target_plate_element_39948_negative_volume_event": false,
+    "total_energy_ratio": {
+      "minimum": 0.95,
+      "maximum": 1.05
+    },
+    "absolute_final_sliding_energy_fraction_of_initial": {
+      "maximum": 0.05
+    },
+    "maximum_absolute_hourglass_over_internal": {
+      "maximum": 0.05
+    }
+  },
+  "binary_gates_if_stage1_passes": {
+    "maximum_full_history_downward_carrier_step_mm": {
+      "maximum": 0.25
+    },
+    "combined_solid_sph_crossing_ledger": "required",
+    "activation_below_plane_count": {
+      "required": 0
+    },
+    "deletion_interval_plane_ambiguity_count": {
+      "required": 0
+    },
+    "unresolved_crossing_mass_fraction": {
+      "maximum": 0.005
+    },
+    "target_plate_element_39948_alive_at_terminal_state": true,
+    "statewise_active_sph_per_converted_fragment_solid": {
+      "required": 8
+    },
+    "combined_fragment_solid_plus_active_sph_mass_relative_error": {
+      "maximum_absolute": 0.01
+    },
+    "sph_deletion_count": {
+      "required": 0
+    },
+    "d3part_full_d3plot_crosscheck": "required"
+  },
+  "sequential_decision": {
+    "if_stage1_fails": "stop_speed_scan_and_redesign_plate_or_contact_model_form",
+    "if_stage1_passes_and_binary_response_is_confirmed_perforation": "establish_numerical_bracket_800_to_1200_then_release_one_bracket_refinement",
+    "if_stage1_passes_and_binary_response_is_confirmed_nonperforation": "do_not_reuse_failed_2000_anchor_review_model_form_before_any_higher_speed",
+    "if_binary_response_unavailable": "repair_measurement_or_transfer_ambiguity_without_fitting"
+  },
+  "admission": {
+    "r06s_submission": "allowed_after_static_release_verification",
+    "speed_bracket": "held_until_r06s_stage1_and_binary_gates_pass",
+    "engine_fitting": "denied",
+    "damage_tree_fitting": "denied",
+    "reference_dataset_generation": "denied",
+    "physical_validity": "not_established"
+  },
+  "claim_boundary": [
+    "R06s is a stability diagnostic prompted by a failed 2000 m/s run, not a post-hoc midpoint calibration point.",
+    "Passing Stage 1 only authorizes downloading binary response evidence.",
+    "No fitting or physical label is admitted before all frozen gates pass."
+  ]
+}

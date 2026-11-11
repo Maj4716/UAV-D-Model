@@ -1,0 +1,20 @@
+{
+  "schema_version": "hf-p0-r06n-static-validation@1.0.0",
+  "overall_status": "pass",
+  "parent_deck_sha256": "sha256:634436d875c42592b5801de9bf27fce6255691fd27f17d28bd201b80e4cf1107",
+  "permitted_difference": "TITLE_identifier_line_only",
+  "differing_line_numbers": [
+    3
+  ],
+  "parent_title": "SCNet P0 R06_adaptive_solid_to_sph_canary_20261101 r06m_0800_adaptive_sph_canary",
+  "candidate_title": "SCNet P0 R06n adaptive SPH exact 32rank confirmation 20261101",
+  "solver_model_output_cards_byte_identical": true,
+  "termination_time_ms": 0.04,
+  "maximum_cycle_count": 829930,
+  "tssfac": 0.05,
+  "dt2ms": 0.0,
+  "adaptive_sph_part_id": 2003,
+  "particles_per_failed_hexahedron": 8,
+  "resource_identity_is_external_to_deck": true,
+  "candidate_deck_sha256": "sha256:edc5f3b80174e52c81eb96a16e0e5abe89f1587b8a850f87f7048bd40f1ac4b7"
+}

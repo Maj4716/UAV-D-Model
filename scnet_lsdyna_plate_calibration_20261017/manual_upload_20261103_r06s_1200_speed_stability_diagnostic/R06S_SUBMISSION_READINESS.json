@@ -1,0 +1,18 @@
+{
+  "schema_version": "hf-p0-r06s-submission-readiness@1.0.0",
+  "overall_status": "pass",
+  "package_revision": "R06_speed_stability_diagnostic_1200_20261103",
+  "job_id": "r06s_1200_speed_stability_diagnostic",
+  "allowed_deck_differences": [
+    "TITLE_identifier_line",
+    "DATABASE_BINARY_D3PLOT_dt_0p0001_to_0p00015",
+    "DATABASE_BINARY_D3PART_dt_0p0001_to_0p00015",
+    "INITIAL_VELOCITY_GENERATION_part_2002_vz_minus2000_to_minus1200"
+  ],
+  "required_resources": {
+    "nodes": 1,
+    "ranks": 32
+  },
+  "archive_policy": "no_archive_direct_folder_delivery",
+  "solver_status": "not_submitted_not_solver_validated"
+}

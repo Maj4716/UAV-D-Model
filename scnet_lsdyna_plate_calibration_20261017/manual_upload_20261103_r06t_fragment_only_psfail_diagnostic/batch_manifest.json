@@ -1,0 +1,60 @@
+{
+  "schema_version": "hf-p0-r06t-batch-manifest@1.0.0",
+  "package_revision": "R06_plate_negative_volume_psfail_scope_20261103",
+  "job_count": 1,
+  "jobs": [
+    {
+      "job_id": "r06t_1200_fragment_only_psfail_diagnostic",
+      "directory": "job_01_v1200_fragment_only_psfail_diagnostic",
+      "head_deck": "r06t_1200_fragment_only_psfail_diagnostic.k",
+      "head_deck_sha256": "sha256:11f62db3f8b27d1087988d5ad2abc572bddbd89570f6065500ddfe390a6459ae"
+    }
+  ],
+  "files": [
+    {
+      "path": "job_01_v1200_fragment_only_psfail_diagnostic/jc4340_reference.json",
+      "size_bytes": 3144,
+      "sha256": "sha256:9b462b920459e57641d5f89d10d36c0aa0498c86f2478fef8e4c3efa96888311"
+    },
+    {
+      "path": "job_01_v1200_fragment_only_psfail_diagnostic/job_contract.json",
+      "size_bytes": 1657,
+      "sha256": "sha256:21466cd3d2c9e6ff3ba308bbf557ed0a680675e6d4fea050e3f1779efa676d88"
+    },
+    {
+      "path": "job_01_v1200_fragment_only_psfail_diagnostic/manifest.json",
+      "size_bytes": 2051,
+      "sha256": "sha256:2a0548983f86afe4a94273df7e73947062cfbc13e0344ea745c6defc98544887"
+    },
+    {
+      "path": "job_01_v1200_fragment_only_psfail_diagnostic/p0_case_part_map.csv",
+      "size_bytes": 567,
+      "sha256": "sha256:bfb80a732b5bc71d43d0a37a14be2045c31cd3d4925d62c31cc4a8e63f87002c"
+    },
+    {
+      "path": "job_01_v1200_fragment_only_psfail_diagnostic/p0_r06t_fragment_only_psfail_design.json",
+      "size_bytes": 3191,
+      "sha256": "sha256:9deb924c442d6014cf3a3310d8be318c4df83a3340a319a0ad67dfaf4935d342"
+    },
+    {
+      "path": "job_01_v1200_fragment_only_psfail_diagnostic/p0_r06t_fragment_only_psfail_output_contract.json",
+      "size_bytes": 5303,
+      "sha256": "sha256:0019223d639b7d84559a3400c9642cb90c2d86bf8751a9d1d81cf5d6592f7226"
+    },
+    {
+      "path": "job_01_v1200_fragment_only_psfail_diagnostic/r06t_1200_fragment_only_psfail_diagnostic.k",
+      "size_bytes": 2558354,
+      "sha256": "sha256:11f62db3f8b27d1087988d5ad2abc572bddbd89570f6065500ddfe390a6459ae"
+    },
+    {
+      "path": "job_01_v1200_fragment_only_psfail_diagnostic/static_validation.json",
+      "size_bytes": 1014,
+      "sha256": "sha256:936abd1eb096527b63e5365b04afca56d7938ff40cd47280ada4ea2dfdecad51"
+    },
+    {
+      "path": "job_01_v1200_fragment_only_psfail_diagnostic/UPLOAD_README.txt",
+      "size_bytes": 660,
+      "sha256": "sha256:4b81d9b428cb2515b611e6ff3f58620cc87300744d4e52ce8064c0a5977252e6"
+    }
+  ]
+}

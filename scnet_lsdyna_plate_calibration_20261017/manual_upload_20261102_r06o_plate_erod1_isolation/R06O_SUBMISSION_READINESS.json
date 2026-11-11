@@ -1,0 +1,16 @@
+{
+  "schema_version": "hf-p0-r06o-submission-readiness@1.0.0",
+  "overall_status": "pass",
+  "package_revision": "R06_plate_material_erod1_isolation_20261102",
+  "job_id": "r06o_0800_plate_erod1_isolation",
+  "allowed_deck_differences": [
+    "TITLE_identifier_line",
+    "plate_MAT_JOHNSON_COOK_EROD_field_0_to_1"
+  ],
+  "required_resources": {
+    "nodes": 1,
+    "ranks": 32
+  },
+  "archive_policy": "no_archive_direct_folder_delivery",
+  "solver_status": "not_submitted_not_solver_validated"
+}

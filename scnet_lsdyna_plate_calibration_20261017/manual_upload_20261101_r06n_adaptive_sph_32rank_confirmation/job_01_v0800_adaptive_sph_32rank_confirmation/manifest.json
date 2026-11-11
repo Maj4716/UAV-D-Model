@@ -1,0 +1,47 @@
+{
+  "schema_version": "hf-p0-r06n-job-manifest@1.0.0",
+  "package_revision": "R06_adaptive_sph_32rank_confirmation_20261101",
+  "job_id": "r06n_0800_adaptive_sph_32rank_confirmation",
+  "status": "generated_not_solver_validated",
+  "evidence_class": "high_fidelity_synthetic_resource_confirmation_candidate",
+  "deck": {
+    "path": "r06n_0800_adaptive_sph_32rank_confirmation.k",
+    "size_bytes": 2558369,
+    "sha256": "sha256:edc5f3b80174e52c81eb96a16e0e5abe89f1587b8a850f87f7048bd40f1ac4b7",
+    "difference_from_parent": "TITLE_identifier_line_only"
+  },
+  "immutable_parent": {
+    "job_id": "r06m_0800_adaptive_sph_canary",
+    "platform_job_id": "72861050",
+    "deck_sha256": "sha256:634436d875c42592b5801de9bf27fce6255691fd27f17d28bd201b80e4cf1107",
+    "observed_nodes": 1,
+    "observed_ranks": 64,
+    "resource_contract_status": "failed_expected_32_ranks"
+  },
+  "design": {
+    "path": "p0_r06n_adaptive_sph_32rank_confirmation_design.json",
+    "sha256": "sha256:9a28a375438b2daba6938016690a9af2942cb25176d69acf8d84da3667391416"
+  },
+  "successor_contract": {
+    "path": "p0_r06n_adaptive_sph_32rank_output_contract.json",
+    "sha256": "sha256:dddb971cc3d9ca989020948b71c3147f475fa13da80cb3255d3696b496f2d226"
+  },
+  "material": {
+    "path": "jc4340_reference.json",
+    "sha256": "sha256:9b462b920459e57641d5f89d10d36c0aa0498c86f2478fef8e4c3efa96888311"
+  },
+  "case_map": {
+    "path": "p0_case_part_map.csv",
+    "sha256": "sha256:41a31fc0f347a27284923f0a89ab7d81f5916b1b23e9cb011d1751fb8865c4c0"
+  },
+  "job_contract": {
+    "path": "job_contract.json",
+    "sha256": "sha256:d6dc4dcdda2c787de1f1acfca0a226e653cd4f4fc825ccc95c588d845519fe83"
+  },
+  "limitations": [
+    "Static validation proves a TITLE-only deck change; it does not prove target-platform execution.",
+    "The platform must actually allocate one node and exactly 32 MPP ranks.",
+    "The 0.04 ms horizon remains intentionally unchanged and does not yet qualify the capture-plane response.",
+    "No response is admitted for engine fitting, damage-tree fitting or reference labels."
+  ]
+}

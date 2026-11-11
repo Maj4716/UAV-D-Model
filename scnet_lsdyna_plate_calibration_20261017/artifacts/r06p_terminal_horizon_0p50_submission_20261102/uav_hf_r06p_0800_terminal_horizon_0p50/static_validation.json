@@ -1,0 +1,40 @@
+{
+  "schema_version": "hf-p0-r06p-static-validation@1.0.0",
+  "overall_status": "pass",
+  "parent_deck_sha256": "sha256:d71d2d11091a813f35ca98656c31fb7ad4f8174b024828a62e0f874daab3524f",
+  "permitted_differences": [
+    "TITLE_identifier_line",
+    "CONTROL_TERMINATION_endtim_0p04_to_0p50",
+    "DATABASE_BINARY_D3PLOT_dt_0p0001_to_0p0005",
+    "DATABASE_BINARY_D3PART_dt_0p00005_to_0p00025",
+    "DATABASE_GLSTAT_dt_0p00005_to_0p00025",
+    "DATABASE_MATSUM_dt_0p00005_to_0p00025",
+    "DATABASE_SLEOUT_dt_0p00005_to_0p00025",
+    "DATABASE_NODOUT_dt_0p00005_to_0p00025",
+    "DATABASE_NCFORC_dt_0p00005_to_0p00025"
+  ],
+  "differing_line_numbers": [
+    3,
+    8,
+    19,
+    24,
+    29,
+    31,
+    33,
+    35,
+    37
+  ],
+  "all_other_deck_lines_byte_identical": true,
+  "model_semantics_unchanged": true,
+  "termination_time_ms": 0.5,
+  "maximum_cycle_count": 829930,
+  "d3plot_interval_ms": 0.0005,
+  "d3part_interval_ms": 0.00025,
+  "ascii_interval_ms": 0.00025,
+  "plate_erod": 1,
+  "fragment_erod": 1,
+  "tssfac": 0.05,
+  "dt2ms": 0.0,
+  "resource_identity_is_external_to_deck": true,
+  "candidate_deck_sha256": "sha256:d471f09e9a726c9e4695565abc120e9300bfd68ca2b272bf23852322f8dc8629"
+}

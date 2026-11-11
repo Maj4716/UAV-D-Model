@@ -1,0 +1,97 @@
+{
+  "schema_version": "hf-p0-r06j-direct-folder-delivery@1.0.0",
+  "package_revision": "R06_fragment_erosion_isolation_20261030",
+  "job_id": "r06j_0800_fragment_erod1",
+  "status": "ready_for_user_submission_not_submitted_not_solver_validated",
+  "upload_folder": "uav_hf_r06j_0800_fragment_erod1",
+  "head_deck": "r06j_0800_fragment_erod1.k",
+  "archive_policy": "no_archive_direct_folder_only",
+  "parent_control": {
+    "platform_job_id": "72740022",
+    "deck_sha256": "sha256:e2e8da8e55304b7fe2deb2c1790e00bf7fea9c64145c6c09a954c50492f3dd88",
+    "audit_path": "D:/Desktop/UAV新/scnet_lsdyna_plate_calibration_20261017/analysis/72740022_r06i_0800_tssfac005_20261030/r06i_tssfac005_return_audit.json",
+    "audit_sha256": "sha256:eb2ce9f08f0d19bb394b33002c71373c4462fec70d2e04235f428df910190cd0",
+    "timestep_terminal_consistency": "pass",
+    "response_availability": "fail"
+  },
+  "single_factor": {
+    "field": "fragment MAT_015 Card 4 field 3 EROD",
+    "control": 0,
+    "treatment": 1,
+    "plate_erod": 0,
+    "tssfac": 0.05,
+    "dt2ms": 0.0,
+    "meaning": "failed fragment elements are retained and their deviatoric stresses are set to zero"
+  },
+  "diagnostic_boundary": {
+    "purpose": "isolate whether fragment failure erosion causes upstream deleted mass",
+    "erod1_qoi_use": "mechanism_evidence_only_not_physical_label_or_calibration_target",
+    "no_automatic_successor_release": true
+  },
+  "resource_contract": {
+    "software": "ls-dyna_R15_mmp_d",
+    "nodes": 1,
+    "ranks": 32,
+    "walltime": "04:00:00",
+    "head_memory_mb": 512,
+    "child_memory_mb": 256,
+    "command_line_parameters": "",
+    "fresh_work_directory": "/work/home/acd7dt5yv4/LSDYNA/uav_hf_r06j_0800_ferod1"
+  },
+  "files": [
+    {
+      "path": "uav_hf_r06j_0800_fragment_erod1/UPLOAD_README.txt",
+      "size_bytes": 1999,
+      "sha256": "sha256:63a8136cc04eb43f07c9c800d25707cd68e89953f7f7a5c0e68594187885ba3c"
+    },
+    {
+      "path": "uav_hf_r06j_0800_fragment_erod1/jc4340_reference.json",
+      "size_bytes": 3144,
+      "sha256": "sha256:9b462b920459e57641d5f89d10d36c0aa0498c86f2478fef8e4c3efa96888311"
+    },
+    {
+      "path": "uav_hf_r06j_0800_fragment_erod1/job_contract.json",
+      "size_bytes": 1837,
+      "sha256": "sha256:5d2fa28da71fb68ca5387cd07f0b724e9efd83596301355e45041eabe5353e5c"
+    },
+    {
+      "path": "uav_hf_r06j_0800_fragment_erod1/manifest.json",
+      "size_bytes": 2127,
+      "sha256": "sha256:ea3e305ad33eb066280a0357217aebd125cba7f513a1a56508a7aa6e894430be"
+    },
+    {
+      "path": "uav_hf_r06j_0800_fragment_erod1/p0_case_part_map.csv",
+      "size_bytes": 514,
+      "sha256": "sha256:7004fc8d8422212021f7828379b86208c6c3bd82044fe5de795ad408b0763ba2"
+    },
+    {
+      "path": "uav_hf_r06j_0800_fragment_erod1/p0_r06j_fragment_erosion_isolation_design.json",
+      "size_bytes": 12474,
+      "sha256": "sha256:52861195f360f8bcc1f73e59779f7f640fa159b02bcc5a66c4e3d10a8cd06b21"
+    },
+    {
+      "path": "uav_hf_r06j_0800_fragment_erod1/p0_r06j_fragment_erosion_output_contract.json",
+      "size_bytes": 12003,
+      "sha256": "sha256:88c361c5c5f798a569f43ed2047de9ea78f702845bb4e2a9acbab364db3e0a17"
+    },
+    {
+      "path": "uav_hf_r06j_0800_fragment_erod1/r06j_0800_fragment_erod1.k",
+      "size_bytes": 2557671,
+      "sha256": "sha256:8ec1613324159b3ebc00217871ad29321564423b0a7f73a267207e4952bada77"
+    },
+    {
+      "path": "uav_hf_r06j_0800_fragment_erod1/static_validation.json",
+      "size_bytes": 3590,
+      "sha256": "sha256:80e74f90fa19e2b479c418b3f910a26ac2ec2b4f87bc21ee072efdc65a34f96d"
+    }
+  ],
+  "prohibited": [
+    "creating or submitting a ZIP archive",
+    "submitting any other job in parallel with this diagnostic",
+    "changing the post-explosion initial state or any factor other than fragment MAT_015 EROD",
+    "changing plate MAT_015 EROD from zero",
+    "using nodes/ranks other than one node and 32 total MPP ranks",
+    "enabling mass scaling or changing TSSFAC from 0.05",
+    "treating an EROD=1 response as physical validation, engine/damage-tree calibration or a dataset label"
+  ]
+}

@@ -1,0 +1,60 @@
+{
+  "schema_version": "hf-p0-r06-job-contract@1.1.0",
+  "package_revision": "R06_adaptive_solid_to_sph_canary_20261101",
+  "job_id": "r06m_0800_adaptive_sph_canary",
+  "experiment_id": "r06m_adaptive_solid_to_sph_canary_800",
+  "role": "adaptive_solid_to_sph_parser_runtime_mass_energy_capability_canary",
+  "factor": "bundled_adaptive_solid_to_sph_model_form_capability",
+  "factor_level": "adaptive_sph_bundle_v1",
+  "case": {
+    "case_id": "p0_v0800_h0p75",
+    "source_r05_index": 2,
+    "impact_speed_mps": 800.0,
+    "mesh_mm": 0.75,
+    "plate_part_id": 1002,
+    "fragment_solid_part_id": 2002,
+    "adaptive_sph_part_id": 2003,
+    "plate_node_count": 22815,
+    "fragment_node_count": 960,
+    "plate_element_count": 20216,
+    "fragment_element_count": 686,
+    "fragment_center_history_node_id": 47039,
+    "fragment_initial_reference_mass_kg": 0.002,
+    "termination_time_ms": 0.04,
+    "maximum_cycle_count": 829930,
+    "fragment_mat015_erod": 1,
+    "control_solid_psfail": 0
+  },
+  "head_deck": "r06m_0800_adaptive_sph_canary.k",
+  "resource_contract": {
+    "software_platform_label": "ls-dyna_R15_mmp_d",
+    "solver_family": "LS-DYNA R15 MPP double precision",
+    "nodes": 1,
+    "ranks": 32,
+    "walltime": "12:00:00",
+    "head_memory_mb": 512,
+    "child_memory_mb": 256,
+    "command_line_parameters": ""
+  },
+  "required_return_families": [
+    "submitted .k",
+    "solver o= output or d3hsp",
+    "mes*",
+    "glstat",
+    "matsum",
+    "sleout",
+    "nodout",
+    "ncforc",
+    "binout*",
+    "d3plot*",
+    "d3part*",
+    "solver stdout/stderr",
+    "Slurm script and resource record"
+  ],
+  "completion_rule": {
+    "required_problem_time_ms": 0.04,
+    "cycle_guard": 829930,
+    "cycle_guard_exit_before_required_problem_time": "failed_canary_not_completed_response"
+  },
+  "status": "prepared_not_submitted_not_solver_validated"
+}

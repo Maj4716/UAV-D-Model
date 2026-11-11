@@ -1,0 +1,60 @@
+{
+  "schema_version": "hf-p0-r06u-batch-manifest@1.0.0",
+  "package_revision": "R06_plate_adaptive_sph_canary_20261104",
+  "job_count": 1,
+  "jobs": [
+    {
+      "job_id": "r06u_1200_plate_adaptive_sph_canary",
+      "directory": "job_01_v1200_plate_adaptive_sph_canary",
+      "head_deck": "r06u_1200_plate_adaptive_sph_canary.k",
+      "head_deck_sha256": "sha256:7bfb99a49bb757632237b2e2c625500fef27e811988eac3149df7a3e056647d4"
+    }
+  ],
+  "files": [
+    {
+      "path": "job_01_v1200_plate_adaptive_sph_canary/jc4340_reference.json",
+      "size_bytes": 3144,
+      "sha256": "sha256:9b462b920459e57641d5f89d10d36c0aa0498c86f2478fef8e4c3efa96888311"
+    },
+    {
+      "path": "job_01_v1200_plate_adaptive_sph_canary/job_contract.json",
+      "size_bytes": 1730,
+      "sha256": "sha256:1832609418375618e8b2afd1333d5905f9c86f812aa4fffaabd0ff96205567cb"
+    },
+    {
+      "path": "job_01_v1200_plate_adaptive_sph_canary/manifest.json",
+      "size_bytes": 2255,
+      "sha256": "sha256:d7ef731a34708c722f8d88283d039a1fbac050131c68ba04b301cd52798da7cb"
+    },
+    {
+      "path": "job_01_v1200_plate_adaptive_sph_canary/p0_case_part_map.csv",
+      "size_bytes": 579,
+      "sha256": "sha256:64d8c1bac95e1a00e8d71d70df242cb835a179d1ecc058122cdb343592e62f66"
+    },
+    {
+      "path": "job_01_v1200_plate_adaptive_sph_canary/p0_r06u_plate_adaptive_sph_canary_design.json",
+      "size_bytes": 3930,
+      "sha256": "sha256:66468404544bbeeaa2a8bf68341c30bda83bdb683b1d55da3bf43c2695c328cb"
+    },
+    {
+      "path": "job_01_v1200_plate_adaptive_sph_canary/p0_r06u_plate_adaptive_sph_canary_output_contract.json",
+      "size_bytes": 6773,
+      "sha256": "sha256:984bfe2b6a5e2c2331aa52d55839cfb14b06161daee67dd19c63ca99161ad9f6"
+    },
+    {
+      "path": "job_01_v1200_plate_adaptive_sph_canary/r06u_1200_plate_adaptive_sph_canary.k",
+      "size_bytes": 2558798,
+      "sha256": "sha256:7bfb99a49bb757632237b2e2c625500fef27e811988eac3149df7a3e056647d4"
+    },
+    {
+      "path": "job_01_v1200_plate_adaptive_sph_canary/static_validation.json",
+      "size_bytes": 1723,
+      "sha256": "sha256:cea03aaec2ecf26360aa73b7d3fc2f91ca8f19fe771ed2e386fda7ae489e0b6e"
+    },
+    {
+      "path": "job_01_v1200_plate_adaptive_sph_canary/UPLOAD_README.txt",
+      "size_bytes": 741,
+      "sha256": "sha256:ebfdbe90ad6c603c946f1077f1e4fdfe060d5cfe6ba95beac5760b2e5b437211"
+    }
+  ]
+}

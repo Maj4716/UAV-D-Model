@@ -1,0 +1,60 @@
+{
+  "schema_version": "hf-p0-r06o-batch-manifest@1.0.0",
+  "package_revision": "R06_plate_material_erod1_isolation_20261102",
+  "job_count": 1,
+  "jobs": [
+    {
+      "job_id": "r06o_0800_plate_erod1_isolation",
+      "directory": "job_01_v0800_plate_erod1_isolation",
+      "head_deck": "r06o_0800_plate_erod1_isolation.k",
+      "head_deck_sha256": "sha256:d71d2d11091a813f35ca98656c31fb7ad4f8174b024828a62e0f874daab3524f"
+    }
+  ],
+  "files": [
+    {
+      "path": "job_01_v0800_plate_erod1_isolation/jc4340_reference.json",
+      "size_bytes": 3144,
+      "sha256": "sha256:9b462b920459e57641d5f89d10d36c0aa0498c86f2478fef8e4c3efa96888311"
+    },
+    {
+      "path": "job_01_v0800_plate_erod1_isolation/job_contract.json",
+      "size_bytes": 1611,
+      "sha256": "sha256:b67e42e7e8d673f4ea565d29812135abc886cc5944e158b2eca2829c1ba116e0"
+    },
+    {
+      "path": "job_01_v0800_plate_erod1_isolation/manifest.json",
+      "size_bytes": 2158,
+      "sha256": "sha256:ed0cf06a547dc796d0917cad0171ddd582f831db50ff65881ab27fe2d15438a7"
+    },
+    {
+      "path": "job_01_v0800_plate_erod1_isolation/p0_case_part_map.csv",
+      "size_bytes": 522,
+      "sha256": "sha256:cbdfe7eda309f0c471cdd0c8c94f8c54fb4462ae5f68d0e792561fde983a24ad"
+    },
+    {
+      "path": "job_01_v0800_plate_erod1_isolation/p0_r06o_plate_erod1_isolation_design.json",
+      "size_bytes": 5423,
+      "sha256": "sha256:32594dfd7860024cfcada1ebc10ebc99266b0cdd357bec47590322bc599a1f45"
+    },
+    {
+      "path": "job_01_v0800_plate_erod1_isolation/p0_r06o_plate_erod1_output_contract.json",
+      "size_bytes": 5887,
+      "sha256": "sha256:eb71fc531000e3f10c6e352d2c7ce464da5b1526e65d5b7e1814a95d95e066a5"
+    },
+    {
+      "path": "job_01_v0800_plate_erod1_isolation/r06o_0800_plate_erod1_isolation.k",
+      "size_bytes": 2558342,
+      "sha256": "sha256:d71d2d11091a813f35ca98656c31fb7ad4f8174b024828a62e0f874daab3524f"
+    },
+    {
+      "path": "job_01_v0800_plate_erod1_isolation/static_validation.json",
+      "size_bytes": 886,
+      "sha256": "sha256:67688ec25997530726721263567a1999ef34c2fcdb3c6367fcf259282320833c"
+    },
+    {
+      "path": "job_01_v0800_plate_erod1_isolation/UPLOAD_README.txt",
+      "size_bytes": 522,
+      "sha256": "sha256:16844bdce83f83b9f4f81351ab881f62c71e29ab3f2de29cb97ebb1d41dd3e85"
+    }
+  ]
+}

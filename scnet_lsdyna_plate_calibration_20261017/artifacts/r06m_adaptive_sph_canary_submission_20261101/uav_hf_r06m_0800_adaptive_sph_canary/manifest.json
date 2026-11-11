@@ -1,0 +1,48 @@
+{
+  "schema_version": "hf-p0-r06m-job-manifest@1.0.0",
+  "package_revision": "R06_adaptive_solid_to_sph_canary_20261101",
+  "job_id": "r06m_0800_adaptive_sph_canary",
+  "status": "generated_not_solver_validated",
+  "evidence_class": "high_fidelity_synthetic_model_form_capability_candidate",
+  "deck": {
+    "path": "r06m_0800_adaptive_sph_canary.k",
+    "size_bytes": 2558388,
+    "sha256": "sha256:634436d875c42592b5801de9bf27fce6255691fd27f17d28bd201b80e4cf1107",
+    "node_count": 23775,
+    "element_count": 20902,
+    "new_solver_created_sph_expected": true
+  },
+  "immutable_parent": {
+    "job_id": "r06j_0800_fragment_erod1",
+    "platform_job_id": "72751725",
+    "deck_sha256": "sha256:8ec1613324159b3ebc00217871ad29321564423b0a7f73a267207e4952bada77"
+  },
+  "design": {
+    "path": "p0_r06m_adaptive_sph_canary_design.json",
+    "sha256": "sha256:480913aa29ef87393294cb5a181a6ba09ac4c8a883b803e7be21370c1abc8e12"
+  },
+  "material": {
+    "path": "jc4340_reference.json",
+    "sha256": "sha256:9b462b920459e57641d5f89d10d36c0aa0498c86f2478fef8e4c3efa96888311"
+  },
+  "successor_contract": {
+    "path": "p0_r06m_adaptive_sph_output_contract.json",
+    "sha256": "sha256:8348a2cbfc7cc840c9889e9d8c7d3404c6ee68948fab752855719b4d68d54b0b"
+  },
+  "case_map": {
+    "path": "p0_case_part_map.csv",
+    "sha256": "sha256:41a31fc0f347a27284923f0a89ab7d81f5916b1b23e9cb011d1751fb8865c4c0"
+  },
+  "job_contract": {
+    "path": "job_contract.json",
+    "sha256": "sha256:3c6e97a06eb36e6548c8504e146277581f20eb521cdbdfba172260429ce07343"
+  },
+  "limitations": [
+    "This package is statically validated but has not been parsed or run by the target solver.",
+    "R06m branches from completed R06j, not from the cancelled R06l SOFT=1 deck.",
+    "The adaptive-SPH bundle is a model-form capability test, not a single-factor physical calibration.",
+    "The cycle guard prevents another multi-day numerical runaway; an early guard exit is a failed canary.",
+    "D3PART remains solid part 2002 only; solver-created SPH must be assessed in full D3PLOT and MATSUM.",
+    "No response is admitted for engine fitting, damage-tree fitting or reference labels."
+  ]
+}

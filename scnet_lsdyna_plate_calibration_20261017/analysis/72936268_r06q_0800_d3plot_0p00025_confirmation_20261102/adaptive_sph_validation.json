@@ -1,0 +1,210 @@
+{
+  "schema_version": "hf-p0-r06q-adaptive-sph-validation@1.0.0",
+  "run_completion_policy": "requires_normal_termination_and_problem_time_0p5_in_the_separate_return_audit",
+  "adaptive_sph": {
+    "status": "pass_adaptive_sph_capability_and_mass_gate",
+    "d3plot": {
+      "state_count": 2002,
+      "first_time_ms": 0.0,
+      "last_time_ms": 0.5000001274488591,
+      "solid_count": 20902,
+      "part_ids": [
+        1002,
+        2002,
+        2003
+      ],
+      "coordinate_mode": "absolute_coordinates"
+    },
+    "conversion": {
+      "preallocated_sph_count": 5488,
+      "first_activation_state": 20,
+      "first_activation_time_ms": 0.004999721097198488,
+      "final_converted_solid_count": 45,
+      "final_active_sph_count": 360,
+      "particles_per_converted_solid": 8,
+      "statewise_exact_activation_correspondence": true,
+      "plate_deleted_element_count": 0,
+      "maximum_plate_deleted_element_count": 0,
+      "first_plate_deletion_state": null,
+      "first_plate_deletion_time_ms": null,
+      "final_deleted_plate_element_ids": [],
+      "sph_deleted_particle_count": 0
+    },
+    "mass_accounting": {
+      "initial_fragment_reference_mass_kg": 0.0019999999821700186,
+      "final_alive_solid_mass_kg": 0.0018688046498880758,
+      "final_converted_reference_mass_kg": 0.00013119533228193644,
+      "final_active_sph_mass_kg": 0.00013119533228193604,
+      "maximum_absolute_combined_mass_relative_error": 3.9031278557441644e-15,
+      "maximum_absolute_conversion_mass_relative_error": 2.032879091533419e-16,
+      "preregistered_maximum_absolute_relative_error": 0.01,
+      "gate": "pass"
+    },
+    "active_sph": {
+      "all_positions_finite": true,
+      "all_velocities_finite": true,
+      "field_ranges": {
+        "radius": [
+          0.4213406484027922,
+          0.43457955115885233
+        ],
+        "pressure": [
+          -7.287985733143649,
+          7.2102597112156674
+        ],
+        "effective_plastic_strain": [
+          0.20567209701916794,
+          172.88091546814152
+        ],
+        "density": [
+          7.46075365979789e-06,
+          8.139975963856898e-06
+        ],
+        "internal_energy": [
+          -5.524470212778372e-07,
+          0.018859335676510797
+        ],
+        "neighbors": [
+          1.0,
+          39.0
+        ],
+        "mass": [
+          3.6443147567126026e-07,
+          3.644315273408226e-07
+        ]
+      }
+    },
+    "capture_plane": {
+      "z_mm": -12.0,
+      "solid_crossing_event_count": 0,
+      "sph_crossing_event_count": 0,
+      "final_minimum_alive_solid_centroid_z_mm": 15.464585094541707,
+      "final_minimum_active_sph_z_mm": 8.769659062145251,
+      "final_downward_alive_solid_count": 0,
+      "final_downward_active_sph_count": 0,
+      "status": "no_crossing_observed_terminal_tail_requires_stable_state_review",
+      "primary_qoi_available": false,
+      "reason": "no crossing is observed and no retained mass is moving downward; stable no-perforation review is still required"
+    },
+    "matsum": {
+      "part_ids": [
+        1002,
+        2002,
+        2003
+      ],
+      "state_count": 2001,
+      "last_time_ms": 0.49999949452376186,
+      "sph_part_2003_present": true,
+      "initial_source_sph_kinetic_energy_difference": 1.4779288903810084e-12,
+      "initial_source_sph_internal_energy_difference": 0.0,
+      "source_part_2002_and_sph_part_2003_duplicate_at_initial_state": true,
+      "naive_sum_across_source_part_2002_and_sph_part_2003_is_admissible": false,
+      "combined_energy_use": "denied_source_and_sph_columns_are_not_independent_at_initial_state"
+    },
+    "claim_boundary": "Positive-neighbour SPH activation is admitted only because it matches eight particles per converted solid at every state and closes reference mass. MATSUM source/SPH columns must not be naively summed. No capture-plane response, physical validity, fitting or dataset admission is established."
+  },
+  "d3part_full_d3plot_crosscheck": {
+    "status": "pass",
+    "evidence_scope": "completed_run_cross_format_readability_and_hvar6_consistency",
+    "d3part_history_shape": [
+      2002,
+      686,
+      1,
+      7
+    ],
+    "full_d3plot_history_shape": [
+      2002,
+      20902,
+      1,
+      7
+    ],
+    "d3part_state_count": 2002,
+    "full_d3plot_state_count": 2002,
+    "shared_state_count": 2002,
+    "d3part_first_time_ms": 0.0,
+    "d3part_last_time_ms": 0.5000001274488591,
+    "full_d3plot_last_time_ms": 0.5000001274488591,
+    "fragment_element_id_count": 686,
+    "alive_value_comparison_count": 1288271,
+    "maximum_absolute_difference_all_7_channels": 0.0,
+    "alive_mask_mismatch_count": 0,
+    "maximum_time_mismatch_ms": 0.0,
+    "hvar6_alive_status": "available",
+    "hvar6_invalid_alive_count": 0,
+    "hvar6_all_alive_fragment": {
+      "status": "available",
+      "count": 1288271,
+      "minimum": 0.0,
+      "mean": 0.233848280847803,
+      "p50": 0.16577373315629,
+      "p95": 0.8164944820032567,
+      "p99": 0.9786783780044805,
+      "maximum": 1.0
+    },
+    "initial_alive_fragment_count": 686,
+    "final_alive_fragment_count": 641,
+    "final_fragment_hvar6": {
+      "status": "available",
+      "count": 641,
+      "minimum": 0.0,
+      "mean": 0.23445032499833876,
+      "p50": 0.16693801995314814,
+      "p95": 0.8107355670198343,
+      "p99": 0.9720834132153191,
+      "maximum": 1.0
+    },
+    "final_alive_plate_count": 20216,
+    "final_plate_hvar6": {
+      "status": "available",
+      "count": 20216,
+      "minimum": 0.0,
+      "mean": 0.009627750413604273,
+      "p50": 0.00016876747399092887,
+      "p95": 0.05327789712796488,
+      "p99": 0.16871082784428523,
+      "maximum": 0.9229101859365925
+    }
+  },
+  "ncforc": {
+    "status": "available_ragged_pending_semantic_validation",
+    "path": "ncforc/surfa_1",
+    "logical_databases": [
+      "JOBINFO",
+      "glstat",
+      "matsum",
+      "ncforc",
+      "nodout",
+      "sleout"
+    ],
+    "state_count": 2001,
+    "first_time_ms": 0.0,
+    "last_time_ms": 0.49999949452376186,
+    "minimum_nodes_per_state": 3365,
+    "maximum_nodes_per_state": 3398,
+    "union_node_count": 3441,
+    "all_state_intersection_node_count": 3334,
+    "node_count_change_count": 24,
+    "all_ids_unique_per_state": true,
+    "all_coordinates_forces_pressure_finite": true,
+    "raw_model_unit_ranges": {
+      "pressure": [
+        -12.745728483072401,
+        46.15789023463863
+      ],
+      "x_force": [
+        -6.919405443714338,
+        6.920226821979007
+      ],
+      "y_force": [
+        -5.183486672751107,
+        4.263669882565906
+      ],
+      "z_force": [
+        -10.48781925326689,
+        10.13772518495394
+      ]
+    },
+    "claim_boundary": "Units, sign convention, contact-side mapping, impulse and energy closure are not validated."
+  },
+  "claim_boundary": "This artifact validates output readability, adaptive activation and mass accounting only. Resource identity, solver termination, energy gates and research admission are separate audit layers."
+}

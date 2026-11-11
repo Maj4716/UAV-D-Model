@@ -1,0 +1,21 @@
+{
+  "schema_version": "hf-p0-r06m-batch-manifest@1.0.0",
+  "package_revision": "R06_adaptive_solid_to_sph_canary_20261101",
+  "job_count": 1,
+  "jobs": [
+    {
+      "job_id": "r06m_0800_adaptive_sph_canary",
+      "directory": "job_01_v0800_adaptive_sph_canary",
+      "head_deck": "r06m_0800_adaptive_sph_canary.k"
+    }
+  ],
+  "design": {
+    "path": "p0_r06m_adaptive_sph_canary_design.json",
+    "sha256": "sha256:480913aa29ef87393294cb5a181a6ba09ac4c8a883b803e7be21370c1abc8e12"
+  },
+  "contract": {
+    "path": "p0_r06m_adaptive_sph_output_contract.json",
+    "sha256": "sha256:8348a2cbfc7cc840c9889e9d8c7d3404c6ee68948fab752855719b4d68d54b0b"
+  },
+  "static_validation": "pass"
+}

@@ -1,0 +1,1042 @@
+{
+  "schema_version": "hf-p0-r06l-contact-soft1-cancelled-return-audit@1.0.0",
+  "audit_date": "2026-11-01",
+  "source_evidence": {
+    "directory": "D:/Desktop/UAV新/uav_hf_r06l_0800_contact_soft1",
+    "evidence_policy": "read_only_immutable",
+    "file_count": 136,
+    "total_bytes": 1449206906,
+    "platform_job_id": "72782972",
+    "job_id": "r06l_0800_contact_soft1",
+    "package_revision": "R06_contact_soft1_isolation_20261031",
+    "deck_sha256": "sha256:73ba78b3ce25dc0b56b8bc2327b7cc0f5374ab35fef3978aa4ba0fdc62606576",
+    "solver_build": "LS-DYNA R15.0.2 MPP double precision"
+  },
+  "execution": {
+    "input_identity": "pass",
+    "resource_identity": "pass",
+    "termination_kind": "user_or_scheduler_cancelled",
+    "normal_termination": false,
+    "error_termination": false,
+    "start_time": "2026-10-31 10:32:29",
+    "cancel_time": "2026-11-01 22:21:39",
+    "elapsed_seconds": 128950,
+    "elapsed_hms": "35:49:10",
+    "latest_cycle": 42805000,
+    "latest_problem_time_ms": 0.027823,
+    "termination_time_ms": 0.04,
+    "progress_fraction": 0.6955749999999999,
+    "latest_reported_time_step_ms": 9.98e-11,
+    "minimum_glstat_time_step_ms": 1.00811e-10,
+    "mass_scaling_mentions": 0,
+    "negative_volume_unique_element_count": 92,
+    "negative_volume_topology": {
+      "unique_element_count": 92,
+      "plate_unique_element_count": 92,
+      "fragment_unique_element_count": 0,
+      "elements": [
+        {
+          "element_id": 21149,
+          "part_id": 1002,
+          "part_kind": "plate",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.025495,
+          "last_time_ms": 0.025495
+        },
+        {
+          "element_id": 21154,
+          "part_id": 1002,
+          "part_kind": "plate",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.025997,
+          "last_time_ms": 0.025997
+        },
+        {
+          "element_id": 28427,
+          "part_id": 1002,
+          "part_kind": "plate",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.026773,
+          "last_time_ms": 0.026773
+        },
+        {
+          "element_id": 28619,
+          "part_id": 1002,
+          "part_kind": "plate",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.023537,
+          "last_time_ms": 0.023537
+        },
+        {
+          "element_id": 28658,
+          "part_id": 1002,
+          "part_kind": "plate",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.023931,
+          "last_time_ms": 0.023931
+        },
+        {
+          "element_id": 28662,
+          "part_id": 1002,
+          "part_kind": "plate",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.026886,
+          "last_time_ms": 0.026886
+        },
+        {
+          "element_id": 29725,
+          "part_id": 1002,
+          "part_kind": "plate",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.023596,
+          "last_time_ms": 0.023596
+        },
+        {
+          "element_id": 30063,
+          "part_id": 1002,
+          "part_kind": "plate",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.02356,
+          "last_time_ms": 0.02356
+        },
+        {
+          "element_id": 30101,
+          "part_id": 1002,
+          "part_kind": "plate",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.023311,
+          "last_time_ms": 0.023311
+        },
+        {
+          "element_id": 30140,
+          "part_id": 1002,
+          "part_kind": "plate",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.024652,
+          "last_time_ms": 0.024652
+        },
+        {
+          "element_id": 30145,
+          "part_id": 1002,
+          "part_kind": "plate",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.02519,
+          "last_time_ms": 0.02519
+        },
+        {
+          "element_id": 30184,
+          "part_id": 1002,
+          "part_kind": "plate",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.026123,
+          "last_time_ms": 0.026123
+        },
+        {
+          "element_id": 31067,
+          "part_id": 1002,
+          "part_kind": "plate",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.026206,
+          "last_time_ms": 0.026206
+        },
+        {
+          "element_id": 31509,
+          "part_id": 1002,
+          "part_kind": "plate",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.024114,
+          "last_time_ms": 0.024114
+        },
+        {
+          "element_id": 31589,
+          "part_id": 1002,
+          "part_kind": "plate",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.02481,
+          "last_time_ms": 0.02481
+        },
+        {
+          "element_id": 32498,
+          "part_id": 1002,
+          "part_kind": "plate",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.021811,
+          "last_time_ms": 0.021811
+        },
+        {
+          "element_id": 32734,
+          "part_id": 1002,
+          "part_kind": "plate",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.02369,
+          "last_time_ms": 0.02369
+        },
+        {
+          "element_id": 32742,
+          "part_id": 1002,
+          "part_kind": "plate",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.027671,
+          "last_time_ms": 0.027671
+        },
+        {
+          "element_id": 32819,
+          "part_id": 1002,
+          "part_kind": "plate",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.027777,
+          "last_time_ms": 0.027777
+        },
+        {
+          "element_id": 32918,
+          "part_id": 1002,
+          "part_kind": "plate",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.024344,
+          "last_time_ms": 0.024344
+        },
+        {
+          "element_id": 32952,
+          "part_id": 1002,
+          "part_kind": "plate",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.023934,
+          "last_time_ms": 0.023934
+        },
+        {
+          "element_id": 32988,
+          "part_id": 1002,
+          "part_kind": "plate",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.021182,
+          "last_time_ms": 0.021182
+        },
+        {
+          "element_id": 33977,
+          "part_id": 1002,
+          "part_kind": "plate",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.022397,
+          "last_time_ms": 0.022397
+        },
+        {
+          "element_id": 34108,
+          "part_id": 1002,
+          "part_kind": "plate",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.025238,
+          "last_time_ms": 0.025238
+        },
+        {
+          "element_id": 34135,
+          "part_id": 1002,
+          "part_kind": "plate",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.019049,
+          "last_time_ms": 0.019049
+        },
+        {
+          "element_id": 34173,
+          "part_id": 1002,
+          "part_kind": "plate",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.018251,
+          "last_time_ms": 0.018251
+        },
+        {
+          "element_id": 34211,
+          "part_id": 1002,
+          "part_kind": "plate",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.018272,
+          "last_time_ms": 0.018272
+        },
+        {
+          "element_id": 34224,
+          "part_id": 1002,
+          "part_kind": "plate",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.02769,
+          "last_time_ms": 0.02769
+        },
+        {
+          "element_id": 34262,
+          "part_id": 1002,
+          "part_kind": "plate",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.027822,
+          "last_time_ms": 0.027822
+        },
+        {
+          "element_id": 34289,
+          "part_id": 1002,
+          "part_kind": "plate",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.025424,
+          "last_time_ms": 0.025424
+        },
+        {
+          "element_id": 34516,
+          "part_id": 1002,
+          "part_kind": "plate",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.025844,
+          "last_time_ms": 0.025844
+        },
+        {
+          "element_id": 35355,
+          "part_id": 1002,
+          "part_kind": "plate",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.023329,
+          "last_time_ms": 0.023329
+        },
+        {
+          "element_id": 35356,
+          "part_id": 1002,
+          "part_kind": "plate",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.023311,
+          "last_time_ms": 0.023311
+        },
+        {
+          "element_id": 35420,
+          "part_id": 1002,
+          "part_kind": "plate",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.025488,
+          "last_time_ms": 0.025488
+        },
+        {
+          "element_id": 35424,
+          "part_id": 1002,
+          "part_kind": "plate",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.020247,
+          "last_time_ms": 0.020247
+        },
+        {
+          "element_id": 35431,
+          "part_id": 1002,
+          "part_kind": "plate",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.022477,
+          "last_time_ms": 0.022477
+        },
+        {
+          "element_id": 35510,
+          "part_id": 1002,
+          "part_kind": "plate",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.022247,
+          "last_time_ms": 0.022247
+        },
+        {
+          "element_id": 35511,
+          "part_id": 1002,
+          "part_kind": "plate",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.022275,
+          "last_time_ms": 0.022275
+        },
+        {
+          "element_id": 35542,
+          "part_id": 1002,
+          "part_kind": "plate",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.016993,
+          "last_time_ms": 0.016993
+        },
+        {
+          "element_id": 35547,
+          "part_id": 1002,
+          "part_kind": "plate",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.022311,
+          "last_time_ms": 0.022311
+        },
+        {
+          "element_id": 35548,
+          "part_id": 1002,
+          "part_kind": "plate",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.022249,
+          "last_time_ms": 0.022249
+        },
+        {
+          "element_id": 35622,
+          "part_id": 1002,
+          "part_kind": "plate",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.019189,
+          "last_time_ms": 0.019189
+        },
+        {
+          "element_id": 35629,
+          "part_id": 1002,
+          "part_kind": "plate",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.027815,
+          "last_time_ms": 0.027815
+        },
+        {
+          "element_id": 35650,
+          "part_id": 1002,
+          "part_kind": "plate",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.013555,
+          "last_time_ms": 0.013555
+        },
+        {
+          "element_id": 35661,
+          "part_id": 1002,
+          "part_kind": "plate",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.019021,
+          "last_time_ms": 0.019021
+        },
+        {
+          "element_id": 35666,
+          "part_id": 1002,
+          "part_kind": "plate",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.027332,
+          "last_time_ms": 0.027332
+        },
+        {
+          "element_id": 35706,
+          "part_id": 1002,
+          "part_kind": "plate",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.027584,
+          "last_time_ms": 0.027584
+        },
+        {
+          "element_id": 35733,
+          "part_id": 1002,
+          "part_kind": "plate",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.018916,
+          "last_time_ms": 0.018916
+        },
+        {
+          "element_id": 35807,
+          "part_id": 1002,
+          "part_kind": "plate",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.022497,
+          "last_time_ms": 0.022497
+        },
+        {
+          "element_id": 35808,
+          "part_id": 1002,
+          "part_kind": "plate",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.022614,
+          "last_time_ms": 0.022614
+        },
+        {
+          "element_id": 35846,
+          "part_id": 1002,
+          "part_kind": "plate",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.022657,
+          "last_time_ms": 0.022657
+        },
+        {
+          "element_id": 36800,
+          "part_id": 1002,
+          "part_kind": "plate",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.023425,
+          "last_time_ms": 0.023425
+        },
+        {
+          "element_id": 36903,
+          "part_id": 1002,
+          "part_kind": "plate",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.018947,
+          "last_time_ms": 0.018947
+        },
+        {
+          "element_id": 36904,
+          "part_id": 1002,
+          "part_kind": "plate",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.013094,
+          "last_time_ms": 0.013094
+        },
+        {
+          "element_id": 36905,
+          "part_id": 1002,
+          "part_kind": "plate",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.013008,
+          "last_time_ms": 0.013008
+        },
+        {
+          "element_id": 36909,
+          "part_id": 1002,
+          "part_kind": "plate",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.018931,
+          "last_time_ms": 0.018931
+        },
+        {
+          "element_id": 36913,
+          "part_id": 1002,
+          "part_kind": "plate",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.022013,
+          "last_time_ms": 0.022013
+        },
+        {
+          "element_id": 36991,
+          "part_id": 1002,
+          "part_kind": "plate",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.022226,
+          "last_time_ms": 0.022226
+        },
+        {
+          "element_id": 36992,
+          "part_id": 1002,
+          "part_kind": "plate",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.022239,
+          "last_time_ms": 0.022239
+        },
+        {
+          "element_id": 37028,
+          "part_id": 1002,
+          "part_kind": "plate",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.022325,
+          "last_time_ms": 0.022325
+        },
+        {
+          "element_id": 37029,
+          "part_id": 1002,
+          "part_kind": "plate",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.022099,
+          "last_time_ms": 0.022099
+        },
+        {
+          "element_id": 37094,
+          "part_id": 1002,
+          "part_kind": "plate",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.013579,
+          "last_time_ms": 0.013579
+        },
+        {
+          "element_id": 37134,
+          "part_id": 1002,
+          "part_kind": "plate",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.016094,
+          "last_time_ms": 0.016094
+        },
+        {
+          "element_id": 37172,
+          "part_id": 1002,
+          "part_kind": "plate",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.014305,
+          "last_time_ms": 0.014305
+        },
+        {
+          "element_id": 37254,
+          "part_id": 1002,
+          "part_kind": "plate",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.026323,
+          "last_time_ms": 0.026323
+        },
+        {
+          "element_id": 37322,
+          "part_id": 1002,
+          "part_kind": "plate",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.026852,
+          "last_time_ms": 0.026852
+        },
+        {
+          "element_id": 37327,
+          "part_id": 1002,
+          "part_kind": "plate",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.022569,
+          "last_time_ms": 0.022569
+        },
+        {
+          "element_id": 38245,
+          "part_id": 1002,
+          "part_kind": "plate",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.024181,
+          "last_time_ms": 0.024181
+        },
+        {
+          "element_id": 38346,
+          "part_id": 1002,
+          "part_kind": "plate",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.019686,
+          "last_time_ms": 0.019686
+        },
+        {
+          "element_id": 38400,
+          "part_id": 1002,
+          "part_kind": "plate",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.022163,
+          "last_time_ms": 0.022163
+        },
+        {
+          "element_id": 38423,
+          "part_id": 1002,
+          "part_kind": "plate",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.010896,
+          "last_time_ms": 0.010896
+        },
+        {
+          "element_id": 38546,
+          "part_id": 1002,
+          "part_kind": "plate",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.018424,
+          "last_time_ms": 0.018424
+        },
+        {
+          "element_id": 38626,
+          "part_id": 1002,
+          "part_kind": "plate",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.020297,
+          "last_time_ms": 0.020297
+        },
+        {
+          "element_id": 38769,
+          "part_id": 1002,
+          "part_kind": "plate",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.02206,
+          "last_time_ms": 0.02206
+        },
+        {
+          "element_id": 39682,
+          "part_id": 1002,
+          "part_kind": "plate",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.0079052,
+          "last_time_ms": 0.0079052
+        },
+        {
+          "element_id": 39686,
+          "part_id": 1002,
+          "part_kind": "plate",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.022463,
+          "last_time_ms": 0.022463
+        },
+        {
+          "element_id": 39726,
+          "part_id": 1002,
+          "part_kind": "plate",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.021533,
+          "last_time_ms": 0.021533
+        },
+        {
+          "element_id": 39756,
+          "part_id": 1002,
+          "part_kind": "plate",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.011705,
+          "last_time_ms": 0.011705
+        },
+        {
+          "element_id": 39793,
+          "part_id": 1002,
+          "part_kind": "plate",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.009221,
+          "last_time_ms": 0.009221
+        },
+        {
+          "element_id": 39806,
+          "part_id": 1002,
+          "part_kind": "plate",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.022192,
+          "last_time_ms": 0.022192
+        },
+        {
+          "element_id": 39813,
+          "part_id": 1002,
+          "part_kind": "plate",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.024148,
+          "last_time_ms": 0.024148
+        },
+        {
+          "element_id": 39843,
+          "part_id": 1002,
+          "part_kind": "plate",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.022097,
+          "last_time_ms": 0.022097
+        },
+        {
+          "element_id": 39941,
+          "part_id": 1002,
+          "part_kind": "plate",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.0092729,
+          "last_time_ms": 0.0092729
+        },
+        {
+          "element_id": 39981,
+          "part_id": 1002,
+          "part_kind": "plate",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.011432,
+          "last_time_ms": 0.011432
+        },
+        {
+          "element_id": 39996,
+          "part_id": 1002,
+          "part_kind": "plate",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.018845,
+          "last_time_ms": 0.018845
+        },
+        {
+          "element_id": 40031,
+          "part_id": 1002,
+          "part_kind": "plate",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.018622,
+          "last_time_ms": 0.018622
+        },
+        {
+          "element_id": 40077,
+          "part_id": 1002,
+          "part_kind": "plate",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.026044,
+          "last_time_ms": 0.026044
+        },
+        {
+          "element_id": 40151,
+          "part_id": 1002,
+          "part_kind": "plate",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.02487,
+          "last_time_ms": 0.02487
+        },
+        {
+          "element_id": 40178,
+          "part_id": 1002,
+          "part_kind": "plate",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.021337,
+          "last_time_ms": 0.021337
+        },
+        {
+          "element_id": 40254,
+          "part_id": 1002,
+          "part_kind": "plate",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.02196,
+          "last_time_ms": 0.02196
+        },
+        {
+          "element_id": 40287,
+          "part_id": 1002,
+          "part_kind": "plate",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.024397,
+          "last_time_ms": 0.024397
+        },
+        {
+          "element_id": 40893,
+          "part_id": 1002,
+          "part_kind": "plate",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.025524,
+          "last_time_ms": 0.025524
+        }
+      ]
+    },
+    "failure_message_ledger": {
+      "rank_file_count": 32,
+      "raw_observation_count": 2905,
+      "unique_event_count": 2905,
+      "unique_element_count": 2905,
+      "cross_type_overlap_count": 0,
+      "counts_by_type_and_part": {
+        "negative_volume:part_1002": 92,
+        "other_solid_failure:part_1002": 2813
+      }
+    }
+  },
+  "returned_outputs": {
+    "d3plot": {
+      "file_count": 10,
+      "total_bytes": 1179910144,
+      "state_count": 279,
+      "readability": "pass_partial"
+    },
+    "d3part": {
+      "file_count": 2,
+      "total_bytes": 84537344,
+      "state_count": 557,
+      "readability": "pass_partial"
+    },
+    "binout": {
+      "file_count": 2,
+      "total_bytes": 136300834,
+      "readability": "pass_partial",
+      "logical_databases": [
+        "JOBINFO",
+        "glstat",
+        "matsum",
+        "ncforc",
+        "nodout",
+        "sleout"
+      ]
+    },
+    "glstat": {
+      "final_total_energy_ratio": 0.715346,
+      "final_kinetic_energy": 17877.9,
+      "final_internal_energy": 2904.25,
+      "final_hourglass_energy": 0.0,
+      "final_sliding_energy": -20324.3,
+      "final_added_mass": null,
+      "record_count": 557,
+      "final_time": 0.0278,
+      "minimum_time_step": 1.00811e-10,
+      "maximum_time_step": 5.77029e-06,
+      "minimum_total_energy_ratio": 0.715346,
+      "maximum_total_energy_ratio": 1.0003,
+      "maximum_total_energy_ratio_absolute_deviation": 0.28465399999999996,
+      "final_energy_ratio_without_eroded": -7.09685,
+      "initial_total_energy": 640.0,
+      "final_total_energy": 457.821,
+      "maximum_absolute_hourglass_energy": 0.0,
+      "maximum_absolute_hourglass_over_internal": 0.0,
+      "final_eroded_kinetic_energy": 3989.28,
+      "final_eroded_internal_energy": 1010.52,
+      "final_eroded_hourglass_energy": 0.0,
+      "final_eroded_energy_sum": 4999.8,
+      "final_eroded_energy_fraction_of_initial": 7.8121875,
+      "final_sliding_energy_fraction_of_initial": -31.756718749999997
+    }
+  },
+  "measurement_contract": {
+    "status": "pass_partial_readability_only",
+    "terminal_response_available": false,
+    "d3part_full_d3plot_crosscheck": {
+      "status": "pass",
+      "evidence_scope": "partial_cancelled_run_readability_only",
+      "d3part_history_shape": [
+        557,
+        686,
+        1,
+        7
+      ],
+      "full_d3plot_history_shape": [
+        279,
+        20902,
+        1,
+        7
+      ],
+      "d3part_state_count": 557,
+      "full_d3plot_state_count": 279,
+      "shared_state_count": 279,
+      "d3part_first_time_ms": 0.0,
+      "d3part_last_time_ms": 0.027799999971423347,
+      "full_d3plot_last_time_ms": 0.027799999971423347,
+      "fragment_element_id_count": 686,
+      "alive_value_comparison_count": 191394,
+      "maximum_absolute_difference_all_7_channels": 0.0,
+      "alive_mask_mismatch_count": 0,
+      "maximum_time_mismatch_ms": 0.0,
+      "hvar6_alive_status": "available",
+      "hvar6_invalid_alive_count": 0,
+      "hvar6_all_alive_fragment": {
+        "status": "available",
+        "count": 382102,
+        "minimum": 0.0,
+        "mean": 0.5883836658278819,
+        "p50": 0.9011481584906145,
+        "p95": 1.0,
+        "p99": 1.0,
+        "maximum": 1.0
+      },
+      "initial_alive_fragment_count": 686,
+      "final_alive_fragment_count": 686,
+      "final_fragment_hvar6": {
+        "status": "available",
+        "count": 686,
+        "minimum": 1.0,
+        "mean": 1.0,
+        "p50": 1.0,
+        "p95": 1.0,
+        "p99": 1.0,
+        "maximum": 1.0
+      },
+      "final_alive_plate_count": 17319,
+      "final_plate_hvar6": {
+        "status": "available",
+        "count": 17319,
+        "minimum": 0.0,
+        "mean": 0.02015001704482123,
+        "p50": 1.4966794785098625e-06,
+        "p95": 0.11711229024036428,
+        "p99": 0.42135742513521907,
+        "maximum": 0.8637400214240438
+      }
+    },
+    "ncforc": {
+      "status": "available_ragged_pending_semantic_validation",
+      "path": "ncforc/surfa_1",
+      "logical_databases": [
+        "JOBINFO",
+        "glstat",
+        "matsum",
+        "ncforc",
+        "nodout",
+        "sleout"
+      ],
+      "state_count": 557,
+      "first_time_ms": 0.0,
+      "last_time_ms": 0.027799999971423347,
+      "minimum_nodes_per_state": 3365,
+      "maximum_nodes_per_state": 4830,
+      "union_node_count": 7185,
+      "all_state_intersection_node_count": 2879,
+      "node_count_change_count": 339,
+      "all_ids_unique_per_state": true,
+      "all_coordinates_forces_pressure_finite": true,
+      "raw_model_unit_ranges": {
+        "pressure": [
+          -4227.07887042882,
+          735.1481906166214
+        ],
+        "x_force": [
+          -1119.811313629878,
+          947.9049142834335
+        ],
+        "y_force": [
+          -880.1206200497372,
+          705.3967856331386
+        ],
+        "z_force": [
+          -1300.55900463832,
+          2249.4333838871175
+        ]
+      },
+      "claim_boundary": "Units, sign convention, contact-side mapping, impulse and energy closure are not validated."
+    }
+  },
+  "formal_contact_soft1_comparison_to_job_72764387": {
+    "status": "rejected_soft1_worsened_contact_timestep_energy_and_plate_failure",
+    "single_factor": "CONTACT_ERODING_SINGLE_SURFACE Optional Card A SOFT, 2 to 1",
+    "control": {
+      "job_id": "r06k_0800_fragment_psfail_plate",
+      "platform_job_id": "72764387",
+      "completed": true,
+      "cycle_count": 5547044,
+      "minimum_time_step_ms": 1.49828e-09,
+      "final_sliding_energy_fraction_of_initial": -4.609109375,
+      "fragment_deleted_element_count": 0,
+      "plate_deleted_element_count": 0
+    },
+    "treatment": {
+      "job_id": "r06l_0800_contact_soft1",
+      "platform_job_id": "72782972",
+      "completed": false,
+      "progress_fraction": 0.6955749999999999,
+      "cycle_count_at_cancel": 42805000,
+      "minimum_time_step_ms": 1.00811e-10,
+      "final_partial_sliding_energy_fraction_of_initial": -31.756718749999997,
+      "fragment_deleted_element_count_at_last_d3part": 0,
+      "plate_deleted_element_count_at_last_d3plot": 2897,
+      "fragment_hvar6_at_last_state": {
+        "status": "available",
+        "count": 686,
+        "minimum": 1.0,
+        "mean": 1.0,
+        "p50": 1.0,
+        "p95": 1.0,
+        "p99": 1.0,
+        "maximum": 1.0
+      }
+    },
+    "preregistered_gates": {
+      "normal_completion": "fail",
+      "fragment_deleted_element_count_zero": "pass_partial_only_not_terminal",
+      "fragment_negative_volume_element_count_zero": "pass_partial_only_not_terminal",
+      "energy_ratio": {
+        "status": "fail",
+        "allowed": [
+          0.95,
+          1.05
+        ],
+        "observed": [
+          0.715346,
+          1.0003
+        ]
+      },
+      "absolute_sliding_energy_fraction": {
+        "status": "fail",
+        "maximum": 0.05,
+        "observed": -31.756718749999997
+      },
+      "cycle_count": {
+        "status": "fail",
+        "maximum": 554704,
+        "observed_at_cancel": 42805000
+      },
+      "minimum_time_step": {
+        "status": "fail",
+        "minimum_ms": 1.49828e-08,
+        "observed_ms": 1.00811e-10
+      }
+    },
+    "interpretation": "SOFT=1 did not stabilize the retained failed fragment. By the last readable partial state every fragment solid had HVAR6=1, the timestep collapsed by another order of magnitude, contact energy became more nonphysical, and thousands of plate solids were no longer alive. Continuing the run could not recover the preregistered efficiency or energy gates."
+  },
+  "decision": {
+    "solver_parser_runtime": "pass_until_cancelled",
+    "input_identity": "pass",
+    "resource_identity": "pass",
+    "measurement_channels": "pass_partial_readability_only",
+    "contact_soft1_hypothesis": "rejected",
+    "numerical_stability": "fail_severe_timestep_contact_energy_and_plate_deletion",
+    "terminal_response_availability": "fail_cancelled_before_termination",
+    "classification": "valid_negative_result_soft1_rejected_model_form_pivot_required",
+    "release_r06m_adaptive_solid_to_sph_canary": true,
+    "release_additional_contact_parameter_tuning": false,
+    "release_2000_control": false,
+    "release_treatments": false,
+    "p0_response_calibration": "denied",
+    "p1_submission": "denied",
+    "engine_fitting": "denied",
+    "damage_tree_fitting": "denied",
+    "dataset_reference_promotion": "denied"
+  },
+  "recommended_next_sequence": [
+    "Return to the completed R06j SOFT=2/PSFAIL=0/fragment-EROD=1 baseline rather than retaining failed solids.",
+    "Add one adaptive solid-to-SPH capability canary so failed fragment solids are converted instead of silently losing mass.",
+    "Keep the same post-explosion state, 800 m/s case, TSSFAC=0.05, DT2MS=0 and 32-rank resource identity.",
+    "Treat the first adaptive-SPH run as parser/runtime/mass-energy capability evidence only; do not use its response for calibration.",
+    "Hold 2000 m/s, treatments, engine fitting, damage-tree fitting and reference labels."
+  ],
+  "claim_boundary": "This cancelled run is sufficient to reject SOFT=1 as the planned numerical stabilization because irreversible preregistered energy, timestep and efficiency gates failed. Its partial response is not a terminal QoI and has no physical or calibration admission."
+}

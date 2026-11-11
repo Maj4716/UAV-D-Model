@@ -1,0 +1,12 @@
+{
+  "schema_version": "hf-p0-r06u-submission-readiness@1.0.0",
+  "overall_status": "pass",
+  "package_revision": "R06_plate_adaptive_sph_canary_20261104",
+  "job_id": "r06u_1200_plate_adaptive_sph_canary",
+  "required_resources": {
+    "nodes": 1,
+    "ranks": 32
+  },
+  "archive_policy": "no_archive_direct_folder_delivery",
+  "solver_status": "not_submitted_not_solver_validated"
+}

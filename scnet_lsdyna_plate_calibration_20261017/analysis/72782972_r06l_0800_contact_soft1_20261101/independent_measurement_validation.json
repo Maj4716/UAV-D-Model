@@ -1,0 +1,108 @@
+{
+  "schema_version": "hf-p0-r06-partial-independent-measurement-validation@1.0.0",
+  "run_completion_policy": "cancelled_partial_output_is_never_a_terminal_response",
+  "d3part_full_d3plot_crosscheck": {
+    "status": "pass",
+    "evidence_scope": "partial_cancelled_run_readability_only",
+    "d3part_history_shape": [
+      557,
+      686,
+      1,
+      7
+    ],
+    "full_d3plot_history_shape": [
+      279,
+      20902,
+      1,
+      7
+    ],
+    "d3part_state_count": 557,
+    "full_d3plot_state_count": 279,
+    "shared_state_count": 279,
+    "d3part_first_time_ms": 0.0,
+    "d3part_last_time_ms": 0.027799999971423347,
+    "full_d3plot_last_time_ms": 0.027799999971423347,
+    "fragment_element_id_count": 686,
+    "alive_value_comparison_count": 191394,
+    "maximum_absolute_difference_all_7_channels": 0.0,
+    "alive_mask_mismatch_count": 0,
+    "maximum_time_mismatch_ms": 0.0,
+    "hvar6_alive_status": "available",
+    "hvar6_invalid_alive_count": 0,
+    "hvar6_all_alive_fragment": {
+      "status": "available",
+      "count": 382102,
+      "minimum": 0.0,
+      "mean": 0.5883836658278819,
+      "p50": 0.9011481584906145,
+      "p95": 1.0,
+      "p99": 1.0,
+      "maximum": 1.0
+    },
+    "initial_alive_fragment_count": 686,
+    "final_alive_fragment_count": 686,
+    "final_fragment_hvar6": {
+      "status": "available",
+      "count": 686,
+      "minimum": 1.0,
+      "mean": 1.0,
+      "p50": 1.0,
+      "p95": 1.0,
+      "p99": 1.0,
+      "maximum": 1.0
+    },
+    "final_alive_plate_count": 17319,
+    "final_plate_hvar6": {
+      "status": "available",
+      "count": 17319,
+      "minimum": 0.0,
+      "mean": 0.02015001704482123,
+      "p50": 1.4966794785098625e-06,
+      "p95": 0.11711229024036428,
+      "p99": 0.42135742513521907,
+      "maximum": 0.8637400214240438
+    }
+  },
+  "ncforc": {
+    "status": "available_ragged_pending_semantic_validation",
+    "path": "ncforc/surfa_1",
+    "logical_databases": [
+      "JOBINFO",
+      "glstat",
+      "matsum",
+      "ncforc",
+      "nodout",
+      "sleout"
+    ],
+    "state_count": 557,
+    "first_time_ms": 0.0,
+    "last_time_ms": 0.027799999971423347,
+    "minimum_nodes_per_state": 3365,
+    "maximum_nodes_per_state": 4830,
+    "union_node_count": 7185,
+    "all_state_intersection_node_count": 2879,
+    "node_count_change_count": 339,
+    "all_ids_unique_per_state": true,
+    "all_coordinates_forces_pressure_finite": true,
+    "raw_model_unit_ranges": {
+      "pressure": [
+        -4227.07887042882,
+        735.1481906166214
+      ],
+      "x_force": [
+        -1119.811313629878,
+        947.9049142834335
+      ],
+      "y_force": [
+        -880.1206200497372,
+        705.3967856331386
+      ],
+      "z_force": [
+        -1300.55900463832,
+        2249.4333838871175
+      ]
+    },
+    "claim_boundary": "Units, sign convention, contact-side mapping, impulse and energy closure are not validated."
+  },
+  "claim_boundary": "Readable partial output does not establish terminal response, numerical stability, physical validity, fitting or dataset admission."
+}

@@ -1,0 +1,74 @@
+{
+  "schema_version": "hf-p0-r06f-independent-measurement-validation@1.0.0",
+  "d3part_full_d3plot_crosscheck": {
+    "status": "pass",
+    "d3part_history_shape": [
+      802,
+      686,
+      1,
+      7
+    ],
+    "full_d3plot_history_shape": [
+      402,
+      20902,
+      1,
+      7
+    ],
+    "d3part_state_count": 802,
+    "full_d3plot_state_count": 402,
+    "shared_state_count": 402,
+    "fragment_element_id_count": 686,
+    "alive_value_comparison_count": 260422,
+    "maximum_absolute_difference_all_7_channels": 0.0,
+    "alive_mask_mismatch_count": 0,
+    "maximum_time_mismatch_ms": 0.0,
+    "hvar6_alive_status": "available",
+    "hvar6_alive_minimum": 0.0,
+    "hvar6_alive_maximum": 0.9907792054220916,
+    "hvar6_invalid_alive_count": 0,
+    "initial_alive_fragment_count": 686,
+    "final_alive_fragment_count": 639
+  },
+  "ncforc": {
+    "status": "available_ragged_pending_semantic_validation",
+    "path": "ncforc/surfa_1",
+    "logical_databases": [
+      "JOBINFO",
+      "glstat",
+      "matsum",
+      "ncforc",
+      "nodout",
+      "sleout"
+    ],
+    "state_count": 801,
+    "first_time_ms": 0.0,
+    "last_time_ms": 0.039999893610783814,
+    "minimum_nodes_per_state": 3365,
+    "maximum_nodes_per_state": 3416,
+    "union_node_count": 3459,
+    "all_state_intersection_node_count": 3334,
+    "node_count_change_count": 34,
+    "all_ids_unique_per_state": true,
+    "all_coordinates_forces_pressure_finite": true,
+    "raw_model_unit_ranges": {
+      "pressure": [
+        -31.703127577923038,
+        40.85912269988263
+      ],
+      "x_force": [
+        -5.290818732753952,
+        5.0459927309952155
+      ],
+      "y_force": [
+        -5.239317999713397,
+        5.003015259883179
+      ],
+      "z_force": [
+        -11.948147122909962,
+        10.390841278162053
+      ]
+    },
+    "claim_boundary": "Units, sign convention, contact-side mapping, impulse and energy closure are not yet validated."
+  },
+  "claim_boundary": "Reader validation does not establish physical validity, P0/P1 admission, engine fitting, or dataset promotion."
+}

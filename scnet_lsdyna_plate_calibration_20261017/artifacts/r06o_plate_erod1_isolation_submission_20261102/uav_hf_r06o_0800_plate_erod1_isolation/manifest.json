@@ -1,0 +1,48 @@
+{
+  "schema_version": "hf-p0-r06o-job-manifest@1.0.0",
+  "package_revision": "R06_plate_material_erod1_isolation_20261102",
+  "job_id": "r06o_0800_plate_erod1_isolation",
+  "status": "generated_not_solver_validated",
+  "evidence_class": "high_fidelity_synthetic_plate_failure_erosion_isolation_candidate",
+  "deck": {
+    "path": "r06o_0800_plate_erod1_isolation.k",
+    "size_bytes": 2558342,
+    "sha256": "sha256:d71d2d11091a813f35ca98656c31fb7ad4f8174b024828a62e0f874daab3524f",
+    "differences_from_parent": [
+      "TITLE_identifier_line",
+      "plate_MAT_JOHNSON_COOK_EROD_field_0_to_1"
+    ]
+  },
+  "immutable_parent": {
+    "job_id": "r06n_0800_adaptive_sph_32rank_confirmation",
+    "platform_job_id": "72864757",
+    "deck_sha256": "sha256:edc5f3b80174e52c81eb96a16e0e5abe89f1587b8a850f87f7048bd40f1ac4b7",
+    "classification": "resource_correct_but_plate_material_failure_confirmation_rejected"
+  },
+  "design": {
+    "path": "p0_r06o_plate_erod1_isolation_design.json",
+    "sha256": "sha256:32594dfd7860024cfcada1ebc10ebc99266b0cdd357bec47590322bc599a1f45"
+  },
+  "successor_contract": {
+    "path": "p0_r06o_plate_erod1_output_contract.json",
+    "sha256": "sha256:eb71fc531000e3f10c6e352d2c7ce464da5b1526e65d5b7e1814a95d95e066a5"
+  },
+  "material": {
+    "path": "jc4340_reference.json",
+    "sha256": "sha256:9b462b920459e57641d5f89d10d36c0aa0498c86f2478fef8e4c3efa96888311"
+  },
+  "case_map": {
+    "path": "p0_case_part_map.csv",
+    "sha256": "sha256:cbdfe7eda309f0c471cdd0c8c94f8c54fb4462ae5f68d0e792561fde983a24ad"
+  },
+  "job_contract": {
+    "path": "job_contract.json",
+    "sha256": "sha256:b67e42e7e8d673f4ea565d29812135abc886cc5944e158b2eca2829c1ba116e0"
+  },
+  "limitations": [
+    "Static validation proves only the two permitted deck-line differences; target-platform execution is untested.",
+    "Plate EROD=1 is a numerical mechanism isolation, not a physically validated plate-failure law.",
+    "Retaining a failed plate element may cause timestep collapse; all completion and energy gates remain required.",
+    "The 0.04 ms horizon remains unresolved; no response is admitted for engine or damage-tree fitting."
+  ]
+}

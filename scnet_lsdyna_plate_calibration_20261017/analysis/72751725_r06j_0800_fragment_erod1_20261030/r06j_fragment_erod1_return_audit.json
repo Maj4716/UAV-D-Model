@@ -1,0 +1,601 @@
+{
+  "schema_version": "hf-p0-r06j-fragment-erod1-return-audit@1.0.0",
+  "audit_date": "2026-10-30",
+  "source_evidence": {
+    "directory": "D:/Desktop/UAV新/uav_hf_r06j_0800_fragment_erod1",
+    "evidence_policy": "read_only_immutable",
+    "file_count": 112,
+    "total_bytes": 2129312420,
+    "platform_job_id": "72751725",
+    "job_id": "r06j_0800_fragment_erod1",
+    "package_revision": "R06_fragment_erosion_isolation_20261030",
+    "deck_sha256": "sha256:8ec1613324159b3ebc00217871ad29321564423b0a7f73a267207e4952bada77",
+    "solver_build": "LS-DYNA R15.0.2 MPP double precision"
+  },
+  "execution": {
+    "input_identity": "pass",
+    "resource_identity": "pass",
+    "normal_termination": true,
+    "rank_log_count": 32,
+    "normal_termination_rank_count": 32,
+    "stderr_size_bytes": 0,
+    "cycle_count": 82993,
+    "final_problem_time_ms": 0.04,
+    "numbered_error_count": 0,
+    "warning_counts": [
+      {
+        "id": "30364",
+        "code": "INI+364",
+        "occurrences": 32
+      },
+      {
+        "id": "40509",
+        "code": "SOL+509",
+        "occurrences": 35
+      }
+    ],
+    "negative_volume_unique_element_count": 35,
+    "negative_volume_topology": {
+      "unique_element_count": 35,
+      "plate_unique_element_count": 0,
+      "fragment_unique_element_count": 35,
+      "elements": [
+        {
+          "element_id": 41125,
+          "part_id": 2002,
+          "part_kind": "fragment",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.0056969,
+          "last_time_ms": 0.0056969
+        },
+        {
+          "element_id": 41132,
+          "part_id": 2002,
+          "part_kind": "fragment",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.0057255,
+          "last_time_ms": 0.0057255
+        },
+        {
+          "element_id": 41139,
+          "part_id": 2002,
+          "part_kind": "fragment",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.0056409,
+          "last_time_ms": 0.0056409
+        },
+        {
+          "element_id": 41146,
+          "part_id": 2002,
+          "part_kind": "fragment",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.0055851,
+          "last_time_ms": 0.0055851
+        },
+        {
+          "element_id": 41153,
+          "part_id": 2002,
+          "part_kind": "fragment",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.0065466,
+          "last_time_ms": 0.0065466
+        },
+        {
+          "element_id": 41160,
+          "part_id": 2002,
+          "part_kind": "fragment",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.0043278,
+          "last_time_ms": 0.0043278
+        },
+        {
+          "element_id": 41161,
+          "part_id": 2002,
+          "part_kind": "fragment",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.0057133,
+          "last_time_ms": 0.0057133
+        },
+        {
+          "element_id": 41162,
+          "part_id": 2002,
+          "part_kind": "fragment",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.0057396,
+          "last_time_ms": 0.0057396
+        },
+        {
+          "element_id": 41163,
+          "part_id": 2002,
+          "part_kind": "fragment",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.0056241,
+          "last_time_ms": 0.0056241
+        },
+        {
+          "element_id": 41164,
+          "part_id": 2002,
+          "part_kind": "fragment",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.0055842,
+          "last_time_ms": 0.0055842
+        },
+        {
+          "element_id": 41165,
+          "part_id": 2002,
+          "part_kind": "fragment",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.0070574,
+          "last_time_ms": 0.0070574
+        },
+        {
+          "element_id": 41166,
+          "part_id": 2002,
+          "part_kind": "fragment",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.0043361,
+          "last_time_ms": 0.0043361
+        },
+        {
+          "element_id": 41167,
+          "part_id": 2002,
+          "part_kind": "fragment",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.0043269,
+          "last_time_ms": 0.0043269
+        },
+        {
+          "element_id": 41174,
+          "part_id": 2002,
+          "part_kind": "fragment",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.0077944,
+          "last_time_ms": 0.0077944
+        },
+        {
+          "element_id": 41181,
+          "part_id": 2002,
+          "part_kind": "fragment",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.007699,
+          "last_time_ms": 0.007699
+        },
+        {
+          "element_id": 41188,
+          "part_id": 2002,
+          "part_kind": "fragment",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.0077918,
+          "last_time_ms": 0.0077918
+        },
+        {
+          "element_id": 41195,
+          "part_id": 2002,
+          "part_kind": "fragment",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.0069816,
+          "last_time_ms": 0.0069816
+        },
+        {
+          "element_id": 41202,
+          "part_id": 2002,
+          "part_kind": "fragment",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.0070907,
+          "last_time_ms": 0.0070907
+        },
+        {
+          "element_id": 41208,
+          "part_id": 2002,
+          "part_kind": "fragment",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.0057499,
+          "last_time_ms": 0.0057499
+        },
+        {
+          "element_id": 41209,
+          "part_id": 2002,
+          "part_kind": "fragment",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.0089599,
+          "last_time_ms": 0.0089599
+        },
+        {
+          "element_id": 41210,
+          "part_id": 2002,
+          "part_kind": "fragment",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.0076038,
+          "last_time_ms": 0.0076038
+        },
+        {
+          "element_id": 41211,
+          "part_id": 2002,
+          "part_kind": "fragment",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.0075795,
+          "last_time_ms": 0.0075795
+        },
+        {
+          "element_id": 41212,
+          "part_id": 2002,
+          "part_kind": "fragment",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.007666,
+          "last_time_ms": 0.007666
+        },
+        {
+          "element_id": 41213,
+          "part_id": 2002,
+          "part_kind": "fragment",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.0069356,
+          "last_time_ms": 0.0069356
+        },
+        {
+          "element_id": 41214,
+          "part_id": 2002,
+          "part_kind": "fragment",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.006961,
+          "last_time_ms": 0.006961
+        },
+        {
+          "element_id": 41215,
+          "part_id": 2002,
+          "part_kind": "fragment",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.008487,
+          "last_time_ms": 0.008487
+        },
+        {
+          "element_id": 41216,
+          "part_id": 2002,
+          "part_kind": "fragment",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.013493,
+          "last_time_ms": 0.013493
+        },
+        {
+          "element_id": 41315,
+          "part_id": 2002,
+          "part_kind": "fragment",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.033514,
+          "last_time_ms": 0.033514
+        },
+        {
+          "element_id": 41364,
+          "part_id": 2002,
+          "part_kind": "fragment",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.01467,
+          "last_time_ms": 0.01467
+        },
+        {
+          "element_id": 41413,
+          "part_id": 2002,
+          "part_kind": "fragment",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.020536,
+          "last_time_ms": 0.020536
+        },
+        {
+          "element_id": 41414,
+          "part_id": 2002,
+          "part_kind": "fragment",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.024221,
+          "last_time_ms": 0.024221
+        },
+        {
+          "element_id": 41420,
+          "part_id": 2002,
+          "part_kind": "fragment",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.02408,
+          "last_time_ms": 0.02408
+        },
+        {
+          "element_id": 41421,
+          "part_id": 2002,
+          "part_kind": "fragment",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.03015,
+          "last_time_ms": 0.03015
+        },
+        {
+          "element_id": 41462,
+          "part_id": 2002,
+          "part_kind": "fragment",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.020384,
+          "last_time_ms": 0.020384
+        },
+        {
+          "element_id": 41463,
+          "part_id": 2002,
+          "part_kind": "fragment",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.024273,
+          "last_time_ms": 0.024273
+        }
+      ]
+    },
+    "eroding_contact_negative_volume_warning_present": true,
+    "dt2ms": 0.0,
+    "mass_scaling_mentions": 0
+  },
+  "returned_outputs": {
+    "d3plot": {
+      "file_count": 14,
+      "total_bytes": 1699008512,
+      "state_count": 402,
+      "readability": "pass"
+    },
+    "d3part": {
+      "file_count": 3,
+      "total_bytes": 121683968,
+      "state_count": 802,
+      "readability": "pass"
+    },
+    "binout": {
+      "file_count": 2,
+      "total_bytes": 177466462,
+      "readability": "pass",
+      "logical_databases": [
+        "JOBINFO",
+        "glstat",
+        "matsum",
+        "ncforc",
+        "nodout",
+        "sleout"
+      ]
+    },
+    "glstat": {
+      "record_count": 801,
+      "minimum_total_energy_ratio": 0.960449,
+      "maximum_total_energy_ratio": 1.00009,
+      "final_total_energy_ratio": 0.960449,
+      "maximum_absolute_hourglass_over_internal": 0.0,
+      "final_eroded_energy_fraction_of_initial": 0.01143715625
+    }
+  },
+  "measurement_contract": {
+    "status": "pass",
+    "d3part_full_d3plot_crosscheck": {
+      "status": "pass",
+      "d3part_history_shape": [
+        802,
+        686,
+        1,
+        7
+      ],
+      "full_d3plot_history_shape": [
+        402,
+        20902,
+        1,
+        7
+      ],
+      "d3part_state_count": 802,
+      "full_d3plot_state_count": 402,
+      "shared_state_count": 402,
+      "fragment_element_id_count": 686,
+      "alive_value_comparison_count": 265462,
+      "maximum_absolute_difference_all_7_channels": 0.0,
+      "alive_mask_mismatch_count": 0,
+      "maximum_time_mismatch_ms": 0.0,
+      "hvar6_alive_status": "available",
+      "hvar6_alive_minimum": 0.0,
+      "hvar6_alive_maximum": 1.0,
+      "hvar6_invalid_alive_count": 0,
+      "initial_alive_fragment_count": 686,
+      "final_alive_fragment_count": 651
+    },
+    "full_d3plot_hvar6": {
+      "status": "available",
+      "state_count": 402,
+      "solid_count": 20902,
+      "invalid_alive_value_count": 0,
+      "plate": {
+        "part": "plate",
+        "part_id": 1002,
+        "element_count": 20216,
+        "invalid_alive_value_count": 0,
+        "status": "available",
+        "reason": null,
+        "minimum": 0.0,
+        "mean": 0.007238686621812876,
+        "p50": 0.0,
+        "p95": 0.042952383707283,
+        "p99": 0.14884877761101367,
+        "maximum": 0.5929301802038464
+      },
+      "fragment": {
+        "part": "fragment",
+        "part_id": 2002,
+        "element_count": 686,
+        "invalid_alive_value_count": 0,
+        "status": "available",
+        "reason": null,
+        "minimum": 0.0,
+        "mean": 0.2055114112822754,
+        "p50": 0.12442805041099171,
+        "p95": 0.8004817884963712,
+        "p99": 1.0,
+        "maximum": 1.0
+      },
+      "final_fragment_state": {
+        "state_index": 401,
+        "time_ms": 0.040000068588326054,
+        "part": "fragment",
+        "part_id": 2002,
+        "alive_element_count": 651,
+        "deleted_element_count": 35,
+        "invalid_alive_value_count": 0,
+        "status": "available",
+        "reason": null,
+        "minimum": 0.0,
+        "mean": 0.23404859562843913,
+        "p50": 0.15103664768627184,
+        "p95": 0.8122242555082839,
+        "p99": 1.0,
+        "maximum": 1.0
+      }
+    },
+    "ncforc": {
+      "status": "available_ragged_pending_semantic_validation",
+      "path": "ncforc/surfa_1",
+      "logical_databases": [
+        "JOBINFO",
+        "glstat",
+        "matsum",
+        "ncforc",
+        "nodout",
+        "sleout"
+      ],
+      "state_count": 801,
+      "first_time_ms": 0.0,
+      "last_time_ms": 0.03999968234350848,
+      "minimum_nodes_per_state": 3363,
+      "maximum_nodes_per_state": 3391,
+      "union_node_count": 3425,
+      "all_state_intersection_node_count": 3335,
+      "node_count_change_count": 21,
+      "all_ids_unique_per_state": true,
+      "all_coordinates_forces_pressure_finite": true,
+      "raw_model_unit_ranges": {
+        "pressure": [
+          -28.542736662592837,
+          127.42970172231858
+        ],
+        "x_force": [
+          -4.539583426382564,
+          4.377200281801029
+        ],
+        "y_force": [
+          -4.012780634979325,
+          4.086336741888183
+        ],
+        "z_force": [
+          -11.948147122909962,
+          10.390841278162053
+        ]
+      },
+      "claim_boundary": "Units, sign convention, contact-side mapping, impulse and energy closure are not yet validated."
+    },
+    "sleout": {
+      "status": "available_energy_only",
+      "direct_contact_substitute": false
+    },
+    "intfor": {
+      "status": "not_requested_under_contract",
+      "value": null,
+      "reason": "the R06f measurement contract does not request unsupported binary INTFOR",
+      "files": []
+    }
+  },
+  "diagnostic_response": {
+    "primary_qoi_available": false,
+    "unavailable_reasons": [
+      "deleted_upstream_mass"
+    ],
+    "classification": "unavailable",
+    "diagnostic_values_before_availability_gate": {
+      "qM": 0.0,
+      "qP": 0.0,
+      "qE": 0.0,
+      "qV_over_v0": null
+    },
+    "deleted_upstream_mass_fraction": 0.05102040709405755,
+    "worst_case_crossing_mass_fraction": 0.05102041600904826,
+    "crossing_event_count": 0,
+    "tail_window": {
+      "start_time_ms": 0.03600006172949345,
+      "increment_qM": 0.0,
+      "increment_qP": 0.0,
+      "increment_qE": 0.0,
+      "qV_relative_range": 0.0
+    },
+    "final_alive_plate_count": 20216,
+    "final_alive_fragment_count": 651
+  },
+  "formal_fragment_erosion_mechanism_comparison_to_job_72740022": {
+    "status": "partial_support_remaining_negative_volume_path",
+    "control_fragment_mat015_erod": 0,
+    "candidate_fragment_mat015_erod": 1,
+    "failure_damage_evidence": {
+      "status": "pass",
+      "fragment_hvar6_maximum": 1.0,
+      "final_fragment_hvar6_maximum": 1.0,
+      "final_fragment_hvar6_p99": 1.0
+    },
+    "deletion_change": {
+      "control_deleted_element_count": 47,
+      "candidate_deleted_element_count": 35,
+      "deleted_element_count_reduction": 12,
+      "control_deleted_upstream_mass_fraction": 0.06851311815869016,
+      "candidate_deleted_upstream_mass_fraction": 0.05102040709405755,
+      "absolute_fraction_reduction": 0.017492711064632606,
+      "relative_fraction_reduction": 0.25531914959870855,
+      "suppression_direction_gate": "pass"
+    },
+    "remaining_deletion_attribution": {
+      "status": "pass_exact_count_and_fragment_topology",
+      "remaining_deleted_fragment_elements": 35,
+      "negative_volume_fragment_elements": 35,
+      "negative_volume_plate_elements": 0,
+      "eroding_contact_auto_enables_negative_volume_failure": true
+    },
+    "response_availability_gate": {
+      "status": "fail",
+      "deleted_upstream_mass_fraction_max": 0.05,
+      "observed": 0.05102040709405755,
+      "excess_above_limit": 0.0010204070940575474,
+      "unavailable_reasons": [
+        "deleted_upstream_mass"
+      ]
+    },
+    "engineering_energy_gate": {
+      "status": "pass_with_degradation_warning",
+      "allowed_range": [
+        0.95,
+        1.05
+      ],
+      "observed_range": [
+        0.960449,
+        1.00009
+      ],
+      "control_minimum_total_energy_ratio": 0.998954,
+      "candidate_minimum_total_energy_ratio": 0.960449
+    },
+    "interpretation": "Suppressing MAT_015 failure erosion retains 12 additional fragment elements and preserves HVAR6 failure evidence, so material failure erosion is a partial deletion cause. The 35 remaining deleted fragment elements exactly match the 35 negative-volume elements created under the ERODING contact criterion; response availability still fails."
+  },
+  "decision": {
+    "solver_parser_runtime": "pass",
+    "input_identity": "pass",
+    "resource_identity": "pass",
+    "measurement_channels": "pass",
+    "fragment_failure_erosion_hypothesis": "partial_support",
+    "remaining_deletion_mechanism": "eroding_contact_automatic_negative_volume_failure",
+    "response_availability": "fail",
+    "numerical_stability": "fail_negative_volume_driven_deletion",
+    "classification": "successful_diagnostic_partial_material_erosion_causality_remaining_negative_volume_deletion",
+    "release_r06k_fragment_negative_volume_psfail_isolation": true,
+    "release_2000_control": false,
+    "release_treatments": false,
+    "p0_response_calibration": "denied",
+    "p1_submission": "denied",
+    "engine_fitting": "denied",
+    "damage_tree_fitting": "denied",
+    "dataset_reference_promotion": "denied"
+  },
+  "recommended_next_sequence": [
+    "Keep fragment MAT_015 EROD=1, TSSFAC=0.05 and DT2MS=0 frozen.",
+    "Run one PSFAIL isolation that changes only CONTROL_SOLID field 5 from 0 to plate-only set 910001.",
+    "This excludes fragment part 2002 from the ERODING-contact negative-volume failure criterion while preserving the contact formulation.",
+    "Treat normal completion, timestep collapse, severe distortion or solver termination as diagnostic evidence; none is a physical label.",
+    "Keep 2000 m/s, treatments, fitting and reference-dataset promotion frozen."
+  ],
+  "claim_boundary": "This audit identifies two numerical deletion paths in the single 800 m/s diagnostic: MAT_015 failure erosion and ERODING-contact negative-volume erosion. It does not establish a physically correct erosion policy, converged response, engine calibration, damage-tree calibration or dataset-label admission."
+}

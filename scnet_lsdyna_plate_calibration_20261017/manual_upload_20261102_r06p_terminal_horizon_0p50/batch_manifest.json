@@ -1,0 +1,60 @@
+{
+  "schema_version": "hf-p0-r06p-batch-manifest@1.0.0",
+  "package_revision": "R06_terminal_horizon_0p50_20261102",
+  "job_count": 1,
+  "jobs": [
+    {
+      "job_id": "r06p_0800_terminal_horizon_0p50",
+      "directory": "job_01_v0800_terminal_horizon_0p50",
+      "head_deck": "r06p_0800_terminal_horizon_0p50.k",
+      "head_deck_sha256": "sha256:d471f09e9a726c9e4695565abc120e9300bfd68ca2b272bf23852322f8dc8629"
+    }
+  ],
+  "files": [
+    {
+      "path": "job_01_v0800_terminal_horizon_0p50/jc4340_reference.json",
+      "size_bytes": 3144,
+      "sha256": "sha256:9b462b920459e57641d5f89d10d36c0aa0498c86f2478fef8e4c3efa96888311"
+    },
+    {
+      "path": "job_01_v0800_terminal_horizon_0p50/job_contract.json",
+      "size_bytes": 1679,
+      "sha256": "sha256:4792d9fbd427441932e0a9f2aae01e69620417f4f4af791e47bada4ed1003354"
+    },
+    {
+      "path": "job_01_v0800_terminal_horizon_0p50/manifest.json",
+      "size_bytes": 2519,
+      "sha256": "sha256:14a56b00b5ecff3e75eb6eb278cee7363070af6e7c61b98be51a847d05ecd83a"
+    },
+    {
+      "path": "job_01_v0800_terminal_horizon_0p50/p0_case_part_map.csv",
+      "size_bytes": 501,
+      "sha256": "sha256:fde35b706ed87d4866d9d5b0222139fde3743d0e63648dbcac04450c725eadcd"
+    },
+    {
+      "path": "job_01_v0800_terminal_horizon_0p50/p0_r06p_terminal_horizon_0p50_design.json",
+      "size_bytes": 4295,
+      "sha256": "sha256:713103a174b492ac79af0789de89e2522d4100bcdd07d3864f3fbf66393e36f8"
+    },
+    {
+      "path": "job_01_v0800_terminal_horizon_0p50/p0_r06p_terminal_horizon_0p50_output_contract.json",
+      "size_bytes": 7610,
+      "sha256": "sha256:6f0d568e7e208545f585da3b5bf98115cce521167b7efad67a316e4e91a35179"
+    },
+    {
+      "path": "job_01_v0800_terminal_horizon_0p50/r06p_0800_terminal_horizon_0p50.k",
+      "size_bytes": 2558340,
+      "sha256": "sha256:d471f09e9a726c9e4695565abc120e9300bfd68ca2b272bf23852322f8dc8629"
+    },
+    {
+      "path": "job_01_v0800_terminal_horizon_0p50/static_validation.json",
+      "size_bytes": 1198,
+      "sha256": "sha256:28a7fddaf476de75fe4c5eaaabc3bd3282f0bfb42e0de4677c0fcf4af684db4d"
+    },
+    {
+      "path": "job_01_v0800_terminal_horizon_0p50/UPLOAD_README.txt",
+      "size_bytes": 521,
+      "sha256": "sha256:3a67fbfcba92e1825a22d6441d44559fb3bb99128ecec7e07efbab04b6d5830a"
+    }
+  ]
+}

@@ -1,0 +1,50 @@
+{
+  "schema_version": "hf-p0-r06-job-manifest@1.0.0",
+  "package_revision": "R06_fragment_negative_volume_isolation_20261030",
+  "job_id": "r06k_0800_fragment_psfail_plate",
+  "status": "generated_not_solver_validated",
+  "evidence_class": "high_fidelity_synthetic_diagnostic_candidate",
+  "deck": {
+    "path": "r06k_0800_fragment_psfail_plate.k",
+    "size_bytes": 2557716,
+    "sha256": "sha256:f78396a9fd15114fe411507a7774d68cecb10a25460413474772f2b99e8a17ca",
+    "node_count": 23775,
+    "element_count": 20902,
+    "node_id_span": [
+      23776,
+      47550
+    ],
+    "element_id_span": [
+      20903,
+      41804
+    ]
+  },
+  "design": {
+    "path": "p0_r06k_fragment_negative_volume_isolation_design.json",
+    "sha256": "sha256:38b56dcd730822271f756c3b4d2a0676fde6ca00f64351ead8b5bb65e6817212"
+  },
+  "material": {
+    "path": "jc4340_reference.json",
+    "sha256": "sha256:9b462b920459e57641d5f89d10d36c0aa0498c86f2478fef8e4c3efa96888311"
+  },
+  "successor_contract": {
+    "path": "p0_r06k_fragment_negative_volume_output_contract.json",
+    "sha256": "sha256:e141ff823f3dbc8e123cb0dc89a737ba850161faed2ab035d545bdf57ee8a323",
+    "historical_status_preserved": "frozen_after_r06j_partial_erod_causality_before_fragment_negative_volume_psfail_outcome"
+  },
+  "case_map": {
+    "path": "p0_case_part_map.csv",
+    "sha256": "sha256:8eeec3f51614cddf552b4479c7ff1ccbc775572f1c1d177a29237c3d41f4c463"
+  },
+  "job_contract": {
+    "path": "job_contract.json",
+    "sha256": "sha256:6ced773ccb4f136d57048f5c7685ba963cf7470eb1ade0f6093ffedf338d3e04"
+  },
+  "limitations": [
+    "R06j partially suppressed fragment deletion but left exactly 35 negative-volume-driven fragment deletions.",
+    "R06k changes only PSFAIL from 0 to plate-only set 910001, excluding fragment part 2002 from the ERODING-contact negative-volume criterion.",
+    "Fragment MAT_015 EROD remains 1 and the contact formulation remains ERODING_SINGLE_SURFACE.",
+    "The model continues to start from the same post-explosion fragment state.",
+    "Any R06k result is mechanism evidence only and cannot authorize engine fitting, damage-tree fitting or dataset admission."
+  ]
+}

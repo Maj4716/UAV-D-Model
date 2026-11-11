@@ -1,0 +1,29 @@
+{
+  "schema_version": "hf-p0-r06t-static-validation@1.0.0",
+  "overall_status": "pass",
+  "parent_deck_sha256": "sha256:eac511d8579d9cad92f08c41b5241129801df46b297140a3f601acacd5b0dd0e",
+  "permitted_differences": [
+    "TITLE_identifier_line",
+    "CONTROL_SOLID_PSFAIL_0_to_fragment_only_set_900001"
+  ],
+  "differing_line_numbers": [
+    3,
+    12
+  ],
+  "all_other_deck_lines_byte_identical": true,
+  "single_model_form_factor": "CONTROL_SOLID_PSFAIL_0_to_fragment_only_set_900001",
+  "psfail_set_id": 900001,
+  "psfail_set_part_ids": [
+    2002
+  ],
+  "plate_part_1002_excluded_from_psfail_set": true,
+  "termination_time_ms": 0.5,
+  "maximum_cycle_count": 2500000,
+  "impact_speed_mps": 1200.0,
+  "d3plot_interval_ms": 0.00015,
+  "d3part_interval_ms": 0.00015,
+  "ascii_interval_ms": 0.00025,
+  "adaptive_solid_to_sph": "part_2002_to_part_2003_unchanged",
+  "resource_identity_is_external_to_deck": true,
+  "candidate_deck_sha256": "sha256:11f62db3f8b27d1087988d5ad2abc572bddbd89570f6065500ddfe390a6459ae"
+}

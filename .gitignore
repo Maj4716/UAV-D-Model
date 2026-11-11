@@ -20,6 +20,7 @@ build/
 /.codex-tmp/
 /.codex_tmp/
 /uav_hf_*/
+/LS_DYNA_*/
 /raw_data/dataset_5000_*/
 /scnet_lsdyna_plate_calibration_20261017/.tmp/
 /scnet_lsdyna_plate_calibration_20261017/.vendor/
@@ -29,3 +30,5 @@ build/
 /scnet_lsdyna_plate_calibration_20261017/analysis/**/source_archive/
 /scnet_lsdyna_plate_calibration_20261017/analysis/**/superseded_*/
 /scnet_lsdyna_plate_calibration_20261017/analysis/**/r06f_single_job_analysis*.json
+/scnet_lsdyna_plate_calibration_20261017/analysis/**/r06*_single_job_analysis.json
+/scnet_lsdyna_plate_calibration_20261017/artifacts/r06g_tssfac02_submission_20261028_v2/uav_hf_r06g_0800_tssfac02 (2)/

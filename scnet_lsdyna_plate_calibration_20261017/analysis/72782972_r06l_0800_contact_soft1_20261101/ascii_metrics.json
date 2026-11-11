@@ -1,0 +1,85 @@
+{
+  "schema_version": "hf-p0-postprocess@1.1.0",
+  "numerical_qa_status": "review_or_fail",
+  "termination": {
+    "normal_termination": false,
+    "error_termination": false,
+    "negative_volume_mentions": 92,
+    "negative_volume_unique_elements": 92,
+    "mass_scaling_mentions": 0,
+    "source_files_found": 33,
+    "rank_log_count": 32,
+    "normal_termination_rank_count": 0,
+    "warning_counts": [
+      {
+        "id": "30364",
+        "code": "INI+364",
+        "occurrences": 32
+      },
+      {
+        "id": "40509",
+        "code": "SOL+509",
+        "occurrences": 92
+      }
+    ],
+    "error_fatal_counts": []
+  },
+  "global_statistics": {
+    "final_total_energy_ratio": 0.715346,
+    "final_kinetic_energy": 17877.9,
+    "final_internal_energy": 2904.25,
+    "final_hourglass_energy": 0.0,
+    "final_sliding_energy": -20324.3,
+    "final_added_mass": null,
+    "record_count": 557,
+    "final_time": 0.0278,
+    "minimum_time_step": 1.00811e-10,
+    "maximum_time_step": 5.77029e-06,
+    "minimum_total_energy_ratio": 0.715346,
+    "maximum_total_energy_ratio": 1.0003,
+    "maximum_total_energy_ratio_absolute_deviation": 0.28465399999999996,
+    "final_energy_ratio_without_eroded": -7.09685,
+    "initial_total_energy": 640.0,
+    "final_total_energy": 457.821,
+    "maximum_absolute_hourglass_energy": 0.0,
+    "maximum_absolute_hourglass_over_internal": 0.0,
+    "final_eroded_kinetic_energy": 3989.28,
+    "final_eroded_internal_energy": 1010.52,
+    "final_eroded_hourglass_energy": 0.0,
+    "final_eroded_energy_sum": 4999.8,
+    "final_eroded_energy_fraction_of_initial": 7.8121875,
+    "final_sliding_energy_fraction_of_initial": -31.756718749999997
+  },
+  "case_identity": [
+    {
+      "job_id": "r06l_0800_contact_soft1",
+      "experiment_id": "r06l_contact_soft_isolation_800",
+      "role": "contact_soft1_numerical_stability_diagnostic",
+      "case_id": "p0_v0800_h0p75",
+      "source_r05_index": "2",
+      "plate_part_id": "1002",
+      "fragment_part_id": "2002",
+      "fragment_center_history_node_id": "47039",
+      "impact_speed_mps": "800.0",
+      "mesh_mm": "0.75",
+      "plate_elements": "20216",
+      "fragment_elements": "686",
+      "symmetry_scale_factor": "4.0",
+      "capture_plane_z_mm": "-12.0",
+      "fragment_initial_reference_mass_kg": "0.002",
+      "termination_time_ms": "0.04",
+      "psfail_part_set_id": "910001",
+      "primary_qoi_source": "d3part_fragment_set"
+    }
+  ],
+  "limitations": [
+    "Global ASCII QA is necessary but not sufficient for case-level perforation acceptance.",
+    "Residual velocity and perforation state still require BINOUT/NODOUT and d3plot review.",
+    "Candidate 5% gates are preregistered engineering checks, not universal LS-DYNA standards."
+  ],
+  "review_reasons": [
+    "solver did not demonstrate clean normal termination",
+    "negative-volume events require case-level review",
+    "final energy ratio 0.715346 outside preregistered candidate band [0.95, 1.05]"
+  ]
+}

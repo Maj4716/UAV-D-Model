@@ -1,0 +1,81 @@
+{
+  "schema_version": "hf-p0-r06m-static-validation@1.0.0",
+  "overall_status": "pass",
+  "scope": "static_keyword_and_package_validation_not_target_solver_execution",
+  "checks": {
+    "baseline_identity": {
+      "status": "pass",
+      "sha256": "sha256:8ec1613324159b3ebc00217871ad29321564423b0a7f73a267207e4952bada77"
+    },
+    "ascii_deck": {
+      "status": "pass"
+    },
+    "mesh_identity": {
+      "status": "pass",
+      "node_count": 22815,
+      "element_count": 20216,
+      "node_block_sha256": "sha256:d1568ead3ae8b355f12c94ea305fc342966bb5d1bc9eba17d0d89896d712e7f6",
+      "element_block_sha256": "sha256:e54def5b7f256b850785f68c87de8f669396ad7fe2542ddc3fe781221694030b"
+    },
+    "post_explosion_state_identity": {
+      "status": "pass",
+      "impact_speed_mps": 800.0
+    },
+    "timestep_identity": {
+      "status": "pass",
+      "tssfac": 0.05,
+      "dt2ms": 0.0
+    },
+    "runaway_guard": {
+      "status": "pass",
+      "termination_time_ms": 0.04,
+      "maximum_cycle_count": 829930,
+      "completion_requires_problem_time_ms": 0.04
+    },
+    "adaptive_solid_to_sph": {
+      "status": "pass",
+      "solid_part_id": 2002,
+      "sph_part_id": 2003,
+      "nq": 2,
+      "particles_per_failed_hexahedron": 8,
+      "sph_section_id": 2,
+      "material_id": 2,
+      "eos_id": 2
+    },
+    "contact_partition": {
+      "status": "pass",
+      "solid_contact": {
+        "part_set_id": 920001,
+        "part_ids": [
+          1002,
+          2002
+        ],
+        "soft": 2
+      },
+      "sph_to_solid_contact": {
+        "slave_part_id": 2003,
+        "master_part_set_id": 920001,
+        "sstyp": 3,
+        "mstyp": 2,
+        "soft": 1,
+        "sofscl": 0.1
+      }
+    },
+    "measurement_boundary": {
+      "status": "pass",
+      "d3part_set_900001_remains_solid_part_2002_only": true,
+      "sph_part_2003_expected_in_full_d3plot_and_matsum": true,
+      "d3part_sph_support_not_assumed": true
+    },
+    "resource_identity": {
+      "status": "pass",
+      "nodes": 1,
+      "ranks": 32
+    }
+  },
+  "limitations": [
+    "Static PASS does not prove target-solver parsing or adaptive conversion.",
+    "Normal termination is insufficient if problem time does not reach 0.04 ms.",
+    "The first adaptive-SPH response is not a calibration target or reference label."
+  ]
+}

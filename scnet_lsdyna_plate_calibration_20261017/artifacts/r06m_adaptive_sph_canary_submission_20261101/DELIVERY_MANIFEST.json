@@ -1,0 +1,96 @@
+{
+  "schema_version": "hf-p0-r06m-direct-folder-delivery@1.0.0",
+  "package_revision": "R06_adaptive_solid_to_sph_canary_20261101",
+  "job_id": "r06m_0800_adaptive_sph_canary",
+  "status": "ready_for_user_submission_not_submitted_not_solver_validated",
+  "upload_folder": "uav_hf_r06m_0800_adaptive_sph_canary",
+  "head_deck": "r06m_0800_adaptive_sph_canary.k",
+  "head_deck_sha256": "sha256:634436d875c42592b5801de9bf27fce6255691fd27f17d28bd201b80e4cf1107",
+  "archive_policy": "no_archive_direct_folder_only",
+  "branch_parent": {
+    "job_id": "r06j_0800_fragment_erod1",
+    "platform_job_id": "72751725",
+    "deck_sha256": "sha256:8ec1613324159b3ebc00217871ad29321564423b0a7f73a267207e4952bada77"
+  },
+  "capability_bundle": {
+    "failed_fragment_solid_part_id": 2002,
+    "adaptive_sph_part_id": 2003,
+    "particles_per_failed_hexahedron": 8,
+    "solid_contact_soft": 2,
+    "dedicated_sph_to_solid_contact_soft": 1,
+    "solid_contact_part_set_id": 920001,
+    "maximum_cycle_count": 829930,
+    "required_problem_time_ms": 0.04
+  },
+  "resource_contract": {
+    "software": "ls-dyna_R15_mmp_d",
+    "nodes": 1,
+    "ranks": 32,
+    "head_memory_mb": 512,
+    "child_memory_mb": 256,
+    "command_line_parameters": "",
+    "fresh_work_directory": "/work/home/acd7dt5yv4/LSDYNA/uav_hf_r06m_0800_adaptive_sph"
+  },
+  "files": [
+    {
+      "path": "uav_hf_r06m_0800_adaptive_sph_canary/UPLOAD_README.txt",
+      "size_bytes": 790,
+      "sha256": "sha256:11a7239d028d0714fd06e1bc4e28bb8d9b8cda719a0ea1fcfd66cf349b1e1f06"
+    },
+    {
+      "path": "uav_hf_r06m_0800_adaptive_sph_canary/jc4340_reference.json",
+      "size_bytes": 3144,
+      "sha256": "sha256:9b462b920459e57641d5f89d10d36c0aa0498c86f2478fef8e4c3efa96888311"
+    },
+    {
+      "path": "uav_hf_r06m_0800_adaptive_sph_canary/job_contract.json",
+      "size_bytes": 1867,
+      "sha256": "sha256:3c6e97a06eb36e6548c8504e146277581f20eb521cdbdfba172260429ce07343"
+    },
+    {
+      "path": "uav_hf_r06m_0800_adaptive_sph_canary/manifest.json",
+      "size_bytes": 2161,
+      "sha256": "sha256:89268b877af4324e43b8d45c6d13cef1dff1fc041137c8add2ff3a1c333ab281"
+    },
+    {
+      "path": "uav_hf_r06m_0800_adaptive_sph_canary/p0_case_part_map.csv",
+      "size_bytes": 527,
+      "sha256": "sha256:41a31fc0f347a27284923f0a89ab7d81f5916b1b23e9cb011d1751fb8865c4c0"
+    },
+    {
+      "path": "uav_hf_r06m_0800_adaptive_sph_canary/p0_r06m_adaptive_sph_canary_design.json",
+      "size_bytes": 10359,
+      "sha256": "sha256:480913aa29ef87393294cb5a181a6ba09ac4c8a883b803e7be21370c1abc8e12"
+    },
+    {
+      "path": "uav_hf_r06m_0800_adaptive_sph_canary/p0_r06m_adaptive_sph_output_contract.json",
+      "size_bytes": 7046,
+      "sha256": "sha256:8348a2cbfc7cc840c9889e9d8c7d3404c6ee68948fab752855719b4d68d54b0b"
+    },
+    {
+      "path": "uav_hf_r06m_0800_adaptive_sph_canary/r06m_0800_adaptive_sph_canary.k",
+      "size_bytes": 2558388,
+      "sha256": "sha256:634436d875c42592b5801de9bf27fce6255691fd27f17d28bd201b80e4cf1107"
+    },
+    {
+      "path": "uav_hf_r06m_0800_adaptive_sph_canary/static_validation.json",
+      "size_bytes": 2318,
+      "sha256": "sha256:f389186efdcee2d95e22a97c22be4a96540fbb0b5cb184f6b8b612e654bb8a27"
+    }
+  ],
+  "return_required": [
+    "submitted .k",
+    "d3hsp/o= and mes*",
+    "glstat, matsum, sleout, nodout and ncforc",
+    "binout*",
+    "all d3plot* and d3part*",
+    "stdout/stderr, Slurm script and resource record"
+  ],
+  "prohibited": [
+    "creating or submitting a ZIP archive",
+    "submitting another high-fidelity calibration job in parallel",
+    "changing the deck, contact cards, cycle guard, output cards or resource identity",
+    "calling a cycle-guard exit a completed response",
+    "using this capability-canary response for engine fitting, damage-tree fitting or a reference label"
+  ]
+}

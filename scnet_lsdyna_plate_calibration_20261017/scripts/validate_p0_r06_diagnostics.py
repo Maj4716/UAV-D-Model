@@ -49,6 +49,41 @@ HISTORICAL_R06F_TSSFAC04_DECK = (
     / "r06f_0800_tssfac04.k"
 )
 HISTORICAL_R06F_TSSFAC04_DECK_SHA256 = "sha256:afb0f34112ccfdfcfd95bf442c9b45e2cb1590fdad8d76e98fbbc3fb5d6baee7"
+HISTORICAL_R06G_TSSFAC02_DECK = (
+    ROOT
+    / "analysis"
+    / "72639935_r06g_0800_tssfac02_20261029"
+    / "immutable_parent_r06g_0800_tssfac02.k"
+)
+HISTORICAL_R06G_TSSFAC02_DECK_SHA256 = "sha256:b5f4da367e9ef6eaae7098e47a84610eb55c51760cc9bf8dbb4721693b7a732a"
+HISTORICAL_R06H_TSSFAC01_DECK = (
+    ROOT
+    / "analysis"
+    / "72701744_r06h_0800_tssfac01_20261030"
+    / "immutable_parent_r06h_0800_tssfac01.k"
+)
+HISTORICAL_R06H_TSSFAC01_DECK_SHA256 = "sha256:6e4fb3806722df91df8500ea3e2a6758ef6a07c36e913f4e8eccc7a9083374c3"
+HISTORICAL_R06I_TSSFAC005_DECK = (
+    ROOT
+    / "analysis"
+    / "72740022_r06i_0800_tssfac005_20261030"
+    / "immutable_parent_r06i_0800_tssfac005.k"
+)
+HISTORICAL_R06I_TSSFAC005_DECK_SHA256 = "sha256:e2e8da8e55304b7fe2deb2c1790e00bf7fea9c64145c6c09a954c50492f3dd88"
+HISTORICAL_R06J_FRAGMENT_EROD1_DECK = (
+    ROOT
+    / "analysis"
+    / "72751725_r06j_0800_fragment_erod1_20261030"
+    / "immutable_parent_r06j_0800_fragment_erod1.k"
+)
+HISTORICAL_R06J_FRAGMENT_EROD1_DECK_SHA256 = "sha256:8ec1613324159b3ebc00217871ad29321564423b0a7f73a267207e4952bada77"
+HISTORICAL_R06K_FRAGMENT_PSFAIL_DECK = (
+    ROOT
+    / "analysis"
+    / "72764387_r06k_0800_fragment_psfail_plate_20261031"
+    / "immutable_parent_r06k_0800_fragment_psfail_plate.k"
+)
+HISTORICAL_R06K_FRAGMENT_PSFAIL_DECK_SHA256 = "sha256:f78396a9fd15114fe411507a7774d68cecb10a25460413474772f2b99e8a17ca"
 R06F_RECANARY_STATUS = (
     "frozen_after_r06e_wave0_solver_capability_audit_before_any_r06f_solver_outcome"
 )
@@ -56,10 +91,30 @@ R06F_TIMESTEP_STATUS = "frozen_after_r06f_recanary_pass_before_timestep_solver_o
 R06G_REFINEMENT_STATUS = (
     "frozen_after_r06f_tssfac04_sensitivity_fail_before_tssfac02_outcome"
 )
+R06H_CONFIRMATION_STATUS = (
+    "frozen_after_r06g_tssfac02_local_gate_pass_before_tssfac01_outcome"
+)
+R06I_TERMINAL_REFINEMENT_STATUS = (
+    "frozen_after_r06h_tssfac01_confirmation_fail_before_tssfac005_outcome"
+)
+R06J_FRAGMENT_EROSION_STATUS = (
+    "frozen_after_r06i_terminal_timestep_stable_but_response_unavailable_before_fragment_erod1_outcome"
+)
+R06K_FRAGMENT_NEGATIVE_VOLUME_STATUS = (
+    "frozen_after_r06j_partial_erod_causality_before_fragment_negative_volume_psfail_outcome"
+)
+R06L_CONTACT_SOFT1_STATUS = (
+    "frozen_after_r06k_fragment_deletion_suppressed_but_contact_energy_timestep_unstable_before_soft1_outcome"
+)
 SINGLE_JOB_R06F_STATUSES = {
     R06F_RECANARY_STATUS,
     R06F_TIMESTEP_STATUS,
     R06G_REFINEMENT_STATUS,
+    R06H_CONFIRMATION_STATUS,
+    R06I_TERMINAL_REFINEMENT_STATUS,
+    R06J_FRAGMENT_EROSION_STATUS,
+    R06K_FRAGMENT_NEGATIVE_VOLUME_STATUS,
+    R06L_CONTACT_SOFT1_STATUS,
 }
 REVISION = "R06_paired_diagnostics_preregistered_20261023"
 JOB_BASE_FILES = {
@@ -529,6 +584,13 @@ def validate_job(job_dir: Path, root_design: dict, historical_mesh: tuple[dict, 
         fail(f"{job_id}: contact SAPR/SBPR output flags are not both enabled")
     if split_fields(contact[3]) != ["1", "1", "1"]:
         fail(f"{job_id}: eroding-contact ISYM/EROSOP/IADJ differs from R05")
+    expected_contact_soft = int(design_job.get("contact_soft", 2))
+    contact_card_a = split_fields(contact[4])
+    if (
+        int(contact_card_a[0]) != expected_contact_soft
+        or contact_card_a[1:] != ["0.000000000e+00", "0", "0", "3", "5", "0", "0"]
+    ):
+        fail(f"{job_id}: eroding-contact Optional Card A differs outside the frozen SOFT factor")
 
     plate_pid = int(row["plate_part_id"])
     fragment_pid = int(row["fragment_part_id"])
@@ -575,6 +637,11 @@ def validate_job(job_dir: Path, root_design: dict, historical_mesh: tuple[dict, 
     r06e_physics_parity = None
     r06f_timestep_isolation = None
     r06g_timestep_isolation = None
+    r06h_timestep_isolation = None
+    r06i_timestep_isolation = None
+    r06j_fragment_erod_isolation = None
+    r06k_fragment_psfail_isolation = None
+    r06l_contact_soft_isolation = None
     if root_design["design_status"] == R06F_RECANARY_STATUS:
         if sha256(HISTORICAL_R06E_0800_DECK) != HISTORICAL_R06E_0800_DECK_SHA256:
             fail("immutable returned R06e 800 m/s deck hash changed")
@@ -670,6 +737,207 @@ def validate_job(job_dir: Path, root_design: dict, historical_mesh: tuple[dict, 
             "dt2ms": 0.0,
             "allowed_difference_scope": "TITLE and CONTROL_TIMESTEP field 2 only",
         }
+    elif root_design["design_status"] == R06H_CONFIRMATION_STATUS:
+        if sha256(HISTORICAL_R06G_TSSFAC02_DECK) != HISTORICAL_R06G_TSSFAC02_DECK_SHA256:
+            fail("immutable returned R06g TSSFAC=0.2 deck hash changed")
+        baseline_text = HISTORICAL_R06G_TSSFAC02_DECK.read_text(encoding="ascii")
+        ignored = {"*TITLE", "*CONTROL_TIMESTEP"}
+        if comparable_blocks(deck_text, ignored) != comparable_blocks(baseline_text, ignored):
+            fail(f"{job_id}: deck differs from returned TSSFAC=0.2 parent outside TITLE/TSSFAC")
+        baseline_timestep = split_fields(
+            grouped_blocks(baseline_text)["*CONTROL_TIMESTEP"][0][0]
+        )
+        differing_fields = [
+            index + 1
+            for index, (baseline_value, candidate_value) in enumerate(
+                zip(baseline_timestep, timestep, strict=True)
+            )
+            if baseline_value != candidate_value
+        ]
+        if (
+            differing_fields != [2]
+            or not math.isclose(float(baseline_timestep[1]), 0.2, rel_tol=0.0, abs_tol=1e-12)
+            or not math.isclose(float(timestep[1]), 0.1, rel_tol=0.0, abs_tol=1e-12)
+        ):
+            fail(f"{job_id}: timestep factor must change only field 2 TSSFAC, 0.2 -> 0.1")
+        r06h_timestep_isolation = {
+            "status": "pass",
+            "parent_job_id": "r06g_0800_tssfac02",
+            "parent_platform_job_id": "72639935",
+            "parent_deck_sha256": HISTORICAL_R06G_TSSFAC02_DECK_SHA256,
+            "only_changed_field": "CONTROL_TIMESTEP.TSSFAC",
+            "control_level": 0.2,
+            "treatment_level": 0.1,
+            "dt2ms": 0.0,
+            "allowed_difference_scope": "TITLE and CONTROL_TIMESTEP field 2 only",
+        }
+    elif root_design["design_status"] == R06I_TERMINAL_REFINEMENT_STATUS:
+        if sha256(HISTORICAL_R06H_TSSFAC01_DECK) != HISTORICAL_R06H_TSSFAC01_DECK_SHA256:
+            fail("immutable returned R06h TSSFAC=0.1 deck hash changed")
+        baseline_text = HISTORICAL_R06H_TSSFAC01_DECK.read_text(encoding="ascii")
+        ignored = {"*TITLE", "*CONTROL_TIMESTEP"}
+        if comparable_blocks(deck_text, ignored) != comparable_blocks(baseline_text, ignored):
+            fail(f"{job_id}: deck differs from returned TSSFAC=0.1 parent outside TITLE/TSSFAC")
+        baseline_timestep = split_fields(
+            grouped_blocks(baseline_text)["*CONTROL_TIMESTEP"][0][0]
+        )
+        differing_fields = [
+            index + 1
+            for index, (baseline_value, candidate_value) in enumerate(
+                zip(baseline_timestep, timestep, strict=True)
+            )
+            if baseline_value != candidate_value
+        ]
+        if (
+            differing_fields != [2]
+            or not math.isclose(float(baseline_timestep[1]), 0.1, rel_tol=0.0, abs_tol=1e-12)
+            or not math.isclose(float(timestep[1]), 0.05, rel_tol=0.0, abs_tol=1e-12)
+        ):
+            fail(f"{job_id}: timestep factor must change only field 2 TSSFAC, 0.1 -> 0.05")
+        r06i_timestep_isolation = {
+            "status": "pass",
+            "parent_job_id": "r06h_0800_tssfac01",
+            "parent_platform_job_id": "72701744",
+            "parent_deck_sha256": HISTORICAL_R06H_TSSFAC01_DECK_SHA256,
+            "only_changed_field": "CONTROL_TIMESTEP.TSSFAC",
+            "control_level": 0.1,
+            "treatment_level": 0.05,
+            "dt2ms": 0.0,
+            "allowed_difference_scope": "TITLE and CONTROL_TIMESTEP field 2 only",
+        }
+    elif root_design["design_status"] == R06J_FRAGMENT_EROSION_STATUS:
+        if sha256(HISTORICAL_R06I_TSSFAC005_DECK) != HISTORICAL_R06I_TSSFAC005_DECK_SHA256:
+            fail("immutable returned R06i TSSFAC=0.05 deck hash changed")
+        baseline_text = HISTORICAL_R06I_TSSFAC005_DECK.read_text(encoding="ascii")
+        ignored = {"*TITLE", "*MAT_JOHNSON_COOK"}
+        if comparable_blocks(deck_text, ignored) != comparable_blocks(baseline_text, ignored):
+            fail(f"{job_id}: deck differs from returned R06i parent outside TITLE/fragment MAT_015")
+        baseline_mats = grouped_blocks(baseline_text)["*MAT_JOHNSON_COOK"]
+        candidate_mats = grouped["*MAT_JOHNSON_COOK"]
+        if len(baseline_mats) != 2 or len(candidate_mats) != 2:
+            fail(f"{job_id}: expected exactly plate and fragment MAT_015 blocks")
+        if candidate_mats[0] != baseline_mats[0]:
+            fail(f"{job_id}: plate MAT_015 changed in a fragment-only diagnostic")
+        if candidate_mats[1][:3] != baseline_mats[1][:3]:
+            fail(f"{job_id}: fragment MAT_015 changed outside Card 4")
+        baseline_card4 = split_fields(baseline_mats[1][3])
+        candidate_card4 = split_fields(candidate_mats[1][3])
+        differing_fields = [
+            index + 1
+            for index, (baseline_value, candidate_value) in enumerate(
+                zip(baseline_card4, candidate_card4, strict=True)
+            )
+            if baseline_value != candidate_value
+        ]
+        if (
+            differing_fields != [3]
+            or not math.isclose(float(baseline_card4[2]), 0.0, rel_tol=0.0, abs_tol=1e-12)
+            or not math.isclose(float(candidate_card4[2]), 1.0, rel_tol=0.0, abs_tol=1e-12)
+            or not math.isclose(float(timestep[1]), 0.05, rel_tol=0.0, abs_tol=1e-12)
+            or not math.isclose(float(timestep[4]), 0.0, rel_tol=0.0, abs_tol=1e-12)
+        ):
+            fail(f"{job_id}: only fragment MAT_015 Card 4 field 3 EROD may change 0 -> 1")
+        r06j_fragment_erod_isolation = {
+            "status": "pass",
+            "parent_job_id": "r06i_0800_tssfac005",
+            "parent_platform_job_id": "72740022",
+            "parent_deck_sha256": HISTORICAL_R06I_TSSFAC005_DECK_SHA256,
+            "only_changed_field": "fragment MAT_015 Card 4 field 3 EROD",
+            "control_level": 0,
+            "treatment_level": 1,
+            "plate_erod": 0,
+            "tssfac": 0.05,
+            "dt2ms": 0.0,
+            "allowed_difference_scope": "TITLE and fragment MAT_015 Card 4 field 3 only",
+        }
+    elif root_design["design_status"] == R06K_FRAGMENT_NEGATIVE_VOLUME_STATUS:
+        if sha256(HISTORICAL_R06J_FRAGMENT_EROD1_DECK) != HISTORICAL_R06J_FRAGMENT_EROD1_DECK_SHA256:
+            fail("immutable returned R06j fragment EROD=1 deck hash changed")
+        baseline_text = HISTORICAL_R06J_FRAGMENT_EROD1_DECK.read_text(encoding="ascii")
+        ignored = {"*TITLE", "*CONTROL_SOLID"}
+        if comparable_blocks(deck_text, ignored) != comparable_blocks(baseline_text, ignored):
+            fail(f"{job_id}: deck differs from returned R06j parent outside TITLE/CONTROL_SOLID PSFAIL")
+        baseline_solid = split_fields(
+            grouped_blocks(baseline_text)["*CONTROL_SOLID"][0][0]
+        )
+        differing_fields = [
+            index + 1
+            for index, (baseline_value, candidate_value) in enumerate(
+                zip(baseline_solid, solid, strict=True)
+            )
+            if baseline_value != candidate_value
+        ]
+        fragment_mat_card4 = split_fields(grouped["*MAT_JOHNSON_COOK"][1][3])
+        if (
+            differing_fields != [5]
+            or int(baseline_solid[4]) != 0
+            or int(solid[4]) != 910001
+            or int(fragment_mat_card4[2]) != 1
+            or not math.isclose(float(timestep[1]), 0.05, rel_tol=0.0, abs_tol=1e-12)
+            or not math.isclose(float(timestep[4]), 0.0, rel_tol=0.0, abs_tol=1e-12)
+        ):
+            fail(f"{job_id}: only CONTROL_SOLID Card 1 field 5 PSFAIL may change 0 -> 910001")
+        r06k_fragment_psfail_isolation = {
+            "status": "pass",
+            "parent_job_id": "r06j_0800_fragment_erod1",
+            "parent_platform_job_id": "72751725",
+            "parent_deck_sha256": HISTORICAL_R06J_FRAGMENT_EROD1_DECK_SHA256,
+            "only_changed_field": "CONTROL_SOLID Card 1 field 5 PSFAIL",
+            "control_level": 0,
+            "treatment_level": 910001,
+            "treatment_part_set": [1002],
+            "excluded_fragment_part": 2002,
+            "fragment_mat015_erod": 1,
+            "tssfac": 0.05,
+            "dt2ms": 0.0,
+            "allowed_difference_scope": "TITLE and CONTROL_SOLID Card 1 field 5 only",
+        }
+    elif root_design["design_status"] == R06L_CONTACT_SOFT1_STATUS:
+        if sha256(HISTORICAL_R06K_FRAGMENT_PSFAIL_DECK) != HISTORICAL_R06K_FRAGMENT_PSFAIL_DECK_SHA256:
+            fail("immutable returned R06k fragment PSFAIL deck hash changed")
+        baseline_text = HISTORICAL_R06K_FRAGMENT_PSFAIL_DECK.read_text(encoding="ascii")
+        ignored = {"*TITLE", "*CONTACT_ERODING_SINGLE_SURFACE"}
+        if comparable_blocks(deck_text, ignored) != comparable_blocks(baseline_text, ignored):
+            fail(f"{job_id}: deck differs from returned R06k parent outside TITLE/contact SOFT")
+        baseline_contact = grouped_blocks(baseline_text)["*CONTACT_ERODING_SINGLE_SURFACE"][0]
+        candidate_contact = grouped["*CONTACT_ERODING_SINGLE_SURFACE"][0]
+        if baseline_contact[:4] != candidate_contact[:4]:
+            fail(f"{job_id}: contact changed outside Optional Card A")
+        baseline_card_a = split_fields(baseline_contact[4])
+        candidate_card_a = split_fields(candidate_contact[4])
+        differing_fields = [
+            index + 1
+            for index, (baseline_value, candidate_value) in enumerate(
+                zip(baseline_card_a, candidate_card_a, strict=True)
+            )
+            if baseline_value != candidate_value
+        ]
+        fragment_mat_card4 = split_fields(grouped["*MAT_JOHNSON_COOK"][1][3])
+        if (
+            differing_fields != [1]
+            or int(baseline_card_a[0]) != 2
+            or int(candidate_card_a[0]) != 1
+            or int(solid[4]) != 910001
+            or int(fragment_mat_card4[2]) != 1
+            or not math.isclose(float(timestep[1]), 0.05, rel_tol=0.0, abs_tol=1e-12)
+            or not math.isclose(float(timestep[4]), 0.0, rel_tol=0.0, abs_tol=1e-12)
+        ):
+            fail(f"{job_id}: only contact Optional Card A field 1 SOFT may change 2 -> 1")
+        r06l_contact_soft_isolation = {
+            "status": "pass",
+            "parent_job_id": "r06k_0800_fragment_psfail_plate",
+            "parent_platform_job_id": "72764387",
+            "parent_deck_sha256": HISTORICAL_R06K_FRAGMENT_PSFAIL_DECK_SHA256,
+            "only_changed_field": "CONTACT_ERODING_SINGLE_SURFACE Optional Card A field 1 SOFT",
+            "control_level": 2,
+            "treatment_level": 1,
+            "psfail_part_set_id": 910001,
+            "fragment_mat015_erod": 1,
+            "plate_mat015_erod": 0,
+            "tssfac": 0.05,
+            "dt2ms": 0.0,
+            "allowed_difference_scope": "TITLE and CONTACT_ERODING_SINGLE_SURFACE Optional Card A field 1 only",
+        }
     readme = (job_dir / "UPLOAD_README.txt").read_text(encoding="utf-8")
     for required in (deck_path.name, manifest["deck"]["sha256"], "nodes=1", "ranks=32", "command_line_parameters=<empty"):
         if required not in readme:
@@ -750,6 +1018,31 @@ def validate_job(job_dir: Path, root_design: dict, historical_mesh: tuple[dict, 
                 if r06g_timestep_isolation
                 else {}
             ),
+            **(
+                {"immutable_tssfac02_parent_factor_isolation": r06h_timestep_isolation}
+                if r06h_timestep_isolation
+                else {}
+            ),
+            **(
+                {"immutable_tssfac01_parent_factor_isolation": r06i_timestep_isolation}
+                if r06i_timestep_isolation
+                else {}
+            ),
+            **(
+                {"immutable_r06i_fragment_erod_factor_isolation": r06j_fragment_erod_isolation}
+                if r06j_fragment_erod_isolation
+                else {}
+            ),
+            **(
+                {"immutable_r06j_fragment_psfail_factor_isolation": r06k_fragment_psfail_isolation}
+                if r06k_fragment_psfail_isolation
+                else {}
+            ),
+            **(
+                {"immutable_r06k_contact_soft_factor_isolation": r06l_contact_soft_isolation}
+                if r06l_contact_soft_isolation
+                else {}
+            ),
             "no_mass_scaling_or_timestep_erosion": {"status": "pass", "dt2ms": 0.0, "erode": 0},
             "psfail_scope": {"status": "pass", "psfail": expected_psfail, "plate_only_set": [plate_pid]},
             "resource_identity": {"status": "pass", "nodes": 1, "ranks": 32},
@@ -769,7 +1062,12 @@ def pair_isolation(batch_dir: Path, design: dict, reports: dict[str, dict]) -> d
             job = experiment["jobs"][0]
             status = (
                 "pass_external_baseline_factor_isolation"
-                if experiment["factor"] == "control_timestep_tssfac"
+                if experiment["factor"] in {
+                    "control_timestep_tssfac",
+                    "fragment_mat015_erod_flag",
+                    "control_solid_psfail_part_set",
+                    "contact_optional_card_a_soft",
+                }
                 else "not_applicable_single_recanary"
             )
             checks.append(

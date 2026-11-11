@@ -1,0 +1,36 @@
+{
+  "schema_version": "hf-p0-r06-batch-manifest@1.0.0",
+  "package_revision": "R06_fragment_erosion_isolation_20261030",
+  "status": "generated_pending_static_validation_not_submitted",
+  "design": {
+    "path": "p0_r06j_fragment_erosion_isolation_design.json",
+    "sha256": "sha256:52861195f360f8bcc1f73e59779f7f640fa159b02bcc5a66c4e3d10a8cd06b21"
+  },
+  "material": {
+    "path": "jc4340_reference.json",
+    "sha256": "sha256:9b462b920459e57641d5f89d10d36c0aa0498c86f2478fef8e4c3efa96888311"
+  },
+  "successor_contract": {
+    "path": "p0_r06j_fragment_erosion_output_contract.json",
+    "sha256": "sha256:88c361c5c5f798a569f43ed2047de9ea78f702845bb4e2a9acbab364db3e0a17",
+    "frozen_pre_generation_snapshot": true
+  },
+  "submission_matrix": {
+    "path": "submission_matrix.csv",
+    "sha256": "sha256:e84942ebd510c0639f02658efa4f72833bebf894cc8068c337f3a99e6f0ce69b"
+  },
+  "job_count": 1,
+  "paired_experiment_count": 1,
+  "jobs": [
+    {
+      "job_id": "r06j_0800_fragment_erod1",
+      "directory": "job_01_v0800_fragment_erod1",
+      "experiment_id": "r06j_fragment_erosion_isolation_800",
+      "role": "fragment_failure_erosion_suppression_diagnostic",
+      "deck": "r06j_0800_fragment_erod1.k",
+      "deck_sha256": "sha256:8ec1613324159b3ebc00217871ad29321564423b0a7f73a267207e4952bada77",
+      "manifest_sha256": "sha256:ea3e305ad33eb066280a0357217aebd125cba7f513a1a56508a7aa6e894430be"
+    }
+  ],
+  "prohibited_inference": "Generation and static validation do not establish target-solver parsing, numerical response, physical validity, or P0/P1 admission."
+}

@@ -1,0 +1,121 @@
+{
+  "schema_version": "hf-p0-r06s-direct-folder-delivery@1.0.0",
+  "package_revision": "R06_speed_stability_diagnostic_1200_20261103",
+  "job_id": "r06s_1200_speed_stability_diagnostic",
+  "status": "ready_for_user_submission_not_submitted_not_solver_validated",
+  "upload_folder": "uav_hf_r06s_1200_speed_stability_diagnostic",
+  "head_deck": "r06s_1200_speed_stability_diagnostic.k",
+  "head_deck_sha256": "sha256:eac511d8579d9cad92f08c41b5241129801df46b297140a3f601acacd5b0dd0e",
+  "archive_policy": "no_archive_direct_folder_only",
+  "physical_factor": "fragment_initial_speed_2000_to_1200_mps_stability_diagnostic",
+  "measurement_controls": "D3PLOT_and_D3PART_0p0001_to_0p00015_ms",
+  "deck_changes": [
+    "TITLE_identifier_line",
+    "DATABASE_BINARY_D3PLOT_dt_0p0001_to_0p00015",
+    "DATABASE_BINARY_D3PART_dt_0p0001_to_0p00015",
+    "INITIAL_VELOCITY_GENERATION_part_2002_vz_minus2000_to_minus1200"
+  ],
+  "resource_contract": {
+    "software": "ls-dyna_R15_mmp_d",
+    "nodes": 1,
+    "ranks": 32,
+    "hard_gate": true,
+    "head_memory_mb": 512,
+    "child_memory_mb": 256,
+    "command_line_parameters": "",
+    "walltime": "12:00:00",
+    "fresh_work_directory": "/work/home/acd7dt5yv4/LSDYNA/uav_hf_r06s_1200_speed_stability_diagnostic"
+  },
+  "solver_controls": {
+    "problem_time_ms": 0.5,
+    "maximum_cycle_count": 2500000,
+    "tssfac": 0.05,
+    "dt2ms": 0.0
+  },
+  "output_intervals_ms": {
+    "d3plot": 0.00015,
+    "d3part": 0.00015,
+    "ascii_databases": 0.00025
+  },
+  "planning_estimates": {
+    "projected_d3plot_state_count": 3335,
+    "projected_d3part_state_count": 3335,
+    "projected_output_total_gb_decimal": 22.51,
+    "projected_maximum_downward_step_mm": 0.205736867056,
+    "required_maximum_downward_step_mm": 0.25,
+    "claim_boundary": "planning estimates only; actual R06s output must pass"
+  },
+  "staged_download_policy": {
+    "stage1_only_first": [
+      "submitted deck",
+      "manifest.json",
+      "job_contract.json",
+      "Slurm script",
+      "platform log",
+      "std.out",
+      "std.err",
+      "glstat",
+      "all mes0000 through mes0031"
+    ],
+    "expected_stage1_size_mib": 26,
+    "do_not_download_initially": [
+      "d3plot*",
+      "d3part*",
+      "binout*"
+    ]
+  },
+  "files": [
+    {
+      "path": "uav_hf_r06s_1200_speed_stability_diagnostic/UPLOAD_README.txt",
+      "size_bytes": 640,
+      "sha256": "sha256:f32f63573a8375eb6cf771df1f0966dc9579a73acbc930fa586c016c86b13caa"
+    },
+    {
+      "path": "uav_hf_r06s_1200_speed_stability_diagnostic/jc4340_reference.json",
+      "size_bytes": 3144,
+      "sha256": "sha256:9b462b920459e57641d5f89d10d36c0aa0498c86f2478fef8e4c3efa96888311"
+    },
+    {
+      "path": "uav_hf_r06s_1200_speed_stability_diagnostic/job_contract.json",
+      "size_bytes": 1756,
+      "sha256": "sha256:0817a267ff3142c1b3c4860f16b855d2bf53b2be65582c8b52291e152c94c941"
+    },
+    {
+      "path": "uav_hf_r06s_1200_speed_stability_diagnostic/manifest.json",
+      "size_bytes": 2169,
+      "sha256": "sha256:26b969faf4233e5259b8e8c09164814ffa03d4198dc14c11d8cfa3674c0fa850"
+    },
+    {
+      "path": "uav_hf_r06s_1200_speed_stability_diagnostic/p0_case_part_map.csv",
+      "size_bytes": 523,
+      "sha256": "sha256:88bd433c8f172753c26b9e73cc0844c4c71b346498fa12941b619c5dcb5141a0"
+    },
+    {
+      "path": "uav_hf_r06s_1200_speed_stability_diagnostic/p0_r06s_1200_speed_stability_design.json",
+      "size_bytes": 4045,
+      "sha256": "sha256:09be143d77147824b9c86fe4bd6d8cc5bde2abe0b4f995ac4d42a828bcce764c"
+    },
+    {
+      "path": "uav_hf_r06s_1200_speed_stability_diagnostic/p0_r06s_1200_speed_stability_output_contract.json",
+      "size_bytes": 7212,
+      "sha256": "sha256:850034b9f32ff2851fbb56e2c0467448603cd5c4acea5478a5d80c398f629369"
+    },
+    {
+      "path": "uav_hf_r06s_1200_speed_stability_diagnostic/r06s_1200_speed_stability_diagnostic.k",
+      "size_bytes": 2558346,
+      "sha256": "sha256:eac511d8579d9cad92f08c41b5241129801df46b297140a3f601acacd5b0dd0e"
+    },
+    {
+      "path": "uav_hf_r06s_1200_speed_stability_diagnostic/static_validation.json",
+      "size_bytes": 1118,
+      "sha256": "sha256:f23957949ada6150bdf4a7d40973074f71a910843860768bae14acc13f374411"
+    }
+  ],
+  "prohibited": [
+    "creating or submitting a ZIP archive",
+    "allocating any rank count other than exactly 32",
+    "editing any delivered deck field",
+    "downloading heavy binary families before the Stage-1 gate is reviewed",
+    "using R06s directly for engine fitting, damage-tree fitting or a reference label"
+  ]
+}

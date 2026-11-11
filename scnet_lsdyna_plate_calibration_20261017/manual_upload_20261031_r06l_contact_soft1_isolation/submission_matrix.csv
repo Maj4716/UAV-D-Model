@@ -1,0 +1,2 @@
+wave,job_id,directory,experiment_id,role,speed_mps,mesh_mm,termination_time_ms,psfail_part_set_id,deck
+0,r06l_0800_contact_soft1,job_01_v0800_contact_soft1,r06l_contact_soft_isolation_800,contact_soft1_numerical_stability_diagnostic,800.0,0.75,0.04,910001,r06l_0800_contact_soft1.k

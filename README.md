@@ -1,5 +1,8 @@
 # Damage Dataset Engine
 
+> 当前项目状态、SCNet/LS-DYNA 高保真标定进展、证据边界与下一步见
+> [PROJECT_STATUS_2026-11-11.md](PROJECT_STATUS_2026-11-11.md)。
+
 面向破片/冲击波毁伤评估与神经网络教师数据生产的概率仿真内核。当前版本为 `0.7.0.dev3`：SamplingSpec 1.3 增加显式 S-CONTACT 条件接触准入、输入阶段拒绝账本和恢复校验；训练接口补齐归档身份/任务轴绑定、mask-safe loss 与极端权重稳定性；独立的 software-only 有序投影提供逐重复硬门和精确计数，但不替换旧毁伤树。仓库内 `examples/physics.demo.json`、`examples/physics.loitering_impact.json` 及 `raw_data/import_config.json` 中的响应参数仍是 `unverified` 演示/代码参数，因此输出不能解释为真实装备毁伤效能。
 
 ## 已实现的计算链

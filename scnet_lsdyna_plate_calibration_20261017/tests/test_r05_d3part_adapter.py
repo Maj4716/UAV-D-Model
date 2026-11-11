@@ -306,6 +306,36 @@ print(Path(sys.modules['h5py'].__file__).resolve())
                 solver_time_steps_ms=np.asarray([0.0001, 0.0001, 0.0001]),
             )
 
+    def test_accepts_exact_extra_terminal_state_aligned_to_final_solver_step(self) -> None:
+        final_solver_time = 0.002
+        final_solver_step = 1.0e-10
+        gate = d3part_adapter.validate_solver_realizable_timeline(
+            d3part_times_ms=np.asarray(
+                [0.0, 0.001, final_solver_time, final_solver_time + final_solver_step]
+            ),
+            solver_state_times_ms=np.asarray([0.0, 0.001, final_solver_time]),
+            solver_time_steps_ms=np.asarray([0.0001, 0.0001, final_solver_step]),
+            nominal_output_interval_ms=0.001,
+            termination_time_ms=final_solver_time,
+        )
+
+        self.assertEqual(gate["status"], "pass")
+        self.assertEqual(gate["terminal_step_aligned_interval_count"], 1)
+
+    def test_rejects_unmatched_extra_terminal_state(self) -> None:
+        final_solver_time = 0.002
+        final_solver_step = 1.0e-10
+        with self.assertRaisesRegex(ValueError, "solver-step evidence is absent"):
+            d3part_adapter.validate_solver_realizable_timeline(
+                d3part_times_ms=np.asarray(
+                    [0.0, 0.001, final_solver_time, final_solver_time + 2.0 * final_solver_step]
+                ),
+                solver_state_times_ms=np.asarray([0.0, 0.001, final_solver_time]),
+                solver_time_steps_ms=np.asarray([0.0001, 0.0001, final_solver_step]),
+                nominal_output_interval_ms=0.001,
+                termination_time_ms=final_solver_time,
+            )
+
     def test_records_half_mesh_crossing_resolution_and_routes_overlimit_mass_to_ambiguity(self) -> None:
         design = fixture_design()
         design["cases"][0]["mesh_mm"] = 2.0

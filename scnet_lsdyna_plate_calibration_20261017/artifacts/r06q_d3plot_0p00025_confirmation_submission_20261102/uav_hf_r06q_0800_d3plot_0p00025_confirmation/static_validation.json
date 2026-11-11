@@ -1,0 +1,26 @@
+{
+  "schema_version": "hf-p0-r06q-static-validation@1.0.0",
+  "overall_status": "pass",
+  "parent_deck_sha256": "sha256:d471f09e9a726c9e4695565abc120e9300bfd68ca2b272bf23852322f8dc8629",
+  "permitted_differences": [
+    "TITLE_identifier_line",
+    "DATABASE_BINARY_D3PLOT_dt_0p0005_to_0p00025"
+  ],
+  "differing_line_numbers": [
+    3,
+    19
+  ],
+  "all_other_deck_lines_byte_identical": true,
+  "physical_model_semantics_unchanged": true,
+  "termination_time_ms": 0.5,
+  "maximum_cycle_count": 829930,
+  "d3plot_interval_ms": 0.00025,
+  "d3part_interval_ms": 0.00025,
+  "ascii_interval_ms": 0.00025,
+  "plate_erod": 1,
+  "fragment_erod": 1,
+  "tssfac": 0.05,
+  "dt2ms": 0.0,
+  "resource_identity_is_external_to_deck": true,
+  "candidate_deck_sha256": "sha256:a6229cda9778adb13b4c174346a4356deea3e62b175fda9cf8c7dbf12be60002"
+}

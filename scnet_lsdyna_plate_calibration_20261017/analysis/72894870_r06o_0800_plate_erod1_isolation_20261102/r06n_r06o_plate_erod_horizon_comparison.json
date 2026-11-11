@@ -1,0 +1,848 @@
+{
+  "schema_version": "hf-p0-r06n-r06o-plate-erod-horizon-comparison@1.0.0",
+  "single_factor": {
+    "plate_mat_johnson_cook_erod": {
+      "r06n": 0,
+      "r06o": 1
+    }
+  },
+  "r06n": {
+    "run": {
+      "cycle_count": 59026,
+      "elapsed_seconds": 225,
+      "final_deleted_fragment_element_ids": [
+        41125,
+        41132,
+        41139,
+        41146,
+        41153,
+        41159,
+        41160,
+        41161,
+        41162,
+        41163,
+        41164,
+        41165,
+        41166,
+        41167,
+        41174,
+        41181,
+        41188,
+        41195,
+        41202,
+        41208,
+        41209,
+        41210,
+        41211,
+        41212,
+        41213,
+        41214,
+        41215,
+        41216,
+        41257,
+        41315,
+        41364,
+        41413,
+        41414,
+        41420,
+        41421,
+        41462,
+        41463
+      ],
+      "final_deleted_plate_element_ids": [
+        39948
+      ],
+      "target_plate_element": {
+        "element_id": 39948,
+        "terminal_alive": false,
+        "final_hvar6": 0.0
+      },
+      "evidence_source": "frozen_r06m_r06n_resource_sensitivity_summary"
+    },
+    "minimum_time_step_ms": 5.08547e-07,
+    "final_sliding_energy_fraction": 0.01850484375,
+    "negative_volume": {
+      "unique_element_count": 37,
+      "plate_unique_element_count": 0,
+      "fragment_unique_element_count": 37,
+      "elements": [
+        {
+          "element_id": 41125,
+          "part_id": 2002,
+          "part_kind": "fragment",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.0057246,
+          "last_time_ms": 0.0057246
+        },
+        {
+          "element_id": 41132,
+          "part_id": 2002,
+          "part_kind": "fragment",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.0057272,
+          "last_time_ms": 0.0057272
+        },
+        {
+          "element_id": 41139,
+          "part_id": 2002,
+          "part_kind": "fragment",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.0058241,
+          "last_time_ms": 0.0058241
+        },
+        {
+          "element_id": 41146,
+          "part_id": 2002,
+          "part_kind": "fragment",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.0056161,
+          "last_time_ms": 0.0056161
+        },
+        {
+          "element_id": 41153,
+          "part_id": 2002,
+          "part_kind": "fragment",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.006879,
+          "last_time_ms": 0.006879
+        },
+        {
+          "element_id": 41159,
+          "part_id": 2002,
+          "part_kind": "fragment",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.014317,
+          "last_time_ms": 0.014317
+        },
+        {
+          "element_id": 41160,
+          "part_id": 2002,
+          "part_kind": "fragment",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.0049456,
+          "last_time_ms": 0.0049456
+        },
+        {
+          "element_id": 41161,
+          "part_id": 2002,
+          "part_kind": "fragment",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.005834,
+          "last_time_ms": 0.005834
+        },
+        {
+          "element_id": 41162,
+          "part_id": 2002,
+          "part_kind": "fragment",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.005741,
+          "last_time_ms": 0.005741
+        },
+        {
+          "element_id": 41163,
+          "part_id": 2002,
+          "part_kind": "fragment",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.0057307,
+          "last_time_ms": 0.0057307
+        },
+        {
+          "element_id": 41164,
+          "part_id": 2002,
+          "part_kind": "fragment",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.0055715,
+          "last_time_ms": 0.0055715
+        },
+        {
+          "element_id": 41165,
+          "part_id": 2002,
+          "part_kind": "fragment",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.0054207,
+          "last_time_ms": 0.0054207
+        },
+        {
+          "element_id": 41166,
+          "part_id": 2002,
+          "part_kind": "fragment",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.0087669,
+          "last_time_ms": 0.0087669
+        },
+        {
+          "element_id": 41167,
+          "part_id": 2002,
+          "part_kind": "fragment",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.0049225,
+          "last_time_ms": 0.0049225
+        },
+        {
+          "element_id": 41174,
+          "part_id": 2002,
+          "part_kind": "fragment",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.0076386,
+          "last_time_ms": 0.0076386
+        },
+        {
+          "element_id": 41181,
+          "part_id": 2002,
+          "part_kind": "fragment",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.0076149,
+          "last_time_ms": 0.0076149
+        },
+        {
+          "element_id": 41188,
+          "part_id": 2002,
+          "part_kind": "fragment",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.007713,
+          "last_time_ms": 0.007713
+        },
+        {
+          "element_id": 41195,
+          "part_id": 2002,
+          "part_kind": "fragment",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.0076103,
+          "last_time_ms": 0.0076103
+        },
+        {
+          "element_id": 41202,
+          "part_id": 2002,
+          "part_kind": "fragment",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.010285,
+          "last_time_ms": 0.010285
+        },
+        {
+          "element_id": 41208,
+          "part_id": 2002,
+          "part_kind": "fragment",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.0056214,
+          "last_time_ms": 0.0056214
+        },
+        {
+          "element_id": 41209,
+          "part_id": 2002,
+          "part_kind": "fragment",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.0056509,
+          "last_time_ms": 0.0056509
+        },
+        {
+          "element_id": 41210,
+          "part_id": 2002,
+          "part_kind": "fragment",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.007416,
+          "last_time_ms": 0.007416
+        },
+        {
+          "element_id": 41211,
+          "part_id": 2002,
+          "part_kind": "fragment",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.0073884,
+          "last_time_ms": 0.0073884
+        },
+        {
+          "element_id": 41212,
+          "part_id": 2002,
+          "part_kind": "fragment",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.0080499,
+          "last_time_ms": 0.0080499
+        },
+        {
+          "element_id": 41213,
+          "part_id": 2002,
+          "part_kind": "fragment",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.0075192,
+          "last_time_ms": 0.0075192
+        },
+        {
+          "element_id": 41214,
+          "part_id": 2002,
+          "part_kind": "fragment",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.0086479,
+          "last_time_ms": 0.0086479
+        },
+        {
+          "element_id": 41215,
+          "part_id": 2002,
+          "part_kind": "fragment",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.0065245,
+          "last_time_ms": 0.0065245
+        },
+        {
+          "element_id": 41216,
+          "part_id": 2002,
+          "part_kind": "fragment",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.015989,
+          "last_time_ms": 0.015989
+        },
+        {
+          "element_id": 41257,
+          "part_id": 2002,
+          "part_kind": "fragment",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.0096737,
+          "last_time_ms": 0.0096737
+        },
+        {
+          "element_id": 41315,
+          "part_id": 2002,
+          "part_kind": "fragment",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.021706,
+          "last_time_ms": 0.021706
+        },
+        {
+          "element_id": 41364,
+          "part_id": 2002,
+          "part_kind": "fragment",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.014247,
+          "last_time_ms": 0.014247
+        },
+        {
+          "element_id": 41413,
+          "part_id": 2002,
+          "part_kind": "fragment",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.022894,
+          "last_time_ms": 0.022894
+        },
+        {
+          "element_id": 41414,
+          "part_id": 2002,
+          "part_kind": "fragment",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.024675,
+          "last_time_ms": 0.024675
+        },
+        {
+          "element_id": 41420,
+          "part_id": 2002,
+          "part_kind": "fragment",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.026559,
+          "last_time_ms": 0.026559
+        },
+        {
+          "element_id": 41421,
+          "part_id": 2002,
+          "part_kind": "fragment",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.027006,
+          "last_time_ms": 0.027006
+        },
+        {
+          "element_id": 41462,
+          "part_id": 2002,
+          "part_kind": "fragment",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.021302,
+          "last_time_ms": 0.021302
+        },
+        {
+          "element_id": 41463,
+          "part_id": 2002,
+          "part_kind": "fragment",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.02452,
+          "last_time_ms": 0.02452
+        }
+      ]
+    }
+  },
+  "r06o": {
+    "run": {
+      "state_count": 402,
+      "last_time_ms": 0.04000030039088083,
+      "coordinate_mode": "absolute_coordinates",
+      "cycle_count": 58809,
+      "elapsed_seconds": 229,
+      "final_deleted_fragment_element_ids": [
+        41125,
+        41132,
+        41139,
+        41146,
+        41153,
+        41159,
+        41160,
+        41161,
+        41162,
+        41163,
+        41164,
+        41165,
+        41166,
+        41167,
+        41174,
+        41181,
+        41188,
+        41195,
+        41202,
+        41208,
+        41209,
+        41210,
+        41211,
+        41212,
+        41213,
+        41214,
+        41215,
+        41216,
+        41257,
+        41258,
+        41315,
+        41364,
+        41413,
+        41414,
+        41420,
+        41421,
+        41462,
+        41463,
+        41469,
+        41470
+      ],
+      "final_deleted_plate_element_ids": [],
+      "target_plate_element": {
+        "element_id": 39948,
+        "terminal_alive": true,
+        "final_centroid_mm": [
+          156.00959764171984,
+          5.9871947287985625,
+          -1.3473646657232947
+        ],
+        "final_velocity_mm_per_ms": [
+          -1.2552080081212074,
+          -0.9410045065643042,
+          -8.994291725817147
+        ],
+        "final_hvar6": 0.905522128038401,
+        "maximum_alive_hvar6": 0.905522128038401
+      },
+      "terminal_tail_diagnostic": {
+        "capture_plane_z_mm": -12.0,
+        "alive_solid_fragment_count": 646,
+        "downward_solid_fragment_count": 644,
+        "solid_fragment_z_mm": {
+          "count": 646,
+          "minimum": -4.591200497765515,
+          "p05": -3.832448803256195,
+          "p50": -0.8651855244254205,
+          "p95": 1.682526299229222,
+          "maximum": 2.7561363809887136
+        },
+        "downward_solid_fragment_vz_mm_per_ms": {
+          "count": 644,
+          "minimum": -19.09504704674289,
+          "p05": -14.803923924878573,
+          "p50": -8.537994852891078,
+          "p95": -5.078089835478386,
+          "maximum": -2.632775485447959
+        },
+        "linear_projected_solid_crossing_time_ms": {
+          "count": 644,
+          "minimum": 0.548840461082055,
+          "p05": 0.6780970335337746,
+          "p50": 1.3209898837158751,
+          "p95": 2.7122741626561004,
+          "maximum": 5.353795516633756
+        },
+        "active_sph_count": 320,
+        "downward_active_sph_count": 77,
+        "active_sph_z_mm": {
+          "count": 320,
+          "minimum": -4.955314962261449,
+          "p05": -3.5588643467883774,
+          "p50": 6.711876732001922,
+          "p95": 14.550266778471162,
+          "maximum": 14.766432434456492
+        },
+        "downward_active_sph_vz_mm_per_ms": {
+          "count": 77,
+          "minimum": -49.1215016374746,
+          "p05": -38.55104364423302,
+          "p50": -21.18727599204039,
+          "p95": -7.85852758412852,
+          "maximum": -6.263586931571096
+        },
+        "linear_projected_sph_crossing_time_ms": {
+          "count": 77,
+          "minimum": 0.24266271892167962,
+          "p05": 0.2899774478137633,
+          "p50": 0.459153357278195,
+          "p95": 1.083451838893734,
+          "maximum": 1.321999998019278
+        },
+        "linear_projection_claim_boundary": "Constant terminal velocity is used only to choose a conservative next horizon; it is not a physical trajectory prediction or a perforation result."
+      }
+    },
+    "minimum_time_step_ms": 4.1839e-07,
+    "final_sliding_energy_fraction": 0.022635625,
+    "negative_volume": {
+      "unique_element_count": 40,
+      "plate_unique_element_count": 0,
+      "fragment_unique_element_count": 40,
+      "elements": [
+        {
+          "element_id": 41125,
+          "part_id": 2002,
+          "part_kind": "fragment",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.0057246,
+          "last_time_ms": 0.0057246
+        },
+        {
+          "element_id": 41132,
+          "part_id": 2002,
+          "part_kind": "fragment",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.0057272,
+          "last_time_ms": 0.0057272
+        },
+        {
+          "element_id": 41139,
+          "part_id": 2002,
+          "part_kind": "fragment",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.0058241,
+          "last_time_ms": 0.0058241
+        },
+        {
+          "element_id": 41146,
+          "part_id": 2002,
+          "part_kind": "fragment",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.0056161,
+          "last_time_ms": 0.0056161
+        },
+        {
+          "element_id": 41153,
+          "part_id": 2002,
+          "part_kind": "fragment",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.0068694,
+          "last_time_ms": 0.0068694
+        },
+        {
+          "element_id": 41159,
+          "part_id": 2002,
+          "part_kind": "fragment",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.01432,
+          "last_time_ms": 0.01432
+        },
+        {
+          "element_id": 41160,
+          "part_id": 2002,
+          "part_kind": "fragment",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.0049456,
+          "last_time_ms": 0.0049456
+        },
+        {
+          "element_id": 41161,
+          "part_id": 2002,
+          "part_kind": "fragment",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.005834,
+          "last_time_ms": 0.005834
+        },
+        {
+          "element_id": 41162,
+          "part_id": 2002,
+          "part_kind": "fragment",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.005741,
+          "last_time_ms": 0.005741
+        },
+        {
+          "element_id": 41163,
+          "part_id": 2002,
+          "part_kind": "fragment",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.0057307,
+          "last_time_ms": 0.0057307
+        },
+        {
+          "element_id": 41164,
+          "part_id": 2002,
+          "part_kind": "fragment",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.0055715,
+          "last_time_ms": 0.0055715
+        },
+        {
+          "element_id": 41165,
+          "part_id": 2002,
+          "part_kind": "fragment",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.0054207,
+          "last_time_ms": 0.0054207
+        },
+        {
+          "element_id": 41166,
+          "part_id": 2002,
+          "part_kind": "fragment",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.008908,
+          "last_time_ms": 0.008908
+        },
+        {
+          "element_id": 41167,
+          "part_id": 2002,
+          "part_kind": "fragment",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.0049225,
+          "last_time_ms": 0.0049225
+        },
+        {
+          "element_id": 41174,
+          "part_id": 2002,
+          "part_kind": "fragment",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.0076311,
+          "last_time_ms": 0.0076311
+        },
+        {
+          "element_id": 41181,
+          "part_id": 2002,
+          "part_kind": "fragment",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.0076057,
+          "last_time_ms": 0.0076057
+        },
+        {
+          "element_id": 41188,
+          "part_id": 2002,
+          "part_kind": "fragment",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.0077261,
+          "last_time_ms": 0.0077261
+        },
+        {
+          "element_id": 41195,
+          "part_id": 2002,
+          "part_kind": "fragment",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.0076064,
+          "last_time_ms": 0.0076064
+        },
+        {
+          "element_id": 41202,
+          "part_id": 2002,
+          "part_kind": "fragment",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.01168,
+          "last_time_ms": 0.01168
+        },
+        {
+          "element_id": 41208,
+          "part_id": 2002,
+          "part_kind": "fragment",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.0056214,
+          "last_time_ms": 0.0056214
+        },
+        {
+          "element_id": 41209,
+          "part_id": 2002,
+          "part_kind": "fragment",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.0056509,
+          "last_time_ms": 0.0056509
+        },
+        {
+          "element_id": 41210,
+          "part_id": 2002,
+          "part_kind": "fragment",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.007414,
+          "last_time_ms": 0.007414
+        },
+        {
+          "element_id": 41211,
+          "part_id": 2002,
+          "part_kind": "fragment",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.0073881,
+          "last_time_ms": 0.0073881
+        },
+        {
+          "element_id": 41212,
+          "part_id": 2002,
+          "part_kind": "fragment",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.008075,
+          "last_time_ms": 0.008075
+        },
+        {
+          "element_id": 41213,
+          "part_id": 2002,
+          "part_kind": "fragment",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.0075252,
+          "last_time_ms": 0.0075252
+        },
+        {
+          "element_id": 41214,
+          "part_id": 2002,
+          "part_kind": "fragment",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.0088762,
+          "last_time_ms": 0.0088762
+        },
+        {
+          "element_id": 41215,
+          "part_id": 2002,
+          "part_kind": "fragment",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.0065344,
+          "last_time_ms": 0.0065344
+        },
+        {
+          "element_id": 41216,
+          "part_id": 2002,
+          "part_kind": "fragment",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.013066,
+          "last_time_ms": 0.013066
+        },
+        {
+          "element_id": 41257,
+          "part_id": 2002,
+          "part_kind": "fragment",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.0098462,
+          "last_time_ms": 0.0098462
+        },
+        {
+          "element_id": 41258,
+          "part_id": 2002,
+          "part_kind": "fragment",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.012467,
+          "last_time_ms": 0.012467
+        },
+        {
+          "element_id": 41315,
+          "part_id": 2002,
+          "part_kind": "fragment",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.021037,
+          "last_time_ms": 0.021037
+        },
+        {
+          "element_id": 41364,
+          "part_id": 2002,
+          "part_kind": "fragment",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.014282,
+          "last_time_ms": 0.014282
+        },
+        {
+          "element_id": 41413,
+          "part_id": 2002,
+          "part_kind": "fragment",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.023049,
+          "last_time_ms": 0.023049
+        },
+        {
+          "element_id": 41414,
+          "part_id": 2002,
+          "part_kind": "fragment",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.024935,
+          "last_time_ms": 0.024935
+        },
+        {
+          "element_id": 41420,
+          "part_id": 2002,
+          "part_kind": "fragment",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.027396,
+          "last_time_ms": 0.027396
+        },
+        {
+          "element_id": 41421,
+          "part_id": 2002,
+          "part_kind": "fragment",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.028279,
+          "last_time_ms": 0.028279
+        },
+        {
+          "element_id": 41462,
+          "part_id": 2002,
+          "part_kind": "fragment",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.021316,
+          "last_time_ms": 0.021316
+        },
+        {
+          "element_id": 41463,
+          "part_id": 2002,
+          "part_kind": "fragment",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.024724,
+          "last_time_ms": 0.024724
+        },
+        {
+          "element_id": 41469,
+          "part_id": 2002,
+          "part_kind": "fragment",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.034969,
+          "last_time_ms": 0.034969
+        },
+        {
+          "element_id": 41470,
+          "part_id": 2002,
+          "part_kind": "fragment",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.039722,
+          "last_time_ms": 0.039722
+        }
+      ]
+    }
+  },
+  "paired_diagnostics": {
+    "cycle_count_ratio_r06o_over_r06n": 0.9963236539829905,
+    "minimum_time_step_ratio_r06o_over_r06n": 0.822716484415403,
+    "plate_deleted_count_r06n": 1,
+    "plate_deleted_count_r06o": 0,
+    "target_plate_element_terminal_alive_r06o": true,
+    "target_plate_element_final_hvar6_r06o": 0.905522128038401,
+    "converted_fragment_count_r06n": 37,
+    "converted_fragment_count_r06o": 40,
+    "converted_fragment_count_difference": 3,
+    "converted_fragment_jaccard": 0.925,
+    "converted_only_in_r06n": [],
+    "converted_only_in_r06o": [
+      41258,
+      41469,
+      41470
+    ],
+    "earliest_linear_projected_capture_crossing_time_ms": 0.24266271892167962,
+    "median_linear_projected_sph_crossing_time_ms": 0.459153357278195,
+    "earliest_linear_projected_solid_crossing_time_ms": 0.548840461082055,
+    "recommended_next_horizon_ms": 0.5
+  },
+  "decision_support": {
+    "plate_erod1_engineering_isolation": "pass",
+    "horizon_extension_candidate_ms": 0.5,
+    "reason": "R06o retains the target plate element without timestep collapse. A single-factor horizon extension is now eligible, with the selected horizon based on terminal-position/velocity diagnostics only."
+  }
+}

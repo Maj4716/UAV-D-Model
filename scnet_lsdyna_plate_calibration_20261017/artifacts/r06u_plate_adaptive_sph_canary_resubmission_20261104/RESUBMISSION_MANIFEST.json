@@ -1,0 +1,114 @@
+{
+  "schema_version": "hf-p0-r06u-identity-guarded-resubmission@1.0.0",
+  "created_date": "2026-11-04",
+  "status": "ready_for_user_resubmission_not_submitted_not_solver_validated",
+  "reason": "platform job 73171751 was labelled R06u but executed the exact frozen R06t deck",
+  "model_change_from_original_r06u": "none_exact_byte_identical_resubmission",
+  "upload_folder": "uav_hf_r06u_1200_plate_adaptive_sph_canary_retry",
+  "head_deck": "r06u_1200_plate_adaptive_sph_canary.k",
+  "head_deck_sha256": "sha256:7bfb99a49bb757632237b2e2c625500fef27e811988eac3149df7a3e056647d4",
+  "fresh_work_directory": "/work/home/acd7dt5yv4/LS_DYNA/uav_hf_r06u_1200_plate_adaptive_sph_canary_retry",
+  "resource_contract": {
+    "software": "ls-dyna_R15_mmp_d",
+    "nodes": 1,
+    "ranks": 32,
+    "head_memory_mb": 512,
+    "child_memory_mb": 256,
+    "command_line_parameters": "",
+    "walltime": "12:00:00"
+  },
+  "pre_submit_identity_gate": [
+    "selected input filename must equal r06u_1200_plate_adaptive_sph_canary.k",
+    "selected input SHA-256 must equal sha256:7bfb99a49bb757632237b2e2c625500fef27e811988eac3149df7a3e056647d4",
+    "selected input filename must not contain r06t or psfail",
+    "platform work directory must equal /work/home/acd7dt5yv4/LS_DYNA/uav_hf_r06u_1200_plate_adaptive_sph_canary_retry",
+    "submission preview command input must end in /r06u_1200_plate_adaptive_sph_canary.k"
+  ],
+  "staged_download_policy": {
+    "stage1_only_first": [
+      "submitted deck",
+      "manifest.json",
+      "job_contract.json",
+      "Slurm script",
+      "platform log",
+      "std.out",
+      "std.err",
+      "glstat",
+      "matsum",
+      "sleout",
+      "nodout",
+      "ncforc",
+      "sldsph_frag if present",
+      "all mes0000 through mes0031"
+    ],
+    "do_not_download_initially": [
+      "d3plot*",
+      "d3part*",
+      "binout*"
+    ]
+  },
+  "files": [
+    {
+      "path": "uav_hf_r06u_1200_plate_adaptive_sph_canary_retry/UPLOAD_README.txt",
+      "size_bytes": 741,
+      "sha256": "sha256:ebfdbe90ad6c603c946f1077f1e4fdfe060d5cfe6ba95beac5760b2e5b437211",
+      "byte_identical_to_frozen_r06u": true
+    },
+    {
+      "path": "uav_hf_r06u_1200_plate_adaptive_sph_canary_retry/jc4340_reference.json",
+      "size_bytes": 3144,
+      "sha256": "sha256:9b462b920459e57641d5f89d10d36c0aa0498c86f2478fef8e4c3efa96888311",
+      "byte_identical_to_frozen_r06u": true
+    },
+    {
+      "path": "uav_hf_r06u_1200_plate_adaptive_sph_canary_retry/job_contract.json",
+      "size_bytes": 1730,
+      "sha256": "sha256:1832609418375618e8b2afd1333d5905f9c86f812aa4fffaabd0ff96205567cb",
+      "byte_identical_to_frozen_r06u": true
+    },
+    {
+      "path": "uav_hf_r06u_1200_plate_adaptive_sph_canary_retry/manifest.json",
+      "size_bytes": 2255,
+      "sha256": "sha256:d7ef731a34708c722f8d88283d039a1fbac050131c68ba04b301cd52798da7cb",
+      "byte_identical_to_frozen_r06u": true
+    },
+    {
+      "path": "uav_hf_r06u_1200_plate_adaptive_sph_canary_retry/p0_case_part_map.csv",
+      "size_bytes": 579,
+      "sha256": "sha256:64d8c1bac95e1a00e8d71d70df242cb835a179d1ecc058122cdb343592e62f66",
+      "byte_identical_to_frozen_r06u": true
+    },
+    {
+      "path": "uav_hf_r06u_1200_plate_adaptive_sph_canary_retry/p0_r06u_plate_adaptive_sph_canary_design.json",
+      "size_bytes": 3930,
+      "sha256": "sha256:66468404544bbeeaa2a8bf68341c30bda83bdb683b1d55da3bf43c2695c328cb",
+      "byte_identical_to_frozen_r06u": true
+    },
+    {
+      "path": "uav_hf_r06u_1200_plate_adaptive_sph_canary_retry/p0_r06u_plate_adaptive_sph_canary_output_contract.json",
+      "size_bytes": 6773,
+      "sha256": "sha256:984bfe2b6a5e2c2331aa52d55839cfb14b06161daee67dd19c63ca99161ad9f6",
+      "byte_identical_to_frozen_r06u": true
+    },
+    {
+      "path": "uav_hf_r06u_1200_plate_adaptive_sph_canary_retry/r06u_1200_plate_adaptive_sph_canary.k",
+      "size_bytes": 2558798,
+      "sha256": "sha256:7bfb99a49bb757632237b2e2c625500fef27e811988eac3149df7a3e056647d4",
+      "byte_identical_to_frozen_r06u": true
+    },
+    {
+      "path": "uav_hf_r06u_1200_plate_adaptive_sph_canary_retry/static_validation.json",
+      "size_bytes": 1723,
+      "sha256": "sha256:cea03aaec2ecf26360aa73b7d3fc2f91ca8f19fe771ed2e386fda7ae489e0b6e",
+      "byte_identical_to_frozen_r06u": true
+    }
+  ],
+  "prohibited": [
+    "selecting r06t_1200_fragment_only_psfail_diagnostic.k",
+    "reusing the previous platform work directory",
+    "editing any delivered file",
+    "creating or submitting a ZIP archive",
+    "using any rank count other than exactly 32",
+    "fitting the engine, damage tree or reference labels from this capability canary"
+  ]
+}

@@ -1,0 +1,184 @@
+{
+  "schema_version": "hf-p0-r06p-terminal-horizon-output-contract@1.0.0",
+  "contract_id": "p0_r06p_terminal_horizon_0p50_output_contract",
+  "status": "frozen_after_r06o_engineering_pass_before_r06p_outcome",
+  "version_boundary": {
+    "applies_to_package_revision": "R06_terminal_horizon_0p50_20261102",
+    "effective_scope": "prospective_single_factor_terminal_horizon_extension",
+    "retroactive_gate_rewrite": false
+  },
+  "evidence_chain": {
+    "parent_job_id": "r06o_0800_plate_erod1_isolation",
+    "parent_platform_job_id": "72894870",
+    "parent_deck_sha256": "sha256:d71d2d11091a813f35ca98656c31fb7ad4f8174b024828a62e0f874daab3524f",
+    "parent_classification": "successful_plate_erod1_engineering_isolation_response_horizon_still_unqualified",
+    "parent_cycle_count": 58809,
+    "parent_minimum_time_step_ms": 4.1839e-07,
+    "parent_plate_deleted_element_count": 0,
+    "parent_target_plate_element_terminal_alive": true,
+    "parent_primary_qoi_available": false
+  },
+  "experimental_question": "Does the frozen resource-correct R06o engineering model reach a sufficiently late terminal state to observe and ledger solid/adaptive-SPH mass crossing z=-12 mm without violating cycle, plate-retention, mass or energy gates?",
+  "single_factor": {
+    "factor": "terminal_response_horizon_ms",
+    "parent_level": 0.04,
+    "candidate_level": 0.5,
+    "permitted_model_difference": "CONTROL_TERMINATION_endtim_0p04_to_0p50",
+    "measurement_only_changes": {
+      "d3plot_interval_ms": {
+        "parent": 0.0001,
+        "candidate": 0.0005
+      },
+      "d3part_interval_ms": {
+        "parent": 5e-05,
+        "candidate": 0.00025
+      },
+      "ascii_database_interval_ms": {
+        "parent": 5e-05,
+        "candidate": 0.00025
+      },
+      "ascii_database_cards": [
+        "GLSTAT",
+        "MATSUM",
+        "SLEOUT",
+        "NODOUT",
+        "NCFORC"
+      ]
+    },
+    "permitted_deck_differences": [
+      "TITLE_identifier_line",
+      "CONTROL_TERMINATION_endtim_0p04_to_0p50",
+      "DATABASE_BINARY_D3PLOT_dt_0p0001_to_0p0005",
+      "DATABASE_BINARY_D3PART_dt_0p00005_to_0p00025",
+      "DATABASE_GLSTAT_dt_0p00005_to_0p00025",
+      "DATABASE_MATSUM_dt_0p00005_to_0p00025",
+      "DATABASE_SLEOUT_dt_0p00005_to_0p00025",
+      "DATABASE_NODOUT_dt_0p00005_to_0p00025",
+      "DATABASE_NCFORC_dt_0p00005_to_0p00025"
+    ],
+    "model_semantics_unchanged": true
+  },
+  "horizon_selection": {
+    "selected_ms": 0.5,
+    "earliest_linear_projected_sph_crossing_ms": 0.24266271892167962,
+    "median_linear_projected_sph_crossing_ms": 0.459153357278195,
+    "earliest_linear_projected_solid_crossing_ms": 0.548840461082055,
+    "claim_boundary": "constant terminal velocity is used only for prospective horizon selection; it is not a trajectory or perforation result"
+  },
+  "explosion_instant_start_policy": {
+    "required": true,
+    "implementation": "reuse_exact_r06o_post_explosion_initial_state",
+    "pre_impact_flight_or_detonation_simulation": "not_included"
+  },
+  "frozen_controls": {
+    "impact_speed_mps": 800.0,
+    "mesh_mm": 0.75,
+    "maximum_cycle_count": 829930,
+    "tssfac": 0.05,
+    "dt2ms": 0.0,
+    "plate_part_id": 1002,
+    "fragment_solid_part_id": 2002,
+    "adaptive_sph_part_id": 2003,
+    "plate_mat015_erod": 1,
+    "fragment_mat015_erod": 1,
+    "particles_per_failed_hexahedron": 8,
+    "solid_contact_soft": 2,
+    "dedicated_sph_to_solid_contact_soft": 1,
+    "control_solid_psfail": 0,
+    "nodes": 1,
+    "ranks": 32,
+    "solver_family": "LS-DYNA R15 MPP double precision"
+  },
+  "run_planning": {
+    "linear_cycle_projection": 735113,
+    "cycle_guard": 829930,
+    "projected_cycle_guard_buffer": 94817,
+    "projected_cycle_guard_buffer_fraction": 0.1142469846854554,
+    "cycle_projection_claim_boundary": "diagnostic only; later distortion/contact can change timestep and may trigger the guard",
+    "observed_parent_solver_seconds": 229,
+    "linear_solver_seconds_projection": 2862.5,
+    "requested_walltime": "12:00:00",
+    "projected_output": {
+      "source_return_total_bytes": 3452750701,
+      "source_d3plot_bytes": 2422915072,
+      "source_d3part_bytes": 121729024,
+      "source_binout_bytes": 671868235,
+      "projected_d3plot_bytes": 6033179072,
+      "projected_d3part_bytes": 303715433,
+      "projected_binout_bytes": 1678412407,
+      "projected_total_bytes_conservative": 8605902837,
+      "projection_basis": "R06o observed family sizes scaled by requested state-count ratios; nonbinary remainder conservatively multiplied by 2.5",
+      "storage_claim_boundary": "planning estimate only; adaptive output segmentation and later state content can change actual size"
+    }
+  },
+  "output_resolution_gate": {
+    "observed_maximum_downward_speed_mm_per_ms": 49.1215016374746,
+    "d3plot_interval_ms": 0.0005,
+    "maximum_projected_interstate_displacement_mm": 0.024560750818737303,
+    "maximum_allowed_interstate_displacement_mm": 0.25,
+    "status": "pass",
+    "interpretation": "prospective temporal resolution check at the maximum downward speed observed at R06o terminal state"
+  },
+  "preregistered_gates": {
+    "input_deck_parent_hash": "sha256:d71d2d11091a813f35ca98656c31fb7ad4f8174b024828a62e0f874daab3524f",
+    "deck_difference": "TITLE_plus_terminal_horizon_plus_measurement_only_output_cadence",
+    "resource_identity": {
+      "nodes": 1,
+      "ranks": 32,
+      "required": true
+    },
+    "normal_termination_at_problem_time_ms": {
+      "required": 0.5,
+      "tolerance_ms": 1e-05
+    },
+    "cycle_guard": {
+      "maximum": 829930
+    },
+    "no_mass_scaling": true,
+    "plate_deletion_count": {
+      "required": 0
+    },
+    "target_plate_element_39948_alive_at_terminal_state": true,
+    "statewise_active_sph_per_converted_fragment_solid": {
+      "required": 8
+    },
+    "combined_fragment_solid_plus_active_sph_mass_relative_error": {
+      "maximum_absolute": 0.01
+    },
+    "total_energy_ratio": {
+      "minimum": 0.95,
+      "maximum": 1.05
+    },
+    "absolute_final_sliding_energy_fraction_of_initial": {
+      "maximum": 0.05
+    },
+    "sph_deletion_count": {
+      "required": 0
+    },
+    "finite_active_sph_coordinates_velocity_and_mass": true,
+    "d3part_full_d3plot_crosscheck": "required",
+    "output_interstate_displacement_mm": {
+      "maximum": 0.25
+    }
+  },
+  "response_rules": {
+    "capture_plane_z_mm": -12.0,
+    "crossing_observed": "build a de-duplicated solid-plus-active-SPH crossing ledger with reference mass conservation",
+    "no_crossing_but_downward_tail_exhausted": "admit a terminal no-perforation outcome only after stable-state review",
+    "no_crossing_and_downward_tail_remains": "hold response and design a later horizon without fitting",
+    "cycle_guard_before_0p50ms": "failed horizon run; return outputs without restart or parameter tuning"
+  },
+  "admission": {
+    "r06p_submission": "allowed_after_static_release_verification",
+    "p0_response_calibration": "held_until_r06p_complete_response_ledger",
+    "engine_fitting": "denied",
+    "damage_tree_fitting": "denied",
+    "reference_dataset_generation": "denied",
+    "physical_validity": "not_established_requires_replication_mesh_velocity_and_independent_experimental_evidence"
+  },
+  "claim_boundary": [
+    "R06p is a terminal-response acquisition run, not calibration or physical validation.",
+    "Output cadence changes are measurement-only and are preregistered; all model semantics remain frozen.",
+    "Even a complete capture ledger remains subject to later repeatability, discretization, velocity-control and external physical-validity gates."
+  ]
+}

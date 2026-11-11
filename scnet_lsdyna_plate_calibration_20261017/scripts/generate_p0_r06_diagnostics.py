@@ -123,6 +123,27 @@ def find_r05_case(r05_design: dict, case_identity: dict) -> dict:
     return case
 
 
+def material_cards_for_job(material: dict, job: dict) -> list[str]:
+    """Return the frozen two-material definition with an optional fragment-only EROD override."""
+    lines = material_cards(material)
+    if "fragment_mat015_erod" not in job:
+        return lines
+    erod = int(job["fragment_mat015_erod"])
+    if erod not in (0, 1) or float(job["fragment_mat015_erod"]) != float(erod):
+        raise ValueError("fragment MAT_015 EROD diagnostic level must be exactly 0 or 1")
+    fragment_marker = f"$ fragment: {material['material_id']}"
+    if lines.count(fragment_marker) != 1:
+        raise ValueError("fragment material marker is missing or ambiguous")
+    marker_index = lines.index(fragment_marker)
+    if lines[marker_index + 1] != "*MAT_JOHNSON_COOK":
+        raise ValueError("fragment material marker is not followed by MAT_015")
+    failure = material["failure_model"]
+    lines[marker_index + 5] = card(
+        [failure["D5"], 0.0, erod, failure["minimum_failure_strain"], 0]
+    )
+    return lines
+
+
 def deck_for_job(
     *,
     design: dict,
@@ -160,6 +181,9 @@ def deck_for_job(
     eroding4 = frozen["eroding_contact_card4"]
     timestep = frozen["control_timestep"]
     job_tssfac = float(job.get("tssfac", timestep["tssfac"]))
+    job_contact_soft = int(job.get("contact_soft", 2))
+    if job_contact_soft not in (1, 2):
+        raise ValueError("R06 contact SOFT diagnostic supports only SOFT=1 or SOFT=2")
     direct_contact_policy = measure.get(
         "direct_contact_output_policy",
         {
@@ -297,12 +321,12 @@ def deck_for_job(
         card([0.0, 0.0, 0.0, 0.0, 20.0, 0, 0.0, 0.0]),
         card([0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]),
         card([eroding4["isym"], eroding4["erosop"], eroding4["iadj"]]),
-        card([2, 0.0, 0, 0, 3, 5, 0, 0]),
+        card([job_contact_soft, 0.0, 0, 0, 3, 5, 0, 0]),
         "*SECTION_SOLID_TITLE",
         "Fully integrated S/R solid for numerical qualification",
         card([1, -1]),
     ]
-    lines.extend(material_cards(material))
+    lines.extend(material_cards_for_job(material, job))
     lines.extend(
         [
             f"$ CASE {case['case_id']} source_index={original_index} speed={case['impact_speed_mps']} mesh={case['mesh_mm']}",
@@ -436,6 +460,10 @@ def deck_for_job(
         "termination_time_ms": float(job["termination_time_ms"]),
         "psfail_part_set_id": psfail,
     }
+    if "fragment_mat015_erod" in job:
+        metadata["fragment_mat015_erod"] = int(job["fragment_mat015_erod"])
+    if "contact_soft" in job:
+        metadata["contact_soft"] = job_contact_soft
     return "\n".join(lines), metadata
 
 
@@ -468,8 +496,15 @@ def upload_readme(design: dict, experiment: dict, job: dict, deck_name: str, dec
     )
     if direct_contact_policy["request_binary_intfor"]:
         command_note = "<empty; INTFOR filename is embedded by *DATABASE_BINARY_INTFOR_FILE>"
-    elif design["design_status"] == "frozen_after_r06f_tssfac04_sensitivity_fail_before_tssfac02_outcome":
-        command_note = "<empty; R06g does not request unsupported binary INTFOR>"
+    elif design["design_status"] in {
+        "frozen_after_r06f_tssfac04_sensitivity_fail_before_tssfac02_outcome",
+        "frozen_after_r06g_tssfac02_local_gate_pass_before_tssfac01_outcome",
+        "frozen_after_r06h_tssfac01_confirmation_fail_before_tssfac005_outcome",
+        "frozen_after_r06i_terminal_timestep_stable_but_response_unavailable_before_fragment_erod1_outcome",
+        "frozen_after_r06j_partial_erod_causality_before_fragment_negative_volume_psfail_outcome",
+        "frozen_after_r06k_fragment_deletion_suppressed_but_contact_energy_timestep_unstable_before_soft1_outcome",
+    }:
+        command_note = "<empty; timestep-refinement jobs do not request unsupported binary INTFOR>"
     else:
         command_note = "<empty; R06f does not request unsupported binary INTFOR>"
     required_return = ", ".join(measure["required_return_families"])
@@ -477,6 +512,16 @@ def upload_readme(design: dict, experiment: dict, job: dict, deck_name: str, dec
     optional_text = (
         f"\n  Optional but preserve if present: {optional_return}."
         if optional_return
+        else ""
+    )
+    fragment_erod_text = (
+        f"\n  fragment_mat015_erod={job['fragment_mat015_erod']}"
+        if "fragment_mat015_erod" in job
+        else ""
+    )
+    contact_soft_text = (
+        f"\n  contact_optional_card_a_soft={job['contact_soft']}"
+        if "contact_soft" in job
         else ""
     )
     return f"""SCNet LS-DYNA P0 R06 diagnostic job
@@ -491,7 +536,7 @@ PAIR / FACTOR
   role={job['role']}
   termination_time_ms={job['termination_time_ms']}
   plate_only_psfail={str(bool(job['plate_only_psfail'])).lower()}
-  tssfac={job.get('tssfac', design['frozen_solver_controls']['control_timestep']['tssfac'])}
+  tssfac={job.get('tssfac', design['frozen_solver_controls']['control_timestep']['tssfac'])}{fragment_erod_text}{contact_soft_text}
 
 SOLVER INPUT (select this file only as the LS-DYNA head/input file)
   {deck_name}
@@ -561,6 +606,11 @@ def generate_batch(
         "frozen_after_r06e_wave0_solver_capability_audit_before_any_r06f_solver_outcome",
         "frozen_after_r06f_recanary_pass_before_timestep_solver_outcome",
         "frozen_after_r06f_tssfac04_sensitivity_fail_before_tssfac02_outcome",
+        "frozen_after_r06g_tssfac02_local_gate_pass_before_tssfac01_outcome",
+        "frozen_after_r06h_tssfac01_confirmation_fail_before_tssfac005_outcome",
+        "frozen_after_r06i_terminal_timestep_stable_but_response_unavailable_before_fragment_erod1_outcome",
+        "frozen_after_r06j_partial_erod_causality_before_fragment_negative_volume_psfail_outcome",
+        "frozen_after_r06k_fragment_deletion_suppressed_but_contact_energy_timestep_unstable_before_soft1_outcome",
     }
     if design["design_status"] not in allowed_design_statuses:
         raise ValueError("R06 diagnostic design is not frozen at a supported lifecycle boundary")
@@ -640,7 +690,11 @@ def generate_batch(
                         else (
                             job["tssfac"]
                             if experiment["factor"] == "control_timestep_tssfac"
-                            else job.get("factor_level", design["package_revision"])
+                            else (
+                                metadata["contact_soft"]
+                                if experiment["factor"] == "contact_optional_card_a_soft"
+                                else job.get("factor_level", design["package_revision"])
+                            )
                         )
                     )
                 ),

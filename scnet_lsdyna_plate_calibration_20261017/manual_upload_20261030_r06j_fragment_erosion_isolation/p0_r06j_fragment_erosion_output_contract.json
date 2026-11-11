@@ -1,0 +1,287 @@
+{
+  "schema_version": "hf-p0-r06j-fragment-erosion-output-contract@1.0.0",
+  "contract_id": "p0_r06j_fragment_erosion_output_contract",
+  "status": "frozen_after_r06i_terminal_timestep_stable_but_response_unavailable_before_fragment_erod1_outcome",
+  "version_boundary": {
+    "applies_to_revision_family": "R06",
+    "applies_to_package_revision": "R06_fragment_erosion_isolation_20261030",
+    "effective_scope": "prospective_r06j_fragment_erod1_only",
+    "historical_r06e": {
+      "package_revision": "R06_keyword_parser_repair_20261025",
+      "job_id": "r06e_0800_ctrl",
+      "platform_job_id": "72397333",
+      "evidence_policy": "read_only_immutable",
+      "retroactive_gate_rewrite": false,
+      "frozen_outcome": "parser_runtime_and_run_integrity_pass_but_wave0_fail_hold_under_original_intfor_gate"
+    },
+    "historical_r06f_control": {
+      "package_revision": "R06_measurement_contract_repair_20261027",
+      "job_id": "r06f_0800_ctrl",
+      "platform_job_id": "72617857",
+      "deck_sha256": "sha256:111911562b703b8af1e96810b08edd8c31fbeea739ddddd2921b8bcd07c517af",
+      "resource_identity": "pass",
+      "frozen_wave0_repeatability": "pass",
+      "retroactive_gate_rewrite": false
+    },
+    "parent_tssfac01": {
+      "package_revision": "R06_timestep_confirmation_20261029",
+      "job_id": "r06h_0800_tssfac01",
+      "platform_job_id": "72701744",
+      "deck_sha256": "sha256:6e4fb3806722df91df8500ea3e2a6758ef6a07c36e913f4e8eccc7a9083374c3",
+      "solver_parser_runtime": "pass",
+      "timestep_confirmation_gate": "fail",
+      "failure_scope": "deleted_upstream_divergence_and_response_unavailability",
+      "retroactive_gate_rewrite": false
+    },
+    "parent_tssfac005": {
+      "package_revision": "R06_timestep_terminal_refinement_20261030",
+      "job_id": "r06i_0800_tssfac005",
+      "platform_job_id": "72740022",
+      "deck_sha256": "sha256:e2e8da8e55304b7fe2deb2c1790e00bf7fea9c64145c6c09a954c50492f3dd88",
+      "timestep_terminal_consistency": "pass",
+      "response_availability": "fail",
+      "retroactive_gate_rewrite": false
+    }
+  },
+  "measurement_sources": {
+    "capture_ledger": {
+      "primary_artifact": "d3part*",
+      "uses": [
+        "fragment position",
+        "fragment velocity",
+        "alive/deleted state",
+        "capture-plane first-crossing ledger"
+      ],
+      "required": true
+    },
+    "johnson_cook_damage": {
+      "primary_artifact": "full d3plot*",
+      "array": "element_solid_history_variables",
+      "history_variable_number_one_based": 6,
+      "array_index_zero_based": 5,
+      "material": "*MAT_015/*MAT_JOHNSON_COOK",
+      "required": true,
+      "alive_mask_required": true,
+      "post_deletion_zero_policy": "never_interpret_as_damage_recovery",
+      "sentinel_policy": "absolute value at or above 1e29 is unavailable with a reason, never zero"
+    },
+    "d3part_history_variables": {
+      "request": "*DATABASE_EXTENT_D3PART with NEIPH=6",
+      "status": "experimental_redundant_channel_not_required_for_wave0_pass",
+      "acceptance": "identify channels by returned semantics and cross-checks; never infer the damage channel from array position alone"
+    },
+    "direct_contact": {
+      "intfor": {
+        "request_in_r06f": false,
+        "status": "unavailable_by_solver_for_eroding_contact",
+        "solver_evidence": "Warning 20340 (STR+340): binary interface force data is unavailable for eroding contact types - interface #1",
+        "missing_is_zero": false
+      },
+      "ncforc": {
+        "request_in_r06f": true,
+        "status": "best_effort_nonblocking_not_proven_structurally_unavailable",
+        "evidence_boundary": "Job 72397333 returned no NCFORC artifact, but Warning 20340 applies specifically to binary INTFOR and does not prove NCFORC is unsupported",
+        "missing_is_zero": false
+      },
+      "unexpected_file_policy": "preserve_and_report_if_the_solver_returns_one",
+      "sleout_boundary": "interface energy only; never substitute for pressure, gap, penetration, or nodal interface force"
+    }
+  },
+  "d3part_keyword": {
+    "binary_keyword": "*DATABASE_BINARY_D3PART",
+    "binary_card": [
+      5e-05,
+      0,
+      0,
+      0,
+      900001
+    ],
+    "extent_keyword": "*DATABASE_EXTENT_D3PART",
+    "extent_cards": [
+      [
+        6,
+        0,
+        3,
+        0,
+        1,
+        1,
+        1,
+        1
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    ],
+    "card_1_fields": [
+      "NEIPH",
+      "NEIPS",
+      "MAXINT",
+      "STRFLG",
+      "SIGFLG",
+      "EPSFLG",
+      "RLTFLG",
+      "ENGFLG"
+    ],
+    "intent": "override D3PART content with six solid history variables while retaining documented defaults for all other fields"
+  },
+  "capture_ledger_gates": {
+    "capture_ledger": {
+      "initial_discrete_mass_relative_error_max": 0.005,
+      "mass_accounting_relative_error_max": 1e-06,
+      "temporal_ambiguity_mass_fraction_max": 0.01,
+      "deleted_upstream_mass_fraction_max": 0.05,
+      "tail_window_fraction": 0.1,
+      "tail_increment_qM_max": 0.01,
+      "tail_increment_qP_max": 0.01,
+      "tail_increment_qE_max": 0.01,
+      "tail_qV_relative_range_max": 0.05,
+      "failure_policy": "mark primary QoI unavailable; never replace unavailable with zero"
+    },
+    "numerical_perforation_classification": {
+      "confirmed_perforation_qM_min": 0.02,
+      "confirmed_perforation_qP_min": 0.01,
+      "confirmed_nonperforation_qM_max": 0.005,
+      "confirmed_nonperforation_qP_max": 0.005,
+      "confirmed_nonperforation_worst_case_crossing_mass_max": 0.005,
+      "confirmed_nonperforation_worst_case_crossing_mass_definition": "qM + temporal_ambiguity_mass_fraction + deleted_upstream_mass_fraction + max(expected_reference_mass-observed_reference_mass,0)/expected_reference_mass",
+      "otherwise": "transition_or_indeterminate"
+    }
+  },
+  "recanary_comparison": {
+    "reference_platform_job_id": "72397333",
+    "reference_job_id": "r06e_0800_ctrl",
+    "reference_diagnostic_values": {
+      "qM": 0.873177835,
+      "qP": 0.561307455,
+      "qE": 0.360875291,
+      "qV_over_v0": 0.642832917,
+      "deleted_upstream_mass_fraction": 0.107871719,
+      "unique_failure_event_count": 107
+    },
+    "tolerances": {
+      "qM_absolute": 0.01,
+      "qP_absolute": 0.01,
+      "qE_absolute": 0.01,
+      "qV_relative": 0.05
+    },
+    "missing_or_unavailable_policy": "fail_closed",
+    "scope": "numerical repeatability diagnostic only; not physical validation or response admission"
+  },
+  "return_evidence": {
+    "required_families": [
+      "submitted .k",
+      "solver o= output or d3hsp",
+      "mes*",
+      "glstat",
+      "matsum",
+      "sleout",
+      "nodout",
+      "binout*",
+      "d3plot*",
+      "d3part*",
+      "solver stdout/stderr",
+      "Slurm script and resource record"
+    ],
+    "optional_preserve_if_present": [
+      "intfor*",
+      "ncforc*"
+    ],
+    "missing_required_policy": "fail_closed",
+    "missing_optional_policy": "null_with_reason_never_zero"
+  },
+  "admission": {
+    "fragment_erod1_diagnostic_submission": "allowed_after_static_release_verification",
+    "production_material_policy": "pending_external_target_solver_diagnostic",
+    "further_timestep_halving": "denied",
+    "r06f_2000_control": "denied",
+    "treatments": "denied",
+    "p0_response_calibration": "denied",
+    "p1_submission": "denied",
+    "engine_fitting": "denied",
+    "damage_tree_fitting": "denied",
+    "reference_dataset_generation": "denied",
+    "physical_validity": "not_established_requires_independent_experimental_evidence"
+  },
+  "claim_boundary": [
+    "R06i established local timestep consistency but not response availability.",
+    "R06j changes only the fragment material EROD flag from 0 to 1; plate erosion remains enabled with EROD=0.",
+    "EROD=1 intentionally changes the post-failure numerical treatment and is diagnostic, not a physical treatment.",
+    "The model continues to start from the same post-explosion fragment state.",
+    "Neither static PASS nor a normal R06j termination authorizes engine fitting, damage-tree fitting or dataset admission."
+  ],
+  "explosion_instant_start_policy": {
+    "current_model_status": "already_starts_from_post_explosion_fragment_initial_state",
+    "pre_explosion_detonation_or_flight_simulated": false,
+    "r06h_rule": "initial geometry, velocity and all other state remain byte-equivalent to Job 72639935",
+    "future_full_warhead_rule": "A full-warhead high-fidelity model may start at explosion time only after the mapped mass, momentum, energy, fragment-state and boundary-state transfer is frozen and audited."
+  },
+  "timestep_terminal_refinement": {
+    "factor": "CONTROL_TIMESTEP.TSSFAC",
+    "control_job_id": "r06h_0800_tssfac01",
+    "control_platform_job_id": "72701744",
+    "control_level": 0.1,
+    "treatment_job_id": "r06i_0800_tssfac005",
+    "treatment_level": 0.05,
+    "dt2ms": 0.0,
+    "erode": 0,
+    "single_factor_rule": "The terminal refinement deck may differ from the returned TSSFAC=0.1 deck only in TITLE and CONTROL_TIMESTEP field 2 TSSFAC, 0.1 to 0.05.",
+    "comparison_tolerances": {
+      "qM_qP_qE_absolute": 0.01,
+      "qV_relative_when_both_available": 0.05,
+      "qV_both_null_policy": "not_applicable_only_when_both_runs_have_zero_confirmed_crossing_mass",
+      "deleted_upstream_mass_fraction_absolute": 0.01,
+      "deleted_upstream_mass_fraction_availability_max": 0.05,
+      "energy_ratio_range": [
+        0.95,
+        1.05
+      ],
+      "hourglass_to_peak_internal_energy_max": 0.05,
+      "added_mass_fraction_max": 0.0,
+      "missing_or_nonfinite_policy": "fail_closed_except_preregistered_both_null_qV_case"
+    },
+    "terminal_stop_rule": {
+      "no_automatic_tssfac_below": 0.05,
+      "if_all_gates_and_response_availability_pass": "Select TSSFAC=0.05 as the local production candidate, then audit whether the 2000 m/s control may be released.",
+      "if_diagnostic_values_agree_but_response_unavailable": "Stop timestep halving and pivot to fragment deletion, material failure and contact diagnostics.",
+      "if_any_comparison_gate_fails": "Stop timestep halving and classify the current control as numerically/model-form unstable."
+    }
+  },
+  "fragment_erosion_isolation": {
+    "factor": "fragment MAT_015 Card 4 field 3 EROD",
+    "control_job_id": "r06i_0800_tssfac005",
+    "control_platform_job_id": "72740022",
+    "control_level": 0,
+    "treatment_job_id": "r06j_0800_fragment_erod1",
+    "treatment_level": 1,
+    "plate_mat015_erod": 0,
+    "tssfac": 0.05,
+    "dt2ms": 0.0,
+    "single_factor_rule": "The R06j deck may differ from the returned R06i deck only in TITLE and fragment material MAT_015 Card 4 field 3 EROD, 0 to 1. Plate EROD remains 0.",
+    "solver_semantics": {
+      "erod_0": "element erosion is allowed after failure (default)",
+      "erod_nonzero": "the failed element is not eroded; its deviatoric stresses are set to zero after failure",
+      "source": "ANSYS LS-DYNA Materials Manual R14, MAT_015 Card 4 EROD"
+    },
+    "diagnostic_gates": {
+      "normal_termination_and_32_ranks": true,
+      "no_mass_scaling": true,
+      "d3part_full_d3plot_hvar6_crosscheck": "required",
+      "fragment_deleted_upstream_mass_fraction": "compare_to_job_72740022",
+      "fragment_hvar6_failure_evidence": "must_remain_available_and_finite",
+      "negative_volume_topology": "report_fail_closed_if_solver_aborts",
+      "energy_and_contact_outputs": "mechanism_evidence_only"
+    },
+    "interpretation_rules": {
+      "deletion_suppressed_with_failure_damage_present": "supports fragment failure erosion as the cause of the upstream deletion mechanism only",
+      "negative_volume_or_solver_failure": "supports numerical dependence on erosion but does not validate the material or contact model",
+      "primary_qoi_policy": "never promote EROD=1 response values to physical labels, calibration targets or reference data"
+    }
+  }
+}

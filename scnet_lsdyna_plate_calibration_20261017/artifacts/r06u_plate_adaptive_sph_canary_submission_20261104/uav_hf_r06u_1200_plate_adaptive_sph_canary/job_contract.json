@@ -1,0 +1,45 @@
+{
+  "schema_version": "hf-p0-r06-job-contract@1.1.0",
+  "package_revision": "R06_plate_adaptive_sph_canary_20261104",
+  "job_id": "r06u_1200_plate_adaptive_sph_canary",
+  "experiment_id": "r06u_plate_adaptive_sph_capability_1200",
+  "role": "plate_adaptive_sph_parser_runtime_mass_energy_capability_canary",
+  "factor": "plate_adaptive_solid_to_sph_model_form_bundle",
+  "factor_level": "part_1002_to_same_material_sph_part_1003",
+  "factor_layer": "model_form_capability_canary_not_physical_calibration",
+  "case": {
+    "case_id": "p0_v1200_h0p75_plate_adaptive_sph",
+    "impact_speed_mps": 1200.0,
+    "mesh_mm": 0.75,
+    "plate_solid_part_id": 1002,
+    "plate_sph_part_id": 1003,
+    "fragment_solid_part_id": 2002,
+    "fragment_sph_part_id": 2003,
+    "termination_time_ms": 0.15,
+    "maximum_cycle_count": 2500000,
+    "control_solid_psfail": 0
+  },
+  "output_intervals_ms": {
+    "d3plot": 0.00015,
+    "d3part": 0.00015,
+    "ascii_databases": 0.00025
+  },
+  "head_deck": "r06u_1200_plate_adaptive_sph_canary.k",
+  "resource_contract": {
+    "software_platform_label": "ls-dyna_R15_mmp_d",
+    "solver_family": "LS-DYNA R15 MPP double precision",
+    "nodes": 1,
+    "ranks": 32,
+    "walltime": "12:00:00",
+    "head_memory_mb": 512,
+    "child_memory_mb": 256,
+    "command_line_parameters": "",
+    "resource_identity_is_a_hard_gate": true
+  },
+  "required_return_families": [
+    "stage1: submitted .k, manifest, job_contract, all mes*, glstat/matsum/sleout/nodout/ncforc, sldsph_frag if present, stdout/stderr, Slurm and resource log",
+    "stage2 only after stage1 pass: all d3plot*",
+    "stage3 only after stage2 pass: all d3part* and binout*"
+  ],
+  "status": "prepared_not_submitted_not_solver_validated"
+}

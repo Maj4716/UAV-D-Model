@@ -1,0 +1,162 @@
+{
+  "schema_version": "hf-p0-r06n-adaptive-sph-32rank-return-audit@1.0.0",
+  "audit_date": "2026-11-02",
+  "source_evidence": {
+    "directory": "D:/Desktop/UAV新/uav_hf_r06n_0800_adaptive_sph_32rank_confirmation",
+    "evidence_policy": "read_only_immutable",
+    "file_count": 118,
+    "total_bytes": 3452906495,
+    "platform_job_id": "72864757",
+    "job_id": "r06n_0800_adaptive_sph_32rank_confirmation",
+    "package_revision": "R06_adaptive_sph_32rank_confirmation_20261101",
+    "deck_sha256": "sha256:edc5f3b80174e52c81eb96a16e0e5abe89f1587b8a850f87f7048bd40f1ac4b7",
+    "solver_build": "LS-DYNA R15.0.2 MPP double precision"
+  },
+  "execution": {
+    "input_identity": "pass",
+    "resource_identity": "pass",
+    "resource_contract": {
+      "nodes": 1,
+      "ranks": 32
+    },
+    "observed_resources": {
+      "nodes": 1,
+      "ranks": 32
+    },
+    "normal_termination_at_required_time": true,
+    "start_time": "2026-11-01 23:47:31",
+    "end_time": "2026-11-01 23:51:31",
+    "portal_elapsed_seconds": 240,
+    "solver_elapsed_seconds": 225,
+    "cycle_count": 59026,
+    "cycle_guard": 829930,
+    "final_problem_time_ms": 0.04,
+    "stderr_size_bytes": 0,
+    "mass_scaling_mentions": 0,
+    "warning_counts": [
+      {
+        "id": "20339",
+        "code": "STR+339",
+        "occurrences": 1
+      },
+      {
+        "id": "21131",
+        "code": "STR+1131",
+        "occurrences": 32
+      },
+      {
+        "id": "30364",
+        "code": "INI+364",
+        "occurrences": 32
+      },
+      {
+        "id": "40509",
+        "code": "SOL+509",
+        "occurrences": 37
+      }
+    ],
+    "negative_volume_unique_element_count": 37
+  },
+  "engineering_gates": {
+    "resource_identity": "pass",
+    "solver_completion": "pass",
+    "fragment_sph_mass_and_finiteness": "pass",
+    "energy": {
+      "status": "pass",
+      "observed_total_energy_ratio_range": [
+        1.0,
+        1.0
+      ],
+      "observed_final_sliding_fraction": 0.01850484375
+    },
+    "plate_deletion": {
+      "status": "fail",
+      "required": 0,
+      "observed": 1,
+      "element_ids": [
+        39948
+      ]
+    },
+    "cycle_repeatability": {
+      "status": "fail",
+      "allowed_ratio": [
+        0.8,
+        1.25
+      ],
+      "observed_ratio": 0.6939581692276944,
+      "r06m_cycle_count": 85057,
+      "r06n_cycle_count": 59026
+    },
+    "fragment_conversion_repeatability": {
+      "status": "pass",
+      "allowed_absolute_count_difference": 4,
+      "observed_count_difference": 3,
+      "set_jaccard": 0.918918918918919,
+      "converted_only_in_r06n": [
+        41159,
+        41202,
+        41257
+      ]
+    },
+    "measurement_crosscheck": "pass",
+    "matsum_combined_source_sph_energy": "denied_duplicate_columns"
+  },
+  "plate_failure_diagnosis": {
+    "status": "material_failure_erosion_not_negative_volume",
+    "element_id": 39948,
+    "mes_failure_message_count": 1,
+    "mes_first_failure_time_ms": 0.0061673,
+    "d3plot_first_dead_time_ms": 0.006199309978417389,
+    "negative_volume_membership": false,
+    "initial_centroid_mm": [
+      155.625,
+      5.625,
+      -0.35714285715
+    ],
+    "last_alive_hvar6": 0.3299324249720825,
+    "r06m_same_element_final_hvar6": 0.14328293149836877,
+    "interpretation": "Element 39948 is explicitly reported as failed, disappears in D3PLOT, and is absent from the 37-element negative-volume set. The plate material retains EROD=0 while the fragment material uses EROD=1; the next single-factor diagnostic tests plate EROD=1 without changing contact, SPH or resource settings."
+  },
+  "response_availability": {
+    "status": "fail_plate_deletion_and_terminal_horizon_unqualified",
+    "primary_qoi_available": false,
+    "capture_plane": {
+      "z_mm": -12.0,
+      "solid_crossing_event_count": 0,
+      "sph_crossing_event_count": 0,
+      "final_minimum_alive_solid_centroid_z_mm": -4.596440370368327,
+      "final_minimum_active_sph_z_mm": -5.044602183641651,
+      "final_downward_alive_solid_count": 534,
+      "final_downward_active_sph_count": 61,
+      "status": "no_crossing_observed_but_terminal_horizon_not_qualified",
+      "primary_qoi_available": false,
+      "reason": "the 0.04 ms horizon ends with downward-moving retained mass before any capture-plane crossing"
+    },
+    "reason": "one plate element is deleted before the terminal state, and downward-moving retained fragment mass remains before any z=-12 mm capture-plane crossing"
+  },
+  "decision": {
+    "software_input_identity": "pass",
+    "solver_parser_runtime": "pass",
+    "resource_identity": "pass",
+    "numerical_engineering_confirmation": "fail_plate_deletion_and_cycle_repeatability",
+    "physical_validity": "not_established",
+    "research_admission": "hold",
+    "classification": "resource_correct_run_reveals_rank_sensitive_plate_material_failure_confirmation_rejected",
+    "release_r06o_plate_mat_erod1_isolation": true,
+    "release_terminal_horizon_extension": false,
+    "release_2000_control": false,
+    "release_treatments": false,
+    "p0_response_calibration": "denied",
+    "engine_fitting": "denied",
+    "damage_tree_fitting": "denied",
+    "dataset_reference_promotion": "denied"
+  },
+  "recommended_next_sequence": [
+    "Branch from the exact returned R06n deck and change only the plate MAT_JOHNSON_COOK EROD field from 0 to 1.",
+    "Keep fragment adaptive-SPH, contact cards, TSSFAC=0.05, DT2MS=0, 0.04 ms and exact one-node/32-rank resources frozen.",
+    "Treat the run as a plate material-failure-erosion isolation canary; require zero plate deletion and no timestep runaway.",
+    "Do not extend the horizon until a resource-correct zero-plate-deletion engineering baseline exists.",
+    "Keep 2000 m/s, treatments, fitting and reference labels frozen."
+  ],
+  "claim_boundary": "R06n proves that the requested 32-rank resource identity can complete, but it rejects engineering repeatability: one plate element materially fails and is deleted, and the cycle ratio lies outside the frozen interval. The result is a valid negative diagnostic, not calibration, physical validation or a damage-tree label."
+}

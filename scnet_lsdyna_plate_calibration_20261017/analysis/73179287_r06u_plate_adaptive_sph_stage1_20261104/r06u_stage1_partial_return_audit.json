@@ -1,0 +1,171 @@
+{
+  "schema_version": "hf-p0-r06u-stage1-partial-return-audit@1.0.0",
+  "audit_date": "2026-11-04",
+  "source_evidence": {
+    "directory": "D:/Desktop/UAV新/uav_hf_r06u_1200_plate_adaptive_sph_canary_retry",
+    "evidence_policy": "read_only_immutable_partial_return",
+    "download_stage": "stage1_identity_rank_logs_and_stdout_but_required_ascii_databases_incomplete",
+    "file_count": 39,
+    "total_bytes": 9998246,
+    "platform_job_id": "73179287",
+    "job_id": "r06u_1200_plate_adaptive_sph_canary",
+    "package_revision": "R06_plate_adaptive_sph_canary_20261104",
+    "deck_sha256": "sha256:7bfb99a49bb757632237b2e2c625500fef27e811988eac3149df7a3e056647d4",
+    "solver_build": "LS-DYNA R15.0.2 MPP double precision"
+  },
+  "execution": {
+    "input_identity": "pass",
+    "resource_identity": "pass",
+    "resource_contract": {
+      "nodes": 1,
+      "ranks": 32,
+      "walltime": "12:00:00"
+    },
+    "observed_resources": {
+      "nodes": 1,
+      "ranks": 32,
+      "slurm_walltime": "72:00:00"
+    },
+    "normal_termination_at_required_time": true,
+    "start_time": "2026-11-04 13:26:20",
+    "end_time": "2026-11-04 16:38:35",
+    "portal_elapsed_seconds": 11535,
+    "solver_elapsed_seconds": 11520,
+    "cycle_count": 244053,
+    "cycle_guard": 2500000,
+    "final_problem_time_ms": 0.15,
+    "margin_beyond_r06t_failure_time_ms": 0.04128,
+    "rank_log_count": 32,
+    "normal_termination_rank_count": 32,
+    "stderr_size_bytes": 0,
+    "numbered_error_count": 0,
+    "complex_sound_speed_present": false,
+    "mass_scaling_configured": false,
+    "progress_time_step_sample_minimum_ms": 2.68e-07,
+    "progress_time_step_sample_minimum_gate_ms": 3e-08,
+    "progress_time_step_sample_gate": "provisional_pass_not_formal_glstat_minimum"
+  },
+  "adaptive_sph_runtime_evidence": {
+    "plate_negative_volume_unique_element_count": 62,
+    "fragment_negative_volume_unique_element_count": 585,
+    "plate_first_event_time_ms": 0.009127,
+    "plate_last_event_time_ms": 0.12068,
+    "fragment_first_event_time_ms": 0.0032249,
+    "fragment_last_event_time_ms": 0.14727,
+    "r06t_target_element": {
+      "element_id": 23830,
+      "part_id": 1002,
+      "part_kind": "plate",
+      "rank_observation_count": 1,
+      "first_time_ms": 0.042562,
+      "last_time_ms": 0.042562
+    },
+    "continued_from_target_failure_to_terminal_time_ms": 0.10743799999999999,
+    "sph_memory_allocation_warning_count": 19,
+    "interpretation": "parser/runtime capability evidence only; active-particle and mass closure require the staged databases and binary ledgers"
+  },
+  "stage1_small_database_inventory": {
+    "glstat": {
+      "available": false,
+      "path": null,
+      "size_bytes": null,
+      "accepted_filenames": [
+        "glstat",
+        "glstat.glstat"
+      ]
+    },
+    "matsum": {
+      "available": false,
+      "path": null,
+      "size_bytes": null,
+      "accepted_filenames": [
+        "matsum",
+        "matsum.matsum"
+      ]
+    },
+    "sleout": {
+      "available": false,
+      "path": null,
+      "size_bytes": null,
+      "accepted_filenames": [
+        "sleout",
+        "sleout.sleout"
+      ]
+    },
+    "nodout": {
+      "available": false,
+      "path": null,
+      "size_bytes": null,
+      "accepted_filenames": [
+        "nodout",
+        "nodout.nodout"
+      ]
+    },
+    "ncforc": {
+      "available": false,
+      "path": null,
+      "size_bytes": null,
+      "accepted_filenames": [
+        "ncforc",
+        "ncforc.ncforc"
+      ]
+    },
+    "sldsph_frag_optional": {
+      "available": false,
+      "path": null,
+      "size_bytes": null,
+      "accepted_filenames": [
+        "sldsph_frag",
+        "sldsph_frag.sldsph_frag"
+      ]
+    }
+  },
+  "missing_required_small_databases": [
+    "glstat",
+    "matsum",
+    "sleout",
+    "nodout",
+    "ncforc"
+  ],
+  "preliminary_gates": {
+    "input_identity": "pass",
+    "resource_identity": "pass",
+    "solver_parser_runtime": "pass",
+    "target_element_survived_as_computation_beyond_r06t_collapse": "pass",
+    "formal_minimum_time_step": "hold_missing_glstat",
+    "energy": "hold_missing_glstat",
+    "plate_sph_positive_mass": "hold_missing_matsum",
+    "contact_and_node_ledgers": "hold_missing_sleout_nodout_ncforc"
+  },
+  "decision": {
+    "classification": "r06u_completed_runtime_capability_but_stage1_hold_missing_required_small_ascii_databases",
+    "stage1_complete": false,
+    "release_heavy_binary_download": false,
+    "release_next_compute_submission": false,
+    "change_model": false,
+    "engine_fitting": "denied",
+    "damage_tree_fitting": "denied",
+    "dataset_reference_promotion": "denied"
+  },
+  "next_single_action": {
+    "action": "download_only_the_missing_small_ascii_databases_from_job_73179287_into_the_same_local_directory",
+    "required": [
+      "glstat",
+      "matsum",
+      "sleout",
+      "nodout",
+      "ncforc"
+    ],
+    "optional_if_present": [
+      "sldsph_frag"
+    ],
+    "do_not_download_yet": [
+      "d3plot*",
+      "d3part*",
+      "binout*"
+    ],
+    "then_send": "D:/Desktop/UAV新/uav_hf_r06u_1200_plate_adaptive_sph_canary_retry",
+    "stop_condition": "do_not_build_or_submit_R06v_until_stage1_energy_timestep_mass_and_contact_gates_are_reviewed"
+  },
+  "claim_boundary": "R06u establishes correct input execution, 32-rank normal completion and progress beyond the R06t collapse point. The missing GLSTAT/MATSUM/SLEOUT/NODOUT/NCFORC files prevent the preregistered Stage-1 engineering verdict; no binary download, 0.50 ms confirmation, physical validity, calibration or label admission is released."
+}

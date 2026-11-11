@@ -1,0 +1,10 @@
+{
+  "schema_version": "hf-p0-r06m-submission-readiness@1.0.0",
+  "overall_status": "pass",
+  "scope": "static_only_not_solver_validated",
+  "job_id": "r06m_0800_adaptive_sph_canary",
+  "head_deck": "r06m_0800_adaptive_sph_canary.k",
+  "deck_sha256": "sha256:634436d875c42592b5801de9bf27fce6255691fd27f17d28bd201b80e4cf1107",
+  "direct_folder_only": true,
+  "zip_count": 0
+}

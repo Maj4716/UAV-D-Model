@@ -1,0 +1,115 @@
+{
+  "schema_version": "hf-p0-r06u-direct-folder-delivery@1.0.0",
+  "package_revision": "R06_plate_adaptive_sph_canary_20261104",
+  "job_id": "r06u_1200_plate_adaptive_sph_canary",
+  "status": "ready_for_user_submission_not_submitted_not_solver_validated",
+  "upload_folder": "uav_hf_r06u_1200_plate_adaptive_sph_canary",
+  "head_deck": "r06u_1200_plate_adaptive_sph_canary.k",
+  "head_deck_sha256": "sha256:7bfb99a49bb757632237b2e2c625500fef27e811988eac3149df7a3e056647d4",
+  "archive_policy": "no_archive_direct_folder_only",
+  "model_form_canary": "failed_plate_solids_part_1002_to_same-material_SPH_part_1003",
+  "resource_contract": {
+    "software": "ls-dyna_R15_mmp_d",
+    "nodes": 1,
+    "ranks": 32,
+    "hard_gate": true,
+    "head_memory_mb": 512,
+    "child_memory_mb": 256,
+    "command_line_parameters": "",
+    "walltime": "12:00:00",
+    "fresh_work_directory": "/work/home/acd7dt5yv4/LSDYNA/uav_hf_r06u_1200_plate_adaptive_sph_canary"
+  },
+  "solver_controls": {
+    "problem_time_ms": 0.15,
+    "maximum_cycle_count": 2500000,
+    "tssfac": 0.05,
+    "dt2ms": 0.0
+  },
+  "output_intervals_ms": {
+    "d3plot": 0.00015,
+    "d3part": 0.00015,
+    "ascii_databases": 0.00025
+  },
+  "planning_estimates": {
+    "projected_output_total_gb_decimal": 6.753,
+    "claim_boundary": "linear horizon scaling only; actual R06u output can differ"
+  },
+  "staged_download_policy": {
+    "stage1_only_first": [
+      "submitted deck",
+      "manifest.json",
+      "job_contract.json",
+      "Slurm script",
+      "platform log",
+      "std.out",
+      "std.err",
+      "glstat",
+      "matsum",
+      "sleout",
+      "nodout",
+      "ncforc",
+      "sldsph_frag if present",
+      "all mes0000 through mes0031"
+    ],
+    "expected_stage1_size_mib": 35,
+    "do_not_download_initially": [
+      "d3plot*",
+      "d3part*",
+      "binout*"
+    ]
+  },
+  "files": [
+    {
+      "path": "uav_hf_r06u_1200_plate_adaptive_sph_canary/UPLOAD_README.txt",
+      "size_bytes": 741,
+      "sha256": "sha256:ebfdbe90ad6c603c946f1077f1e4fdfe060d5cfe6ba95beac5760b2e5b437211"
+    },
+    {
+      "path": "uav_hf_r06u_1200_plate_adaptive_sph_canary/jc4340_reference.json",
+      "size_bytes": 3144,
+      "sha256": "sha256:9b462b920459e57641d5f89d10d36c0aa0498c86f2478fef8e4c3efa96888311"
+    },
+    {
+      "path": "uav_hf_r06u_1200_plate_adaptive_sph_canary/job_contract.json",
+      "size_bytes": 1730,
+      "sha256": "sha256:1832609418375618e8b2afd1333d5905f9c86f812aa4fffaabd0ff96205567cb"
+    },
+    {
+      "path": "uav_hf_r06u_1200_plate_adaptive_sph_canary/manifest.json",
+      "size_bytes": 2255,
+      "sha256": "sha256:d7ef731a34708c722f8d88283d039a1fbac050131c68ba04b301cd52798da7cb"
+    },
+    {
+      "path": "uav_hf_r06u_1200_plate_adaptive_sph_canary/p0_case_part_map.csv",
+      "size_bytes": 579,
+      "sha256": "sha256:64d8c1bac95e1a00e8d71d70df242cb835a179d1ecc058122cdb343592e62f66"
+    },
+    {
+      "path": "uav_hf_r06u_1200_plate_adaptive_sph_canary/p0_r06u_plate_adaptive_sph_canary_design.json",
+      "size_bytes": 3930,
+      "sha256": "sha256:66468404544bbeeaa2a8bf68341c30bda83bdb683b1d55da3bf43c2695c328cb"
+    },
+    {
+      "path": "uav_hf_r06u_1200_plate_adaptive_sph_canary/p0_r06u_plate_adaptive_sph_canary_output_contract.json",
+      "size_bytes": 6773,
+      "sha256": "sha256:984bfe2b6a5e2c2331aa52d55839cfb14b06161daee67dd19c63ca99161ad9f6"
+    },
+    {
+      "path": "uav_hf_r06u_1200_plate_adaptive_sph_canary/r06u_1200_plate_adaptive_sph_canary.k",
+      "size_bytes": 2558798,
+      "sha256": "sha256:7bfb99a49bb757632237b2e2c625500fef27e811988eac3149df7a3e056647d4"
+    },
+    {
+      "path": "uav_hf_r06u_1200_plate_adaptive_sph_canary/static_validation.json",
+      "size_bytes": 1723,
+      "sha256": "sha256:cea03aaec2ecf26360aa73b7d3fc2f91ca8f19fe771ed2e386fda7ae489e0b6e"
+    }
+  ],
+  "prohibited": [
+    "creating or submitting a ZIP archive",
+    "allocating any rank count other than exactly 32",
+    "editing any delivered deck field",
+    "downloading heavy binary families before Stage 1 is reviewed",
+    "using R06u directly for engine fitting, damage-tree fitting or a reference label"
+  ]
+}

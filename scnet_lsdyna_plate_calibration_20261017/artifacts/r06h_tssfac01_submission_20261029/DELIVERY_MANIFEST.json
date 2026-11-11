@@ -1,0 +1,87 @@
+{
+  "schema_version": "hf-p0-r06h-direct-folder-delivery@1.0.0",
+  "package_revision": "R06_timestep_confirmation_20261029",
+  "job_id": "r06h_0800_tssfac01",
+  "status": "ready_for_user_submission_not_submitted_not_solver_validated",
+  "upload_folder": "uav_hf_r06h_0800_tssfac01",
+  "head_deck": "r06h_0800_tssfac01.k",
+  "archive_policy": "no_archive_direct_folder_only",
+  "parent_control": {
+    "platform_job_id": "72639935",
+    "deck_sha256": "sha256:b5f4da367e9ef6eaae7098e47a84610eb55c51760cc9bf8dbb4721693b7a732a",
+    "audit_path": "D:/Desktop/UAV新/scnet_lsdyna_plate_calibration_20261017/analysis/72639935_r06g_0800_tssfac02_20261029/r06g_tssfac02_return_audit.json",
+    "audit_sha256": "sha256:30004ed8e47e9f33b1062fb832e6d598b667b7ba87061e036ae78efd71eb5363"
+  },
+  "single_factor": {
+    "field": "CONTROL_TIMESTEP.TSSFAC",
+    "control": 0.2,
+    "treatment": 0.1,
+    "dt2ms": 0.0
+  },
+  "resource_contract": {
+    "software": "ls-dyna_R15_mmp_d",
+    "nodes": 1,
+    "ranks": 32,
+    "walltime": "04:00:00",
+    "head_memory_mb": 512,
+    "child_memory_mb": 256,
+    "command_line_parameters": "",
+    "fresh_work_directory": "/work/home/acd7dt5yv4/LSDYNA/uav_hf_r06h_0800_ts01"
+  },
+  "files": [
+    {
+      "path": "uav_hf_r06h_0800_tssfac01/UPLOAD_README.txt",
+      "size_bytes": 1929,
+      "sha256": "sha256:a591f689b52505817982363c664242fe2796de62bf3112e8a8f4013f7b7f9b9c"
+    },
+    {
+      "path": "uav_hf_r06h_0800_tssfac01/jc4340_reference.json",
+      "size_bytes": 3144,
+      "sha256": "sha256:9b462b920459e57641d5f89d10d36c0aa0498c86f2478fef8e4c3efa96888311"
+    },
+    {
+      "path": "uav_hf_r06h_0800_tssfac01/job_contract.json",
+      "size_bytes": 1773,
+      "sha256": "sha256:51e6e7963b3aefe4fe943cd424d8786606c0420ac7dbaa75f207d8ed2b7c0a0d"
+    },
+    {
+      "path": "uav_hf_r06h_0800_tssfac01/manifest.json",
+      "size_bytes": 2135,
+      "sha256": "sha256:711c5e57772d5a67c5acadbcdbfe757c070bc9b67bd2eb92a875a60c68ebca2f"
+    },
+    {
+      "path": "uav_hf_r06h_0800_tssfac01/p0_case_part_map.csv",
+      "size_bytes": 493,
+      "sha256": "sha256:8bc12163061b082b4a3270c6b770b03679926cc5e7f8a8ea40c0fd830977df5f"
+    },
+    {
+      "path": "uav_hf_r06h_0800_tssfac01/p0_r06h_timestep_confirmation_design.json",
+      "size_bytes": 11355,
+      "sha256": "sha256:3d807392c9127d32909b4daa361f17757626a3e94380eaadac99b1c548af9e08"
+    },
+    {
+      "path": "uav_hf_r06h_0800_tssfac01/p0_r06h_timestep_output_contract.json",
+      "size_bytes": 9203,
+      "sha256": "sha256:0bbb21d74314e9ba6a35c379bc9c04d1e681186a8bb8acb3b2df6b5f45a7b35f"
+    },
+    {
+      "path": "uav_hf_r06h_0800_tssfac01/r06h_0800_tssfac01.k",
+      "size_bytes": 2557657,
+      "sha256": "sha256:6e4fb3806722df91df8500ea3e2a6758ef6a07c36e913f4e8eccc7a9083374c3"
+    },
+    {
+      "path": "uav_hf_r06h_0800_tssfac01/static_validation.json",
+      "size_bytes": 3512,
+      "sha256": "sha256:a69cbfa2231248f3b3e60b5ae0c432c5a7daaa33f1a3a495e7edf0839e61a7a4"
+    }
+  ],
+  "next_gate_if_return_passes": "select_local_production_timestep_before_any_2000_control",
+  "prohibited": [
+    "creating or submitting a ZIP archive",
+    "submitting any other job in parallel with this confirmation diagnostic",
+    "changing the explosion-instant/post-explosion initial state or any factor other than TSSFAC",
+    "using nodes/ranks other than one node and 32 total MPP ranks",
+    "enabling mass scaling",
+    "treating static PASS as solver, physical, engine, damage-tree or dataset acceptance"
+  ]
+}

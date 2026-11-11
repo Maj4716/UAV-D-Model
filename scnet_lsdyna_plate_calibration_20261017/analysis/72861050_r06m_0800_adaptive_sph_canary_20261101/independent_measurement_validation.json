@@ -1,0 +1,108 @@
+{
+  "schema_version": "hf-p0-r06-partial-independent-measurement-validation@1.0.0",
+  "run_completion_policy": "cancelled_partial_output_is_never_a_terminal_response",
+  "d3part_full_d3plot_crosscheck": {
+    "status": "pass",
+    "evidence_scope": "partial_cancelled_run_readability_only",
+    "d3part_history_shape": [
+      802,
+      686,
+      1,
+      7
+    ],
+    "full_d3plot_history_shape": [
+      402,
+      20902,
+      1,
+      7
+    ],
+    "d3part_state_count": 802,
+    "full_d3plot_state_count": 402,
+    "shared_state_count": 402,
+    "d3part_first_time_ms": 0.0,
+    "d3part_last_time_ms": 0.040000008249599,
+    "full_d3plot_last_time_ms": 0.040000008249599,
+    "fragment_element_id_count": 686,
+    "alive_value_comparison_count": 265706,
+    "maximum_absolute_difference_all_7_channels": 0.0,
+    "alive_mask_mismatch_count": 0,
+    "maximum_time_mismatch_ms": 0.0,
+    "hvar6_alive_status": "available",
+    "hvar6_invalid_alive_count": 0,
+    "hvar6_all_alive_fragment": {
+      "status": "available",
+      "count": 530090,
+      "minimum": 0.0,
+      "mean": 0.20983691103349936,
+      "p50": 0.12766849252843812,
+      "p95": 0.8164086053285231,
+      "p99": 1.0,
+      "maximum": 1.0
+    },
+    "initial_alive_fragment_count": 686,
+    "final_alive_fragment_count": 652,
+    "final_fragment_hvar6": {
+      "status": "available",
+      "count": 652,
+      "minimum": 0.0,
+      "mean": 0.2402869037065145,
+      "p50": 0.16004205220729573,
+      "p95": 0.8368138671891933,
+      "p99": 1.0,
+      "maximum": 1.0
+    },
+    "final_alive_plate_count": 20216,
+    "final_plate_hvar6": {
+      "status": "available",
+      "count": 20216,
+      "minimum": 0.0,
+      "mean": 0.008976516610737577,
+      "p50": 2.6804589487292777e-05,
+      "p95": 0.052147306116654496,
+      "p99": 0.16639047664160844,
+      "maximum": 0.592854224928584
+    }
+  },
+  "ncforc": {
+    "status": "available_ragged_pending_semantic_validation",
+    "path": "ncforc/surfa_1",
+    "logical_databases": [
+      "JOBINFO",
+      "glstat",
+      "matsum",
+      "ncforc",
+      "nodout",
+      "sleout"
+    ],
+    "state_count": 801,
+    "first_time_ms": 0.0,
+    "last_time_ms": 0.03999965058839365,
+    "minimum_nodes_per_state": 3365,
+    "maximum_nodes_per_state": 3393,
+    "union_node_count": 3425,
+    "all_state_intersection_node_count": 3337,
+    "node_count_change_count": 17,
+    "all_ids_unique_per_state": true,
+    "all_coordinates_forces_pressure_finite": true,
+    "raw_model_unit_ranges": {
+      "pressure": [
+        -21.35036886012304,
+        58.20908510201731
+      ],
+      "x_force": [
+        -7.538143204141434,
+        7.660710067426702
+      ],
+      "y_force": [
+        -6.896238332473449,
+        11.632330649291521
+      ],
+      "z_force": [
+        -16.1640771679578,
+        13.159767211875828
+      ]
+    },
+    "claim_boundary": "Units, sign convention, contact-side mapping, impulse and energy closure are not validated."
+  },
+  "claim_boundary": "Readable partial output does not establish terminal response, numerical stability, physical validity, fitting or dataset admission."
+}

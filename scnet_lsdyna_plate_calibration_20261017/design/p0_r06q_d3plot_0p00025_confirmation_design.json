@@ -1,0 +1,77 @@
+{
+  "schema_version": "hf-p0-r06q-d3plot-measurement-confirmation-design@1.0.0",
+  "package_revision": "R06_d3plot_0p00025_measurement_confirmation_20261102",
+  "status": "frozen_before_r06q_outcome",
+  "objective": "confirm the 800 m/s terminal response with prospectively adequate full-history D3PLOT temporal resolution",
+  "parent": {
+    "job_id": "r06p_0800_terminal_horizon_0p50",
+    "platform_job_id": "72915268",
+    "deck_sha256": "sha256:d471f09e9a726c9e4695565abc120e9300bfd68ca2b272bf23852322f8dc8629",
+    "audit_classification": "successful_long_horizon_run_response_held_by_preregistered_output_resolution_gate"
+  },
+  "jobs": [
+    {
+      "job_id": "r06q_0800_d3plot_0p00025_confirmation",
+      "experiment_id": "r06q_terminal_response_measurement_confirmation_800",
+      "role": "terminal_response_measurement_resolution_confirmation",
+      "impact_speed_mps": 800.0,
+      "termination_time_ms": 0.5,
+      "maximum_cycle_count": 829930,
+      "d3plot_interval_ms": 0.00025,
+      "d3part_interval_ms": 0.00025,
+      "ascii_interval_ms": 0.00025,
+      "nodes": 1,
+      "ranks": 32
+    }
+  ],
+  "single_change": {
+    "layer": "measurement_only",
+    "factor": "d3plot_output_interval_ms",
+    "parent_level": 0.0005,
+    "candidate_level": 0.00025,
+    "permitted_deck_differences": [
+      "TITLE_identifier_line",
+      "DATABASE_BINARY_D3PLOT_dt_0p0005_to_0p00025"
+    ],
+    "physical_model_semantics_unchanged": true
+  },
+  "frozen_controls": {
+    "impact_speed_mps": 800.0,
+    "mesh_mm": 0.75,
+    "termination_time_ms": 0.5,
+    "maximum_cycle_count": 829930,
+    "tssfac": 0.05,
+    "dt2ms": 0.0,
+    "plate_mat015_erod": 1,
+    "fragment_mat015_erod": 1,
+    "plate_part_id": 1002,
+    "fragment_solid_part_id": 2002,
+    "adaptive_sph_part_id": 2003,
+    "particles_per_failed_hexahedron": 8,
+    "solid_contact_soft": 2,
+    "dedicated_sph_to_solid_contact_soft": 1,
+    "control_solid_psfail": 0,
+    "d3part_interval_ms": 0.00025,
+    "ascii_database_interval_ms": 0.00025,
+    "nodes": 1,
+    "ranks": 32,
+    "solver_family": "LS-DYNA R15 MPP double precision"
+  },
+  "run_planning": {
+    "expected_cycle_count_from_exact_model_parent": 775413,
+    "cycle_guard": 829930,
+    "observed_parent_cycle_guard_remaining": 54517,
+    "requested_walltime": "12:00:00",
+    "projected_d3plot_state_count": 2002,
+    "projected_d3plot_bytes": 12058308682,
+    "projected_total_output_bytes": 14280157940,
+    "storage_claim_boundary": "R06p family sizes scaled by state count; actual segmentation and size can differ"
+  },
+  "acceptance_contract": "p0_r06q_d3plot_0p00025_confirmation_output_contract.json",
+  "release_scope": "one R06q high-fidelity job only",
+  "prohibited": [
+    "changing speed, material, contact, adaptive-SPH, timestep, horizon, mesh or resources",
+    "relaxing the 0.25 mm gate after observing R06q",
+    "using R06p or R06q directly for engine fitting, damage-tree fitting or a reference label"
+  ]
+}

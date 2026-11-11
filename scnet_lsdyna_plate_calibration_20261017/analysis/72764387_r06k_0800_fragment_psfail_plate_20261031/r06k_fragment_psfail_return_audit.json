@@ -1,0 +1,338 @@
+{
+  "schema_version": "hf-p0-r06k-fragment-psfail-return-audit@1.0.0",
+  "audit_date": "2026-10-31",
+  "source_evidence": {
+    "directory": "D:/Desktop/UAV新/LS_DYNA_1030_233727",
+    "evidence_policy": "read_only_immutable",
+    "file_count": 112,
+    "total_bytes": 2130196985,
+    "platform_job_id": "72764387",
+    "job_id": "r06k_0800_fragment_psfail_plate",
+    "package_revision": "R06_fragment_negative_volume_isolation_20261030",
+    "deck_sha256": "sha256:f78396a9fd15114fe411507a7774d68cecb10a25460413474772f2b99e8a17ca",
+    "solver_build": "LS-DYNA R15.0.2 MPP double precision",
+    "reported_wall_clock_duration": "5h6m27s",
+    "reported_wall_clock_seconds": 18387
+  },
+  "execution": {
+    "input_identity": "pass",
+    "resource_identity": "pass",
+    "normal_termination": true,
+    "rank_log_count": 32,
+    "normal_termination_rank_count": 32,
+    "stderr_size_bytes": 0,
+    "cycle_count": 5547044,
+    "final_problem_time_ms": 0.04,
+    "numbered_error_count": 0,
+    "warning_counts": [
+      {
+        "id": "30364",
+        "code": "INI+364",
+        "occurrences": 32
+      }
+    ],
+    "negative_volume_unique_element_count": 0,
+    "negative_volume_topology": {
+      "unique_element_count": 0,
+      "plate_unique_element_count": 0,
+      "fragment_unique_element_count": 0,
+      "elements": []
+    },
+    "dt2ms": 0.0,
+    "mass_scaling_mentions": 0,
+    "minimum_time_step_ms": 1.49828e-09,
+    "maximum_time_step_ms": 5.77029e-06
+  },
+  "returned_outputs": {
+    "d3plot": {
+      "file_count": 14,
+      "total_bytes": 1699008512,
+      "state_count": 402,
+      "readability": "pass"
+    },
+    "d3part": {
+      "file_count": 3,
+      "total_bytes": 121683968,
+      "state_count": 802,
+      "readability": "pass"
+    },
+    "binout": {
+      "file_count": 2,
+      "total_bytes": 176980574,
+      "readability": "pass",
+      "logical_databases": [
+        "JOBINFO",
+        "glstat",
+        "matsum",
+        "ncforc",
+        "nodout",
+        "sleout"
+      ]
+    },
+    "glstat": {
+      "record_count": 801,
+      "minimum_total_energy_ratio": 1.0,
+      "maximum_total_energy_ratio": 1.10606,
+      "final_total_energy_ratio": 1.10606,
+      "maximum_absolute_hourglass_over_internal": 0.0,
+      "final_sliding_energy": -2949.83,
+      "final_sliding_energy_fraction_of_initial": -4.609109375,
+      "final_energy_ratio_without_eroded": 1.03475,
+      "final_eroded_energy_fraction_of_initial": 0.07130890625
+    }
+  },
+  "measurement_contract": {
+    "status": "pass",
+    "d3part_full_d3plot_crosscheck": {
+      "status": "pass",
+      "d3part_history_shape": [
+        802,
+        686,
+        1,
+        7
+      ],
+      "full_d3plot_history_shape": [
+        402,
+        20902,
+        1,
+        7
+      ],
+      "d3part_state_count": 802,
+      "full_d3plot_state_count": 402,
+      "shared_state_count": 402,
+      "fragment_element_id_count": 686,
+      "alive_value_comparison_count": 275772,
+      "maximum_absolute_difference_all_7_channels": 0.0,
+      "alive_mask_mismatch_count": 0,
+      "maximum_time_mismatch_ms": 0.0,
+      "hvar6_alive_status": "available",
+      "hvar6_alive_minimum": 0.0,
+      "hvar6_alive_maximum": 1.0,
+      "hvar6_invalid_alive_count": 0,
+      "initial_alive_fragment_count": 686,
+      "final_alive_fragment_count": 686
+    },
+    "temporal_gate": {
+      "schema_version": "hf-p0-d3part-temporal-gate@1.0.0",
+      "status": "pass",
+      "schedule_rule": "each actual D3PART interval must be no greater than the nominal output interval plus the maximum positive GLSTAT explicit solver step in that interval; an extra terminal state is accepted only when it exactly equals the final GLSTAT state plus its recorded explicit step",
+      "crossing_spatial_resolution_rule": "an alive-to-alive element-centroid capture-plane crossing is resolved only when its directional cross-step travel is no greater than 0.5 times that case mesh; otherwise its reference mass is temporal_ambiguity",
+      "crossing_spatial_resolution_mesh_fraction": 0.5,
+      "time_word_tolerance_ulps": 4,
+      "time_word_tolerance_ms": 1.4901161193847656e-08,
+      "nominal_output_interval_ms": 5e-05,
+      "solver_state_count": 801,
+      "maximum_explicit_solver_step_ms": 5.770285152885499e-06,
+      "maximum_actual_state_interval_ms": 5.243881022444388e-05,
+      "maximum_solver_realizable_interval_ms": 5.57702851528855e-05,
+      "maximum_interval_to_solver_realizable_bound_ratio": 0.9999955421192385,
+      "terminal_step_aligned_interval_count": 1,
+      "case_crossing_resolution": [
+        {
+          "case_id": "p0_v0800_h0p75",
+          "spatial_resolution_limit_mm": 0.375,
+          "alive_crossing_count": 0,
+          "overlimit_alive_crossing_count": 0,
+          "maximum_alive_crossing_step_mm": null
+        }
+      ]
+    },
+    "terminal_step_alignment_interpretation": "One final D3PART interval exactly equals the final GLSTAT state plus its recorded explicit step; the fail-closed adapter accepts only this exact terminal alignment.",
+    "full_d3plot_hvar6": {
+      "status": "available",
+      "state_count": 402,
+      "solid_count": 20902,
+      "invalid_alive_value_count": 0,
+      "plate": {
+        "part": "plate",
+        "part_id": 1002,
+        "element_count": 20216,
+        "invalid_alive_value_count": 0,
+        "status": "available",
+        "reason": null,
+        "minimum": 0.0,
+        "mean": 0.007245921970744857,
+        "p50": 0.0,
+        "p95": 0.04173361207828628,
+        "p99": 0.15459868617047182,
+        "maximum": 0.6939191256599847
+      },
+      "fragment": {
+        "part": "fragment",
+        "part_id": 2002,
+        "element_count": 686,
+        "invalid_alive_value_count": 0,
+        "status": "available",
+        "reason": null,
+        "minimum": 0.0,
+        "mean": 0.36920862029943224,
+        "p50": 0.2605317298343064,
+        "p95": 1.0,
+        "p99": 1.0,
+        "maximum": 1.0
+      },
+      "final_fragment_state": {
+        "state_index": 401,
+        "time_ms": 0.0400000012831876,
+        "part": "fragment",
+        "part_id": 2002,
+        "alive_element_count": 686,
+        "deleted_element_count": 0,
+        "invalid_alive_value_count": 0,
+        "status": "available",
+        "reason": null,
+        "minimum": 0.02778458705091666,
+        "mean": 0.8141613532157621,
+        "p50": 1.0,
+        "p95": 1.0,
+        "p99": 1.0,
+        "maximum": 1.0
+      }
+    },
+    "ncforc": {
+      "status": "available_ragged_pending_semantic_validation",
+      "path": "ncforc/surfa_1",
+      "logical_databases": [
+        "JOBINFO",
+        "glstat",
+        "matsum",
+        "ncforc",
+        "nodout",
+        "sleout"
+      ],
+      "state_count": 801,
+      "first_time_ms": 0.0,
+      "last_time_ms": 0.03999999971753608,
+      "minimum_nodes_per_state": 3365,
+      "maximum_nodes_per_state": 3458,
+      "union_node_count": 3481,
+      "all_state_intersection_node_count": 3342,
+      "node_count_change_count": 26,
+      "all_ids_unique_per_state": true,
+      "all_coordinates_forces_pressure_finite": true,
+      "raw_model_unit_ranges": {
+        "pressure": [
+          -102.83310269456106,
+          280.51039102182483
+        ],
+        "x_force": [
+          -293.0208352380716,
+          223.07461395834596
+        ],
+        "y_force": [
+          -681.3364046432458,
+          745.1479888974396
+        ],
+        "z_force": [
+          -186.5398745006185,
+          307.72901387624586
+        ]
+      },
+      "claim_boundary": "Units, sign convention, contact-side mapping, impulse and energy closure are not yet validated."
+    },
+    "sleout": {
+      "status": "available_energy_only",
+      "direct_contact_substitute": false
+    },
+    "intfor": {
+      "status": "not_requested_under_contract",
+      "value": null,
+      "reason": "the R06f measurement contract does not request unsupported binary INTFOR",
+      "files": []
+    }
+  },
+  "diagnostic_response": {
+    "adapter_primary_qoi_available": true,
+    "formal_use_policy": "diagnostic_only_not_admissible_for_calibration",
+    "unavailable_reasons": [],
+    "classification": "confirmed_nonperforation",
+    "diagnostic_values_before_availability_gate": {
+      "qM": 0.0,
+      "qP": 0.0,
+      "qE": 0.0,
+      "qV_over_v0": null
+    },
+    "deleted_upstream_mass_fraction": 0.0,
+    "worst_case_crossing_mass_fraction": 8.91499070745927e-09,
+    "crossing_event_count": 0,
+    "tail_window": {
+      "start_time_ms": 0.03600000115486884,
+      "increment_qM": 0.0,
+      "increment_qP": 0.0,
+      "increment_qE": 0.0,
+      "qV_relative_range": 0.0
+    },
+    "final_alive_fragment_count": 686,
+    "fragment_deleted_element_count": 0
+  },
+  "formal_fragment_negative_volume_comparison_to_job_72751725": {
+    "status": "supported_fragment_deletion_removed_but_numerical_instability_exposed",
+    "single_factor": "CONTROL_SOLID Card 1 field 5 PSFAIL, 0 to plate-only set 910001",
+    "deletion_change": {
+      "control_deleted_element_count": 35,
+      "treatment_deleted_element_count": 0,
+      "control_negative_volume_fragment_element_count": 35,
+      "treatment_negative_volume_fragment_element_count": 0,
+      "suppression_gate": "pass"
+    },
+    "failure_damage_evidence": {
+      "status": "pass",
+      "fragment_hvar6_maximum": 1.0,
+      "final_fragment_hvar6_mean": 0.8141613532157621,
+      "final_fragment_hvar6_p50": 1.0,
+      "final_fragment_hvar6_p95": 1.0,
+      "final_fragment_hvar6_p99": 1.0
+    },
+    "performance_and_numerical_stability": {
+      "status": "fail",
+      "control_cycle_count": 82993,
+      "treatment_cycle_count": 5547044,
+      "cycle_count_ratio": 66.83749231862929,
+      "minimum_time_step_ms": 1.49828e-09,
+      "total_energy_ratio_gate": {
+        "status": "fail",
+        "allowed_range": [
+          0.95,
+          1.05
+        ],
+        "observed_range": [
+          1.0,
+          1.10606
+        ]
+      },
+      "contact_sliding_energy_gate": {
+        "status": "fail",
+        "candidate_absolute_fraction_of_initial_max": 0.05,
+        "observed": -4.609109375
+      }
+    },
+    "interpretation": "The exact disappearance of all 35 fragment deletions and negative-volume events supports the isolated ERODING-contact negative-volume deletion mechanism. Retaining heavily failed solids under SOFT=2 causes a severe timestep and contact-energy instability, so deletion suppression is not a production remedy."
+  },
+  "decision": {
+    "solver_parser_runtime": "pass",
+    "input_identity": "pass",
+    "resource_identity": "pass",
+    "measurement_channels": "pass",
+    "fragment_negative_volume_hypothesis": "supported",
+    "fragment_deletion_suppression": "pass",
+    "response_availability": "diagnostic_only_not_admissible",
+    "numerical_stability": "fail_contact_energy_and_timestep_collapse",
+    "classification": "successful_mechanism_isolation_but_numerically_unstable_not_calibration_admissible",
+    "release_r06l_contact_soft1_isolation": true,
+    "release_2000_control": false,
+    "release_treatments": false,
+    "p0_response_calibration": "denied",
+    "p1_submission": "denied",
+    "engine_fitting": "denied",
+    "damage_tree_fitting": "denied",
+    "dataset_reference_promotion": "denied"
+  },
+  "recommended_next_sequence": [
+    "Keep PSFAIL=910001, fragment MAT_015 EROD=1, plate EROD=0, TSSFAC=0.05 and DT2MS=0 frozen.",
+    "Run one contact-algorithm diagnostic that changes only ERODING_SINGLE_SURFACE Optional Card A SOFT from 2 to 1.",
+    "Require zero fragment deletion and negative-volume events, energy ratio within [0.95,1.05], and a material reduction of sliding-energy and cycle-count instability.",
+    "If SOFT=1 remains unstable, stop contact-parameter tuning and redesign failed-fragment handling using an explicitly validated model-form such as adaptive solid-to-SPH.",
+    "Keep 2000 m/s, treatments, fitting and reference-dataset promotion frozen."
+  ],
+  "claim_boundary": "This audit establishes a numerical deletion mechanism and identifies a new contact/timestep instability. It does not establish physical validity, a production erosion/contact policy, engine calibration, damage-tree calibration or a dataset label."
+}

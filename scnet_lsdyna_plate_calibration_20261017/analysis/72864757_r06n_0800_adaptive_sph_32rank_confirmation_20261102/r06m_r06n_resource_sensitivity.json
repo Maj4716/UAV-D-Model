@@ -1,0 +1,756 @@
+{
+  "schema_version": "hf-p0-r06m-r06n-resource-sensitivity@1.0.0",
+  "comparison_factor": {
+    "r06m_observed_ranks": 64,
+    "r06n_observed_ranks": 32
+  },
+  "r06m": {
+    "completion": {
+      "cycle_count": 85057,
+      "elapsed_seconds": 220,
+      "ranks": 64
+    },
+    "minimum_time_step_ms": 3.34154e-07,
+    "final_sliding_energy_fraction": 0.0266846875,
+    "negative_volume": {
+      "unique_element_count": 34,
+      "plate_unique_element_count": 0,
+      "fragment_unique_element_count": 34,
+      "elements": [
+        {
+          "element_id": 41125,
+          "part_id": 2002,
+          "part_kind": "fragment",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.0057279,
+          "last_time_ms": 0.0057279
+        },
+        {
+          "element_id": 41132,
+          "part_id": 2002,
+          "part_kind": "fragment",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.0057092,
+          "last_time_ms": 0.0057092
+        },
+        {
+          "element_id": 41139,
+          "part_id": 2002,
+          "part_kind": "fragment",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.0058102,
+          "last_time_ms": 0.0058102
+        },
+        {
+          "element_id": 41146,
+          "part_id": 2002,
+          "part_kind": "fragment",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.0054685,
+          "last_time_ms": 0.0054685
+        },
+        {
+          "element_id": 41153,
+          "part_id": 2002,
+          "part_kind": "fragment",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.0053656,
+          "last_time_ms": 0.0053656
+        },
+        {
+          "element_id": 41160,
+          "part_id": 2002,
+          "part_kind": "fragment",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.005067,
+          "last_time_ms": 0.005067
+        },
+        {
+          "element_id": 41161,
+          "part_id": 2002,
+          "part_kind": "fragment",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.0058146,
+          "last_time_ms": 0.0058146
+        },
+        {
+          "element_id": 41162,
+          "part_id": 2002,
+          "part_kind": "fragment",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.0058058,
+          "last_time_ms": 0.0058058
+        },
+        {
+          "element_id": 41163,
+          "part_id": 2002,
+          "part_kind": "fragment",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.0058013,
+          "last_time_ms": 0.0058013
+        },
+        {
+          "element_id": 41164,
+          "part_id": 2002,
+          "part_kind": "fragment",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.0056008,
+          "last_time_ms": 0.0056008
+        },
+        {
+          "element_id": 41165,
+          "part_id": 2002,
+          "part_kind": "fragment",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.0055029,
+          "last_time_ms": 0.0055029
+        },
+        {
+          "element_id": 41166,
+          "part_id": 2002,
+          "part_kind": "fragment",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.0050802,
+          "last_time_ms": 0.0050802
+        },
+        {
+          "element_id": 41167,
+          "part_id": 2002,
+          "part_kind": "fragment",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.0050854,
+          "last_time_ms": 0.0050854
+        },
+        {
+          "element_id": 41174,
+          "part_id": 2002,
+          "part_kind": "fragment",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.0077746,
+          "last_time_ms": 0.0077746
+        },
+        {
+          "element_id": 41181,
+          "part_id": 2002,
+          "part_kind": "fragment",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.0077829,
+          "last_time_ms": 0.0077829
+        },
+        {
+          "element_id": 41188,
+          "part_id": 2002,
+          "part_kind": "fragment",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.0075811,
+          "last_time_ms": 0.0075811
+        },
+        {
+          "element_id": 41195,
+          "part_id": 2002,
+          "part_kind": "fragment",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.0075777,
+          "last_time_ms": 0.0075777
+        },
+        {
+          "element_id": 41208,
+          "part_id": 2002,
+          "part_kind": "fragment",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.0056843,
+          "last_time_ms": 0.0056843
+        },
+        {
+          "element_id": 41209,
+          "part_id": 2002,
+          "part_kind": "fragment",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.0057828,
+          "last_time_ms": 0.0057828
+        },
+        {
+          "element_id": 41210,
+          "part_id": 2002,
+          "part_kind": "fragment",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.0075168,
+          "last_time_ms": 0.0075168
+        },
+        {
+          "element_id": 41211,
+          "part_id": 2002,
+          "part_kind": "fragment",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.0075104,
+          "last_time_ms": 0.0075104
+        },
+        {
+          "element_id": 41212,
+          "part_id": 2002,
+          "part_kind": "fragment",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.0074897,
+          "last_time_ms": 0.0074897
+        },
+        {
+          "element_id": 41213,
+          "part_id": 2002,
+          "part_kind": "fragment",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.0074313,
+          "last_time_ms": 0.0074313
+        },
+        {
+          "element_id": 41214,
+          "part_id": 2002,
+          "part_kind": "fragment",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.013242,
+          "last_time_ms": 0.013242
+        },
+        {
+          "element_id": 41215,
+          "part_id": 2002,
+          "part_kind": "fragment",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.0076089,
+          "last_time_ms": 0.0076089
+        },
+        {
+          "element_id": 41216,
+          "part_id": 2002,
+          "part_kind": "fragment",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.0089128,
+          "last_time_ms": 0.0089128
+        },
+        {
+          "element_id": 41315,
+          "part_id": 2002,
+          "part_kind": "fragment",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.021539,
+          "last_time_ms": 0.021539
+        },
+        {
+          "element_id": 41364,
+          "part_id": 2002,
+          "part_kind": "fragment",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.014429,
+          "last_time_ms": 0.014429
+        },
+        {
+          "element_id": 41413,
+          "part_id": 2002,
+          "part_kind": "fragment",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.022899,
+          "last_time_ms": 0.022899
+        },
+        {
+          "element_id": 41414,
+          "part_id": 2002,
+          "part_kind": "fragment",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.024979,
+          "last_time_ms": 0.024979
+        },
+        {
+          "element_id": 41420,
+          "part_id": 2002,
+          "part_kind": "fragment",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.02655,
+          "last_time_ms": 0.02655
+        },
+        {
+          "element_id": 41421,
+          "part_id": 2002,
+          "part_kind": "fragment",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.028129,
+          "last_time_ms": 0.028129
+        },
+        {
+          "element_id": 41462,
+          "part_id": 2002,
+          "part_kind": "fragment",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.021098,
+          "last_time_ms": 0.021098
+        },
+        {
+          "element_id": 41463,
+          "part_id": 2002,
+          "part_kind": "fragment",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.025088,
+          "last_time_ms": 0.025088
+        }
+      ]
+    },
+    "d3plot": {
+      "state_count": 402,
+      "last_time_ms": 0.040000008249599,
+      "coordinate_mode": "absolute_coordinates",
+      "deleted_fragment_element_ids": [
+        41125,
+        41132,
+        41139,
+        41146,
+        41153,
+        41160,
+        41161,
+        41162,
+        41163,
+        41164,
+        41165,
+        41166,
+        41167,
+        41174,
+        41181,
+        41188,
+        41195,
+        41208,
+        41209,
+        41210,
+        41211,
+        41212,
+        41213,
+        41214,
+        41215,
+        41216,
+        41315,
+        41364,
+        41413,
+        41414,
+        41420,
+        41421,
+        41462,
+        41463
+      ],
+      "deleted_plate_element_ids": [],
+      "target_plate_element": {
+        "element_id": 39948,
+        "initial_centroid_mm": [
+          155.625,
+          5.625,
+          -0.35714285715
+        ],
+        "first_failed_state": null,
+        "first_failed_time_ms": null,
+        "last_alive_state": 401,
+        "last_alive_time_ms": 0.040000008249599,
+        "last_alive_centroid_mm": [
+          156.02188696175742,
+          6.0210028710559955,
+          -1.3193061997292364
+        ],
+        "last_alive_hvar6": 0.14328293149836877,
+        "maximum_alive_hvar6": 0.14328293149836877,
+        "final_hvar6_raw": 0.14328293149836877
+      }
+    }
+  },
+  "r06n": {
+    "completion": {
+      "cycle_count": 59026,
+      "elapsed_seconds": 225,
+      "ranks": 32
+    },
+    "minimum_time_step_ms": 5.08547e-07,
+    "final_sliding_energy_fraction": 0.01850484375,
+    "negative_volume": {
+      "unique_element_count": 37,
+      "plate_unique_element_count": 0,
+      "fragment_unique_element_count": 37,
+      "elements": [
+        {
+          "element_id": 41125,
+          "part_id": 2002,
+          "part_kind": "fragment",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.0057246,
+          "last_time_ms": 0.0057246
+        },
+        {
+          "element_id": 41132,
+          "part_id": 2002,
+          "part_kind": "fragment",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.0057272,
+          "last_time_ms": 0.0057272
+        },
+        {
+          "element_id": 41139,
+          "part_id": 2002,
+          "part_kind": "fragment",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.0058241,
+          "last_time_ms": 0.0058241
+        },
+        {
+          "element_id": 41146,
+          "part_id": 2002,
+          "part_kind": "fragment",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.0056161,
+          "last_time_ms": 0.0056161
+        },
+        {
+          "element_id": 41153,
+          "part_id": 2002,
+          "part_kind": "fragment",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.006879,
+          "last_time_ms": 0.006879
+        },
+        {
+          "element_id": 41159,
+          "part_id": 2002,
+          "part_kind": "fragment",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.014317,
+          "last_time_ms": 0.014317
+        },
+        {
+          "element_id": 41160,
+          "part_id": 2002,
+          "part_kind": "fragment",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.0049456,
+          "last_time_ms": 0.0049456
+        },
+        {
+          "element_id": 41161,
+          "part_id": 2002,
+          "part_kind": "fragment",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.005834,
+          "last_time_ms": 0.005834
+        },
+        {
+          "element_id": 41162,
+          "part_id": 2002,
+          "part_kind": "fragment",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.005741,
+          "last_time_ms": 0.005741
+        },
+        {
+          "element_id": 41163,
+          "part_id": 2002,
+          "part_kind": "fragment",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.0057307,
+          "last_time_ms": 0.0057307
+        },
+        {
+          "element_id": 41164,
+          "part_id": 2002,
+          "part_kind": "fragment",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.0055715,
+          "last_time_ms": 0.0055715
+        },
+        {
+          "element_id": 41165,
+          "part_id": 2002,
+          "part_kind": "fragment",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.0054207,
+          "last_time_ms": 0.0054207
+        },
+        {
+          "element_id": 41166,
+          "part_id": 2002,
+          "part_kind": "fragment",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.0087669,
+          "last_time_ms": 0.0087669
+        },
+        {
+          "element_id": 41167,
+          "part_id": 2002,
+          "part_kind": "fragment",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.0049225,
+          "last_time_ms": 0.0049225
+        },
+        {
+          "element_id": 41174,
+          "part_id": 2002,
+          "part_kind": "fragment",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.0076386,
+          "last_time_ms": 0.0076386
+        },
+        {
+          "element_id": 41181,
+          "part_id": 2002,
+          "part_kind": "fragment",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.0076149,
+          "last_time_ms": 0.0076149
+        },
+        {
+          "element_id": 41188,
+          "part_id": 2002,
+          "part_kind": "fragment",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.007713,
+          "last_time_ms": 0.007713
+        },
+        {
+          "element_id": 41195,
+          "part_id": 2002,
+          "part_kind": "fragment",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.0076103,
+          "last_time_ms": 0.0076103
+        },
+        {
+          "element_id": 41202,
+          "part_id": 2002,
+          "part_kind": "fragment",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.010285,
+          "last_time_ms": 0.010285
+        },
+        {
+          "element_id": 41208,
+          "part_id": 2002,
+          "part_kind": "fragment",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.0056214,
+          "last_time_ms": 0.0056214
+        },
+        {
+          "element_id": 41209,
+          "part_id": 2002,
+          "part_kind": "fragment",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.0056509,
+          "last_time_ms": 0.0056509
+        },
+        {
+          "element_id": 41210,
+          "part_id": 2002,
+          "part_kind": "fragment",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.007416,
+          "last_time_ms": 0.007416
+        },
+        {
+          "element_id": 41211,
+          "part_id": 2002,
+          "part_kind": "fragment",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.0073884,
+          "last_time_ms": 0.0073884
+        },
+        {
+          "element_id": 41212,
+          "part_id": 2002,
+          "part_kind": "fragment",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.0080499,
+          "last_time_ms": 0.0080499
+        },
+        {
+          "element_id": 41213,
+          "part_id": 2002,
+          "part_kind": "fragment",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.0075192,
+          "last_time_ms": 0.0075192
+        },
+        {
+          "element_id": 41214,
+          "part_id": 2002,
+          "part_kind": "fragment",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.0086479,
+          "last_time_ms": 0.0086479
+        },
+        {
+          "element_id": 41215,
+          "part_id": 2002,
+          "part_kind": "fragment",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.0065245,
+          "last_time_ms": 0.0065245
+        },
+        {
+          "element_id": 41216,
+          "part_id": 2002,
+          "part_kind": "fragment",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.015989,
+          "last_time_ms": 0.015989
+        },
+        {
+          "element_id": 41257,
+          "part_id": 2002,
+          "part_kind": "fragment",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.0096737,
+          "last_time_ms": 0.0096737
+        },
+        {
+          "element_id": 41315,
+          "part_id": 2002,
+          "part_kind": "fragment",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.021706,
+          "last_time_ms": 0.021706
+        },
+        {
+          "element_id": 41364,
+          "part_id": 2002,
+          "part_kind": "fragment",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.014247,
+          "last_time_ms": 0.014247
+        },
+        {
+          "element_id": 41413,
+          "part_id": 2002,
+          "part_kind": "fragment",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.022894,
+          "last_time_ms": 0.022894
+        },
+        {
+          "element_id": 41414,
+          "part_id": 2002,
+          "part_kind": "fragment",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.024675,
+          "last_time_ms": 0.024675
+        },
+        {
+          "element_id": 41420,
+          "part_id": 2002,
+          "part_kind": "fragment",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.026559,
+          "last_time_ms": 0.026559
+        },
+        {
+          "element_id": 41421,
+          "part_id": 2002,
+          "part_kind": "fragment",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.027006,
+          "last_time_ms": 0.027006
+        },
+        {
+          "element_id": 41462,
+          "part_id": 2002,
+          "part_kind": "fragment",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.021302,
+          "last_time_ms": 0.021302
+        },
+        {
+          "element_id": 41463,
+          "part_id": 2002,
+          "part_kind": "fragment",
+          "rank_observation_count": 1,
+          "first_time_ms": 0.02452,
+          "last_time_ms": 0.02452
+        }
+      ]
+    },
+    "d3plot": {
+      "state_count": 402,
+      "last_time_ms": 0.04000008596522366,
+      "coordinate_mode": "absolute_coordinates",
+      "deleted_fragment_element_ids": [
+        41125,
+        41132,
+        41139,
+        41146,
+        41153,
+        41159,
+        41160,
+        41161,
+        41162,
+        41163,
+        41164,
+        41165,
+        41166,
+        41167,
+        41174,
+        41181,
+        41188,
+        41195,
+        41202,
+        41208,
+        41209,
+        41210,
+        41211,
+        41212,
+        41213,
+        41214,
+        41215,
+        41216,
+        41257,
+        41315,
+        41364,
+        41413,
+        41414,
+        41420,
+        41421,
+        41462,
+        41463
+      ],
+      "deleted_plate_element_ids": [
+        39948
+      ],
+      "target_plate_element": {
+        "element_id": 39948,
+        "initial_centroid_mm": [
+          155.625,
+          5.625,
+          -0.35714285715
+        ],
+        "first_failed_state": 62,
+        "first_failed_time_ms": 0.006199309978417389,
+        "last_alive_state": 61,
+        "last_alive_time_ms": 0.006099307473839414,
+        "last_alive_centroid_mm": [
+          155.96656578734584,
+          5.943865577526404,
+          -0.2256317692741047
+        ],
+        "last_alive_hvar6": 0.3299324249720825,
+        "maximum_alive_hvar6": 0.3299324249720825,
+        "final_hvar6_raw": 0.0
+      }
+    }
+  },
+  "paired_diagnostics": {
+    "cycle_count_ratio_r06n_over_r06m": 0.6939581692276944,
+    "minimum_time_step_ratio_r06n_over_r06m": 1.5218940967338412,
+    "converted_fragment_count_r06m": 34,
+    "converted_fragment_count_r06n": 37,
+    "converted_fragment_count_difference": 3,
+    "converted_fragment_intersection_count": 34,
+    "converted_fragment_union_count": 37,
+    "converted_fragment_jaccard": 0.918918918918919,
+    "converted_only_in_r06m": [],
+    "converted_only_in_r06n": [
+      41159,
+      41202,
+      41257
+    ],
+    "r06m_negative_volume_equals_converted_set": true,
+    "r06n_negative_volume_equals_converted_set": true,
+    "r06n_plate_failure_is_not_in_negative_volume_set": true
+  },
+  "interpretation": "The exact model is resource-decomposition sensitive. R06n preserves fragment conversion mass and energy gates, but the 32-rank trajectory produces a material-failed plate element and a cycle-count ratio outside the preregistered repeatability interval. This is a failed confirmation, not a calibrated response."
+}

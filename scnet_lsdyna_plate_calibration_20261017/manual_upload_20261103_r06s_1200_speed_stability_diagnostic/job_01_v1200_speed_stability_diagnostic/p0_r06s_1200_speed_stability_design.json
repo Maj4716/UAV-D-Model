@@ -1,0 +1,111 @@
+{
+  "schema_version": "hf-p0-r06s-speed-stability-diagnostic-design@1.0.0",
+  "package_revision": "R06_speed_stability_diagnostic_1200_20261103",
+  "status": "frozen_before_r06s_outcome",
+  "objective": "test whether the R06r engineering failures are confined to the 2000 m/s extreme-load point",
+  "parent": {
+    "job_id": "r06r_2000_speed_upper_anchor",
+    "platform_job_id": "72963617",
+    "deck_sha256": "sha256:511cbde9d33b1422981bc5716b0c9ae16a3fcd14f091e1dec003d053f3808e48",
+    "audit_classification": "completed_but_engineering_failed_plate_negative_volume_and_sliding_energy"
+  },
+  "jobs": [
+    {
+      "job_id": "r06s_1200_speed_stability_diagnostic",
+      "experiment_id": "r06s_numerical_speed_stability_diagnostic_1200",
+      "role": "numerical_speed_stability_diagnostic",
+      "impact_speed_mps": 1200.0,
+      "termination_time_ms": 0.5,
+      "maximum_cycle_count": 2500000,
+      "d3plot_interval_ms": 0.00015,
+      "d3part_interval_ms": 0.00015,
+      "ascii_interval_ms": 0.00025,
+      "nodes": 1,
+      "ranks": 32
+    }
+  ],
+  "factor_model": {
+    "physical_factor": {
+      "name": "fragment_initial_speed_mps",
+      "parent_level": 2000.0,
+      "candidate_level": 1200.0,
+      "reference_admitted_level": 800.0,
+      "single_physical_factor_change": true,
+      "role": "stability_diagnostic_not_midpoint_calibration"
+    },
+    "measurement_controls": {
+      "d3plot_interval_ms": {
+        "parent": 0.0001,
+        "candidate": 0.00015
+      },
+      "d3part_interval_ms": {
+        "parent": 0.0001,
+        "candidate": 0.00015
+      },
+      "reason": "use the coarsest prospective cadence that remains below the frozen 0.25 mm carrier-step gate",
+      "physical_model_semantics_unchanged": true
+    },
+    "execution_safety_control": {
+      "maximum_cycle_count": 2500000,
+      "changed_from_parent": false
+    },
+    "permitted_deck_differences": [
+      "TITLE_identifier_line",
+      "DATABASE_BINARY_D3PLOT_dt_0p0001_to_0p00015",
+      "DATABASE_BINARY_D3PART_dt_0p0001_to_0p00015",
+      "INITIAL_VELOCITY_GENERATION_part_2002_vz_minus2000_to_minus1200"
+    ]
+  },
+  "frozen_controls": {
+    "mesh_mm": 0.75,
+    "termination_time_ms": 0.5,
+    "maximum_cycle_count": 2500000,
+    "tssfac": 0.05,
+    "dt2ms": 0.0,
+    "plate_mat015_erod": 1,
+    "fragment_mat015_erod": 1,
+    "plate_part_id": 1002,
+    "fragment_solid_part_id": 2002,
+    "adaptive_sph_part_id": 2003,
+    "particles_per_failed_hexahedron": 8,
+    "solid_contact_soft": 2,
+    "dedicated_sph_to_solid_contact_soft": 1,
+    "control_solid_psfail": 0,
+    "ascii_database_interval_ms": 0.00025,
+    "nodes": 1,
+    "ranks": 32,
+    "solver_family": "LS-DYNA R15 MPP double precision"
+  },
+  "staged_return_policy": {
+    "stage1_download": [
+      "submitted deck",
+      "manifest.json",
+      "job_contract.json",
+      "Slurm script",
+      "platform log",
+      "std.out",
+      "std.err",
+      "glstat",
+      "all mes0000 through mes0031"
+    ],
+    "stage1_expected_size_mib": 26,
+    "if_stage1_fails": "stop_without_downloading_d3plot_d3part_or_binout",
+    "if_stage1_passes": "download_complete_d3plot_family_then_complete_d3part_and_binout_families"
+  },
+  "run_planning": {
+    "requested_walltime": "12:00:00",
+    "maximum_cycle_count": 2500000,
+    "projected_d3plot_state_count": 3335,
+    "projected_d3part_state_count": 3335,
+    "projected_total_output_bytes": 22510000000,
+    "projected_total_output_gb_decimal": 22.51,
+    "storage_claim_boundary": "R06r binary families scaled by state count; actual segmentation and size can differ"
+  },
+  "acceptance_contract": "p0_r06s_1200_speed_stability_output_contract.json",
+  "release_scope": "one R06s high-fidelity stability-diagnostic job only",
+  "prohibited": [
+    "changing material, contact, adaptive-SPH, timestep scale, horizon, mesh or resources",
+    "relaxing plate-negative-volume or 5-percent sliding-energy gates after observing R06s",
+    "using R06r or R06s directly for engine fitting, damage-tree fitting or a reference label"
+  ]
+}

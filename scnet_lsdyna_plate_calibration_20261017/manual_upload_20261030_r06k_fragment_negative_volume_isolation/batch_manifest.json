@@ -1,0 +1,36 @@
+{
+  "schema_version": "hf-p0-r06-batch-manifest@1.0.0",
+  "package_revision": "R06_fragment_negative_volume_isolation_20261030",
+  "status": "generated_pending_static_validation_not_submitted",
+  "design": {
+    "path": "p0_r06k_fragment_negative_volume_isolation_design.json",
+    "sha256": "sha256:38b56dcd730822271f756c3b4d2a0676fde6ca00f64351ead8b5bb65e6817212"
+  },
+  "material": {
+    "path": "jc4340_reference.json",
+    "sha256": "sha256:9b462b920459e57641d5f89d10d36c0aa0498c86f2478fef8e4c3efa96888311"
+  },
+  "successor_contract": {
+    "path": "p0_r06k_fragment_negative_volume_output_contract.json",
+    "sha256": "sha256:e141ff823f3dbc8e123cb0dc89a737ba850161faed2ab035d545bdf57ee8a323",
+    "frozen_pre_generation_snapshot": true
+  },
+  "submission_matrix": {
+    "path": "submission_matrix.csv",
+    "sha256": "sha256:f0d9c6bae11791db3910e5677d770edde16a4319e8a7863fdd676d0087385567"
+  },
+  "job_count": 1,
+  "paired_experiment_count": 1,
+  "jobs": [
+    {
+      "job_id": "r06k_0800_fragment_psfail_plate",
+      "directory": "job_01_v0800_fragment_psfail_plate",
+      "experiment_id": "r06k_fragment_negative_volume_psfail_isolation_800",
+      "role": "fragment_negative_volume_failure_exclusion_diagnostic",
+      "deck": "r06k_0800_fragment_psfail_plate.k",
+      "deck_sha256": "sha256:f78396a9fd15114fe411507a7774d68cecb10a25460413474772f2b99e8a17ca",
+      "manifest_sha256": "sha256:e49a346c672a404485411d6f56cd373dcad8a856e70352a5cb4f7ec38d6a6639"
+    }
+  ],
+  "prohibited_inference": "Generation and static validation do not establish target-solver parsing, numerical response, physical validity, or P0/P1 admission."
+}

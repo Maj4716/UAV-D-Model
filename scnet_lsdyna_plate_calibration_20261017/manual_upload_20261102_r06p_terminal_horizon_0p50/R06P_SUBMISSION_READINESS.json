@@ -1,0 +1,23 @@
+{
+  "schema_version": "hf-p0-r06p-submission-readiness@1.0.0",
+  "overall_status": "pass",
+  "package_revision": "R06_terminal_horizon_0p50_20261102",
+  "job_id": "r06p_0800_terminal_horizon_0p50",
+  "allowed_deck_differences": [
+    "TITLE_identifier_line",
+    "CONTROL_TERMINATION_endtim_0p04_to_0p50",
+    "DATABASE_BINARY_D3PLOT_dt_0p0001_to_0p0005",
+    "DATABASE_BINARY_D3PART_dt_0p00005_to_0p00025",
+    "DATABASE_GLSTAT_dt_0p00005_to_0p00025",
+    "DATABASE_MATSUM_dt_0p00005_to_0p00025",
+    "DATABASE_SLEOUT_dt_0p00005_to_0p00025",
+    "DATABASE_NODOUT_dt_0p00005_to_0p00025",
+    "DATABASE_NCFORC_dt_0p00005_to_0p00025"
+  ],
+  "required_resources": {
+    "nodes": 1,
+    "ranks": 32
+  },
+  "archive_policy": "no_archive_direct_folder_delivery",
+  "solver_status": "not_submitted_not_solver_validated"
+}

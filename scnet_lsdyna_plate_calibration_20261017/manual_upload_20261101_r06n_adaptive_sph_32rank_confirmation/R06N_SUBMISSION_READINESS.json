@@ -1,0 +1,13 @@
+{
+  "schema_version": "hf-p0-r06n-submission-readiness@1.0.0",
+  "overall_status": "pass",
+  "package_revision": "R06_adaptive_sph_32rank_confirmation_20261101",
+  "job_id": "r06n_0800_adaptive_sph_32rank_confirmation",
+  "title_only_deck_change": true,
+  "required_resources": {
+    "nodes": 1,
+    "ranks": 32
+  },
+  "archive_policy": "no_archive_direct_folder_delivery",
+  "solver_status": "not_submitted_not_solver_validated"
+}

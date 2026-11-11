@@ -1,0 +1,63 @@
+{
+  "schema_version": "hf-p0-r06-job-contract@1.0.0",
+  "package_revision": "R06_fragment_erosion_isolation_20261030",
+  "job_id": "r06j_0800_fragment_erod1",
+  "experiment_id": "r06j_fragment_erosion_isolation_800",
+  "role": "fragment_failure_erosion_suppression_diagnostic",
+  "factor": "fragment_mat015_erod_flag",
+  "factor_level": 1,
+  "case": {
+    "case_id": "p0_v0800_h0p75",
+    "source_r05_index": 2,
+    "impact_speed_mps": 800.0,
+    "mesh_mm": 0.75,
+    "offset_x_mm": 150.0,
+    "offset_y_mm": 0.0,
+    "plate_part_id": 1002,
+    "fragment_part_id": 2002,
+    "plate_node_count": 22815,
+    "fragment_node_count": 960,
+    "plate_element_count": 20216,
+    "fragment_element_count": 686,
+    "first_node_id": 23776,
+    "last_node_id": 47550,
+    "first_element_id": 20903,
+    "last_element_id": 41804,
+    "fragment_center_history_node_id": 47039,
+    "fragment_initial_reference_mass_kg": 0.002,
+    "capture_plane_z_mm": -12.0,
+    "termination_time_ms": 0.04,
+    "psfail_part_set_id": 0,
+    "fragment_mat015_erod": 1
+  },
+  "head_deck": "r06j_0800_fragment_erod1.k",
+  "resource_contract": {
+    "software_platform_label": "ls-dyna_R15_mmp_d",
+    "solver_family": "LS-DYNA R15 MPP double precision",
+    "nodes": 1,
+    "ranks": 32,
+    "walltime": "04:00:00",
+    "head_memory_mb": 512,
+    "child_memory_mb": 256,
+    "command_line_parameters": ""
+  },
+  "required_return_families": [
+    "submitted .k",
+    "solver o= output or d3hsp",
+    "mes*",
+    "glstat",
+    "matsum",
+    "sleout",
+    "nodout",
+    "binout*",
+    "d3plot*",
+    "d3part*",
+    "solver stdout/stderr",
+    "Slurm script and resource record"
+  ],
+  "optional_return_families": [
+    "intfor*",
+    "ncforc*"
+  ],
+  "status": "prepared_not_submitted_not_solver_validated"
+}

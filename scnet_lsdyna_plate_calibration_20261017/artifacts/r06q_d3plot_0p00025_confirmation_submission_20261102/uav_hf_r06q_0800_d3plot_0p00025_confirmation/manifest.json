@@ -1,0 +1,47 @@
+{
+  "schema_version": "hf-p0-r06q-job-manifest@1.0.0",
+  "package_revision": "R06_d3plot_0p00025_measurement_confirmation_20261102",
+  "job_id": "r06q_0800_d3plot_0p00025_confirmation",
+  "status": "generated_not_solver_validated",
+  "evidence_class": "high_fidelity_synthetic_terminal_response_measurement_confirmation_candidate",
+  "deck": {
+    "path": "r06q_0800_d3plot_0p00025_confirmation.k",
+    "size_bytes": 2558346,
+    "sha256": "sha256:a6229cda9778adb13b4c174346a4356deea3e62b175fda9cf8c7dbf12be60002",
+    "differences_from_parent": [
+      "TITLE_identifier_line",
+      "DATABASE_BINARY_D3PLOT_dt_0p0005_to_0p00025"
+    ]
+  },
+  "immutable_parent": {
+    "job_id": "r06p_0800_terminal_horizon_0p50",
+    "platform_job_id": "72915268",
+    "deck_sha256": "sha256:d471f09e9a726c9e4695565abc120e9300bfd68ca2b272bf23852322f8dc8629",
+    "classification": "successful_long_horizon_run_response_held_by_preregistered_output_resolution_gate"
+  },
+  "design": {
+    "path": "p0_r06q_d3plot_0p00025_confirmation_design.json",
+    "sha256": "sha256:3d8d3d13a47d767c8d9da1c1cbd6a702f7cf2a72ea251e625c4f77af3ab368ae"
+  },
+  "successor_contract": {
+    "path": "p0_r06q_d3plot_0p00025_confirmation_output_contract.json",
+    "sha256": "sha256:048b35e91a44ab193856921b931832a95c15dd2b74870037d7c88a097e061c02"
+  },
+  "material": {
+    "path": "jc4340_reference.json",
+    "sha256": "sha256:9b462b920459e57641d5f89d10d36c0aa0498c86f2478fef8e4c3efa96888311"
+  },
+  "case_map": {
+    "path": "p0_case_part_map.csv",
+    "sha256": "sha256:a45d52abde9a1623b13424945f62dec2bb5be63442bbc3ddbdf31155f611cc64"
+  },
+  "job_contract": {
+    "path": "job_contract.json",
+    "sha256": "sha256:97c02330f7f7497711ea1663d926c4ea42d465a70aae989e2efde7ccdb4d8f67"
+  },
+  "limitations": [
+    "Static validation proves only the TITLE and D3PLOT measurement-interval differences; target-platform execution is untested.",
+    "R06q preserves the failed R06p output-resolution result and does not reinterpret it post hoc.",
+    "Passing R06q may release one numerical speed-control case only; it is not fitting or physical validation."
+  ]
+}

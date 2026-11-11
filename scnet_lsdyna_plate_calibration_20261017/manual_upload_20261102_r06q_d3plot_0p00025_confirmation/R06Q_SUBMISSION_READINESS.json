@@ -1,0 +1,16 @@
+{
+  "schema_version": "hf-p0-r06q-submission-readiness@1.0.0",
+  "overall_status": "pass",
+  "package_revision": "R06_d3plot_0p00025_measurement_confirmation_20261102",
+  "job_id": "r06q_0800_d3plot_0p00025_confirmation",
+  "allowed_deck_differences": [
+    "TITLE_identifier_line",
+    "DATABASE_BINARY_D3PLOT_dt_0p0005_to_0p00025"
+  ],
+  "required_resources": {
+    "nodes": 1,
+    "ranks": 32
+  },
+  "archive_policy": "no_archive_direct_folder_delivery",
+  "solver_status": "not_submitted_not_solver_validated"
+}

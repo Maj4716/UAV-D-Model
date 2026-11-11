@@ -1,0 +1,50 @@
+{
+  "schema_version": "hf-p0-r06-job-manifest@1.0.0",
+  "package_revision": "R06_timestep_terminal_refinement_20261030",
+  "job_id": "r06i_0800_tssfac005",
+  "status": "generated_not_solver_validated",
+  "evidence_class": "high_fidelity_synthetic_diagnostic_candidate",
+  "deck": {
+    "path": "r06i_0800_tssfac005.k",
+    "size_bytes": 2557679,
+    "sha256": "sha256:e2e8da8e55304b7fe2deb2c1790e00bf7fea9c64145c6c09a954c50492f3dd88",
+    "node_count": 23775,
+    "element_count": 20902,
+    "node_id_span": [
+      23776,
+      47550
+    ],
+    "element_id_span": [
+      20903,
+      41804
+    ]
+  },
+  "design": {
+    "path": "p0_r06i_terminal_timestep_refinement_design.json",
+    "sha256": "sha256:056493b9df6fff5dcd56e65c02fe58089d142f544bebc4fe73e8c53ef1f8316c"
+  },
+  "material": {
+    "path": "jc4340_reference.json",
+    "sha256": "sha256:9b462b920459e57641d5f89d10d36c0aa0498c86f2478fef8e4c3efa96888311"
+  },
+  "successor_contract": {
+    "path": "p0_r06i_terminal_timestep_output_contract.json",
+    "sha256": "sha256:8d4e95d07e0b6415bdaf88838deb5a24f858055b448d1c890ea25c98903afe81",
+    "historical_status_preserved": "frozen_after_r06h_tssfac01_confirmation_fail_before_tssfac005_outcome"
+  },
+  "case_map": {
+    "path": "p0_case_part_map.csv",
+    "sha256": "sha256:bce3f3db58ca7dcda0d960950053212a91980cb0fc0989b3b0f914a6b3a261fe"
+  },
+  "job_contract": {
+    "path": "job_contract.json",
+    "sha256": "sha256:faa84b8e2864a58cf96048c918a12a5ebeafc0e2406a407d2676ae50845e540f"
+  },
+  "limitations": [
+    "Job 72701744 solved successfully but failed the 0.2-versus-0.1 confirmation because deleted-upstream mass diverged and the primary response became unavailable.",
+    "This package changes only TSSFAC from 0.1 to 0.05 and keeps DT2MS=0.",
+    "This is the final automatic timestep halving; no TSSFAC=0.025 job is authorized by this contract.",
+    "The current fragment-plate model already begins from a post-explosion fragment state, so no pre-explosion phase is added.",
+    "Static PASS and normal termination do not establish physical validity, P0/P1 admission, engine or damage-tree fitting, or dataset-label admission."
+  ]
+}

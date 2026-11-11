@@ -130,16 +130,35 @@ def validate_solver_realizable_timeline(
 
     deltas = np.diff(times)
     realizable_bounds: list[float] = []
+    terminal_step_aligned_interval_count = 0
     for index, delta in enumerate(deltas):
         interval_mask = (
             (solver_times >= times[index] - time_tolerance)
             & (solver_times < times[index + 1] - time_tolerance)
         )
         if not np.any(interval_mask):
-            raise ValueError(
-                f"solver-step evidence is absent for D3PART interval {index}"
+            exact_tolerance = (
+                np.finfo(np.float64).eps
+                * max(1.0, abs(float(termination)))
+                * TIME_WORD_ULP_TOLERANCE
             )
-        local_step = float(np.max(solver_steps[interval_mask]))
+            terminal_step_aligned = bool(
+                index == deltas.size - 1
+                and abs(float(times[index] - solver_times[-1])) <= exact_tolerance
+                and abs(
+                    float(times[index + 1] - (solver_times[-1] + solver_steps[-1]))
+                )
+                <= exact_tolerance
+                and float(delta) <= float(solver_steps[-1]) + exact_tolerance
+            )
+            if not terminal_step_aligned:
+                raise ValueError(
+                    f"solver-step evidence is absent for D3PART interval {index}"
+                )
+            local_step = float(solver_steps[-1])
+            terminal_step_aligned_interval_count += 1
+        else:
+            local_step = float(np.max(solver_steps[interval_mask]))
         realizable_bound = nominal + local_step
         if float(delta) > realizable_bound + time_tolerance:
             raise ValueError(
@@ -159,7 +178,9 @@ def validate_solver_realizable_timeline(
         "status": "pass",
         "schedule_rule": (
             "each actual D3PART interval must be no greater than the nominal output interval "
-            "plus the maximum positive GLSTAT explicit solver step in that interval"
+            "plus the maximum positive GLSTAT explicit solver step in that interval; an extra "
+            "terminal state is accepted only when it exactly equals the final GLSTAT state plus "
+            "its recorded explicit step"
         ),
         "crossing_spatial_resolution_rule": (
             "an alive-to-alive element-centroid capture-plane crossing is resolved only when "
@@ -177,6 +198,7 @@ def validate_solver_realizable_timeline(
         "maximum_interval_to_solver_realizable_bound_ratio": float(
             np.max(deltas / np.asarray(realizable_bounds, dtype=float))
         ),
+        "terminal_step_aligned_interval_count": terminal_step_aligned_interval_count,
     }
 
 

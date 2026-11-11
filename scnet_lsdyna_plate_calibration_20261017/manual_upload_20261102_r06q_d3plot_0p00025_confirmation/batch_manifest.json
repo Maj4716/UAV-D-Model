@@ -1,0 +1,60 @@
+{
+  "schema_version": "hf-p0-r06q-batch-manifest@1.0.0",
+  "package_revision": "R06_d3plot_0p00025_measurement_confirmation_20261102",
+  "job_count": 1,
+  "jobs": [
+    {
+      "job_id": "r06q_0800_d3plot_0p00025_confirmation",
+      "directory": "job_01_v0800_d3plot_0p00025_confirmation",
+      "head_deck": "r06q_0800_d3plot_0p00025_confirmation.k",
+      "head_deck_sha256": "sha256:a6229cda9778adb13b4c174346a4356deea3e62b175fda9cf8c7dbf12be60002"
+    }
+  ],
+  "files": [
+    {
+      "path": "job_01_v0800_d3plot_0p00025_confirmation/jc4340_reference.json",
+      "size_bytes": 3144,
+      "sha256": "sha256:9b462b920459e57641d5f89d10d36c0aa0498c86f2478fef8e4c3efa96888311"
+    },
+    {
+      "path": "job_01_v0800_d3plot_0p00025_confirmation/job_contract.json",
+      "size_bytes": 1776,
+      "sha256": "sha256:97c02330f7f7497711ea1663d926c4ea42d465a70aae989e2efde7ccdb4d8f67"
+    },
+    {
+      "path": "job_01_v0800_d3plot_0p00025_confirmation/manifest.json",
+      "size_bytes": 2122,
+      "sha256": "sha256:ce9a5cb7e966185062b4fccd8e86d020f38ed32b819bac55be2ffb2bc57f0b65"
+    },
+    {
+      "path": "job_01_v0800_d3plot_0p00025_confirmation/p0_case_part_map.csv",
+      "size_bytes": 535,
+      "sha256": "sha256:a45d52abde9a1623b13424945f62dec2bb5be63442bbc3ddbdf31155f611cc64"
+    },
+    {
+      "path": "job_01_v0800_d3plot_0p00025_confirmation/p0_r06q_d3plot_0p00025_confirmation_design.json",
+      "size_bytes": 2964,
+      "sha256": "sha256:3d8d3d13a47d767c8d9da1c1cbd6a702f7cf2a72ea251e625c4f77af3ab368ae"
+    },
+    {
+      "path": "job_01_v0800_d3plot_0p00025_confirmation/p0_r06q_d3plot_0p00025_confirmation_output_contract.json",
+      "size_bytes": 6824,
+      "sha256": "sha256:048b35e91a44ab193856921b931832a95c15dd2b74870037d7c88a097e061c02"
+    },
+    {
+      "path": "job_01_v0800_d3plot_0p00025_confirmation/r06q_0800_d3plot_0p00025_confirmation.k",
+      "size_bytes": 2558346,
+      "sha256": "sha256:a6229cda9778adb13b4c174346a4356deea3e62b175fda9cf8c7dbf12be60002"
+    },
+    {
+      "path": "job_01_v0800_d3plot_0p00025_confirmation/static_validation.json",
+      "size_bytes": 830,
+      "sha256": "sha256:e459d27389bdb5d17c71fe99179182f112ed3463d0005c264ea1b585a0c0dcc2"
+    },
+    {
+      "path": "job_01_v0800_d3plot_0p00025_confirmation/UPLOAD_README.txt",
+      "size_bytes": 536,
+      "sha256": "sha256:9e76d718457bc7d9eaeffe2437d0cd19e7e553535d1f7788cd9d9a8cce1df2c5"
+    }
+  ]
+}

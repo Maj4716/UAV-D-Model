@@ -1,0 +1,194 @@
+{
+  "schema_version": "hf-p0-r06o-plate-erod1-return-audit@1.0.0",
+  "audit_date": "2026-11-02",
+  "source_evidence": {
+    "directory": "D:/Desktop/UAV新/uav_hf_r06o_0800_plate_erod1_isolation",
+    "evidence_policy": "read_only_immutable",
+    "file_count": 118,
+    "total_bytes": 3452750701,
+    "platform_job_id": "72894870",
+    "job_id": "r06o_0800_plate_erod1_isolation",
+    "package_revision": "R06_plate_material_erod1_isolation_20261102",
+    "deck_sha256": "sha256:d71d2d11091a813f35ca98656c31fb7ad4f8174b024828a62e0f874daab3524f",
+    "solver_build": "LS-DYNA R15.0.2 MPP double precision"
+  },
+  "execution": {
+    "input_identity": "pass",
+    "resource_identity": "pass",
+    "resource_contract": {
+      "nodes": 1,
+      "ranks": 32
+    },
+    "observed_resources": {
+      "nodes": 1,
+      "ranks": 32
+    },
+    "normal_termination_at_required_time": true,
+    "start_time": "2026-11-02 09:29:09",
+    "end_time": "2026-11-02 09:33:13",
+    "portal_elapsed_seconds": 244,
+    "solver_elapsed_seconds": 229,
+    "cycle_count": 58809,
+    "cycle_guard": 829930,
+    "final_problem_time_ms": 0.04,
+    "stderr_size_bytes": 0,
+    "mass_scaling_mentions": 0,
+    "warning_counts": [
+      {
+        "id": "20339",
+        "code": "STR+339",
+        "occurrences": 1
+      },
+      {
+        "id": "21131",
+        "code": "STR+1131",
+        "occurrences": 32
+      },
+      {
+        "id": "30364",
+        "code": "INI+364",
+        "occurrences": 32
+      },
+      {
+        "id": "40509",
+        "code": "SOL+509",
+        "occurrences": 40
+      }
+    ],
+    "negative_volume_unique_element_count": 40
+  },
+  "engineering_gates": {
+    "resource_identity": "pass",
+    "solver_completion": "pass",
+    "fragment_sph_mass_and_finiteness": "pass",
+    "energy": {
+      "status": "pass",
+      "observed_total_energy_ratio_range": [
+        1.0,
+        1.0
+      ],
+      "observed_final_sliding_fraction": 0.022635625,
+      "observed_eroded_energy_fraction": 0.010000234375
+    },
+    "plate_retention": {
+      "status": "pass",
+      "deleted_plate_element_count": 0,
+      "target_element_id": 39948,
+      "target_terminal_alive": true,
+      "target_final_hvar6": 0.905522128038401
+    },
+    "efficiency": {
+      "status": "pass",
+      "minimum_time_step_ms": 4.1839e-07,
+      "cycle_count_ratio_r06o_over_r06n": 0.9963236539829905,
+      "minimum_time_step_ratio_r06o_over_r06n": 0.822716484415403
+    },
+    "negative_volume_attribution": {
+      "status": "pass",
+      "total_unique": 40,
+      "fragment_unique": 40,
+      "plate_unique": 0
+    },
+    "measurement_crosscheck": "pass",
+    "matsum_combined_source_sph_energy": "denied_duplicate_columns"
+  },
+  "response_availability": {
+    "status": "terminal_horizon_unqualified",
+    "primary_qoi_available": false,
+    "capture_plane": {
+      "z_mm": -12.0,
+      "solid_crossing_event_count": 0,
+      "sph_crossing_event_count": 0,
+      "final_minimum_alive_solid_centroid_z_mm": -4.591200497765515,
+      "final_minimum_active_sph_z_mm": -4.955314962261449,
+      "final_downward_alive_solid_count": 644,
+      "final_downward_active_sph_count": 77,
+      "status": "no_crossing_observed_but_terminal_horizon_not_qualified",
+      "primary_qoi_available": false,
+      "reason": "the 0.04 ms horizon ends with downward-moving retained mass before any capture-plane crossing"
+    },
+    "terminal_tail_diagnostic": {
+      "capture_plane_z_mm": -12.0,
+      "alive_solid_fragment_count": 646,
+      "downward_solid_fragment_count": 644,
+      "solid_fragment_z_mm": {
+        "count": 646,
+        "minimum": -4.591200497765515,
+        "p05": -3.832448803256195,
+        "p50": -0.8651855244254205,
+        "p95": 1.682526299229222,
+        "maximum": 2.7561363809887136
+      },
+      "downward_solid_fragment_vz_mm_per_ms": {
+        "count": 644,
+        "minimum": -19.09504704674289,
+        "p05": -14.803923924878573,
+        "p50": -8.537994852891078,
+        "p95": -5.078089835478386,
+        "maximum": -2.632775485447959
+      },
+      "linear_projected_solid_crossing_time_ms": {
+        "count": 644,
+        "minimum": 0.548840461082055,
+        "p05": 0.6780970335337746,
+        "p50": 1.3209898837158751,
+        "p95": 2.7122741626561004,
+        "maximum": 5.353795516633756
+      },
+      "active_sph_count": 320,
+      "downward_active_sph_count": 77,
+      "active_sph_z_mm": {
+        "count": 320,
+        "minimum": -4.955314962261449,
+        "p05": -3.5588643467883774,
+        "p50": 6.711876732001922,
+        "p95": 14.550266778471162,
+        "maximum": 14.766432434456492
+      },
+      "downward_active_sph_vz_mm_per_ms": {
+        "count": 77,
+        "minimum": -49.1215016374746,
+        "p05": -38.55104364423302,
+        "p50": -21.18727599204039,
+        "p95": -7.85852758412852,
+        "maximum": -6.263586931571096
+      },
+      "linear_projected_sph_crossing_time_ms": {
+        "count": 77,
+        "minimum": 0.24266271892167962,
+        "p05": 0.2899774478137633,
+        "p50": 0.459153357278195,
+        "p95": 1.083451838893734,
+        "maximum": 1.321999998019278
+      },
+      "linear_projection_claim_boundary": "Constant terminal velocity is used only to choose a conservative next horizon; it is not a physical trajectory prediction or a perforation result."
+    },
+    "recommended_next_horizon_ms": 0.5,
+    "reason": "the 0.04 ms terminal state retains substantial downward-moving solid/SPH mass before any z=-12 mm crossing",
+    "projection_boundary": "terminal-position/velocity linear projections select the next horizon only and are not physical results"
+  },
+  "decision": {
+    "software_input_identity": "pass",
+    "solver_parser_runtime": "pass",
+    "resource_identity": "pass",
+    "numerical_engineering_confirmation": "pass_plate_erod1_isolation",
+    "physical_validity": "not_established",
+    "research_admission": "hold",
+    "classification": "successful_plate_erod1_engineering_isolation_response_horizon_still_unqualified",
+    "release_r06p_terminal_horizon_0p50": true,
+    "release_2000_control": false,
+    "release_treatments": false,
+    "p0_response_calibration": "denied",
+    "engine_fitting": "denied",
+    "damage_tree_fitting": "denied",
+    "dataset_reference_promotion": "denied"
+  },
+  "recommended_next_sequence": [
+    "Branch from the exact returned R06o deck and extend only the terminal horizon from 0.04 to 0.50 ms.",
+    "Relax output cadence prospectively to cap storage while preserving sub-0.025 mm capture-plane temporal displacement at the observed maximum downward speed.",
+    "Keep plate/fragment materials, adaptive-SPH, contact, TSSFAC=0.05, DT2MS=0, cycle guard and exact one-node/32-rank resources frozen.",
+    "If the cycle guard is reached before 0.50 ms, return the failed run without restart or parameter tuning.",
+    "Do not fit the engine or damage tree until a complete response ledger and later replication/mesh/velocity/physical-validity gates pass."
+  ],
+  "claim_boundary": "R06o establishes a resource-correct engineering baseline for plate EROD=1 at 0.04 ms: the target plate element is retained without timestep collapse. It does not establish a terminal response, physical validity, engine calibration, damage-tree calibration or a reference label."
+}

@@ -1,0 +1,144 @@
+{
+  "schema_version": "hf-p0-r06q-d3plot-confirmation-return-audit@1.0.0",
+  "audit_date": "2026-11-02",
+  "source_evidence": {
+    "directory": "D:/Desktop/UAV新/uav_hf_r06q_0800_d3plot_0p00025_confirmation",
+    "evidence_policy": "read_only_immutable",
+    "file_count": 188,
+    "total_bytes": 14277708013,
+    "platform_job_id": "72936268",
+    "job_id": "r06q_0800_d3plot_0p00025_confirmation",
+    "package_revision": "R06_d3plot_0p00025_measurement_confirmation_20261102",
+    "deck_sha256": "sha256:a6229cda9778adb13b4c174346a4356deea3e62b175fda9cf8c7dbf12be60002",
+    "solver_build": "LS-DYNA R15.0.2 MPP double precision"
+  },
+  "execution": {
+    "input_identity": "pass",
+    "resource_identity": "pass",
+    "resource_contract": {
+      "nodes": 1,
+      "ranks": 32
+    },
+    "observed_resources": {
+      "nodes": 1,
+      "ranks": 32
+    },
+    "normal_termination_at_required_time": true,
+    "start_time": "2026-11-02 15:20:13",
+    "end_time": "2026-11-02 15:59:17",
+    "portal_elapsed_seconds": 2344,
+    "solver_elapsed_seconds": 2325,
+    "cycle_count": 775413,
+    "cycle_guard": 829930,
+    "cycle_guard_remaining": 54517,
+    "final_problem_time_ms": 0.5,
+    "stderr_size_bytes": 0,
+    "mass_scaling_mentions": 0,
+    "warning_counts": [
+      {
+        "id": "20339",
+        "code": "STR+339",
+        "occurrences": 1
+      },
+      {
+        "id": "21131",
+        "code": "STR+1131",
+        "occurrences": 32
+      },
+      {
+        "id": "30364",
+        "code": "INI+364",
+        "occurrences": 32
+      },
+      {
+        "id": "40509",
+        "code": "SOL+509",
+        "occurrences": 45
+      }
+    ]
+  },
+  "engineering_gates": {
+    "solver_completion": "pass",
+    "fragment_sph_mass_and_finiteness": "pass",
+    "plate_retention": "pass",
+    "energy": {
+      "status": "pass",
+      "total_energy_ratio_range": [
+        1.0,
+        1.0
+      ],
+      "final_sliding_energy_fraction": 0.02266796875,
+      "final_eroded_energy_fraction": 0.0100139375
+    },
+    "negative_volume_attribution": {
+      "status": "pass",
+      "unique_count": 45,
+      "fragment_count": 45,
+      "plate_count": 0,
+      "exactly_matches_converted_fragment_set": true
+    },
+    "measurement_crosscheck": "pass",
+    "matsum_combined_source_sph_energy": "denied_duplicate_columns",
+    "overall_engineering": "pass"
+  },
+  "measurement_confirmation": {
+    "parent_r06p_d3plot_interval_ms": 0.0005,
+    "r06q_d3plot_interval_ms": 0.00025,
+    "parent_state_count": 1002,
+    "r06q_state_count": 2002,
+    "parent_maximum_downward_step_mm": 0.4469886549691662,
+    "r06q_maximum_downward_step_mm": 0.22859651895222832,
+    "required_maximum_downward_step_mm": 0.25,
+    "temporal_resolution": "pass",
+    "cycle_count_identical_to_parent": true,
+    "ascii_key_metrics_identical_to_parent": true,
+    "converted_fragment_set_identical_to_parent": true,
+    "target_plate_response_identical_to_parent": true,
+    "numerical_repeat": "pass"
+  },
+  "response_assessment": {
+    "primary_qoi_available": true,
+    "classification": "confirmed_nonperforation",
+    "qM": 0.0,
+    "qP": 0.0,
+    "qE": 0.0,
+    "qV_over_v0": null,
+    "zero_crossing_ambiguity_gate": "pass",
+    "terminal_separation": "pass",
+    "minimum_capture_plane_clearance_mm": 6.80378165500305,
+    "maximum_downward_step_event": {
+      "carrier_type": "fragment_solid",
+      "carrier_id": 41756,
+      "start_time_ms": 0.003999794329947068,
+      "end_time_ms": 0.004249219451606608,
+      "start_z_mm": 7.64514004693001,
+      "end_z_mm": 7.416543527977781,
+      "downward_step_mm": 0.22859651895222832
+    },
+    "overall_response": "pass"
+  },
+  "decision": {
+    "software_input_identity": "pass",
+    "solver_parser_runtime": "pass",
+    "resource_identity": "pass",
+    "numerical_engineering_confirmation": "pass",
+    "single_point_numerical_response_admission": "pass",
+    "physical_validity": "not_established",
+    "research_admission": "single_deterministic_numerical_point_only",
+    "classification": "successful_measurement_confirmation_800mps_numerical_nonperforation_admitted",
+    "release_r06r_2000_speed_upper_anchor": true,
+    "release_broad_speed_scan": false,
+    "release_treatments": false,
+    "p0_response_calibration": "denied",
+    "engine_fitting": "denied",
+    "damage_tree_fitting": "denied",
+    "dataset_reference_promotion": "denied"
+  },
+  "recommended_next_sequence": [
+    "Run one 2000 m/s numerical upper anchor from the explosion instant using the admitted R06q model.",
+    "Refine D3PLOT and D3PART to 0.0001 ms to preserve the <=0.25 mm full-history measurement gate at the higher speed.",
+    "Raise the cycle guard only as a non-triggered execution safety limit; keep the 0.50 ms horizon and physical controls frozen.",
+    "If 2000 m/s perforates, release a midpoint bracket case; if it does not, stop escalation and review model-form/range adequacy."
+  ],
+  "claim_boundary": "R06q admits one deterministic numerical nonperforation point at 800 m/s and 0.75 mm mesh. It does not establish experimental V50, material calibration, mesh convergence, physical validity, engine fitting, damage-tree fitting or a reference dataset label."
+}

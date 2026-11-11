@@ -1,0 +1,180 @@
+{
+  "schema_version": "hf-p0-r06m-adaptive-sph-return-audit@1.0.0",
+  "audit_date": "2026-11-01",
+  "source_evidence": {
+    "directory": "D:/Desktop/UAV新/uav_hf_r06m_0800_adaptive_sph_canary",
+    "evidence_policy": "read_only_immutable",
+    "file_count": 182,
+    "total_bytes": 3513092216,
+    "platform_job_id": "72861050",
+    "job_id": "r06m_0800_adaptive_sph_canary",
+    "package_revision": "R06_adaptive_solid_to_sph_canary_20261101",
+    "deck_sha256": "sha256:634436d875c42592b5801de9bf27fce6255691fd27f17d28bd201b80e4cf1107",
+    "solver_build": "LS-DYNA R15.0.2 MPP double precision"
+  },
+  "execution": {
+    "input_identity": "pass",
+    "resource_identity": "fail_observed_64_ranks_expected_32",
+    "resource_contract": {
+      "nodes": 1,
+      "ranks": 32
+    },
+    "observed_resources": {
+      "nodes": 1,
+      "ranks": 64
+    },
+    "normal_termination_at_required_time": true,
+    "start_time": "2026-11-01 23:10:29",
+    "end_time": "2026-11-01 23:14:27",
+    "portal_elapsed_seconds": 238,
+    "solver_elapsed_seconds": 220,
+    "cycle_count": 85057,
+    "cycle_guard": 829930,
+    "final_problem_time_ms": 0.04,
+    "rank_log_count": 64,
+    "normal_termination_rank_count": 64,
+    "stderr_size_bytes": 0,
+    "mass_scaling_mentions": 0,
+    "warning_counts": [
+      {
+        "id": "20339",
+        "code": "STR+339",
+        "occurrences": 1
+      },
+      {
+        "id": "21131",
+        "code": "STR+1131",
+        "occurrences": 64
+      },
+      {
+        "id": "30364",
+        "code": "INI+364",
+        "occurrences": 64
+      },
+      {
+        "id": "40509",
+        "code": "SOL+509",
+        "occurrences": 34
+      }
+    ],
+    "negative_volume_unique_element_count": 34
+  },
+  "returned_outputs": {
+    "d3plot": {
+      "file_count": 19,
+      "state_count": 402,
+      "readability": "pass"
+    },
+    "d3part": {
+      "file_count": 3,
+      "state_count": 802,
+      "readability": "pass"
+    },
+    "binout": {
+      "file_count": 2,
+      "logical_databases": [
+        "JOBINFO",
+        "glstat",
+        "matsum",
+        "ncforc",
+        "nodout",
+        "sleout"
+      ],
+      "readability": "pass"
+    }
+  },
+  "engineering_gates": {
+    "adaptive_sph_capability": "pass",
+    "mass_accounting": {
+      "initial_fragment_reference_mass_kg": 0.0019999999821700186,
+      "final_alive_solid_mass_kg": 0.0019008746197913193,
+      "final_converted_reference_mass_kg": 9.912536237869245e-05,
+      "final_active_sph_mass_kg": 9.912536237869215e-05,
+      "maximum_absolute_combined_mass_relative_error": 3.686287419313933e-15,
+      "maximum_absolute_conversion_mass_relative_error": 1.4907780004578406e-16,
+      "preregistered_maximum_absolute_relative_error": 0.01,
+      "gate": "pass"
+    },
+    "energy": {
+      "status": "pass",
+      "total_energy_ratio_allowed": [
+        0.95,
+        1.05
+      ],
+      "observed_minimum_total_energy_ratio": 1.0,
+      "observed_maximum_total_energy_ratio": 1.0,
+      "maximum_absolute_sliding_fraction": 0.05,
+      "observed_final_sliding_fraction": 0.0266846875,
+      "observed_final_eroded_fraction": 0.009787953125
+    },
+    "conversion": {
+      "preallocated_sph_count": 5488,
+      "first_activation_state": 51,
+      "first_activation_time_ms": 0.005099838420668899,
+      "final_converted_solid_count": 34,
+      "final_active_sph_count": 272,
+      "particles_per_converted_solid": 8,
+      "statewise_exact_activation_correspondence": true,
+      "plate_deleted_element_count": 0,
+      "sph_deleted_particle_count": 0
+    },
+    "measurement_crosscheck": "pass",
+    "matsum_policy": {
+      "part_ids": [
+        1002,
+        2002,
+        2003
+      ],
+      "state_count": 801,
+      "last_time_ms": 0.03999965058839365,
+      "sph_part_2003_present": true,
+      "initial_source_sph_kinetic_energy_difference": 1.3642420526593924e-12,
+      "initial_source_sph_internal_energy_difference": 0.0,
+      "source_part_2002_and_sph_part_2003_duplicate_at_initial_state": true,
+      "naive_sum_across_source_part_2002_and_sph_part_2003_is_admissible": false,
+      "combined_energy_use": "denied_source_and_sph_columns_are_not_independent_at_initial_state"
+    }
+  },
+  "response_availability": {
+    "status": "hold_terminal_horizon_not_qualified",
+    "primary_qoi_available": false,
+    "capture_plane": {
+      "z_mm": -12.0,
+      "solid_crossing_event_count": 0,
+      "sph_crossing_event_count": 0,
+      "final_minimum_alive_solid_centroid_z_mm": -4.575727244292102,
+      "final_minimum_active_sph_z_mm": -4.856897698367372,
+      "final_downward_alive_solid_count": 652,
+      "final_downward_active_sph_count": 62,
+      "status": "no_crossing_observed_but_terminal_horizon_not_qualified",
+      "primary_qoi_available": false,
+      "reason": "the 0.04 ms horizon ends with downward-moving retained mass before any capture-plane crossing"
+    },
+    "interpretation": "No z=-12 mm crossing is observed by 0.04 ms, but all retained solid fragments and 62 active SPH particles still move downward. This is not confirmed nonperforation."
+  },
+  "decision": {
+    "software_input_identity": "pass",
+    "solver_parser_runtime": "pass",
+    "numerical_engineering_gates": "pass",
+    "resource_identity": "fail_observed_64_ranks_expected_32",
+    "physical_validity": "not_established",
+    "research_admission": "hold",
+    "classification": "successful_adaptive_sph_capability_but_resource_identity_mismatch_and_response_horizon_unresolved",
+    "release_r06n_exact_32rank_confirmation": true,
+    "release_terminal_horizon_extension": false,
+    "release_2000_control": false,
+    "release_treatments": false,
+    "p0_response_calibration": "denied",
+    "engine_fitting": "denied",
+    "damage_tree_fitting": "denied",
+    "dataset_reference_promotion": "denied"
+  },
+  "recommended_next_sequence": [
+    "Repeat the exact R06m deck at one node and exactly 32 MPP ranks; change only the TITLE identifier.",
+    "Keep the 0.04 ms horizon so the resource correction is the only experimental factor.",
+    "Require normal completion, exact resource identity, 8:1 conversion, mass closure, energy/contact gates and zero plate deletion.",
+    "If the 32-rank confirmation passes, extend only the terminal horizon in the subsequent run to resolve the capture-plane QoI.",
+    "Continue holding 2000 m/s, treatments, engine fitting, damage-tree fitting and reference labels."
+  ],
+  "claim_boundary": "R06m establishes adaptive solid-to-SPH parser/runtime and engineering mass-energy capability at the observed 64-rank execution. It violates the frozen 32-rank resource identity and ends before the response horizon is qualified, so it is not calibration, physical validation, a damage-tree label or a reference-dataset sample."
+}

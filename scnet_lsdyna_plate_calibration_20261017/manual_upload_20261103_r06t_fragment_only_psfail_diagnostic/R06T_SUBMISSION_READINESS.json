@@ -1,0 +1,16 @@
+{
+  "schema_version": "hf-p0-r06t-submission-readiness@1.0.0",
+  "overall_status": "pass",
+  "package_revision": "R06_plate_negative_volume_psfail_scope_20261103",
+  "job_id": "r06t_1200_fragment_only_psfail_diagnostic",
+  "allowed_deck_differences": [
+    "TITLE_identifier_line",
+    "CONTROL_SOLID_PSFAIL_0_to_fragment_only_set_900001"
+  ],
+  "required_resources": {
+    "nodes": 1,
+    "ranks": 32
+  },
+  "archive_policy": "no_archive_direct_folder_delivery",
+  "solver_status": "not_submitted_not_solver_validated"
+}

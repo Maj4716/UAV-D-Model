@@ -1,0 +1,50 @@
+{
+  "schema_version": "hf-p0-r06r-job-manifest@1.0.0",
+  "package_revision": "R06_speed_upper_anchor_2000_20261102",
+  "job_id": "r06r_2000_speed_upper_anchor",
+  "status": "generated_not_solver_validated",
+  "evidence_class": "high_fidelity_synthetic_numerical_speed_upper_anchor_candidate",
+  "deck": {
+    "path": "r06r_2000_speed_upper_anchor.k",
+    "size_bytes": 2558338,
+    "sha256": "sha256:511cbde9d33b1422981bc5716b0c9ae16a3fcd14f091e1dec003d053f3808e48",
+    "differences_from_parent": [
+      "TITLE_identifier_line",
+      "CONTROL_TERMINATION_endcyc_829930_to_2500000",
+      "DATABASE_BINARY_D3PLOT_dt_0p00025_to_0p0001",
+      "DATABASE_BINARY_D3PART_dt_0p00025_to_0p0001",
+      "INITIAL_VELOCITY_GENERATION_part_2002_vz_minus800_to_minus2000"
+    ]
+  },
+  "immutable_parent": {
+    "job_id": "r06q_0800_d3plot_0p00025_confirmation",
+    "platform_job_id": "72936268",
+    "deck_sha256": "sha256:a6229cda9778adb13b4c174346a4356deea3e62b175fda9cf8c7dbf12be60002",
+    "classification": "successful_measurement_confirmation_800mps_numerical_nonperforation_admitted"
+  },
+  "design": {
+    "path": "p0_r06r_2000_speed_upper_anchor_design.json",
+    "sha256": "sha256:11f9d114991688ef1bc4eb3a83fc6d7178ba6030f24a6c61c03ddb8ec5ea1247"
+  },
+  "successor_contract": {
+    "path": "p0_r06r_2000_speed_upper_anchor_output_contract.json",
+    "sha256": "sha256:8464f1fd04a5cb063b1acb3ed2074efdde3813a212b01e8b6c780e17e76babed"
+  },
+  "material": {
+    "path": "jc4340_reference.json",
+    "sha256": "sha256:9b462b920459e57641d5f89d10d36c0aa0498c86f2478fef8e4c3efa96888311"
+  },
+  "case_map": {
+    "path": "p0_case_part_map.csv",
+    "sha256": "sha256:dff936d920c22969cd06031e6a33d5154709ef509ba54c308f4bad656ab5d456"
+  },
+  "job_contract": {
+    "path": "job_contract.json",
+    "sha256": "sha256:da477f6da91ea8c3f19cb8fd06b87f6db11ac2b21f472763ea0d2894511aabd8"
+  },
+  "limitations": [
+    "Static validation proves only the five registered deck-line changes; target-platform execution is untested.",
+    "R06r is a numerical upper-anchor experiment, not a physical ballistic limit or fitted response.",
+    "Passing R06r can release only one midpoint bracket case, not broad fitting or dataset promotion."
+  ]
+}

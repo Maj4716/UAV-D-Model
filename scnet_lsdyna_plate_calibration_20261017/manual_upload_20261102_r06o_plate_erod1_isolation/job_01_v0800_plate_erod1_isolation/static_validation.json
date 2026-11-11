@@ -1,0 +1,25 @@
+{
+  "schema_version": "hf-p0-r06o-static-validation@1.0.0",
+  "overall_status": "pass",
+  "parent_deck_sha256": "sha256:edc5f3b80174e52c81eb96a16e0e5abe89f1587b8a850f87f7048bd40f1ac4b7",
+  "permitted_differences": [
+    "TITLE_identifier_line",
+    "plate_MAT_JOHNSON_COOK_EROD_field_0_to_1"
+  ],
+  "differing_line_numbers": [
+    3,
+    59
+  ],
+  "parent_title": "SCNet P0 R06n adaptive SPH exact 32rank confirmation 20261101",
+  "candidate_title": "SCNet P0 R06o plate MAT EROD1 isolation 20261102",
+  "plate_erod_parent": 0,
+  "plate_erod_candidate": 1,
+  "fragment_erod_candidate": 1,
+  "all_other_deck_lines_byte_identical": true,
+  "termination_time_ms": 0.04,
+  "maximum_cycle_count": 829930,
+  "tssfac": 0.05,
+  "dt2ms": 0.0,
+  "resource_identity_is_external_to_deck": true,
+  "candidate_deck_sha256": "sha256:d71d2d11091a813f35ca98656c31fb7ad4f8174b024828a62e0f874daab3524f"
+}

@@ -1,0 +1,49 @@
+{
+  "schema_version": "hf-p0-r06s-job-manifest@1.0.0",
+  "package_revision": "R06_speed_stability_diagnostic_1200_20261103",
+  "job_id": "r06s_1200_speed_stability_diagnostic",
+  "status": "generated_not_solver_validated",
+  "evidence_class": "high_fidelity_synthetic_numerical_speed_stability_diagnostic_candidate",
+  "deck": {
+    "path": "r06s_1200_speed_stability_diagnostic.k",
+    "size_bytes": 2558346,
+    "sha256": "sha256:eac511d8579d9cad92f08c41b5241129801df46b297140a3f601acacd5b0dd0e",
+    "differences_from_parent": [
+      "TITLE_identifier_line",
+      "DATABASE_BINARY_D3PLOT_dt_0p0001_to_0p00015",
+      "DATABASE_BINARY_D3PART_dt_0p0001_to_0p00015",
+      "INITIAL_VELOCITY_GENERATION_part_2002_vz_minus2000_to_minus1200"
+    ]
+  },
+  "immutable_parent": {
+    "job_id": "r06r_2000_speed_upper_anchor",
+    "platform_job_id": "72963617",
+    "deck_sha256": "sha256:511cbde9d33b1422981bc5716b0c9ae16a3fcd14f091e1dec003d053f3808e48",
+    "classification": "completed_but_engineering_failed_plate_negative_volume_and_sliding_energy"
+  },
+  "design": {
+    "path": "p0_r06s_1200_speed_stability_design.json",
+    "sha256": "sha256:09be143d77147824b9c86fe4bd6d8cc5bde2abe0b4f995ac4d42a828bcce764c"
+  },
+  "successor_contract": {
+    "path": "p0_r06s_1200_speed_stability_output_contract.json",
+    "sha256": "sha256:850034b9f32ff2851fbb56e2c0467448603cd5c4acea5478a5d80c398f629369"
+  },
+  "material": {
+    "path": "jc4340_reference.json",
+    "sha256": "sha256:9b462b920459e57641d5f89d10d36c0aa0498c86f2478fef8e4c3efa96888311"
+  },
+  "case_map": {
+    "path": "p0_case_part_map.csv",
+    "sha256": "sha256:88bd433c8f172753c26b9e73cc0844c4c71b346498fa12941b619c5dcb5141a0"
+  },
+  "job_contract": {
+    "path": "job_contract.json",
+    "sha256": "sha256:0817a267ff3142c1b3c4860f16b855d2bf53b2be65582c8b52291e152c94c941"
+  },
+  "limitations": [
+    "Static validation proves only the four registered deck-line changes; target-platform execution is untested.",
+    "R06s is a stability diagnostic after a failed 2000 m/s run, not an admitted midpoint response.",
+    "Binary result families must not be downloaded unless the staged ASCII gate passes."
+  ]
+}

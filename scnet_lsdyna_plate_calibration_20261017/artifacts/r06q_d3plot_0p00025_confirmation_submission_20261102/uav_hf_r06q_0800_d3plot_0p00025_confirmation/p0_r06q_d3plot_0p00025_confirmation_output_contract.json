@@ -1,0 +1,172 @@
+{
+  "schema_version": "hf-p0-r06q-d3plot-measurement-confirmation-contract@1.0.0",
+  "contract_id": "p0_r06q_d3plot_0p00025_confirmation_output_contract",
+  "status": "frozen_after_r06p_output_resolution_failure_before_r06q_outcome",
+  "version_boundary": {
+    "applies_to_package_revision": "R06_d3plot_0p00025_measurement_confirmation_20261102",
+    "effective_scope": "prospective_exact_model_repeat_with_finer_d3plot_measurement",
+    "retroactive_gate_rewrite": false
+  },
+  "evidence_chain": {
+    "parent_job_id": "r06p_0800_terminal_horizon_0p50",
+    "parent_platform_job_id": "72915268",
+    "parent_deck_sha256": "sha256:d471f09e9a726c9e4695565abc120e9300bfd68ca2b272bf23852322f8dc8629",
+    "parent_classification": "successful_long_horizon_run_response_held_by_preregistered_output_resolution_gate",
+    "parent_cycle_count": 775413,
+    "parent_solver_elapsed_seconds": 2322,
+    "parent_primary_qoi_available": false,
+    "parent_primary_qoi_unavailable_reasons": [
+      "temporal_resolution"
+    ],
+    "parent_zero_crossing_diagnostic": "pass",
+    "parent_terminal_separation": "pass"
+  },
+  "experimental_question": "Does an exact R06p model repeat with D3PLOT interval 0.00025 ms satisfy the prospectively frozen <=0.25 mm full-history downward-step gate and therefore admit the 800 m/s zero-crossing/nonperforation response?",
+  "single_change": {
+    "layer": "measurement_only",
+    "factor": "d3plot_output_interval_ms",
+    "parent_level": 0.0005,
+    "candidate_level": 0.00025,
+    "permitted_deck_differences": [
+      "TITLE_identifier_line",
+      "DATABASE_BINARY_D3PLOT_dt_0p0005_to_0p00025"
+    ],
+    "physical_model_semantics_unchanged": true
+  },
+  "r06p_failure_record": {
+    "registered_maximum_downward_step_mm": 0.25,
+    "observed_maximum_downward_step_mm": 0.4469886549691662,
+    "maximum_step_event": {
+      "carrier_type": "fragment_solid",
+      "carrier_id": 41756,
+      "start_time_ms": 0.003999794329947068,
+      "end_time_ms": 0.0044998130685294764,
+      "start_z_mm": 7.64514004693001,
+      "end_z_mm": 7.1981513919608435,
+      "downward_step_mm": 0.4469886549691662
+    },
+    "root_cause": "R06p planned cadence used the 0.04 ms terminal downward SPH speed rather than the full-history 800 m/s initial motion; the actual early solid step exceeds the frozen 0.25 mm limit",
+    "correction_policy": "preserve the failed R06p result and repeat prospectively; do not reinterpret its primary QoI post hoc"
+  },
+  "prospective_resolution": {
+    "candidate_d3plot_interval_ms": 0.00025,
+    "projected_maximum_downward_step_mm": 0.2234943274845831,
+    "required_maximum_downward_step_mm": 0.25,
+    "projection_status": "pass",
+    "claim_boundary": "linear cadence scaling is a planning estimate; R06q must pass on observed full-history data"
+  },
+  "explosion_instant_start_policy": {
+    "required": true,
+    "implementation": "reuse_exact_r06p_post_explosion_initial_state",
+    "pre_impact_flight_or_detonation_simulation": "not_included"
+  },
+  "frozen_controls": {
+    "impact_speed_mps": 800.0,
+    "mesh_mm": 0.75,
+    "termination_time_ms": 0.5,
+    "maximum_cycle_count": 829930,
+    "tssfac": 0.05,
+    "dt2ms": 0.0,
+    "plate_mat015_erod": 1,
+    "fragment_mat015_erod": 1,
+    "plate_part_id": 1002,
+    "fragment_solid_part_id": 2002,
+    "adaptive_sph_part_id": 2003,
+    "particles_per_failed_hexahedron": 8,
+    "solid_contact_soft": 2,
+    "dedicated_sph_to_solid_contact_soft": 1,
+    "control_solid_psfail": 0,
+    "d3part_interval_ms": 0.00025,
+    "ascii_database_interval_ms": 0.00025,
+    "nodes": 1,
+    "ranks": 32,
+    "solver_family": "LS-DYNA R15 MPP double precision"
+  },
+  "run_planning": {
+    "expected_cycle_count_from_exact_model_parent": 775413,
+    "cycle_guard": 829930,
+    "observed_parent_cycle_guard_remaining": 54517,
+    "requested_walltime": "12:00:00",
+    "projected_d3plot_state_count": 2002,
+    "projected_d3plot_bytes": 12058308682,
+    "projected_total_output_bytes": 14280157940,
+    "storage_claim_boundary": "R06p family sizes scaled by state count; actual segmentation and size can differ"
+  },
+  "preregistered_gates": {
+    "input_deck_parent_hash": "sha256:d471f09e9a726c9e4695565abc120e9300bfd68ca2b272bf23852322f8dc8629",
+    "deck_difference": "TITLE_plus_D3PLOT_interval_only",
+    "resource_identity": {
+      "nodes": 1,
+      "ranks": 32,
+      "required": true
+    },
+    "normal_termination_at_problem_time_ms": {
+      "required": 0.5,
+      "tolerance_ms": 1e-05
+    },
+    "cycle_guard": {
+      "maximum": 829930
+    },
+    "no_mass_scaling": true,
+    "maximum_full_history_downward_carrier_step_mm": {
+      "maximum": 0.25
+    },
+    "capture_plane_z_mm": -12.0,
+    "solid_crossing_event_count": {
+      "required": 0
+    },
+    "sph_crossing_event_count": {
+      "required": 0
+    },
+    "activation_below_plane_count": {
+      "required": 0
+    },
+    "deletion_interval_plane_ambiguity_count": {
+      "required": 0
+    },
+    "terminal_tail_maximum_downward_carrier_count": {
+      "required": 0
+    },
+    "plate_deletion_count": {
+      "required": 0
+    },
+    "target_plate_element_39948_alive_at_terminal_state": true,
+    "statewise_active_sph_per_converted_fragment_solid": {
+      "required": 8
+    },
+    "combined_fragment_solid_plus_active_sph_mass_relative_error": {
+      "maximum_absolute": 0.01
+    },
+    "total_energy_ratio": {
+      "minimum": 0.95,
+      "maximum": 1.05
+    },
+    "absolute_final_sliding_energy_fraction_of_initial": {
+      "maximum": 0.05
+    },
+    "sph_deletion_count": {
+      "required": 0
+    },
+    "d3part_full_d3plot_crosscheck": "required"
+  },
+  "interpretation_rules": {
+    "all_gates_pass_and_zero_crossing": "admit_single_run_numerical_confirmed_nonperforation_at_800_mps_then_release_one_speed_scan_case",
+    "output_resolution_fails": "hold_primary_response_and_review_finer_measurement_without_changing_the_model",
+    "engineering_or_resource_gate_fails": "reject_repeat_and_do_not_release_speed_scan",
+    "crossing_occurs": "build_combined_solid_sph_crossing_ledger_before_any_classification"
+  },
+  "admission": {
+    "r06q_submission": "allowed_after_static_release_verification",
+    "speed_scan": "held_until_r06q_return_passes",
+    "p0_response_calibration": "denied",
+    "engine_fitting": "denied",
+    "damage_tree_fitting": "denied",
+    "reference_dataset_generation": "denied",
+    "physical_validity": "not_established_requires_replication_mesh_velocity_and_independent_experimental_evidence"
+  },
+  "claim_boundary": [
+    "R06q is a measurement-resolution confirmation of one deterministic numerical case.",
+    "It does not change the physical model or repair R06p by reinterpretation.",
+    "Passing R06q could release only the next numerical speed-control case, not fitting or physical validity."
+  ]
+}

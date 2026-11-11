@@ -1,0 +1,91 @@
+{
+  "schema_version": "hf-p0-postprocess@1.1.0",
+  "numerical_qa_status": "review_or_fail",
+  "termination": {
+    "normal_termination": true,
+    "error_termination": false,
+    "negative_volume_mentions": 45,
+    "negative_volume_unique_elements": 45,
+    "mass_scaling_mentions": 0,
+    "source_files_found": 33,
+    "rank_log_count": 32,
+    "normal_termination_rank_count": 32,
+    "warning_counts": [
+      {
+        "id": "20339",
+        "code": "STR+339",
+        "occurrences": 1
+      },
+      {
+        "id": "21131",
+        "code": "STR+1131",
+        "occurrences": 32
+      },
+      {
+        "id": "30364",
+        "code": "INI+364",
+        "occurrences": 32
+      },
+      {
+        "id": "40509",
+        "code": "SOL+509",
+        "occurrences": 45
+      }
+    ],
+    "error_fatal_counts": []
+  },
+  "global_statistics": {
+    "final_total_energy_ratio": 1.0,
+    "final_kinetic_energy": 26.2308,
+    "final_internal_energy": 579.659,
+    "final_hourglass_energy": 0.0,
+    "final_sliding_energy": 14.5075,
+    "final_added_mass": null,
+    "record_count": 2001,
+    "final_time": 0.499999,
+    "minimum_time_step": 4.19408e-07,
+    "maximum_time_step": 3.11269e-06,
+    "minimum_total_energy_ratio": 1.0,
+    "maximum_total_energy_ratio": 1.0,
+    "maximum_total_energy_ratio_absolute_deviation": 0.0,
+    "final_energy_ratio_without_eroded": 1.0,
+    "initial_total_energy": 640.0,
+    "final_total_energy": 620.397,
+    "maximum_absolute_hourglass_energy": 0.0,
+    "maximum_absolute_hourglass_over_internal": 0.0,
+    "final_eroded_kinetic_energy": 6.40892,
+    "final_eroded_internal_energy": 0.0,
+    "final_eroded_hourglass_energy": 0.0,
+    "final_eroded_energy_sum": 6.40892,
+    "final_eroded_energy_fraction_of_initial": 0.0100139375,
+    "final_sliding_energy_fraction_of_initial": 0.02266796875
+  },
+  "case_identity": [
+    {
+      "job_id": "r06p_0800_terminal_horizon_0p50",
+      "experiment_id": "r06p_terminal_response_horizon_0p50_800",
+      "role": "terminal_response_horizon_0p50_canary",
+      "case_id": "p0_v0800_h0p75",
+      "source_r05_index": "2",
+      "plate_part_id": "1002",
+      "fragment_solid_part_id": "2002",
+      "adaptive_sph_part_id": "2003",
+      "fragment_center_history_node_id": "47039",
+      "impact_speed_mps": "800.0",
+      "mesh_mm": "0.75",
+      "plate_elements": "20216",
+      "fragment_solid_elements": "686",
+      "termination_time_ms": "0.5",
+      "maximum_cycle_count": "829930",
+      "primary_measurement_source": "full_d3plot_point_elements_plus_matsum_part_2003"
+    }
+  ],
+  "limitations": [
+    "Global ASCII QA is necessary but not sufficient for case-level perforation acceptance.",
+    "Residual velocity and perforation state still require BINOUT/NODOUT and d3plot review.",
+    "Candidate 5% gates are preregistered engineering checks, not universal LS-DYNA standards."
+  ],
+  "review_reasons": [
+    "negative-volume events require case-level review"
+  ]
+}

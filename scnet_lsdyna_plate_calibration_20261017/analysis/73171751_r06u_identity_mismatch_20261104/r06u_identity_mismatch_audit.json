@@ -1,0 +1,67 @@
+{
+  "schema_version": "hf-p0-r06u-input-identity-mismatch-audit@1.0.0",
+  "audit_date": "2026-11-04",
+  "source_evidence": {
+    "directory": "D:/Desktop/UAV新/uav_hf_r06u_1200_plate_adaptive_sph_canary",
+    "evidence_policy": "read_only_immutable_partial_return",
+    "platform_job_id": "73171751",
+    "platform_job_label": "uav_hf_r06u_1200_plate_adaptive_sph_canary",
+    "file_count": 40,
+    "total_bytes": 8126964
+  },
+  "identity_gate": {
+    "status": "fail",
+    "job_label_claimed_revision": "R06u",
+    "executed_input_revision": "R06t",
+    "executed_deck": "r06t_1200_fragment_only_psfail_diagnostic.k",
+    "executed_deck_sha256": "sha256:11f62db3f8b27d1087988d5ad2abc572bddbd89570f6065500ddfe390a6459ae",
+    "intended_deck": "r06u_1200_plate_adaptive_sph_canary.k",
+    "intended_deck_sha256": "sha256:7bfb99a49bb757632237b2e2c625500fef27e811988eac3149df7a3e056647d4",
+    "intended_deck_present_in_return": false,
+    "command_line_input": "/work/home/acd7dt5yv4/LS_DYNA/uav_hf_r06u_1200_plate_adaptive_sph_canary/r06t_1200_fragment_only_psfail_diagnostic.k",
+    "manifest_job_id": "r06t_1200_fragment_only_psfail_diagnostic",
+    "job_contract_head_deck": "r06t_1200_fragment_only_psfail_diagnostic.k",
+    "deck_hashes_equal": false
+  },
+  "execution": {
+    "nodes": 1,
+    "ranks": 32,
+    "slurm_job_name_is_r06u": true,
+    "normal_termination": false,
+    "error_termination": true,
+    "start_time": "2026-11-04 11:38:18",
+    "end_time": "2026-11-04 13:02:31",
+    "wall_elapsed_seconds": 5053,
+    "solver_elapsed_seconds": 5049,
+    "problem_time_ms": 0.10872,
+    "cycle_count": 603398,
+    "stderr_size_bytes": 0
+  },
+  "repeated_r06t_failure_signature": {
+    "matches_platform_job_73087868": true,
+    "error_id": 40510,
+    "message": "complex sound speed in solid element",
+    "element_id": 23830,
+    "part_id": 1002,
+    "cycle": 603398,
+    "problem_time_ms": 0.10872,
+    "time_step_ms": 1.99e-27
+  },
+  "decision": {
+    "classification": "job_label_r06u_but_exact_frozen_r06t_input_was_resubmitted",
+    "r06u_was_executed": false,
+    "r06u_numerical_result_available": false,
+    "change_r06u_model": false,
+    "release_exact_r06u_identity_guarded_resubmission": true,
+    "download_heavy_binary_families": false,
+    "engine_fitting": "denied",
+    "damage_tree_fitting": "denied",
+    "dataset_reference_promotion": "denied"
+  },
+  "interpretation": [
+    "The R06u-labelled job executed the exact frozen R06t deck, not the delivered R06u deck.",
+    "The repeated R06t failure signature is a deterministic duplicate and is not evidence about R06u.",
+    "The correct next action is an unchanged R06u resubmission in a fresh folder and fresh platform work directory.",
+    "No material, contact, erosion, adaptive-SPH or output-control parameter may be changed for this retry."
+  ]
+}

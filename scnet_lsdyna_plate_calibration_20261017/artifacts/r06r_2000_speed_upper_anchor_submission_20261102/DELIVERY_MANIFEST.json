@@ -1,0 +1,114 @@
+{
+  "schema_version": "hf-p0-r06r-direct-folder-delivery@1.0.0",
+  "package_revision": "R06_speed_upper_anchor_2000_20261102",
+  "job_id": "r06r_2000_speed_upper_anchor",
+  "status": "ready_for_user_submission_not_submitted_not_solver_validated",
+  "upload_folder": "uav_hf_r06r_2000_speed_upper_anchor",
+  "head_deck": "r06r_2000_speed_upper_anchor.k",
+  "head_deck_sha256": "sha256:511cbde9d33b1422981bc5716b0c9ae16a3fcd14f091e1dec003d053f3808e48",
+  "archive_policy": "no_archive_direct_folder_only",
+  "physical_factor": "fragment_initial_speed_800_to_2000_mps",
+  "measurement_controls": "D3PLOT_and_D3PART_0p00025_to_0p0001_ms",
+  "execution_safety_control": "ENDCYC_829930_to_2500000_non_triggering_limit",
+  "deck_changes": [
+    "TITLE_identifier_line",
+    "CONTROL_TERMINATION_endcyc_829930_to_2500000",
+    "DATABASE_BINARY_D3PLOT_dt_0p00025_to_0p0001",
+    "DATABASE_BINARY_D3PART_dt_0p00025_to_0p0001",
+    "INITIAL_VELOCITY_GENERATION_part_2002_vz_minus800_to_minus2000"
+  ],
+  "resource_contract": {
+    "software": "ls-dyna_R15_mmp_d",
+    "nodes": 1,
+    "ranks": 32,
+    "hard_gate": true,
+    "head_memory_mb": 512,
+    "child_memory_mb": 256,
+    "command_line_parameters": "",
+    "walltime": "12:00:00",
+    "fresh_work_directory": "/work/home/acd7dt5yv4/LSDYNA/uav_hf_r06r_2000_speed_upper_anchor"
+  },
+  "solver_controls": {
+    "problem_time_ms": 0.5,
+    "maximum_cycle_count": 2500000,
+    "tssfac": 0.05,
+    "dt2ms": 0.0
+  },
+  "output_intervals_ms": {
+    "d3plot": 0.0001,
+    "d3part": 0.0001,
+    "ascii_databases": 0.00025
+  },
+  "planning_estimates": {
+    "parent_solver_time_minutes": 38.75,
+    "projected_d3plot_state_count": 5002,
+    "projected_d3part_state_count": 5002,
+    "projected_output_total_gb_decimal": 32.805,
+    "projected_output_total_gib": 30.55,
+    "projected_maximum_downward_step_mm": 0.22859651895222832,
+    "required_maximum_downward_step_mm": 0.25,
+    "claim_boundary": "planning estimates only; actual R06r output must pass"
+  },
+  "files": [
+    {
+      "path": "uav_hf_r06r_2000_speed_upper_anchor/UPLOAD_README.txt",
+      "size_bytes": 564,
+      "sha256": "sha256:e884f21d7dce59c59ce04f7500a9e99182a83827e879cf5d2c18bef3a8420268"
+    },
+    {
+      "path": "uav_hf_r06r_2000_speed_upper_anchor/jc4340_reference.json",
+      "size_bytes": 3144,
+      "sha256": "sha256:9b462b920459e57641d5f89d10d36c0aa0498c86f2478fef8e4c3efa96888311"
+    },
+    {
+      "path": "uav_hf_r06r_2000_speed_upper_anchor/job_contract.json",
+      "size_bytes": 1710,
+      "sha256": "sha256:da477f6da91ea8c3f19cb8fd06b87f6db11ac2b21f472763ea0d2894511aabd8"
+    },
+    {
+      "path": "uav_hf_r06r_2000_speed_upper_anchor/manifest.json",
+      "size_bytes": 2223,
+      "sha256": "sha256:598709737d5b9d81ad437dd606c8f254f1d11331837ece63481c40a24ac416d2"
+    },
+    {
+      "path": "uav_hf_r06r_2000_speed_upper_anchor/p0_case_part_map.csv",
+      "size_bytes": 493,
+      "sha256": "sha256:dff936d920c22969cd06031e6a33d5154709ef509ba54c308f4bad656ab5d456"
+    },
+    {
+      "path": "uav_hf_r06r_2000_speed_upper_anchor/p0_r06r_2000_speed_upper_anchor_design.json",
+      "size_bytes": 3687,
+      "sha256": "sha256:11f9d114991688ef1bc4eb3a83fc6d7178ba6030f24a6c61c03ddb8ec5ea1247"
+    },
+    {
+      "path": "uav_hf_r06r_2000_speed_upper_anchor/p0_r06r_2000_speed_upper_anchor_output_contract.json",
+      "size_bytes": 6977,
+      "sha256": "sha256:8464f1fd04a5cb063b1acb3ed2074efdde3813a212b01e8b6c780e17e76babed"
+    },
+    {
+      "path": "uav_hf_r06r_2000_speed_upper_anchor/r06r_2000_speed_upper_anchor.k",
+      "size_bytes": 2558338,
+      "sha256": "sha256:511cbde9d33b1422981bc5716b0c9ae16a3fcd14f091e1dec003d053f3808e48"
+    },
+    {
+      "path": "uav_hf_r06r_2000_speed_upper_anchor/static_validation.json",
+      "size_bytes": 1251,
+      "sha256": "sha256:61b3c8131b9d00f117fbfc6b3c349689788bd71f0de75b7c02bf6b3ea11a84b4"
+    }
+  ],
+  "return_required": [
+    "submitted .k",
+    "d3hsp/o= and mes*",
+    "glstat, matsum, sleout, nodout and ncforc",
+    "binout*",
+    "all d3plot* and d3part*",
+    "stdout/stderr, Slurm script and resource record"
+  ],
+  "prohibited": [
+    "creating or submitting a ZIP archive",
+    "allocating any rank count other than exactly 32",
+    "editing any delivered deck field",
+    "restarting or tuning if the cycle guard is reached",
+    "using R06r directly for engine fitting, damage-tree fitting or a reference label"
+  ]
+}

@@ -1,0 +1,258 @@
+{
+  "schema_version": "hf-p0-r06-diagnostic-design@2.0.0",
+  "package_revision": "R06_adaptive_solid_to_sph_canary_20261101",
+  "design_status": "frozen_after_r06l_soft1_rejected_before_adaptive_sph_capability_outcome",
+  "title": "SCNet P0 R06m 800 m/s adaptive solid-to-SPH capability canary",
+  "created_date": "2026-11-01",
+  "purpose": "Verify parser/runtime/output and mass-energy behavior when failed fragment solids are converted to SPH particles instead of being silently removed. This is a model-form capability canary.",
+  "provenance": {
+    "branch_parent_job_id": "r06j_0800_fragment_erod1",
+    "branch_parent_platform_job_id": "72751725",
+    "branch_parent_deck_sha256": "sha256:8ec1613324159b3ebc00217871ad29321564423b0a7f73a267207e4952bada77",
+    "branch_parent_return_audit": "analysis/72751725_r06j_0800_fragment_erod1_20261030/r06j_fragment_erod1_return_audit.json",
+    "rejected_predecessor_job_id": "r06l_0800_contact_soft1",
+    "rejected_predecessor_platform_job_id": "72782972",
+    "rejected_predecessor_return_audit": "analysis/72782972_r06l_0800_contact_soft1_20261101/r06l_contact_soft1_return_audit.json",
+    "successor_contract": "design/p0_r06m_adaptive_sph_output_contract.json"
+  },
+  "explosion_instant_start_policy": {
+    "required": true,
+    "implementation": "reuse_the_same_post_explosion_fragment_state_and_initial_velocity_as_r06j",
+    "pre_impact_flight_or_detonation_simulation": "not_included"
+  },
+  "model_form_bundle": {
+    "define_adaptive_solid_to_sph": {
+      "ipid": 2002,
+      "itype": 0,
+      "nq": 2,
+      "particles_per_failed_hexahedron": 8,
+      "ipsph": 2003,
+      "issph": 2,
+      "icpl": 0,
+      "iopt": 0
+    },
+    "sph_part": {
+      "part_id": 2003,
+      "section_id": 2,
+      "material_id": 2,
+      "eos_id": 2
+    },
+    "section_sph": {
+      "section_id": 2,
+      "cslh": 1.2,
+      "hmin": 0.2,
+      "hmax": 2.0,
+      "sphini": 0,
+      "death": 1e+20,
+      "start": 0.0,
+      "iavg": 0
+    },
+    "solid_contact_scope": {
+      "keyword": "CONTACT_ERODING_SINGLE_SURFACE",
+      "part_set_id": 920001,
+      "part_ids": [
+        1002,
+        2002
+      ],
+      "soft": 2
+    },
+    "sph_solid_contact": {
+      "keyword": "CONTACT_AUTOMATIC_NODES_TO_SURFACE",
+      "slave_part_id": 2003,
+      "master_part_set_id": 920001,
+      "sstyp": 3,
+      "mstyp": 2,
+      "soft": 1,
+      "sofscl": 0.1,
+      "interpretation": "dedicated_asymmetric_sph_to_solid_contact_not_the_rejected_global_r06l_soft1_change"
+    },
+    "runaway_guard": {
+      "control_termination_endcyc": 829930,
+      "basis": "ten_times_the_completed_r06j_cycle_count",
+      "problem_time_must_still_reach_ms": 0.04
+    }
+  },
+  "measurement_plan": {
+    "solid_fragment_history": "retain existing D3PART part set 900001 containing part 2002",
+    "solver_created_sph": "inspect full D3PLOT POINT elements and MATSUM part 2003",
+    "d3part_sph_claim": "not_assumed_not_preregistered",
+    "combined_mass": "solid part 2002 plus SPH part 2003",
+    "contact_force": "NCFORC retained but sign, side and unit semantics remain pending"
+  },
+  "paired_experiments": [
+    {
+      "experiment_id": "r06m_adaptive_solid_to_sph_canary_800",
+      "question": "Can failed fragment solids be converted to readable SPH debris without deletion-driven mass loss or a new numerical runaway?",
+      "factor": "bundled_adaptive_solid_to_sph_model_form_capability",
+      "case_identity": {
+        "r05_case_id": "p0_v0800_h0p75",
+        "r05_original_index": 2,
+        "impact_speed_mps": 800.0,
+        "mesh_mm": 0.75,
+        "plate_part_id": 1002,
+        "fragment_part_id": 2002,
+        "sph_part_id": 2003
+      },
+      "external_control": {
+        "job_id": "r06j_0800_fragment_erod1",
+        "platform_job_id": "72751725",
+        "deck_sha256": "sha256:8ec1613324159b3ebc00217871ad29321564423b0a7f73a267207e4952bada77",
+        "cycle_count": 82993,
+        "fragment_deleted_element_count": 35
+      },
+      "jobs": [
+        {
+          "job_id": "r06m_0800_adaptive_sph_canary",
+          "directory": "job_01_v0800_adaptive_sph_canary",
+          "role": "adaptive_solid_to_sph_parser_runtime_mass_energy_capability_canary",
+          "platform_job_name": "uav_hf_r06m_0800_adaptive_sph",
+          "termination_time_ms": 0.04,
+          "maximum_cycle_count": 829930,
+          "factor_level": "adaptive_sph_bundle_v1"
+        }
+      ],
+      "preregistered_evaluation": {
+        "purpose": "Verify parser/runtime/output and mass-energy behavior when failed fragment solids are converted to SPH particles instead of being silently removed. This is a model-form capability canary.",
+        "branch_rule": "branch_from_completed_r06j_not_from_failed_r06l",
+        "frozen_controls": {
+          "case_id": "p0_v0800_h0p75",
+          "impact_speed_mps": 800.0,
+          "termination_time_ms": 0.04,
+          "tssfac": 0.05,
+          "dt2ms": 0.0,
+          "plate_part_id": 1002,
+          "fragment_solid_part_id": 2002,
+          "fragment_mat015_erod": 1,
+          "plate_mat015_erod": 0,
+          "control_solid_psfail": 0,
+          "solid_eroding_contact_soft": 2,
+          "nodes": 1,
+          "ranks": 32
+        },
+        "model_form_bundle": {
+          "define_adaptive_solid_to_sph": {
+            "ipid": 2002,
+            "itype": 0,
+            "nq": 2,
+            "particles_per_failed_hexahedron": 8,
+            "ipsph": 2003,
+            "issph": 2,
+            "icpl": 0,
+            "iopt": 0
+          },
+          "sph_part": {
+            "part_id": 2003,
+            "section_id": 2,
+            "material_id": 2,
+            "eos_id": 2
+          },
+          "section_sph": {
+            "section_id": 2,
+            "cslh": 1.2,
+            "hmin": 0.2,
+            "hmax": 2.0,
+            "sphini": 0,
+            "death": 1e+20,
+            "start": 0.0,
+            "iavg": 0
+          },
+          "solid_contact_scope": {
+            "keyword": "CONTACT_ERODING_SINGLE_SURFACE",
+            "part_set_id": 920001,
+            "part_ids": [
+              1002,
+              2002
+            ],
+            "soft": 2
+          },
+          "sph_solid_contact": {
+            "keyword": "CONTACT_AUTOMATIC_NODES_TO_SURFACE",
+            "slave_part_id": 2003,
+            "master_part_set_id": 920001,
+            "sstyp": 3,
+            "mstyp": 2,
+            "soft": 1,
+            "sofscl": 0.1,
+            "interpretation": "dedicated_asymmetric_sph_to_solid_contact_not_the_rejected_global_r06l_soft1_change"
+          },
+          "runaway_guard": {
+            "control_termination_endcyc": 829930,
+            "basis": "ten_times_the_completed_r06j_cycle_count",
+            "problem_time_must_still_reach_ms": 0.04
+          }
+        },
+        "measurement_plan": {
+          "solid_fragment_history": "retain existing D3PART part set 900001 containing part 2002",
+          "solver_created_sph": "inspect full D3PLOT POINT elements and MATSUM part 2003",
+          "d3part_sph_claim": "not_assumed_not_preregistered",
+          "combined_mass": "solid part 2002 plus SPH part 2003",
+          "contact_force": "NCFORC retained but sign, side and unit semantics remain pending"
+        },
+        "gates": {
+          "parser_runtime_start": "required",
+          "terminal_problem_time_ms": {
+            "required": 0.04,
+            "tolerance_ms": 1e-06
+          },
+          "runaway_cycle_guard": {
+            "maximum": 829930,
+            "classification": "engineering_safety_gate"
+          },
+          "no_mass_scaling": true,
+          "adaptive_sph_part_2003_appears_after_fragment_failure": "required",
+          "combined_fragment_solid_plus_sph_mass_relative_change": {
+            "maximum_absolute": 0.01,
+            "classification": "candidate_engineering_diagnostic_not_physical_standard"
+          },
+          "total_energy_ratio": {
+            "minimum": 0.95,
+            "maximum": 1.05,
+            "classification": "candidate_engineering_gate"
+          },
+          "absolute_final_sliding_energy_fraction_of_initial": {
+            "maximum": 0.05,
+            "classification": "candidate_engineering_gate"
+          },
+          "plate_deletion_count": {
+            "required": 0
+          },
+          "finite_sph_coordinates_velocity_and_mass": "required"
+        },
+        "interpretation_rules": {
+          "parser_or_runtime_failure": "repair_only_the_adaptive_sph_bundle_and_repeat_the_same_canary",
+          "cycle_guard_before_problem_time": "reject_as_numerically_impractical_without_waiting_for_a_multi_day_run",
+          "sph_missing_after_fragment_failure": "capability_gate_fail",
+          "mass_or_energy_gate_fail": "model_form_candidate_not_admissible",
+          "all_gates_pass": "release_only_a_same_case_repeat_or_tightly_controlled_numerical_confirmation; do not release calibration"
+        }
+      }
+    }
+  ],
+  "submission_sequence": {
+    "wave_0": [
+      "r06m_0800_adaptive_sph_canary"
+    ],
+    "wave_0_gate": "Audit parser/runtime, full problem time, cycle cap, SPH appearance, combined mass, energy and plate integrity.",
+    "hold_after_wave_0": "Do not release 2000 m/s, treatments, fitting or labels.",
+    "resource_identity": "Use one node and 32 MPP ranks with LS-DYNA R15 MPP double precision."
+  },
+  "admission": {
+    "adaptive_sph_canary_submission": "allowed_after_static_release_verification",
+    "additional_contact_parameter_tuning": "denied",
+    "r06f_2000_control": "denied",
+    "treatments": "denied",
+    "p0_response_calibration": "denied",
+    "p1_submission": "denied",
+    "engine_fitting": "denied",
+    "damage_tree_fitting": "denied",
+    "reference_dataset_generation": "denied",
+    "physical_validity": "not_established_requires_independent_experimental_evidence"
+  },
+  "claim_boundary": [
+    "R06l rejects global SOFT=1 tuning but does not provide a terminal response.",
+    "R06m is a bundled model-form capability canary, not a single-factor physical experiment.",
+    "SOFT=1 is used only on the dedicated asymmetric SPH-to-solid contact; the solid contact remains SOFT=2.",
+    "A normal solver exit is insufficient unless problem time reaches 0.04 ms and all mass-energy-output gates are reviewed.",
+    "No R06m response may be used to fit the simulation engine, damage tree, or reference dataset."
+  ]
+}

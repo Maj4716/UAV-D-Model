@@ -1,0 +1,138 @@
+{
+  "schema_version": "hf-p0-r06t-fragment-only-psfail-contract@1.0.0",
+  "contract_id": "p0_r06t_fragment_only_psfail_output_contract",
+  "status": "frozen_after_r06s_stage1_failure_before_r06t_outcome",
+  "version_boundary": {
+    "applies_to_package_revision": "R06_plate_negative_volume_psfail_scope_20261103",
+    "effective_scope": "one_prospective_plate-negative-volume-mechanism diagnostic",
+    "retroactive_gate_rewrite": false
+  },
+  "evidence_chain": {
+    "parent_job_id": "r06s_1200_speed_stability_diagnostic",
+    "parent_platform_job_id": "73059442",
+    "parent_deck_sha256": "sha256:eac511d8579d9cad92f08c41b5241129801df46b297140a3f601acacd5b0dd0e",
+    "parent_classification": "completed_energy_pass_but_plate_negative_volume_persists",
+    "parent_plate_negative_volume_count": 70,
+    "parent_fragment_negative_volume_count": 276,
+    "parent_target_plate_negative_volume_event": false,
+    "parent_minimum_time_step_ms": 3.29177e-07
+  },
+  "experimental_question": "At the unchanged 1200 m/s R06s state, are the 70 plate negative-volume messages caused by applying the ERODING-contact automatic negative-volume failure criterion to every solid part?",
+  "factor_model": {
+    "single_model_form_factor": {
+      "keyword": "CONTROL_SOLID",
+      "field": "PSFAIL",
+      "parent_level": 0,
+      "candidate_level": 900001,
+      "candidate_set_semantics": "existing fragment-only part set containing part 2002",
+      "plate_part_1002_excluded": true,
+      "role": "mechanism_isolation_not_calibration"
+    },
+    "permitted_deck_differences": [
+      "TITLE_identifier_line",
+      "CONTROL_SOLID_PSFAIL_0_to_fragment_only_set_900001"
+    ]
+  },
+  "explosion_instant_start_policy": {
+    "required": true,
+    "implementation": "retain the R06s post-explosion geometry and 1200 m/s fragment initial velocity",
+    "pre_impact_flight_or_detonation_simulation": "not_included"
+  },
+  "frozen_controls": {
+    "impact_speed_mps": 1200.0,
+    "mesh_mm": 0.75,
+    "termination_time_ms": 0.5,
+    "maximum_cycle_count": 2500000,
+    "tssfac": 0.05,
+    "dt2ms": 0.0,
+    "plate_mat015_erod": 1,
+    "fragment_mat015_erod": 1,
+    "plate_part_id": 1002,
+    "fragment_solid_part_id": 2002,
+    "adaptive_sph_part_id": 2003,
+    "adaptive_solid_to_sph": "2002_to_2003_8_particles_per_failed_hex",
+    "solid_contact_soft": 2,
+    "dedicated_sph_to_solid_contact_soft": 1,
+    "d3plot_interval_ms": 0.00015,
+    "d3part_interval_ms": 0.00015,
+    "ascii_database_interval_ms": 0.00025,
+    "nodes": 1,
+    "ranks": 32,
+    "solver_family": "LS-DYNA R15 MPP double precision"
+  },
+  "staged_return_policy": {
+    "stage1_download": [
+      "submitted deck",
+      "manifest.json",
+      "job_contract.json",
+      "Slurm script",
+      "platform log",
+      "std.out",
+      "std.err",
+      "glstat",
+      "all mes0000 through mes0031"
+    ],
+    "stage1_expected_size_mib": 26,
+    "if_stage1_fails": "stop_without_downloading_d3plot_d3part_or_binout",
+    "if_stage1_passes": "download_complete_d3plot_family_then_complete_d3part_and_binout_families"
+  },
+  "run_planning": {
+    "requested_walltime": "12:00:00",
+    "maximum_cycle_count": 2500000,
+    "projected_total_output_gb_decimal": 22.51,
+    "storage_claim_boundary": "same cadence and horizon as R06s; actual segmentation and size can differ"
+  },
+  "preregistered_stage1_gates": {
+    "input_deck_parent_hash": "sha256:eac511d8579d9cad92f08c41b5241129801df46b297140a3f601acacd5b0dd0e",
+    "deck_difference": "exactly_two_registered_lines",
+    "resource_identity": {
+      "nodes": 1,
+      "ranks": 32,
+      "required": true
+    },
+    "normal_termination_at_problem_time_ms": {
+      "required": 0.5,
+      "tolerance_ms": 1e-05
+    },
+    "cycle_guard": {
+      "maximum": 2500000
+    },
+    "no_mass_scaling": true,
+    "plate_negative_volume_element_count": {
+      "required": 0
+    },
+    "target_plate_element_39948_negative_volume_event": false,
+    "total_energy_ratio": {
+      "minimum": 0.95,
+      "maximum": 1.05
+    },
+    "absolute_final_sliding_energy_fraction_of_initial": {
+      "maximum": 0.05
+    },
+    "maximum_absolute_hourglass_over_internal": {
+      "maximum": 0.05
+    },
+    "minimum_time_step_ms": {
+      "minimum": 3.29177e-08,
+      "basis": "one_tenth_of_R06s_observed_minimum"
+    }
+  },
+  "sequential_decision": {
+    "if_stage1_passes": "download_binary_families_and_test_response_measurement_without_fitting",
+    "if_plate_messages_disappear_but_timestep_or_energy_gate_fails": "reject_psfail_suppression_and_design_localized_plate_failure_representation",
+    "if_plate_messages_persist": "reject_psfail_scope_hypothesis_and_design_localized_plate_failure_representation",
+    "further_contact_parameter_tuning": "not_authorized"
+  },
+  "admission": {
+    "r06t_submission": "allowed_after_static_release_verification",
+    "engine_fitting": "denied",
+    "damage_tree_fitting": "denied",
+    "reference_dataset_generation": "denied",
+    "physical_validity": "not_established"
+  },
+  "claim_boundary": [
+    "R06t is a controlled model-form mechanism diagnostic, not a calibration point.",
+    "Passing Stage 1 only authorizes downloading binary response evidence.",
+    "PSFAIL scope may suppress messages without establishing a physically valid plate-failure model."
+  ]
+}

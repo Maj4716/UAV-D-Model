@@ -1,0 +1,108 @@
+{
+  "schema_version": "hf-p0-r06k-direct-folder-delivery@1.0.0",
+  "package_revision": "R06_fragment_negative_volume_isolation_20261030",
+  "job_id": "r06k_0800_fragment_psfail_plate",
+  "status": "ready_for_user_submission_not_submitted_not_solver_validated",
+  "upload_folder": "uav_hf_r06k_0800_fragment_psfail_plate",
+  "head_deck": "r06k_0800_fragment_psfail_plate.k",
+  "archive_policy": "no_archive_direct_folder_only",
+  "parent_control": {
+    "platform_job_id": "72751725",
+    "deck_sha256": "sha256:8ec1613324159b3ebc00217871ad29321564423b0a7f73a267207e4952bada77",
+    "audit_path": "D:/Desktop/UAV新/scnet_lsdyna_plate_calibration_20261017/analysis/72751725_r06j_0800_fragment_erod1_20261030/r06j_fragment_erod1_return_audit.json",
+    "audit_sha256": "sha256:8fcabbcbad3b12a0789ae934840fb1de241b97c1f25c7d1932aa2a20714e04a0",
+    "fragment_deleted_element_count": 35,
+    "fragment_negative_volume_element_count": 35,
+    "response_availability": "fail"
+  },
+  "single_factor": {
+    "field": "CONTROL_SOLID Card 1 field 5 PSFAIL",
+    "control": 0,
+    "treatment": 910001,
+    "treatment_part_set": [
+      1002
+    ],
+    "excluded_fragment_part": 2002,
+    "fragment_mat015_erod": 1,
+    "plate_mat015_erod": 0,
+    "tssfac": 0.05,
+    "dt2ms": 0.0
+  },
+  "diagnostic_boundary": {
+    "purpose": "isolate ERODING-contact automatic negative-volume deletion of fragment elements",
+    "possible_outcomes": [
+      "normal termination with fragment deletion suppressed",
+      "severe distortion or timestep collapse",
+      "solver termination"
+    ],
+    "all_outcomes_are_mechanism_evidence_only": true,
+    "no_automatic_successor_release": true
+  },
+  "resource_contract": {
+    "software": "ls-dyna_R15_mmp_d",
+    "nodes": 1,
+    "ranks": 32,
+    "walltime": "04:00:00",
+    "head_memory_mb": 512,
+    "child_memory_mb": 256,
+    "command_line_parameters": "",
+    "fresh_work_directory": "/work/home/acd7dt5yv4/LSDYNA/uav_hf_r06k_0800_fpsfail"
+  },
+  "files": [
+    {
+      "path": "uav_hf_r06k_0800_fragment_psfail_plate/UPLOAD_README.txt",
+      "size_bytes": 2054,
+      "sha256": "sha256:2269c7ab95b84b4543471584284bc41b959a7b6c753e1fae2dea7b3a61963a9c"
+    },
+    {
+      "path": "uav_hf_r06k_0800_fragment_psfail_plate/jc4340_reference.json",
+      "size_bytes": 3144,
+      "sha256": "sha256:9b462b920459e57641d5f89d10d36c0aa0498c86f2478fef8e4c3efa96888311"
+    },
+    {
+      "path": "uav_hf_r06k_0800_fragment_psfail_plate/job_contract.json",
+      "size_bytes": 1894,
+      "sha256": "sha256:6ced773ccb4f136d57048f5c7685ba963cf7470eb1ade0f6093ffedf338d3e04"
+    },
+    {
+      "path": "uav_hf_r06k_0800_fragment_psfail_plate/manifest.json",
+      "size_bytes": 2204,
+      "sha256": "sha256:e49a346c672a404485411d6f56cd373dcad8a856e70352a5cb4f7ec38d6a6639"
+    },
+    {
+      "path": "uav_hf_r06k_0800_fragment_psfail_plate/p0_case_part_map.csv",
+      "size_bytes": 547,
+      "sha256": "sha256:8eeec3f51614cddf552b4479c7ff1ccbc775572f1c1d177a29237c3d41f4c463"
+    },
+    {
+      "path": "uav_hf_r06k_0800_fragment_psfail_plate/p0_r06k_fragment_negative_volume_isolation_design.json",
+      "size_bytes": 13341,
+      "sha256": "sha256:38b56dcd730822271f756c3b4d2a0676fde6ca00f64351ead8b5bb65e6817212"
+    },
+    {
+      "path": "uav_hf_r06k_0800_fragment_psfail_plate/p0_r06k_fragment_negative_volume_output_contract.json",
+      "size_bytes": 14996,
+      "sha256": "sha256:e141ff823f3dbc8e123cb0dc89a737ba850161faed2ab035d545bdf57ee8a323"
+    },
+    {
+      "path": "uav_hf_r06k_0800_fragment_psfail_plate/r06k_0800_fragment_psfail_plate.k",
+      "size_bytes": 2557716,
+      "sha256": "sha256:f78396a9fd15114fe411507a7774d68cecb10a25460413474772f2b99e8a17ca"
+    },
+    {
+      "path": "uav_hf_r06k_0800_fragment_psfail_plate/static_validation.json",
+      "size_bytes": 3722,
+      "sha256": "sha256:91d1a16afffed7c5422a33bc76104bbbbcd2fa9e9396f8a1c732d719504d6734"
+    }
+  ],
+  "prohibited": [
+    "creating or submitting a ZIP archive",
+    "submitting any other job in parallel with this diagnostic",
+    "changing the post-explosion initial state or any factor other than CONTROL_SOLID PSFAIL",
+    "changing fragment MAT_015 EROD from one or changing plate MAT_015 EROD from zero",
+    "changing the ERODING_SINGLE_SURFACE contact formulation",
+    "using nodes/ranks other than one node and 32 total MPP ranks",
+    "enabling mass scaling or changing TSSFAC from 0.05",
+    "treating a PSFAIL-isolation response as physical validation, engine/damage-tree calibration or a dataset label"
+  ]
+}

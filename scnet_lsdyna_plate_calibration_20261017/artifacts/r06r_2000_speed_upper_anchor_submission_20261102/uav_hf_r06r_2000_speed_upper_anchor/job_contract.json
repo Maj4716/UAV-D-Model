@@ -1,0 +1,61 @@
+{
+  "schema_version": "hf-p0-r06-job-contract@1.1.0",
+  "package_revision": "R06_speed_upper_anchor_2000_20261102",
+  "job_id": "r06r_2000_speed_upper_anchor",
+  "experiment_id": "r06r_numerical_speed_upper_anchor_2000",
+  "role": "numerical_speed_upper_anchor",
+  "factor": "fragment_initial_speed_mps",
+  "factor_level": "2000_mps",
+  "factor_layer": "physical_single_factor",
+  "case": {
+    "case_id": "p0_v2000_h0p75",
+    "impact_speed_mps": 2000.0,
+    "mesh_mm": 0.75,
+    "plate_part_id": 1002,
+    "fragment_solid_part_id": 2002,
+    "adaptive_sph_part_id": 2003,
+    "capture_plane_z_mm": -12.0,
+    "termination_time_ms": 0.5,
+    "maximum_cycle_count": 2500000,
+    "plate_mat015_erod": 1,
+    "fragment_mat015_erod": 1
+  },
+  "output_intervals_ms": {
+    "d3plot": 0.0001,
+    "d3part": 0.0001,
+    "ascii_databases": 0.00025
+  },
+  "head_deck": "r06r_2000_speed_upper_anchor.k",
+  "resource_contract": {
+    "software_platform_label": "ls-dyna_R15_mmp_d",
+    "solver_family": "LS-DYNA R15 MPP double precision",
+    "nodes": 1,
+    "ranks": 32,
+    "walltime": "12:00:00",
+    "head_memory_mb": 512,
+    "child_memory_mb": 256,
+    "command_line_parameters": "",
+    "resource_identity_is_a_hard_gate": true
+  },
+  "required_return_families": [
+    "submitted .k",
+    "d3hsp/o= and mes*",
+    "glstat",
+    "matsum",
+    "sleout",
+    "nodout",
+    "ncforc",
+    "binout*",
+    "d3plot*",
+    "d3part*",
+    "solver stdout/stderr",
+    "Slurm script and resource record"
+  ],
+  "completion_rule": {
+    "required_problem_time_ms": 0.5,
+    "cycle_guard": 2500000,
+    "required_actual_nodes": 1,
+    "required_actual_ranks": 32
+  },
+  "status": "prepared_not_submitted_not_solver_validated"
+}

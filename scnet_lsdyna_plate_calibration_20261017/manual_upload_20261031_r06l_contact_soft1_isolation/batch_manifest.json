@@ -1,0 +1,36 @@
+{
+  "schema_version": "hf-p0-r06-batch-manifest@1.0.0",
+  "package_revision": "R06_contact_soft1_isolation_20261031",
+  "status": "generated_pending_static_validation_not_submitted",
+  "design": {
+    "path": "p0_r06l_contact_soft1_isolation_design.json",
+    "sha256": "sha256:278056185d5c8b8b346352fa72933f8482ead8a4c05765069374e294fc4a1ba8"
+  },
+  "material": {
+    "path": "jc4340_reference.json",
+    "sha256": "sha256:9b462b920459e57641d5f89d10d36c0aa0498c86f2478fef8e4c3efa96888311"
+  },
+  "successor_contract": {
+    "path": "p0_r06l_contact_soft1_output_contract.json",
+    "sha256": "sha256:852c9aaa725181a419592585ee06ebbbce619a455b7b383d28f85daae8164cf5",
+    "frozen_pre_generation_snapshot": true
+  },
+  "submission_matrix": {
+    "path": "submission_matrix.csv",
+    "sha256": "sha256:47d81e4167aa064677a51002c2fbf75c6fbfadbb17ed5fb9aa3efb8a6ee24ddf"
+  },
+  "job_count": 1,
+  "paired_experiment_count": 1,
+  "jobs": [
+    {
+      "job_id": "r06l_0800_contact_soft1",
+      "directory": "job_01_v0800_contact_soft1",
+      "experiment_id": "r06l_contact_soft_isolation_800",
+      "role": "contact_soft1_numerical_stability_diagnostic",
+      "deck": "r06l_0800_contact_soft1.k",
+      "deck_sha256": "sha256:73ba78b3ce25dc0b56b8bc2327b7cc0f5374ab35fef3978aa4ba0fdc62606576",
+      "manifest_sha256": "sha256:cf7083a8743900efa5194fd91d3baf9b060c064a99287303baae8f82b81514f3"
+    }
+  ],
+  "prohibited_inference": "Generation and static validation do not establish target-solver parsing, numerical response, physical validity, or P0/P1 admission."
+}

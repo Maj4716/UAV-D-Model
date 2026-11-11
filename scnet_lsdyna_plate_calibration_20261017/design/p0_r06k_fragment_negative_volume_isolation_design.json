@@ -1,0 +1,338 @@
+{
+  "schema_version": "hf-p0-r06-diagnostic-design@1.8.0",
+  "package_revision": "R06_fragment_negative_volume_isolation_20261030",
+  "design_status": "frozen_after_r06j_partial_erod_causality_before_fragment_negative_volume_psfail_outcome",
+  "title": "SCNet P0 R06k 800 m/s fragment negative-volume PSFAIL isolation",
+  "created_date": "2026-10-30",
+  "seed": 20261017,
+  "unit_system": "kg-mm-ms-kN-GPa-K",
+  "purpose": "Test whether the 35 remaining R06j fragment deletions are entirely caused by the negative-volume failure criterion automatically activated by ERODING contact.",
+  "provenance": {
+    "parent_revision": "R06_fragment_erosion_isolation_20261030",
+    "parent_job_id": "r06j_0800_fragment_erod1",
+    "parent_platform_job_id": "72751725",
+    "parent_deck_sha256": "sha256:8ec1613324159b3ebc00217871ad29321564423b0a7f73a267207e4952bada77",
+    "parent_result": "successful_diagnostic_partial_material_erosion_causality_remaining_negative_volume_deletion",
+    "parent_return_audit": "analysis/72751725_r06j_0800_fragment_erod1_20261030/r06j_fragment_erod1_return_audit.json",
+    "successor_contract": "design/p0_r06k_fragment_negative_volume_output_contract.json",
+    "identity_rule": "Mesh, IDs, post-explosion initial state, both MAT_015 definitions including fragment EROD=1, EOS, contact, section, boundaries, speed, termination, timestep, outputs and resources remain identical to Job 72751725. Only CONTROL_SOLID PSFAIL changes 0 to 910001.",
+    "factor_scope": "CONTROL_SOLID Card 1 field 5 PSFAIL only, 0 to plate-only set 910001"
+  },
+  "symmetry": {
+    "type": "quarter_model",
+    "full_model_scale_factor": 4.0,
+    "validity": "normal incidence, face-on cube, centered impact only"
+  },
+  "frozen_common": {
+    "fragment_mass_g": 8.0,
+    "fragment_density_kg_m3": 7830.0,
+    "plate_thickness_mm": 10.0,
+    "obliquity_deg_from_normal": 0.0,
+    "fragment_orientation": "face_on",
+    "material_set": "jc4340_reference_central",
+    "plate_half_span_mm": 60.0,
+    "refined_half_span_mm": 15.0,
+    "outer_target_spacing_mm": 2.5,
+    "initial_gap_mm": 1.0,
+    "mesh_mm": 0.75
+  },
+  "frozen_solver_controls": {
+    "control_timestep": {
+      "dtinit": 0.0,
+      "tssfac": 0.05,
+      "isdo": 0,
+      "tslimit": 0.0,
+      "dt2ms": 0.0,
+      "lctm": 0,
+      "erode": 0,
+      "ms1st": 0
+    },
+    "control_contact_card1": {
+      "slsfac": 0.0,
+      "rwpnal": 0.0,
+      "islchk": 2,
+      "shlthk": 0,
+      "penopt": 1,
+      "thkchg": 0,
+      "orien": 1,
+      "enmass": 0
+    },
+    "control_contact_card2": {
+      "usrstr": 0,
+      "usrfrc": 0,
+      "nsbcs": 0,
+      "interm": 0,
+      "xpene": 0.0,
+      "ssthk": 0,
+      "ecdt": 0,
+      "tiedprj": 0
+    },
+    "eroding_contact_card4": {
+      "isym": 1,
+      "erosop": 1,
+      "iadj": 1
+    },
+    "control_solid_default": "absent",
+    "termination_dtmin": 0.0
+  },
+  "shared_measurement_upgrade": {
+    "status": "validated_on_job_72751725_and_frozen_for_fragment_negative_volume_psfail_isolation",
+    "full_model_d3plot_interval_ms": 0.0001,
+    "fragment_d3part_interval_ms": 5e-05,
+    "ascii_interval_ms": 5e-05,
+    "fragment_part_set_id": 900001,
+    "plate_psfail_part_set_id": 910001,
+    "database_extent_binary_neiph": 6,
+    "mat015_history_variable_6": "Johnson-Cook damage D",
+    "contact_output_flags": {
+      "spr_or_sapr": 1,
+      "mpr_or_sbpr": 1
+    },
+    "capture_plane": {
+      "axis": "z",
+      "coordinate_mm": -12.0,
+      "undeformed_plate_back_mm": -10.0,
+      "offset_behind_plate_mm": 2.0,
+      "travel_direction": "negative",
+      "crossing_policy": "R06 successor real-output contract"
+    },
+    "required_return_families": [
+      "submitted .k",
+      "solver o= output or d3hsp",
+      "mes*",
+      "glstat",
+      "matsum",
+      "sleout",
+      "nodout",
+      "binout*",
+      "d3plot*",
+      "d3part*",
+      "solver stdout/stderr",
+      "Slurm script and resource record"
+    ],
+    "r15_parser_contract": {
+      "target_solver": "LS-DYNA R15.0.2",
+      "database_extent_binary_cards": [
+        [
+          6,
+          0,
+          3,
+          0,
+          1,
+          1,
+          1,
+          1
+        ],
+        [
+          0,
+          0,
+          0,
+          1,
+          1,
+          1,
+          2,
+          1
+        ]
+      ],
+      "intfor_file_timing_card_tail": [
+        0,
+        0,
+        0
+      ],
+      "intfor_file_ioopt_card": [
+        0
+      ]
+    },
+    "database_extent_binary_policy": "Set NEIPH=6 and explicitly preserve all other R15.0.2 documented Card 1/Card 2 defaults; Card 2 is mandatory.",
+    "d3part_extent_cards": [
+      [
+        6,
+        0,
+        3,
+        0,
+        1,
+        1,
+        1,
+        1
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    ],
+    "direct_contact_output_policy": {
+      "request_binary_intfor": false,
+      "request_ascii_ncforc": true,
+      "intfor_status": "unavailable_by_solver_for_eroding_contact_warning_20340",
+      "ncforc_status": "best_effort_nonblocking",
+      "missing_is_zero": false,
+      "unexpected_file_policy": "preserve_and_report"
+    },
+    "damage_source": {
+      "primary_artifact": "full d3plot*",
+      "array": "element_solid_history_variables",
+      "history_variable_number_one_based": 6,
+      "array_index_zero_based": 5,
+      "material": "*MAT_015/*MAT_JOHNSON_COOK",
+      "required": true,
+      "alive_mask_required": true,
+      "post_deletion_zero_policy": "never_interpret_as_damage_recovery",
+      "sentinel_policy": "absolute value at or above 1e29 is unavailable with a reason, never zero"
+    },
+    "optional_return_families": [
+      "intfor*",
+      "ncforc*"
+    ],
+    "database_extent_d3part_policy": "Explicit NEIPH=6 request is a redundant-channel experiment; full D3PLOT HVAR6 remains authoritative."
+  },
+  "paired_experiments": [
+    {
+      "experiment_id": "r06k_fragment_negative_volume_psfail_isolation_800",
+      "question": "Does excluding fragment part 2002 from the ERODING-contact negative-volume failure criterion remove the 35 remaining deletions?",
+      "case_identity": {
+        "r05_case_id": "p0_v0800_h0p75",
+        "r05_original_index": 2,
+        "impact_speed_mps": 800.0,
+        "mesh_mm": 0.75,
+        "plate_part_id": 1002,
+        "fragment_part_id": 2002
+      },
+      "factor": "control_solid_psfail_part_set",
+      "control_level": 0,
+      "treatment_level": 910001,
+      "external_control": {
+        "job_id": "r06j_0800_fragment_erod1",
+        "platform_job_id": "72751725",
+        "deck_sha256": "sha256:8ec1613324159b3ebc00217871ad29321564423b0a7f73a267207e4952bada77",
+        "resource_identity": "one_node_32_ranks",
+        "tssfac": 0.05,
+        "fragment_mat015_erod": 1,
+        "psfail_part_set_id": 0,
+        "fragment_negative_volume_element_count": 35,
+        "fragment_deleted_element_count": 35,
+        "deleted_upstream_mass_fraction": 0.05102040709405755
+      },
+      "jobs": [
+        {
+          "job_id": "r06k_0800_fragment_psfail_plate",
+          "directory": "job_01_v0800_fragment_psfail_plate",
+          "role": "fragment_negative_volume_failure_exclusion_diagnostic",
+          "termination_time_ms": 0.04,
+          "plate_only_psfail": true,
+          "tssfac": 0.05,
+          "fragment_mat015_erod": 1,
+          "factor_level": 910001,
+          "platform_job_name": "uav_hf_r06k_0800_fpsfail",
+          "parent_r06j_job_id": "r06j_0800_fragment_erod1",
+          "parent_platform_job_id": "72751725"
+        }
+      ],
+      "preregistered_evaluation": {
+        "factor": "CONTROL_SOLID Card 1 field 5 PSFAIL",
+        "control_job_id": "r06j_0800_fragment_erod1",
+        "control_platform_job_id": "72751725",
+        "control_level": 0,
+        "treatment_job_id": "r06k_0800_fragment_psfail_plate",
+        "treatment_level": 910001,
+        "treatment_part_set": {
+          "set_id": 910001,
+          "part_ids": [
+            1002
+          ],
+          "meaning": "plate_only"
+        },
+        "fragment_part_id": 2002,
+        "fragment_mat015_erod": 1,
+        "plate_mat015_erod": 0,
+        "tssfac": 0.05,
+        "dt2ms": 0.0,
+        "single_factor_rule": "The R06k deck may differ from returned R06j only in TITLE and CONTROL_SOLID Card 1 field 5 PSFAIL, 0 to plate-only part set 910001.",
+        "solver_semantics": {
+          "eroding_contact_side_effect": "ERODING contact automatically activates a negative-volume failure criterion for solid elements",
+          "psfail_scope": "A nonzero PSFAIL part-set ID restricts that criterion to solids in the named part set",
+          "treatment_effect": "PSFAIL=910001 keeps the criterion on plate part 1002 and excludes fragment part 2002",
+          "source": "Ansys LS-DYNA Explicit Technical Guide, ERODING contact and PSFAIL guidance"
+        },
+        "diagnostic_gates": {
+          "parser_and_resource_identity": "required",
+          "normal_termination": "report_but_not_required_for_mechanism_evidence",
+          "no_mass_scaling": true,
+          "fragment_negative_volume_messages": "compare_to_35_in_job_72751725",
+          "fragment_deleted_element_count": "compare_to_35_in_job_72751725",
+          "fragment_hvar6_failure_evidence": "required_if_outputs_are_readable",
+          "timestep_collapse_or_solver_abort": "retain_as_diagnostic_evidence",
+          "energy_and_contact_outputs": "mechanism_evidence_only"
+        },
+        "interpretation_rules": {
+          "fragment_deletion_removed_but_distortion_or_timestep_failure_remains": "supports negative-volume erosion as the remaining deletion path and demonstrates that simple deletion suppression is not a production remedy",
+          "fragment_deletion_persists": "refutes exclusive attribution and requires another deletion-path audit",
+          "normal_completion_without_fragment_deletion": "still does not establish physical validity because the treatment suppresses a numerical failure criterion",
+          "primary_qoi_policy": "never promote PSFAIL-isolation response values to physical labels, calibration targets or reference data"
+        }
+      }
+    }
+  ],
+  "paired_comparison_tolerances": {
+    "control_fragment_negative_volume_count": 35,
+    "control_fragment_deleted_element_count": 35,
+    "expected_treatment_fragment_deleted_element_count": 0,
+    "expected_treatment_fragment_negative_volume_erosion_message_count": 0,
+    "hvar6_invalid_alive_count_max": 0,
+    "added_mass_fraction_max": 0.0,
+    "missing_or_nonfinite_policy": "fail_closed"
+  },
+  "submission_sequence": {
+    "wave_0": [
+      "r06k_0800_fragment_psfail_plate"
+    ],
+    "wave_0_gate": "Target parser/resource identity and no mass scaling are required. Normal completion is not assumed: timestep collapse, severe distortion or solver termination must be preserved as diagnostic evidence.",
+    "hold_after_wave_0": "Do not release 2000 m/s, treatments, fitting or labels. Audit the negative-volume mechanism first.",
+    "resource_identity": "Use exactly one node, 32 ranks, LS-DYNA R15 MPP double precision, and the same memory settings as Job 72751725."
+  },
+  "deferred_not_generated": [
+    {
+      "candidate": "CONTACT keyword/formulation change",
+      "reason": "Deferred until the PSFAIL-only mechanism isolation is audited."
+    },
+    {
+      "candidate": "fragment remeshing or SPH",
+      "reason": "Model-form redesign is premature before the deletion path is isolated."
+    },
+    {
+      "candidate": "2000 m/s and all treatments",
+      "reason": "Hold until numerical deletion and response availability are resolved."
+    }
+  ],
+  "admission": {
+    "fragment_psfail_isolation_submission": "allowed_after_static_release_verification",
+    "production_contact_or_erosion_policy": "pending_external_target_solver_diagnostic",
+    "further_timestep_halving": "denied",
+    "r06f_2000_control": "denied",
+    "treatments": "denied",
+    "p0_response_calibration": "denied",
+    "p1_submission": "denied",
+    "engine_fitting": "denied",
+    "damage_tree_fitting": "denied",
+    "reference_dataset_generation": "denied",
+    "physical_validity": "not_established_requires_independent_experimental_evidence"
+  },
+  "claim_boundary": [
+    "R06j partially suppressed fragment deletion but left exactly 35 negative-volume-driven fragment deletions.",
+    "R06k changes only PSFAIL from 0 to plate-only set 910001, excluding fragment part 2002 from the ERODING-contact negative-volume criterion.",
+    "Fragment MAT_015 EROD remains 1 and the contact formulation remains ERODING_SINGLE_SURFACE.",
+    "The model continues to start from the same post-explosion fragment state.",
+    "Any R06k result is mechanism evidence only and cannot authorize engine fitting, damage-tree fitting or dataset admission."
+  ],
+  "explosion_instant_start_policy": {
+    "current_model_status": "already_starts_from_post_explosion_fragment_initial_state",
+    "pre_explosion_detonation_or_flight_simulated": false,
+    "r06h_rule": "initial geometry, velocity and all other state remain byte-equivalent to Job 72639935",
+    "future_full_warhead_rule": "A full-warhead high-fidelity model may start at explosion time only after the mapped mass, momentum, energy, fragment-state and boundary-state transfer is frozen and audited."
+  }
+}

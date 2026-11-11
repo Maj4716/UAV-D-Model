@@ -1,0 +1,50 @@
+{
+  "schema_version": "hf-p0-r06-job-manifest@1.0.0",
+  "package_revision": "R06_fragment_erosion_isolation_20261030",
+  "job_id": "r06j_0800_fragment_erod1",
+  "status": "generated_not_solver_validated",
+  "evidence_class": "high_fidelity_synthetic_diagnostic_candidate",
+  "deck": {
+    "path": "r06j_0800_fragment_erod1.k",
+    "size_bytes": 2557671,
+    "sha256": "sha256:8ec1613324159b3ebc00217871ad29321564423b0a7f73a267207e4952bada77",
+    "node_count": 23775,
+    "element_count": 20902,
+    "node_id_span": [
+      23776,
+      47550
+    ],
+    "element_id_span": [
+      20903,
+      41804
+    ]
+  },
+  "design": {
+    "path": "p0_r06j_fragment_erosion_isolation_design.json",
+    "sha256": "sha256:52861195f360f8bcc1f73e59779f7f640fa159b02bcc5a66c4e3d10a8cd06b21"
+  },
+  "material": {
+    "path": "jc4340_reference.json",
+    "sha256": "sha256:9b462b920459e57641d5f89d10d36c0aa0498c86f2478fef8e4c3efa96888311"
+  },
+  "successor_contract": {
+    "path": "p0_r06j_fragment_erosion_output_contract.json",
+    "sha256": "sha256:88c361c5c5f798a569f43ed2047de9ea78f702845bb4e2a9acbab364db3e0a17",
+    "historical_status_preserved": "frozen_after_r06i_terminal_timestep_stable_but_response_unavailable_before_fragment_erod1_outcome"
+  },
+  "case_map": {
+    "path": "p0_case_part_map.csv",
+    "sha256": "sha256:7004fc8d8422212021f7828379b86208c6c3bd82044fe5de795ad408b0763ba2"
+  },
+  "job_contract": {
+    "path": "job_contract.json",
+    "sha256": "sha256:5d2fa28da71fb68ca5387cd07f0b724e9efd83596301355e45041eabe5353e5c"
+  },
+  "limitations": [
+    "R06i established local timestep consistency but not response availability.",
+    "R06j changes only the fragment material EROD flag from 0 to 1; plate erosion remains enabled with EROD=0.",
+    "EROD=1 intentionally changes the post-failure numerical treatment and is diagnostic, not a physical treatment.",
+    "The model continues to start from the same post-explosion fragment state.",
+    "Neither static PASS nor a normal R06j termination authorizes engine fitting, damage-tree fitting or dataset admission."
+  ]
+}

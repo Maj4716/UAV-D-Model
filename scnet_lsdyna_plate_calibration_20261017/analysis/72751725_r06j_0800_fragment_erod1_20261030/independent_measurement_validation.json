@@ -1,0 +1,74 @@
+{
+  "schema_version": "hf-p0-r06f-independent-measurement-validation@1.0.0",
+  "d3part_full_d3plot_crosscheck": {
+    "status": "pass",
+    "d3part_history_shape": [
+      802,
+      686,
+      1,
+      7
+    ],
+    "full_d3plot_history_shape": [
+      402,
+      20902,
+      1,
+      7
+    ],
+    "d3part_state_count": 802,
+    "full_d3plot_state_count": 402,
+    "shared_state_count": 402,
+    "fragment_element_id_count": 686,
+    "alive_value_comparison_count": 265462,
+    "maximum_absolute_difference_all_7_channels": 0.0,
+    "alive_mask_mismatch_count": 0,
+    "maximum_time_mismatch_ms": 0.0,
+    "hvar6_alive_status": "available",
+    "hvar6_alive_minimum": 0.0,
+    "hvar6_alive_maximum": 1.0,
+    "hvar6_invalid_alive_count": 0,
+    "initial_alive_fragment_count": 686,
+    "final_alive_fragment_count": 651
+  },
+  "ncforc": {
+    "status": "available_ragged_pending_semantic_validation",
+    "path": "ncforc/surfa_1",
+    "logical_databases": [
+      "JOBINFO",
+      "glstat",
+      "matsum",
+      "ncforc",
+      "nodout",
+      "sleout"
+    ],
+    "state_count": 801,
+    "first_time_ms": 0.0,
+    "last_time_ms": 0.03999968234350848,
+    "minimum_nodes_per_state": 3363,
+    "maximum_nodes_per_state": 3391,
+    "union_node_count": 3425,
+    "all_state_intersection_node_count": 3335,
+    "node_count_change_count": 21,
+    "all_ids_unique_per_state": true,
+    "all_coordinates_forces_pressure_finite": true,
+    "raw_model_unit_ranges": {
+      "pressure": [
+        -28.542736662592837,
+        127.42970172231858
+      ],
+      "x_force": [
+        -4.539583426382564,
+        4.377200281801029
+      ],
+      "y_force": [
+        -4.012780634979325,
+        4.086336741888183
+      ],
+      "z_force": [
+        -11.948147122909962,
+        10.390841278162053
+      ]
+    },
+    "claim_boundary": "Units, sign convention, contact-side mapping, impulse and energy closure are not yet validated."
+  },
+  "claim_boundary": "Reader validation does not establish physical validity, P0/P1 admission, engine fitting, or dataset promotion."
+}

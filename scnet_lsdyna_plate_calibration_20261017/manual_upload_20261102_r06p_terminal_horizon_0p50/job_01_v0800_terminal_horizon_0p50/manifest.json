@@ -1,0 +1,55 @@
+{
+  "schema_version": "hf-p0-r06p-job-manifest@1.0.0",
+  "package_revision": "R06_terminal_horizon_0p50_20261102",
+  "job_id": "r06p_0800_terminal_horizon_0p50",
+  "status": "generated_not_solver_validated",
+  "evidence_class": "high_fidelity_synthetic_terminal_response_horizon_candidate",
+  "deck": {
+    "path": "r06p_0800_terminal_horizon_0p50.k",
+    "size_bytes": 2558340,
+    "sha256": "sha256:d471f09e9a726c9e4695565abc120e9300bfd68ca2b272bf23852322f8dc8629",
+    "differences_from_parent": [
+      "TITLE_identifier_line",
+      "CONTROL_TERMINATION_endtim_0p04_to_0p50",
+      "DATABASE_BINARY_D3PLOT_dt_0p0001_to_0p0005",
+      "DATABASE_BINARY_D3PART_dt_0p00005_to_0p00025",
+      "DATABASE_GLSTAT_dt_0p00005_to_0p00025",
+      "DATABASE_MATSUM_dt_0p00005_to_0p00025",
+      "DATABASE_SLEOUT_dt_0p00005_to_0p00025",
+      "DATABASE_NODOUT_dt_0p00005_to_0p00025",
+      "DATABASE_NCFORC_dt_0p00005_to_0p00025"
+    ]
+  },
+  "immutable_parent": {
+    "job_id": "r06o_0800_plate_erod1_isolation",
+    "platform_job_id": "72894870",
+    "deck_sha256": "sha256:d71d2d11091a813f35ca98656c31fb7ad4f8174b024828a62e0f874daab3524f",
+    "classification": "successful_plate_erod1_engineering_isolation_response_horizon_still_unqualified"
+  },
+  "design": {
+    "path": "p0_r06p_terminal_horizon_0p50_design.json",
+    "sha256": "sha256:713103a174b492ac79af0789de89e2522d4100bcdd07d3864f3fbf66393e36f8"
+  },
+  "successor_contract": {
+    "path": "p0_r06p_terminal_horizon_0p50_output_contract.json",
+    "sha256": "sha256:6f0d568e7e208545f585da3b5bf98115cce521167b7efad67a316e4e91a35179"
+  },
+  "material": {
+    "path": "jc4340_reference.json",
+    "sha256": "sha256:9b462b920459e57641d5f89d10d36c0aa0498c86f2478fef8e4c3efa96888311"
+  },
+  "case_map": {
+    "path": "p0_case_part_map.csv",
+    "sha256": "sha256:fde35b706ed87d4866d9d5b0222139fde3743d0e63648dbcac04450c725eadcd"
+  },
+  "job_contract": {
+    "path": "job_contract.json",
+    "sha256": "sha256:4792d9fbd427441932e0a9f2aae01e69620417f4f4af791e47bada4ed1003354"
+  },
+  "limitations": [
+    "Static validation proves only the registered horizon and measurement-cadence differences; target-platform execution is untested.",
+    "The 0.50 ms selection uses terminal linear projection only and is not a physical trajectory prediction.",
+    "The cycle guard may stop this run before 0.50 ms if later distortion reduces the timestep.",
+    "A complete response remains diagnostic and is not yet engine fitting, damage-tree fitting or physical validation."
+  ]
+}

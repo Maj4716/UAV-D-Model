@@ -1,0 +1,50 @@
+{
+  "schema_version": "hf-p0-r06-job-manifest@1.0.0",
+  "package_revision": "R06_contact_soft1_isolation_20261031",
+  "job_id": "r06l_0800_contact_soft1",
+  "status": "generated_not_solver_validated",
+  "evidence_class": "high_fidelity_synthetic_diagnostic_candidate",
+  "deck": {
+    "path": "r06l_0800_contact_soft1.k",
+    "size_bytes": 2557668,
+    "sha256": "sha256:73ba78b3ce25dc0b56b8bc2327b7cc0f5374ab35fef3978aa4ba0fdc62606576",
+    "node_count": 23775,
+    "element_count": 20902,
+    "node_id_span": [
+      23776,
+      47550
+    ],
+    "element_id_span": [
+      20903,
+      41804
+    ]
+  },
+  "design": {
+    "path": "p0_r06l_contact_soft1_isolation_design.json",
+    "sha256": "sha256:278056185d5c8b8b346352fa72933f8482ead8a4c05765069374e294fc4a1ba8"
+  },
+  "material": {
+    "path": "jc4340_reference.json",
+    "sha256": "sha256:9b462b920459e57641d5f89d10d36c0aa0498c86f2478fef8e4c3efa96888311"
+  },
+  "successor_contract": {
+    "path": "p0_r06l_contact_soft1_output_contract.json",
+    "sha256": "sha256:852c9aaa725181a419592585ee06ebbbce619a455b7b383d28f85daae8164cf5",
+    "historical_status_preserved": "frozen_after_r06k_fragment_deletion_suppressed_but_contact_energy_timestep_unstable_before_soft1_outcome"
+  },
+  "case_map": {
+    "path": "p0_case_part_map.csv",
+    "sha256": "sha256:d9e9e3cfd9346cc179ddba40024fc420983a63eac84dc2826e8bdafad349e00c"
+  },
+  "job_contract": {
+    "path": "job_contract.json",
+    "sha256": "sha256:984469b9912d529879b6ebb4fdffe36be199c7b008c679a0e007f1d08e286a90"
+  },
+  "limitations": [
+    "R06k isolated the ERODING-contact negative-volume deletion path by removing all 35 fragment deletions.",
+    "R06k is numerically inadmissible because of a 66.8-fold cycle increase, explicit-timestep collapse and extreme negative sliding energy.",
+    "R06l changes only contact SOFT from 2 to 1 while retaining PSFAIL=910001 and all other model controls.",
+    "The model continues to start from the same post-explosion fragment state.",
+    "Any R06l result is numerical-mechanism evidence only and cannot authorize engine fitting, damage-tree fitting or dataset admission."
+  ]
+}

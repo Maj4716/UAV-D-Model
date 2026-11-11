@@ -1,0 +1,142 @@
+{
+  "schema_version": "hf-p0-r06p-terminal-horizon-return-audit@1.0.0",
+  "audit_date": "2026-11-02",
+  "source_evidence": {
+    "directory": "D:/Desktop/UAV新/uav_hf_r06p_0800_terminal_horizon_0p50",
+    "evidence_policy": "read_only_immutable",
+    "file_count": 146,
+    "total_bytes": 8257026730,
+    "platform_job_id": "72915268",
+    "job_id": "r06p_0800_terminal_horizon_0p50",
+    "package_revision": "R06_terminal_horizon_0p50_20261102",
+    "deck_sha256": "sha256:d471f09e9a726c9e4695565abc120e9300bfd68ca2b272bf23852322f8dc8629",
+    "solver_build": "LS-DYNA R15.0.2 MPP double precision"
+  },
+  "execution": {
+    "input_identity": "pass",
+    "resource_identity": "pass",
+    "resource_contract": {
+      "nodes": 1,
+      "ranks": 32
+    },
+    "observed_resources": {
+      "nodes": 1,
+      "ranks": 32
+    },
+    "normal_termination_at_required_time": true,
+    "start_time": "2026-11-02 10:49:18",
+    "end_time": "2026-11-02 11:28:14",
+    "portal_elapsed_seconds": 2336,
+    "solver_elapsed_seconds": 2322,
+    "cycle_count": 775413,
+    "cycle_guard": 829930,
+    "cycle_guard_remaining": 54517,
+    "final_problem_time_ms": 0.5,
+    "stderr_size_bytes": 0,
+    "mass_scaling_mentions": 0,
+    "warning_counts": [
+      {
+        "id": "20339",
+        "code": "STR+339",
+        "occurrences": 1
+      },
+      {
+        "id": "21131",
+        "code": "STR+1131",
+        "occurrences": 32
+      },
+      {
+        "id": "30364",
+        "code": "INI+364",
+        "occurrences": 32
+      },
+      {
+        "id": "40509",
+        "code": "SOL+509",
+        "occurrences": 45
+      }
+    ]
+  },
+  "engineering_gates": {
+    "resource_identity": "pass",
+    "solver_completion": "pass",
+    "fragment_sph_mass_and_finiteness": "pass",
+    "plate_retention": "pass",
+    "energy": {
+      "status": "pass",
+      "total_energy_ratio_range": [
+        1.0,
+        1.0
+      ],
+      "final_sliding_energy_fraction": 0.02266796875,
+      "final_eroded_energy_fraction": 0.0100139375
+    },
+    "negative_volume_attribution": {
+      "status": "pass",
+      "unique_count": 45,
+      "fragment_count": 45,
+      "plate_count": 0,
+      "exactly_matches_converted_fragment_set": true
+    },
+    "measurement_crosscheck": "pass",
+    "matsum_combined_source_sph_energy": "denied_duplicate_columns",
+    "overall_engineering": "pass"
+  },
+  "response_assessment": {
+    "primary_qoi_available": false,
+    "classification": "unavailable",
+    "unavailable_reasons": [
+      "temporal_resolution"
+    ],
+    "zero_crossing_diagnostic": "pass",
+    "terminal_separation": "pass",
+    "temporal_resolution": {
+      "status": "fail",
+      "registered_maximum_downward_step_mm": 0.25,
+      "observed_maximum_downward_step_mm": 0.4469886549691662,
+      "maximum_step_event": {
+        "carrier_type": "fragment_solid",
+        "carrier_id": 41756,
+        "start_time_ms": 0.003999794329947068,
+        "end_time_ms": 0.0044998130685294764,
+        "start_z_mm": 7.64514004693001,
+        "end_z_mm": 7.1981513919608435,
+        "downward_step_mm": 0.4469886549691662
+      },
+      "minimum_capture_plane_clearance_mm": 6.803943717689512,
+      "root_cause": "R06p planned cadence used the 0.04 ms terminal downward SPH speed rather than the full-history 800 m/s initial motion; the actual early solid step exceeds the frozen 0.25 mm limit"
+    },
+    "diagnostic_nonperforation_evidence": {
+      "crossing_event_count": 0,
+      "minimum_carrier_z_mm": -5.196056282310488,
+      "terminal_tail_minimum_z_mm": 7.036578835228796,
+      "terminal_tail_minimum_vz_mm_per_ms": 25.04389904477402,
+      "terminal_tail_maximum_downward_count": 0,
+      "interpretation": "strong rebound/nonperforation diagnostic only; frozen primary response remains unavailable"
+    }
+  },
+  "decision": {
+    "software_input_identity": "pass",
+    "solver_parser_runtime": "pass",
+    "resource_identity": "pass",
+    "numerical_engineering_confirmation": "pass",
+    "physical_validity": "not_established",
+    "research_admission": "hold",
+    "classification": "successful_long_horizon_run_response_held_by_preregistered_output_resolution_gate",
+    "release_r06q_d3plot_0p00025_measurement_confirmation": true,
+    "release_speed_scan": false,
+    "release_2000_control": false,
+    "release_treatments": false,
+    "p0_response_calibration": "denied",
+    "engine_fitting": "denied",
+    "damage_tree_fitting": "denied",
+    "dataset_reference_promotion": "denied"
+  },
+  "recommended_next_sequence": [
+    "Repeat the exact R06p physical model, horizon and 32-rank resource identity.",
+    "Change only the D3PLOT output interval from 0.0005 to 0.00025 ms; keep D3PART and ASCII intervals at 0.00025 ms.",
+    "Require maximum full-history downward carrier step <=0.25 mm, exact zero-crossing/ambiguity counts, terminal separation and all engineering gates.",
+    "Do not release the speed scan until the frozen 800 m/s primary response is admitted."
+  ],
+  "claim_boundary": "R06p is a complete and engineering-stable 0.50 ms run with strong diagnostic evidence of rebound and zero capture-plane crossing. Its primary QoI remains unavailable because the prospectively frozen output-resolution gate failed. This is not physical validation, engine calibration, damage-tree calibration or a reference label."
+}

@@ -1,0 +1,60 @@
+{
+  "schema_version": "hf-p0-r06s-batch-manifest@1.0.0",
+  "package_revision": "R06_speed_stability_diagnostic_1200_20261103",
+  "job_count": 1,
+  "jobs": [
+    {
+      "job_id": "r06s_1200_speed_stability_diagnostic",
+      "directory": "job_01_v1200_speed_stability_diagnostic",
+      "head_deck": "r06s_1200_speed_stability_diagnostic.k",
+      "head_deck_sha256": "sha256:eac511d8579d9cad92f08c41b5241129801df46b297140a3f601acacd5b0dd0e"
+    }
+  ],
+  "files": [
+    {
+      "path": "job_01_v1200_speed_stability_diagnostic/jc4340_reference.json",
+      "size_bytes": 3144,
+      "sha256": "sha256:9b462b920459e57641d5f89d10d36c0aa0498c86f2478fef8e4c3efa96888311"
+    },
+    {
+      "path": "job_01_v1200_speed_stability_diagnostic/job_contract.json",
+      "size_bytes": 1756,
+      "sha256": "sha256:0817a267ff3142c1b3c4860f16b855d2bf53b2be65582c8b52291e152c94c941"
+    },
+    {
+      "path": "job_01_v1200_speed_stability_diagnostic/manifest.json",
+      "size_bytes": 2169,
+      "sha256": "sha256:26b969faf4233e5259b8e8c09164814ffa03d4198dc14c11d8cfa3674c0fa850"
+    },
+    {
+      "path": "job_01_v1200_speed_stability_diagnostic/p0_case_part_map.csv",
+      "size_bytes": 523,
+      "sha256": "sha256:88bd433c8f172753c26b9e73cc0844c4c71b346498fa12941b619c5dcb5141a0"
+    },
+    {
+      "path": "job_01_v1200_speed_stability_diagnostic/p0_r06s_1200_speed_stability_design.json",
+      "size_bytes": 4045,
+      "sha256": "sha256:09be143d77147824b9c86fe4bd6d8cc5bde2abe0b4f995ac4d42a828bcce764c"
+    },
+    {
+      "path": "job_01_v1200_speed_stability_diagnostic/p0_r06s_1200_speed_stability_output_contract.json",
+      "size_bytes": 7212,
+      "sha256": "sha256:850034b9f32ff2851fbb56e2c0467448603cd5c4acea5478a5d80c398f629369"
+    },
+    {
+      "path": "job_01_v1200_speed_stability_diagnostic/r06s_1200_speed_stability_diagnostic.k",
+      "size_bytes": 2558346,
+      "sha256": "sha256:eac511d8579d9cad92f08c41b5241129801df46b297140a3f601acacd5b0dd0e"
+    },
+    {
+      "path": "job_01_v1200_speed_stability_diagnostic/static_validation.json",
+      "size_bytes": 1118,
+      "sha256": "sha256:f23957949ada6150bdf4a7d40973074f71a910843860768bae14acc13f374411"
+    },
+    {
+      "path": "job_01_v1200_speed_stability_diagnostic/UPLOAD_README.txt",
+      "size_bytes": 640,
+      "sha256": "sha256:f32f63573a8375eb6cf771df1f0966dc9579a73acbc930fa586c016c86b13caa"
+    }
+  ]
+}
