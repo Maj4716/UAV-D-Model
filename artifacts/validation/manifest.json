@@ -1,0 +1,77 @@
+{
+  "schema_version": "compact-validation-artifact-manifest@1.0.0",
+  "generated_date": "2026-11-17",
+  "path_base": "artifacts/validation",
+  "scope": "Compact current software-level validation evidence retained after project cleanup.",
+  "research_boundary": "These artifacts support software verification and development decisions only. They do not establish physical calibration or research admission.",
+  "embedded_provenance_paths": "Frozen evidence may contain historical absolute source paths. They are inert provenance strings; the source pools were intentionally removed and the retained hashes bind the original inputs.",
+  "artifact_count": 8,
+  "artifact_bytes_excluding_manifest": 105701,
+  "artifacts": [
+    {
+      "path": "engine/acceptance_summary.json",
+      "sha256": "0a458ccfe69d609d809b4680f2bc8cb4bf2d5acfd2c3ad914aa31d203ea88155",
+      "bytes": 2700,
+      "scope": "Current engine 0.11.0.dev0 software acceptance summary.",
+      "status": "software_verified_not_research_admitted"
+    },
+    {
+      "path": "penetration/p012_cumulative_finalists_r128.json",
+      "sha256": "0cdd7a69d8442e5fbb1151d9b4e40356589f308d2bc22661644371b69449fb8a",
+      "bytes": 20829,
+      "scope": "Exploratory repeated-sampling evidence for cumulative P0/P1/P2 finalists.",
+      "status": "software_tuning_only_not_physical_calibration"
+    },
+    {
+      "path": "penetration/p012_selected_verification_r512.json",
+      "sha256": "8a99e94004f4745d280eea85c40a0a4ea3d7be0013cbf2de899fa738e89522cb",
+      "bytes": 3835,
+      "scope": "Exploratory repeated-sampling verification for the selected P0/P1/P2 candidate.",
+      "status": "software_tuning_only_not_physical_calibration"
+    },
+    {
+      "path": "penetration/p012_threshold_selection_r256.json",
+      "sha256": "a0cd2dcae6ba27303c77616e8d84cf5cf84b538189a80fa2900168585dd41181",
+      "bytes": 10030,
+      "scope": "Exploratory repeated-sampling evidence for P0/P1/P2 threshold selection.",
+      "status": "software_tuning_only_not_physical_calibration"
+    },
+    {
+      "path": "sampling/PREREGISTRATION_V5.md",
+      "sha256": "548074ddded76b65053a31d08a8f147afc1b92c2d1360bd4599996fa1c3a0ee9",
+      "bytes": 4014,
+      "scope": "Frozen V5 independent-confirmation protocol and admission gates.",
+      "status": "frozen_protocol"
+    },
+    {
+      "path": "sampling/risk_model.json",
+      "sha256": "a4c5022ef185cf48684e969262bd23c674afea966f80ac4a5aa64976699e21e0",
+      "bytes": 15434,
+      "scope": "Frozen V4 risk model used unchanged by the V5 sampling protocol.",
+      "status": "frozen_model_byte_verified",
+      "source_path_at_compaction": "review_evidence/idea1_sampling_20261116/v4_sampling_risk_model.json",
+      "source_byte_equal_at_compaction": true
+    },
+    {
+      "path": "sampling/v5_proxy_aggregate.json",
+      "sha256": "6db90c17d181276a329eadec8cdca426e1aba13e7092efd34527bd61f8293526",
+      "bytes": 38420,
+      "scope": "Aggregate result for the three preregistered V5 proxy-confirmation trials.",
+      "status": "proxy_gate_passed",
+      "overall_proxy_gate_pass": true
+    },
+    {
+      "path": "sampling/v5_teacher_aggregate.json",
+      "sha256": "5a32c5e35743e8b02655a2897ae3d0c92f193cf4324711d6fbe82a9a6dae7aa6",
+      "bytes": 10439,
+      "scope": "Aggregate result for the preregistered V5 independent teacher confirmation.",
+      "status": "teacher_gate_failed",
+      "teacher_overall_pass": false,
+      "failed_preregistered_gates": [
+        "complete_domain_ci_noninferior_3pp",
+        "positive_component_count_ci_improved",
+        "component_support_gini_lower"
+      ]
+    }
+  ]
+}

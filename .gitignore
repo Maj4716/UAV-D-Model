@@ -15,20 +15,12 @@ build/
 .ruff_cache/
 .venv/
 
-# Local high-fidelity solver returns and large reproducible evidence stay outside Git.
+# Local, regenerable work products stay outside Git.
 /.tmp/
 /.codex-tmp/
 /.codex_tmp/
-/uav_hf_*/
-/LS_DYNA_*/
-/raw_data/dataset_5000_*/
-/scnet_lsdyna_plate_calibration_20261017/.tmp/
-/scnet_lsdyna_plate_calibration_20261017/.vendor/
-/scnet_lsdyna_plate_calibration_20261017/05/
-/scnet_lsdyna_plate_calibration_20261017/results/
-/scnet_lsdyna_plate_calibration_20261017/analysis/**/raw_return/
-/scnet_lsdyna_plate_calibration_20261017/analysis/**/source_archive/
-/scnet_lsdyna_plate_calibration_20261017/analysis/**/superseded_*/
-/scnet_lsdyna_plate_calibration_20261017/analysis/**/r06f_single_job_analysis*.json
-/scnet_lsdyna_plate_calibration_20261017/analysis/**/r06*_single_job_analysis.json
-/scnet_lsdyna_plate_calibration_20261017/artifacts/r06g_tssfac02_submission_20261028_v2/uav_hf_r06g_0800_tssfac02 (2)/
+/.archify/
+/data/generated/
+/artifacts/development_dataset/*.gz
+/artifacts/development_dataset/*.npz
+/artifacts/experiments/

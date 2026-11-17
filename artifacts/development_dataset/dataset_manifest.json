@@ -1,0 +1,182 @@
+{
+  "complete_domain_count": 7337,
+  "dataset_role": "neural-network development dataset from diagnostic R=4 software teacher; not a physically admitted formal dataset",
+  "design_seed_counts": {
+    "2026111641": 2647,
+    "2026111661": 2650,
+    "2026111681": 2668,
+    "2026111721": 2624
+  },
+  "domain_censored_count": 3252,
+  "duplicate_selection_observation_count": 5411,
+  "files": {
+    "cases.jsonl.gz": {
+      "sha256": "sha256:a2c7aa96b42bf31a453586a00e7a0b969c89804526799230b4882db4f5175870"
+    },
+    "feature_schema.json": {
+      "sha256": "sha256:66f543507f537e02ebfc70a07da8373295667af585d1b2806987f645581c41d3"
+    },
+    "selection_observations.jsonl.gz": {
+      "sha256": "sha256:40845f4ce996a2b3e832134f19b52713e2c738f3459a44140cd5a23cd252b20e"
+    },
+    "tensors.npz": {
+      "sha256": "sha256:1ddf04163f19ae10e39e5605e5936d9d011ddc93afe234173da11ab8fab3a168"
+    }
+  },
+  "lineage_note": "The transient sampling and teacher pools were removed after independent package validation on 2026-11-17; content hashes retain source identity.",
+  "lineage_status": "self_contained_package_upstream_pools_removed",
+  "quality_checks": {
+    "censored_response_targets_are_nan": true,
+    "complete_domain_targets_finite": true,
+    "exact_2000_rows_per_source_arm": true,
+    "fake_zero_labels_inserted": false,
+    "finite_canonical_15d_inputs": true,
+    "finite_design_coordinate_15d_inputs": true,
+    "finite_normalized_15d_inputs": true,
+    "no_train_validation_candidate_overlap": true,
+    "normalization_fit_on_train_only": true
+  },
+  "sampling_design": "dual-arm mixture of cell-stratified uniform reference and the best available Idea-1 coverage strategy for each development stage",
+  "schema_version": "idea1-hybrid-neural-dataset@1.1.0",
+  "sealed_test_split": null,
+  "selection_observation_count": 16000,
+  "source_arms": [
+    {
+      "case_file_hash": "sha256:54716e9a12c25a8e03064821c114b5af77ca70f68ca5a5a8ff7f5876d7651360",
+      "case_source_id": "2026111641/reference_uniform/selected_cases",
+      "design_seed": 2026111641,
+      "proxy_file_hash": "sha256:61c86aba565ce7d1d2b0bf1f9c2354f5ca6d74aa4f9bed390403891ffaff33ef",
+      "proxy_source_id": "2026111641/reference_uniform/selected_proxy_rows",
+      "source_payload_retained": false,
+      "split": "train",
+      "strategy": "reference_uniform",
+      "teacher_manifest_status": "complete",
+      "teacher_metric_file_hash": "sha256:262e7046a60c928abead2b1c5650aee5693f37a83632794cfecc088771456bdb",
+      "teacher_source_id": "2026111641/reference_uniform/teacher_metrics",
+      "teacher_source_stable": true
+    },
+    {
+      "case_file_hash": "sha256:e90bf3efd85547d36d11664ffcf02593adf1c67f3862f9656db674cacf064ce0",
+      "case_source_id": "2026111641/idea1_global_coverage_balanced/selected_cases",
+      "design_seed": 2026111641,
+      "proxy_file_hash": "sha256:4d6c58be0eacebb51a9bd132ff53016ebbaf605d6a17d73950e6c2e673abb831",
+      "proxy_source_id": "2026111641/idea1_global_coverage_balanced/selected_proxy_rows",
+      "source_payload_retained": false,
+      "split": "train",
+      "strategy": "idea1_global_coverage_balanced",
+      "teacher_manifest_status": "complete",
+      "teacher_metric_file_hash": "sha256:43851091a2ebd5cca7e17935b4344e7531a81f778b7ba2c001e0f6983f8aec23",
+      "teacher_source_id": "2026111641/idea1_global_coverage_balanced/teacher_metrics",
+      "teacher_source_stable": true
+    },
+    {
+      "case_file_hash": "sha256:eed51d137f38f5c6e368af79d6282f1f27142259fca3ae2907e408811c4b20ce",
+      "case_source_id": "2026111661/reference_uniform/selected_cases",
+      "design_seed": 2026111661,
+      "proxy_file_hash": "sha256:78144b2048fc147e4508902b935ece992922786eafbfabda9f8e74cacf53cc06",
+      "proxy_source_id": "2026111661/reference_uniform/selected_proxy_rows",
+      "source_payload_retained": false,
+      "split": "train",
+      "strategy": "reference_uniform",
+      "teacher_manifest_status": "complete",
+      "teacher_metric_file_hash": "sha256:3f5dd5dab1aa6fd4af59d3c5739b56b43c9bb9bc732db2eb4afbf8c1c3d911ba",
+      "teacher_source_id": "2026111661/reference_uniform/teacher_metrics",
+      "teacher_source_stable": true
+    },
+    {
+      "case_file_hash": "sha256:26ee49c74df6aacf164a45e46f1ed9072e32b058b7c8cb356d8f2cfbd6bbc3da",
+      "case_source_id": "2026111661/idea1_coverage_information_balanced/selected_cases",
+      "design_seed": 2026111661,
+      "proxy_file_hash": "sha256:e6990dba2b71219d6940fcacda98543932b926150934fe108936e8b2a0aed107",
+      "proxy_source_id": "2026111661/idea1_coverage_information_balanced/selected_proxy_rows",
+      "source_payload_retained": false,
+      "split": "train",
+      "strategy": "idea1_coverage_information_balanced",
+      "teacher_manifest_status": "complete",
+      "teacher_metric_file_hash": "sha256:0bd10ea52d840a30bad5093396538c43d5356be53d5b29d83feaf543bc6efc71",
+      "teacher_source_id": "2026111661/idea1_coverage_information_balanced/teacher_metrics",
+      "teacher_source_stable": true
+    },
+    {
+      "case_file_hash": "sha256:21f47b0e9722e19bf2c7cd4a97f1a98191dffca5577e47e20192c9955c37c1a4",
+      "case_source_id": "2026111681/reference_uniform/selected_cases",
+      "design_seed": 2026111681,
+      "proxy_file_hash": "sha256:54abfda9941c2d50958cffd1a94cf28df0f5d6e6a2f94b8dcbeb179c974dde7b",
+      "proxy_source_id": "2026111681/reference_uniform/selected_proxy_rows",
+      "source_payload_retained": false,
+      "split": "train",
+      "strategy": "reference_uniform",
+      "teacher_manifest_status": "complete",
+      "teacher_metric_file_hash": "sha256:f5cbda05920baf9ccfe910d58bc838e362cd09387e2bcc9a1b6c313455843f88",
+      "teacher_source_id": "2026111681/reference_uniform/teacher_metrics",
+      "teacher_source_stable": true
+    },
+    {
+      "case_file_hash": "sha256:7a714004fbbe0114f0735bb08e2ed53be3039c6d149db6abc3234b31364cdf1a",
+      "case_source_id": "2026111681/idea1_hurdle_coverage_balanced/selected_cases",
+      "design_seed": 2026111681,
+      "proxy_file_hash": "sha256:f986c0dadad858cdf9d1dac05ab3667336317f5c0e7f46dbb7ec997c1f88bc2d",
+      "proxy_source_id": "2026111681/idea1_hurdle_coverage_balanced/selected_proxy_rows",
+      "source_payload_retained": false,
+      "split": "train",
+      "strategy": "idea1_hurdle_coverage_balanced",
+      "teacher_manifest_status": "complete",
+      "teacher_metric_file_hash": "sha256:a03553cff3163b134db0d45a6143e61ea0f7175a315a231ea28680fcdf60d640",
+      "teacher_source_id": "2026111681/idea1_hurdle_coverage_balanced/teacher_metrics",
+      "teacher_source_stable": true
+    },
+    {
+      "case_file_hash": "sha256:17c4614340555a346c7772c0fdc01cdb0b8423c02d98aaf6067972cc6a62872a",
+      "case_source_id": "2026111721/reference_uniform/selected_cases",
+      "design_seed": 2026111721,
+      "proxy_file_hash": "sha256:9492f8ae29ed020b14e73de392b60c05e0e75f1130574a4b173ea47f3b486c2c",
+      "proxy_source_id": "2026111721/reference_uniform/selected_proxy_rows",
+      "source_payload_retained": false,
+      "split": "validation",
+      "strategy": "reference_uniform",
+      "teacher_manifest_status": "complete",
+      "teacher_metric_file_hash": "sha256:997b980cde4cce8a5f0547112586f45441ee34c06dc63d1de4034348bbd407b7",
+      "teacher_source_id": "2026111721/reference_uniform/teacher_metrics",
+      "teacher_source_stable": true
+    },
+    {
+      "case_file_hash": "sha256:707c1d62c4035e38417426c4e3fc081ae1654f3e66c098646436508e12b5b023",
+      "case_source_id": "2026111721/idea1_hurdle_strong_balanced/selected_cases",
+      "design_seed": 2026111721,
+      "proxy_file_hash": "sha256:977a15daa82fae2098d2d1e8a0f138f9ed4c050467147ef1d02b28dddcecc888",
+      "proxy_source_id": "2026111721/idea1_hurdle_strong_balanced/selected_proxy_rows",
+      "source_payload_retained": false,
+      "split": "validation",
+      "strategy": "idea1_hurdle_strong_balanced",
+      "teacher_manifest_status": "complete",
+      "teacher_metric_file_hash": "sha256:4edaac624870e87d8611d9112f7fbaea2a32f31d3a7f60c330adacecae626c2f",
+      "teacher_source_id": "2026111721/idea1_hurdle_strong_balanced/teacher_metrics",
+      "teacher_source_stable": true
+    }
+  ],
+  "split_complete_domain_counts": {
+    "train": 5482,
+    "validation": 1855
+  },
+  "split_counts": {
+    "train": 7965,
+    "validation": 2624
+  },
+  "status": "development_ready",
+  "strategy_observation_counts": {
+    "idea1_coverage_information_balanced": 2000,
+    "idea1_global_coverage_balanced": 2000,
+    "idea1_hurdle_coverage_balanced": 2000,
+    "idea1_hurdle_strong_balanced": 2000,
+    "reference_uniform": 8000
+  },
+  "train_design_seeds": [
+    2026111641,
+    2026111661,
+    2026111681
+  ],
+  "unique_candidate_count": 10589,
+  "validation_design_seeds": [
+    2026111721
+  ]
+}

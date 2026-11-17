@@ -1,1 +1,0 @@
-{"partitions": [{"name": "tensors", "path_glob": "shards/part-000000/tensors.npz"}]}

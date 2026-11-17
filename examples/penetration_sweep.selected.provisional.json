@@ -1,0 +1,44 @@
+{
+  "schema_version": "1.0.0",
+  "interpretation_status": "software_tuning_only_not_physical_calibration",
+  "objective": {
+    "armor_penetration_rate_target": 0.55,
+    "component_penetration_rate_target": 0.45,
+    "damage_positive_given_hit_target": 0.65,
+    "mean_degraded_given_hit_target": 0.35,
+    "mean_failed_given_hit_target": 0.15
+  },
+  "candidates": [
+    {
+      "id": "a565-c150-d350-f1900-p012-final-verification",
+      "inherit_defaults": false,
+      "parameters": {
+        "armor_ballistic": {
+          "coefficient": 565.0,
+          "transition_width_ratio": 0.15,
+          "residual_velocity_coefficient": 0.75,
+          "residual_velocity_exponent": 2.0
+        },
+        "component_ballistic": {
+          "coefficient": 150.0,
+          "transition_width_ratio": 0.18,
+          "residual_velocity_coefficient": 0.70,
+          "residual_velocity_exponent": 2.0
+        },
+        "component_damage_energy_model": {
+          "kind": "absorbed_plus_residual",
+          "absorbed_weight": 0.20,
+          "residual_weight": 0.05,
+          "nonperforation_absorbed_fraction": 0.15
+        },
+        "component_damage_accumulation_model": "spatial_cumulative_damage_energy",
+        "component_damage_correlation_length_m": 0.05,
+        "armor_hole_area_multiplier": 1.0,
+        "component_damage_thresholds_j": {
+          "degraded": 350.0,
+          "failed": 1900.0
+        }
+      }
+    }
+  ]
+}

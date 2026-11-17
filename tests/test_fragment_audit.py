@@ -125,11 +125,11 @@ def test_component_reachability_rejects_legacy_hit_only_audit():
 
 def test_current_front_axis_semantics_are_explicit_and_observational():
     case = json.loads(
-        (ROOT / "raw_data" / "case.loitering_impact.fragment_only.v1.json").read_text(
+        (ROOT / "configs" / "cases" / "loitering_impact.fragment_only.v1.json").read_text(
             encoding="utf-8"
         )
     )
-    registry = PhysicsRegistry.from_file(ROOT / "examples" / "physics.loitering_impact.json")
+    registry = PhysicsRegistry.from_file(ROOT / "configs" / "physics" / "loitering_impact.json")
     source_model = registry.fragment_source(
         case["warhead"]["fragment_source"]["model_id"]
     )
@@ -139,11 +139,12 @@ def test_current_front_axis_semantics_are_explicit_and_observational():
     report = diagnose_front_axis_semantics(case, source_model)
 
     assert report["detonation_point"] == "front"
+    assert report["direction_axis_mode"] == "impact_inward"
     assert report["body_forward_dot_velocity"] == pytest.approx(1.0)
-    assert report["source_axis_dot_velocity"] == pytest.approx(-1.0)
-    assert report["source_axis_dot_body_forward"] == pytest.approx(-1.0)
-    assert report["reference_front_backward_rule_satisfied"] is True
-    assert report["primary_fragment_axis_opposes_projectile_velocity"] is True
-    assert report["diagnosis"] == "front_backward_axis_opposes_velocity"
+    assert report["source_axis_dot_velocity"] == pytest.approx(1.0)
+    assert report["source_axis_dot_body_forward"] == pytest.approx(1.0)
+    assert report["impact_inward_rule_satisfied"] is True
+    assert report["primary_fragment_axis_opposes_projectile_velocity"] is False
+    assert report["diagnosis"] == "impact_inward_axis_follows_contact_normal"
     assert case == original_case
     assert source_model == original_model

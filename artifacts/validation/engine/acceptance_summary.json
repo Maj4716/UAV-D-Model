@@ -1,0 +1,68 @@
+{
+  "schema_version": "1.0.0",
+  "engine_version": "0.11.0.dev0",
+  "implementation_status": "p0_p1_p2_completed_and_software_verified",
+  "research_admission_ready": false,
+  "verification": {
+    "test_files": 88,
+    "tests_collected_and_passed": 1031,
+    "compileall_passed": true,
+    "schema_mirrors_synchronized": true,
+    "git_diff_check_passed": true
+  },
+  "single_point_r299": {
+    "candidate_count": 9,
+    "replicates_per_candidate": 299,
+    "total_replicates": 2691,
+    "diagnostic_ranking_leader_id": "threshold-high-t440-2380",
+    "selected_candidate_id": null,
+    "source_stable_during_run": true,
+    "leader_score": 3.5439976930693735,
+    "leader_penetration_affected_replicate_fraction": 0.8093645484949832,
+    "leader_damage_positive_given_hit": 0.9106810569408259,
+    "leader_saturated_damage_fraction": 0.32117603275027906,
+    "leader_energy_closure_max_abs_j": 0.0,
+    "failed_gates": [
+      "scientific_completion_status",
+      "penetration_affected_replicate_fraction",
+      "damage_positive_given_hit_range"
+    ],
+    "sha256": "6349CF2903CF513E18120E7D317538C8829BCCFDCFB91C86D397E0DA090203E1"
+  },
+  "multicondition_diagnostic_r32": {
+    "candidate_count": 9,
+    "selection_condition_count": 4,
+    "replicates_per_cell": 32,
+    "total_replicates": 1152,
+    "status": "diagnostic_complete_non_promotable",
+    "diagnostic_ranking_leader_id": "threshold-high-t440-2380",
+    "diagnostic_gate_candidate_id": null,
+    "selected_candidate_id": null,
+    "promotion_eligible": false,
+    "source_stable_during_run": true,
+    "leader_robust_score": 7.783498511330736,
+    "leader_passed_condition_count": 0,
+    "leader_equal_weight_affected_replicate_fraction": 0.5625000000000001,
+    "t3_affected_replicate_fraction": 1.0,
+    "t3_saturated_damage_fraction": 0.7359223300970874,
+    "sha256": "FC3DB5F3398292AC5398AF2EFDCEC95F9A38A9E8960EC501B0293EB8F8841057"
+  },
+  "performance": {
+    "online_median_seconds_r32": 10.887699499999144,
+    "raw_trace_median_seconds_r32": 11.042794600001798,
+    "raw_trace_time_overhead_percent": 1.42449835250014,
+    "raw_trace_over_online_peak_python_memory_ratio": 4.102110171213984,
+    "scientific_outputs_equal": true,
+    "hotpath_median_cases_per_second": 5.419208091798937
+  },
+  "model_coverage": {
+    "component_count": 67,
+    "damage_tree_referenced_component_count": 44,
+    "damage_tree_component_coverage_fraction": 0.6567164179104478,
+    "unreferenced_component_count": 23,
+    "unresolved_pressure_impulse_surface_ids": ["RAW-PI-UNVERIFIED"],
+    "target_parameter_count": 191,
+    "target_parameter_validation_status": "unverified",
+    "external_physical_validation_receipt_bound": false
+  }
+}

@@ -1,0 +1,351 @@
+{
+  "bootstrap": {
+    "differences": {
+      "any_component_support_fraction": {
+        "bootstrap_95_interval": [
+          -0.004415492707866042,
+          0.00427431214293634
+        ],
+        "draw_count": 2000,
+        "idea1_minus_reference": -8.029132801856687e-05
+      },
+      "complete_domain_fraction": {
+        "bootstrap_95_interval": [
+          -0.04149999999999998,
+          0.01100000000000001
+        ],
+        "draw_count": 2000,
+        "idea1_minus_reference": -0.015499999999999958
+      },
+      "component_coverage_at_least_10": {
+        "bootstrap_95_interval": [
+          -1.0,
+          0.0
+        ],
+        "draw_count": 2000,
+        "idea1_minus_reference": 0.0
+      },
+      "component_coverage_at_least_20": {
+        "bootstrap_95_interval": [
+          -3.0,
+          3.0
+        ],
+        "draw_count": 2000,
+        "idea1_minus_reference": 1.0
+      },
+      "positive_component_count_mean": {
+        "bootstrap_95_interval": [
+          -0.14362783336280308,
+          0.41274061750808455
+        ],
+        "draw_count": 2000,
+        "idea1_minus_reference": 0.14232078198573372
+      },
+      "total_component_deposited_energy_j_mean": {
+        "bootstrap_95_interval": [
+          -19655.93600665313,
+          21643.98075534161
+        ],
+        "draw_count": 2000,
+        "idea1_minus_reference": 1380.4992503229296
+      },
+      "total_component_hits_mean": {
+        "bootstrap_95_interval": [
+          -4.472397423377077,
+          7.936556467605977
+        ],
+        "draw_count": 2000,
+        "idea1_minus_reference": 1.7181174791631122
+      },
+      "tree_saturation_fraction": {
+        "bootstrap_95_interval": [
+          -0.08195435873236087,
+          -0.01950485642613089
+        ],
+        "draw_count": 2000,
+        "idea1_minus_reference": -0.05019399420866422
+      }
+    },
+    "draws": 2000,
+    "seed": 2026111799,
+    "stratification": "approach_profile_cell"
+  },
+  "idea1_hurdle_strong_balanced": {
+    "any_component_support_fraction": 0.9963609898107715,
+    "complete_domain_count": 1374,
+    "complete_domain_fraction": 0.687,
+    "completed_result_count": 2000,
+    "component_coverage": {
+      "at_least_10": 67,
+      "at_least_20": 66,
+      "at_least_5": 67,
+      "ever": 67,
+      "gini": 0.4839398513052713
+    },
+    "component_support_counts": {
+      "component-001": 274,
+      "component-002": 300,
+      "component-003": 309,
+      "component-004": 63,
+      "component-005": 74,
+      "component-006": 27,
+      "component-007": 41,
+      "component-008": 37,
+      "component-009": 58,
+      "component-010": 85,
+      "component-011": 76,
+      "component-012": 39,
+      "component-013": 51,
+      "component-014": 58,
+      "component-015": 77,
+      "component-016": 106,
+      "component-017": 91,
+      "component-018": 39,
+      "component-019": 71,
+      "component-020": 84,
+      "component-021": 46,
+      "component-022": 64,
+      "component-023": 86,
+      "component-024": 71,
+      "component-025": 108,
+      "component-026": 111,
+      "component-027": 110,
+      "component-028": 116,
+      "component-029": 182,
+      "component-030": 25,
+      "component-031": 35,
+      "component-032": 352,
+      "component-033": 169,
+      "component-034": 30,
+      "component-035": 28,
+      "component-036": 359,
+      "component-037": 206,
+      "component-038": 34,
+      "component-039": 38,
+      "component-040": 29,
+      "component-041": 80,
+      "component-042": 110,
+      "component-043": 63,
+      "component-044": 23,
+      "component-045": 203,
+      "component-046": 318,
+      "component-047": 65,
+      "component-048": 80,
+      "component-049": 599,
+      "component-050": 133,
+      "component-051": 72,
+      "component-052": 80,
+      "component-053": 211,
+      "component-054": 276,
+      "component-055": 21,
+      "component-056": 14,
+      "component-058": 270,
+      "component-059": 312,
+      "component-060": 315,
+      "component-061": 235,
+      "component-062": 197,
+      "component-063": 407,
+      "component-064": 390,
+      "component-065": 424,
+      "component-066": 477,
+      "component-067": 456,
+      "component-068": 690
+    },
+    "normalized_utilization_by_profile": {
+      "large_front": {
+        "count": 228,
+        "mean": 1.4862805006555495,
+        "median": 1.4049224637043574
+      },
+      "medium_front": {
+        "count": 466,
+        "mean": 3.8610564570740276,
+        "median": 1.102431898489172
+      },
+      "small_front": {
+        "count": 680,
+        "mean": 59.41813302400506,
+        "median": 0.7821126328226189
+      }
+    },
+    "normalized_utilization_profile_test": {
+      "kruskal_h": 524.1384593983192,
+      "pvalue": 1.5303108767174249e-114
+    },
+    "positive_component_count_mean": 7.77292576419214,
+    "positive_component_count_median": 7.0,
+    "proxy_u_teacher_correlations": {
+      "positive_component_count": {
+        "pvalue": 1.0816076276210004e-262,
+        "spearman": 0.7633880100999331
+      },
+      "total_component_hits": {
+        "pvalue": 6.907488674231743e-39,
+        "spearman": 0.3415629446595725
+      }
+    },
+    "refused_count": 0,
+    "row_count": 2000,
+    "teacher_damage_severity_mean": 0.0584876635282928,
+    "total_component_deposited_energy_j_mean": 197965.45619072093,
+    "total_component_hits_mean": 91.77274381368268,
+    "total_component_penetrations_mean": 74.60207423580786,
+    "tree_any_support_fraction": 0.9730713245997089,
+    "tree_saturation_fraction": 0.4992721979621543,
+    "tree_support_counts": {
+      "effect-c1": 1018,
+      "effect-c2": 324,
+      "effect-f1": 211,
+      "effect-k1": 160,
+      "effect-k2": 156,
+      "effect-m1": 368,
+      "effect-m2": 996
+    }
+  },
+  "preregistered_teacher_gate": {
+    "any_support_ci_noninferior_2pp": true,
+    "complete_domain_ci_noninferior_3pp": false,
+    "complete_domain_point_noninferior_2pp": true,
+    "component_support_gini_lower": false,
+    "coverage_at_least_10_not_lower": true,
+    "coverage_at_least_20_not_lower": true,
+    "overall_pass": false,
+    "positive_component_count_ci_improved": false,
+    "tree_saturation_ci_noninferior_1pp": true,
+    "tree_saturation_point_not_higher": true
+  },
+  "reference_uniform": {
+    "any_component_support_fraction": 0.99644128113879,
+    "complete_domain_count": 1405,
+    "complete_domain_fraction": 0.7025,
+    "completed_result_count": 2000,
+    "component_coverage": {
+      "at_least_10": 67,
+      "at_least_20": 65,
+      "at_least_5": 67,
+      "ever": 67,
+      "gini": 0.48247337141361557
+    },
+    "component_support_counts": {
+      "component-001": 264,
+      "component-002": 303,
+      "component-003": 338,
+      "component-004": 62,
+      "component-005": 73,
+      "component-006": 23,
+      "component-007": 37,
+      "component-008": 54,
+      "component-009": 67,
+      "component-010": 93,
+      "component-011": 77,
+      "component-012": 42,
+      "component-013": 42,
+      "component-014": 53,
+      "component-015": 76,
+      "component-016": 102,
+      "component-017": 90,
+      "component-018": 34,
+      "component-019": 76,
+      "component-020": 95,
+      "component-021": 37,
+      "component-022": 54,
+      "component-023": 86,
+      "component-024": 70,
+      "component-025": 97,
+      "component-026": 106,
+      "component-027": 105,
+      "component-028": 140,
+      "component-029": 176,
+      "component-030": 30,
+      "component-031": 44,
+      "component-032": 403,
+      "component-033": 168,
+      "component-034": 28,
+      "component-035": 31,
+      "component-036": 371,
+      "component-037": 186,
+      "component-038": 41,
+      "component-039": 39,
+      "component-040": 29,
+      "component-041": 88,
+      "component-042": 115,
+      "component-043": 72,
+      "component-044": 19,
+      "component-045": 202,
+      "component-046": 302,
+      "component-047": 70,
+      "component-048": 77,
+      "component-049": 563,
+      "component-050": 138,
+      "component-051": 77,
+      "component-052": 74,
+      "component-053": 219,
+      "component-054": 261,
+      "component-055": 22,
+      "component-056": 17,
+      "component-058": 259,
+      "component-059": 299,
+      "component-060": 326,
+      "component-061": 221,
+      "component-062": 192,
+      "component-063": 397,
+      "component-064": 407,
+      "component-065": 454,
+      "component-066": 470,
+      "component-067": 447,
+      "component-068": 691
+    },
+    "normalized_utilization_by_profile": {
+      "large_front": {
+        "count": 213,
+        "mean": 1.4509920849211007,
+        "median": 1.3916102380649988
+      },
+      "medium_front": {
+        "count": 494,
+        "mean": 3.6303983195275173,
+        "median": 1.0927964939661647
+      },
+      "small_front": {
+        "count": 698,
+        "mean": 176.58101789936677,
+        "median": 0.8108435586716606
+      }
+    },
+    "normalized_utilization_profile_test": {
+      "kruskal_h": 475.63394267318716,
+      "pvalue": 5.216769469760139e-104
+    },
+    "positive_component_count_mean": 7.630604982206406,
+    "positive_component_count_median": 7.0,
+    "proxy_u_teacher_correlations": {
+      "positive_component_count": {
+        "pvalue": 0.0,
+        "spearman": 0.8063707177400324
+      },
+      "total_component_hits": {
+        "pvalue": 1.5742067339458108e-65,
+        "spearman": 0.43373187990313455
+      }
+    },
+    "refused_count": 0,
+    "row_count": 2000,
+    "teacher_damage_severity_mean": 0.05750394819975889,
+    "total_component_deposited_energy_j_mean": 196584.956940398,
+    "total_component_hits_mean": 90.05462633451957,
+    "total_component_penetrations_mean": 73.27491103202847,
+    "tree_any_support_fraction": 0.9693950177935943,
+    "tree_saturation_fraction": 0.5494661921708185,
+    "tree_support_counts": {
+      "effect-c1": 1021,
+      "effect-c2": 355,
+      "effect-f1": 200,
+      "effect-k1": 183,
+      "effect-k2": 140,
+      "effect-m1": 356,
+      "effect-m2": 1056
+    }
+  },
+  "schema_version": "idea1-normalized-sampling-evaluation@1.4.0",
+  "stage": "teacher_aggregate"
+}

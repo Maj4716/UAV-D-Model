@@ -1,0 +1,135 @@
+{
+  "schema_version": "1.1.0",
+  "interpretation_status": "software_tuning_only_not_physical_calibration",
+  "holdout_evidence_status": "consumed_by_prior_soft_gate_run",
+  "anchor_candidate_id": "anchor-a565-c150-t350-1900-l050",
+  "objective": {
+    "armor_penetration_rate_target": 0.55,
+    "component_penetration_rate_target": 0.45,
+    "damage_positive_given_hit_target": 0.65,
+    "mean_degraded_given_hit_target": 0.35,
+    "mean_failed_given_hit_target": 0.15
+  },
+  "admission_gates": {
+    "armor_penetration_rate_range": [0.05, 0.95],
+    "component_penetration_rate_range": [0.02, 0.98],
+    "damage_positive_given_hit_range": [0.10, 0.90],
+    "saturated_damage_fraction_max": 0.50,
+    "ordinal_projection_max_correction_max": 1e-12,
+    "energy_closure_max_abs_j": 1e-8,
+    "expected_hit_component_observations_min": 30.0,
+    "out_of_domain_impact_fraction_max": 0.05
+  },
+  "candidate_defaults": {
+    "armor_ballistic": {
+      "coefficient": 565.0,
+      "transition_width_ratio": 0.15,
+      "residual_velocity_coefficient": 0.75,
+      "residual_velocity_exponent": 2.0
+    },
+    "component_ballistic": {
+      "coefficient": 150.0,
+      "transition_width_ratio": 0.18,
+      "residual_velocity_coefficient": 0.70,
+      "residual_velocity_exponent": 2.0
+    },
+    "component_damage_energy_model": {
+      "kind": "absorbed_plus_residual",
+      "absorbed_weight": 0.20,
+      "residual_weight": 0.05,
+      "nonperforation_absorbed_fraction": 0.15
+    },
+    "component_damage_accumulation_model": "spatial_cumulative_damage_energy",
+    "component_damage_correlation_length_m": 0.05,
+    "armor_hole_area_multiplier": 1.0,
+    "component_damage_thresholds_j": {
+      "degraded": 350.0,
+      "failed": 1900.0
+    }
+  },
+  "candidates": [
+    {"id": "anchor-a565-c150-t350-1900-l050", "parameters": {}},
+    {"id": "armor-low-a500", "parameters": {"armor_ballistic": {"coefficient": 500.0}}},
+    {"id": "armor-high-a630", "parameters": {"armor_ballistic": {"coefficient": 630.0}}},
+    {"id": "component-low-c125", "parameters": {"component_ballistic": {"coefficient": 125.0}}},
+    {"id": "component-high-c175", "parameters": {"component_ballistic": {"coefficient": 175.0}}},
+    {"id": "threshold-low-t280-1520", "parameters": {"component_damage_thresholds_j": {"degraded": 280.0, "failed": 1520.0}}},
+    {"id": "threshold-high-t440-2380", "parameters": {"component_damage_thresholds_j": {"degraded": 440.0, "failed": 2380.0}}},
+    {"id": "correlation-low-l025", "parameters": {"component_damage_correlation_length_m": 0.025}},
+    {"id": "correlation-high-l100", "parameters": {"component_damage_correlation_length_m": 0.10}}
+  ],
+  "conditions": [
+    {
+      "id": "T1-left-small-central",
+      "role": "selection",
+      "profile_id": "small_front",
+      "latent": [0.08333333333333333, 0.50, 0.50, 0.50, 0.25, 0.50],
+      "selection_seed": 2026111601,
+      "confirmation_seed": 2026112601
+    },
+    {
+      "id": "T2-right-medium-offset",
+      "role": "selection",
+      "profile_id": "medium_front",
+      "latent": [0.25, 0.35, 0.65, 0.50, 0.50, 0.25],
+      "selection_seed": 2026111602,
+      "confirmation_seed": 2026112602
+    },
+    {
+      "id": "T3-rear-large-offset",
+      "role": "selection",
+      "profile_id": "large_front",
+      "latent": [0.4166666666666667, 0.65, 0.35, 0.50, 0.75, 0.75],
+      "selection_seed": 2026111603,
+      "confirmation_seed": 2026112603
+    },
+    {
+      "id": "T4-front-small-offset",
+      "role": "selection",
+      "profile_id": "small_front",
+      "latent": [0.5833333333333334, 0.25, 0.75, 0.50, 0.75, 0.50],
+      "selection_seed": 2026111604,
+      "confirmation_seed": 2026112604
+    },
+    {
+      "id": "H1-top-medium-holdout",
+      "role": "holdout",
+      "profile_id": "medium_front",
+      "latent": [0.75, 0.50, 0.50, 0.50, 0.50, 0.25],
+      "selection_seed": 2026111605,
+      "confirmation_seed": 2026112605
+    },
+    {
+      "id": "H2-bottom-large-holdout",
+      "role": "holdout",
+      "profile_id": "large_front",
+      "latent": [0.9166666666666666, 0.50, 0.50, 0.50, 0.25, 0.75],
+      "selection_seed": 2026111606,
+      "confirmation_seed": 2026112606
+    }
+  ],
+  "selection_condition_ids": [
+    "T1-left-small-central",
+    "T2-right-medium-offset",
+    "T3-rear-large-offset",
+    "T4-front-small-offset"
+  ],
+  "confirmation_condition_ids": [
+    "T1-left-small-central",
+    "T2-right-medium-offset",
+    "T3-rear-large-offset",
+    "T4-front-small-offset"
+  ],
+  "holdout_condition_ids": [
+    "H1-top-medium-holdout",
+    "H2-bottom-large-holdout"
+  ],
+  "monotonic_checks": [
+    {"lower_candidate_id": "armor-low-a500", "higher_candidate_id": "anchor-a565-c150-t350-1900-l050", "metric": "armor_penetration_rate", "expected_relation": "lower_ge_higher", "tolerance": 0.03},
+    {"lower_candidate_id": "anchor-a565-c150-t350-1900-l050", "higher_candidate_id": "armor-high-a630", "metric": "armor_penetration_rate", "expected_relation": "lower_ge_higher", "tolerance": 0.03},
+    {"lower_candidate_id": "component-low-c125", "higher_candidate_id": "anchor-a565-c150-t350-1900-l050", "metric": "component_penetration_rate", "expected_relation": "lower_ge_higher", "tolerance": 0.03},
+    {"lower_candidate_id": "anchor-a565-c150-t350-1900-l050", "higher_candidate_id": "component-high-c175", "metric": "component_penetration_rate", "expected_relation": "lower_ge_higher", "tolerance": 0.03},
+    {"lower_candidate_id": "threshold-low-t280-1520", "higher_candidate_id": "anchor-a565-c150-t350-1900-l050", "metric": "mean_failed_given_hit", "expected_relation": "lower_ge_higher", "tolerance": 0.03},
+    {"lower_candidate_id": "anchor-a565-c150-t350-1900-l050", "higher_candidate_id": "threshold-high-t440-2380", "metric": "mean_failed_given_hit", "expected_relation": "lower_ge_higher", "tolerance": 0.03}
+  ]
+}

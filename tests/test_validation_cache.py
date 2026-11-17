@@ -64,14 +64,17 @@ def test_static_cache_key_binds_target_and_registry_content(
     validate_inputs(target_data, registry_case, changed_registry)
     assert validation_cache_info()["static_misses"] == 3
 
-    # Mutating a previously validated registry changes the hash, forces a miss,
-    # and reaches semantic validation instead of inheriting the old success.
-    changed_registry.data["fragment_source_models"]["demo_cone_source"][
+    # Registry exports are detached snapshots: changing an export cannot split
+    # the cached identity from the executable model.  Invalid changed content
+    # must be constructed as a new registry and is rejected at that boundary.
+    exported_registry = changed_registry.data
+    exported_registry["fragment_source_models"]["demo_cone_source"][
         "valid_speed_mps"
     ] = [4000.0, 1000.0]
-    with pytest.raises(InputValidationError, match="strictly increasing"):
-        validate_inputs(target_data, registry_case, changed_registry)
-    assert validation_cache_info()["static_misses"] == 4
+    validate_inputs(target_data, registry_case, changed_registry)
+    assert validation_cache_info()["static_misses"] == 3
+    with pytest.raises(InputValidationError, match="strictly ordered"):
+        PhysicsRegistry(exported_registry)
 
 
 def test_invalid_target_mutation_cannot_reuse_prior_success(

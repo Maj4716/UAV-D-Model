@@ -1,4 +1,4 @@
-"""Versioned loitering-munition profiles imported from the graduation project.
+"""Versioned loitering-munition profiles ported from a legacy prototype.
 
 Only the three user-approved front-detonated profiles are admitted here.  The
 values are source-code parameters, not experimentally calibrated evidence.
@@ -17,11 +17,8 @@ from .utils import content_hash
 
 
 PROFILE_REVISION = "loitering-munition-reference-port-v1"
-PROFILE_SOURCE_ID = "BISHE-SIMULATION-ENGINE-PARAMETERS-UNVERIFIED"
-PROFILE_SOURCE_LOCATION = (
-    r"D:\Desktop\毕设\代码\src\loitering_munition_damage_twin"
-    r"\simulation\engine.py:194-239,258-285,298-324,392-466"
-)
+PROFILE_SOURCE_ID = "LEGACY-PROTOTYPE-PARAMETERS-UNVERIFIED"
+PROFILE_SOURCE_LOCATION = "legacy_code_port_reference_not_retained"
 STEEL_DENSITY_KG_M3 = 7850.0
 
 

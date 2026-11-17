@@ -1,0 +1,109 @@
+{
+  "schema_version": "1.0.0",
+  "interpretation_status": "software_tuning_only_not_physical_calibration",
+  "objective": {
+    "armor_penetration_rate_target": 0.55,
+    "component_penetration_rate_target": 0.45,
+    "damage_positive_given_hit_target": 0.65,
+    "mean_degraded_given_hit_target": 0.35,
+    "mean_failed_given_hit_target": 0.15
+  },
+  "candidate_defaults": {
+    "armor_ballistic": {
+      "transition_width_ratio": 0.15,
+      "residual_velocity_coefficient": 0.75,
+      "residual_velocity_exponent": 2.0
+    },
+    "component_ballistic": {
+      "transition_width_ratio": 0.18,
+      "residual_velocity_coefficient": 0.70,
+      "residual_velocity_exponent": 2.0
+    },
+    "component_damage_energy_model": {
+      "kind": "absorbed_plus_residual",
+      "absorbed_weight": 0.20,
+      "residual_weight": 0.05,
+      "nonperforation_absorbed_fraction": 0.15
+    },
+    "component_damage_thresholds_j": {
+      "degraded": 350.0,
+      "failed": 1200.0
+    }
+  },
+  "candidates": [
+    {"id": "a575-c200", "parameters": {"armor_ballistic": {"coefficient": 575.0}, "component_ballistic": {"coefficient": 200.0}}},
+    {"id": "a575-c275", "parameters": {"armor_ballistic": {"coefficient": 575.0}, "component_ballistic": {"coefficient": 275.0}}},
+    {"id": "a575-c350", "parameters": {"armor_ballistic": {"coefficient": 575.0}, "component_ballistic": {"coefficient": 350.0}}},
+    {"id": "a600-c200", "parameters": {"armor_ballistic": {"coefficient": 600.0}, "component_ballistic": {"coefficient": 200.0}}},
+    {"id": "a600-c275", "parameters": {"armor_ballistic": {"coefficient": 600.0}, "component_ballistic": {"coefficient": 275.0}}},
+    {"id": "a600-c350", "parameters": {"armor_ballistic": {"coefficient": 600.0}, "component_ballistic": {"coefficient": 350.0}}},
+    {"id": "a625-c200", "parameters": {"armor_ballistic": {"coefficient": 625.0}, "component_ballistic": {"coefficient": 200.0}}},
+    {"id": "a625-c275", "parameters": {"armor_ballistic": {"coefficient": 625.0}, "component_ballistic": {"coefficient": 275.0}}},
+    {"id": "a625-c350", "parameters": {"armor_ballistic": {"coefficient": 625.0}, "component_ballistic": {"coefficient": 350.0}}},
+    {
+      "id": "a600-c275-lower-thresholds",
+      "parameters": {
+        "armor_ballistic": {"coefficient": 600.0},
+        "component_ballistic": {"coefficient": 275.0},
+        "component_damage_thresholds_j": {"degraded": 250.0, "failed": 800.0}
+      }
+    },
+    {
+      "id": "a600-c275-higher-thresholds",
+      "parameters": {
+        "armor_ballistic": {"coefficient": 600.0},
+        "component_ballistic": {"coefficient": 275.0},
+        "component_damage_thresholds_j": {"degraded": 500.0, "failed": 1600.0}
+      }
+    },
+    {
+      "id": "a600-c275-low-coupling",
+      "parameters": {
+        "armor_ballistic": {"coefficient": 600.0},
+        "component_ballistic": {"coefficient": 275.0},
+        "component_damage_energy_model": {
+          "kind": "absorbed_plus_residual",
+          "absorbed_weight": 0.10,
+          "residual_weight": 0.03,
+          "nonperforation_absorbed_fraction": 0.10
+        },
+        "component_damage_thresholds_j": {"degraded": 300.0, "failed": 1000.0}
+      }
+    },
+    {
+      "id": "a600-c275-residual-dominant",
+      "parameters": {
+        "armor_ballistic": {"coefficient": 600.0},
+        "component_ballistic": {"coefficient": 275.0},
+        "component_damage_energy_model": {
+          "kind": "absorbed_plus_residual",
+          "absorbed_weight": 0.15,
+          "residual_weight": 0.10,
+          "nonperforation_absorbed_fraction": 0.10
+        },
+        "component_damage_thresholds_j": {"degraded": 400.0, "failed": 1400.0}
+      }
+    },
+    {
+      "id": "a600-c275-low-residual",
+      "parameters": {
+        "armor_ballistic": {"coefficient": 600.0, "residual_velocity_coefficient": 0.65},
+        "component_ballistic": {"coefficient": 275.0, "residual_velocity_coefficient": 0.60}
+      }
+    },
+    {
+      "id": "a600-c275-high-residual",
+      "parameters": {
+        "armor_ballistic": {"coefficient": 600.0, "residual_velocity_coefficient": 0.85},
+        "component_ballistic": {"coefficient": 275.0, "residual_velocity_coefficient": 0.80}
+      }
+    },
+    {
+      "id": "a600-c275-wide-transition",
+      "parameters": {
+        "armor_ballistic": {"coefficient": 600.0, "transition_width_ratio": 0.20},
+        "component_ballistic": {"coefficient": 275.0, "transition_width_ratio": 0.24}
+      }
+    }
+  ]
+}

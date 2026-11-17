@@ -20,9 +20,9 @@ ROOT = Path(__file__).resolve().parents[1]
 
 def _inputs():
     return (
-        ROOT / "raw_data" / "List.csv",
-        ROOT / "raw_data" / "armor.csv",
-        load_json(ROOT / "raw_data" / "import_config.json"),
+        ROOT / "data" / "source" / "components.csv",
+        ROOT / "data" / "source" / "armor.csv",
+        load_json(ROOT / "configs" / "import" / "target_import.json"),
     )
 
 

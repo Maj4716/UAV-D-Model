@@ -1,0 +1,20 @@
+{
+  "all_source_arms_exactly_2000": true,
+  "all_teacher_tensors_recomputed_from_every_complete_case": true,
+  "canonical_input_recomputed_from_every_case": true,
+  "censored_targets_are_nan": true,
+  "complete_domain_count": 7337,
+  "dataset_schema_version": "idea1-hybrid-neural-dataset@1.1.0",
+  "domain_censored_count": 3252,
+  "file_hashes_verified": true,
+  "no_train_validation_candidate_overlap": true,
+  "normalization_recomputed_from_train_only": true,
+  "schema_version": "idea1-neural-dataset-validation@1.0.0",
+  "selection_observation_count": 16000,
+  "selection_probabilities_and_weights_verified": true,
+  "source_arm_count": 8,
+  "status": "passed",
+  "train_count": 7965,
+  "unique_candidate_count": 10589,
+  "validation_count": 2624
+}

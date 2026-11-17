@@ -10,6 +10,7 @@ import pytest
 from damage_engine.case_factory import CaseFactory
 from damage_engine.engine import ENGINE_CODE_HASH, DamageEngine
 from damage_engine.errors import InputValidationError, OutOfDomainError
+from damage_engine.fragments import generate_fragments
 from damage_engine.impact import resolve_impact_detonation
 from damage_engine.input_identity import case_identity_hash
 from damage_engine.label_spec import LabelSpec
@@ -29,13 +30,13 @@ ROOT = Path(__file__).resolve().parents[1]
 
 def _engine() -> DamageEngine:
     return DamageEngine(
-        load_json(ROOT / "raw_data" / "target.rebuilt.json"),
-        PhysicsRegistry.from_file(ROOT / "examples" / "physics.loitering_impact.json"),
+        load_json(ROOT / "configs" / "targets" / "target.rebuilt.json"),
+        PhysicsRegistry.from_file(ROOT / "configs" / "physics" / "loitering_impact.json"),
     )
 
 
 def _case() -> dict:
-    return load_json(ROOT / "raw_data" / "case.loitering_impact.v1.json")
+    return load_json(ROOT / "configs" / "cases" / "loitering_impact.v1.json")
 
 
 def test_catalog_contains_only_the_three_approved_profiles() -> None:
@@ -88,17 +89,71 @@ def test_profile_application_updates_all_solver_inputs() -> None:
     )
 
 
-def test_reference_front_axis_and_cube_drag_area_are_not_silently_reinterpreted() -> None:
+def test_front_contact_fragment_axis_follows_the_target_inward_normal() -> None:
     engine = _engine()
     for profile in MUNITION_PROFILES.values():
         source = engine.registry.fragment_source(profile.source_model_id)
-        assert source["direction"]["axis_body"] == [-1.0, 0.0, 0.0]
+        assert source["direction"]["axis_mode"] == "impact_inward"
         assert source["drag"]["coefficient"] == 1.05
         # Convert the engine's equal-volume-sphere projection to the reference
         # cube face area A=(m/rho)^(2/3).
         assert source["drag"]["area_shape_factor"] == pytest.approx(
             0.8271339879, rel=0.0, abs=1.0e-10
         )
+
+    case = _engine().prepare_case(_case())
+    fragments = generate_fragments(
+        case,
+        engine.registry,
+        np.random.default_rng(20261113),
+    )
+    inward = -np.asarray(case["encounter"]["collision_normal_target_xyz"])
+    direction_cosines = np.asarray(
+        [float(np.dot(fragment.direction, inward)) for fragment in fragments]
+    )
+    assert np.quantile(direction_cosines, 0.05) > 0.5
+
+
+def test_contact_detonation_distributes_fragment_origins_over_warhead_axial_span() -> None:
+    engine = _engine()
+    case = engine.prepare_case(_case())
+    fragments = generate_fragments(
+        case,
+        engine.registry,
+        np.random.default_rng(20261116),
+    )
+    detonation = np.asarray(case["encounter"]["detonation_position_m"])
+    backward = np.asarray(case["encounter"]["collision_normal_target_xyz"])
+    backward /= np.linalg.norm(backward)
+    offsets = np.asarray(
+        [float(np.dot(fragment.origin_m - detonation, backward)) for fragment in fragments]
+    )
+    expected_span = (
+        case["munition"]["warhead_length_m"]
+        * case["munition"]["fragment_axial_coverage_ratio"]
+    )
+
+    assert len(np.unique(np.round(offsets, 12))) == case["munition"][
+        "fragment_ring_count"
+    ]
+    assert np.min(offsets) > 0.0
+    assert np.max(offsets) < expected_span
+    assert np.ptp(offsets) == pytest.approx(
+        expected_span
+        * (case["munition"]["fragment_ring_count"] - 1)
+        / case["munition"]["fragment_ring_count"]
+    )
+
+
+def test_impact_inward_source_rejects_competing_body_axis() -> None:
+    registry_data = deepcopy(_engine().registry.data)
+    source = registry_data["fragment_source_models"][
+        "loitering_small_front_taylor_source"
+    ]
+    source["direction"]["axis_body"] = [-1.0, 0.0, 0.0]
+
+    with pytest.raises(InputValidationError, match="physics registry schema"):
+        PhysicsRegistry(registry_data)
 
 
 def test_first_armor_contact_sets_detonation_time_and_position() -> None:
@@ -155,10 +210,10 @@ def test_runtime_validation_rejects_tampered_collision_time() -> None:
 def test_case_factory_materializes_every_sample_before_identity() -> None:
     engine = _engine()
     spec = SamplingSpec.from_file(
-        ROOT / "raw_data" / "sampling_spec.loitering_impact.smoke.v1.json"
+        ROOT / "configs" / "sampling" / "loitering_impact.smoke.v1.json"
     )
     label = LabelSpec.from_file(
-        ROOT / "raw_data" / "label_spec.loitering_impact.v1.json"
+        ROOT / "configs" / "labels" / "loitering_impact.v1.json"
     )
     plan = CaseFactory(
         _case(),

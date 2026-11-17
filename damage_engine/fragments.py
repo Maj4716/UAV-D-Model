@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import csv
+import heapq
 import hashlib
 import io
 import json
@@ -11,10 +12,18 @@ from typing import Any
 
 import numpy as np
 
+from .component_damage import ComponentDamageAccumulator
 from .errors import InputValidationError, OutOfDomainError
 from .geometry import CompiledObject, CompiledTarget, polygon_area_3d
+from .layered_penetration import (
+    resolve_existing_hole_passage,
+    resolve_blast_failed_panel_passage,
+    resolve_penetration_path,
+)
+from .panel_damage import PanelDamageState, perforation_opening_area_m2
+from .penetration import FragmentImpact
 from .registry import PhysicsRegistry
-from .utils import EPS, normalize, quaternion_matrix_xyzw, sigmoid
+from .utils import EPS, normalize, quaternion_matrix_xyzw
 
 
 @dataclass(frozen=True)
@@ -58,6 +67,9 @@ class FragmentSimulation:
     total_armor_penetrations: int
     total_component_hits: int
     total_component_penetrations: int
+    total_existing_hole_reuses: int
+    total_out_of_domain_impacts: int
+    panel_damage_state: PanelDamageState | None = None
     audit: list[dict] = field(default_factory=list)
     fragment_list_provenance: dict[str, Any] | None = None
 
@@ -640,10 +652,17 @@ def _sample_directions(
     *,
     gurney_speed: float,
     detonation_velocity_mps: float | None,
+    impact_inward_axis_target: np.ndarray | None = None,
 ) -> np.ndarray:
     direction = source_model["direction"]
     kind = direction["kind"]
-    axis = normalize(np.asarray(direction.get("axis_body", [1.0, 0.0, 0.0])), name="fragment axis")
+    if impact_inward_axis_target is None:
+        axis = normalize(
+            np.asarray(direction.get("axis_body", [1.0, 0.0, 0.0])),
+            name="fragment axis",
+        )
+    else:
+        axis = normalize(impact_inward_axis_target, name="impact inward fragment axis")
     reference = np.array([0.0, 0.0, 1.0]) if abs(axis[2]) < 0.9 else np.array([0.0, 1.0, 0.0])
     basis1 = normalize(np.cross(axis, reference), name="fragment direction basis")
     basis2 = normalize(np.cross(axis, basis1), name="fragment direction basis")
@@ -699,9 +718,65 @@ def _sample_directions(
         + (np.sin(theta) * np.cos(azimuth))[:, None] * basis1
         + (np.sin(theta) * np.sin(azimuth))[:, None] * basis2
     )
-    values = (rotation @ values.T).T
+    if impact_inward_axis_target is None:
+        values = (rotation @ values.T).T
     values /= np.linalg.norm(values, axis=1, keepdims=True)
     return values
+
+
+def _fragment_origins(
+    case: dict,
+    count: int,
+    rotation: np.ndarray,
+) -> np.ndarray:
+    detonation = np.asarray(
+        case["encounter"]["detonation_position_m"], dtype=np.float64
+    )
+    if detonation.shape != (3,) or not np.isfinite(detonation).all():
+        raise InputValidationError("detonation_position_m must be a finite 3-vector")
+    munition = case.get("munition")
+    if munition is None:
+        return np.repeat(detonation[None, :], count, axis=0)
+
+    ring_count = int(munition["fragment_ring_count"])
+    ring_sizes = [int(value) for value in munition["fragments_per_ring"]]
+    if ring_count < 1 or len(ring_sizes) != ring_count or sum(ring_sizes) != count:
+        raise InputValidationError(
+            "munition fragment ring layout must match the expanded fragment count",
+            context={
+                "ring_count": ring_count,
+                "ring_sizes": ring_sizes,
+                "fragment_count": count,
+            },
+        )
+    warhead_length = float(munition["warhead_length_m"])
+    coverage = float(munition["fragment_axial_coverage_ratio"])
+    axial_span = warhead_length * coverage
+    if (
+        not math.isfinite(axial_span)
+        or axial_span <= 0.0
+        or not 0.0 < coverage <= 1.0
+    ):
+        raise InputValidationError(
+            "munition fragment axial coverage must define a positive finite span"
+        )
+
+    collision_normal = case["encounter"].get("collision_normal_target_xyz")
+    if collision_normal is not None:
+        backward_axis = normalize(
+            np.asarray(collision_normal, dtype=np.float64),
+            name="fragment source backward axis",
+        )
+    else:
+        backward_axis = -normalize(
+            rotation @ np.array([1.0, 0.0, 0.0]),
+            name="fragment source backward axis",
+        )
+    offsets: list[float] = []
+    for ring_index, ring_size in enumerate(ring_sizes):
+        ring_offset = axial_span * (ring_index + 0.5) / ring_count
+        offsets.extend([ring_offset] * ring_size)
+    return detonation[None, :] + np.asarray(offsets)[:, None] * backward_axis
 
 
 def generate_fragments(
@@ -789,6 +864,18 @@ def generate_fragments(
                 "fragment initial speed is outside source model validity",
                 context={"speed_mps": gurney_speed, "valid_speed_mps": valid_speed},
             )
+        axis_mode = str(source_model["direction"].get("axis_mode", "body_vector"))
+        impact_inward_axis_target = None
+        if axis_mode == "impact_inward":
+            collision_normal = case["encounter"].get("collision_normal_target_xyz")
+            if collision_normal is None:
+                raise InputValidationError(
+                    "impact_inward fragment direction requires collision_normal_target_xyz"
+                )
+            impact_inward_axis_target = -normalize(
+                np.asarray(collision_normal, dtype=np.float64),
+                name="collision normal",
+            )
         directions = _sample_directions(
             len(masses),
             source_model,
@@ -796,6 +883,7 @@ def generate_fragments(
             rng,
             gurney_speed=gurney_speed,
             detonation_velocity_mps=source.get("detonation_velocity_mps"),
+            impact_inward_axis_target=impact_inward_axis_target,
         )
         velocity_vectors = directions * gurney_speed
     projectile_velocity = np.asarray(case["encounter"]["velocity_target_mps"], dtype=np.float64)
@@ -839,12 +927,12 @@ def generate_fragments(
     shape_factor = float(drag.get("area_shape_factor", 1.0))
     if not math.isfinite(drag_coefficient) or drag_coefficient <= 0:
         raise InputValidationError("fragment drag coefficient must be finite and positive")
-    origin = np.asarray(case["encounter"]["detonation_position_m"], dtype=np.float64)
+    origins = _fragment_origins(case, len(masses), rotation)
     return [
         Fragment(
             fragment_id=index,
             mass_kg=float(mass),
-            origin_m=origin.copy(),
+            origin_m=origins[index].copy(),
             direction=directions[index].copy(),
             initial_speed_mps=float(speeds[index]),
             area_m2=_fragment_area(float(mass), density, shape_factor),
@@ -857,12 +945,14 @@ def generate_fragments(
     ]
 
 
-def _arrival_speed(
+def propagate_fragment_speed(
     speed: float,
     distance_m: float,
     fragment: Fragment,
     air_density: float,
 ) -> float:
+    """Propagate fragment speed through still air with the registered drag law."""
+
     if not math.isfinite(speed) or speed < 0 or not math.isfinite(distance_m):
         raise InputValidationError("fragment speed and flight distance must be finite and non-negative")
     if not math.isfinite(air_density) or air_density <= 0:
@@ -876,57 +966,86 @@ def _arrival_speed(
     return float(speed * math.exp(-coefficient * max(0.0, distance_m)))
 
 
-def _ballistic_response(
-    speed_mps: float,
+# Compatibility alias for downstream callers written before the propagation
+# kernel became part of the public sampling-proxy seam.
+_arrival_speed = propagate_fragment_speed
+
+
+def _free_flight_time(
+    speed: float,
+    distance_m: float,
     fragment: Fragment,
-    normal: np.ndarray,
-    direction: np.ndarray,
-    thickness_m: float,
-    model: dict,
-) -> tuple[float, float, float, float]:
-    if not math.isfinite(speed_mps) or speed_mps < 0:
-        raise InputValidationError("fragment impact speed must be finite and non-negative")
-    if not math.isfinite(thickness_m) or thickness_m <= 0:
-        raise InputValidationError("equivalent thickness must be finite and positive")
-    ballistic = model["ballistic_limit"]
-    cosine = float(np.clip(abs(np.dot(direction, normal)), 1.0e-3, 1.0))
-    impact_angle = math.acos(cosine)
-    maximum_angle = math.radians(float(ballistic.get("maximum_obliquity_deg", 89.0)))
-    if impact_angle > maximum_angle:
-        return 0.0, math.inf, 0.0, impact_angle
-    mass_g = fragment.mass_kg * 1000.0
-    thickness_mm = thickness_m * 1000.0
-    v50 = (
-        float(ballistic["coefficient"])
-        * thickness_mm ** float(ballistic["thickness_exponent"])
-        * mass_g ** float(ballistic["mass_exponent"])
-        * (1.0 / cosine) ** float(ballistic["obliquity_exponent"])
+    air_density: float,
+) -> float:
+    if not math.isfinite(speed) or speed <= 0.0 or not math.isfinite(distance_m):
+        raise InputValidationError(
+            "fragment speed must be positive and flight distance finite"
+        )
+    distance = max(0.0, float(distance_m))
+    coefficient = (
+        air_density
+        * fragment.drag_coefficient
+        * fragment.area_m2
+        / (2.0 * fragment.mass_kg)
     )
-    if not math.isfinite(v50) or v50 <= 0:
-        raise InputValidationError("ballistic-limit model produced a non-positive or non-finite V50")
-    margin = speed_mps / max(v50, EPS)
-    transition = float(ballistic.get("transition_width_ratio", 0.08))
-    if not math.isfinite(transition) or transition <= 0:
-        raise InputValidationError("ballistic transition width must be finite and positive")
-    probability = sigmoid((margin - 1.0) / max(transition, 1.0e-6))
-    return probability, float(v50), float(margin), float(impact_angle)
+    if coefficient <= EPS:
+        return distance / speed
+    exponent = coefficient * distance
+    if exponent > 700.0:
+        raise OutOfDomainError(
+            "fragment free-flight time overflowed the drag model domain",
+            context={"drag_exponent": exponent, "distance_m": distance},
+        )
+    return float(math.expm1(exponent) / (coefficient * speed))
 
 
-def _residual_speed(speed_mps: float, v50_mps: float) -> float:
-    if speed_mps <= v50_mps:
-        return 0.0
-    return float(math.sqrt(max(0.0, speed_mps**2 - v50_mps**2)))
+def armor_reference_area_m2(item: CompiledObject) -> float:
+    """Return the physical shell area used by the panel-integrity state.
 
+    A thin-shell collision envelope is an extruded numerical volume.  Its back
+    face and narrow closure edges do not represent additional load-bearing
+    panel area, so the reference area is the generating face.  Solid-envelope
+    semantics retain their complete exterior surface area.
+    """
 
-def _armor_area(item: CompiledObject) -> float:
     geometry = item.source["geometry"]
+    semantics = item.source.get(
+        "geometry_semantics",
+        "thin_shell_collision_envelope" if item.role == "armor" else None,
+    )
     if geometry["shape"] == "extruded_polygon":
+        vertices = np.asarray(geometry["vertices_m"], dtype=np.float64)
+        base_area = polygon_area_3d(
+            vertices,
+            np.asarray(geometry["extrusion_direction"], dtype=np.float64),
+        )
+        if semantics == "thin_shell_collision_envelope":
+            return max(float(base_area), EPS)
+        perimeter = float(
+            np.sum(
+                np.linalg.norm(
+                    np.roll(vertices, -1, axis=0) - vertices,
+                    axis=1,
+                )
+            )
+        )
+        distance = float(geometry["extrusion_distance_m"])
+        return max(2.0 * base_area + perimeter * distance, EPS)
+    if geometry["shape"] == "box":
+        length, width, height = map(float, geometry["size_lwh_m"])
         return max(
-            polygon_area_3d(geometry["vertices_m"], np.asarray(geometry["extrusion_direction"])),
+            2.0 * (length * width + length * height + width * height),
             EPS,
         )
+    if geometry["shape"] == "cylinder":
+        radius = float(geometry["radius_m"])
+        height = float(geometry["height_m"])
+        return max(2.0 * math.pi * radius * (radius + height), EPS)
     size = np.sort(item.geometry.representative_size())
     return max(float(size[-1] * size[-2]), EPS)
+
+
+_armor_area = armor_reference_area_m2
 
 
 def _json_finite(value: float) -> float | None:
@@ -946,11 +1065,165 @@ def _geometry_path_record(fragment: Fragment, hit) -> dict[str, Any]:
         "entry_distance_m": float(hit.entry_t),
         "exit_distance_m": float(hit.exit_t),
         "path_length_m": float(hit.path_length_m),
+        "geometry_path_length_m": float(hit.path_length_m),
         "entry_point_target_m": np.asarray(hit.entry_point, dtype=np.float64).tolist(),
         "exit_point_target_m": np.asarray(exit_point, dtype=np.float64).tolist(),
         "entry_normal_target_xyz": np.asarray(hit.entry_normal, dtype=np.float64).tolist(),
         "fragment_response_model_id": hit.response.get("fragment_response_model_id"),
     }
+
+
+@dataclass
+class _FragmentTransit:
+    fragment: Fragment
+    hits: list[Any]
+    physical_key: str
+    geometry_path: list[dict[str, Any]]
+    path_index: int = 0
+    speed_mps: float = 0.0
+    previous_distance_m: float = 0.0
+    elapsed_time_s: float = 0.0
+    processed_path: list[dict[str, Any]] = field(default_factory=list)
+    blocking_object_id: str | None = None
+    blocked_before_object_id: str | None = None
+    blocking_reason: str | None = None
+
+
+@dataclass(order=True, frozen=True)
+class _ScheduledFragmentImpact:
+    arrival_time_s: float
+    physical_key: str
+    path_index: int
+    cursor_index: int
+    free_flight_distance_m: float = field(compare=False)
+    arrival_speed_mps: float = field(compare=False)
+
+
+def _fragment_physical_key(fragment: Fragment) -> str:
+    payload = {
+        "source_fragment_id": fragment.source_fragment_id,
+        "source_multiplicity_index": fragment.source_multiplicity_index,
+        "source_multiplicity": fragment.source_multiplicity,
+        "mass_kg": float(fragment.mass_kg),
+        "origin_m": [float(value) for value in fragment.origin_m],
+        "direction": [float(value) for value in fragment.direction],
+        "initial_speed_mps": float(fragment.initial_speed_mps),
+        "area_m2": float(fragment.area_m2),
+        "drag_coefficient": float(fragment.drag_coefficient),
+    }
+    encoded = json.dumps(
+        payload,
+        sort_keys=True,
+        separators=(",", ":"),
+        ensure_ascii=True,
+        allow_nan=False,
+    ).encode("utf-8")
+    return hashlib.sha256(encoded).hexdigest()
+
+
+def _fragment_physical_keys(fragments: list[Fragment]) -> list[str]:
+    """Assign unique stable keys to the members of a physical multiset.
+
+    Exact duplicates are exchangeable. Their deterministic ordinal is scoped
+    to the shared physical signature, so adding or reordering a fragment with
+    another signature does not reassign existing event streams.
+    """
+
+    signatures = [_fragment_physical_key(fragment) for fragment in fragments]
+    groups: dict[str, list[tuple[int, int]]] = {}
+    for index, (fragment, signature) in enumerate(zip(fragments, signatures)):
+        groups.setdefault(signature, []).append((int(fragment.fragment_id), index))
+    ordinals: dict[int, int] = {}
+    for members in groups.values():
+        for ordinal, (_, index) in enumerate(sorted(members)):
+            ordinals[index] = ordinal
+    keys: list[str] = []
+    for index, signature in enumerate(signatures):
+        encoded = json.dumps(
+            {
+                "physical_signature": signature,
+                "duplicate_ordinal": ordinals[index],
+                "rng_contract": "fragment-physical-key-v2",
+            },
+            sort_keys=True,
+            separators=(",", ":"),
+            ensure_ascii=True,
+            allow_nan=False,
+        ).encode("utf-8")
+        keys.append(hashlib.sha256(encoded).hexdigest())
+    return keys
+
+
+def _event_random_generator(
+    timeline_entropy: tuple[int, ...],
+    *,
+    fragment_physical_key: str,
+    object_id: str,
+    path_index: int,
+    event_kind: str,
+) -> tuple[np.random.Generator, str]:
+    identity = {
+        "fragment_physical_key": fragment_physical_key,
+        "object_id": str(object_id),
+        "path_index": int(path_index),
+        "event_kind": str(event_kind),
+        "rng_contract": "fragment-event-key-v2",
+    }
+    encoded = json.dumps(
+        identity,
+        sort_keys=True,
+        separators=(",", ":"),
+        ensure_ascii=True,
+        allow_nan=False,
+    ).encode("utf-8")
+    digest = hashlib.sha256(encoded).digest()
+    identity_words = np.frombuffer(digest[:16], dtype="<u4").astype(np.uint32)
+    seed = np.random.SeedSequence(
+        [*timeline_entropy, *(int(value) for value in identity_words)]
+    )
+    return np.random.default_rng(seed), hashlib.sha256(encoded).hexdigest()
+
+
+def _schedule_next_fragment_impact(
+    queue: list[_ScheduledFragmentImpact],
+    cursor_index: int,
+    cursor: _FragmentTransit,
+    air_density: float,
+) -> None:
+    if cursor.path_index >= len(cursor.hits):
+        return
+    hit = cursor.hits[cursor.path_index]
+    free_flight_distance = max(
+        0.0,
+        float(hit.entry_t) - cursor.previous_distance_m,
+    )
+    travel_time = _free_flight_time(
+        cursor.speed_mps,
+        free_flight_distance,
+        cursor.fragment,
+        air_density,
+    )
+    arrival_speed = _arrival_speed(
+        cursor.speed_mps,
+        free_flight_distance,
+        cursor.fragment,
+        air_density,
+    )
+    if arrival_speed <= EPS:
+        cursor.blocked_before_object_id = hit.object_id
+        cursor.blocking_reason = "arrival_speed_exhausted_before_object"
+        return
+    heapq.heappush(
+        queue,
+        _ScheduledFragmentImpact(
+            arrival_time_s=cursor.elapsed_time_s + travel_time,
+            physical_key=cursor.physical_key,
+            path_index=cursor.path_index,
+            cursor_index=cursor_index,
+            free_flight_distance_m=free_flight_distance,
+            arrival_speed_mps=arrival_speed,
+        ),
+    )
 
 
 def simulate_fragments(
@@ -962,7 +1235,12 @@ def simulate_fragments(
     parameter_realization: dict[str, dict[str, float | None]],
     capture_audit: bool = False,
     fragment_list_data: FragmentListData | None = None,
+    armor_blast_damage_events: dict[str, dict[str, float]] | None = None,
 ) -> FragmentSimulation:
+    timeline_entropy = tuple(
+        int(value)
+        for value in rng.integers(0, 2**32, size=4, dtype=np.uint32)
+    )
     if (
         fragment_list_data is None
         and case["warhead"]["fragment_source"].get("fragment_list_ref") is not None
@@ -981,130 +1259,325 @@ def simulate_fragments(
     air_density = float(case["environment"]["air_density_kg_m3"])
     if not math.isfinite(air_density) or air_density <= 0:
         raise InputValidationError("air density must be finite and positive")
-    component_survival: dict[str, dict[str, float]] = {}
+    blast_damage_events = armor_blast_damage_events or {}
+    known_armor_ids = {item.object_id for item in target.armor}
+    unknown_event_ids = sorted(set(blast_damage_events) - known_armor_ids)
+    if unknown_event_ids:
+        raise InputValidationError(
+            "blast damage timeline references unknown armor",
+            context={"unknown_armor_ids": unknown_event_ids},
+        )
+    for armor_id, event in blast_damage_events.items():
+        if set(event) != {"effective_time_s", "survival_factor"}:
+            raise InputValidationError(
+                "blast damage timeline event fields are invalid",
+                context={"object_id": armor_id, "fields": sorted(event)},
+            )
+        effective_time = float(event["effective_time_s"])
+        survival_factor = float(event["survival_factor"])
+        if (
+            not math.isfinite(effective_time)
+            or effective_time < 0.0
+            or not math.isfinite(survival_factor)
+            or not 0.0 <= survival_factor <= 1.0
+        ):
+            raise InputValidationError(
+                "blast damage timeline event is outside its numeric domain",
+                context={"object_id": armor_id, **event},
+            )
+    component_accumulators: dict[str, ComponentDamageAccumulator] = {}
     component_metrics: dict[str, dict[str, float]] = {}
     for component in target.components:
-        states = [state for state in component.source["damage_states"] if state != "intact"]
-        component_survival[component.object_id] = {state: 1.0 for state in states}
+        states = tuple(
+            state for state in component.source["damage_states"] if state != "intact"
+        )
+        response_model = registry.fragment_response(
+            component.response["fragment_response_model_id"]
+        )
+        component_accumulators[component.object_id] = ComponentDamageAccumulator(
+            ordered_states=states,
+            state_models=response_model["damage_states"],
+            vulnerable_ratio=float(
+                parameter_realization[component.object_id]["vulnerable_area_ratio"]
+            ),
+            accumulation_model=str(
+                response_model.get("damage_accumulation_model", "independent_hits")
+            ),
+            spatial_correlation_length_m=response_model.get(
+                "damage_correlation_length_m"
+            ),
+        )
         component_metrics[component.object_id] = {
             "hits": 0.0,
             "penetrations": 0.0,
             "mean_arrival_speed_mps": 0.0,
             "mean_penetration_margin": 0.0,
             "deposited_energy_j": 0.0,
+            "damage_energy_j": 0.0,
+            "ordinal_projection_max_correction": 0.0,
+            "spatial_damage_cluster_count": 0.0,
+            "spatial_damage_cluster_max_diameter_m": 0.0,
         }
-    armor_holes = {item.object_id: 0.0 for item in target.armor}
+    panel_damage = PanelDamageState(
+        {item.object_id: armor_reference_area_m2(item) for item in target.armor}
+    )
     armor_hits = armor_penetrations = component_hits = component_penetrations = 0
+    existing_hole_reuses = 0
+    out_of_domain_impacts = 0
     audit: list[dict] = []
-    for fragment in fragments:
-        speed = fragment.initial_speed_mps
-        previous_distance = 0.0
+    cursors: list[_FragmentTransit] = []
+    event_queue: list[_ScheduledFragmentImpact] = []
+    fragment_physical_keys = _fragment_physical_keys(fragments)
+    for fragment, fragment_physical_key in zip(fragments, fragment_physical_keys):
         hits = target.ray_hits(fragment.origin_m, fragment.direction)
-        geometry_path = (
-            [_geometry_path_record(fragment, hit) for hit in hits]
-            if capture_audit
-            else []
+        cursor = _FragmentTransit(
+            fragment=fragment,
+            hits=hits,
+            physical_key=fragment_physical_key,
+            geometry_path=(
+                [_geometry_path_record(fragment, hit) for hit in hits]
+                if capture_audit
+                else []
+            ),
+            speed_mps=float(fragment.initial_speed_mps),
         )
-        processed_path: list[dict[str, Any]] = []
-        blocking_object_id: str | None = None
-        blocked_before_object_id: str | None = None
-        blocking_reason: str | None = None
-        for path_index, hit in enumerate(hits):
-            speed = _arrival_speed(
-                speed,
-                hit.entry_t - previous_distance,
-                fragment,
+        cursor_index = len(cursors)
+        cursors.append(cursor)
+        if hits:
+            _schedule_next_fragment_impact(
+                event_queue,
+                cursor_index,
+                cursor,
                 air_density,
             )
-            if speed <= EPS:
-                if capture_audit:
-                    blocked_before_object_id = hit.object_id
-                    blocking_reason = "arrival_speed_exhausted_before_object"
-                break
-            model_id = hit.response.get("fragment_response_model_id")
-            if not model_id:
-                raise InputValidationError(
-                    "fragment response model is required",
-                    context={"object_id": hit.object_id},
-                )
-            model = registry.fragment_response(model_id)
-            parameters = parameter_realization[hit.object_id]
-            thickness = float(parameters["equivalent_thickness_m"])
-            probability, v50, margin, angle = _ballistic_response(
-                speed,
-                fragment,
-                hit.entry_normal,
-                fragment.direction,
-                thickness,
-                model,
-            )
-            penetrated = bool(rng.random() < probability)
-            before_speed = speed
-            residual = 0.0
-            deposited = 0.0
-            state_response_probabilities: dict[str, float] = {}
-            state_response_parameters: dict[str, dict[str, float]] = {}
-            if capture_audit:
-                state_response_probabilities = {
-                    state: 0.0
-                    for state in model.get("damage_states", {})
-                    if state in component_survival.get(hit.object_id, {})
-                }
-                state_response_parameters = {
-                    state: {
-                        "residual_energy_50_j": float(
-                            state_model["residual_energy_50_j"]
-                        ),
-                        "log_slope": float(state_model["log_slope"]),
-                    }
-                    for state, state_model in model.get("damage_states", {}).items()
-                    if state in component_survival.get(hit.object_id, {})
-                }
-            if hit.role == "armor":
-                armor_hits += 1
-                if penetrated:
-                    armor_penetrations += 1
-                    speed = _residual_speed(speed, v50)
-                    residual = speed
-                    equivalent_diameter = math.sqrt(4.0 * fragment.area_m2 / math.pi)
-                    hole_multiplier = float(model.get("hole_area_multiplier", 1.0))
-                    armor_holes[hit.object_id] += (
-                        hole_multiplier * math.pi * equivalent_diameter**2 / 4.0
-                    )
-            else:
-                component_hits += 1
-                metrics = component_metrics[hit.object_id]
-                metrics["hits"] += 1.0
-                metrics["mean_arrival_speed_mps"] += before_speed
-                metrics["mean_penetration_margin"] += margin
-                if penetrated:
-                    component_penetrations += 1
-                    metrics["penetrations"] += 1.0
-                    residual = _residual_speed(speed, v50)
-                    deposited = 0.5 * fragment.mass_kg * max(0.0, speed**2 - residual**2)
-                    metrics["deposited_energy_j"] += deposited
-                    vulnerability = float(parameters["vulnerable_area_ratio"])
-                    for state, state_model in model.get("damage_states", {}).items():
-                        if state not in component_survival[hit.object_id]:
-                            continue
-                        energy_50 = float(state_model["residual_energy_50_j"])
-                        slope = float(state_model["log_slope"])
-                        if residual <= 0 or energy_50 <= 0:
-                            single_probability = 0.0
-                        else:
-                            residual_energy = 0.5 * fragment.mass_kg * residual**2
-                            single_probability = sigmoid(
-                                slope * math.log(residual_energy / energy_50)
-                            )
-                        single_probability *= vulnerability
-                        if capture_audit:
-                            state_response_probabilities[state] = float(single_probability)
-                        component_survival[hit.object_id][state] *= 1.0 - single_probability
 
+    global_event_index = 0
+    while event_queue:
+        scheduled = heapq.heappop(event_queue)
+        cursor = cursors[scheduled.cursor_index]
+        if scheduled.path_index != cursor.path_index:
+            raise InputValidationError(
+                "fragment event queue path index drifted from transit state",
+                context={
+                    "scheduled_path_index": scheduled.path_index,
+                    "current_path_index": cursor.path_index,
+                },
+            )
+        fragment = cursor.fragment
+        path_index = cursor.path_index
+        hit = cursor.hits[path_index]
+        cursor.elapsed_time_s = float(scheduled.arrival_time_s)
+        cursor.speed_mps = float(scheduled.arrival_speed_mps)
+        before_speed = cursor.speed_mps
+        free_flight_distance = scheduled.free_flight_distance_m
+
+        model_id = hit.response.get("fragment_response_model_id")
+        if not model_id:
+            raise InputValidationError(
+                "fragment response model is required",
+                context={"object_id": hit.object_id},
+            )
+        model = registry.fragment_response(model_id)
+        parameters = parameter_realization[hit.object_id]
+        nominal_thickness = float(parameters["equivalent_thickness_m"])
+        blast_event = blast_damage_events.get(hit.object_id) if hit.role == "armor" else None
+        blast_damage_active = bool(
+            blast_event is not None
+            and cursor.elapsed_time_s >= float(blast_event["effective_time_s"])
+        )
+        blast_survival_factor = (
+            float(blast_event["survival_factor"])
+            if blast_damage_active and blast_event is not None
+            else 1.0
+        )
+        thickness = nominal_thickness * blast_survival_factor
+        blast_failed_panel_passage = bool(
+            hit.role == "armor"
+            and blast_damage_active
+            and blast_survival_factor <= EPS
+        )
+        impact = FragmentImpact(
+            speed_mps=before_speed,
+            mass_kg=fragment.mass_kg,
+            direction=fragment.direction,
+            surface_normal=hit.entry_normal,
+            equivalent_thickness_m=(
+                nominal_thickness if blast_failed_panel_passage else thickness
+            ),
+        )
+        equivalent_radius = math.sqrt(fragment.area_m2 / math.pi)
+        existing_hole_reused = bool(
+            hit.role == "armor"
+            and panel_damage.is_open(
+                hit.object_id,
+                hit.entry_point,
+                hit.entry_normal,
+                clearance_radius_m=equivalent_radius,
+                query_time_s=cursor.elapsed_time_s,
+            )
+        )
+        if existing_hole_reused:
+            existing_hole_reuses += 1
+        event_rng, event_random_key_hash = _event_random_generator(
+            timeline_entropy,
+            fragment_physical_key=cursor.physical_key,
+            object_id=hit.object_id,
+            path_index=path_index,
+            event_kind="penetration",
+        )
+        try:
+            impact_outcome = (
+                resolve_existing_hole_passage(impact)
+                if existing_hole_reused
+                else resolve_blast_failed_panel_passage(impact)
+                if blast_failed_panel_passage
+                else resolve_penetration_path(
+                    impact,
+                    hit.response,
+                    registry,
+                    event_rng,
+                )
+            )
+        except OutOfDomainError as error:
+            if error.context.get("reason_code") != "obliquity_out_of_domain":
+                raise
+            # A trajectory outside the registered ballistic-response domain is
+            # an unresolved event, not a known stop or known perforation.  End
+            # this fragment path without assigning energy or damage, retain a
+            # separate count, and preserve the exact refusal in event audit.
+            out_of_domain_impacts += 1
+            cursor.blocking_object_id = hit.object_id
+            cursor.blocking_reason = "penetration_model_out_of_domain"
             if capture_audit:
-                exit_point = fragment.origin_m + float(hit.exit_t) * fragment.direction
-                event = {
+                audit.append(
+                    {
+                        "record_type": "out_of_domain_intersection",
+                        "global_event_index": global_event_index,
+                        "fragment_physical_key": cursor.physical_key,
+                        "event_random_key_hash": event_random_key_hash,
+                        "event_random_contract": "fragment-event-key-v2",
+                        "fragment_id": fragment.fragment_id,
+                        "candidate_path_index": path_index,
+                        "object_id": hit.object_id,
+                        "role": hit.role,
+                        "entry_distance_m": float(hit.entry_t),
+                        "entry_point_target_m": np.asarray(
+                            hit.entry_point, dtype=np.float64
+                        ).tolist(),
+                        "entry_normal_target_xyz": np.asarray(
+                            hit.entry_normal, dtype=np.float64
+                        ).tolist(),
+                        "direction_target_xyz": np.asarray(
+                            fragment.direction, dtype=np.float64
+                        ).tolist(),
+                        "arrival_speed_mps": before_speed,
+                        "arrival_time_s": cursor.elapsed_time_s,
+                        "fragment_response_model_id": model_id,
+                        "out_of_domain": error.to_dict(),
+                    }
+                )
+                cursor.processed_path.append(
+                    {
+                        "candidate_path_index": path_index,
+                        "object_id": hit.object_id,
+                        "role": hit.role,
+                        "disposition": "penetration_model_out_of_domain",
+                        "penetrated": None,
+                        "residual_speed_mps": None,
+                    }
+                )
+            global_event_index += 1
+            continue
+        probability = impact_outcome.penetration_probability
+        v50 = impact_outcome.v50_mps
+        margin = before_speed / max(v50, EPS) if math.isfinite(v50) else 0.0
+        angle = impact_outcome.impact_angle_rad
+        penetrated = impact_outcome.perforated
+        residual = 0.0
+        deposited = 0.0
+        hole_formation_time_s: float | None = None
+        opening_area_m2: float | None = None
+        state_response_probabilities: dict[str, float] = {}
+        state_response_parameters: dict[str, dict[str, float]] = {}
+        if capture_audit:
+            state_response_probabilities = {
+                state: 0.0
+                for state in model.get("damage_states", {})
+                if hit.object_id in component_accumulators
+                and state in component_accumulators[hit.object_id].ordered_states
+            }
+            state_response_parameters = {
+                state: {
+                    "residual_energy_50_j": float(
+                        state_model["residual_energy_50_j"]
+                    ),
+                    "damage_energy_50_j": float(
+                        state_model.get(
+                            "damage_energy_50_j",
+                            state_model["residual_energy_50_j"],
+                        )
+                    ),
+                    "log_slope": float(state_model["log_slope"]),
+                }
+                for state, state_model in model.get("damage_states", {}).items()
+                if hit.object_id in component_accumulators
+                and state in component_accumulators[hit.object_id].ordered_states
+            }
+        if hit.role == "armor":
+            armor_hits += 1
+            if penetrated:
+                armor_penetrations += 1
+                residual = impact_outcome.residual_speed_mps
+                if not existing_hole_reused and not blast_failed_panel_passage:
+                    hole_formation_time_s = (
+                        cursor.elapsed_time_s
+                        + impact_outcome.material_transit_time_s
+                    )
+                    hole_multiplier = float(model.get("hole_area_multiplier", 1.0))
+                    opening_area_m2 = perforation_opening_area_m2(
+                        projectile_area_m2=fragment.area_m2,
+                        incidence_cosine=impact_outcome.incidence_cosine,
+                        incident_energy_j=impact_outcome.incident_energy_j,
+                        residual_energy_j=impact_outcome.residual_energy_j,
+                        hole_area_multiplier=hole_multiplier,
+                    )
+                    panel_damage.record_perforation(
+                        hit.object_id,
+                        hit.entry_point,
+                        hit.entry_normal,
+                        hole_area_m2=opening_area_m2,
+                        formed_time_s=hole_formation_time_s,
+                        update_union_area=False,
+                    )
+        else:
+            component_hits += 1
+            metrics = component_metrics[hit.object_id]
+            metrics["hits"] += 1.0
+            metrics["mean_arrival_speed_mps"] += before_speed
+            metrics["mean_penetration_margin"] += margin
+            deposited = impact_outcome.absorbed_energy_j
+            metrics["deposited_energy_j"] += deposited
+            metrics["damage_energy_j"] += impact_outcome.damage_energy_j
+            if penetrated:
+                component_penetrations += 1
+                metrics["penetrations"] += 1.0
+                residual = impact_outcome.residual_speed_mps
+            state_response_probabilities = component_accumulators[
+                hit.object_id
+            ].record_impact(
+                impact_outcome.damage_energy_j,
+                location_m=hit.entry_point,
+            )
+
+        if capture_audit:
+            exit_point = fragment.origin_m + float(hit.exit_t) * fragment.direction
+            audit.append(
+                {
                     "record_type": "intersection",
+                    "global_event_index": global_event_index,
+                    "fragment_physical_key": cursor.physical_key,
+                    "event_random_key_hash": event_random_key_hash,
+                    "event_random_contract": "fragment-event-key-v2",
                     "fragment_id": fragment.fragment_id,
                     "source_fragment_id": fragment.source_fragment_id,
                     "source_multiplicity_index": fragment.source_multiplicity_index,
@@ -1112,13 +1585,36 @@ def simulate_fragments(
                     "candidate_path_index": path_index,
                     "object_id": hit.object_id,
                     "role": hit.role,
-                    # ``distance_m`` is retained as the legacy entry-distance alias.
+                    "geometry_semantics": hit.source.get(
+                        "geometry_semantics",
+                        (
+                            "thin_shell_collision_envelope"
+                            if hit.role == "armor"
+                            else "logical_component_envelope"
+                        ),
+                    ),
+                    "geometry_semantics_source": (
+                        "declared"
+                        if "geometry_semantics" in hit.source
+                        else "legacy_role_inference"
+                    ),
                     "distance_m": float(hit.entry_t),
                     "entry_distance_m": float(hit.entry_t),
                     "exit_distance_m": float(hit.exit_t),
                     "path_length_m": float(hit.path_length_m),
-                    "entry_point_target_m": np.asarray(hit.entry_point, dtype=np.float64).tolist(),
-                    "exit_point_target_m": np.asarray(exit_point, dtype=np.float64).tolist(),
+                    "geometry_path_length_m": float(hit.path_length_m),
+                    "material_path_length_m": impact_outcome.material_path_length_m,
+                    "material_transit_time_s": impact_outcome.material_transit_time_s,
+                    "material_exit_distance_m": (
+                        float(hit.entry_t) + impact_outcome.material_path_length_m
+                    ),
+                    "free_flight_distance_m": free_flight_distance,
+                    "entry_point_target_m": np.asarray(
+                        hit.entry_point, dtype=np.float64
+                    ).tolist(),
+                    "exit_point_target_m": np.asarray(
+                        exit_point, dtype=np.float64
+                    ).tolist(),
                     "entry_normal_target_xyz": np.asarray(
                         hit.entry_normal, dtype=np.float64
                     ).tolist(),
@@ -1129,94 +1625,204 @@ def simulate_fragments(
                         "source_id": model.get("source_id"),
                     },
                     "equivalent_thickness_m": thickness,
+                    "nominal_equivalent_thickness_m": nominal_thickness,
+                    "blast_damage_active": blast_damage_active,
+                    "blast_survival_factor": blast_survival_factor,
+                    "blast_damage_effective_time_s": (
+                        float(blast_event["effective_time_s"])
+                        if blast_event is not None
+                        else None
+                    ),
                     "arrival_speed_mps": before_speed,
+                    "arrival_time_s": cursor.elapsed_time_s,
+                    "hole_formation_time_s": hole_formation_time_s,
+                    "opening_area_m2": opening_area_m2,
+                    "opening_area_model": (
+                        "projected_geometric_plus_residual_energy_ratio_v1"
+                        if opening_area_m2 is not None
+                        else None
+                    ),
                     "impact_angle_rad": angle,
+                    "incidence_cosine": impact_outcome.incidence_cosine,
                     "v50_mps": _json_finite(v50),
                     "penetration_margin": margin,
                     "penetration_probability": probability,
+                    "realized_branch_probability": (
+                        impact_outcome.realized_branch_probability
+                    ),
+                    "penetration_probability_semantics": (
+                        impact_outcome.penetration_probability_semantics
+                    ),
                     "penetrated": penetrated,
+                    "perforation_class": impact_outcome.perforation_class,
+                    "existing_hole_reused": existing_hole_reused,
+                    "layer_count": impact_outcome.layer_count,
+                    "declared_layer_count": impact_outcome.declared_layer_count,
+                    "resolved_layer_count": impact_outcome.resolved_layer_count,
+                    "stopped_layer_index": impact_outcome.stopped_layer_index,
+                    "layer_path": [
+                        {
+                            "layer_index": layer.layer_index,
+                            "declared_layer_indices": list(
+                                layer.declared_layer_indices
+                            ),
+                            "material_id": layer.material_id,
+                            "fragment_response_model_id": (
+                                layer.fragment_response_model_id
+                            ),
+                            "thickness_fraction": layer.thickness_fraction,
+                            "v50_mps": _json_finite(layer.outcome.v50_mps),
+                            "penetration_probability": (
+                                layer.outcome.penetration_probability
+                            ),
+                            "sampled_ballistic_limit_mps": _json_finite(
+                                layer.outcome.sampled_ballistic_limit_mps
+                            ),
+                            "perforated": layer.outcome.perforated,
+                            "residual_speed_mps": layer.outcome.residual_speed_mps,
+                            "absorbed_energy_j": layer.outcome.absorbed_energy_j,
+                            "damage_energy_j": layer.outcome.damage_energy_j,
+                        }
+                        for layer in impact_outcome.layers
+                    ],
+                    "sampled_ballistic_limit_mps": _json_finite(
+                        impact_outcome.sampled_ballistic_limit_mps
+                    ),
                     "residual_speed_mps": residual if penetrated else 0.0,
+                    "incident_energy_j": impact_outcome.incident_energy_j,
+                    "residual_energy_j": impact_outcome.residual_energy_j,
+                    "absorbed_energy_j": impact_outcome.absorbed_energy_j,
+                    "damage_energy_j": impact_outcome.damage_energy_j,
                     "deposited_energy_j": deposited,
-                    "damage_state_response_probabilities": state_response_probabilities,
+                    "damage_state_response_probabilities": (
+                        state_response_probabilities
+                    ),
                     "damage_state_response_parameters": state_response_parameters,
                 }
-                audit.append(event)
-                disposition = "penetrated_continue"
-                if not penetrated:
-                    disposition = "not_penetrated_block"
-                elif residual <= EPS:
-                    disposition = "residual_speed_exhausted_block"
-                processed_path.append(
-                    {
-                        "candidate_path_index": path_index,
-                        "object_id": hit.object_id,
-                        "role": hit.role,
-                        "disposition": disposition,
-                        "penetrated": penetrated,
-                        "residual_speed_mps": residual if penetrated else 0.0,
-                    }
-                )
-
+            )
+            disposition = "penetrated_continue"
             if not penetrated:
-                if capture_audit:
-                    blocking_object_id = hit.object_id
-                    blocking_reason = (
-                        "armor_not_penetrated"
-                        if hit.role == "armor"
-                        else "component_not_penetrated"
-                    )
-                break
-            if residual <= EPS:
-                if capture_audit:
-                    blocking_object_id = hit.object_id
-                    blocking_reason = "residual_speed_exhausted_after_penetration"
-                break
-            speed = residual
-            previous_distance = max(previous_distance, hit.exit_t)
+                disposition = "not_penetrated_block"
+            elif residual <= EPS:
+                disposition = "residual_speed_exhausted_block"
+            cursor.processed_path.append(
+                {
+                    "candidate_path_index": path_index,
+                    "object_id": hit.object_id,
+                    "role": hit.role,
+                    "disposition": disposition,
+                    "penetrated": penetrated,
+                    "residual_speed_mps": residual if penetrated else 0.0,
+                }
+            )
+        global_event_index += 1
 
-        if capture_audit:
+        if not penetrated:
+            cursor.blocking_object_id = hit.object_id
+            cursor.blocking_reason = (
+                "armor_not_penetrated"
+                if hit.role == "armor"
+                else "component_not_penetrated"
+            )
+            continue
+        if residual <= EPS:
+            cursor.blocking_object_id = hit.object_id
+            cursor.blocking_reason = "residual_speed_exhausted_after_penetration"
+            continue
+
+        cursor.speed_mps = residual
+        cursor.elapsed_time_s += impact_outcome.material_transit_time_s
+        cursor.previous_distance_m = max(
+            cursor.previous_distance_m,
+            float(hit.entry_t) + impact_outcome.material_path_length_m,
+        )
+        cursor.path_index += 1
+        _schedule_next_fragment_impact(
+            event_queue,
+            scheduled.cursor_index,
+            cursor,
+            air_density,
+        )
+
+    if capture_audit:
+        for cursor in sorted(
+            cursors,
+            key=lambda item: (item.fragment.fragment_id, item.physical_key),
+        ):
+            fragment = cursor.fragment
             audit.append(
                 {
                     "record_type": "fragment_trace",
                     "fragment_id": fragment.fragment_id,
+                    "fragment_physical_key": cursor.physical_key,
                     "source_fragment_id": fragment.source_fragment_id,
                     "source_multiplicity_index": fragment.source_multiplicity_index,
                     "source_multiplicity": fragment.source_multiplicity,
                     "role": "fragment_trace",
-                    "origin_target_m": np.asarray(fragment.origin_m, dtype=np.float64).tolist(),
+                    "origin_target_m": np.asarray(
+                        fragment.origin_m, dtype=np.float64
+                    ).tolist(),
                     "direction_target_xyz": np.asarray(
                         fragment.direction, dtype=np.float64
                     ).tolist(),
                     "initial_speed_mps": float(fragment.initial_speed_mps),
                     "mass_kg": float(fragment.mass_kg),
-                    "geometry_candidate_path": geometry_path,
-                    "processed_path": processed_path,
-                    "blocking_object_id": blocking_object_id,
-                    "blocked_before_object_id": blocked_before_object_id,
-                    "blocking_reason": blocking_reason,
-                    "completed_geometry_path": blocking_reason is None,
+                    "geometry_candidate_path": cursor.geometry_path,
+                    "processed_path": cursor.processed_path,
+                    "blocking_object_id": cursor.blocking_object_id,
+                    "blocked_before_object_id": cursor.blocked_before_object_id,
+                    "blocking_reason": cursor.blocking_reason,
+                    "completed_geometry_path": cursor.blocking_reason is None,
                 }
             )
 
     probabilities: dict[str, dict[str, float]] = {}
     for component in target.components:
         identifier = component.object_id
-        raw = {state: 1.0 - survival for state, survival in component_survival[identifier].items()}
-        ordered = [state for state in component.source["damage_states"] if state != "intact"]
-        previous = 1.0
-        probabilities[identifier] = {}
-        for state in ordered:
-            value = min(previous, float(np.clip(raw.get(state, 0.0), 0.0, 1.0)))
-            probabilities[identifier][state] = value
-            previous = value
+        damage_result = component_accumulators[identifier].finalize()
+        probabilities[identifier] = damage_result.probabilities
         metrics = component_metrics[identifier]
+        metrics["damage_energy_j"] = damage_result.total_damage_energy_j
+        metrics["ordinal_projection_max_correction"] = (
+            damage_result.ordinal_projection_max_correction
+        )
+        metrics["spatial_damage_cluster_count"] = float(
+            damage_result.spatial_cluster_count
+        )
+        metrics["spatial_damage_cluster_max_diameter_m"] = float(
+            damage_result.spatial_cluster_max_diameter_m
+        )
+        hit_observed = metrics["hits"] > 0.0
+        ordered_probabilities = [
+            damage_result.probabilities[state]
+            for state in component_accumulators[identifier].ordered_states
+        ]
+        degraded_probability = damage_result.probabilities.get(
+            "degraded",
+            ordered_probabilities[0] if ordered_probabilities else 0.0,
+        )
+        failed_probability = damage_result.probabilities.get(
+            "failed",
+            ordered_probabilities[-1] if ordered_probabilities else 0.0,
+        )
+        metrics["hit_indicator"] = float(hit_observed)
+        metrics["damage_positive_indicator"] = float(
+            hit_observed and degraded_probability > 0.01
+        )
+        metrics["saturated_damage_indicator"] = float(
+            hit_observed
+            and (degraded_probability > 0.95 or failed_probability > 0.95)
+        )
+        metrics["hit_conditioned_degraded_probability"] = (
+            float(degraded_probability) if hit_observed else 0.0
+        )
+        metrics["hit_conditioned_failed_probability"] = (
+            float(failed_probability) if hit_observed else 0.0
+        )
         if metrics["hits"] > 0:
             metrics["mean_arrival_speed_mps"] /= metrics["hits"]
             metrics["mean_penetration_margin"] /= metrics["hits"]
-    armor_integrity = {}
-    for item in target.armor:
-        perforation_fraction = min(1.0, armor_holes[item.object_id] / _armor_area(item))
-        armor_integrity[item.object_id] = 1.0 - perforation_fraction
+    armor_integrity = panel_damage.integrity_map()
     return FragmentSimulation(
         component_state_probabilities=probabilities,
         component_metrics=component_metrics,
@@ -1226,6 +1832,9 @@ def simulate_fragments(
         total_armor_penetrations=armor_penetrations,
         total_component_hits=component_hits,
         total_component_penetrations=component_penetrations,
+        total_existing_hole_reuses=existing_hole_reuses,
+        total_out_of_domain_impacts=out_of_domain_impacts,
+        panel_damage_state=panel_damage,
         audit=audit,
         fragment_list_provenance=(
             fragment_list_data.provenance if fragment_list_data is not None else None

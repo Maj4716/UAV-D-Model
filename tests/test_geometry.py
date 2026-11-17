@@ -31,6 +31,40 @@ def test_cylinder_ray_interval():
     assert hit[1] == 4.0
 
 
+def test_box_surface_origin_only_counts_inward_crossing():
+    box = BoxGeometry(np.zeros(3), np.array([2.0, 2.0, 2.0]), np.eye(3))
+
+    inward = box.intersect(
+        np.array([-1.0, 0.0, 0.0]),
+        np.array([1.0, 0.0, 0.0]),
+    )
+    assert inward is not None
+    assert inward[0] == pytest.approx(0.0)
+    assert inward[1] == pytest.approx(2.0)
+    np.testing.assert_allclose(inward[2], [-1.0, 0.0, 0.0])
+    assert box.intersect(
+        np.array([-1.0, 0.0, 0.0]),
+        np.array([-1.0, 0.0, 0.0]),
+    ) is None
+
+
+def test_cylinder_surface_origin_only_counts_inward_crossing():
+    cylinder = CylinderGeometry(np.zeros(3), 1.0, 2.0, np.eye(3))
+
+    inward = cylinder.intersect(
+        np.array([1.0, 0.0, 0.0]),
+        np.array([-1.0, 0.0, 0.0]),
+    )
+    assert inward is not None
+    assert inward[0] == pytest.approx(0.0)
+    assert inward[1] == pytest.approx(2.0)
+    np.testing.assert_allclose(inward[2], [1.0, 0.0, 0.0])
+    assert cylinder.intersect(
+        np.array([1.0, 0.0, 0.0]),
+        np.array([1.0, 0.0, 0.0]),
+    ) is None
+
+
 def test_arbitrary_extruded_polygon_ray_interval():
     polygon = ExtrudedPolygonGeometry(
         vertices=np.array(
@@ -50,11 +84,50 @@ def test_arbitrary_extruded_polygon_ray_interval():
     assert abs(hit[1] - 1.52) < 1.0e-12
 
 
+def test_extruded_polygon_entry_normal_is_outward_for_clockwise_base_winding():
+    polygon = ExtrudedPolygonGeometry(
+        vertices=np.array(
+            [
+                [0.0, -1.0, 1.0],
+                [0.0, 1.0, 1.0],
+                [0.0, 1.0, -1.0],
+                [0.0, -1.0, -1.0],
+            ]
+        ),
+        direction=np.array([1.0, 0.0, 0.0]),
+        distance=1.0,
+    )
+    direction = np.array([0.0, 1.0, 0.0])
+
+    hit = polygon.intersect(np.array([0.5, -3.0, 0.0]), direction)
+
+    assert hit is not None
+    assert float(np.dot(direction, hit[2])) < 0.0
+    np.testing.assert_allclose(hit[2], [0.0, -1.0, 0.0])
+
+
 def test_compiled_target_orders_armor_before_component(target_data):
     target = compile_target(target_data)
     hits = target.ray_hits(np.array([-2.0, 0.0, 0.0]), np.array([1.0, 0.0, 0.0]))
     assert [hit.object_id for hit in hits] == ["armor-front", "flight-control"]
     assert hits[0].entry_t < hits[1].entry_t
+
+
+def test_surface_origin_uses_physical_face_normal_and_only_counts_inward_crossing(
+    target_data,
+):
+    target = compile_target(target_data)
+    contact = np.array([-0.5, 0.0, 0.0])
+
+    inward = target.ray_hits(contact, np.array([1.0, 0.0, 0.0]))
+    armor_hit = next(hit for hit in inward if hit.object_id == "armor-front")
+    assert armor_hit.entry_t == pytest.approx(0.0)
+    assert armor_hit.exit_t == pytest.approx(0.02)
+    assert armor_hit.path_length_m == pytest.approx(0.02)
+    np.testing.assert_allclose(armor_hit.entry_normal, [-1.0, 0.0, 0.0])
+
+    outward = target.ray_hits(contact, np.array([-1.0, 0.0, 0.0]))
+    assert all(hit.object_id != "armor-front" for hit in outward)
 
 
 def test_extruded_polygon_contains_all_boundary_edges():

@@ -30,18 +30,18 @@ from damage_engine.utils import content_hash
 from damage_engine.validation import validate_inputs
 
 
-RAW_DATA = ROOT / "raw_data"
-SOURCE_TARGET = RAW_DATA / "target.rebuilt.json"
-SOURCE_LABEL_SPEC = RAW_DATA / "label_spec.loitering_impact.v1.json"
-SOURCE_CASE = RAW_DATA / "case.loitering_impact.v1.json"
-SOURCE_SAMPLING_SPEC = RAW_DATA / "sampling_spec.loitering_impact.smoke.v1.json"
-PHYSICS_REGISTRY = ROOT / "examples" / "physics.loitering_impact.json"
+CONFIGS = ROOT / "configs"
+SOURCE_TARGET = CONFIGS / "targets" / "target.rebuilt.json"
+SOURCE_LABEL_SPEC = CONFIGS / "labels" / "loitering_impact.v1.json"
+SOURCE_CASE = CONFIGS / "cases" / "loitering_impact.v1.json"
+SOURCE_SAMPLING_SPEC = CONFIGS / "sampling" / "loitering_impact.smoke.v1.json"
+PHYSICS_REGISTRY = ROOT / "configs" / "physics" / "loitering_impact.json"
 
-OUTPUT_TARGET = RAW_DATA / "target.rebuilt.fragment_only.v1.json"
-OUTPUT_LABEL_SPEC = RAW_DATA / "label_spec.loitering_impact.fragment_only.v1.json"
-OUTPUT_CASE = RAW_DATA / "case.loitering_impact.fragment_only.v1.json"
+OUTPUT_TARGET = CONFIGS / "targets" / "target.fragment_only.v1.json"
+OUTPUT_LABEL_SPEC = CONFIGS / "labels" / "loitering_impact.fragment_only.v1.json"
+OUTPUT_CASE = CONFIGS / "cases" / "loitering_impact.fragment_only.v1.json"
 OUTPUT_SAMPLING_SPEC = (
-    RAW_DATA / "sampling_spec.5000.loitering_impact.fragment_only.v1.json"
+    CONFIGS / "sampling" / "loitering_impact.fragment_only.v1.json"
 )
 
 TARGET_ID = "raw-armored-target-fragment-only-v1"
@@ -102,7 +102,7 @@ def _derive_target(source: dict) -> tuple[dict, int]:
     metadata = target.setdefault("metadata", {})
     metadata["derived_configuration"] = {
         "derivation_id": "fragment-only-collision-impact-v1",
-        "source_target": "raw_data/target.rebuilt.json",
+        "source_target": "configs/targets/target.rebuilt.json",
         "change_scope": "damage_tree_leaf_mechanism_only",
         "leaf_mechanism": "fragment",
         "blast_response_retained_for_schema_compatibility": True,
@@ -128,7 +128,7 @@ def _derive_label_spec(source: dict, target: dict) -> dict:
     )
     spec["provenance"] = {
         "approval_status": "not_approved",
-        "evidence_ref": "raw_data/target.rebuilt.fragment_only.v1.json",
+        "evidence_ref": "configs/targets/target.fragment_only.v1.json",
     }
     return spec
 

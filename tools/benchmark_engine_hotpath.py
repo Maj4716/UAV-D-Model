@@ -61,11 +61,21 @@ def main() -> int:
     parser = argparse.ArgumentParser(
         description="Deterministic DamageEngine hot-path benchmark with a scientific-output digest."
     )
-    parser.add_argument("--target", type=Path, default=ROOT / "examples/target.demo.json")
     parser.add_argument(
-        "--case", type=Path, default=ROOT / "raw_data/case.5000.software_demo.v2.json"
+        "--target",
+        type=Path,
+        default=ROOT / "configs/targets/target.fragment_only.v1.json",
     )
-    parser.add_argument("--registry", type=Path, default=ROOT / "examples/physics.demo.json")
+    parser.add_argument(
+        "--case",
+        type=Path,
+        default=ROOT / "configs/cases/loitering_impact.fragment_only.v1.json",
+    )
+    parser.add_argument(
+        "--registry",
+        type=Path,
+        default=ROOT / "configs/physics/loitering_impact.json",
+    )
     parser.add_argument("--cases", type=int, default=200)
     parser.add_argument("--rounds", type=int, default=3)
     parser.add_argument("--seed-base", type=int, default=11000)

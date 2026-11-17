@@ -315,7 +315,7 @@ def _component_from_row(
         else None
     )
     defaults = _require_config(config, "component_defaults")
-    source_id = f"raw_data/List.csv:row:{csv_row_number}"
+    source_id = f"data/source/components.csv:row:{csv_row_number}"
     damage_slots = _parse_damage_slots(
         row,
         row_number=csv_row_number,
@@ -328,6 +328,9 @@ def _component_from_row(
         "id": component_id,
         "name": name,
         "component_type": str(defaults.get("component_type", "raw_equivalent_structure")),
+        "geometry_semantics": str(
+            defaults.get("geometry_semantics", "logical_component_envelope")
+        ),
         "functional_tags": [
             f"damage-code:{item['damage_type']}" for item in damage_slots
         ] or ["damage-code:unassigned"],
@@ -452,7 +455,7 @@ def _armor_from_rows(
             context={"object": name, "distance_cm": distance},
         )
     defaults = _require_config(config, "armor_defaults")
-    source_id = f"raw_data/armor.csv:object:{name}"
+    source_id = f"data/source/armor.csv:object:{name}"
     response = {
         "material_id": str(_require_config(defaults, "material_id")),
         "layer_stack_id": defaults.get("layer_stack_id"),
@@ -473,6 +476,9 @@ def _armor_from_rows(
         "id": f"armor-{armor_index:03d}",
         "name": name,
         "role": "armor",
+        "geometry_semantics": str(
+            defaults.get("geometry_semantics", "thin_shell_collision_envelope")
+        ),
         "geometry": {
             "shape": "extruded_polygon",
             # Project noisy exported X values onto the declared base plane.
@@ -604,7 +610,7 @@ def _damage_tree(
                     "damage_state": None,
                     "k": None,
                     "dependency_model_id": dependency_model_id,
-                    "threshold_source_id": "raw_data/List.csv",
+                    "threshold_source_id": "data/source/components.csv",
                     "description": (
                         f"Imported OR aggregation for raw damage code {damage_type}; "
                         f"probability dependence model={dependency_model_id}."

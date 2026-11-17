@@ -3,7 +3,10 @@ from __future__ import annotations
 import math
 from copy import deepcopy
 from dataclasses import dataclass
+from functools import cached_property
 from numbers import Integral
+from types import MappingProxyType
+from typing import Any, Mapping
 
 import numpy as np
 
@@ -12,6 +15,20 @@ from .errors import DamageTreeError
 
 _GATE_TYPES = {"and", "or", "k_of_n", "functional"}
 _SUPPORTED_DEPENDENCY_MODELS = {"independent", "fully_dependent"}
+
+
+def _deep_freeze(value: Any) -> Any:
+    """Recursively freeze a compiled execution-plan value."""
+
+    if isinstance(value, dict):
+        return MappingProxyType(
+            {str(key): _deep_freeze(child) for key, child in value.items()}
+        )
+    if isinstance(value, list):
+        return tuple(_deep_freeze(child) for child in value)
+    if isinstance(value, set):
+        return frozenset(_deep_freeze(child) for child in value)
+    return value
 
 
 def _probabilities(values: list[float]) -> list[float]:
@@ -132,13 +149,28 @@ def _leaf_events_overlap(
     return conflicts
 
 
+def _opposed_structural_events(
+    first: set[tuple[tuple[str, str, str], int]],
+    second: set[tuple[tuple[str, str, str], int]],
+) -> set[tuple[str, str, str]]:
+    """Return ordinal/shared-mechanism events carried with opposite polarity."""
+
+    conflicts: set[tuple[str, str, str]] = set()
+    for left_event, left_sign in first:
+        for right_event, right_sign in second:
+            if left_sign == right_sign:
+                continue
+            conflicts.update(_leaf_events_overlap({left_event}, {right_event}))
+    return conflicts
+
+
 @dataclass(frozen=True)
 class CompiledDamageTree:
     version: str
-    nodes: dict[str, dict]
+    nodes: Mapping[str, Mapping[str, Any]]
     order: tuple[str, ...]
     outputs: tuple[str, ...]
-    standards: dict[str, tuple[str, ...]]
+    standards: Mapping[str, tuple[str, ...]]
 
     @property
     def dependency_models(self) -> dict[str, str]:
@@ -148,10 +180,130 @@ class CompiledDamageTree:
             if node["node_type"] in _GATE_TYPES and len(node["inputs"]) > 1
         }
 
+    @cached_property
+    def _event_structure_cache(self) -> tuple[
+        dict[str, set[tuple[str, str, str]]],
+        dict[str, set[tuple[tuple[str, str, str], int]]],
+    ]:
+        leaf_events: dict[str, set[tuple[str, str, str]]] = {}
+        signed_events: dict[str, set[tuple[tuple[str, str, str], int]]] = {}
+        for node_id in self.order:
+            node = self.nodes[node_id]
+            if node["node_type"] == "leaf":
+                leaf_events[node_id] = {
+                    (node["component_id"], node["mechanism"], node["damage_state"])
+                }
+                signed_events[node_id] = {
+                    (event, 1) for event in leaf_events[node_id]
+                }
+                continue
+            leaf_events[node_id] = set().union(
+                *(leaf_events[item] for item in node["inputs"])
+            )
+            inherited = set().union(
+                *(signed_events[item] for item in node["inputs"])
+            )
+            signed_events[node_id] = (
+                {(event, -sign) for event, sign in inherited}
+                if node["node_type"] == "not"
+                else inherited
+            )
+        return leaf_events, signed_events
+
+    def _event_structure(self) -> tuple[
+        dict[str, set[tuple[str, str, str]]],
+        dict[str, set[tuple[tuple[str, str, str], int]]],
+    ]:
+        return self._event_structure_cache
+
+    def _compute_dependency_override_compatibility(
+        self, dependency: str
+    ) -> dict:
+        leaf_events, signed_events = self._event_structure()
+        conflicts: list[dict] = []
+        for node_id in self.order:
+            node = self.nodes[node_id]
+            if node["node_type"] not in _GATE_TYPES or len(node["inputs"]) < 2:
+                continue
+            for left_index, left_id in enumerate(node["inputs"]):
+                for right_id in node["inputs"][left_index + 1 :]:
+                    if dependency == "independent":
+                        events = _leaf_events_overlap(
+                            leaf_events[left_id], leaf_events[right_id]
+                        )
+                        reason_code = (
+                            "independent_inputs_share_nested_or_common_event"
+                        )
+                    else:
+                        events = _opposed_structural_events(
+                            signed_events[left_id], signed_events[right_id]
+                        )
+                        reason_code = (
+                            "positive_dependence_conflicts_with_event_polarity"
+                        )
+                    if events:
+                        conflicts.append(
+                            {
+                                "node_id": node_id,
+                                "left_input": left_id,
+                                "right_input": right_id,
+                                "reason_code": reason_code,
+                                "conflicting_events": _event_descriptions(events),
+                            }
+                        )
+        return {
+            "compatible": not conflicts,
+            "dependency_model_id": dependency,
+            "conflicts": conflicts,
+        }
+
+    @cached_property
+    def _dependency_override_compatibility_cache(self) -> dict[str, dict]:
+        return {
+            dependency: self._compute_dependency_override_compatibility(
+                dependency
+            )
+            for dependency in sorted(_SUPPORTED_DEPENDENCY_MODELS)
+        }
+
+    def dependency_override_compatibility(self, dependency: str) -> dict:
+        """Check whether one global gate model respects known event structure."""
+
+        if dependency not in _SUPPORTED_DEPENDENCY_MODELS:
+            raise DamageTreeError(
+                "unsupported global gate-dependency sensitivity override",
+                context={"gate_dependency_override": dependency},
+            )
+        return deepcopy(
+            self._dependency_override_compatibility_cache[dependency]
+        )
+
     def evaluate(
         self,
         mechanism_states: dict[str, dict[str, dict[str, float]]],
+        *,
+        gate_dependency_override: str | None = None,
     ) -> dict:
+        if (
+            gate_dependency_override is not None
+            and gate_dependency_override not in _SUPPORTED_DEPENDENCY_MODELS
+        ):
+            raise DamageTreeError(
+                "unsupported global gate-dependency sensitivity override",
+                context={"gate_dependency_override": gate_dependency_override},
+            )
+        if gate_dependency_override is not None:
+            compatibility = self._dependency_override_compatibility_cache[
+                gate_dependency_override
+            ]
+            if not compatibility["compatible"]:
+                raise DamageTreeError(
+                    "global gate-dependency override is structurally infeasible",
+                    context={
+                        "reason_code": "dependency_override_structurally_infeasible",
+                        **compatibility,
+                    },
+                )
         values: dict[str, float] = {}
         for node_id in self.order:
             node = self.nodes[node_id]
@@ -188,7 +340,12 @@ class CompiledDamageTree:
                 continue
 
             inputs = [values[item] for item in node["inputs"]]
-            dependency = node.get("dependency_model_id")
+            declared_dependency = node.get("dependency_model_id")
+            dependency = (
+                gate_dependency_override
+                if gate_dependency_override is not None and len(inputs) > 1
+                else declared_dependency
+            )
             if node_type == "not":
                 value = 1.0 - inputs[0]
             elif node_type == "standard_projection":
@@ -214,11 +371,63 @@ class CompiledDamageTree:
                 )
             values[node_id] = _probabilities([value])[0]
         return {
+            "status": "available",
             "node_probabilities": values,
             "outputs": {node_id: values[node_id] for node_id in self.outputs},
-            "dependency_assumption": "explicit_per_gate",
-            "dependency_models": self.dependency_models,
+            "dependency_assumption": (
+                "explicit_per_gate"
+                if gate_dependency_override is None
+                else "global_sensitivity_override"
+            ),
+            "dependency_models": (
+                self.dependency_models
+                if gate_dependency_override is None
+                else {
+                    node_id: gate_dependency_override
+                    for node_id in self.dependency_models
+                }
+            ),
         }
+
+    def evaluate_dependency_scenarios(
+        self,
+        mechanism_states: dict[str, dict[str, dict[str, float]]],
+    ) -> dict[str, dict]:
+        """Evaluate declared gates and the two supported dependence extremes.
+
+        The global alternatives are sensitivity scenarios.  They expose how
+        downstream outputs change when every multi-input gate is propagated as
+        either independent or comonotonic, without pretending that either
+        scenario has been identified from the available data.
+        """
+
+        scenarios = {"declared": self.evaluate(mechanism_states)}
+        for dependency in ("independent", "fully_dependent"):
+            compatibility = self._dependency_override_compatibility_cache[
+                dependency
+            ]
+            if compatibility["compatible"]:
+                scenarios[dependency] = self.evaluate(
+                    mechanism_states,
+                    gate_dependency_override=dependency,
+                )
+            else:
+                scenarios[dependency] = {
+                    "status": "unavailable",
+                    "reason_code": "dependency_override_structurally_infeasible",
+                    "reason": (
+                        "the global dependency model conflicts with known leaf-event "
+                        "nesting, shared causes, or polarity"
+                    ),
+                    "node_probabilities": None,
+                    "outputs": {node_id: None for node_id in self.outputs},
+                    "dependency_assumption": "global_sensitivity_override",
+                    "dependency_models": {
+                        node_id: dependency for node_id in self.dependency_models
+                    },
+                    "structural_conflicts": compatibility["conflicts"],
+                }
+        return scenarios
 
 
 def compile_damage_tree(target: dict) -> CompiledDamageTree:
@@ -536,10 +745,9 @@ def compile_damage_tree(target: dict) -> CompiledDamageTree:
         if node["node_type"] in _GATE_TYPES and node["dependency_model_id"] == "fully_dependent":
             for left_index, left_id in enumerate(node["inputs"]):
                 for right_id in node["inputs"][left_index + 1:]:
-                    opposite = {
-                        event for event, sign in signed_events[left_id]
-                        if (event, -sign) in signed_events[right_id]
-                    }
+                    opposite = _opposed_structural_events(
+                        signed_events[left_id], signed_events[right_id]
+                    )
                     if opposite:
                         raise DamageTreeError(
                             "fully_dependent gate has structurally opposed event polarity",
@@ -569,8 +777,8 @@ def compile_damage_tree(target: dict) -> CompiledDamageTree:
 
     return CompiledDamageTree(
         version=version,
-        nodes=nodes,
+        nodes=_deep_freeze(nodes),
         order=tuple(order),
         outputs=outputs,
-        standards=standards,
+        standards=_deep_freeze(standards),
     )

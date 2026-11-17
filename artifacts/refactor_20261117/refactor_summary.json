@@ -1,0 +1,92 @@
+{
+  "schema_version": "project-refactor-summary@1.0.0",
+  "date": "2026-11-17",
+  "scope": "Retire the high-fidelity workstream, remove obsolete state, consolidate documentation, and refocus the repository on software-only synthetic data generation and validation.",
+  "git_commit_created": false,
+  "baseline_head": "77d779f6a4f3bf1d030795ff9749d008fa92e4d4",
+  "deleted": {
+    "high_fidelity_inventory": {
+      "files": 2058,
+      "bytes": 8438541335,
+      "manifest": "high_fidelity_deletion_manifest.json"
+    },
+    "remaining_review_evidence": {
+      "files": 879,
+      "bytes": 1107027023
+    },
+    "obsolete_raw_data": {
+      "files": 73,
+      "bytes": 69009764
+    },
+    "superseded_numbered_documents": {
+      "files": 49,
+      "bytes": 2265778
+    },
+    "redundant_compact_artifacts": {
+      "files": 13,
+      "bytes": 613029
+    },
+    "unreferenced_document_figure": {
+      "files": 1,
+      "bytes": 89087
+    },
+    "known_exact_total": {
+      "bytes": 9617546016,
+      "gib": 8.96,
+      "note": "Additional temporary caches and bytecode were removed but were not included in the exact byte ledger."
+    }
+  },
+  "retained_current_workspace": {
+    "files_excluding_git_and_inaccessible_ignored_cache": 276,
+    "bytes_excluding_git_and_inaccessible_ignored_cache": 73362650,
+    "development_dataset_large_payload_gitignored": true
+  },
+  "documentation": [
+    "docs/INDEX.md",
+    "docs/ARCHITECTURE.md",
+    "docs/DATA_PIPELINE.md",
+    "docs/SAMPLING_AND_ML.md",
+    "docs/RESEARCH_FINDINGS.md",
+    "docs/VALIDATION.md",
+    "docs/DECISIONS.md",
+    "docs/GLOSSARY.md"
+  ],
+  "validation": {
+    "pytest": {
+      "tests": 1044,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "time_seconds": 256.05,
+      "junit": "pytest_after.xml",
+      "sha256": "f23cedc2a38ee6f56d45e7a6a76d00fe7783de06703e0b0c454072f9e80a8457"
+    },
+    "dataset": {
+      "status": "passed",
+      "unique_candidates": 10589,
+      "complete_domain": 7337,
+      "domain_censored": 3252,
+      "selection_observations": 16000,
+      "sealed_test_split": null
+    },
+    "sampling_plan_candidates": 5000,
+    "schema_mirrors": "passed",
+    "compileall": "passed",
+    "pip_check": "passed",
+    "pytorch_loader": "passed",
+    "git_diff_check": "passed",
+    "live_legacy_reference_count": 0,
+    "validation_manifest_hash_errors": 0
+  },
+  "release_audit": {
+    "before_findings": 1610,
+    "after_findings": 374,
+    "after_identity_findings": 0,
+    "after_note": "The conservative audit still flags test constants, set-use heuristics, two commented examples, the frozen preregistration filename, and the local ignored dataset payload; these are recorded for later behavior-preserving review."
+  },
+  "residual": {
+    "path": ".pytest_cache",
+    "status": "ignored_directory_entry_with_access_denied_acl",
+    "impact": "not tracked, not used by final tests because cacheprovider was disabled"
+  }
+}

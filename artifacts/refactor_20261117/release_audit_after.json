@@ -1,0 +1,2262 @@
+{
+  "path": ".",
+  "blind": "none",
+  "findings": [
+    {
+      "category": "config",
+      "risk": "behavior-risk",
+      "location": "tests/test_adaptive_inclusion.py:53",
+      "message": "hardcoded hyperparameter (move to config/CLI; preserve the value)"
+    },
+    {
+      "category": "config",
+      "risk": "behavior-risk",
+      "location": "tests/test_adaptive_inclusion.py:54",
+      "message": "hardcoded hyperparameter (move to config/CLI; preserve the value)"
+    },
+    {
+      "category": "config",
+      "risk": "behavior-risk",
+      "location": "tests/test_adaptive_inclusion.py:78",
+      "message": "hardcoded hyperparameter (move to config/CLI; preserve the value)"
+    },
+    {
+      "category": "config",
+      "risk": "behavior-risk",
+      "location": "tests/test_case_factory_geometry.py:13",
+      "message": "hardcoded hyperparameter (move to config/CLI; preserve the value)"
+    },
+    {
+      "category": "config",
+      "risk": "behavior-risk",
+      "location": "tests/test_case_factory_geometry.py:14",
+      "message": "hardcoded hyperparameter (move to config/CLI; preserve the value)"
+    },
+    {
+      "category": "config",
+      "risk": "behavior-risk",
+      "location": "tests/test_case_factory_geometry.py:15",
+      "message": "hardcoded hyperparameter (move to config/CLI; preserve the value)"
+    },
+    {
+      "category": "config",
+      "risk": "behavior-risk",
+      "location": "tests/test_case_factory_geometry.py:42",
+      "message": "hardcoded hyperparameter (move to config/CLI; preserve the value)"
+    },
+    {
+      "category": "config",
+      "risk": "behavior-risk",
+      "location": "tests/test_case_factory_geometry.py:49",
+      "message": "hardcoded hyperparameter (move to config/CLI; preserve the value)"
+    },
+    {
+      "category": "config",
+      "risk": "behavior-risk",
+      "location": "tests/test_case_factory_geometry.py:66",
+      "message": "hardcoded hyperparameter (move to config/CLI; preserve the value)"
+    },
+    {
+      "category": "config",
+      "risk": "behavior-risk",
+      "location": "tests/test_dataset.py:156",
+      "message": "hardcoded hyperparameter (move to config/CLI; preserve the value)"
+    },
+    {
+      "category": "config",
+      "risk": "behavior-risk",
+      "location": "tests/test_dataset.py:157",
+      "message": "hardcoded hyperparameter (move to config/CLI; preserve the value)"
+    },
+    {
+      "category": "config",
+      "risk": "behavior-risk",
+      "location": "tests/test_fast_sampling_proxy.py:130",
+      "message": "hardcoded hyperparameter (move to config/CLI; preserve the value)"
+    },
+    {
+      "category": "config",
+      "risk": "behavior-risk",
+      "location": "tests/test_fast_sampling_proxy.py:190",
+      "message": "hardcoded hyperparameter (move to config/CLI; preserve the value)"
+    },
+    {
+      "category": "config",
+      "risk": "behavior-risk",
+      "location": "tests/test_lifecycle_contracts.py:18",
+      "message": "hardcoded hyperparameter (move to config/CLI; preserve the value)"
+    },
+    {
+      "category": "config",
+      "risk": "behavior-risk",
+      "location": "tests/test_loader_contract_review.py:301",
+      "message": "hardcoded hyperparameter (move to config/CLI; preserve the value)"
+    },
+    {
+      "category": "config",
+      "risk": "behavior-risk",
+      "location": "tests/test_loader_contract_review.py:357",
+      "message": "hardcoded hyperparameter (move to config/CLI; preserve the value)"
+    },
+    {
+      "category": "config",
+      "risk": "behavior-risk",
+      "location": "tests/test_normalized_sampling.py:121",
+      "message": "hardcoded hyperparameter (move to config/CLI; preserve the value)"
+    },
+    {
+      "category": "config",
+      "risk": "behavior-risk",
+      "location": "tests/test_normalized_sampling.py:122",
+      "message": "hardcoded hyperparameter (move to config/CLI; preserve the value)"
+    },
+    {
+      "category": "dead-code",
+      "risk": "behavior-risk",
+      "location": "artifacts/validation/sampling/PREREGISTRATION_V5.md",
+      "message": "looks like a backup/superseded file -- confirm nothing imports or runs it, then remove (it may shadow the live version and change which code runs)"
+    },
+    {
+      "category": "dead-code",
+      "risk": "behavior-risk",
+      "location": "damage_engine/input_identity.py:67-71",
+      "message": "5 consecutive commented-out code-like lines -- delete dead code (use version control for history), but confirm it isn't a toggled experiment path first"
+    },
+    {
+      "category": "dead-code",
+      "risk": "behavior-risk",
+      "location": "damage_engine/replicate_convergence.py:23-25",
+      "message": "3 consecutive commented-out code-like lines -- delete dead code (use version control for history), but confirm it isn't a toggled experiment path first"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/adaptive_sampling.py:145",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/adaptive_sampling.py:228",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/adaptive_sampling.py:239",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/adaptive_sampling.py:240",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/archive_validation.py:1030",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/archive_validation.py:1032",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/archive_validation.py:1071",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/archive_validation.py:1149",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/archive_validation.py:1151",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/archive_validation.py:1159",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/archive_validation.py:1167",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/archive_validation.py:1531",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/archive_validation.py:1538",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/archive_validation.py:1539",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/archive_validation.py:216",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/archive_validation.py:265",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/archive_validation.py:504",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/archive_validation.py:512",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/archive_validation.py:674",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/archive_validation.py:680",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/archive_validation.py:721",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/archive_validation.py:748",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/archive_validation.py:759",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/archive_validation.py:809",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/archive_validation.py:831",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/archive_validation.py:955",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/archive_validation.py:997",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/blast.py:470",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/case_factory.py:324",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/cli.py:413",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/cli.py:417",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/cli.py:418",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/cli.py:433",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/contact_contract.py:248",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/contact_contract.py:294",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/contact_manifold_sampling.py:180",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/damage_tree.py:141",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/damage_tree.py:158",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/damage_tree.py:200",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/damage_tree.py:203",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/damage_tree.py:469",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/damage_tree.py:504",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/damage_tree.py:653",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/damage_tree.py:658",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/damage_tree.py:698",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/damage_tree.py:703",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/damage_tree.py:714",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/damage_tree.py:722",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/damage_tree.py:739",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/damage_tree.py:740",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/dataset.py:1055",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/dataset.py:1379",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/dataset.py:1551",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/dataset.py:392",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/dataset.py:474",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/dataset.py:782",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/dataset.py:790",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/dataset.py:796",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/dataset.py:797",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/dataset.py:890",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/dataset.py:898",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/dataset_policy.py:103",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/dataset_policy.py:108",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/dataset_policy.py:111",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/dataset_policy.py:118",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/dataset_policy.py:230",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/dataset_policy.py:80",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/engine.py:1097",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/engine.py:1122",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/engine.py:153",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/engine.py:377",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/fragment_audit.py:152",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/fragment_audit.py:45",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/fragment_audit.py:89",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/fragments.py:123",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/fragments.py:1264",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/fragments.py:1271",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/fragments.py:131",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/fragments.py:195",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/fragments.py:348",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/fragments.py:359",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/geometry.py:809",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/impact.py:127",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/input_identity.py:511",
+      "message": "reads environment (run-to-run config drift) -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/kmfc_ordinal_teacher.py:123",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/kmfc_ordinal_teacher.py:334",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/kmfc_ordinal_teacher.py:335",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/kmfc_ordinal_teacher.py:388",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/kmfc_ordinal_teacher.py:425",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/kmfc_ordinal_teacher.py:521",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/label_spec.py:142",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/label_spec.py:144",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/label_spec.py:213",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/label_spec.py:217",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/label_spec.py:253",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/label_spec.py:70",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/multitask_targets.py:156",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/multitask_targets.py:157",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/multitask_targets.py:166",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/multitask_targets.py:212",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/multitask_targets.py:213",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/multitask_targets.py:22",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/multitask_targets.py:24",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/multitask_targets.py:306",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/multitask_targets.py:95",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/normalization.py:282",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/normalization.py:321",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/normalization.py:329",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/normalization.py:333",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/normalization.py:345",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/normalization.py:358",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/normalization.py:382",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/normalization.py:529",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/normalization.py:534",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/normalization.py:544",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/normalization.py:549",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/normalized_sampling.py:66",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/online_statistics.py:113",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/online_statistics.py:134",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/online_statistics.py:93",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/ordinal_projection.py:147",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/ordinal_projection.py:185",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/parquet_schema.py:89",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/quality.py:100",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/quality.py:101",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/quality.py:102",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/quality.py:106",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/quality.py:111",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/quality.py:112",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/quality.py:28",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/quality.py:44",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/registry.py:121",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/registry.py:132",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/registry.py:190",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/registry.py:228",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/registry.py:326",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/registry.py:471",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/registry.py:472",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/registry.py:66",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/registry.py:70",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/registry.py:71",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/replicate_convergence.py:138",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/sampling_audit.py:217",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/sampling_audit.py:228",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/sampling_audit.py:229",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/sampling_audit.py:231",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/sampling_audit.py:240",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/sampling_audit.py:243",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/sampling_audit.py:245",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/sampling_audit.py:246",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/sampling_audit.py:249",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/sampling_audit.py:276",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/sampling_checkpoint.py:1086",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/sampling_checkpoint.py:1279",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/sampling_checkpoint.py:1349",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/sampling_checkpoint.py:1581",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/sampling_checkpoint.py:1582",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/sampling_checkpoint.py:1583",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/sampling_checkpoint.py:1585",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/sampling_checkpoint.py:1623",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/sampling_checkpoint.py:1639",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/sampling_checkpoint.py:1650",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/sampling_checkpoint.py:1738",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/sampling_checkpoint.py:1804",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/sampling_checkpoint.py:1816",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/sampling_checkpoint.py:1828",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/sampling_checkpoint.py:1869",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/sampling_checkpoint.py:2355",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/sampling_checkpoint.py:2356",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/sampling_checkpoint.py:766",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/sampling_checkpoint.py:916",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/sampling_checkpoint.py:918",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/sampling_checkpoint.py:92",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/sampling_checkpoint.py:941",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/sampling_checkpoint.py:947",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/sampling_spec.py:278",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/sampling_spec.py:296",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/sampling_spec.py:303",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/sampling_spec.py:482",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/sampling_spec.py:483",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/sampling_spec.py:484",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/sampling_spec.py:491",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/sampling_spec.py:497",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/sampling_spec.py:542",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/sampling_spec.py:575",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/sampling_spec.py:577",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/sampling_spec.py:647",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/sampling_spec.py:653",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/sampling_spec.py:660",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/sampling_spec.py:661",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/sampling_spec.py:666",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/sampling_spec.py:820",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/sampling_spec.py:87",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/sampling_spec.py:95",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/sampling_spec.py:97",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/sampling_validation.py:58",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/scientific_validation.py:111",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/scientific_validation.py:123",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/scientific_validation.py:133",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/scientific_validation.py:139",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/scientific_validation.py:50",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/scientific_validation.py:53",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/scientific_validation.py:59",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/scientific_validation.py:81",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/scientific_validation.py:95",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/sharded_dataset.py:298",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/sharded_dataset.py:310",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/sharded_dataset.py:472",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/sharded_dataset.py:487",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/sharded_dataset.py:494",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/split_registry.py:167",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/split_registry.py:176",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/split_registry.py:178",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/system_learning.py:131",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/system_learning.py:144",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/system_learning.py:150",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/system_learning.py:334",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/system_learning.py:343",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/system_learning.py:357",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/system_learning.py:543",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/system_learning.py:552",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/system_learning.py:553",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/system_learning.py:560",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/system_learning.py:562",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/system_learning.py:861",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/system_learning.py:863",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/torch_dataset.py:1082",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/torch_dataset.py:1209",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/torch_dataset.py:1402",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/torch_dataset.py:1414",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/torch_dataset.py:1619",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/torch_dataset.py:1689",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/torch_dataset.py:195",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/torch_dataset.py:269",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/torch_dataset.py:271",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/torch_dataset.py:273",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/torch_dataset.py:289",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/torch_dataset.py:299",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/torch_dataset.py:329",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/torch_dataset.py:489",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/torch_dataset.py:528",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/torch_dataset.py:796",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/torch_dataset.py:797",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/torch_dataset.py:800",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/torch_dataset.py:801",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/torch_dataset.py:870",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/torch_dataset.py:877",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/training_view.py:529",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/training_view.py:530",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/training_view.py:534",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/training_view.py:535",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/training_view.py:644",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/training_view.py:813",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/training_view.py:848",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/training_view.py:90",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/validation.py:514",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/validation.py:527",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/validation.py:535",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/validation.py:627",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/validation.py:628",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "damage_engine/validation.py:731",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "tests/test_architecture_dependency_contracts.py:114",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "tests/test_architecture_dependency_contracts.py:115",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "tests/test_architecture_dependency_contracts.py:29",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "tests/test_architecture_dependency_contracts.py:65",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "tests/test_contact_manifold_sampling.py:162",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "tests/test_contact_manifold_sampling.py:238",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "tests/test_content_contract.py:115",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "tests/test_content_contract.py:129",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "tests/test_content_contract.py:133",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "tests/test_damage_tree.py:62",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "tests/test_dataset.py:121",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "tests/test_dataset.py:96",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "tests/test_engine.py:407",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "tests/test_engine.py:423",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "tests/test_fast_sampling_proxy.py:136",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "tests/test_fast_sampling_proxy.py:63",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "tests/test_input_identity_performance.py:24",
+      "message": "stdlib random call -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "tests/test_learning_input_definition.py:67",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "tests/test_loader_contract_review.py:144",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "tests/test_loader_contract_review.py:301",
+      "message": "DataLoader num_workers>0 (loader order) -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "tests/test_loader_contract_review.py:357",
+      "message": "DataLoader num_workers>0 (loader order) -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "tests/test_loader_contract_review.py:369",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "tests/test_multicondition_penetration.py:191",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "tests/test_multiround_sampling.py:259",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "tests/test_munition_impact.py:230",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "tests/test_physics.py:133",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "tests/test_sampling_checkpoint.py:185",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "tests/test_sampling_contract.py:164",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "tests/test_sampling_contract.py:165",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "tests/test_sampling_contract.py:194",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "tests/test_sampling_contract.py:195",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "tools/audit_dataset_training_readiness.py:191",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "tools/audit_dataset_training_readiness.py:212",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "tools/audit_dataset_training_readiness.py:418",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "tools/audit_dataset_training_readiness.py:419",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "tools/audit_dataset_training_readiness.py:420",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "tools/audit_fragment_reachability.py:108",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "tools/audit_fragment_reachability.py:128",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "tools/audit_fragment_reachability.py:151",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "tools/audit_fragment_reachability.py:161",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "tools/audit_fragment_reachability.py:162",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "tools/audit_fragment_reachability.py:193",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "tools/audit_loitering_impact_dataset.py:1152",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "tools/audit_loitering_impact_dataset.py:239",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "tools/benchmark_engine_hotpath.py:102",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "tools/benchmark_online_statistics.py:92",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "tools/build_dataset_health_report.py:141",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "tools/build_dataset_health_report.py:168",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "tools/build_dataset_health_report.py:187",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "tools/build_dataset_health_report.py:553",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "tools/build_dataset_health_report.py:594",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "tools/evaluate_fast_sampling_proxy.py:1027",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "tools/evaluate_fast_sampling_proxy.py:1056",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "tools/evaluate_fast_sampling_proxy.py:323",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "tools/evaluate_fast_sampling_proxy.py:324",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "tools/evaluate_fast_sampling_proxy.py:325",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "tools/evaluate_fast_sampling_proxy.py:639",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "tools/evaluate_fast_sampling_proxy.py:640",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "tools/evaluate_fast_sampling_proxy.py:649",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "tools/evaluate_fast_sampling_proxy.py:717",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "tools/evaluate_fast_sampling_proxy.py:793",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "tools/evaluate_fast_sampling_proxy.py:855",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "tools/evaluate_multicondition_penetration.py:139",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "tools/evaluate_multicondition_penetration.py:296",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "tools/evaluate_multicondition_penetration.py:380",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "tools/evaluate_multicondition_penetration.py:382",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "tools/evaluate_multicondition_penetration.py:385",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "tools/evaluate_multicondition_penetration.py:387",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "tools/evaluate_normalized_sampling_strategy.py:1438",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "tools/evaluate_normalized_sampling_strategy.py:1767",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "tools/evaluate_normalized_sampling_strategy.py:256",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "tools/evaluate_normalized_sampling_strategy.py:391",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "tools/evaluate_normalized_sampling_strategy.py:429",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "tools/evaluate_refined_sampling_selection.py:119",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "tools/evaluate_refined_sampling_selection.py:141",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "tools/fit_sampling_risk_model.py:159",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "tools/refine_fast_sampling_proxy_resolution.py:72",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "tools/run_replicate_convergence_study.py:89",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "tools/sweep_penetration_parameters.py:146",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "tools/sweep_penetration_parameters.py:533",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "tools/validate_neural_sampling_dataset.py:140",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "tools/validate_neural_sampling_dataset.py:232",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "tools/validate_neural_sampling_dataset.py:268",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "tools/validate_neural_sampling_dataset.py:277",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "tools/validate_uav_control_dataset.py:255",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "tools/validate_uav_control_dataset.py:256",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "tools/validate_uav_control_dataset.py:280",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "tools/validate_uav_control_dataset.py:283",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "tools/validate_uav_control_dataset.py:284",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "determinism",
+      "risk": "behavior-risk",
+      "location": "tools/validate_uav_control_dataset.py:615",
+      "message": "set() iteration order used as data? -- ensure it is seeded/ordered deterministically; changing this changes results, so confirm with the author"
+    },
+    {
+      "category": "hygiene",
+      "risk": "behavior-risk",
+      "location": "artifacts/development_dataset/cases.jsonl.gz",
+      "message": "62.6MB data/model blob committed in-tree -- release via an archival host (Zenodo/Software Heritage) or a download script, not in the repo; confirm it is not needed at runtime before removing"
+    },
+    {
+      "category": "layout",
+      "risk": "safe",
+      "location": "(repo root)",
+      "message": "no LICENSE -- add one (releasing without a license leaves reuse rights undefined; many artifact tracks expect it)"
+    }
+  ],
+  "summary": {
+    "identity": 0,
+    "behavior_risk": 373,
+    "safe": 1,
+    "total": 374
+  },
+  "seed_present": true,
+  "has_readme": true,
+  "has_license": false,
+  "scanned_files": 188,
+  "source_files": 188,
+  "truncated": false
+}

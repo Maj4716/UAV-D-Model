@@ -1,0 +1,202 @@
+{
+  "schema_version": "1.0.0",
+  "generated_on": "2026-11-17",
+  "scope": "Remove the retired SCNet/LS-DYNA high-fidelity calibration workstream and its local execution residue while preserving the software-only dataset engine.",
+  "inventory_basis": "Read-only filesystem and git-index inventory before deletion.",
+  "summary": {
+    "entry_count": 7,
+    "existing_file_count": 2058,
+    "bytes_before": 8438541335,
+    "approx_gib_before": 7.8580,
+    "git_tracked_path_count": 988,
+    "runtime_dependency_on_damage_engine": false
+  },
+  "delete_entries": [
+    {
+      "id": "hf_calibration_workspace",
+      "path": "scnet_lsdyna_plate_calibration_20261017",
+      "kind": "directory",
+      "action": "delete_tree",
+      "existing_file_count": 1857,
+      "bytes_before": 6307686175,
+      "git_tracked_path_count": 949,
+      "reason": "Dedicated SCNet/LS-DYNA deck generation, submission, return parsing, numerical qualification, calibration design, tests, artifacts, vendor copies and raw results belong to the retired high-fidelity workstream.",
+      "dependency_assessment": "No import or runtime reference from damage_engine or root tests; root pytest collection is limited to tests/.",
+      "reference_fixes": [
+        "Rewrite README.md project scope and remove the high-fidelity status link.",
+        "Replace PROJECT_STATUS_2026-11-11.md with a data-layer status document.",
+        "Remove directory-specific rules from .gitignore.",
+        "Remove links from retired root reports and paper-workspace."
+      ]
+    },
+    {
+      "id": "raw_solver_return",
+      "path": "LS_DYNA_1030_233727",
+      "kind": "directory",
+      "action": "delete_tree",
+      "existing_file_count": 112,
+      "bytes_before": 2130196985,
+      "git_tracked_path_count": 0,
+      "reason": "Ignored raw solver return containing d3plot, d3part, binout, dumps and job output; it has no role in the new data-only project scope.",
+      "dependency_assessment": "No root code or test dependency.",
+      "reference_fixes": [
+        "Remove the /LS_DYNA_*/ ignore rule after deletion."
+      ]
+    },
+    {
+      "id": "hf_review_evidence",
+      "path": "review_evidence/scnet_lsdyna_20261017",
+      "kind": "directory",
+      "action": "delete_tree",
+      "existing_file_count": 4,
+      "bytes_before": 208176,
+      "git_tracked_path_count": 4,
+      "reason": "Machine-readable evidence and local audit records exist solely for the retired SCNet/LS-DYNA calibration path.",
+      "dependency_assessment": "No data-engine runtime dependency.",
+      "reference_fixes": [
+        "Remove any links from consolidated documentation.",
+        "Regenerate the project refactor release audit after cleanup."
+      ]
+    },
+    {
+      "id": "hf_paper_workspace",
+      "path": "paper-workspace",
+      "kind": "directory",
+      "action": "delete_tree",
+      "existing_file_count": 2,
+      "bytes_before": 12485,
+      "git_tracked_path_count": 2,
+      "reason": "Both files are R04/SCNet artifact-review notes and do not describe the current data-layer project.",
+      "dependency_assessment": "Documentation-only; no code dependency.",
+      "reference_fixes": [
+        "No replacement is required; current reproducibility guidance belongs in the consolidated data-layer documentation."
+      ]
+    },
+    {
+      "id": "hf_root_reports",
+      "path": ".",
+      "kind": "file_set",
+      "action": "delete_files",
+      "existing_file_count": 33,
+      "bytes_before": 241294,
+      "git_tracked_path_count": 33,
+      "reason": "Sequential SCNet/LS-DYNA execution reports, failure diagnoses, handoffs and download instructions are obsolete under the new project scope.",
+      "paths": [
+        "38_SCNet_LSDYNA标定执行记录与仿真引擎数据集修改建议_2026-10-17.md",
+        "39_SCNet_LSDYNA破片装甲P0设计_提交与回传校准记录_2026-10-17.md",
+        "40_SCNet_LSDYNA_P0手工提交与回传操作清单_2026-10-19.md",
+        "41_SCNet_LSDYNA_P0_R01失败根因与R02修复_2026-10-20.md",
+        "42_SCNet_LSDYNA_P0_R02失败根因与R03修复_2026-10-21.md",
+        "43_SCNet_LSDYNA_P0_R03失败根因与R04全量校验修复_2026-10-21.md",
+        "44_SCNet_R04回传归档审计与下一步规划_2026-10-21.md",
+        "45_SCNet_R04阶段0至2数值资格审查与高保真接入建议_2026-10-21.md",
+        "46_SCNet_R04阶段3至5逐工况响应与准入结论_2026-10-21.md",
+        "47_SCNet_P0_R05捕获账本修复与候选包交付_2026-10-21.md",
+        "50_SCNet_P0_R05_Job72197064许可失败诊断与原样重提方案_2026-10-23.md",
+        "51_SCNet_P0_R05_Job72252362成功运行结果审计与R06计划_2026-10-23.md",
+        "52_SCNet_P0_R05_阶段A与B执行报告_2026-10-23.md",
+        "53_SCNet_P0_R06诊断算例提交就绪报告_2026-10-23.md",
+        "54_SCNet_P0_R06d失败诊断与R06e修复提交计划_2026-10-25.md",
+        "55_SCNet_P0_R06e_0800_ctrl_Job72397333回传审查与R06f下一步计划_2026-10-27.md",
+        "56_SCNet_P0_R06f测量合同修复与Wave0提交包交付报告_2026-10-27.md",
+        "57_SCNet_P0_R06f_800_ctrl_Job72579731回传审查与下一步策略_2026-10-28.md",
+        "58_SCNet_P0_R06f_800_ctrl_Job72617857正确资源复算审查与下一步策略_2026-10-28.md",
+        "59_SCNet_P0_R06f_TSSFAC04可提交算例交付与验证_2026-10-28.md",
+        "60_SCNet_P0_R06f_TSSFAC04_Job72630855回传审查与R06g_TSSFAC02提交交付_2026-10-28.md",
+        "63_SCNet_P0_R06m_Job72861050回传审查与R06n_32rank确认提交交付_2026-11-01.md",
+        "64_SCNet_P0_R06n_Job72864757回传审查与R06o_板件EROD1提交交付_2026-11-02.md",
+        "65_SCNet_P0_R06o_Job72894870回传审查与R06p_0p50ms时长扩展提交交付_2026-11-02.md",
+        "66_SCNet_P0_R06p_Job72915268回传审查与R06q_D3PLOT测量确认提交交付_2026-11-02.md",
+        "67_SCNet_P0_R06q_Job72936268回传审查与R06r_2000mps上锚点提交交付_2026-11-02.md",
+        "68_SCNet_P0_R06r_Job72963617第一阶段失败审查与R06s_1200mps稳定性诊断交付_2026-11-03.md",
+        "69_SCNet_P0_R06s_Job73059442第一阶段失败审查与R06t_板件负体积PSFAIL作用域诊断交付_2026-11-03.md",
+        "70_SCNet_P0_R06t_Job73087868失败审查与R06u_板件自适应SPH能力验证交付_2026-11-04.md",
+        "71_SCNet_P0_R06u_Job73171751输入身份错误审查与R06u原样重提交付_2026-11-04.md",
+        "72_SCNet_P0_R06u_Job73179287_Stage1部分通过与最小补充下载清单_2026-11-04.md",
+        "HANDOFF_UAV_SCNet_R06g_2026-10-28.md",
+        "UAV_SCNet_LSDYNA_R04成功后处理接手文档_2026-10-21.md"
+      ],
+      "dependency_assessment": "Documentation-only; no code dependency.",
+      "reference_fixes": [
+        "Remove direct links from README.md, PROJECT_STATUS_2026-11-11.md, paper-workspace and historical audit documents.",
+        "Carry forward only data-layer findings into consolidated documentation."
+      ]
+    },
+    {
+      "id": "hf_pytest_caches",
+      "path": ".tmp",
+      "kind": "directory_set",
+      "action": "delete_trees",
+      "existing_file_count": 46,
+      "bytes_before": 168407,
+      "git_tracked_path_count": 0,
+      "reason": "Regenerable pytest caches from retired R06 and SCNet tests.",
+      "paths": [
+        ".tmp/pytest-cache-r06l",
+        ".tmp/pytest-cache-r06l-2",
+        ".tmp/pytest-cache-r06l-collect",
+        ".tmp/pytest-cache-r06n",
+        ".tmp/pytest-cache-r06n-final",
+        ".tmp/pytest-cache-r06o",
+        ".tmp/pytest-cache-r06o-final",
+        ".tmp/pytest-cache-r06o-final2",
+        ".tmp/pytest-cache-r06o-metadata",
+        ".tmp/pytest-github-scnet"
+      ],
+      "dependency_assessment": "Cache-only; no dependency.",
+      "reference_fixes": []
+    },
+    {
+      "id": "stale_archify_candidate",
+      "path": ".archify/dataflow-uav-simulation-dataset-20261117-090249",
+      "kind": "directory",
+      "action": "delete_tree_or_regenerate",
+      "existing_file_count": 4,
+      "bytes_before": 27813,
+      "git_tracked_path_count": 0,
+      "reason": "Untracked delivery-pending visualization candidate contains the retired high-fidelity roadmap and is superseded by the new data-only project structure.",
+      "dependency_assessment": "No runtime dependency.",
+      "reference_fixes": [
+        "Regenerate a visualization only after the new project structure and documentation are stable."
+      ]
+    }
+  ],
+  "rewrite_targets": [
+    {
+      "path": "README.md",
+      "change": "Remove SCNet/LS-DYNA links and define the package as a software-only dataset generator and validation toolkit."
+    },
+    {
+      "path": "PROJECT_STATUS_2026-11-11.md",
+      "change": "Retire this high-fidelity status document and replace it with a current data-layer project status under docs/."
+    },
+    {
+      "path": ".gitignore",
+      "change": "Remove /uav_hf_*/, /LS_DYNA_*/ and all scnet_lsdyna_plate_calibration_20261017-specific rules; keep generic cache and generated-data rules."
+    },
+    {
+      "path": "GLOSSARY.md",
+      "change": "Remove high-fidelity calibration as a planned lifecycle stage; retain the distinction between software validation and external physical evidence."
+    },
+    {
+      "path": "docs/adr/0003-compatibility-lifecycle.md",
+      "change": "Replace waiting-for-calibration lifecycle wording with the current software/data scope or retire the ADR during document consolidation."
+    },
+    {
+      "path": "examples/physics.loitering_impact.json",
+      "change": "Replace the LS-DYNA-specific limitation string with a source-neutral software-only scope statement."
+    },
+    {
+      "path": "review_evidence/project_refactor_20261117/release_audit_before.json",
+      "change": "Treat as a transient pre-cleanup snapshot; replace with the post-cleanup audit."
+    }
+  ],
+  "post_delete_checks": [
+    "All delete-entry paths are absent.",
+    "No retained documentation links to deleted paths.",
+    "Repository-wide search for SCNet, LS-DYNA, d3plot, d3part, binout, glstat and the retired R04-R06 workflow yields no live project references.",
+    "Root pytest collection and execution pass without the retired subproject.",
+    "README and current status describe the data-only software scope.",
+    "Post-cleanup release audit excludes deleted paths and regenerable caches."
+  ]
+}

@@ -125,7 +125,7 @@ def test_definition_learning_identity_matches_legacy_payload_and_hash_bytes(
     case_data,
 ):
     loitering_case = load_json(
-        ROOT / "raw_data" / "case.loitering_impact.v1.json"
+        ROOT / "configs" / "cases" / "loitering_impact.v1.json"
     )
     expected_uav = content_hash(
         {
@@ -178,7 +178,7 @@ def test_definition_learning_identity_matches_legacy_payload_and_hash_bytes(
             LOITERING_IMPACT_MODEL_INPUT_DEFINITION,
             LOITERING_IMPACT_SAMPLING_MODEL_INPUT_CONTRACT,
             lambda _case: load_json(
-                ROOT / "raw_data" / "case.loitering_impact.v1.json"
+                ROOT / "configs" / "cases" / "loitering_impact.v1.json"
             ),
         ),
     ),
@@ -211,7 +211,7 @@ def test_definition_errors_and_generic_legacy_fallback_remain_distinct(
     )
 
     malformed_loitering = load_json(
-        ROOT / "raw_data" / "case.loitering_impact.v1.json"
+        ROOT / "configs" / "cases" / "loitering_impact.v1.json"
     )
     malformed_loitering["munition"]["profile_id"] = "unknown"
     with pytest.raises(

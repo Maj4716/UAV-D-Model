@@ -31,21 +31,21 @@ ROOT = Path(__file__).resolve().parents[1]
 
 
 def _case() -> dict:
-    return load_json(ROOT / "raw_data" / "case.loitering_impact.v1.json")
+    return load_json(ROOT / "configs" / "cases" / "loitering_impact.v1.json")
 
 
 def _engine() -> DamageEngine:
     return DamageEngine(
-        load_json(ROOT / "raw_data" / "target.rebuilt.json"),
+        load_json(ROOT / "configs" / "targets" / "target.rebuilt.json"),
         PhysicsRegistry.from_file(
-            ROOT / "examples" / "physics.loitering_impact.json"
+            ROOT / "configs" / "physics" / "loitering_impact.json"
         ),
     )
 
 
 def _sampling_spec() -> SamplingSpec:
     document = load_json(
-        ROOT / "raw_data" / "sampling_spec.loitering_impact.smoke.v1.json"
+        ROOT / "configs" / "sampling" / "loitering_impact.smoke.v1.json"
     )
     document["schema_version"] = "1.2.0"
     document["model_input_contract"] = (
@@ -150,7 +150,7 @@ def test_contract_18_default_loader_exposes_only_loitering_state(
     engine = _engine()
     spec = _sampling_spec()
     label = LabelSpec.from_file(
-        ROOT / "raw_data" / "label_spec.loitering_impact.v1.json"
+        ROOT / "configs" / "labels" / "loitering_impact.v1.json"
     )
     plan = CaseFactory(
         _case(),
@@ -210,18 +210,19 @@ def test_fragment_only_target_admits_the_declared_system_labels(tmp_path) -> Non
     """The fragment-only task must not retain the old all-false label masks."""
 
     target = load_json(
-        ROOT / "raw_data" / "target.rebuilt.fragment_only.v1.json"
+        ROOT / "configs" / "targets" / "target.fragment_only.v1.json"
     )
     engine = DamageEngine(
         target,
         PhysicsRegistry.from_file(
-            ROOT / "examples" / "physics.loitering_impact.json"
+            ROOT / "configs" / "physics" / "loitering_impact.json"
         ),
     )
     document = load_json(
         ROOT
-        / "raw_data"
-        / "sampling_spec.5000.loitering_impact.fragment_only.v1.json"
+        / "configs"
+        / "sampling"
+        / "loitering_impact.fragment_only.v1.json"
     )
     document["sampling_spec_id"] += "-mask-smoke"
     document["split_policy"]["registry_id"] += "-mask-smoke"
@@ -235,10 +236,10 @@ def test_fragment_only_target_admits_the_declared_system_labels(tmp_path) -> Non
         allocation["count"] = 3
     spec = SamplingSpec(document)
     label = LabelSpec.from_file(
-        ROOT / "raw_data" / "label_spec.loitering_impact.fragment_only.v1.json"
+        ROOT / "configs" / "labels" / "loitering_impact.fragment_only.v1.json"
     )
     plan = CaseFactory(
-        load_json(ROOT / "raw_data" / "case.loitering_impact.fragment_only.v1.json"),
+        load_json(ROOT / "configs" / "cases" / "loitering_impact.fragment_only.v1.json"),
         spec,
         label,
         target_hash=engine.target_hash,

@@ -51,6 +51,29 @@ _T95 = (
 )
 
 
+def student_t_critical_95(degrees_of_freedom: int) -> float:
+    """Two-sided 95% Student-t critical value with a smooth large-df tail.
+
+    Tabulated values retain the established small-sample contract.  Above the
+    table, a third-order Cornish-Fisher expansion approaches the normal limit
+    continuously instead of jumping from t(30) directly to 1.96.
+    """
+
+    df = int(degrees_of_freedom)
+    if df < 1:
+        raise InputValidationError("degrees_of_freedom must be positive")
+    if df <= len(_T95):
+        return float(_T95[df - 1])
+    z = 1.959963984540054
+    inv = 1.0 / df
+    first = (z**3 + z) * inv / 4.0
+    second = (5.0 * z**5 + 16.0 * z**3 + 3.0 * z) * inv**2 / 96.0
+    third = (
+        3.0 * z**7 + 19.0 * z**5 + 17.0 * z**3 - 15.0 * z
+    ) * inv**3 / 384.0
+    return float(z + first + second + third)
+
+
 def canonical_json_bytes(value: Any) -> bytes:
     return json.dumps(
         value,
@@ -278,7 +301,7 @@ def confidence_interval(
         return (mean, math.nan, math.nan, math.nan)
     std = float(np.std(array, ddof=1))
     degrees_of_freedom = array.size - 1
-    critical = _T95[degrees_of_freedom - 1] if degrees_of_freedom <= 30 else 1.96
+    critical = student_t_critical_95(degrees_of_freedom)
     half = critical * std / math.sqrt(array.size)
     lower = mean - half
     upper = mean + half
@@ -294,25 +317,77 @@ def statistics_dict(
     probability: bool = False,
 ) -> dict:
     array = np.asarray(values, dtype=np.float64)
-    mean, std, lower, upper = confidence_interval(
-        array,
-        bounds=(0.0, 1.0) if probability else None,
+    count = int(array.size)
+    return statistics_dict_from_moments(
+        count=count,
+        mean=float(np.mean(array)) if count else None,
+        sample_variance=float(np.var(array, ddof=1)) if count >= 2 else None,
+        probability=probability,
     )
-    estimable = array.size >= 2
+
+
+def statistics_dict_from_moments(
+    *,
+    count: int,
+    mean: float | None,
+    sample_variance: float | None,
+    probability: bool = False,
+) -> dict:
+    """Build the public statistics contract from sufficient moments."""
+
+    if count < 0:
+        raise InputValidationError("statistic count must be non-negative")
+    estimable = count >= 2
+    if count == 0:
+        mean_value = None
+        std = lower = upper = None
+    else:
+        if mean is None or not math.isfinite(float(mean)):
+            raise InputValidationError("statistic mean must be finite when count is positive")
+        mean_value = float(mean)
+        if estimable:
+            if sample_variance is None or not math.isfinite(float(sample_variance)):
+                raise InputValidationError(
+                    "statistic variance must be finite when count is at least two"
+                )
+            variance = max(0.0, float(sample_variance))
+            std = math.sqrt(variance)
+            if probability:
+                # Every replicate probability lies in [0, 1].  A fixed-sample
+                # Hoeffding interval retains a positive detection limit when
+                # all observed values are zero or one; a t interval collapses
+                # to a scientifically misleading zero width in that case.
+                half = math.sqrt(math.log(2.0 / 0.05) / (2.0 * count))
+                lower = mean_value - half
+                upper = mean_value + half
+                lower = max(0.0, lower)
+                upper = min(1.0, upper)
+            else:
+                degrees_of_freedom = count - 1
+                critical = student_t_critical_95(degrees_of_freedom)
+                half = critical * std / math.sqrt(count)
+                lower = mean_value - half
+                upper = mean_value + half
+        else:
+            std = lower = upper = None
     return {
-        "mean": mean if array.size else None,
-        "stddev": std if estimable else None,
-        "ci95_lower": lower if estimable else None,
-        "ci95_upper": upper if estimable else None,
-        "sample_count": int(array.size),
+        "mean": mean_value,
+        "stddev": std,
+        "ci95_lower": lower,
+        "ci95_upper": upper,
+        "sample_count": int(count),
         "uncertainty_estimable": estimable,
         "insufficient_reason": None if estimable else "fewer_than_two_observations",
         "estimand": "conditional_replicate_mean",
         "stddev_estimand": "observed_replicate_sample_dispersion",
         "conditioning": "fixed_case_and_epistemic_realization_with_possible_within_replicate_parameter_variation",
         "random_level": "within_case_replicates",
-        "interval_type": "approximate_pointwise_mean_ci",
-        "interval_method": "student_t_df_le_30_else_normal_1.96",
+        "interval_type": "fixed_sample_pointwise_mean_ci",
+        "interval_method": (
+            "fixed_sample_hoeffding_bounded_mean"
+            if probability
+            else "student_t_tabulated_then_cornish_fisher_95"
+        ),
         "probability_bounds_clipped": bool(probability),
         "coverage_status": "fixed_sample_approximation_not_optional_stopping_validated",
     }

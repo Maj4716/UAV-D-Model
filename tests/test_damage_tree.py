@@ -49,6 +49,84 @@ def test_damage_tree_outputs(target_data):
     assert result["dependency_models"]["mission_degraded"] == "fully_dependent"
 
 
+def test_damage_tree_exposes_gate_dependency_sensitivity_scenarios(target_data):
+    tree = compile_damage_tree(target_data)
+    states = {
+        "fragment": {"flight-control": {"degraded": 0.2, "failed": 0.1}},
+        "blast": {"flight-control": {"degraded": 0.4, "failed": 0.2}},
+        "combined": {"flight-control": {"degraded": 0.52, "failed": 0.28}},
+    }
+
+    scenarios = tree.evaluate_dependency_scenarios(states)
+
+    assert set(scenarios) == {"declared", "independent", "fully_dependent"}
+    assert scenarios["declared"] == tree.evaluate(states)
+    assert scenarios["fully_dependent"]["outputs"]["mission_degraded"] == 0.4
+    assert scenarios["independent"]["status"] == "unavailable"
+    assert scenarios["independent"]["reason_code"] == (
+        "dependency_override_structurally_infeasible"
+    )
+    assert scenarios["independent"]["outputs"] == {
+        "mission_degraded": None,
+        "mission_loss": None,
+    }
+    assert scenarios["independent"]["structural_conflicts"][0]["reason_code"] == (
+        "independent_inputs_share_nested_or_common_event"
+    )
+
+
+def test_direct_infeasible_dependency_override_is_rejected(target_data):
+    tree = compile_damage_tree(target_data)
+    states = {
+        "fragment": {"flight-control": {"degraded": 0.2, "failed": 0.1}},
+        "blast": {"flight-control": {"degraded": 0.4, "failed": 0.2}},
+        "combined": {"flight-control": {"degraded": 0.52, "failed": 0.28}},
+    }
+    with pytest.raises(DamageTreeError, match="structurally infeasible") as error:
+        tree.evaluate(states, gate_dependency_override="independent")
+    assert error.value.context["reason_code"] == (
+        "dependency_override_structurally_infeasible"
+    )
+
+
+def test_fully_dependent_gate_rejects_opposed_ordinal_events(target_data):
+    target = deepcopy(target_data)
+    target["damage_tree"] = {
+        "version": "opposed-ordinal",
+        "nodes": [
+            {
+                "id": "degraded",
+                "node_type": "leaf",
+                "inputs": [],
+                "component_id": "flight-control",
+                "mechanism": "combined",
+                "damage_state": "degraded",
+            },
+            {"id": "not-degraded", "node_type": "not", "inputs": ["degraded"]},
+            {
+                "id": "failed",
+                "node_type": "leaf",
+                "inputs": [],
+                "component_id": "flight-control",
+                "mechanism": "combined",
+                "damage_state": "failed",
+            },
+            {
+                "id": "impossible-positive-coupling",
+                "node_type": "or",
+                "inputs": ["not-degraded", "failed"],
+                "dependency_model_id": "fully_dependent",
+            },
+        ],
+        "outputs": ["impossible-positive-coupling"],
+    }
+    with pytest.raises(DamageTreeError, match="opposed event polarity") as error:
+        compile_damage_tree(target)
+    assert error.value.context["reason"] == (
+        "positive_dependence_cannot_override_known_complement_relation"
+    )
+
+
 def test_fully_dependent_k_of_n_uses_comonotonic_semantics(target_data):
     target = deepcopy(target_data)
     target["damage_tree"] = {

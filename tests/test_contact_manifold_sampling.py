@@ -37,22 +37,23 @@ from damage_engine.utils import content_hash, load_json
 ROOT = Path(__file__).resolve().parents[1]
 SPEC_PATH = (
     ROOT
-    / "raw_data"
-    / "sampling_spec.loitering_impact.contact_pose.smoke.v1.json"
+    / "configs"
+    / "sampling"
+    / "contact_pose.smoke.v1.json"
 )
 
 
 def _engine() -> DamageEngine:
     return DamageEngine(
-        load_json(ROOT / "raw_data" / "target.rebuilt.json"),
+        load_json(ROOT / "configs" / "targets" / "target.rebuilt.json"),
         PhysicsRegistry.from_file(
-            ROOT / "examples" / "physics.loitering_impact.json"
+            ROOT / "configs" / "physics" / "loitering_impact.json"
         ),
     )
 
 
 def _base_case(engine: DamageEngine | None = None) -> dict:
-    case = load_json(ROOT / "raw_data" / "case.loitering_impact.v1.json")
+    case = load_json(ROOT / "configs" / "cases" / "loitering_impact.v1.json")
     if engine is not None:
         case["target_ref"]["content_hash"] = engine.target_hash
     return case
@@ -60,7 +61,7 @@ def _base_case(engine: DamageEngine | None = None) -> dict:
 
 def _label_spec() -> LabelSpec:
     return LabelSpec.from_file(
-        ROOT / "raw_data" / "label_spec.loitering_impact.v1.json"
+        ROOT / "configs" / "labels" / "loitering_impact.v1.json"
     )
 
 

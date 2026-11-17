@@ -238,8 +238,9 @@ def test_residual_energy_model_accepts_nonnegative_joules_with_explicit_semantic
 def test_checked_in_unfitted_candidate_is_compilable_but_not_admitted():
     path = (
         Path(__file__).resolve().parents[1]
-        / "review_evidence/human_factor_remediation_20261022"
-        / "kmfc_project_specific_software_prototype_v0_unfitted.json"
+        / "tests"
+        / "fixtures"
+        / "kmfc_ordinal_teacher_unfitted.json"
     )
     compiled = compile_kmfc_ordinal_teacher(
         json.loads(path.read_text(encoding="utf-8"))

@@ -1,0 +1,143 @@
+{
+  "analysis": {
+    "adaptive_ci_half_width": null,
+    "aleatory_seed": 2026111305,
+    "capture_fragment_audit": false,
+    "capture_replicate_trace": true,
+    "coupling_model": "none",
+    "epistemic_sample_id": "loitering-impact-fragment-only-template-v1",
+    "evaluation_standard_ids": [
+      "raw-damage-codes-fragment-only-provisional"
+    ],
+    "fidelity_level": "L2",
+    "mechanisms": [
+      "fragment"
+    ],
+    "replicates": 4
+  },
+  "case_id": "idea3-contact-reference-template-20261113",
+  "encounter": {
+    "body_to_target_orientation_xyzw": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+    ],
+    "collision_armor_id": "armor-001",
+    "collision_distance_m": 8.3697350025177,
+    "collision_normal_target_xyz": [
+      -1.0,
+      0.0,
+      0.0
+    ],
+    "detonation_delay_s": 0.0,
+    "detonation_position_m": [
+      -1.6302649974822998,
+      0.0,
+      1.2
+    ],
+    "detonation_time_s": 0.0697477916876475,
+    "detonation_trigger": "first_armor_contact",
+    "impact_model_id": "continuous-ray-first-armor-v1",
+    "trajectory_origin_m": [
+      -10.0,
+      0.0,
+      1.2
+    ],
+    "trajectory_reference_point": "nose_fuze",
+    "velocity_target_mps": [
+      120.0,
+      0.0,
+      0.0
+    ]
+  },
+  "environment": {
+    "air_density_kg_m3": 1.225,
+    "ambient_pressure_pa": 101325.0,
+    "temperature_k": 288.15
+  },
+  "metadata": {
+    "experiment": {
+      "experiment_id": "idea3-adaptive-sampling-20261113",
+      "physical_admission": false,
+      "purpose": "diagnostic_mechanism_reference",
+      "round": 0,
+      "training_eligible": false
+    },
+    "impact_semantics": "trajectory_origin_m is the nose-fuze point at t=0; detonation occurs at the first armor intersection with zero delay",
+    "mechanism_scope": "fragment-only execution; blast_source is retained only because the current simulation-case schema requires a complete warhead document",
+    "split_group": "loitering-impact-fragment-only-template-v1",
+    "warning": "Software verification only; target response, damage-code mapping, and munition parameters remain unvalidated"
+  },
+  "munition": {
+    "detonation_point": "front",
+    "display_name_zh": "小型（前端起爆）",
+    "fragment_axial_coverage_ratio": 0.85,
+    "fragment_ring_count": 6,
+    "fragment_spread_sigma_deg": 2.0,
+    "fragments_per_ring": [
+      10,
+      10,
+      10,
+      10,
+      10,
+      10
+    ],
+    "fuze_type": "impact_contact",
+    "profile_id": "small_front",
+    "profile_revision": "loitering-munition-reference-port-v1",
+    "projectile_diameter_m": 0.1,
+    "projectile_length_m": 0.3,
+    "reference_source_id": "LEGACY-PROTOTYPE-PARAMETERS-UNVERIFIED",
+    "reference_source_location": "legacy_code_port_reference_not_retained",
+    "tnt_equivalence": 1.0,
+    "trajectory_reference_point": "nose_fuze",
+    "validation_status": "unverified",
+    "wall_thickness_m": 0.0025,
+    "warhead_diameter_m": 0.09,
+    "warhead_length_m": 0.12
+  },
+  "parameter_set_id": "loitering-impact-unverified-1",
+  "schema_version": "1.0.0",
+  "target_ref": {
+    "content_hash": "sha256:a3b382ff006420c132f60f5bce780d746a6eab2a18518d81296bbd34187c077f",
+    "target_id": "raw-armored-target-fragment-only-v1",
+    "target_revision": "raw-2026-09-28-fragment-only-v1"
+  },
+  "warhead": {
+    "blast_source": {
+      "equivalency_basis": "reference-code-tnt-equivalence-1.0-unverified",
+      "equivalent_mass_kg": 1.0,
+      "model_id": "demo_scaled_distance_field",
+      "pressure_time_model_id": "scaled-table",
+      "source_id": "LEGACY-PROTOTYPE-PARAMETERS-UNVERIFIED"
+    },
+    "casing_mass_kg": 0.6473644361803473,
+    "charge_mass_kg": 1.0,
+    "fragment_source": {
+      "density_kg_m3": 7850.0,
+      "detonation_velocity_mps": 6900.0,
+      "direction_model_id": "taylor_ring",
+      "drag_model_id": "constant_cd",
+      "gurney_constant_mps": 2440.0,
+      "initial_velocity_model_id": "gurney_cylinder",
+      "mass_distribution": {
+        "family": "fixed",
+        "parameters": {
+          "value_kg": 0.005
+        },
+        "source_id": "LEGACY-PROTOTYPE-PARAMETERS-UNVERIFIED",
+        "valid_range_kg": [
+          0.004995,
+          0.005005
+        ]
+      },
+      "model_id": "loitering_small_front_taylor_source",
+      "shape_class": "cube",
+      "total_count": 60
+    },
+    "revision": "loitering-munition-reference-port-v1",
+    "source_id": "LEGACY-PROTOTYPE-PARAMETERS-UNVERIFIED",
+    "warhead_id": "loitering-munition-small_front"
+  }
+}

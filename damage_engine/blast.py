@@ -7,6 +7,7 @@ import numpy as np
 
 from .errors import InputValidationError, OutOfDomainError
 from .geometry import CompiledTarget
+from .panel_damage import PanelDamageState
 from .registry import PhysicsRegistry
 from .utils import EPS, loglog_interpolate, sigmoid
 
@@ -17,6 +18,75 @@ class BlastLoad:
     impulse_pa_s: float
     positive_duration_s: float
     arrival_time_s: float
+
+    @property
+    def positive_phase_shape_exponent(self) -> float:
+        """Power-law decay fixed by peak, duration, and total impulse.
+
+        ``p(t) = p_peak * (1 - t / duration) ** exponent`` has integral
+        ``p_peak * duration / (exponent + 1)``. The exponent therefore uses
+        no additional fitted constant and exactly preserves the three load
+        quantities already supplied by the field model.
+        """
+
+        peak = float(self.peak_pressure_pa)
+        impulse = float(self.impulse_pa_s)
+        duration = float(self.positive_duration_s)
+        if not all(math.isfinite(value) for value in (peak, impulse, duration)):
+            raise InputValidationError("blast load values must be finite")
+        if peak < 0.0 or impulse < 0.0 or duration < 0.0:
+            raise InputValidationError("blast load values must be non-negative")
+        if duration <= EPS or impulse <= EPS:
+            return 0.0
+        maximum_impulse = peak * duration
+        if maximum_impulse <= EPS:
+            raise InputValidationError(
+                "positive blast impulse requires positive peak pressure and duration"
+            )
+        if impulse > maximum_impulse * (1.0 + 1.0e-12):
+            raise InputValidationError(
+                "blast impulse exceeds peak-pressure times positive duration",
+                context={
+                    "peak_pressure_pa": peak,
+                    "impulse_pa_s": impulse,
+                    "positive_duration_s": duration,
+                },
+            )
+        ratio = float(np.clip(impulse / maximum_impulse, EPS, 1.0))
+        return float(max(0.0, 1.0 / ratio - 1.0))
+
+    def impulse_fraction(self, start_s: float, end_s: float) -> float:
+        """Return the exact positive-phase impulse fraction on an interval."""
+
+        start = float(start_s)
+        end = float(end_s)
+        duration = float(self.positive_duration_s)
+        if not math.isfinite(start) or not math.isfinite(end):
+            raise InputValidationError("blast impulse interval must be finite")
+        tolerance = 1.0e-12 * max(1.0, duration)
+        if (
+            start < -tolerance
+            or end < start - tolerance
+            or end > duration + tolerance
+        ):
+            raise InputValidationError(
+                "blast impulse interval must lie within the positive phase"
+            )
+        if duration <= EPS:
+            return 1.0 if start <= 0.0 <= end else 0.0
+        start = float(np.clip(start, 0.0, duration))
+        end = float(np.clip(end, start, duration))
+        if self.impulse_pa_s <= EPS:
+            return float((end - start) / duration)
+        power = self.positive_phase_shape_exponent + 1.0
+        return float(
+            np.clip(
+                (1.0 - start / duration) ** power
+                - (1.0 - end / duration) ** power,
+                0.0,
+                1.0,
+            )
+        )
 
 
 @dataclass
@@ -119,13 +189,15 @@ def _transmit(
     origin: np.ndarray,
     destination: np.ndarray,
     registry: PhysicsRegistry,
-    armor_integrity: dict[str, float],
+    local_armor_survival: dict[str, float],
     parameter_realization: dict[str, dict[str, float | None]],
+    panel_damage_state: PanelDamageState | None = None,
+    *,
+    panel_arrival_time_s: dict[str, float] | None = None,
 ) -> tuple[BlastLoad, float, list[str]]:
-    peak_factor = 1.0
-    impulse_factor = 1.0
     total_effective_thickness = 0.0
     panel_ids: list[str] = []
+    panel_factors: list[dict[str, object]] = []
     segment = np.asarray(destination, dtype=np.float64) - np.asarray(origin, dtype=np.float64)
     segment_length = float(np.linalg.norm(segment))
     if not math.isfinite(segment_length) or segment_length <= EPS:
@@ -142,13 +214,42 @@ def _transmit(
             )
         cosine = max(abs(float(np.dot(direction, hit.entry_normal))), 0.1)
         path_thickness = thickness / cosine
-        integrity = float(np.clip(armor_integrity.get(hit.object_id, 1.0), 0.0, 1.0))
-        if not math.isfinite(float(armor_integrity.get(hit.object_id, 1.0))):
+        survival = float(local_armor_survival.get(hit.object_id, 1.0))
+        if not math.isfinite(survival) or not 0.0 <= survival <= 1.0:
             raise InputValidationError(
-                "armor integrity must be finite",
+                "local armor survival must lie in [0,1]",
                 context={"object_id": hit.object_id},
             )
-        total_effective_thickness += path_thickness * integrity
+        front_survival = survival
+        panel_time: float | None = None
+        formation_phases_s: tuple[float, ...] = ()
+        if panel_damage_state is not None:
+            if panel_arrival_time_s is None or hit.object_id not in panel_arrival_time_s:
+                raise InputValidationError(
+                    "time-aware blast transmission requires arrival time at every intersected panel",
+                    context={"object_id": hit.object_id},
+                )
+            panel_time = float(panel_arrival_time_s[hit.object_id])
+            if not math.isfinite(panel_time) or panel_time < 0.0:
+                raise InputValidationError(
+                    "blast panel arrival time must be finite and non-negative",
+                    context={"object_id": hit.object_id, "arrival_time_s": panel_time},
+                )
+            front_survival = 1.0 - panel_damage_state.local_open_fraction(
+                hit.object_id,
+                hit.entry_point,
+                hit.entry_normal,
+                query_time_s=panel_time,
+            )
+            formation_phases_s = tuple(
+                float(time_s - panel_time)
+                for time_s in panel_damage_state.local_formation_times_s(
+                    hit.object_id,
+                    hit.entry_point,
+                    hit.entry_normal,
+                )
+            )
+        total_effective_thickness += path_thickness * front_survival
         peak_half = float(model["peak_half_thickness_m"])
         impulse_half = float(model["impulse_half_thickness_m"])
         floor = float(model.get("minimum_transmission", 0.0))
@@ -160,17 +261,126 @@ def _transmit(
             floor,
             math.exp(-math.log(2.0) * path_thickness / impulse_half),
         )
-        # ``armor_integrity`` is the intact projected-area fraction.  Average
-        # transmitted load over intact material and open perforations instead
-        # of treating a hole as a uniform reduction in panel thickness.
-        peak_factor *= (1.0 - integrity) + integrity * intact_peak
-        impulse_factor *= (1.0 - integrity) + integrity * intact_impulse
+        panel_factors.append(
+            {
+                "object_id": hit.object_id,
+                "panel_time_s": panel_time,
+                "formation_phases_s": formation_phases_s,
+                "front_peak_factor": (
+                    (1.0 - front_survival)
+                    + front_survival * intact_peak
+                ),
+                "intact_peak_factor": intact_peak,
+                "intact_impulse_factor": intact_impulse,
+                "baseline_survival": survival,
+                "front_survival": front_survival,
+                "entry_point": hit.entry_point,
+                "entry_normal": hit.entry_normal,
+            }
+        )
         panel_ids.append(hit.object_id)
+
+    # Resolve the maximum transmitted pressure and the positive-phase impulse
+    # over the same event-partitioned history.  The pressure maximum may occur
+    # after the incident front when a local aperture opens during the pulse;
+    # integrating the joint panel product is essential when different panels
+    # open at different phases.
+    peak_factor = float(
+        math.prod(
+            float(item["front_peak_factor"])
+            for item in panel_factors
+        )
+    )
+    duration = float(load.positive_duration_s)
+    if not math.isfinite(duration) or duration < 0.0:
+        raise InputValidationError(
+            "blast positive duration must be finite and non-negative"
+        )
+    effective_peak = load.peak_pressure_pa * peak_factor
+    if duration <= EPS or not panel_factors:
+        impulse_factor = float(
+            math.prod(
+                (1.0 - float(item["front_survival"]))
+                + float(item["front_survival"])
+                * float(item["intact_impulse_factor"])
+                for item in panel_factors
+            )
+        )
+    else:
+        breakpoints = {0.0, duration}
+        for item in panel_factors:
+            for formation_phase in item["formation_phases_s"]:
+                if 0.0 < float(formation_phase) < duration:
+                    breakpoints.add(float(formation_phase))
+        ordered = sorted(breakpoints)
+        impulse_factor = 0.0
+        effective_peak = 0.0
+        incident_exponent = load.positive_phase_shape_exponent
+        for left, right in zip(ordered, ordered[1:]):
+            midpoint = 0.5 * (left + right)
+            interval_factor = 1.0
+            interval_peak_factor = 1.0
+            for item in panel_factors:
+                panel_time = item["panel_time_s"]
+                if panel_damage_state is not None and panel_time is not None:
+                    survival_at_phase = 1.0 - panel_damage_state.local_open_fraction(
+                        str(item["object_id"]),
+                        item["entry_point"],
+                        item["entry_normal"],
+                        query_time_s=float(panel_time) + midpoint,
+                    )
+                else:
+                    survival_at_phase = float(item["baseline_survival"])
+                intact_peak_factor = float(item["intact_peak_factor"])
+                intact_factor = float(item["intact_impulse_factor"])
+                interval_peak_factor *= (
+                    (1.0 - survival_at_phase)
+                    + survival_at_phase * intact_peak_factor
+                )
+                interval_factor *= (
+                    (1.0 - survival_at_phase)
+                    + survival_at_phase * intact_factor
+                )
+            incident_pressure_at_left = load.peak_pressure_pa * (
+                max(0.0, 1.0 - left / duration) ** incident_exponent
+            )
+            effective_peak = max(
+                effective_peak,
+                incident_pressure_at_left * interval_peak_factor,
+            )
+            impulse_factor += (
+                load.impulse_fraction(left, right) * interval_factor
+            )
+        impulse_factor = float(impulse_factor)
+    effective_impulse = load.impulse_pa_s * impulse_factor
+    equivalent_duration = load.positive_duration_s
+    if effective_impulse > EPS:
+        incident_exponent = load.positive_phase_shape_exponent
+        if effective_peak <= EPS:
+            # Independently registered peak/impulse attenuation can underflow
+            # the front peak while retaining a finite integrated impulse.  Use
+            # the unique peak that preserves the incident exponent and support
+            # duration; a post-front local opening normally supplies a larger
+            # directly resolved peak through the segmented history above.
+            effective_peak = (
+                effective_impulse
+                * (incident_exponent + 1.0)
+                / max(load.positive_duration_s, EPS)
+            )
+        # Peak and impulse transmission are registered independently.  Their
+        # ratio can therefore describe a broader transmitted pulse than the
+        # incident positive phase.  Preserve the incident power-law exponent
+        # and solve for the equivalent duration instead of returning an
+        # impossible triplet with impulse greater than peak times duration.
+        equivalent_duration = max(
+            load.positive_duration_s,
+            effective_impulse * (incident_exponent + 1.0) / effective_peak,
+        )
     return (
         BlastLoad(
-            peak_pressure_pa=load.peak_pressure_pa * peak_factor,
-            impulse_pa_s=load.impulse_pa_s * impulse_factor,
-            positive_duration_s=load.positive_duration_s,
+            peak_pressure_pa=effective_peak,
+            impulse_pa_s=effective_impulse,
+            positive_duration_s=equivalent_duration,
             arrival_time_s=load.arrival_time_s,
         ),
         total_effective_thickness,
@@ -238,10 +448,11 @@ def simulate_blast(
     case: dict,
     target: CompiledTarget,
     registry: PhysicsRegistry,
-    rng: np.random.Generator,
     *,
     parameter_realization: dict[str, dict[str, float | None]],
     armor_integrity: dict[str, float] | None = None,
+    panel_damage_state: PanelDamageState | None = None,
+    armor_failure_quantiles: dict[str, float] | None = None,
 ) -> BlastSimulation:
     blast_source = case["warhead"]["blast_source"]
     field_model = registry.blast_field(blast_source["model_id"])
@@ -254,7 +465,26 @@ def simulate_blast(
         if armor_integrity is None
         else armor_integrity
     )
+    known_armor_ids = {item.object_id for item in target.armor}
+    if armor_failure_quantiles is not None:
+        supplied_ids = set(armor_failure_quantiles)
+        if supplied_ids != known_armor_ids:
+            raise InputValidationError(
+                "armor failure quantiles must cover every armor object exactly once",
+                context={
+                    "missing": sorted(known_armor_ids - supplied_ids),
+                    "unexpected": sorted(supplied_ids - known_armor_ids),
+                },
+            )
+        for object_id, value in armor_failure_quantiles.items():
+            quantile = float(value)
+            if not math.isfinite(quantile) or not 0.0 <= quantile <= 1.0:
+                raise InputValidationError(
+                    "armor failure quantiles must lie in [0,1]",
+                    context={"object_id": object_id, "quantile": value},
+                )
     post_blast_integrity: dict[str, float] = {}
+    local_armor_survival: dict[str, float] = {}
     armor_metrics: dict[str, dict[str, float]] = {}
     for armor in target.armor:
         center = armor.geometry.center
@@ -338,7 +568,29 @@ def simulate_blast(
                 "armor integrity must lie in [0,1]",
                 context={"object_id": armor.object_id},
             )
-        remaining_integrity = incoming_integrity * (1.0 - failure_probability)
+        if armor_failure_quantiles is None:
+            # Expected-state mode is retained for stand-alone response-curve
+            # diagnostics. Engine Monte Carlo supplies one shared quantile per
+            # panel and replicate so downstream mechanisms see a physical
+            # failed/survived state rather than a fractional thickness.
+            failure_realized = failure_probability
+            failure_sampling_applied = 0.0
+        else:
+            failure_realized = float(
+                float(armor_failure_quantiles[armor.object_id])
+                < failure_probability
+            )
+            failure_sampling_applied = 1.0
+        remaining_integrity = incoming_integrity * (1.0 - failure_realized)
+        # The probability is the response to this pulse, so it becomes a
+        # post-pulse state.  Feeding it back into the same incident peak and
+        # positive phase would let the pulse amplify itself.  Pre-existing
+        # local openings remain time-resolved through ``panel_damage_state``;
+        # without that spatial state, incoming integrity is the best declared
+        # pre-pulse shielding state.
+        local_armor_survival[armor.object_id] = (
+            1.0 if panel_damage_state is not None else incoming_integrity
+        )
         post_blast_integrity[armor.object_id] = float(np.clip(remaining_integrity, 0.0, 1.0))
         armor_metrics[armor.object_id] = {
             "distance_m": distance,
@@ -347,11 +599,21 @@ def simulate_blast(
             "reflected_peak_pressure_pa": reflected.peak_pressure_pa,
             "reflected_impulse_pa_s": reflected.impulse_pa_s,
             "positive_duration_s": reflected.positive_duration_s,
+            "positive_phase_shape_exponent": (
+                reflected.positive_phase_shape_exponent
+            ),
             "arrival_time_s": reflected.arrival_time_s,
             "incidence_cosine": incidence_cosine,
             "blast_failure_probability": failure_probability,
+            "blast_failure_realized": failure_realized,
+            "blast_failure_sampling_applied": failure_sampling_applied,
             "pre_blast_integrity": incoming_integrity,
             "post_blast_integrity": post_blast_integrity[armor.object_id],
+            "pre_pulse_shielding_survival": local_armor_survival[armor.object_id],
+            "blast_failure_effective_time_s": (
+                reflected.arrival_time_s + reflected.positive_duration_s
+            ),
+            "same_pulse_failure_feedback_applied": 0.0,
         }
     probabilities: dict[str, dict[str, float]] = {}
     metrics: dict[str, dict[str, float]] = {}
@@ -390,14 +652,32 @@ def simulate_blast(
             shielding = 0.0
             panel_ids: list[str] = []
         else:
+            panel_arrival_times = None
+            if panel_damage_state is not None:
+                panel_arrival_times = {}
+                for panel_hit in target.armor_on_segment(origin, center):
+                    panel_distance = float(panel_hit.entry_t)
+                    panel_arrival_times[panel_hit.object_id] = (
+                        0.0
+                        if panel_distance <= EPS
+                        else _free_field_load(
+                            panel_distance,
+                            equivalent_mass,
+                            field_model,
+                            ambient,
+                            temperature,
+                        ).arrival_time_s
+                    )
             effective, shielding, panel_ids = _transmit(
                 incident,
                 target,
                 origin,
                 center,
                 registry,
-                post_blast_integrity,
+                local_armor_survival,
                 parameter_realization,
+                panel_damage_state,
+                panel_arrival_time_s=panel_arrival_times,
             )
             amplification = float(field_model.get("compartment_amplification", {}).get(exposure, 1.0))
             effective = BlastLoad(
@@ -439,9 +719,14 @@ def simulate_blast(
             )
         previous = 1.0
         probabilities[component.object_id] = {}
+        ordinal_projection_max_correction = 0.0
         for state in states:
             value = min(previous, raw[state])
             probabilities[component.object_id][state] = value
+            ordinal_projection_max_correction = max(
+                ordinal_projection_max_correction,
+                raw[state] - value,
+            )
             previous = value
         metrics[component.object_id] = {
             "distance_m": distance,
@@ -450,9 +735,15 @@ def simulate_blast(
             "effective_peak_pressure_pa": effective.peak_pressure_pa,
             "effective_impulse_pa_s": effective.impulse_pa_s,
             "positive_duration_s": effective.positive_duration_s,
+            "positive_phase_shape_exponent": (
+                effective.positive_phase_shape_exponent
+            ),
             "arrival_time_s": effective.arrival_time_s,
             "shielding_effective_thickness_m": shielding,
             "shielding_panel_count": float(len(panel_ids)),
+            "ordinal_projection_max_correction": float(
+                ordinal_projection_max_correction
+            ),
         }
     return BlastSimulation(
         component_state_probabilities=probabilities,

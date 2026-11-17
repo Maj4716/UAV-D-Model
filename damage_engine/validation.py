@@ -9,6 +9,7 @@ import numpy as np
 
 from .content_contract import validate_json_schema
 from .damage_tree import compile_damage_tree
+from .damage_response import effective_fragment_damage_thresholds
 from .errors import InputValidationError, UnverifiedModelError
 from .fragments import load_fragment_list, validate_fragment_mass_budget
 from .geometry import CompiledTarget, compile_target
@@ -452,6 +453,10 @@ def validate_inputs(
             case,
             compiled_target if compiled_target is not None else compile_target(target),
         )
+    # The validation receipt contains case-dependent operating limits.  Check
+    # them on every L3 invocation before the static semantic cache can return.
+    if case["analysis"]["fidelity_level"] == "L3":
+        registry.require_case_in_validated_domain(case)
 
     try:
         target_hash = content_hash(target)
@@ -608,7 +613,6 @@ def validate_inputs(
     registry.blast_field(case["warhead"]["blast_source"]["model_id"])
 
     if case["analysis"]["fidelity_level"] == "L3":
-        registry.require_validated()
         unverified = [
             parameter["source_id"]
             for _, parameter in _walk_parameters(target)
@@ -671,6 +675,8 @@ def _validate_target_item(
 
     fragment_model_id = response["fragment_response_model_id"]
     fragment_model = registry.fragment_response(fragment_model_id)
+    if response.get("layer_stack_id") is not None:
+        registry.layer_stack(str(response["layer_stack_id"]))
     blast_model = registry.blast_response(blast_response["model_id"])
     if collection_name == "components":
         states = item["damage_states"]
@@ -692,25 +698,41 @@ def _validate_target_item(
                         "missing_states": missing,
                     },
                 )
+        fragment_damage_values, fragment_damage_fields = (
+            effective_fragment_damage_thresholds(fragment_model, modeled_states)
+        )
         scale_groups = (
             (
-                "fragment residual-energy",
-                [float(fragment_model["damage_states"][state]["residual_energy_50_j"]) for state in modeled_states],
+                "fragment damage-energy",
+                fragment_damage_values,
+                fragment_damage_fields,
             ),
             (
                 "blast peak-pressure",
                 [float(blast_model["damage_states"][state]["peak_50_pa"]) for state in modeled_states],
+                ["peak_50_pa"] * len(modeled_states),
             ),
             (
                 "blast impulse",
                 [float(blast_model["damage_states"][state]["impulse_50_pa_s"]) for state in modeled_states],
+                ["impulse_50_pa_s"] * len(modeled_states),
             ),
         )
-        for name, values in scale_groups:
+        for name, values, fields in scale_groups:
             if any(second < first for first, second in zip(values, values[1:])):
                 raise InputValidationError(
                     f"{name} state scales must be non-decreasing with severity",
-                    context={"component_id": object_id, "values": values, "damage_states": modeled_states},
+                    context={
+                        "component_id": object_id,
+                        "values": values,
+                        "damage_states": modeled_states,
+                        "threshold_field": (
+                            fields[0]
+                            if len(set(fields)) == 1
+                            else "mixed_compatibility_fields"
+                        ),
+                        "threshold_fields": fields,
+                    },
                 )
     else:
         registry.transmission(response["material_id"])

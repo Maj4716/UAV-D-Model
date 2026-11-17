@@ -348,12 +348,19 @@ def test_frozen_input_provenance_preserves_original_location(tmp_path, target_da
 
 def test_single_observation_cannot_report_convergence(monkeypatch, target_data, registry):
     from damage_engine.engine import DamageEngine
+    from damage_engine.online_statistics import OnlineStatisticsStore
     engine = DamageEngine(target_data, registry)
-    monkeypatch.setattr(engine, "_probability_series", lambda _: [np.asarray([.2])])
-    monkeypatch.setattr(engine, "_physical_metric_series", lambda *_: [("toy", np.asarray([.2]), False)])
-    assert engine._maximum_probability_half_width([{}]) is None
-    assert not engine._has_converged([{}], probability_target=1.0, physical_tolerances={})
-    report = engine._physical_convergence_report([{}], {"summary.total_component_hits": {"absolute_half_width": 1.0}})
+    store = OnlineStatisticsStore()
+    store.observe_replicate({"summary": {"total_component_hits": 0.2}})
+    assert not engine._has_converged(
+        sample_count=1,
+        probability_target=1.0,
+        maximum_replicates=32,
+    )
+    report = engine._physical_convergence_report(
+        store,
+        {"summary.total_component_hits": {"absolute_half_width": 1.0}},
+    )
     assert report["target_met"] is False
     assert report["worst_series"]["uncertainty_estimable"] is False
     assert report["worst_series"]["ci95_half_width"] is None

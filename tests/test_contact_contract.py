@@ -26,15 +26,15 @@ ROOT = Path(__file__).resolve().parents[1]
 
 def _engine() -> DamageEngine:
     return DamageEngine(
-        load_json(ROOT / "raw_data" / "target.rebuilt.json"),
+        load_json(ROOT / "configs" / "targets" / "target.rebuilt.json"),
         PhysicsRegistry.from_file(
-            ROOT / "examples" / "physics.loitering_impact.json"
+            ROOT / "configs" / "physics" / "loitering_impact.json"
         ),
     )
 
 
 def _case(engine: DamageEngine) -> dict:
-    raw = load_json(ROOT / "raw_data" / "case.loitering_impact.v1.json")
+    raw = load_json(ROOT / "configs" / "cases" / "loitering_impact.v1.json")
     return resolve_impact_detonation(raw, engine.compiled_target)
 
 

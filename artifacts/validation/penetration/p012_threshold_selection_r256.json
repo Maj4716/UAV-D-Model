@@ -1,0 +1,251 @@
+{
+  "schema_version": "1.0.0",
+  "study_kind": "exploratory_single_point_repeated_sampling",
+  "interpretation_status": "software_tuning_only_not_physical_calibration",
+  "created_at_utc": "2026-11-14T01:51:20.178099+00:00",
+  "engine_code_hash": "sha256:c10fb39d85b08e931cf702c30e793c285759bfd7bda10c2e805100ead4dcfa12",
+  "inputs": {
+    "target_path": "D:\\Desktop\\UAV新\\raw_data\\target.rebuilt.fragment_only.v1.json",
+    "target_file_hash": "sha256:c465477c831698fbe6f47b1d4f45c6fe09372252ab7bf6ccd43bbdc9594301fb",
+    "case_path": "D:\\Desktop\\UAV新\\raw_data\\case.loitering_impact.fragment_only.v1.json",
+    "case_file_hash": "sha256:f523a075b18f84edfc32e01a726288f283b2c3db9adbecbbfc45e795215e902a",
+    "physics_path": "D:\\Desktop\\UAV新\\examples\\physics.loitering_impact.json",
+    "physics_file_hash": "sha256:39a79ef8c04a06348c197ac4b1b626326a6e24a98c8c01fc01b1a41392c0c206",
+    "candidate_plan_path": "D:\\Desktop\\UAV新\\examples\\penetration_sweep.p012_threshold_selection.provisional.json",
+    "candidate_plan_file_hash": "sha256:8e44746262e74eb84a95fb1e218e399614839ab36840732925f3c3230ee17f1a",
+    "replicates_per_candidate": 256
+  },
+  "objective": {
+    "armor_penetration_rate_target": 0.55,
+    "component_penetration_rate_target": 0.45,
+    "damage_positive_given_hit_target": 0.65,
+    "mean_degraded_given_hit_target": 0.35,
+    "mean_failed_given_hit_target": 0.15
+  },
+  "selection_rule": "minimum disclosed software-identifiability score; no claim of agreement with physical test data",
+  "selected_candidate_id": "d350-f1900",
+  "ranking": [
+    "d350-f1900",
+    "d400-f1900",
+    "d450-f1900",
+    "d500-f1900"
+  ],
+  "results": [
+    {
+      "candidate_id": "d350-f1900",
+      "parameters": {
+        "armor_ballistic": {
+          "coefficient": 565.0,
+          "transition_width_ratio": 0.15,
+          "residual_velocity_coefficient": 0.75,
+          "residual_velocity_exponent": 2.0
+        },
+        "armor_hole_area_multiplier": 1.0,
+        "component_ballistic": {
+          "coefficient": 150.0,
+          "transition_width_ratio": 0.18,
+          "residual_velocity_coefficient": 0.7,
+          "residual_velocity_exponent": 2.0
+        },
+        "component_damage_energy_model": {
+          "kind": "absorbed_plus_residual",
+          "absorbed_weight": 0.2,
+          "residual_weight": 0.05,
+          "nonperforation_absorbed_fraction": 0.15
+        },
+        "component_damage_accumulation_model": "cumulative_damage_energy",
+        "component_damage_thresholds_j": {
+          "degraded": 350.0,
+          "failed": 1900.0
+        }
+      },
+      "replicates": 256,
+      "metrics": {
+        "mean_armor_hits": 61.77734374999998,
+        "mean_armor_penetrations": 32.382812500000036,
+        "armor_penetration_rate": 0.5241858994625364,
+        "mean_existing_hole_reuses": 0.0,
+        "existing_hole_reuse_per_armor_hit": 0.0,
+        "mean_component_hits": 41.17968749999998,
+        "mean_component_penetrations": 17.734375,
+        "component_penetration_rate": 0.43065831910453445,
+        "component_count": 67,
+        "hit_component_count": 15,
+        "hit_component_fraction": 0.22388059701492538,
+        "damage_positive_component_count": 9,
+        "damage_positive_given_hit": 0.6,
+        "zero_damage_given_hit_fraction": 0.4,
+        "saturated_damage_fraction": 0.13333333333333333,
+        "mean_degraded_given_hit": 0.3279846087992605,
+        "mean_failed_given_hit": 0.13387664242934397,
+        "ordinal_violation_count": 0,
+        "energy_closure_event_count": 110,
+        "energy_closure_max_abs_j": 0.0
+      },
+      "score": 1.1254929671381182,
+      "elapsed_seconds": 13.551136000000042
+    },
+    {
+      "candidate_id": "d400-f1900",
+      "parameters": {
+        "armor_ballistic": {
+          "coefficient": 565.0,
+          "transition_width_ratio": 0.15,
+          "residual_velocity_coefficient": 0.75,
+          "residual_velocity_exponent": 2.0
+        },
+        "armor_hole_area_multiplier": 1.0,
+        "component_ballistic": {
+          "coefficient": 150.0,
+          "transition_width_ratio": 0.18,
+          "residual_velocity_coefficient": 0.7,
+          "residual_velocity_exponent": 2.0
+        },
+        "component_damage_energy_model": {
+          "kind": "absorbed_plus_residual",
+          "absorbed_weight": 0.2,
+          "residual_weight": 0.05,
+          "nonperforation_absorbed_fraction": 0.15
+        },
+        "component_damage_accumulation_model": "cumulative_damage_energy",
+        "component_damage_thresholds_j": {
+          "degraded": 400.0,
+          "failed": 1900.0
+        }
+      },
+      "replicates": 256,
+      "metrics": {
+        "mean_armor_hits": 61.77734374999998,
+        "mean_armor_penetrations": 32.382812500000036,
+        "armor_penetration_rate": 0.5241858994625364,
+        "mean_existing_hole_reuses": 0.0,
+        "existing_hole_reuse_per_armor_hit": 0.0,
+        "mean_component_hits": 41.17968749999998,
+        "mean_component_penetrations": 17.734375,
+        "component_penetration_rate": 0.43065831910453445,
+        "component_count": 67,
+        "hit_component_count": 15,
+        "hit_component_fraction": 0.22388059701492538,
+        "damage_positive_component_count": 9,
+        "damage_positive_given_hit": 0.6,
+        "zero_damage_given_hit_fraction": 0.4,
+        "saturated_damage_fraction": 0.13333333333333333,
+        "mean_degraded_given_hit": 0.3161088413265831,
+        "mean_failed_given_hit": 0.13387664242934397,
+        "ordinal_violation_count": 0,
+        "energy_closure_event_count": 110,
+        "energy_closure_max_abs_j": 0.0
+      },
+      "score": 1.1309128298850988,
+      "elapsed_seconds": 16.288841299999604
+    },
+    {
+      "candidate_id": "d450-f1900",
+      "parameters": {
+        "armor_ballistic": {
+          "coefficient": 565.0,
+          "transition_width_ratio": 0.15,
+          "residual_velocity_coefficient": 0.75,
+          "residual_velocity_exponent": 2.0
+        },
+        "armor_hole_area_multiplier": 1.0,
+        "component_ballistic": {
+          "coefficient": 150.0,
+          "transition_width_ratio": 0.18,
+          "residual_velocity_coefficient": 0.7,
+          "residual_velocity_exponent": 2.0
+        },
+        "component_damage_energy_model": {
+          "kind": "absorbed_plus_residual",
+          "absorbed_weight": 0.2,
+          "residual_weight": 0.05,
+          "nonperforation_absorbed_fraction": 0.15
+        },
+        "component_damage_accumulation_model": "cumulative_damage_energy",
+        "component_damage_thresholds_j": {
+          "degraded": 450.0,
+          "failed": 1900.0
+        }
+      },
+      "replicates": 256,
+      "metrics": {
+        "mean_armor_hits": 61.77734374999998,
+        "mean_armor_penetrations": 32.382812500000036,
+        "armor_penetration_rate": 0.5241858994625364,
+        "mean_existing_hole_reuses": 0.0,
+        "existing_hole_reuse_per_armor_hit": 0.0,
+        "mean_component_hits": 41.17968749999998,
+        "mean_component_penetrations": 17.734375,
+        "component_penetration_rate": 0.43065831910453445,
+        "component_count": 67,
+        "hit_component_count": 15,
+        "hit_component_fraction": 0.22388059701492538,
+        "damage_positive_component_count": 9,
+        "damage_positive_given_hit": 0.6,
+        "zero_damage_given_hit_fraction": 0.4,
+        "saturated_damage_fraction": 0.13333333333333333,
+        "mean_degraded_given_hit": 0.3051409039183292,
+        "mean_failed_given_hit": 0.13387664242934397,
+        "ordinal_violation_count": 0,
+        "energy_closure_event_count": 110,
+        "energy_closure_max_abs_j": 0.0
+      },
+      "score": 1.1379636695996935,
+      "elapsed_seconds": 16.645585400000073
+    },
+    {
+      "candidate_id": "d500-f1900",
+      "parameters": {
+        "armor_ballistic": {
+          "coefficient": 565.0,
+          "transition_width_ratio": 0.15,
+          "residual_velocity_coefficient": 0.75,
+          "residual_velocity_exponent": 2.0
+        },
+        "armor_hole_area_multiplier": 1.0,
+        "component_ballistic": {
+          "coefficient": 150.0,
+          "transition_width_ratio": 0.18,
+          "residual_velocity_coefficient": 0.7,
+          "residual_velocity_exponent": 2.0
+        },
+        "component_damage_energy_model": {
+          "kind": "absorbed_plus_residual",
+          "absorbed_weight": 0.2,
+          "residual_weight": 0.05,
+          "nonperforation_absorbed_fraction": 0.15
+        },
+        "component_damage_accumulation_model": "cumulative_damage_energy",
+        "component_damage_thresholds_j": {
+          "degraded": 500.0,
+          "failed": 1900.0
+        }
+      },
+      "replicates": 256,
+      "metrics": {
+        "mean_armor_hits": 61.77734374999998,
+        "mean_armor_penetrations": 32.382812500000036,
+        "armor_penetration_rate": 0.5241858994625364,
+        "mean_existing_hole_reuses": 0.0,
+        "existing_hole_reuse_per_armor_hit": 0.0,
+        "mean_component_hits": 41.17968749999998,
+        "mean_component_penetrations": 17.734375,
+        "component_penetration_rate": 0.43065831910453445,
+        "component_count": 67,
+        "hit_component_count": 15,
+        "hit_component_fraction": 0.22388059701492538,
+        "damage_positive_component_count": 9,
+        "damage_positive_given_hit": 0.6,
+        "zero_damage_given_hit_fraction": 0.4,
+        "saturated_damage_fraction": 0.13333333333333333,
+        "mean_degraded_given_hit": 0.2949078333312764,
+        "mean_failed_given_hit": 0.13387664242934397,
+        "ordinal_violation_count": 0,
+        "energy_closure_event_count": 110,
+        "energy_closure_max_abs_j": 0.0
+      },
+      "score": 1.1463131253302228,
+      "elapsed_seconds": 14.21219370000017
+    }
+  ]
+}

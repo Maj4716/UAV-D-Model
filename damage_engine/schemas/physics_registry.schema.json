@@ -18,6 +18,7 @@
     "schema_version": {"const": "1.0.0"},
     "config_id": {"type": "string", "minLength": 1},
     "validation_status": {"enum": ["unverified", "calibrated", "validated"]},
+    "validation_receipt": {"$ref": "#/$defs/validationReceipt"},
     "fragment_source_models": {
       "type": "object",
       "minProperties": 1,
@@ -27,6 +28,10 @@
       "type": "object",
       "minProperties": 1,
       "additionalProperties": {"$ref": "#/$defs/fragmentResponseModel"}
+    },
+    "layer_stack_models": {
+      "type": "object",
+      "additionalProperties": {"$ref": "#/$defs/layerStackModel"}
     },
     "blast_field_models": {
       "type": "object",
@@ -46,6 +51,102 @@
     "provenance": {"type": "object"}
   },
   "$defs": {
+    "validationReceipt": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "receipt_id",
+        "validated_at",
+        "evidence_hash",
+        "validated_model_payload_hash",
+        "domain",
+        "holdout_metrics",
+        "scientific_validation"
+      ],
+      "properties": {
+        "receipt_id": {"type": "string", "minLength": 1},
+        "validated_at": {"type": "string", "minLength": 1},
+        "evidence_hash": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"},
+        "validated_model_payload_hash": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"},
+        "domain": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["mechanisms", "operating_conditions", "extrapolation_policy"],
+          "properties": {
+            "mechanisms": {
+              "type": "array",
+              "minItems": 1,
+              "uniqueItems": true,
+              "items": {"type": "string", "minLength": 1}
+            },
+            "operating_conditions": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["case_constraints"],
+              "properties": {
+                "case_constraints": {
+                  "type": "array",
+                  "minItems": 1,
+                  "items": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": ["path"],
+                    "properties": {
+                      "path": {"type": "string", "pattern": "^/(?!$)"},
+                      "minimum": {"type": "number"},
+                      "maximum": {"type": "number"},
+                      "allowed_values": {
+                        "type": "array",
+                        "minItems": 1,
+                        "items": {"type": ["string", "number", "boolean", "null"]}
+                      }
+                    },
+                    "anyOf": [
+                      {"required": ["minimum"]},
+                      {"required": ["maximum"]},
+                      {"required": ["allowed_values"]}
+                    ]
+                  }
+                }
+              }
+            },
+            "extrapolation_policy": {"const": "refuse"}
+          }
+        },
+        "holdout_metrics": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "metric_id",
+              "mechanism",
+              "unit",
+              "value",
+              "acceptance_range",
+              "sample_count",
+              "passed"
+            ],
+            "properties": {
+              "metric_id": {"type": "string", "minLength": 1},
+              "mechanism": {"type": "string", "minLength": 1},
+              "unit": {"type": "string", "minLength": 1},
+              "value": {"type": "number"},
+              "acceptance_range": {
+                "type": "array",
+                "prefixItems": [{"type": "number"}, {"type": "number"}],
+                "minItems": 2,
+                "maxItems": 2
+              },
+              "sample_count": {"type": "integer", "minimum": 1},
+              "passed": {"type": "boolean"}
+            }
+          }
+        },
+        "scientific_validation": {"type": "object", "minProperties": 1}
+      }
+    },
     "fragmentSourceModel": {
       "type": "object",
       "additionalProperties": false,
@@ -80,6 +181,7 @@
           "required": ["kind"],
           "properties": {
             "kind": {"enum": ["isotropic", "cone", "taylor_ring"]},
+            "axis_mode": {"enum": ["body_vector", "impact_inward"]},
             "axis_body": {
               "type": "array",
               "prefixItems": [{"type": "number"}, {"type": "number"}, {"type": "number"}],
@@ -96,11 +198,36 @@
           "allOf": [
             {
               "if": {"properties": {"kind": {"const": "cone"}}, "required": ["kind"]},
-              "then": {"required": ["axis_body", "half_angle_deg"]}
+              "then": {
+                "required": ["half_angle_deg"],
+                "anyOf": [
+                  {"required": ["axis_body"]},
+                  {
+                    "properties": {"axis_mode": {"const": "impact_inward"}},
+                    "required": ["axis_mode"]
+                  }
+                ]
+              }
             },
             {
               "if": {"properties": {"kind": {"const": "taylor_ring"}}, "required": ["kind"]},
-              "then": {"required": ["axis_body", "spread_sigma_deg"]}
+              "then": {
+                "required": ["spread_sigma_deg"],
+                "anyOf": [
+                  {"required": ["axis_body"]},
+                  {
+                    "properties": {"axis_mode": {"const": "impact_inward"}},
+                    "required": ["axis_mode"]
+                  }
+                ]
+              }
+            },
+            {
+              "if": {
+                "properties": {"axis_mode": {"const": "impact_inward"}},
+                "required": ["axis_mode"]
+              },
+              "then": {"not": {"required": ["axis_body"]}}
             }
           ]
         },
@@ -151,7 +278,9 @@
             "mass_exponent": {"type": "number"},
             "obliquity_exponent": {"type": "number"},
             "transition_width_ratio": {"type": "number", "exclusiveMinimum": 0},
-            "maximum_obliquity_deg": {"type": "number", "exclusiveMinimum": 0, "maximum": 90}
+            "maximum_obliquity_deg": {"type": "number", "exclusiveMinimum": 0, "maximum": 90},
+            "residual_velocity_coefficient": {"type": "number", "exclusiveMinimum": 0, "maximum": 1},
+            "residual_velocity_exponent": {"type": "number", "exclusiveMinimum": 0}
           }
         },
         "damage_states": {
@@ -162,11 +291,78 @@
             "required": ["residual_energy_50_j", "log_slope"],
             "properties": {
               "residual_energy_50_j": {"type": "number", "exclusiveMinimum": 0},
+              "damage_energy_50_j": {"type": "number", "exclusiveMinimum": 0},
               "log_slope": {"type": "number", "exclusiveMinimum": 0}
             }
           }
         },
+        "damage_energy_model": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "kind",
+            "absorbed_weight",
+            "residual_weight",
+            "nonperforation_absorbed_fraction"
+          ],
+          "properties": {
+            "kind": {"const": "absorbed_plus_residual"},
+            "absorbed_weight": {"type": "number", "minimum": 0},
+            "residual_weight": {"type": "number", "minimum": 0},
+            "nonperforation_absorbed_fraction": {"type": "number", "minimum": 0, "maximum": 1}
+          }
+        },
+        "damage_accumulation_model": {
+          "enum": [
+            "independent_hits",
+            "cumulative_damage_energy",
+            "spatial_cumulative_damage_energy"
+          ]
+        },
+        "damage_correlation_length_m": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
         "hole_area_multiplier": {"type": "number", "exclusiveMinimum": 0},
+        "source_id": {"type": "string", "minLength": 1}
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "damage_accumulation_model": {
+                "const": "spatial_cumulative_damage_energy"
+              }
+            },
+            "required": ["damage_accumulation_model"]
+          },
+          "then": {"required": ["damage_correlation_length_m"]}
+        }
+      ]
+    },
+    "layerStackModel": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["layers", "source_id"],
+      "properties": {
+        "layers": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "material_id",
+              "fragment_response_model_id",
+              "thickness_fraction"
+            ],
+            "properties": {
+              "material_id": {"type": "string", "minLength": 1},
+              "fragment_response_model_id": {"type": "string", "minLength": 1},
+              "thickness_fraction": {"type": "number", "exclusiveMinimum": 0, "maximum": 1}
+            }
+          }
+        },
         "source_id": {"type": "string", "minLength": 1}
       }
     },

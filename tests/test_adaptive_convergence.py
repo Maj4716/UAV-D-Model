@@ -7,6 +7,7 @@ import pytest
 
 from damage_engine.engine import DamageEngine
 from damage_engine.errors import InputValidationError
+from damage_engine.online_statistics import OnlineStatisticsStore
 
 
 def _case_for(engine, case_data):
@@ -17,11 +18,14 @@ def _case_for(engine, case_data):
     return case
 
 
-def test_physical_ci_can_drive_adaptive_stopping_without_probability_target(
+def test_physical_ci_is_assessed_only_at_preregistered_fixed_horizon(
     target_data, case_data, registry
 ):
     engine = DamageEngine(target_data, registry)
     case = _case_for(engine, case_data)
+    # Isolate the fixed-horizon blast-metric contract from the independent
+    # fragment-penetration domain-evidence gate.
+    case["analysis"]["mechanisms"] = ["blast"]
     case["analysis"]["adaptive_physical_ci"] = {
         "component.blast.effective_peak_pressure_pa": {
             "absolute_half_width": 1.0e12
@@ -30,9 +34,10 @@ def test_physical_ci_can_drive_adaptive_stopping_without_probability_target(
 
     result = engine.run(case).to_dict()
 
-    assert result["replicate_count"] == 32
+    assert result["replicate_count"] == 64
     convergence = result["convergence"]
-    assert convergence["mode"] == "adaptive"
+    assert convergence["mode"] == "fixed_horizon_physical_assessment"
+    assert convergence["early_stopping_enabled"] is False
     assert convergence["physical_metrics_in_scope"] is True
     assert convergence["probability_target_met"] is None
     assert convergence["physical_target_met"] is True
@@ -42,22 +47,24 @@ def test_physical_ci_can_drive_adaptive_stopping_without_probability_target(
     ]
     assert metric["unit"] == "Pa"
     assert metric["series_count"] == 1
+    assert metric["coverage_status"] == (
+        "fixed_horizon_pointwise_approximation_not_simultaneous"
+    )
     json.dumps(result, allow_nan=False)
 
 
 def test_physical_ci_report_identifies_unmet_series(target_data, case_data, registry):
     engine = DamageEngine(target_data, registry)
     component_id = engine.compiled_target.components[0].object_id
-    replicates = [
-        {
+    statistics_store = OnlineStatisticsStore()
+    for index in range(32):
+        statistics_store.observe_replicate({
             "fragment_metrics": {
                 component_id: {"deposited_energy_j": float(index % 2) * 10.0}
             }
-        }
-        for index in range(32)
-    ]
+        })
     report = engine._physical_convergence_report(
-        replicates,
+        statistics_store,
         {
             "component.fragment.deposited_energy_j": {
                 "absolute_half_width": 1.0e-9,

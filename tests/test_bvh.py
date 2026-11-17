@@ -15,9 +15,9 @@ ROOT = Path(__file__).resolve().parents[1]
 
 def _raw_compiled_target():
     target, _ = import_raw_target(
-        ROOT / "raw_data" / "List.csv",
-        ROOT / "raw_data" / "armor.csv",
-        load_json(ROOT / "raw_data" / "import_config.json"),
+        ROOT / "data" / "source" / "components.csv",
+        ROOT / "data" / "source" / "armor.csv",
+        load_json(ROOT / "configs" / "import" / "target_import.json"),
     )
     registry = PhysicsRegistry.from_file(ROOT / "examples" / "physics.demo.json")
     return DamageEngine(target, registry).compiled_target

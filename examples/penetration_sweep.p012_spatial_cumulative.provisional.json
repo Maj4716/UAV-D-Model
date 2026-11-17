@@ -1,0 +1,51 @@
+{
+  "schema_version": "1.0.0",
+  "interpretation_status": "software_tuning_only_not_physical_calibration",
+  "objective": {
+    "armor_penetration_rate_target": 0.55,
+    "component_penetration_rate_target": 0.45,
+    "damage_positive_given_hit_target": 0.65,
+    "mean_degraded_given_hit_target": 0.35,
+    "mean_failed_given_hit_target": 0.15
+  },
+  "candidate_defaults": {
+    "armor_ballistic": {
+      "coefficient": 850.0,
+      "transition_width_ratio": 0.15,
+      "residual_velocity_coefficient": 0.75,
+      "residual_velocity_exponent": 2.0
+    },
+    "armor_hole_area_multiplier": 0.25,
+    "component_ballistic": {
+      "coefficient": 220.0,
+      "transition_width_ratio": 0.18,
+      "residual_velocity_coefficient": 0.70,
+      "residual_velocity_exponent": 2.0
+    },
+    "component_damage_energy_model": {
+      "kind": "absorbed_plus_residual",
+      "absorbed_weight": 0.20,
+      "residual_weight": 0.05,
+      "nonperforation_absorbed_fraction": 0.15
+    },
+    "component_damage_accumulation_model": "cumulative_damage_energy",
+    "component_damage_thresholds_j": {
+      "degraded": 2000.0,
+      "failed": 8000.0
+    }
+  },
+  "candidates": [
+    {"id": "a700-h025-c220-d2000-f8000", "parameters": {"armor_ballistic": {"coefficient": 700.0}}},
+    {"id": "a850-h025-c220-d2000-f8000", "parameters": {}},
+    {"id": "a1000-h025-c220-d2000-f8000", "parameters": {"armor_ballistic": {"coefficient": 1000.0}}},
+    {"id": "a1200-h025-c220-d2000-f8000", "parameters": {"armor_ballistic": {"coefficient": 1200.0}}},
+    {"id": "a850-h050-c220-d2000-f8000", "parameters": {"armor_hole_area_multiplier": 0.50}},
+    {"id": "a1000-h050-c220-d2000-f8000", "parameters": {"armor_ballistic": {"coefficient": 1000.0}, "armor_hole_area_multiplier": 0.50}},
+    {"id": "a1000-h010-c220-d2000-f8000", "parameters": {"armor_ballistic": {"coefficient": 1000.0}, "armor_hole_area_multiplier": 0.10}},
+    {"id": "a1000-h025-c180-d2000-f8000", "parameters": {"armor_ballistic": {"coefficient": 1000.0}, "component_ballistic": {"coefficient": 180.0}}},
+    {"id": "a1000-h025-c260-d2000-f8000", "parameters": {"armor_ballistic": {"coefficient": 1000.0}, "component_ballistic": {"coefficient": 260.0}}},
+    {"id": "a1000-h025-c220-d1000-f5000", "parameters": {"armor_ballistic": {"coefficient": 1000.0}, "component_damage_thresholds_j": {"degraded": 1000.0, "failed": 5000.0}}},
+    {"id": "a1000-h025-c220-d3000-f12000", "parameters": {"armor_ballistic": {"coefficient": 1000.0}, "component_damage_thresholds_j": {"degraded": 3000.0, "failed": 12000.0}}},
+    {"id": "a1000-h025-c220-d5000-f20000", "parameters": {"armor_ballistic": {"coefficient": 1000.0}, "component_damage_thresholds_j": {"degraded": 5000.0, "failed": 20000.0}}}
+  ]
+}

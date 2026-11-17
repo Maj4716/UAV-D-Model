@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from pathlib import Path
+
 import pytest
 
 from damage_engine.schema_resources import (
@@ -8,6 +10,7 @@ from damage_engine.schema_resources import (
     schema_names,
     schema_tree_hash,
 )
+from tools.sync_schema_mirrors import synchronize_schema_mirrors
 
 
 EXPECTED_SCHEMAS = (
@@ -34,6 +37,11 @@ def test_schema_tree_hash_is_deterministic():
     assert first == second
     assert first.startswith("sha256:")
     assert len(first) == len("sha256:") + 64
+
+
+def test_external_schema_mirrors_match_runtime_canonical_sources():
+    repository_root = Path(__file__).resolve().parents[1]
+    assert synchronize_schema_mirrors(repository_root, write=False) == []
 
 
 @pytest.mark.parametrize(

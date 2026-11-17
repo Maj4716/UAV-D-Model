@@ -39,6 +39,7 @@ from .ordinal_projection import (
     ordinal_ranked_probability_score,
     project_ordinal_replicates,
 )
+from .penetration import FragmentImpact, PenetrationOutcome, resolve_fragment_impact
 from .registry import PhysicsRegistry
 from .sampling_spec import SamplingSpec
 from .system_learning import (
@@ -86,6 +87,9 @@ __all__ = [
     "nested_cumulative_probabilities",
     "ordinal_ranked_probability_score",
     "project_ordinal_replicates",
+    "FragmentImpact",
+    "PenetrationOutcome",
+    "resolve_fragment_impact",
     "SamplingSpec",
     "SYSTEM_LEARNING_REQUIRED_SOURCE_HASH_FIELDS",
     "assert_trainable_tasks",
@@ -109,5 +113,5 @@ __all__ = [
     "transform_case_physics",
 ]
 
-__version__ = "0.7.0.dev3"
+__version__ = "0.11.0.dev0"
 SCHEMA_VERSION = "1.0.0"

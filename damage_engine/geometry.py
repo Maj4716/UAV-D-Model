@@ -7,6 +7,7 @@ from typing import Iterable
 import numpy as np
 
 from .errors import InputValidationError
+from .model_snapshot import FrozenSnapshotDict, detached_snapshot
 from .utils import EPS, normalize, quaternion_matrix_xyzw
 
 
@@ -29,6 +30,32 @@ class RayHit:
 class Geometry:
     bounds_min: np.ndarray
     bounds_max: np.ndarray
+
+    def __setattr__(self, name: str, value) -> None:
+        if getattr(self, "_geometry_snapshot_frozen", False):
+            raise TypeError("compiled geometry snapshots are immutable")
+        object.__setattr__(self, name, value)
+
+    @staticmethod
+    def _freeze_value(value):
+        if isinstance(value, np.ndarray):
+            value.setflags(write=False)
+            return value
+        if isinstance(value, list):
+            return tuple(Geometry._freeze_value(item) for item in value)
+        if isinstance(value, tuple):
+            return tuple(Geometry._freeze_value(item) for item in value)
+        if isinstance(value, dict):
+            return {
+                key: Geometry._freeze_value(item)
+                for key, item in value.items()
+            }
+        return value
+
+    def _freeze_snapshot(self) -> None:
+        for name, value in tuple(self.__dict__.items()):
+            object.__setattr__(self, name, self._freeze_value(value))
+        object.__setattr__(self, "_geometry_snapshot_frozen", True)
 
     def intersect(self, origin: np.ndarray, direction: np.ndarray) -> tuple[float, float, np.ndarray] | None:
         raise NotImplementedError
@@ -100,6 +127,7 @@ class BoxGeometry(Geometry):
         extent = np.abs(self.rotation) @ half
         self.bounds_min = self.center_value - extent
         self.bounds_max = self.center_value + extent
+        self._freeze_snapshot()
 
     @property
     def center(self) -> np.ndarray:
@@ -135,10 +163,11 @@ class BoxGeometry(Geometry):
             t_max = min(t_max, second)
             if t_min > t_max:
                 return None
-        if t_max < 0:
+        surface_tolerance = 1.0e-10
+        if t_max <= surface_tolerance:
             return None
         entry = max(0.0, t_min)
-        if t_min < 0:
+        if t_min < -surface_tolerance:
             entry_normal = -local_direction / (np.linalg.norm(local_direction) + EPS)
         world_normal = normalize(self.rotation @ entry_normal, name="box normal")
         return float(entry), float(t_max), world_normal
@@ -170,6 +199,7 @@ class CylinderGeometry(Geometry):
         extent = np.abs(axis) * half + self.radius * np.sqrt(np.maximum(0.0, 1.0 - axis * axis))
         self.bounds_min = self.center_value - extent
         self.bounds_max = self.center_value + extent
+        self._freeze_snapshot()
 
     @property
     def center(self) -> np.ndarray:
@@ -213,9 +243,35 @@ class CylinderGeometry(Geometry):
         if not candidates:
             return None
         if self.contains(origin):
-            entry = 0.0
-            exit_value = candidates[0][0]
-            normal = -d / (np.linalg.norm(d) + EPS)
+            surface_tolerance = 1.0e-10
+            surface_hits = [
+                (value, normal)
+                for value, normal in candidates
+                if value <= surface_tolerance
+            ]
+            if surface_hits:
+                entering = [
+                    (value, normal)
+                    for value, normal in surface_hits
+                    if float(np.dot(d, normal)) < -surface_tolerance
+                ]
+                positive_hits = [
+                    (value, normal)
+                    for value, normal in candidates
+                    if value > surface_tolerance
+                ]
+                if not entering or not positive_hits:
+                    return None
+                entry = 0.0
+                exit_value = positive_hits[-1][0]
+                _, normal = min(
+                    entering,
+                    key=lambda item: float(np.dot(d, item[1])),
+                )
+            else:
+                entry = 0.0
+                exit_value = candidates[0][0]
+                normal = -d / (np.linalg.norm(d) + EPS)
         elif len(candidates) >= 2:
             entry, normal = candidates[0]
             exit_value = candidates[-1][0]
@@ -354,7 +410,8 @@ class ExtrudedPolygonGeometry(Geometry):
         self._v = normalize(np.cross(self.direction, self._u), name="polygon basis")
         local = self.vertices - self._origin
         self._vertices2d = np.column_stack((local @ self._u, local @ self._v))
-        if abs(_polygon_signed_area(self._vertices2d)) <= 1.0e-14:
+        signed_area = _polygon_signed_area(self._vertices2d)
+        if abs(signed_area) <= 1.0e-14:
             raise InputValidationError("extruded polygon has zero area")
         triangles = _triangulate_polygon(self._vertices2d)
         top = self.vertices + self.direction * self.distance
@@ -364,8 +421,16 @@ class ExtrudedPolygonGeometry(Geometry):
             faces.append((top[i], top[j], top[k]))
         for i in range(len(self.vertices)):
             j = (i + 1) % len(self.vertices)
-            faces.append((self.vertices[i], self.vertices[j], top[j]))
-            faces.append((self.vertices[i], top[j], top[i]))
+            if signed_area > 0.0:
+                faces.append((self.vertices[i], self.vertices[j], top[j]))
+                faces.append((self.vertices[i], top[j], top[i]))
+            else:
+                # Side-face winding follows the declared base polygon.  Flip
+                # clockwise bases so every stored normal points out of the
+                # closed prism; penetration physics then receives a signed
+                # incoming-surface normal instead of relying on abs(dot).
+                faces.append((self.vertices[i], top[j], self.vertices[j]))
+                faces.append((self.vertices[i], top[i], top[j]))
         self._faces = [
             (
                 a,
@@ -378,6 +443,7 @@ class ExtrudedPolygonGeometry(Geometry):
         all_vertices = np.vstack((self.vertices, top))
         self.bounds_min = np.min(all_vertices, axis=0)
         self.bounds_max = np.max(all_vertices, axis=0)
+        self._freeze_snapshot()
 
     def _point_in_polygon(self, point2d: np.ndarray) -> bool:
         x, y = point2d
@@ -423,6 +489,38 @@ class ExtrudedPolygonGeometry(Geometry):
         if not candidates:
             return None
         if self.contains(origin):
+            surface_tolerance = 1.0e-10
+            surface_hits = [
+                (value, normal)
+                for value, normal in candidates
+                if value <= surface_tolerance
+            ]
+            if surface_hits:
+                entering = [
+                    (value, normal)
+                    for value, normal in surface_hits
+                    if float(np.dot(direction, normal)) < -surface_tolerance
+                ]
+                positive_hits = [
+                    (value, normal)
+                    for value, normal in candidates
+                    if value > surface_tolerance
+                ]
+                if entering:
+                    if not positive_hits:
+                        return None
+                    _, entry_normal = min(
+                        entering,
+                        key=lambda item: float(np.dot(direction, item[1])),
+                    )
+                    return 0.0, float(positive_hits[0][0]), entry_normal
+                if len(positive_hits) < 2:
+                    return None
+                return (
+                    float(positive_hits[0][0]),
+                    float(positive_hits[-1][0]),
+                    positive_hits[0][1],
+                )
             return 0.0, float(candidates[0][0]), -direction
         if len(candidates) < 2:
             return None
@@ -434,8 +532,8 @@ class CompiledObject:
     object_id: str
     role: str
     geometry: Geometry
-    response: dict
-    source: dict
+    response: FrozenSnapshotDict
+    source: FrozenSnapshotDict
 
 
 @dataclass(frozen=True)
@@ -447,7 +545,7 @@ class _BVHNode:
     object_indices: tuple[int, ...] = ()
 
 
-@dataclass
+@dataclass(frozen=True)
 class CompiledTarget:
     target_id: str
     objects: tuple[CompiledObject, ...]
@@ -456,21 +554,31 @@ class CompiledTarget:
     component_order: tuple[str, ...]
 
     def __post_init__(self):
-        self._bounds_min = np.asarray(
+        bounds_min = np.asarray(
             [item.geometry.bounds_min for item in self.objects], dtype=np.float64
         )
-        self._bounds_max = np.asarray(
+        bounds_max = np.asarray(
             [item.geometry.bounds_max for item in self.objects], dtype=np.float64
         )
         scale = np.maximum(
             1.0,
-            np.maximum(np.abs(self._bounds_min), np.abs(self._bounds_max)),
+            np.maximum(np.abs(bounds_min), np.abs(bounds_max)),
         )
         tolerance = 16.0 * np.finfo(np.float64).eps * scale
-        self._bounds_lower = self._bounds_min - tolerance
-        self._bounds_upper = self._bounds_max + tolerance
-        self._bvh_leaf_size = 8
-        self._bvh_root = self._build_bvh(np.arange(len(self.objects), dtype=np.int64))
+        bounds_lower = bounds_min - tolerance
+        bounds_upper = bounds_max + tolerance
+        for value in (bounds_min, bounds_max, bounds_lower, bounds_upper):
+            value.setflags(write=False)
+        object.__setattr__(self, "_bounds_min", bounds_min)
+        object.__setattr__(self, "_bounds_max", bounds_max)
+        object.__setattr__(self, "_bounds_lower", bounds_lower)
+        object.__setattr__(self, "_bounds_upper", bounds_upper)
+        object.__setattr__(self, "_bvh_leaf_size", 8)
+        object.__setattr__(
+            self,
+            "_bvh_root",
+            self._build_bvh(np.arange(len(self.objects), dtype=np.int64)),
+        )
 
     def _build_bvh(self, indices: np.ndarray) -> _BVHNode:
         bounds_min = np.min(self._bounds_lower[indices], axis=0)
@@ -708,13 +816,14 @@ def compile_target(target: dict) -> CompiledTarget:
                     context={"duplicate_id": object_id},
                 )
             seen.add(object_id)
+            source_snapshot = detached_snapshot(entry)
             objects.append(
                 CompiledObject(
                     object_id=object_id,
                     role=role,
                     geometry=geometry_from_json(entry["geometry"]),
-                    response=entry["response"],
-                    source=entry,
+                    response=source_snapshot["response"],
+                    source=source_snapshot,
                 )
             )
     armor = tuple(item for item in objects if item.role == "armor")

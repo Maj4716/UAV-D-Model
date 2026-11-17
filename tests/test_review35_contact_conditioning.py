@@ -33,22 +33,22 @@ ROOT = Path(__file__).resolve().parents[1]
 
 def _engine() -> DamageEngine:
     return DamageEngine(
-        load_json(ROOT / "raw_data" / "target.rebuilt.json"),
+        load_json(ROOT / "configs" / "targets" / "target.rebuilt.json"),
         PhysicsRegistry.from_file(
-            ROOT / "examples" / "physics.loitering_impact.json"
+            ROOT / "configs" / "physics" / "loitering_impact.json"
         ),
     )
 
 
 def _base_case(engine: DamageEngine) -> dict:
-    case = load_json(ROOT / "raw_data" / "case.loitering_impact.v1.json")
+    case = load_json(ROOT / "configs" / "cases" / "loitering_impact.v1.json")
     case["target_ref"]["content_hash"] = engine.target_hash
     return case
 
 
 def _label_spec() -> LabelSpec:
     return LabelSpec.from_file(
-        ROOT / "raw_data" / "label_spec.loitering_impact.v1.json"
+        ROOT / "configs" / "labels" / "loitering_impact.v1.json"
     )
 
 
@@ -74,7 +74,7 @@ def _spec_document(
     *, y_bounds: tuple[float, float] = (-3.0, 2.0), max_attempts: int = 1000
 ) -> dict:
     document = load_json(
-        ROOT / "raw_data" / "sampling_spec.loitering_impact.smoke.v1.json"
+        ROOT / "configs" / "sampling" / "loitering_impact.smoke.v1.json"
     )
     document["schema_version"] = "1.3.0"
     document["model_input_contract"] = "loitering_impact_state_only@1.0.0"
@@ -205,7 +205,7 @@ def test_reject_and_resample_ledgers_misses_and_replays_deterministically() -> N
             "latent_design": first.latent_design.tolist(),
             "split_registry": first.split_registry.definition_document(),
         }
-    ) == "sha256:20c4db256cf63fa351cadf95deb68070806482b42db6d00978a6436106c23340"
+    ) == "sha256:319165f1793f4107e1a0f67df50435011502bbbe2b190d24ce8992731cff7ec5"
 
     rejected = [row for row in first.candidate_rows if not row["selected"]]
     assert rejected

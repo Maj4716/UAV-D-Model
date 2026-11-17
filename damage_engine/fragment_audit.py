@@ -241,11 +241,11 @@ def diagnose_front_axis_semantics(
     case: Mapping[str, Any],
     fragment_source_model: Mapping[str, Any],
 ) -> dict[str, Any]:
-    """Describe the FRONT source axis relative to body +X and target velocity.
+    """Describe the resolved FRONT source axis in target coordinates.
 
-    This is deliberately diagnostic: it records whether the declared source
-    axis is backward in the body frame and whether body +X is aligned with the
-    encounter velocity.  It never rewrites the source axis or encounter.
+    A body-vector source is rotated into the target frame.  An impact-inward
+    source is resolved from the negative physical contact normal.  The
+    diagnostic never rewrites the source axis or encounter.
     """
 
     try:
@@ -254,10 +254,6 @@ def diagnose_front_axis_semantics(
         direction = fragment_source_model["direction"]
         orientation = encounter["body_to_target_orientation_xyzw"]
         velocity = np.asarray(encounter["velocity_target_mps"], dtype=np.float64)
-        axis_body = normalize(
-            np.asarray(direction["axis_body"], dtype=np.float64),
-            name="fragment source body axis",
-        )
     except (KeyError, TypeError, ValueError) as exc:
         raise InputValidationError(
             "front-axis diagnostic requires encounter, munition and source-axis fields"
@@ -269,7 +265,37 @@ def diagnose_front_axis_semantics(
         raise InputValidationError("front-axis diagnostic requires nonzero encounter velocity")
     rotation = quaternion_matrix_xyzw(orientation)
     body_forward_target = normalize(rotation @ np.asarray([1.0, 0.0, 0.0]))
-    source_axis_target = normalize(rotation @ axis_body)
+    axis_mode = str(direction.get("axis_mode", "body_vector"))
+    if axis_mode == "impact_inward":
+        try:
+            collision_normal = normalize(
+                np.asarray(
+                    encounter["collision_normal_target_xyz"],
+                    dtype=np.float64,
+                ),
+                name="collision normal",
+            )
+        except (KeyError, TypeError, ValueError) as exc:
+            raise InputValidationError(
+                "impact-inward front-axis diagnostic requires a collision normal"
+            ) from exc
+        source_axis_target = -collision_normal
+        axis_body = normalize(rotation.T @ source_axis_target)
+        impact_inward = float(
+            np.dot(source_axis_target, -collision_normal)
+        ) > 0.999999
+    else:
+        try:
+            axis_body = normalize(
+                np.asarray(direction["axis_body"], dtype=np.float64),
+                name="fragment source body axis",
+            )
+        except (KeyError, TypeError, ValueError) as exc:
+            raise InputValidationError(
+                "body-vector front-axis diagnostic requires axis_body"
+            ) from exc
+        source_axis_target = normalize(rotation @ axis_body)
+        impact_inward = False
     velocity_direction = velocity / speed
     body_alignment = float(np.dot(body_forward_target, velocity_direction))
     source_alignment = float(np.dot(source_axis_target, velocity_direction))
@@ -277,7 +303,11 @@ def diagnose_front_axis_semantics(
     detonation_point = str(munition.get("detonation_point", "unknown"))
     front_backward = detonation_point == "front" and source_body_alignment < -0.999999
     velocity_aligned = body_alignment > 0.999999
-    if detonation_point != "front":
+    if axis_mode == "impact_inward" and impact_inward:
+        diagnosis = "impact_inward_axis_follows_contact_normal"
+    elif axis_mode == "impact_inward":
+        diagnosis = "impact_inward_axis_resolution_failed"
+    elif detonation_point != "front":
         diagnosis = "non_front_profile"
     elif front_backward and velocity_aligned and source_alignment < -0.999999:
         diagnosis = "front_backward_axis_opposes_velocity"
@@ -288,6 +318,7 @@ def diagnose_front_axis_semantics(
     return {
         "schema_version": "1.0.0",
         "detonation_point": detonation_point,
+        "direction_axis_mode": axis_mode,
         "body_forward_target_xyz": body_forward_target.tolist(),
         "source_axis_body_xyz": axis_body.tolist(),
         "source_axis_target_xyz": source_axis_target.tolist(),
@@ -296,6 +327,7 @@ def diagnose_front_axis_semantics(
         "source_axis_dot_velocity": source_alignment,
         "source_axis_dot_body_forward": source_body_alignment,
         "reference_front_backward_rule_satisfied": front_backward,
+        "impact_inward_rule_satisfied": impact_inward,
         "projectile_velocity_aligned_with_body_forward": velocity_aligned,
         "primary_fragment_axis_opposes_projectile_velocity": source_alignment < 0.0,
         "diagnosis": diagnosis,

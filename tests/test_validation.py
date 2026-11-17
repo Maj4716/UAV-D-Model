@@ -115,6 +115,29 @@ def test_semantic_guard_requires_response_model_state_coverage(
     assert error.value.context["missing_states"] == ["failed"]
 
 
+def test_semantic_guard_rejects_misordered_effective_fragment_damage_thresholds(
+    target_data, case_data, registry
+):
+    registry_data = deepcopy(registry.data)
+    states = registry_data["fragment_response_models"]["demo_component_response"][
+        "damage_states"
+    ]
+    # The legacy residual-energy scales remain ordered, but the runtime-effective
+    # damage-energy scales are deliberately reversed.
+    states["degraded"]["damage_energy_50_j"] = 1000.0
+    states["failed"]["damage_energy_50_j"] = 500.0
+    invalid = PhysicsRegistry(registry_data)
+
+    with pytest.raises(
+        InputValidationError,
+        match="fragment damage-energy state scales must be non-decreasing",
+    ) as error:
+        validate_inputs(target_data, _case_for(target_data, case_data), invalid)
+
+    assert error.value.context["values"] == [1000.0, 500.0]
+    assert error.value.context["threshold_field"] == "damage_energy_50_j"
+
+
 def test_schema_contract_accepts_complete_centimetre_geometry(target_data):
     target = deepcopy(target_data)
     target["coordinate_frame"]["length_unit"] = "cm"
