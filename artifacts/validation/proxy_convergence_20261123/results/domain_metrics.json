@@ -1,0 +1,267 @@
+{
+  "az4": {
+    "bands": [
+      {
+        "band": "== 0",
+        "cases": 1206,
+        "p_hit_ratio_union": 0.5219139042121459,
+        "p_hit_brier_union": 0.039231362203548344,
+        "p_fail_ratio": 0.490854897374129,
+        "teacher_affected_case_share": 0.07131011608623548
+      },
+      {
+        "band": "(0.0, 0.05]",
+        "cases": 384,
+        "p_hit_ratio_union": 0.5202618543058767,
+        "p_hit_brier_union": 0.047353594618599865,
+        "p_fail_ratio": 0.5139060953453495,
+        "teacher_affected_case_share": 0.16145833333333334
+      },
+      {
+        "band": "(0.05, 0.1]",
+        "cases": 166,
+        "p_hit_ratio_union": 0.4862271213107829,
+        "p_hit_brier_union": 0.04357074708443343,
+        "p_fail_ratio": 0.5432918881820088,
+        "teacher_affected_case_share": 0.12650602409638553
+      },
+      {
+        "band": "(0.1, 0.2]",
+        "cases": 175,
+        "p_hit_ratio_union": 0.46660721244708164,
+        "p_hit_brier_union": 0.04808659294686439,
+        "p_fail_ratio": 0.48008317601735456,
+        "teacher_affected_case_share": 0.10285714285714286
+      },
+      {
+        "band": "(0.2, 1.0]",
+        "cases": 369,
+        "p_hit_ratio_union": 0.45468968121120196,
+        "p_hit_brier_union": 0.045343450049095485,
+        "p_fail_ratio": 0.495613296063682,
+        "teacher_affected_case_share": 0.07046070460704607
+      }
+    ],
+    "any_ood_flag_cases": 1094,
+    "ood_mass_fraction_mean": 0.07009789485997583,
+    "spearman_ood_mass_vs_teacher_affected_fraction": 0.03735528130251372,
+    "teacher_affected_fraction_mean": 0.024918478260869566,
+    "proxy_expected_refused_contacts_per_case_mean": 10.979496421157796,
+    "teacher_unresolved_impacts_per_replicate_mean": 0.03095108695652174,
+    "proxy_cases_with_refused_mass_ge_0p01_fragments": 1069,
+    "teacher_cases_with_any_unresolved_impact": 213,
+    "spearman_proxy_refused_vs_teacher_unresolved": 0.05407113640451906
+  },
+  "azall": {
+    "bands": [
+      {
+        "band": "== 0",
+        "cases": 176,
+        "p_hit_ratio_union": 0.9776513223050797,
+        "p_hit_brier_union": 0.005048388085074249,
+        "p_fail_ratio": 0.6144038827098385,
+        "teacher_affected_case_share": 0.017045454545454544
+      },
+      {
+        "band": "(0.0, 0.05]",
+        "cases": 938,
+        "p_hit_ratio_union": 0.970976857921605,
+        "p_hit_brier_union": 0.007286596563396513,
+        "p_fail_ratio": 0.7121852814322016,
+        "teacher_affected_case_share": 0.1023454157782516
+      },
+      {
+        "band": "(0.05, 0.1]",
+        "cases": 637,
+        "p_hit_ratio_union": 0.984587019641118,
+        "p_hit_brier_union": 0.008063497061250808,
+        "p_fail_ratio": 0.7291714749965709,
+        "teacher_affected_case_share": 0.10361067503924647
+      },
+      {
+        "band": "(0.1, 0.2]",
+        "cases": 474,
+        "p_hit_ratio_union": 0.9844817190253646,
+        "p_hit_brier_union": 0.007844698932948976,
+        "p_fail_ratio": 0.7178358046100562,
+        "teacher_affected_case_share": 0.0949367088607595
+      },
+      {
+        "band": "(0.2, 1.0]",
+        "cases": 75,
+        "p_hit_ratio_union": 0.9822027513878195,
+        "p_hit_brier_union": 0.00892850420449627,
+        "p_fail_ratio": 0.7884010257532738,
+        "teacher_affected_case_share": 0.04
+      }
+    ],
+    "any_ood_flag_cases": 2124,
+    "ood_mass_fraction_mean": 0.06911199228012782,
+    "spearman_ood_mass_vs_teacher_affected_fraction": 0.012129960832942719,
+    "teacher_affected_fraction_mean": 0.024918478260869566,
+    "proxy_expected_refused_contacts_per_case_mean": 10.810163206565312,
+    "teacher_unresolved_impacts_per_replicate_mean": 0.03095108695652174,
+    "proxy_cases_with_refused_mass_ge_0p01_fragments": 2103,
+    "teacher_cases_with_any_unresolved_impact": 213,
+    "spearman_proxy_refused_vs_teacher_unresolved": 0.09337758177418867
+  },
+  "azall_k8_reg": {
+    "bands": [
+      {
+        "band": "== 0",
+        "cases": 45,
+        "p_hit_ratio_union": 0.9724702261653959,
+        "p_hit_brier_union": 0.0017635324626435675,
+        "p_fail_ratio": 0.933897333094186,
+        "teacher_affected_case_share": 0.0
+      },
+      {
+        "band": "(0.0, 0.05]",
+        "cases": 1060,
+        "p_hit_ratio_union": 0.9776569914735644,
+        "p_hit_brier_union": 0.0022393479321324633,
+        "p_fail_ratio": 0.9508504589904232,
+        "teacher_affected_case_share": 0.09056603773584905
+      },
+      {
+        "band": "(0.05, 0.1]",
+        "cases": 646,
+        "p_hit_ratio_union": 0.9763728612256419,
+        "p_hit_brier_union": 0.0025481194341080275,
+        "p_fail_ratio": 0.9557194988463441,
+        "teacher_affected_case_share": 0.10681114551083591
+      },
+      {
+        "band": "(0.1, 0.2]",
+        "cases": 473,
+        "p_hit_ratio_union": 0.9839150436383817,
+        "p_hit_brier_union": 0.0023434790429204874,
+        "p_fail_ratio": 0.9598544440982282,
+        "teacher_affected_case_share": 0.09725158562367865
+      },
+      {
+        "band": "(0.2, 1.0]",
+        "cases": 76,
+        "p_hit_ratio_union": 0.9712795467241311,
+        "p_hit_brier_union": 0.002135357508823995,
+        "p_fail_ratio": 0.974283234278326,
+        "teacher_affected_case_share": 0.02631578947368421
+      }
+    ],
+    "any_ood_flag_cases": 2255,
+    "ood_mass_fraction_mean": 0.06888163289176487,
+    "spearman_ood_mass_vs_teacher_affected_fraction": 0.012431381974388088,
+    "teacher_affected_fraction_mean": 0.024918478260869566,
+    "proxy_expected_refused_contacts_per_case_mean": 10.792141680929113,
+    "teacher_unresolved_impacts_per_replicate_mean": 0.03095108695652174,
+    "proxy_cases_with_refused_mass_ge_0p01_fragments": 2240,
+    "teacher_cases_with_any_unresolved_impact": 213,
+    "spearman_proxy_refused_vs_teacher_unresolved": 0.09396216591626728
+  },
+  "azall_dom": {
+    "bands": [
+      {
+        "band": "== 0",
+        "cases": 176,
+        "p_hit_ratio_union": 0.9776513223050797,
+        "p_hit_brier_union": 0.005048388085074249,
+        "p_fail_ratio": 0.6144038827098385,
+        "teacher_affected_case_share": 0.017045454545454544
+      },
+      {
+        "band": "(0.0, 0.05]",
+        "cases": 2124,
+        "p_hit_ratio_union": 0.9834259156324632,
+        "p_hit_brier_union": 0.007678343951148853,
+        "p_fail_ratio": 0.7306835519448676,
+        "teacher_affected_case_share": 0.09887005649717515
+      },
+      {
+        "band": "(0.05, 0.1]",
+        "cases": 0,
+        "p_hit_ratio_union": 0.0,
+        "p_hit_brier_union": null,
+        "p_fail_ratio": 0.0,
+        "teacher_affected_case_share": null
+      },
+      {
+        "band": "(0.1, 0.2]",
+        "cases": 0,
+        "p_hit_ratio_union": 0.0,
+        "p_hit_brier_union": null,
+        "p_fail_ratio": 0.0,
+        "teacher_affected_case_share": null
+      },
+      {
+        "band": "(0.2, 1.0]",
+        "cases": 0,
+        "p_hit_ratio_union": 0.0,
+        "p_hit_brier_union": null,
+        "p_fail_ratio": 0.0,
+        "teacher_affected_case_share": null
+      }
+    ],
+    "any_ood_flag_cases": 2124,
+    "ood_mass_fraction_mean": 0.00016748731803200014,
+    "spearman_ood_mass_vs_teacher_affected_fraction": 0.29765424625229936,
+    "teacher_affected_fraction_mean": 0.024918478260869566,
+    "proxy_expected_refused_contacts_per_case_mean": 0.02948902971140447,
+    "teacher_unresolved_impacts_per_replicate_mean": 0.03095108695652174,
+    "proxy_cases_with_refused_mass_ge_0p01_fragments": 171,
+    "teacher_cases_with_any_unresolved_impact": 213,
+    "spearman_proxy_refused_vs_teacher_unresolved": 0.31873079419987577
+  },
+  "azall_k8_reg_dom": {
+    "bands": [
+      {
+        "band": "== 0",
+        "cases": 45,
+        "p_hit_ratio_union": 0.9724702261653959,
+        "p_hit_brier_union": 0.0017635324626435675,
+        "p_fail_ratio": 0.933897333094186,
+        "teacher_affected_case_share": 0.0
+      },
+      {
+        "band": "(0.0, 0.05]",
+        "cases": 2255,
+        "p_hit_ratio_union": 0.983599243815464,
+        "p_hit_brier_union": 0.0022834794010041307,
+        "p_fail_ratio": 0.9619677095199294,
+        "teacher_affected_case_share": 0.09445676274944567
+      },
+      {
+        "band": "(0.05, 0.1]",
+        "cases": 0,
+        "p_hit_ratio_union": 0.0,
+        "p_hit_brier_union": null,
+        "p_fail_ratio": 0.0,
+        "teacher_affected_case_share": null
+      },
+      {
+        "band": "(0.1, 0.2]",
+        "cases": 0,
+        "p_hit_ratio_union": 0.0,
+        "p_hit_brier_union": null,
+        "p_fail_ratio": 0.0,
+        "teacher_affected_case_share": null
+      },
+      {
+        "band": "(0.2, 1.0]",
+        "cases": 0,
+        "p_hit_ratio_union": 0.0,
+        "p_hit_brier_union": null,
+        "p_fail_ratio": 0.0,
+        "teacher_affected_case_share": null
+      }
+    ],
+    "any_ood_flag_cases": 2255,
+    "ood_mass_fraction_mean": 0.00017166268336592352,
+    "spearman_ood_mass_vs_teacher_affected_fraction": 0.4389899265776638,
+    "teacher_affected_fraction_mean": 0.024918478260869566,
+    "proxy_expected_refused_contacts_per_case_mean": 0.029787112697620226,
+    "teacher_unresolved_impacts_per_replicate_mean": 0.03095108695652174,
+    "proxy_cases_with_refused_mass_ge_0p01_fragments": 307,
+    "teacher_cases_with_any_unresolved_impact": 213,
+    "spearman_proxy_refused_vs_teacher_unresolved": 0.4429976780528754
+  }
+}

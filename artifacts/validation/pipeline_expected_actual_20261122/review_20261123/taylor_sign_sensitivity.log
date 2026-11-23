@@ -1,0 +1,12 @@
+{
+ "cases": 300,
+ "pairs": 20100,
+ "mean_p_hit_baseline": 0.08079157129418081,
+ "mean_p_hit_sign_flipped": 0.08095000813073733,
+ "mean_abs_change": 0.037584223157501186,
+ "share_pairs_hit_status_changes_threshold_0p5": 0.039154228855721396,
+ "share_baseline_hit_pairs_that_change": 0.21234428086070214,
+ "share_cases_with_any_status_change": 0.8166666666666667,
+ "mean_components_hit_per_case_baseline": 5.886666666666667,
+ "mean_components_hit_per_case_flipped": 6.01
+}

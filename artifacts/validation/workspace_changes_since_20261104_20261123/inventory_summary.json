@@ -1,0 +1,245 @@
+{
+  "schema_version": "workspace-change-inventory/1.0",
+  "root": "D:\\Desktop\\UAV新",
+  "cutoff": "2026-11-04T00:00:00+08:00",
+  "snapshot_started_at": "2026-11-23T13:08:16+08:00",
+  "snapshot_finished_at": "2026-11-23T13:08:20+08:00",
+  "branch": "main",
+  "head": "ff2ef1f21c7d6bf73630bdb11331289278fb69dd",
+  "commit_count": 3,
+  "commits": [
+    {
+      "commit": "ff2ef1f21c7d6bf73630bdb11331289278fb69dd",
+      "authored_at": "2026-11-17T09:58:54+08:00",
+      "subject": "refactor: focus project on data generation and validation",
+      "files_changed": 1327,
+      "insertions": 37943,
+      "deletions": 4959272
+    },
+    {
+      "commit": "77d779f6a4f3bf1d030795ff9749d008fa92e4d4",
+      "authored_at": "2026-11-11T10:09:29+08:00",
+      "subject": "docs: update relocated GitHub URL",
+      "files_changed": 1,
+      "insertions": 1,
+      "deletions": 1
+    },
+    {
+      "commit": "56ba16ef71963f1e856e3a164fc1ec8907977f4e",
+      "authored_at": "2026-11-11T10:08:34+08:00",
+      "subject": "checkpoint: sync R06u calibration workflow and project status",
+      "files_changed": 535,
+      "insertions": 1869720,
+      "deletions": 11
+    }
+  ],
+  "historical_commit_change_rows": 1863,
+  "historical_deleted_rows": 1181,
+  "tracked_worktree_diff_files": 43,
+  "tracked_worktree_added_lines": 5495,
+  "tracked_worktree_deleted_lines": 396,
+  "current_inventory_files": 1885,
+  "current_inventory_bytes": 520258306,
+  "by_git_state": {
+    "ignored_or_unindexed": {
+      "files": 73,
+      "bytes": 100214988
+    },
+    "tracked_committed_since_cutoff": {
+      "files": 123,
+      "bytes": 2426948
+    },
+    "tracked_modified": {
+      "files": 43,
+      "bytes": 1273659
+    },
+    "untracked": {
+      "files": 1646,
+      "bytes": 416342711
+    }
+  },
+  "by_theme": {
+    "dataset_recovery": {
+      "files": 570,
+      "bytes": 149667044
+    },
+    "dataset_v2_and_learning": {
+      "files": 74,
+      "bytes": 91929543
+    },
+    "anisotropic_fast_assessment": {
+      "files": 94,
+      "bytes": 72132797
+    },
+    "core_or_project_other": {
+      "files": 52,
+      "bytes": 70507662
+    },
+    "fast_proxy_convergence": {
+      "files": 106,
+      "bytes": 45224518
+    },
+    "experiments_other": {
+      "files": 32,
+      "bytes": 28179913
+    },
+    "idea2_mechanism_and_credibility": {
+      "files": 418,
+      "bytes": 25111526
+    },
+    "validation_other": {
+      "files": 61,
+      "bytes": 15830022
+    },
+    "datasets_other": {
+      "files": 166,
+      "bytes": 9053141
+    },
+    "pipeline_audit_and_fixes": {
+      "files": 87,
+      "bytes": 7158357
+    },
+    "fragment_and_penetration_physics": {
+      "files": 57,
+      "bytes": 1931635
+    },
+    "exposure_and_multifidelity": {
+      "files": 17,
+      "bytes": 1020557
+    },
+    "repository_refactor": {
+      "files": 10,
+      "bytes": 894190
+    },
+    "reference_and_sphere_sampling": {
+      "files": 31,
+      "bytes": 392642
+    },
+    "configuration_and_schema_other": {
+      "files": 15,
+      "bytes": 367536
+    },
+    "tooling_other": {
+      "files": 18,
+      "bytes": 355695
+    },
+    "tests_other": {
+      "files": 43,
+      "bytes": 330126
+    },
+    "documentation_other": {
+      "files": 28,
+      "bytes": 127998
+    },
+    "offline_tree_candidates": {
+      "files": 6,
+      "bytes": 43404
+    }
+  },
+  "by_top_level": {
+    "artifacts": {
+      "files": 1602,
+      "bytes": 515108070
+    },
+    "damage_engine": {
+      "files": 66,
+      "bytes": 1752692
+    },
+    "archify": {
+      "files": 6,
+      "bytes": 948441
+    },
+    "tools": {
+      "files": 48,
+      "bytes": 870839
+    },
+    "configs": {
+      "files": 39,
+      "bytes": 673419
+    },
+    "tests": {
+      "files": 87,
+      "bytes": 667389
+    },
+    "docs": {
+      "files": 13,
+      "bytes": 92985
+    },
+    "schemas": {
+      "files": 5,
+      "bytes": 92312
+    },
+    "examples": {
+      "files": 11,
+      "bytes": 33728
+    },
+    "data": {
+      "files": 3,
+      "bytes": 9289
+    },
+    "README.md": {
+      "files": 1,
+      "bytes": 7590
+    },
+    "pyproject.toml": {
+      "files": 1,
+      "bytes": 701
+    },
+    "gitignore": {
+      "files": 1,
+      "bytes": 399
+    },
+    "requirements-lock.txt": {
+      "files": 1,
+      "bytes": 319
+    },
+    "requirements.txt": {
+      "files": 1,
+      "bytes": 133
+    }
+  },
+  "by_kind": {
+    "data_or_result": {
+      "files": 962,
+      "bytes": 283248695
+    },
+    "config_or_structured_data": {
+      "files": 508,
+      "bytes": 222330012
+    },
+    "other": {
+      "files": 69,
+      "bytes": 9640004
+    },
+    "python": {
+      "files": 241,
+      "bytes": 3629313
+    },
+    "figure_or_report": {
+      "files": 1,
+      "bytes": 868744
+    },
+    "documentation_or_log": {
+      "files": 104,
+      "bytes": 541538
+    }
+  },
+  "scan_errors": [],
+  "exclusions": {
+    "directories": [
+      ".git",
+      ".pytest_cache",
+      "__pycache__"
+    ],
+    "suffixes": [
+      ".pyc",
+      ".pyo"
+    ],
+    "self_output_directory": "artifacts/validation/workspace_changes_since_20261104_20261123"
+  },
+  "interpretation": {
+    "committed_history": "Authoritative Git path history since cutoff, including files later deleted.",
+    "current_inventory": "Current files attributable to post-cutoff commits, tracked worktree diffs, or post-cutoff untracked/ignored mtimes.",
+    "mtime_boundary": "Filesystem mtimes classify untracked and ignored files; they are operational timestamps, not authorship proof."
+  }
+}

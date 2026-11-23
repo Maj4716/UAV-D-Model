@@ -1,0 +1,173 @@
+{
+  "schema_version": "proxy-teacher-full-case-cluster-bootstrap@1.1.0",
+  "analysis_role": "development_descriptive_uncertainty_not_qmc_design_variance",
+  "source": {
+    "dataset_id": "damage-dataset-074d300c1382eb8eee4cd87a",
+    "development_case_count": 2300,
+    "component_count": 67,
+    "test_case_count": 300,
+    "test_result_json_lines_decoded": 0,
+    "test_metrics_computed": false,
+    "primary_report": "artifacts\\validation\\pipeline_expected_actual_20261122\\work\\proxy_teacher\\full_proxy_teacher_distribution.json"
+  },
+  "bootstrap": {
+    "unit": "case_with_all_components",
+    "method": "nonparametric_case_cluster_percentile_bootstrap",
+    "resamples": 5000,
+    "seed": 2026112201,
+    "scope_note": "Finite development-case uncertainty conditional on one QMC design; not between-scramble or real-world uncertainty."
+  },
+  "mixed_protocol_warning": "The full development summary mixes train R8 and validation R32. Use split_scopes for replicate-count-specific interpretation.",
+  "point_estimates": {
+    "brier": 0.04225657756153017,
+    "ece": 0.0512897340381836,
+    "jensen_shannon_fixed_bins": 0.012089873255417528,
+    "false_unreached_rate": 0.07815172797441068,
+    "case_count": 2300,
+    "proxy_unreached_pair_count": 143810,
+    "teacher_positive_among_proxy_unreached": 11239,
+    "false_unreached_wilson_upper": 0.07955026640616115,
+    "identified_case_component_count": 153615
+  },
+  "intervals": {
+    "brier": {
+      "valid_resamples": 5000,
+      "percentile_95_interval": [
+        0.040910928633529145,
+        0.043630288463500255
+      ],
+      "bootstrap_median": 0.04224138906500587
+    },
+    "ece": {
+      "valid_resamples": 5000,
+      "percentile_95_interval": [
+        0.04973848036676944,
+        0.05282565130873909
+      ],
+      "bootstrap_median": 0.05128207154438917
+    },
+    "jensen_shannon_fixed_bins": {
+      "valid_resamples": 5000,
+      "percentile_95_interval": [
+        0.01161164373331725,
+        0.012613204082104406
+      ],
+      "bootstrap_median": 0.012089016045914572
+    },
+    "false_unreached_rate": {
+      "valid_resamples": 5000,
+      "percentile_95_interval": [
+        0.07577292815510209,
+        0.08051624837269404
+      ],
+      "bootstrap_median": 0.07813228726994693
+    }
+  },
+  "split_scopes": {
+    "train_R8": {
+      "split": "train",
+      "replicate_count": 8,
+      "point_estimates": {
+        "brier": 0.04237934367440021,
+        "ece": 0.05123111378520512,
+        "jensen_shannon_fixed_bins": 0.013838868166982281,
+        "false_unreached_rate": 0.0760480572597137,
+        "case_count": 2000,
+        "proxy_unreached_pair_count": 125184,
+        "teacher_positive_among_proxy_unreached": 9520,
+        "false_unreached_wilson_upper": 0.07752949498811508,
+        "identified_case_component_count": 133708
+      },
+      "intervals": {
+        "brier": {
+          "valid_resamples": 5000,
+          "percentile_95_interval": [
+            0.040909552809057385,
+            0.04383765545711094
+          ],
+          "bootstrap_median": 0.042372808943263784
+        },
+        "ece": {
+          "valid_resamples": 5000,
+          "percentile_95_interval": [
+            0.04959257938846094,
+            0.05286594220463192
+          ],
+          "bootstrap_median": 0.051221857615612584
+        },
+        "jensen_shannon_fixed_bins": {
+          "valid_resamples": 5000,
+          "percentile_95_interval": [
+            0.013278897314571285,
+            0.01440933103369512
+          ],
+          "bootstrap_median": 0.013833876359364448
+        },
+        "false_unreached_rate": {
+          "valid_resamples": 5000,
+          "percentile_95_interval": [
+            0.0736612347010224,
+            0.07841815903345715
+          ],
+          "bootstrap_median": 0.07600604979589948
+        }
+      }
+    },
+    "validation_R32": {
+      "split": "validation",
+      "replicate_count": 32,
+      "point_estimates": {
+        "brier": 0.04143200271752423,
+        "ece": 0.05169755378050867,
+        "jensen_shannon_fixed_bins": 0.015275878794427662,
+        "false_unreached_rate": 0.09229034682701599,
+        "case_count": 300,
+        "proxy_unreached_pair_count": 18626,
+        "teacher_positive_among_proxy_unreached": 1719,
+        "false_unreached_wilson_upper": 0.09653145387069823,
+        "identified_case_component_count": 19907
+      },
+      "intervals": {
+        "brier": {
+          "valid_resamples": 5000,
+          "percentile_95_interval": [
+            0.03793039719076192,
+            0.045029793067461965
+          ],
+          "bootstrap_median": 0.041403985329329984
+        },
+        "ece": {
+          "valid_resamples": 5000,
+          "percentile_95_interval": [
+            0.0477249715098145,
+            0.055915128418397825
+          ],
+          "bootstrap_median": 0.05176819566561656
+        },
+        "jensen_shannon_fixed_bins": {
+          "valid_resamples": 5000,
+          "percentile_95_interval": [
+            0.013805914075884036,
+            0.016957456598664277
+          ],
+          "bootstrap_median": 0.01532312413615547
+        },
+        "false_unreached_rate": {
+          "valid_resamples": 5000,
+          "percentile_95_interval": [
+            0.08518229146018848,
+            0.09942335689798353
+          ],
+          "bootstrap_median": 0.09225081948269373
+        }
+      }
+    }
+  },
+  "primary_report_cross_checks": {
+    "brier_absolute_error": 0.0,
+    "ece_absolute_error": 7.632783294297951e-17,
+    "js_absolute_error": 0.0,
+    "all_within_1e-12": true
+  },
+  "report_sha256_without_self_field": "sha256:83016e4d0c131646d6f1892f481012219978a845aa909a16ba8f81071ba9ab82"
+}

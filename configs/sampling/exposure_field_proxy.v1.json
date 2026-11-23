@@ -1,0 +1,19 @@
+{
+  "schema_version": "component-exposure-field-config@1.0.0",
+  "proxy_id": "conical-multigroup-expected-transport@0.3.0",
+  "max_cases": 32,
+  "source_seed": 2026112001,
+  "azimuths_per_ring": 4,
+  "reach_probability_cutoff": 0.00001,
+  "component_support_threshold": 0.05,
+  "layer_quadrature_samples": 16,
+  "reach_tolerance": 0.0,
+  "zero_semantics": "proxy_unreached_in_declared_frame_not_structural_zero",
+  "output_estimands": [
+    "component_lambda_hajek",
+    "component_damage_energy_hajek_j",
+    "cell_envelopes",
+    "measure_ess",
+    "sampling_footprint"
+  ]
+}

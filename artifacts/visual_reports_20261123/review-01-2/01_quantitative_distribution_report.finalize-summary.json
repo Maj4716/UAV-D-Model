@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "ok": true,
+  "command": "finalize",
+  "status": "pass",
+  "type": "explainer",
+  "quality": "showcase",
+  "specification": {
+    "path": "D:\\Desktop\\UAV新\\.archify\\explainer-uav-visual-report-20261123-quant\\quantitative.archify.md",
+    "sha256": "feb04d7ef95498e2b6c834ba852c33d13b9196ef02dc880c2758eb7bb310aa86",
+    "bytes": 6436
+  },
+  "artifact": {
+    "path": "D:\\Desktop\\UAV新\\artifacts\\visual_reports_20261123\\01_quantitative_distribution_report.html",
+    "sha256": "b98876baf07355a58cffedb403551837d0fe6869ba905a01a9f4e56cc6aa90ba",
+    "bytes": 2713144
+  },
+  "gates": {
+    "validate": "pass",
+    "deliver": "pass",
+    "check": "pass",
+    "browser-check": "not-run"
+  },
+  "diagnostics": [],
+  "diagnosticSummary": {
+    "total": 0,
+    "shown": 0,
+    "truncated": false
+  },
+  "evidence": {
+    "receipt": "D:\\Desktop\\UAV新\\artifacts\\visual_reports_20261123\\review-01-2\\01_quantitative_distribution_report.finalize.json",
+    "summaryReceipt": "D:\\Desktop\\UAV新\\artifacts\\visual_reports_20261123\\review-01-2\\01_quantitative_distribution_report.finalize-summary.json"
+  },
+  "visualReview": "not-requested",
+  "durationMs": 2222,
+  "browserCheck": {
+    "requested": false,
+    "ran": false
+  }
+}

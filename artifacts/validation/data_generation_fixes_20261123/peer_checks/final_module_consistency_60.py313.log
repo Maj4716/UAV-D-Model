@@ -1,0 +1,5 @@
+az4 True {'lambda': 0.0, 'phit_prod': 0.0, 'p_deg': 0.0, 'p_fail': 0.0, 'energy': 0.0, 'absorbed': 0.0, 'ood_mass_frac': 0.0, 'ood_packet_frac': 0.0}
+azall True {'lambda': 0.0, 'phit_prod': 0.0, 'p_deg': 0.0, 'p_fail': 0.0, 'energy': 0.0, 'absorbed': 0.0, 'ood_mass_frac': 0.0, 'ood_packet_frac': 0.0}
+azall_reg True {'lambda': 0.0, 'phit_prod': 0.0, 'p_deg': 0.0, 'p_fail': 0.0, 'energy': 0.0, 'absorbed': 0.0, 'ood_mass_frac': 0.0, 'ood_packet_frac': 0.0}
+azall_k4_reg True {'lambda': 0.0, 'phit_prod': 0.0, 'p_deg': 0.0, 'p_fail': 0.0, 'energy': 0.0, 'absorbed': 0.0, 'ood_mass_frac': 0.0, 'ood_packet_frac': 0.0}
+az4_s7777777 True {'lambda': 0.0, 'phit_prod': 0.0, 'p_deg': 0.0, 'p_fail': 0.0, 'energy': 0.0, 'absorbed': 0.0, 'ood_mass_frac': 0.0, 'ood_packet_frac': 0.0}

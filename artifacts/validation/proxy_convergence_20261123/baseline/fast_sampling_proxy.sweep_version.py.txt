@@ -1,0 +1,985 @@
+"""Deterministic low-cost fragment transport for sampling-plan screening.
+
+This module is intentionally a *proposal proxy*, not a replacement damage
+teacher.  It reuses the current source model, exact target ray intersections,
+air-drag law and registered penetration response, while replacing repeated
+Monte Carlo outcomes with weighted, deterministic fragment packets and
+expected reach.  A small explicit-``DamageEngine`` validation set is still
+required before the proxy may approve a large dataset run.
+
+The first version does not model ricochet, breakup, plugs, spall, or stateful
+multi-hit material evolution.  Those omissions are reported in every result.
+
+Numerical options (all default to the historical 0.3.0 behaviour):
+
+* ``azimuths_per_ring`` -- representative rays per Taylor ring.  Values at or
+  above the ring size give one ray per fragment (no azimuthal compression).
+* ``source_realizations`` -- number of independent source-dispersion
+  realizations averaged per case.  Realization 0 uses the historical seed.
+* ``damage_accumulation`` -- ``"independent_hits"`` multiplies per-impact
+  survival (historical); ``"registry"`` follows each component response
+  model's declared ``damage_accumulation_model``, including the teacher's
+  ``spatial_cumulative_damage_energy`` complete-link energy clusters.
+"""
+
+from __future__ import annotations
+
+from copy import deepcopy
+from dataclasses import dataclass, field
+import hashlib
+import math
+from typing import Any
+
+import numpy as np
+
+from .damage_response import effective_fragment_damage_threshold
+from .engine import DamageEngine
+from .errors import OutOfDomainError
+from .fragments import Fragment, generate_fragments, propagate_fragment_speed
+from .layered_penetration import PenetrationPathOutcome, resolve_penetration_path
+from .parameters import nominal_target_parameters
+from .penetration import FragmentImpact
+from .utils import EPS, sigmoid
+
+
+FAST_SAMPLING_PROXY_VERSION = "conical-multigroup-expected-transport@0.4.0"
+
+DAMAGE_ACCUMULATION_OPTIONS = ("independent_hits", "registry")
+
+# Exact enumeration of a cluster's summed-energy distribution keeps at most
+# this many atoms; beyond it atoms are merged on a 0.1 % log1p-energy grid.
+_MAX_CLUSTER_ENERGY_ATOMS = 4096
+_CLUSTER_LOG_ENERGY_BIN = 1.0e-3
+_COMPLETE_LINK_TOLERANCE_M = 1.0e-12
+
+
+class _QuantileRng:
+    """Minimal scalar-quantile RNG accepted by the registered kernel."""
+
+    def __init__(self, quantile: float) -> None:
+        self.quantile = float(quantile)
+
+    def random(self) -> float:
+        return self.quantile
+
+
+class _LatticeRng:
+    """Deterministic rank-1 lattice over independent layer quantiles."""
+
+    def __init__(self, sample_index: int, sample_count: int) -> None:
+        self._base = (float(sample_index) + 0.5) / float(sample_count)
+        self._dimension = 0
+
+    def random(self) -> float:
+        value = (self._base + self._dimension * 0.6180339887498949) % 1.0
+        self._dimension += 1
+        return float(np.clip(value, np.finfo(float).eps, 1.0 - np.finfo(float).eps))
+
+
+@dataclass(frozen=True)
+class _ExpectedImpact:
+    penetration_probability: float
+    incidence_cosine: float
+    v50_mps: float
+    representative_residual_speed_mps: float
+    expected_absorbed_energy_j: float
+    expected_damage_energy_j: float
+    perforated_damage_energy_j: float
+    stopped_damage_energy_j: float
+
+
+@dataclass(frozen=True)
+class _ComponentImpact:
+    """One representative ray's contact with a component (registry mode)."""
+
+    location_m: np.ndarray
+    reach_probability: float
+    packet_weight: float
+    perforation_probability: float
+    perforated_damage_energy_j: float
+    stopped_damage_energy_j: float
+
+
+@dataclass
+class _RealizationTally:
+    """Expected transport totals of one source-dispersion realization."""
+
+    source_fragment_count: int
+    representative_ray_count: int
+    represented_count: float
+    represented_mass_kg: float
+    component_metrics: dict[str, dict[str, float]]
+    log_no_hit: dict[str, float]
+    survival: dict[str, dict[str, float]] | None
+    impacts: dict[str, list[_ComponentImpact]] | None
+    expected_armor_hits: float = 0.0
+    expected_armor_penetrations: float = 0.0
+    expected_component_hits: float = 0.0
+    expected_component_penetrations: float = 0.0
+    terminal_reach_mass: float = 0.0
+    out_of_domain_packet_weight: float = 0.0
+    out_of_domain_mass_kg: float = 0.0
+    out_of_domain_weight_by_role: dict[str, float] = field(
+        default_factory=lambda: {"armor": 0.0, "component": 0.0}
+    )
+    layered_interaction_count: int = 0
+
+
+def _stable_seed(
+    *,
+    base_seed: int,
+    profile_id: str,
+    source_model_id: str,
+    realization: int = 0,
+) -> int:
+    payload = f"{base_seed}|{profile_id}|{source_model_id}"
+    if realization:
+        payload = f"{payload}|realization={int(realization)}"
+    digest = hashlib.sha256(payload.encode("utf-8")).digest()
+    return int.from_bytes(digest[:8], "big", signed=False)
+
+
+def _representative_expected_path(
+    impact: FragmentImpact,
+    response: dict[str, Any],
+    registry,
+    *,
+    layer_quadrature_samples: int,
+) -> _ExpectedImpact:
+    """Integrate the same public penetration path used by the full solver.
+
+    A single layer has an analytic perforation probability, so its two
+    conditional representative branches are evaluated directly through the
+    registered kernel.  A declared multi-layer stack uses a deterministic
+    lattice over per-layer quantiles; no residual or damage law is duplicated
+    in the proxy.
+    """
+
+    has_stack = response.get("layer_stack_id") is not None
+    if not has_stack:
+        median = resolve_penetration_path(
+            impact, response, registry, _QuantileRng(0.5)  # type: ignore[arg-type]
+        )
+        probability = float(np.clip(median.penetration_probability, 0.0, 1.0))
+        incident_energy = float(median.incident_energy_j)
+        perforated: PenetrationPathOutcome | None = None
+        stopped: PenetrationPathOutcome | None = None
+        if probability > 0.0:
+            perforated = resolve_penetration_path(
+                impact,
+                response,
+                registry,
+                _QuantileRng(max(np.finfo(float).eps, 0.5 * probability)),  # type: ignore[arg-type]
+            )
+        if probability < 1.0:
+            stopped = resolve_penetration_path(
+                impact,
+                response,
+                registry,
+                _QuantileRng(probability + 0.5 * (1.0 - probability)),  # type: ignore[arg-type]
+            )
+        residual_speed = 0.0 if perforated is None else perforated.residual_speed_mps
+        perforated_absorbed = (
+            incident_energy if perforated is None else perforated.absorbed_energy_j
+        )
+        perforated_damage = 0.0 if perforated is None else perforated.damage_energy_j
+        stopped_absorbed = incident_energy if stopped is None else stopped.absorbed_energy_j
+        stopped_damage = 0.0 if stopped is None else stopped.damage_energy_j
+        expected_absorbed = (
+            probability * perforated_absorbed
+            + (1.0 - probability) * stopped_absorbed
+        )
+        expected_damage = (
+            probability * perforated_damage
+            + (1.0 - probability) * stopped_damage
+        )
+        reference = median
+    else:
+        outcomes = [
+            resolve_penetration_path(
+                impact,
+                response,
+                registry,
+                _LatticeRng(index, layer_quadrature_samples),  # type: ignore[arg-type]
+            )
+            for index in range(layer_quadrature_samples)
+        ]
+        reference = outcomes[0]
+        perforated_outcomes = [item for item in outcomes if item.perforated]
+        stopped_outcomes = [item for item in outcomes if not item.perforated]
+        probability = len(perforated_outcomes) / float(layer_quadrature_samples)
+        residual_speed = (
+            0.0
+            if not perforated_outcomes
+            else float(np.mean([item.residual_speed_mps for item in perforated_outcomes]))
+        )
+        perforated_damage = (
+            0.0
+            if not perforated_outcomes
+            else float(np.mean([item.damage_energy_j for item in perforated_outcomes]))
+        )
+        stopped_damage = (
+            0.0
+            if not stopped_outcomes
+            else float(np.mean([item.damage_energy_j for item in stopped_outcomes]))
+        )
+        expected_absorbed = float(np.mean([item.absorbed_energy_j for item in outcomes]))
+        expected_damage = float(np.mean([item.damage_energy_j for item in outcomes]))
+
+    return _ExpectedImpact(
+        penetration_probability=probability,
+        incidence_cosine=float(reference.incidence_cosine),
+        v50_mps=float(reference.v50_mps),
+        representative_residual_speed_mps=float(residual_speed),
+        expected_absorbed_energy_j=float(expected_absorbed),
+        expected_damage_energy_j=float(expected_damage),
+        perforated_damage_energy_j=float(perforated_damage),
+        stopped_damage_energy_j=float(stopped_damage),
+    )
+
+
+def _weighted_fragment_packets(
+    fragments: list[Fragment],
+    source_model: dict[str, Any],
+    *,
+    azimuths_per_ring: int,
+) -> list[tuple[Fragment, float]]:
+    """Compress fixed-mass symmetric ring models into weighted ray packets."""
+
+    if azimuths_per_ring < 1:
+        raise ValueError("azimuths_per_ring must be positive")
+    direction = source_model["direction"]
+    ring_count = direction.get("ring_count")
+    masses = np.asarray([fragment.mass_kg for fragment in fragments], dtype=np.float64)
+    fixed_mass = bool(
+        len(masses)
+        and np.max(np.abs(masses - masses[0]))
+        <= max(1.0e-15, 1.0e-10 * abs(float(masses[0])))
+    )
+    if (
+        direction.get("kind") not in {"taylor_ring", "taylor_shapiro_ring"}
+        or ring_count is None
+        or not fixed_mass
+    ):
+        return [(fragment, 1.0) for fragment in fragments]
+
+    count = len(fragments)
+    ring_count = int(ring_count)
+    base, remainder = divmod(count, ring_count)
+    ring_sizes = [base] * ring_count
+    ring_sizes[-1] += remainder
+    packets: list[tuple[Fragment, float]] = []
+    offset = 0
+    for ring_size in ring_sizes:
+        ray_count = min(azimuths_per_ring, ring_size)
+        # Mid-cell representatives avoid repeatedly selecting the ring seam.
+        indices = [
+            min(ring_size - 1, int(math.floor((index + 0.5) * ring_size / ray_count)))
+            for index in range(ray_count)
+        ]
+        weight = float(ring_size / ray_count)
+        packets.extend((fragments[offset + index], weight) for index in indices)
+        offset += ring_size
+    return packets
+
+
+def _complete_link_clusters(
+    locations: np.ndarray, correlation_length_m: float
+) -> list[list[int]]:
+    """Agglomerative complete-link clusters with maximum diameter ``L``.
+
+    Mirrors the teacher's ``ComponentDamageAccumulator`` support rule: every
+    pair of impacts inside one cluster lies within the correlation length.
+    The closest admissible pair (by complete-link distance) merges first.
+    """
+
+    count = int(locations.shape[0])
+    if count == 0:
+        return []
+    members: list[list[int] | None] = [[index] for index in range(count)]
+    if count == 1:
+        return [[0]]
+    delta = locations[:, None, :] - locations[None, :, :]
+    distance = np.sqrt(np.sum(delta * delta, axis=-1))
+    np.fill_diagonal(distance, np.inf)
+    threshold = float(correlation_length_m) + _COMPLETE_LINK_TOLERANCE_M
+    while True:
+        flat = int(np.argmin(distance))
+        left, right = divmod(flat, count)
+        if not distance[left, right] <= threshold:
+            break
+        merged_row = np.maximum(distance[left], distance[right])
+        distance[left, :] = merged_row
+        distance[:, left] = merged_row
+        distance[left, left] = np.inf
+        distance[right, :] = np.inf
+        distance[:, right] = np.inf
+        members[left] = sorted([*members[left], *members[right]])  # type: ignore[misc]
+        members[right] = None
+    return [cluster for cluster in members if cluster is not None]
+
+
+def _cluster_energy_distribution(
+    impacts: list[_ComponentImpact],
+) -> tuple[np.ndarray, np.ndarray]:
+    """Distribution of a cluster's summed damage energy.
+
+    Each member independently misses (``1-reach``), arrives and perforates
+    (``reach*p``) or arrives and stops (``reach*(1-p)``); the cluster energy is
+    the sum of the arriving members' branch energies, as in the teacher.
+    """
+
+    energies = np.zeros(1, dtype=np.float64)
+    probabilities = np.ones(1, dtype=np.float64)
+    for impact in impacts:
+        reach = float(np.clip(impact.reach_probability, 0.0, 1.0))
+        perforation = float(np.clip(impact.perforation_probability, 0.0, 1.0))
+        branch_probability = np.asarray(
+            [1.0 - reach, reach * perforation, reach * (1.0 - perforation)],
+            dtype=np.float64,
+        )
+        branch_energy = np.asarray(
+            [
+                0.0,
+                float(impact.perforated_damage_energy_j),
+                float(impact.stopped_damage_energy_j),
+            ],
+            dtype=np.float64,
+        )
+        keep = branch_probability > 0.0
+        energies = (energies[:, None] + branch_energy[keep][None, :]).ravel()
+        probabilities = (
+            probabilities[:, None] * branch_probability[keep][None, :]
+        ).ravel()
+        if energies.size > _MAX_CLUSTER_ENERGY_ATOMS:
+            bins = np.floor(
+                np.log1p(np.maximum(energies, 0.0)) / _CLUSTER_LOG_ENERGY_BIN
+            ).astype(np.int64)
+            unique, inverse = np.unique(bins, return_inverse=True)
+            merged_probability = np.bincount(
+                inverse, weights=probabilities, minlength=unique.size
+            )
+            merged_energy = np.bincount(
+                inverse, weights=probabilities * energies, minlength=unique.size
+            )
+            positive = merged_probability > 0.0
+            energies = merged_energy[positive] / merged_probability[positive]
+            probabilities = merged_probability[positive]
+    return energies, probabilities
+
+
+def _expected_state_probability(
+    energies: np.ndarray,
+    probabilities: np.ndarray,
+    *,
+    energy_50_j: float,
+    log_slope: float,
+    vulnerable_ratio: float,
+) -> float:
+    positive = energies > 0.0
+    if not np.any(positive) or energy_50_j <= 0.0:
+        return 0.0
+    argument = np.clip(
+        log_slope * np.log(energies[positive] / energy_50_j), -60.0, 60.0
+    )
+    logistic = 1.0 / (1.0 + np.exp(-argument))
+    value = vulnerable_ratio * float(np.sum(probabilities[positive] * logistic))
+    return float(np.clip(value, 0.0, 1.0))
+
+
+def _ordinal_projection(
+    raw: dict[str, float], ordered_states: list[str]
+) -> dict[str, float]:
+    projected: dict[str, float] = {}
+    previous = 1.0
+    for state in ordered_states:
+        value = min(previous, float(np.clip(raw[state], 0.0, 1.0)))
+        projected[state] = value
+        previous = value
+    return projected
+
+
+class FastSamplingProxy:
+    """Expected fragment-packet transport over a fixed compiled target."""
+
+    def __init__(
+        self,
+        engine: DamageEngine,
+        *,
+        source_seed: int = 2026111401,
+        azimuths_per_ring: int = 4,
+        reach_probability_cutoff: float = 1.0e-5,
+        component_support_threshold: float = 0.05,
+        layer_quadrature_samples: int = 16,
+        source_realizations: int = 1,
+        damage_accumulation: str = "independent_hits",
+    ) -> None:
+        if azimuths_per_ring < 1:
+            raise ValueError("azimuths_per_ring must be positive")
+        if not 0.0 <= reach_probability_cutoff < 1.0:
+            raise ValueError("reach_probability_cutoff must lie in [0,1)")
+        if component_support_threshold < 0.0:
+            raise ValueError("component_support_threshold must be non-negative")
+        if layer_quadrature_samples < 4:
+            raise ValueError("layer_quadrature_samples must be at least four")
+        if int(source_realizations) != source_realizations or source_realizations < 1:
+            raise ValueError("source_realizations must be a positive integer")
+        if damage_accumulation not in DAMAGE_ACCUMULATION_OPTIONS:
+            raise ValueError(
+                "damage_accumulation must be one of "
+                + ", ".join(repr(item) for item in DAMAGE_ACCUMULATION_OPTIONS)
+            )
+        self.engine = engine
+        self.source_seed = int(source_seed)
+        self.azimuths_per_ring = int(azimuths_per_ring)
+        self.reach_probability_cutoff = float(reach_probability_cutoff)
+        self.component_support_threshold = float(component_support_threshold)
+        self.layer_quadrature_samples = int(layer_quadrature_samples)
+        self.source_realizations = int(source_realizations)
+        self.damage_accumulation = str(damage_accumulation)
+        self.parameters = nominal_target_parameters(engine.target_data)
+
+    def _transport_realization(
+        self,
+        packets: list[tuple[Fragment, float]],
+        *,
+        source_fragment_count: int,
+        air_density: float,
+        include_state_and_tree: bool,
+    ) -> _RealizationTally:
+        target = self.engine.compiled_target
+        survival: dict[str, dict[str, float]] | None = None
+        impacts: dict[str, list[_ComponentImpact]] | None = None
+        if include_state_and_tree:
+            if self.damage_accumulation == "independent_hits":
+                survival = {
+                    item.object_id: {
+                        state: 1.0
+                        for state in item.source["damage_states"]
+                        if state != "intact"
+                    }
+                    for item in target.components
+                }
+            else:
+                impacts = {item.object_id: [] for item in target.components}
+        tally = _RealizationTally(
+            source_fragment_count=source_fragment_count,
+            representative_ray_count=len(packets),
+            represented_count=float(sum(weight for _, weight in packets)),
+            represented_mass_kg=float(
+                sum(weight * float(fragment.mass_kg) for fragment, weight in packets)
+            ),
+            component_metrics={
+                item.object_id: {
+                    "expected_hits": 0.0,
+                    "expected_penetrations": 0.0,
+                    "expected_absorbed_energy_j": 0.0,
+                    "expected_damage_energy_j": 0.0,
+                }
+                for item in target.components
+            },
+            log_no_hit={item.object_id: 0.0 for item in target.components},
+            survival=survival,
+            impacts=impacts,
+        )
+        component_metrics = tally.component_metrics
+
+        for fragment, packet_weight in packets:
+            speed = float(fragment.initial_speed_mps)
+            reach = 1.0
+            previous_distance = 0.0
+            for hit in target.ray_hits(fragment.origin_m, fragment.direction):
+                free_flight = max(0.0, float(hit.entry_t) - previous_distance)
+                speed = propagate_fragment_speed(
+                    speed, free_flight, fragment, air_density
+                )
+                if speed <= EPS or reach <= self.reach_probability_cutoff:
+                    break
+                model_id = hit.response.get("fragment_response_model_id")
+                if not model_id:
+                    break
+                model = self.engine.registry.fragment_response(str(model_id))
+                parameters = self.parameters[hit.object_id]
+                try:
+                    if hit.response.get("layer_stack_id") is not None:
+                        tally.layered_interaction_count += 1
+                    expectation = _representative_expected_path(
+                        FragmentImpact(
+                            speed_mps=speed,
+                            mass_kg=fragment.mass_kg,
+                            direction=fragment.direction,
+                            surface_normal=hit.entry_normal,
+                            equivalent_thickness_m=float(
+                                parameters["equivalent_thickness_m"]
+                            ),
+                        ),
+                        hit.response,
+                        self.engine.registry,
+                        layer_quadrature_samples=self.layer_quadrature_samples,
+                    )
+                except OutOfDomainError:
+                    tally.out_of_domain_packet_weight += packet_weight * reach
+                    tally.out_of_domain_mass_kg += (
+                        packet_weight * reach * float(fragment.mass_kg)
+                    )
+                    role = "armor" if hit.role == "armor" else "component"
+                    tally.out_of_domain_weight_by_role[role] += packet_weight * reach
+                    reach = 0.0
+                    break
+                probability = expectation.penetration_probability
+                weighted_reach = packet_weight * reach
+
+                if hit.role == "armor":
+                    tally.expected_armor_hits += weighted_reach
+                    tally.expected_armor_penetrations += weighted_reach * probability
+                else:
+                    tally.expected_component_hits += weighted_reach
+                    tally.expected_component_penetrations += (
+                        weighted_reach * probability
+                    )
+                    metrics = component_metrics[hit.object_id]
+                    metrics["expected_hits"] += weighted_reach
+                    metrics["expected_penetrations"] += weighted_reach * probability
+                    metrics["expected_absorbed_energy_j"] += (
+                        weighted_reach * expectation.expected_absorbed_energy_j
+                    )
+                    metrics["expected_damage_energy_j"] += (
+                        weighted_reach * expectation.expected_damage_energy_j
+                    )
+                    if reach >= 1.0:
+                        tally.log_no_hit[hit.object_id] = -math.inf
+                    else:
+                        tally.log_no_hit[hit.object_id] += packet_weight * math.log1p(
+                            -reach
+                        )
+                    if impacts is not None:
+                        impacts[hit.object_id].append(
+                            _ComponentImpact(
+                                location_m=np.asarray(
+                                    hit.entry_point, dtype=np.float64
+                                ).copy(),
+                                reach_probability=float(reach),
+                                packet_weight=float(packet_weight),
+                                perforation_probability=float(probability),
+                                perforated_damage_energy_j=float(
+                                    expectation.perforated_damage_energy_j
+                                ),
+                                stopped_damage_energy_j=float(
+                                    expectation.stopped_damage_energy_j
+                                ),
+                            )
+                        )
+                    if survival is not None:
+                        vulnerable = float(parameters["vulnerable_area_ratio"])
+                        for state, state_model in model.get("damage_states", {}).items():
+                            if state not in survival[hit.object_id]:
+                                continue
+                            energy_50 = float(
+                                state_model.get(
+                                    "damage_energy_50_j",
+                                    state_model["residual_energy_50_j"],
+                                )
+                            )
+                            slope = float(state_model["log_slope"])
+
+                            def state_probability(energy: float) -> float:
+                                if energy <= 0.0 or energy_50 <= 0.0:
+                                    return 0.0
+                                return vulnerable * sigmoid(
+                                    slope * math.log(energy / energy_50)
+                                )
+
+                            event_probability = (
+                                probability
+                                * state_probability(
+                                    expectation.perforated_damage_energy_j
+                                )
+                                + (1.0 - probability)
+                                * state_probability(
+                                    expectation.stopped_damage_energy_j
+                                )
+                            )
+                            single_survival = 1.0 - float(
+                                np.clip(reach * event_probability, 0.0, 1.0)
+                            )
+                            survival[hit.object_id][state] *= (
+                                single_survival**packet_weight
+                            )
+
+                reach *= probability
+                if (
+                    reach <= self.reach_probability_cutoff
+                    or expectation.representative_residual_speed_mps <= EPS
+                ):
+                    break
+                speed = expectation.representative_residual_speed_mps
+                previous_distance = max(
+                    previous_distance,
+                    float(hit.entry_t)
+                    + float(parameters["equivalent_thickness_m"])
+                    / max(expectation.incidence_cosine, 1.0e-3),
+                )
+            tally.terminal_reach_mass += packet_weight * reach
+        return tally
+
+    def _survival_state_probabilities(
+        self, survival: dict[str, dict[str, float]]
+    ) -> dict[str, dict[str, float]]:
+        """Historical per-hit independent survival product (0.3.0)."""
+
+        state_probabilities: dict[str, dict[str, float]] = {}
+        for item in self.engine.compiled_target.components:
+            identifier = item.object_id
+            ordered = [
+                state for state in item.source["damage_states"] if state != "intact"
+            ]
+            previous = 1.0
+            state_probabilities[identifier] = {}
+            for state in ordered:
+                value = min(
+                    previous,
+                    float(
+                        np.clip(
+                            1.0 - survival[identifier][state],
+                            0.0,
+                            1.0,
+                        )
+                    ),
+                )
+                state_probabilities[identifier][state] = value
+                previous = value
+        return state_probabilities
+
+    def _registry_state_probabilities(
+        self, impacts: dict[str, list[_ComponentImpact]]
+    ) -> tuple[dict[str, dict[str, float]], dict[str, int]]:
+        """State probabilities under each response model's declared accumulation.
+
+        ``independent_hits`` reproduces the historical per-impact product.
+        ``cumulative_damage_energy`` treats all impacts on a component as one
+        energy pool.  ``spatial_cumulative_damage_energy`` forms the teacher's
+        complete-link clusters over the representative rays' entry points and
+        sums arriving members' damage energy inside each cluster before the
+        logistic response.  Distinct clusters are independent; a cluster of
+        weighted packets stands for ``mean(weight)`` equivalent clusters.
+        """
+
+        state_probabilities: dict[str, dict[str, float]] = {}
+        cluster_counts: dict[str, int] = {}
+        for item in self.engine.compiled_target.components:
+            identifier = item.object_id
+            ordered = [
+                state for state in item.source["damage_states"] if state != "intact"
+            ]
+            records = impacts.get(identifier, [])
+            model_id = item.response.get("fragment_response_model_id")
+            if not records or not model_id:
+                state_probabilities[identifier] = {state: 0.0 for state in ordered}
+                cluster_counts[identifier] = 0
+                continue
+            model = self.engine.registry.fragment_response(str(model_id))
+            state_models = model.get("damage_states", {})
+            vulnerable = float(self.parameters[identifier]["vulnerable_area_ratio"])
+            accumulation = str(
+                model.get("damage_accumulation_model", "independent_hits")
+            )
+            if accumulation == "independent_hits":
+                clusters = [[index] for index in range(len(records))]
+            elif accumulation == "cumulative_damage_energy":
+                clusters = [list(range(len(records)))]
+            elif accumulation == "spatial_cumulative_damage_energy":
+                length = model.get("damage_correlation_length_m")
+                if length is None or not float(length) > 0.0:
+                    raise ValueError(
+                        "spatial cumulative damage requires a positive "
+                        "damage_correlation_length_m"
+                    )
+                clusters = _complete_link_clusters(
+                    np.stack([record.location_m for record in records]),
+                    float(length),
+                )
+            else:
+                raise ValueError(
+                    f"unsupported damage_accumulation_model: {accumulation}"
+                )
+            cluster_counts[identifier] = len(clusters)
+            survival = {state: 1.0 for state in ordered}
+            for cluster in clusters:
+                members = [records[index] for index in cluster]
+                energies, probabilities = _cluster_energy_distribution(members)
+                multiplicity = float(
+                    np.mean([member.packet_weight for member in members])
+                )
+                for state in ordered:
+                    state_model = state_models.get(state)
+                    if state_model is None:
+                        continue
+                    energy_50, _ = effective_fragment_damage_threshold(state_model)
+                    expected = _expected_state_probability(
+                        energies,
+                        probabilities,
+                        energy_50_j=float(energy_50),
+                        log_slope=float(state_model["log_slope"]),
+                        vulnerable_ratio=vulnerable,
+                    )
+                    survival[state] *= (1.0 - expected) ** multiplicity
+            state_probabilities[identifier] = _ordinal_projection(
+                {state: 1.0 - survival[state] for state in ordered}, ordered
+            )
+        return state_probabilities, cluster_counts
+
+    def evaluate(
+        self,
+        case: dict[str, Any],
+        *,
+        output_scope: str = "full",
+    ) -> dict[str, Any]:
+        """Evaluate one frozen candidate without producing a formal label.
+
+        ``full`` preserves the historical proxy contract, including component
+        state probabilities and damage-tree outputs.  ``exposure`` stops after
+        component exposure and energy aggregation so exposure-field screening
+        does not pay for state or tree evaluation.
+        """
+
+        if output_scope not in {"full", "exposure"}:
+            raise ValueError("output_scope must be 'full' or 'exposure'")
+        include_state_and_tree = output_scope == "full"
+
+        prepared = self.engine.prepare_case(deepcopy(case))
+        source = prepared["warhead"]["fragment_source"]
+        profile_id = str(prepared["munition"]["profile_id"])
+        source_model_id = str(source["model_id"])
+        source_model = self.engine.registry.fragment_source(source_model_id)
+        target = self.engine.compiled_target
+        air_density = float(prepared["environment"]["air_density_kg_m3"])
+
+        tallies: list[_RealizationTally] = []
+        realization_states: list[dict[str, dict[str, float]]] = []
+        realization_cluster_counts: list[dict[str, int]] = []
+        for realization in range(self.source_realizations):
+            rng = np.random.default_rng(
+                _stable_seed(
+                    base_seed=self.source_seed,
+                    profile_id=profile_id,
+                    source_model_id=source_model_id,
+                    realization=realization,
+                )
+            )
+            fragments = generate_fragments(prepared, self.engine.registry, rng)
+            packets = _weighted_fragment_packets(
+                fragments,
+                source_model,
+                azimuths_per_ring=self.azimuths_per_ring,
+            )
+            tally = self._transport_realization(
+                packets,
+                source_fragment_count=len(fragments),
+                air_density=air_density,
+                include_state_and_tree=include_state_and_tree,
+            )
+            tallies.append(tally)
+            if tally.survival is not None:
+                realization_states.append(
+                    self._survival_state_probabilities(tally.survival)
+                )
+            elif tally.impacts is not None:
+                states, clusters = self._registry_state_probabilities(tally.impacts)
+                realization_states.append(states)
+                realization_cluster_counts.append(clusters)
+
+        realization_count = float(len(tallies))
+
+        def mean_of(values: list[float]) -> float:
+            return float(sum(values) / realization_count)
+
+        first = tallies[0]
+        component_metrics: dict[str, dict[str, float]] = {
+            identifier: {
+                name: mean_of([tally.component_metrics[identifier][name] for tally in tallies])
+                for name in first.component_metrics[identifier]
+            }
+            for identifier in first.component_metrics
+        }
+        component_hit_probabilities = {
+            identifier: mean_of(
+                [0.0 - math.expm1(tally.log_no_hit[identifier]) for tally in tallies]
+            )
+            for identifier in first.log_no_hit
+        }
+        expected_armor_hits = mean_of([tally.expected_armor_hits for tally in tallies])
+        expected_armor_penetrations = mean_of(
+            [tally.expected_armor_penetrations for tally in tallies]
+        )
+        expected_component_hits = mean_of(
+            [tally.expected_component_hits for tally in tallies]
+        )
+        expected_component_penetrations = mean_of(
+            [tally.expected_component_penetrations for tally in tallies]
+        )
+        terminal_reach_mass = mean_of([tally.terminal_reach_mass for tally in tallies])
+        out_of_domain_packet_weight = mean_of(
+            [tally.out_of_domain_packet_weight for tally in tallies]
+        )
+        out_of_domain_weight_by_role = {
+            role: mean_of([tally.out_of_domain_weight_by_role[role] for tally in tallies])
+            for role in ("armor", "component")
+        }
+        represented_count = mean_of([tally.represented_count for tally in tallies])
+        represented_mass = mean_of([tally.represented_mass_kg for tally in tallies])
+        out_of_domain_mass = mean_of([tally.out_of_domain_mass_kg for tally in tallies])
+        layered_interaction_count = int(
+            sum(tally.layered_interaction_count for tally in tallies)
+        )
+
+        state_probabilities: dict[str, dict[str, float]] | None = None
+        tree_outputs: dict[str, float] | None = None
+        if realization_states:
+            state_probabilities = {
+                identifier: {
+                    state: mean_of([states[identifier][state] for states in realization_states])
+                    for state in realization_states[0][identifier]
+                }
+                for identifier in realization_states[0]
+            }
+            zero_states = {
+                item.object_id: {
+                    state: 0.0
+                    for state in item.source["damage_states"]
+                    if state != "intact"
+                }
+                for item in target.components
+            }
+            tree = self.engine.damage_tree.evaluate(
+                {
+                    "fragment": state_probabilities,
+                    "blast": zero_states,
+                    "combined": state_probabilities,
+                }
+            )
+            tree_outputs = {
+                name: float(value) for name, value in tree["outputs"].items()
+            }
+        total_absorbed = float(
+            sum(
+                item["expected_absorbed_energy_j"]
+                for item in component_metrics.values()
+            )
+        )
+        total_damage = float(
+            sum(
+                item["expected_damage_energy_j"]
+                for item in component_metrics.values()
+            )
+        )
+        supported = sorted(
+            identifier
+            for identifier, item in component_metrics.items()
+            if item["expected_hits"] >= self.component_support_threshold
+        )
+        exposure_score = float(
+            sum(math.log1p(item["expected_hits"]) for item in component_metrics.values())
+        )
+        sampling_score = float(exposure_score + 0.25 * math.log1p(total_damage))
+        if tree_outputs is not None:
+            sampling_score = float(
+                sampling_score + 0.25 * sum(tree_outputs.values())
+            )
+        out_of_domain_fraction = (
+            0.0
+            if represented_count <= 0.0
+            else float(np.clip(out_of_domain_packet_weight / represented_count, 0.0, 1.0))
+        )
+        out_of_domain_mass_fraction = (
+            0.0
+            if represented_mass <= 0.0
+            else float(np.clip(out_of_domain_mass / represented_mass, 0.0, 1.0))
+        )
+        proxy_domain_status = (
+            "complete_proxy_domain"
+            if out_of_domain_packet_weight <= EPS
+            else "partial_proxy_domain_censored"
+        )
+        result = {
+            "schema_version": FAST_SAMPLING_PROXY_VERSION,
+            "case_id": str(prepared["case_id"]),
+            "profile_id": profile_id,
+            "source_model_id": source_model_id,
+            "source_seed": self.source_seed,
+            "azimuths_per_ring": self.azimuths_per_ring,
+            "source_realizations": self.source_realizations,
+            "damage_accumulation": self.damage_accumulation,
+            "source_fragment_count": first.source_fragment_count,
+            "representative_ray_count": first.representative_ray_count,
+            "represented_fragment_count": represented_count,
+            "weight_normalization_error": represented_count - first.source_fragment_count,
+            "reach_probability_cutoff": self.reach_probability_cutoff,
+            "component_support_threshold": self.component_support_threshold,
+            "expected_armor_hits": float(expected_armor_hits),
+            "expected_armor_penetrations": float(expected_armor_penetrations),
+            "expected_total_component_hits": float(expected_component_hits),
+            "expected_total_component_penetrations": float(
+                expected_component_penetrations
+            ),
+            "expected_total_component_absorbed_energy_j": total_absorbed,
+            "expected_total_component_damage_energy_j": total_damage,
+            "terminal_packet_weight": float(terminal_reach_mass),
+            "out_of_domain_packet_weight": float(out_of_domain_packet_weight),
+            "out_of_domain_mass_fraction": out_of_domain_mass_fraction,
+            "proxy_domain_status": proxy_domain_status,
+            "proxy_domain_coverage": {
+                "represented_packet_weight": represented_count,
+                "out_of_domain_packet_weight": float(out_of_domain_packet_weight),
+                "out_of_domain_packet_fraction": out_of_domain_fraction,
+                "out_of_domain_mass_fraction": out_of_domain_mass_fraction,
+                "out_of_domain_packet_weight_by_role": out_of_domain_weight_by_role,
+                "comparison_quantity": "out_of_domain_mass_fraction",
+                "status_semantics": (
+                    "proxy_domain_status flags any censored packet; it grows with "
+                    "ray count and seed, so comparisons should use "
+                    "out_of_domain_mass_fraction instead"
+                ),
+            },
+            "formal_label_admissible": False,
+            "penetration_kernel": "resolve_penetration_path",
+            "layer_quadrature_samples": self.layer_quadrature_samples,
+            "layered_interaction_count": int(layered_interaction_count),
+            "supported_component_ids": supported,
+            "supported_component_count": len(supported),
+            "component_metrics": component_metrics,
+            "component_hit_probabilities": component_hit_probabilities,
+            "component_hit_probability_semantics": (
+                "mean over source realizations of 1-prod_rays(1-reach)^weight; "
+                "independent-fragment arrival union, not 1-exp(-expected_hits)"
+            ),
+            "component_state_probabilities": state_probabilities,
+            "tree_outputs": tree_outputs,
+            "sampling_score": sampling_score,
+            "evidence_boundary": (
+                "Outcome-blind sampling proxy only. Uses weighted Taylor-ring rays "
+                "and deterministic expected penetration with the current unverified "
+                "response registry; not a formal label, operational probability, or "
+                "physical validation."
+            ),
+        }
+        if realization_cluster_counts:
+            result["component_damage_cluster_counts"] = {
+                identifier: mean_of(
+                    [float(counts[identifier]) for counts in realization_cluster_counts]
+                )
+                for identifier in realization_cluster_counts[0]
+            }
+        if output_scope == "exposure":
+            result["output_scope"] = "exposure"
+            result["not_computed"] = [
+                "component_state_probabilities",
+                "tree_outputs",
+            ]
+        return result
+
+
+__all__ = [
+    "DAMAGE_ACCUMULATION_OPTIONS",
+    "FAST_SAMPLING_PROXY_VERSION",
+    "FastSamplingProxy",
+]

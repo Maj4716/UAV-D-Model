@@ -1,0 +1,1099 @@
+{
+  "schema_version": "pipeline-teacher-paired-audit@1.0.0",
+  "analysis_id": "pipeline-expected-actual-20261122-v1",
+  "analysis_scope": "paired_train_validation_only_with_opaque_test_placeholders",
+  "analysis_status": "development_descriptive_exploratory",
+  "bootstrap": {
+    "unit": "paired_case",
+    "seed": 2026112201,
+    "draws": 10000,
+    "interval": "percentile_95"
+  },
+  "identity_checks": {
+    "case_ids_exact_match": true,
+    "split_assignments_exact_match": true,
+    "learner_inputs_exact_match": true,
+    "test_case_id_order_hash_exact_match": true
+  },
+  "v2_control": {
+    "root": "artifacts/datasets/recovery_paired_control_v2_r8_20261122_retry1",
+    "development_case_count": 45,
+    "split_counts": {
+      "train": 30,
+      "validation": 15,
+      "test": 15
+    },
+    "affected_replicate_fraction": {
+      "count": 45,
+      "mean": 0.8277777777777777,
+      "standard_deviation": 0.32995446579028065,
+      "minimum": 0.0,
+      "median": 1.0,
+      "p90": 1.0,
+      "maximum": 1.0,
+      "affected_case_count": 41,
+      "affected_case_rate": 0.9111111111111111,
+      "affected_replicate_count": 298,
+      "total_development_replicate_count": 360
+    },
+    "fully_observed_case": {
+      "count": 4,
+      "rate": 0.08888888888888889
+    },
+    "epsilon_complete": {
+      "epsilon": 0.01,
+      "definition": "all component identification intervals at most epsilon for all three probability targets",
+      "count": 4,
+      "rate": 0.08888888888888889
+    },
+    "target_observation_rate": {
+      "p_hit": 0.16948590381426204,
+      "p_degraded": 0.15389718076285241,
+      "p_failed": 0.1293532338308458
+    },
+    "identification_interval_width": {
+      "p_hit": {
+        "count": 3015,
+        "mean": 0.7138059701492537,
+        "standard_deviation": 0.40564241671256374,
+        "minimum": 0.0,
+        "median": 1.0,
+        "p90": 1.0,
+        "maximum": 1.0
+      },
+      "p_degraded": {
+        "count": 3015,
+        "mean": 0.7257419402172717,
+        "standard_deviation": 0.3990700509317705,
+        "minimum": 0.0,
+        "median": 1.0,
+        "p90": 1.0,
+        "maximum": 1.0
+      },
+      "p_failed": {
+        "count": 3015,
+        "mean": 0.750374479202332,
+        "standard_deviation": 0.38496327902491057,
+        "minimum": 0.0,
+        "median": 1.0,
+        "p90": 1.0,
+        "maximum": 1.0
+      }
+    },
+    "conditional_observation_rate": {
+      "energy": 0.01956882255389718,
+      "hit_count": 0.01956882255389718
+    },
+    "support": {
+      "p_hit": {
+        "train": {
+          "case_count": 30,
+          "positive_count": {
+            "minimum": 0,
+            "median": 1.0,
+            "maximum": 18,
+            "zero_component_count": 20
+          },
+          "negative_count": {
+            "minimum": 1,
+            "median": 4.0,
+            "maximum": 5,
+            "zero_component_count": 0
+          },
+          "observed_count": {
+            "minimum": 5,
+            "median": 6.0,
+            "maximum": 20
+          }
+        },
+        "validation": {
+          "case_count": 15,
+          "positive_count": {
+            "minimum": 0,
+            "median": 0.0,
+            "maximum": 12,
+            "zero_component_count": 41
+          },
+          "negative_count": {
+            "minimum": 0,
+            "median": 0.0,
+            "maximum": 0,
+            "zero_component_count": 67
+          },
+          "observed_count": {
+            "minimum": 0,
+            "median": 0.0,
+            "maximum": 12
+          }
+        }
+      },
+      "p_degraded": {
+        "train": {
+          "case_count": 30,
+          "positive_count": {
+            "minimum": 0,
+            "median": 1.0,
+            "maximum": 18,
+            "zero_component_count": 23
+          },
+          "negative_count": {
+            "minimum": 1,
+            "median": 4.0,
+            "maximum": 5,
+            "zero_component_count": 0
+          },
+          "observed_count": {
+            "minimum": 4,
+            "median": 5.0,
+            "maximum": 20
+          }
+        },
+        "validation": {
+          "case_count": 15,
+          "positive_count": {
+            "minimum": 0,
+            "median": 0.0,
+            "maximum": 12,
+            "zero_component_count": 47
+          },
+          "negative_count": {
+            "minimum": 0,
+            "median": 0.0,
+            "maximum": 0,
+            "zero_component_count": 67
+          },
+          "observed_count": {
+            "minimum": 0,
+            "median": 0.0,
+            "maximum": 12
+          }
+        }
+      },
+      "p_failed": {
+        "train": {
+          "case_count": 30,
+          "positive_count": {
+            "minimum": 0,
+            "median": 1.0,
+            "maximum": 15,
+            "zero_component_count": 28
+          },
+          "negative_count": {
+            "minimum": 1,
+            "median": 4.0,
+            "maximum": 5,
+            "zero_component_count": 0
+          },
+          "observed_count": {
+            "minimum": 4,
+            "median": 5.0,
+            "maximum": 17
+          }
+        },
+        "validation": {
+          "case_count": 15,
+          "positive_count": {
+            "minimum": 0,
+            "median": 0.0,
+            "maximum": 10,
+            "zero_component_count": 57
+          },
+          "negative_count": {
+            "minimum": 0,
+            "median": 0.0,
+            "maximum": 0,
+            "zero_component_count": 67
+          },
+          "observed_count": {
+            "minimum": 0,
+            "median": 0.0,
+            "maximum": 10
+          }
+        }
+      }
+    },
+    "development_support": {
+      "p_hit": {
+        "positive": {
+          "minimum": 0,
+          "median": 2.0,
+          "maximum": 30,
+          "zero_supported_component_count": 19,
+          "below_20_component_count": 66
+        },
+        "negative": {
+          "minimum": 1,
+          "median": 4.0,
+          "maximum": 5,
+          "zero_supported_component_count": 0,
+          "below_20_component_count": 67
+        },
+        "observed": {
+          "minimum": 5,
+          "median": 6.0,
+          "maximum": 32,
+          "zero_supported_component_count": 0,
+          "below_20_component_count": 66
+        }
+      },
+      "p_degraded": {
+        "positive": {
+          "minimum": 0,
+          "median": 1.0,
+          "maximum": 30,
+          "zero_supported_component_count": 22,
+          "below_20_component_count": 66
+        },
+        "negative": {
+          "minimum": 1,
+          "median": 4.0,
+          "maximum": 5,
+          "zero_supported_component_count": 0,
+          "below_20_component_count": 67
+        },
+        "observed": {
+          "minimum": 4,
+          "median": 5.0,
+          "maximum": 32,
+          "zero_supported_component_count": 0,
+          "below_20_component_count": 66
+        }
+      },
+      "p_failed": {
+        "positive": {
+          "minimum": 0,
+          "median": 1.0,
+          "maximum": 25,
+          "zero_supported_component_count": 28,
+          "below_20_component_count": 66
+        },
+        "negative": {
+          "minimum": 1,
+          "median": 4.0,
+          "maximum": 5,
+          "zero_supported_component_count": 0,
+          "below_20_component_count": 67
+        },
+        "observed": {
+          "minimum": 4,
+          "median": 5.0,
+          "maximum": 27,
+          "zero_supported_component_count": 0,
+          "below_20_component_count": 66
+        }
+      }
+    },
+    "missingness_ks": {
+      "alpha": 0.05,
+      "tested_record_count": 234,
+      "evaluated_record_count": 30,
+      "significant_record_count": 0,
+      "maximum_ks_statistic": 0.6000000000000001
+    },
+    "sampling_quality": {
+      "candidate_count": 98,
+      "selected_count": 60,
+      "selected_split_counts": {
+        "test": 15,
+        "train": 30,
+        "validation": 15
+      },
+      "positivity_min": 1.0,
+      "positivity_max": 1.0,
+      "design_weight": {
+        "set": "selected_weight_eligible",
+        "weight_meaning": "inverse inclusion probability for candidates drawn directly from p0",
+        "formula": "1/inclusion_probability",
+        "minimum": 1.0,
+        "maximum": 1.0,
+        "maximum_normalized": 0.016666666666666666,
+        "mean": 1.0,
+        "cv": 0.0,
+        "p90": 1.0,
+        "p99": 1.0,
+        "normalized_p90": 0.016666666666666666,
+        "normalized_p99": 0.016666666666666666,
+        "quantiles": {
+          "0.5": 1.0,
+          "0.9": 1.0,
+          "0.99": 1.0
+        }
+      },
+      "effective_sample_size": 60.0,
+      "ess_fraction": 1.0,
+      "registry_assignment_status": "assignments_verified",
+      "coverage_status": "descriptive_only_no_predeclared_coverage_protocol",
+      "coverage_guaranteed": false,
+      "quality_gates": {
+        "candidate_set_integrity": true,
+        "design_weight_numerics": true,
+        "declared_group_isolation": true,
+        "stream_role_split_isolation": true,
+        "positivity": true,
+        "ess_fraction": true,
+        "weight_cv": true
+      },
+      "quality_gate_passed": true,
+      "quality_gate_scope": "input set integrity, declared group isolation and eligible selected-weight diagnostics; excludes coverage and scientific admission"
+    },
+    "archive_integrity": {
+      "dataset_v2": {
+        "schema_version": "dataset-v2@1.0.0",
+        "dataset_id": "damage-dataset-v2-2587ce1394a92d4dff0fc957",
+        "status": "provisional",
+        "provisional_reason": "paired_control_before_high_obliquity_bound",
+        "core_tree_independent": true,
+        "case_count": 60,
+        "component_count": 67,
+        "label_spec_id": "raw-armored-target-fragment-only-hurdle-v3",
+        "source_code_hash": "sha256:987c0d4db314a4b4ce21717eb49fa644ea7744ba3206d4d72bd34cca1302c53a",
+        "manifest_hash": "sha256:768b28dedeb58da79f120d8b39dcc27a35f86447d7ace11988c6bd891da0c047"
+      },
+      "dataset_validation_identity": {
+        "dataset_valid": true,
+        "dataset_case_count": 60,
+        "sealed_test_file_sha256": "sha256:b2d32e5e96e6d476205a596cec1bb56a9fdee05276730dd154a887cd7d863210"
+      },
+      "formal_checkpoint": {
+        "schema_version": "2.0.0",
+        "status": "complete",
+        "completed_shard_count": 4,
+        "completed_case_count": 60,
+        "dataset_id": "damage-dataset-dcab62c6e18598fdb15f5daf",
+        "root_manifest_hash": "sha256:244862efdc0b331883588d18f636bd54ad098445dfe02151b49ee7de0ec9a6a1"
+      },
+      "result_access": {
+        "result_json_lines_seen": 60,
+        "development_result_json_lines_decoded": 45,
+        "test_result_json_lines_seen": 15,
+        "test_result_json_lines_decoded": 0
+      },
+      "development_audit_report_hash": "sha256:6b3df469bb12749d18389006c2b7abfd2953314a6fc4b1f9d64765efa6b2eba7"
+    },
+    "training_readiness": {
+      "gates": {
+        "minimum_train_cases_2000": false,
+        "train_epsilon_complete_rate_at_least_0_90": false,
+        "minimum_component_p_hit_positive_count_20": false,
+        "minimum_component_p_degraded_positive_count_20": false,
+        "minimum_component_p_failed_positive_count_20": false,
+        "minimum_component_p_hit_negative_count_20": false,
+        "minimum_validation_component_p_hit_positive_count_5": false,
+        "minimum_validation_component_p_hit_negative_count_5": false,
+        "train_ess_fraction_at_least_0_50": true,
+        "validation_has_cases": true,
+        "sealed_test_result_json_lines_decoded_zero": true
+      },
+      "formal_neural_training_ready": false,
+      "decision_scope": "statistical/software training readiness for this synthetic teacher; physical validation and research admission are separate gates"
+    },
+    "component_task_admission_summary": {
+      "p_hit": {
+        "train_eligible_component_count": 0,
+        "validation_evaluable_component_count": 0,
+        "admitted_component_count": 0
+      },
+      "p_degraded": {
+        "train_eligible_component_count": 0,
+        "validation_evaluable_component_count": 0,
+        "admitted_component_count": 0
+      },
+      "p_failed": {
+        "train_eligible_component_count": 0,
+        "validation_evaluable_component_count": 0,
+        "admitted_component_count": 0
+      }
+    },
+    "sealed_test": {
+      "schema_version": "dataset-v2-sealed-test@1.0.0",
+      "dataset_id": "damage-dataset-v2-2587ce1394a92d4dff0fc957",
+      "split_counts": {
+        "test": 15,
+        "train": 30,
+        "validation": 15
+      },
+      "test_packaging_operation": "opaque_source_with_masked_core_placeholders",
+      "test_labels_present_in_core": false,
+      "test_component_traces_present_in_core": false,
+      "test_label_masks_all_false": true,
+      "test_result_json_lines_decoded": 0,
+      "development_result_json_lines_decoded": 45,
+      "test_open_count": 0,
+      "test_labels_evaluated_for_model_selection": false,
+      "opening_requirement": "frozen_model_and_threshold_contract",
+      "source_dataset_id": "damage-dataset-dcab62c6e18598fdb15f5daf",
+      "source_manifest_sha256": "sha256:244862efdc0b331883588d18f636bd54ad098445dfe02151b49ee7de0ec9a6a1",
+      "source_shards": [
+        {
+          "shard": "part-000000",
+          "case_count": 16,
+          "test_case_count": 1,
+          "tensors_sha256": "sha256:75374be5186e4808be933979e66d37432626db6d143a9ec2d1af7ab7b481d210",
+          "results_sha256": "sha256:39d2ade327c0ae1e1baa3503ec5deb4deb337f172d4ae0c3cc7678d38fc66919"
+        },
+        {
+          "shard": "part-000001",
+          "case_count": 16,
+          "test_case_count": 14,
+          "tensors_sha256": "sha256:8837109613e06ce60382980326880568d2f8c5aacd14eafb7625d0b2c48008e4",
+          "results_sha256": "sha256:4d466d308ad859785b06ccd4e2a70c65565455c10eefaf11dd85244565fa20b0"
+        },
+        {
+          "shard": "part-000002",
+          "case_count": 16,
+          "test_case_count": 0,
+          "tensors_sha256": "sha256:407b900c504c16af792d5176f19844aac51aa55dac32e34553d98a3e27aaa958",
+          "results_sha256": "sha256:dce27abc80517baed1a947058bb4dad97541e8d365f9186816373b8c43cbd82a"
+        },
+        {
+          "shard": "part-000003",
+          "case_count": 12,
+          "test_case_count": 0,
+          "tensors_sha256": "sha256:bc4be770fb026f5e8fc22ad5b5bf9878c3b01bdef0308605708f2b243be3abfc",
+          "results_sha256": "sha256:e58ac449c1ad3fc0c40fb7b8b2d5971d02256f8c0e635a76a1c6466983342a78"
+        }
+      ],
+      "test_case_id_order_hash": "sha256:639d40ff4794fc55a4b76fb98412e2d19077e0c8842acff765b1b6dcff32bed0",
+      "source_tensor_fields_read": [
+        "case_ids",
+        "split_names",
+        "input_frozen_splits",
+        "loitering_impact_first_armor_state_x",
+        "loitering_impact_first_armor_state_feature_mask",
+        "loitering_impact_first_armor_state_feature_names",
+        "component_ids",
+        "sampling_weight_mask",
+        "sampling_selection_probability",
+        "sampling_design_weight_raw"
+      ]
+    },
+    "source_hashes": {
+      "development_audit_sha256": "sha256:a1f65e51d864c725e167c1f4d5657a52f20a49443a0cabd5903d30644361d2a7",
+      "dataset_v2_manifest_sha256": "sha256:6fc3b6f5969e6b323f1b67c014cf95bbc9b1a78b191dfaae11979af7fd5abf4f",
+      "sealed_test_sha256": "sha256:b2d32e5e96e6d476205a596cec1bb56a9fdee05276730dd154a887cd7d863210",
+      "sampling_quality_sha256": "sha256:a051212186c90c90e4009e548e5703ee8e94874ed2f9de12541d4d1732b54de9",
+      "formal_checkpoint_sha256": "sha256:0c99c9ee21f018763fc6f5328485dff43f73d4bf5f29a9a42b2056a7a0c21c94",
+      "formal_manifest_sha256": "sha256:244862efdc0b331883588d18f636bd54ad098445dfe02151b49ee7de0ec9a6a1"
+    }
+  },
+  "v3_bound": {
+    "root": "artifacts/datasets/recovery_paired_bound_v3_r8_20261122",
+    "development_case_count": 45,
+    "split_counts": {
+      "train": 30,
+      "validation": 15,
+      "test": 15
+    },
+    "affected_replicate_fraction": {
+      "count": 45,
+      "mean": 0.03611111111111111,
+      "standard_deviation": 0.15221429604078562,
+      "minimum": 0.0,
+      "median": 0.0,
+      "p90": 0.125,
+      "maximum": 1.0,
+      "affected_case_count": 6,
+      "affected_case_rate": 0.13333333333333333,
+      "affected_replicate_count": 13,
+      "total_development_replicate_count": 360
+    },
+    "fully_observed_case": {
+      "count": 40,
+      "rate": 0.8888888888888888
+    },
+    "epsilon_complete": {
+      "epsilon": 0.01,
+      "definition": "all component identification intervals at most epsilon for all three probability targets",
+      "count": 40,
+      "rate": 0.8888888888888888
+    },
+    "target_observation_rate": {
+      "p_hit": 0.9993366500829187,
+      "p_degraded": 0.999004975124378,
+      "p_failed": 0.9973466003316749
+    },
+    "identification_interval_width": {
+      "p_hit": {
+        "count": 3015,
+        "mean": 8.291873963515753e-05,
+        "standard_deviation": 0.0032189134121791115,
+        "minimum": 0.0,
+        "median": 0.0,
+        "p90": 0.0,
+        "maximum": 0.125
+      },
+      "p_degraded": {
+        "count": 3015,
+        "mean": 0.00011493359037099873,
+        "standard_deviation": 0.003662550747659545,
+        "minimum": 0.0,
+        "median": 0.0,
+        "p90": 0.0,
+        "maximum": 0.125
+      },
+      "p_failed": {
+        "count": 3015,
+        "mean": 0.00019791863947632158,
+        "standard_deviation": 0.004429263201465751,
+        "minimum": 0.0,
+        "median": 0.0,
+        "p90": 0.0,
+        "maximum": 0.125
+      }
+    },
+    "conditional_observation_rate": {
+      "energy": 0.10978441127694859,
+      "hit_count": 0.10978441127694859
+    },
+    "support": {
+      "p_hit": {
+        "train": {
+          "case_count": 30,
+          "positive_count": {
+            "minimum": 0,
+            "median": 2.0,
+            "maximum": 20,
+            "zero_component_count": 11
+          },
+          "negative_count": {
+            "minimum": 10,
+            "median": 28.0,
+            "maximum": 30,
+            "zero_component_count": 0
+          },
+          "observed_count": {
+            "minimum": 29,
+            "median": 30.0,
+            "maximum": 30
+          }
+        },
+        "validation": {
+          "case_count": 15,
+          "positive_count": {
+            "minimum": 0,
+            "median": 1.0,
+            "maximum": 12,
+            "zero_component_count": 18
+          },
+          "negative_count": {
+            "minimum": 3,
+            "median": 14.0,
+            "maximum": 15,
+            "zero_component_count": 0
+          },
+          "observed_count": {
+            "minimum": 15,
+            "median": 15.0,
+            "maximum": 15
+          }
+        }
+      },
+      "p_degraded": {
+        "train": {
+          "case_count": 30,
+          "positive_count": {
+            "minimum": 0,
+            "median": 2.0,
+            "maximum": 20,
+            "zero_component_count": 11
+          },
+          "negative_count": {
+            "minimum": 10,
+            "median": 28.0,
+            "maximum": 30,
+            "zero_component_count": 0
+          },
+          "observed_count": {
+            "minimum": 29,
+            "median": 30.0,
+            "maximum": 30
+          }
+        },
+        "validation": {
+          "case_count": 15,
+          "positive_count": {
+            "minimum": 0,
+            "median": 1.0,
+            "maximum": 12,
+            "zero_component_count": 18
+          },
+          "negative_count": {
+            "minimum": 3,
+            "median": 14.0,
+            "maximum": 15,
+            "zero_component_count": 0
+          },
+          "observed_count": {
+            "minimum": 15,
+            "median": 15.0,
+            "maximum": 15
+          }
+        }
+      },
+      "p_failed": {
+        "train": {
+          "case_count": 30,
+          "positive_count": {
+            "minimum": 0,
+            "median": 2.0,
+            "maximum": 20,
+            "zero_component_count": 11
+          },
+          "negative_count": {
+            "minimum": 10,
+            "median": 28.0,
+            "maximum": 30,
+            "zero_component_count": 0
+          },
+          "observed_count": {
+            "minimum": 29,
+            "median": 30.0,
+            "maximum": 30
+          }
+        },
+        "validation": {
+          "case_count": 15,
+          "positive_count": {
+            "minimum": 0,
+            "median": 1.0,
+            "maximum": 12,
+            "zero_component_count": 18
+          },
+          "negative_count": {
+            "minimum": 3,
+            "median": 14.0,
+            "maximum": 15,
+            "zero_component_count": 0
+          },
+          "observed_count": {
+            "minimum": 14,
+            "median": 15.0,
+            "maximum": 15
+          }
+        }
+      }
+    },
+    "development_support": {
+      "p_hit": {
+        "positive": {
+          "minimum": 0,
+          "median": 4.0,
+          "maximum": 32,
+          "zero_supported_component_count": 9,
+          "below_20_component_count": 64
+        },
+        "negative": {
+          "minimum": 13,
+          "median": 41.0,
+          "maximum": 45,
+          "zero_supported_component_count": 0,
+          "below_20_component_count": 2
+        },
+        "observed": {
+          "minimum": 44,
+          "median": 45.0,
+          "maximum": 45,
+          "zero_supported_component_count": 0,
+          "below_20_component_count": 0
+        }
+      },
+      "p_degraded": {
+        "positive": {
+          "minimum": 0,
+          "median": 4.0,
+          "maximum": 32,
+          "zero_supported_component_count": 9,
+          "below_20_component_count": 64
+        },
+        "negative": {
+          "minimum": 13,
+          "median": 41.0,
+          "maximum": 45,
+          "zero_supported_component_count": 0,
+          "below_20_component_count": 2
+        },
+        "observed": {
+          "minimum": 44,
+          "median": 45.0,
+          "maximum": 45,
+          "zero_supported_component_count": 0,
+          "below_20_component_count": 0
+        }
+      },
+      "p_failed": {
+        "positive": {
+          "minimum": 0,
+          "median": 4.0,
+          "maximum": 32,
+          "zero_supported_component_count": 9,
+          "below_20_component_count": 64
+        },
+        "negative": {
+          "minimum": 13,
+          "median": 41.0,
+          "maximum": 45,
+          "zero_supported_component_count": 0,
+          "below_20_component_count": 2
+        },
+        "observed": {
+          "minimum": 44,
+          "median": 45.0,
+          "maximum": 45,
+          "zero_supported_component_count": 0,
+          "below_20_component_count": 0
+        }
+      }
+    },
+    "missingness_ks": {
+      "alpha": 0.05,
+      "tested_record_count": 234,
+      "evaluated_record_count": 30,
+      "significant_record_count": 0,
+      "maximum_ks_statistic": 0.25
+    },
+    "sampling_quality": {
+      "candidate_count": 98,
+      "selected_count": 60,
+      "selected_split_counts": {
+        "test": 15,
+        "train": 30,
+        "validation": 15
+      },
+      "positivity_min": 1.0,
+      "positivity_max": 1.0,
+      "design_weight": {
+        "set": "selected_weight_eligible",
+        "weight_meaning": "inverse inclusion probability for candidates drawn directly from p0",
+        "formula": "1/inclusion_probability",
+        "minimum": 1.0,
+        "maximum": 1.0,
+        "maximum_normalized": 0.016666666666666666,
+        "mean": 1.0,
+        "cv": 0.0,
+        "p90": 1.0,
+        "p99": 1.0,
+        "normalized_p90": 0.016666666666666666,
+        "normalized_p99": 0.016666666666666666,
+        "quantiles": {
+          "0.5": 1.0,
+          "0.9": 1.0,
+          "0.99": 1.0
+        }
+      },
+      "effective_sample_size": 60.0,
+      "ess_fraction": 1.0,
+      "registry_assignment_status": "assignments_verified",
+      "coverage_status": "descriptive_only_no_predeclared_coverage_protocol",
+      "coverage_guaranteed": false,
+      "quality_gates": {
+        "candidate_set_integrity": true,
+        "design_weight_numerics": true,
+        "declared_group_isolation": true,
+        "stream_role_split_isolation": true,
+        "positivity": true,
+        "ess_fraction": true,
+        "weight_cv": true
+      },
+      "quality_gate_passed": true,
+      "quality_gate_scope": "input set integrity, declared group isolation and eligible selected-weight diagnostics; excludes coverage and scientific admission"
+    },
+    "archive_integrity": {
+      "dataset_v2": {
+        "schema_version": "dataset-v2@1.0.0",
+        "dataset_id": "damage-dataset-v2-bc7e79437f112fce56c1a9db",
+        "status": "provisional",
+        "provisional_reason": "recovery_pilot_high_obliquity_shape_constraint_unverified",
+        "core_tree_independent": true,
+        "case_count": 60,
+        "component_count": 67,
+        "label_spec_id": "raw-armored-target-fragment-only-hurdle-v3",
+        "source_code_hash": "sha256:987c0d4db314a4b4ce21717eb49fa644ea7744ba3206d4d72bd34cca1302c53a",
+        "manifest_hash": "sha256:e81f324f84300319b1fef213a9656cbb45522e11c09008f7a502801ce28c92d9"
+      },
+      "dataset_validation_identity": {
+        "dataset_valid": true,
+        "dataset_case_count": 60,
+        "sealed_test_file_sha256": "sha256:d1cf60fb0e95221ca4a12b4c4280cd88a532491092a06c792e0cc29dfe3f5d6b"
+      },
+      "formal_checkpoint": {
+        "schema_version": "2.0.0",
+        "status": "complete",
+        "completed_shard_count": 4,
+        "completed_case_count": 60,
+        "dataset_id": "damage-dataset-9e7ffe4581fd9c4393ba3ad9",
+        "root_manifest_hash": "sha256:07ccfd8d0ce4b442c745d55d1d053c77771b0c6fee133ee382632301da915613"
+      },
+      "result_access": {
+        "result_json_lines_seen": 60,
+        "development_result_json_lines_decoded": 45,
+        "test_result_json_lines_seen": 15,
+        "test_result_json_lines_decoded": 0
+      },
+      "development_audit_report_hash": "sha256:0a8e189eaa9880c39b9afb559ddc18b935ab6c51451b061ac9d492f3e0a9b00c"
+    },
+    "training_readiness": {
+      "gates": {
+        "minimum_train_cases_2000": false,
+        "train_epsilon_complete_rate_at_least_0_90": true,
+        "minimum_component_p_hit_positive_count_20": false,
+        "minimum_component_p_degraded_positive_count_20": false,
+        "minimum_component_p_failed_positive_count_20": false,
+        "minimum_component_p_hit_negative_count_20": false,
+        "minimum_validation_component_p_hit_positive_count_5": false,
+        "minimum_validation_component_p_hit_negative_count_5": false,
+        "train_ess_fraction_at_least_0_50": true,
+        "validation_has_cases": true,
+        "sealed_test_result_json_lines_decoded_zero": true
+      },
+      "formal_neural_training_ready": false,
+      "decision_scope": "statistical/software training readiness for this synthetic teacher; physical validation and research admission are separate gates"
+    },
+    "component_task_admission_summary": {
+      "p_hit": {
+        "train_eligible_component_count": 0,
+        "validation_evaluable_component_count": 9,
+        "admitted_component_count": 0
+      },
+      "p_degraded": {
+        "train_eligible_component_count": 0,
+        "validation_evaluable_component_count": 9,
+        "admitted_component_count": 0
+      },
+      "p_failed": {
+        "train_eligible_component_count": 0,
+        "validation_evaluable_component_count": 9,
+        "admitted_component_count": 0
+      }
+    },
+    "sealed_test": {
+      "schema_version": "dataset-v2-sealed-test@1.0.0",
+      "dataset_id": "damage-dataset-v2-bc7e79437f112fce56c1a9db",
+      "split_counts": {
+        "test": 15,
+        "train": 30,
+        "validation": 15
+      },
+      "test_packaging_operation": "opaque_source_with_masked_core_placeholders",
+      "test_labels_present_in_core": false,
+      "test_component_traces_present_in_core": false,
+      "test_label_masks_all_false": true,
+      "test_result_json_lines_decoded": 0,
+      "development_result_json_lines_decoded": 45,
+      "test_open_count": 0,
+      "test_labels_evaluated_for_model_selection": false,
+      "opening_requirement": "frozen_model_and_threshold_contract",
+      "source_dataset_id": "damage-dataset-9e7ffe4581fd9c4393ba3ad9",
+      "source_manifest_sha256": "sha256:07ccfd8d0ce4b442c745d55d1d053c77771b0c6fee133ee382632301da915613",
+      "source_shards": [
+        {
+          "shard": "part-000000",
+          "case_count": 16,
+          "test_case_count": 1,
+          "tensors_sha256": "sha256:5feb7709cd3a38d1b54f82599e982348a5ef3e7add14cf3c629e966d3ae74603",
+          "results_sha256": "sha256:52bb759edc0b9255f6f87e41910f05d3e160a6b5bfa8f2ceff0db6532cbee780"
+        },
+        {
+          "shard": "part-000001",
+          "case_count": 16,
+          "test_case_count": 14,
+          "tensors_sha256": "sha256:693130353eac6a8b97c6039db1446a191eb2cfab474379f8360d6e63bf1bd406",
+          "results_sha256": "sha256:a111cfb68823e4381dc0085e898d57283e13f20a6523dc8054322cace80b3d4a"
+        },
+        {
+          "shard": "part-000002",
+          "case_count": 16,
+          "test_case_count": 0,
+          "tensors_sha256": "sha256:6e2f845c626616dd1189aa82f154d2a1f59bfc621f4d89a5e1edaf4f1783eef5",
+          "results_sha256": "sha256:c6d96c9d13808cc702f89c3cd9e92352c09300b86a6f956e303fca2cae241145"
+        },
+        {
+          "shard": "part-000003",
+          "case_count": 12,
+          "test_case_count": 0,
+          "tensors_sha256": "sha256:47bbe93eb6c13b2b58de9cc07ef1e2dffdc83d03accfe547a8f16b58944d9537",
+          "results_sha256": "sha256:3df496a8280e0d0c8ef26df8045837eb9a7f4a3e5ba19bf99a78342aea0103a7"
+        }
+      ],
+      "test_case_id_order_hash": "sha256:639d40ff4794fc55a4b76fb98412e2d19077e0c8842acff765b1b6dcff32bed0",
+      "source_tensor_fields_read": [
+        "case_ids",
+        "split_names",
+        "input_frozen_splits",
+        "loitering_impact_first_armor_state_x",
+        "loitering_impact_first_armor_state_feature_mask",
+        "loitering_impact_first_armor_state_feature_names",
+        "component_ids",
+        "sampling_weight_mask",
+        "sampling_selection_probability",
+        "sampling_design_weight_raw"
+      ]
+    },
+    "source_hashes": {
+      "development_audit_sha256": "sha256:f1a6eac6dccc709f434cfe6f289d630555bf04e37e326545c62c61875560a4f4",
+      "dataset_v2_manifest_sha256": "sha256:070391e78de090609f03a20911af18a4e2d98c37b84bce9cc19be5e4ad2181eb",
+      "sealed_test_sha256": "sha256:d1cf60fb0e95221ca4a12b4c4280cd88a532491092a06c792e0cc29dfe3f5d6b",
+      "sampling_quality_sha256": "sha256:a051212186c90c90e4009e548e5703ee8e94874ed2f9de12541d4d1732b54de9",
+      "formal_checkpoint_sha256": "sha256:9eb5117fe8bb9af39ca6a65745ed152efe98abde13793a0ac59db410c0e49f7f",
+      "formal_manifest_sha256": "sha256:07ccfd8d0ce4b442c745d55d1d053c77771b0c6fee133ee382632301da915613"
+    }
+  },
+  "paired_comparisons": {
+    "affected_replicate_fraction_mean": {
+      "estimand": "v3_minus_v2_paired_case_mean_difference",
+      "paired_case_count": 45,
+      "estimate": -0.7916666666666666,
+      "percentile_95_interval": [
+        -0.8861111111111111,
+        -0.6861111111111111
+      ],
+      "bootstrap_draws": 10000,
+      "bootstrap_seed": 2026112201
+    },
+    "epsilon_complete_rate": {
+      "estimand": "v3_minus_v2_paired_case_mean_difference",
+      "paired_case_count": 45,
+      "estimate": 0.8,
+      "percentile_95_interval": [
+        0.6888888888888889,
+        0.9111111111111111
+      ],
+      "bootstrap_draws": 10000,
+      "bootstrap_seed": 2026112201
+    },
+    "target_observation_rate": {
+      "p_hit": {
+        "estimand": "v3_minus_v2_paired_case_mean_difference",
+        "paired_case_count": 45,
+        "estimate": 0.8298507462686566,
+        "percentile_95_interval": [
+          0.7366500829187397,
+          0.9091293532338309
+        ],
+        "bootstrap_draws": 10000,
+        "bootstrap_seed": 2026112201
+      },
+      "p_degraded": {
+        "estimand": "v3_minus_v2_paired_case_mean_difference",
+        "paired_case_count": 45,
+        "estimate": 0.8451077943615257,
+        "percentile_95_interval": [
+          0.7535655058043117,
+          0.9253731343283581
+        ],
+        "bootstrap_draws": 10000,
+        "bootstrap_seed": 2026112201
+      },
+      "p_failed": {
+        "estimand": "v3_minus_v2_paired_case_mean_difference",
+        "paired_case_count": 45,
+        "estimate": 0.8679933665008293,
+        "percentile_95_interval": [
+          0.7784411276948591,
+          0.9525704809286898
+        ],
+        "bootstrap_draws": 10000,
+        "bootstrap_seed": 2026112201
+      }
+    },
+    "identification_interval_width_mean": {
+      "p_hit": {
+        "estimand": "v3_minus_v2_paired_case_mean_difference",
+        "paired_case_count": 45,
+        "estimate": -0.7137230514096187,
+        "percentile_95_interval": [
+          -0.8085831260364842,
+          -0.6102798507462687
+        ],
+        "bootstrap_draws": 10000,
+        "bootstrap_seed": 2026112201
+      },
+      "p_degraded": {
+        "estimand": "v3_minus_v2_paired_case_mean_difference",
+        "paired_case_count": 45,
+        "estimate": -0.7256270066269006,
+        "percentile_95_interval": [
+          -0.8191466083691297,
+          -0.6229563282721761
+        ],
+        "bootstrap_draws": 10000,
+        "bootstrap_seed": 2026112201
+      },
+      "p_failed": {
+        "estimand": "v3_minus_v2_paired_case_mean_difference",
+        "paired_case_count": 45,
+        "estimate": -0.7501765605628556,
+        "percentile_95_interval": [
+          -0.8479769066090883,
+          -0.6456493245276393
+        ],
+        "bootstrap_draws": 10000,
+        "bootstrap_seed": 2026112201
+      }
+    },
+    "identification_interval_width_median": {
+      "p_hit": {
+        "estimand": "v3_minus_v2_flattened_component_median_difference_case_cluster_bootstrap",
+        "paired_case_count": 45,
+        "estimate": -1.0,
+        "percentile_95_interval": [
+          -1.0,
+          -0.875
+        ],
+        "bootstrap_draws": 10000,
+        "bootstrap_seed": 2026112201
+      },
+      "p_degraded": {
+        "estimand": "v3_minus_v2_flattened_component_median_difference_case_cluster_bootstrap",
+        "paired_case_count": 45,
+        "estimate": -1.0,
+        "percentile_95_interval": [
+          -1.0,
+          -0.875
+        ],
+        "bootstrap_draws": 10000,
+        "bootstrap_seed": 2026112201
+      },
+      "p_failed": {
+        "estimand": "v3_minus_v2_flattened_component_median_difference_case_cluster_bootstrap",
+        "paired_case_count": 45,
+        "estimate": -1.0,
+        "percentile_95_interval": [
+          -1.0,
+          -0.9929664512689634
+        ],
+        "bootstrap_draws": 10000,
+        "bootstrap_seed": 2026112201
+      }
+    },
+    "conditional_observation_rate": {
+      "energy": {
+        "estimand": "v3_minus_v2_paired_case_mean_difference",
+        "paired_case_count": 45,
+        "estimate": 0.0902155887230514,
+        "percentile_95_interval": [
+          0.07363184079601989,
+          0.10679933665008293
+        ],
+        "bootstrap_draws": 10000,
+        "bootstrap_seed": 2026112201
+      },
+      "hit_count": {
+        "estimand": "v3_minus_v2_paired_case_mean_difference",
+        "paired_case_count": 45,
+        "estimate": 0.0902155887230514,
+        "percentile_95_interval": [
+          0.07363184079601989,
+          0.10746268656716418
+        ],
+        "bootstrap_draws": 10000,
+        "bootstrap_seed": 2026112201
+      }
+    }
+  },
+  "interpretation_guards": {
+    "sealed_test_results_decoded": 0,
+    "test_metrics_computed": false,
+    "physical_validation_claim": false,
+    "bootstrap_scope": "quantifies uncertainty across the 45 fixed development cases; it does not quantify independent scrambled-design or real-world uncertainty"
+  }
+}

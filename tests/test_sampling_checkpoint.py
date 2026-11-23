@@ -11,6 +11,7 @@ from damage_engine.engine import DamageEngine
 from damage_engine.errors import InputValidationError
 from damage_engine.label_spec import LabelSpec
 from damage_engine.sampling_checkpoint import (
+    _hydrate_contract_documents,
     initialize_sampling_run,
     mark_pilot_complete,
     verify_sampling_checkpoint,
@@ -145,6 +146,43 @@ def _write_json(path: Path, value: dict) -> None:
         json.dumps(value, ensure_ascii=False, indent=2, allow_nan=False) + "\n",
         encoding="utf-8",
     )
+
+
+def test_sampling_17_formal_case_hydrates_all_sidecar_contracts() -> None:
+    sampling_spec = SamplingSpec.from_file(
+        "configs/sampling/p0_sphere_entry_continuous_direction_reference.v1.json"
+    )
+    label_spec = LabelSpec.from_file(
+        "configs/labels/loitering_impact.fragment_only.hurdle.v2.json"
+    )
+    case = {
+        "case_id": "sampling-17-hydration",
+        "metadata": {
+            "sampling": {
+                "schema_version": "1.7.0",
+                "sampling_spec_id": sampling_spec.spec_id,
+                "sampling_spec_hash": sampling_spec.hash,
+                "training_design_hash": sampling_spec.training_design_hash,
+                "label_spec_id": label_spec.spec_id,
+                "label_spec_hash": label_spec.hash,
+                "contract_document_references": {
+                    "label_spec_document": "../../plan/label_spec.json",
+                    "sampling_spec_document": "../../plan/sampling_spec.json",
+                    "training_design_document": (
+                        "derived:sampling_spec.training_design_document"
+                    ),
+                },
+            }
+        },
+    }
+
+    hydrated = _hydrate_contract_documents(case, sampling_spec, label_spec)
+
+    envelope = hydrated["metadata"]["sampling"]
+    assert "contract_document_references" not in envelope
+    assert envelope["sampling_spec_document"] == sampling_spec.data
+    assert envelope["training_design_document"] == sampling_spec.training_design_document
+    assert envelope["label_spec_document"] == label_spec.data
 
 
 def test_initialize_commits_complete_hash_inventory_and_verifies(

@@ -1,0 +1,322 @@
+{
+  "schema_version": "dataset-v2-sealed-test@1.0.0",
+  "dataset_id": "damage-dataset-v2-16969411c388e086d2757f88",
+  "split_counts": {
+    "test": 300,
+    "train": 2000,
+    "validation": 300
+  },
+  "test_packaging_operation": "opaque_source_with_masked_core_placeholders",
+  "test_labels_present_in_core": false,
+  "test_component_traces_present_in_core": false,
+  "test_label_masks_all_false": true,
+  "test_result_json_lines_decoded": 0,
+  "development_result_json_lines_decoded": 2300,
+  "test_open_count": 0,
+  "test_labels_evaluated_for_model_selection": false,
+  "opening_requirement": "frozen_model_and_threshold_contract",
+  "source_dataset_id": "damage-dataset-074d300c1382eb8eee4cd87a",
+  "source_manifest_sha256": "sha256:3b6b7ba94ccd7715040716b69a1a039977636853142cfde6c31127f78debfae2",
+  "source_shards": [
+    {
+      "shard": "part-000000",
+      "case_count": 64,
+      "test_case_count": 0,
+      "tensors_sha256": "sha256:3b6d52622c0d5e6b4f37c6ee4f79b557631a80ddd942452d1887e97bead3ff59",
+      "results_sha256": "sha256:d7eef6e6c7c2cc59dc59357e7c7c346564f003c295daa25f4cb2880748b1061c"
+    },
+    {
+      "shard": "part-000001",
+      "case_count": 64,
+      "test_case_count": 0,
+      "tensors_sha256": "sha256:498554a3e516e100b996fc454381f51e35918606fc1bc3b1e4f35afa08856846",
+      "results_sha256": "sha256:b461c515e51c540cdac65c803f483c1a4a899da2ea248c10171ff7af7fb0e00b"
+    },
+    {
+      "shard": "part-000002",
+      "case_count": 64,
+      "test_case_count": 0,
+      "tensors_sha256": "sha256:0f35c4df5b0a34cfe4d0b083c8deab5239577a4b0905538e16bbe9daf0ddf0b2",
+      "results_sha256": "sha256:25ceb8385105ede7357e6e7ebce4a26300982f8b2466e965c2f8d248785e3d63"
+    },
+    {
+      "shard": "part-000003",
+      "case_count": 64,
+      "test_case_count": 0,
+      "tensors_sha256": "sha256:e4b4f3a26593799b9b57e665e4f418bd242859de49f310fc030aa0c035876adb",
+      "results_sha256": "sha256:66d506da499e628c2229c5961809cb074a21154991f8f08e15abdf67db2aea26"
+    },
+    {
+      "shard": "part-000004",
+      "case_count": 64,
+      "test_case_count": 20,
+      "tensors_sha256": "sha256:55184727f19b83595044f3cef22c4de73977ea4030fd257baf9a4c4d7f934a28",
+      "results_sha256": "sha256:beb4048c11f06d546c5a2a898755a9430c79f31731a87c24db9f623e710ddb8d"
+    },
+    {
+      "shard": "part-000005",
+      "case_count": 64,
+      "test_case_count": 64,
+      "tensors_sha256": "sha256:18d1a15302c443b7df31efcf75c7eef0ae016f3b68165e4c86f5334e5fa74b7a",
+      "results_sha256": "sha256:54d7497246ca18dba691bda0f9818a010b3975828a643e92286b38b20f4832ff"
+    },
+    {
+      "shard": "part-000006",
+      "case_count": 64,
+      "test_case_count": 64,
+      "tensors_sha256": "sha256:13725d2644529651ebb7a72a6d347fcffc1aefdfec2bde755609b047463c6915",
+      "results_sha256": "sha256:7fc14afa3e1646ea8fa60796adcca6a1323cebbef78ef6b772fb22b262244e31"
+    },
+    {
+      "shard": "part-000007",
+      "case_count": 64,
+      "test_case_count": 64,
+      "tensors_sha256": "sha256:0175a34fd641fc934cc13492f555535e5580d456a348e04b5814fb519bcdf233",
+      "results_sha256": "sha256:eea5bda7a980403ca4a90f69abfe786ca4be2556642140eb85430457dacedb35"
+    },
+    {
+      "shard": "part-000008",
+      "case_count": 64,
+      "test_case_count": 64,
+      "tensors_sha256": "sha256:26def1e4833a7f2322fad49cd95ccb00de09dd91934153d126cfe0bc99ee167b",
+      "results_sha256": "sha256:7de7dc80117d536804a02d0969cef1a87ff8eabf285157eadab7a28c77397168"
+    },
+    {
+      "shard": "part-000009",
+      "case_count": 64,
+      "test_case_count": 24,
+      "tensors_sha256": "sha256:2be3c805d04c86e9a1e1a46c77fc3d621ffe75bb2fbaeb4f542828cb367ca72f",
+      "results_sha256": "sha256:43c99436ef97db432a0a47b2facc15b12a71f50db2c7130f0ac086ac5f9bb7c4"
+    },
+    {
+      "shard": "part-000010",
+      "case_count": 64,
+      "test_case_count": 0,
+      "tensors_sha256": "sha256:6d60db7e0b8c605c2adbfd8ecd7b4d8ddbf315a7eaeb67f35876a29e1dc6573d",
+      "results_sha256": "sha256:ef2028766d978ce72e8d4ef047fa0ef8a20aad2d115914bc9514b1416e36273f"
+    },
+    {
+      "shard": "part-000011",
+      "case_count": 64,
+      "test_case_count": 0,
+      "tensors_sha256": "sha256:1af1b9080ddd33a6176e4b121716be0eb7037820132bbc95781286c50cc8ce2f",
+      "results_sha256": "sha256:90cfa5cf99bdb1f8cb4458ad6bdd6427678e27d6209f6cac649a89beb7b3d175"
+    },
+    {
+      "shard": "part-000012",
+      "case_count": 64,
+      "test_case_count": 0,
+      "tensors_sha256": "sha256:dce757f180be6f2622155872d599ad6bb1810d56e0ae4d681d27bc4da2b5a9b0",
+      "results_sha256": "sha256:09b746f2b971aa07cfbf797a81fbd302fc6271ca9b3e5ee1e75246432bd9840c"
+    },
+    {
+      "shard": "part-000013",
+      "case_count": 64,
+      "test_case_count": 0,
+      "tensors_sha256": "sha256:d0668745947a554c6a75d9f33eeb957c048789d9d7a929cd9b38fcfec755b259",
+      "results_sha256": "sha256:e7fb03510599547fad7bf980ffbc39b0b2b5f1e753a44c2ef5a649cb65cec80b"
+    },
+    {
+      "shard": "part-000014",
+      "case_count": 64,
+      "test_case_count": 0,
+      "tensors_sha256": "sha256:51db212b6549045dfd489c24aac96c4f9278fa180264730e5e1683432cbe6515",
+      "results_sha256": "sha256:f5a22de347574a6109756cea0da1019c2dbe964633706e52033d48ed6f41c027"
+    },
+    {
+      "shard": "part-000015",
+      "case_count": 64,
+      "test_case_count": 0,
+      "tensors_sha256": "sha256:0f2147ef9d21c6634fc70ec3517964269c867f9ad9d0273240271e21a6052fe7",
+      "results_sha256": "sha256:d53bae886a76df67fcc67dd78d1b8d1d91ec3f4910307bb6ea3fd0c1c0674bc7"
+    },
+    {
+      "shard": "part-000016",
+      "case_count": 64,
+      "test_case_count": 0,
+      "tensors_sha256": "sha256:f56bc9fd08135a15bdeaf156810ea5ae3fd19c1291ee0e32413abeee0ec75b51",
+      "results_sha256": "sha256:31ba00bed1dc76929e5d2e36f9f6d97ca142587f4a71fd2f812f2ff09227ec3e"
+    },
+    {
+      "shard": "part-000017",
+      "case_count": 64,
+      "test_case_count": 0,
+      "tensors_sha256": "sha256:fbe02e28c5a5b67ba1249e2f8eb3f04e65cc90718604d6c782242d8db35663d4",
+      "results_sha256": "sha256:36beb390384113e8fc1551a22b918ddde47b59a68a3d3155e9147ee8b0f7ed1f"
+    },
+    {
+      "shard": "part-000018",
+      "case_count": 64,
+      "test_case_count": 0,
+      "tensors_sha256": "sha256:55f2b4a820d7c230293d1761bcbb9fea4d87d27751aaf3d5da1e8d1649c4781f",
+      "results_sha256": "sha256:3d8e1e5180f1958713e6b162cf6d2a5d495fb1453e359a566c091ddc5e942f77"
+    },
+    {
+      "shard": "part-000019",
+      "case_count": 64,
+      "test_case_count": 0,
+      "tensors_sha256": "sha256:773bad48c74a5b6460c19ed362ff0c54a43df86279911d150c3fd20bbb3a05d8",
+      "results_sha256": "sha256:572d842e8836cbe0e871736c62f30927e8b9a25920fcfcdf46f2e852b185c87c"
+    },
+    {
+      "shard": "part-000020",
+      "case_count": 64,
+      "test_case_count": 0,
+      "tensors_sha256": "sha256:4ff79c2cb2e4d47f5df37c1de2b280972a57f87db3d948fee583cb165862bdb4",
+      "results_sha256": "sha256:95182e8e91c583edd2a2c0f7609f8cbf0dbc7c2c0fde80fbe7a54326dd2c0220"
+    },
+    {
+      "shard": "part-000021",
+      "case_count": 64,
+      "test_case_count": 0,
+      "tensors_sha256": "sha256:b7862c19e4d0529868fdfea3677a1f6b99a916d1ec77f526cacb2c1606c2c23c",
+      "results_sha256": "sha256:07fd0c667000d37e9add0f5e47bf1236b4d7e36d673e86b9472695e6f675669b"
+    },
+    {
+      "shard": "part-000022",
+      "case_count": 64,
+      "test_case_count": 0,
+      "tensors_sha256": "sha256:a6f9154b5c862c3860ebf9aad5d858de080e005538004049eb7595d9c0ba37c4",
+      "results_sha256": "sha256:289418916ea93ad78ea24f4e9fa6dbdb94a5d6bac821df2a87b9ea783f73004d"
+    },
+    {
+      "shard": "part-000023",
+      "case_count": 64,
+      "test_case_count": 0,
+      "tensors_sha256": "sha256:54a3fdbaa341b942e3e222131d961b5714c1281b0eb88b76367deb7e70996265",
+      "results_sha256": "sha256:9997ac9d866d70a49bdb2ca60f482e25b8748008e45d7544f5a72ca2d3039ca5"
+    },
+    {
+      "shard": "part-000024",
+      "case_count": 64,
+      "test_case_count": 0,
+      "tensors_sha256": "sha256:2d0899595a0d4c296510c9cd343007bc5cce6760cf47e8ce5ef8e9224e4fd385",
+      "results_sha256": "sha256:b117b2a3b216b22347fd97b45901e84aeace1ff5c1427d0d815c1f25aadd1e12"
+    },
+    {
+      "shard": "part-000025",
+      "case_count": 64,
+      "test_case_count": 0,
+      "tensors_sha256": "sha256:235856144031bf327a4ce75f0ed6af10f3557df7b2455274eb08f028d9ede750",
+      "results_sha256": "sha256:ac8a0ec90980539c204dca2f915c5970f4289e640aba90eb97bdf120cff2c173"
+    },
+    {
+      "shard": "part-000026",
+      "case_count": 64,
+      "test_case_count": 0,
+      "tensors_sha256": "sha256:4e71846870580cdd8a97de82a0a11233426fe605e1252c57d19c7ff5d66f492e",
+      "results_sha256": "sha256:b716a40db457c455daf511f00bf25b1182d1f663364b601f7b7e16569cb7edd6"
+    },
+    {
+      "shard": "part-000027",
+      "case_count": 64,
+      "test_case_count": 0,
+      "tensors_sha256": "sha256:05b8db768849f9114d4c5fcdaf97e958c0a4c0ee83a6af60a084072cc1510e76",
+      "results_sha256": "sha256:85047327fc1e46a55998818d1345f4a1c1df93f877d5fe5fbca0e79e67ccbb92"
+    },
+    {
+      "shard": "part-000028",
+      "case_count": 64,
+      "test_case_count": 0,
+      "tensors_sha256": "sha256:ef7b94eb9b469c6857177b402cd4ff918199e4b405117c139e166b6780265a5b",
+      "results_sha256": "sha256:a525ce8ca7fa5a3d3ac3aefd5e0bd420d46d00f0e4b6c32bdf43c323b92e1645"
+    },
+    {
+      "shard": "part-000029",
+      "case_count": 64,
+      "test_case_count": 0,
+      "tensors_sha256": "sha256:1798a07882cbd90387020466befb6c024a2cd2be6e7da9e85871c40d7e8c4331",
+      "results_sha256": "sha256:0290d87ce3e315ce8e31c840791d082ee2036540c92dac3dc37eadf9d3673e2c"
+    },
+    {
+      "shard": "part-000030",
+      "case_count": 64,
+      "test_case_count": 0,
+      "tensors_sha256": "sha256:bdc284690ed0e13e38e079de312cfd80a68b83d5b26e55e3ebaa565ec170d6b6",
+      "results_sha256": "sha256:4a1d3e88aeb7af6c5d923cf7ede0e92b38d1c6b3f2f8eae06b7ecf454c5cef4a"
+    },
+    {
+      "shard": "part-000031",
+      "case_count": 64,
+      "test_case_count": 0,
+      "tensors_sha256": "sha256:e0ea9afbd19ec08b9bcd2c6b40961408d07defd0c48c76f8d7086a3bf7caf323",
+      "results_sha256": "sha256:6cd421d3940c051a95310379a673e5f4f416ffc24df56552041141a6e5665dad"
+    },
+    {
+      "shard": "part-000032",
+      "case_count": 64,
+      "test_case_count": 0,
+      "tensors_sha256": "sha256:103ce6f28c8cad7ea7ff53f988158ef5a53cff639179fa41398cde310485d51f",
+      "results_sha256": "sha256:b2fbcc9669044f37a4ae2891dfadf9db8928d3950faf20abc83afed9b03f48f4"
+    },
+    {
+      "shard": "part-000033",
+      "case_count": 64,
+      "test_case_count": 0,
+      "tensors_sha256": "sha256:bba5556357630d019108839074b423603b30fa22135216e43cbc3d4c97274b58",
+      "results_sha256": "sha256:9e6c91e5dfe0fa4dde9a33f308faa2391cb170a2f3531273b75e699817b5eaa2"
+    },
+    {
+      "shard": "part-000034",
+      "case_count": 64,
+      "test_case_count": 0,
+      "tensors_sha256": "sha256:e7a83c257ee93a9731ba0b57dd9ea82ab180db750bc70b57a4e9873202318e35",
+      "results_sha256": "sha256:d6788c7d0c6c8016215ef8e175c76e831f511e2fa723311945dde3d3d548ce6f"
+    },
+    {
+      "shard": "part-000035",
+      "case_count": 64,
+      "test_case_count": 0,
+      "tensors_sha256": "sha256:7da03044e94423bcb990a639dea4177732ddf81f31ef633dcd0361359c594fc1",
+      "results_sha256": "sha256:63e06c890040e028b4cee7c33fd33683b06aaecb981a66f8783fbeca70a0ce2f"
+    },
+    {
+      "shard": "part-000036",
+      "case_count": 64,
+      "test_case_count": 0,
+      "tensors_sha256": "sha256:d3c9544acf4476a1a9a61b6a83aaf43b1d1e06fd3b7179f7682d682080f48061",
+      "results_sha256": "sha256:f894d210bc91c152eb64e5960943269b981b115679977ba9176bbcd0716a767c"
+    },
+    {
+      "shard": "part-000037",
+      "case_count": 64,
+      "test_case_count": 0,
+      "tensors_sha256": "sha256:af5805096c88bb4a62086be3c760d74c523d826ad3f05d4f8184473b1635b572",
+      "results_sha256": "sha256:b69757f1761e63e222dd9a22c2cf8a672861cad87c54a5b77d324465d1a8da6b"
+    },
+    {
+      "shard": "part-000038",
+      "case_count": 64,
+      "test_case_count": 0,
+      "tensors_sha256": "sha256:018d0d8a747e00ef4864b8a92814f90c6e688da00cffad423247600c5d375d68",
+      "results_sha256": "sha256:c9cae921a250e62b9323c678b0a52c93ba978148aa8052501c5c842e128e469e"
+    },
+    {
+      "shard": "part-000039",
+      "case_count": 64,
+      "test_case_count": 0,
+      "tensors_sha256": "sha256:b0fe1725ded3fce16a203418a6f92e48a530b36a04fecb9dc63b340b57a42ea7",
+      "results_sha256": "sha256:1af9ab2ac25ff0359b226ba248b7062d548bed74cffa4dc80d315d77710c1e88"
+    },
+    {
+      "shard": "part-000040",
+      "case_count": 40,
+      "test_case_count": 0,
+      "tensors_sha256": "sha256:de1c711a96f44de3df3f2c096f5eab7616524ed325a1c1159b3d61faa8e4e1a5",
+      "results_sha256": "sha256:76f54508374c94471a7b603812e825b4124a587f3ef11ee525af7bfb81efb650"
+    }
+  ],
+  "test_case_id_order_hash": "sha256:4c3003d6dab954c3dfa1d5815ab8900c7d5ba4625c351d24768c962d55a944d5",
+  "source_tensor_fields_read": [
+    "case_ids",
+    "split_names",
+    "input_frozen_splits",
+    "loitering_impact_first_armor_state_x",
+    "loitering_impact_first_armor_state_feature_mask",
+    "loitering_impact_first_armor_state_feature_names",
+    "component_ids",
+    "sampling_weight_mask",
+    "sampling_selection_probability",
+    "sampling_design_weight_raw"
+  ]
+}

@@ -1,0 +1,16 @@
+﻿top_level,files,bytes
+artifacts,1602,515108070
+damage_engine,66,1752692
+archify,6,948441
+tools,48,870839
+configs,39,673419
+tests,87,667389
+docs,13,92985
+schemas,5,92312
+examples,11,33728
+data,3,9289
+README.md,1,7590
+pyproject.toml,1,701
+gitignore,1,399
+requirements-lock.txt,1,319
+requirements.txt,1,133

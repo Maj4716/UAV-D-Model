@@ -21,6 +21,7 @@ from .learning_input_identity import (
     LOITERING_IMPACT_CONTACT_POSE_QUATERNION_FEATURE_NAMES,
     LOITERING_IMPACT_CONTACT_POSE_ROTATION_6D_FEATURE_NAMES,
     LOITERING_IMPACT_CONTACT_POSE_SAMPLING_MODEL_INPUT_CONTRACT,
+    LOITERING_IMPACT_FIRST_ARMOR_STATE_MODEL_INPUT_DEFINITION,
     LOITERING_IMPACT_SAMPLING_MODEL_INPUT_CONTRACT,
     LOITERING_IMPACT_STATE_FEATURE_NAMES,
     LOITERING_IMPACT_STATE_FEATURE_UNITS,
@@ -313,6 +314,83 @@ def transform_loitering_impact_contact_pose(
     return transform_case_physics(values, mask, feature_names, feature_units)
 
 
+def transform_loitering_impact_first_armor_state(
+    values: np.ndarray,
+    mask: np.ndarray,
+    feature_names: Sequence[str],
+    feature_units: Sequence[str],
+) -> tuple[np.ndarray, np.ndarray, list[str], list[str], list[dict[str, Any]]]:
+    """Validate and retain the 16-value post-intersection impact state.
+
+    Every coordinate is mandatory because this view is defined only after a
+    successful deterministic first-armour intersection.  Direction, surface
+    normal and body-y are unit-vector coordinates; body-y is perpendicular to
+    the impact direction and therefore carries roll without Euler angles.
+    """
+
+    definition = LOITERING_IMPACT_FIRST_ARMOR_STATE_MODEL_INPUT_DEFINITION
+    if tuple(map(str, feature_names)) != definition.feature_names:
+        raise InputValidationError(
+            "loitering-impact first-armor feature names do not match the versioned contract"
+        )
+    if tuple(map(str, feature_units)) != definition.feature_units:
+        raise InputValidationError(
+            "loitering-impact first-armor feature units do not match the versioned contract"
+        )
+    array = np.asarray(values, dtype=np.float64)
+    available = np.asarray(mask, dtype=bool)
+    rows = array[None, :] if array.ndim == 1 else array
+    row_mask = available[None, :] if available.ndim == 1 else available
+    if rows.ndim != 2 or row_mask.shape != rows.shape or rows.shape[1] != 16:
+        raise InputValidationError(
+            "first-armor model-input values/mask must share shape [B,16]"
+        )
+    if not bool(np.all(row_mask)):
+        raise InputValidationError(
+            "first-armor impact state requires every feature to be available"
+        )
+    if not bool(np.isfinite(rows).all()):
+        raise InputValidationError(
+            "first-armor impact state features must be finite"
+        )
+    profile = rows[:, :3]
+    if not (
+        np.all(np.isclose(profile, np.round(profile), rtol=0.0, atol=1.0e-7))
+        and np.all((profile >= 0.0) & (profile <= 1.0))
+        and np.allclose(profile.sum(axis=1), 1.0, rtol=0.0, atol=1.0e-7)
+    ):
+        raise InputValidationError(
+            "first-armor munition profile must be exactly one-hot"
+        )
+    hit_normal = rows[:, 6:9]
+    direction = rows[:, 9:12]
+    speed = rows[:, 12]
+    body_y = rows[:, 13:16]
+    if not np.allclose(
+        np.linalg.norm(hit_normal, axis=1), 1.0, rtol=0.0, atol=1.0e-6
+    ):
+        raise InputValidationError("first-armor hit normal must be unit length")
+    if not np.allclose(
+        np.linalg.norm(direction, axis=1), 1.0, rtol=0.0, atol=1.0e-6
+    ):
+        raise InputValidationError("first-armor impact direction must be unit length")
+    if np.any(speed <= 0.0):
+        raise InputValidationError("first-armor impact speed must be positive")
+    if not np.allclose(
+        np.linalg.norm(body_y, axis=1), 1.0, rtol=0.0, atol=1.0e-6
+    ):
+        raise InputValidationError("first-armor body-y axis must be unit length")
+    if np.any(np.abs(np.sum(direction * body_y, axis=1)) > 1.0e-6):
+        raise InputValidationError(
+            "first-armor body-y axis must be perpendicular to impact direction"
+        )
+    if np.any(np.sum(direction * hit_normal, axis=1) > 1.0e-8):
+        raise InputValidationError(
+            "first-armor hit normal must oppose or be tangent to impact direction"
+        )
+    return transform_case_physics(values, mask, feature_names, feature_units)
+
+
 _MODEL_INPUT_TRAINING_TRANSFORMS = {
     UAV_MODEL_INPUT_DEFINITION.version: transform_uav_state,
     LOITERING_IMPACT_MODEL_INPUT_DEFINITION.version: (
@@ -321,7 +399,19 @@ _MODEL_INPUT_TRAINING_TRANSFORMS = {
     LOITERING_IMPACT_CONTACT_POSE_MODEL_INPUT_DEFINITION.version: (
         transform_loitering_impact_contact_pose
     ),
+    LOITERING_IMPACT_FIRST_ARMOR_STATE_MODEL_INPUT_DEFINITION.version: (
+        transform_loitering_impact_first_armor_state
+    ),
 }
+
+
+def model_input_training_transform_for_version(version: object) -> Any | None:
+    """Return the public training transform registered for a contract version."""
+
+    try:
+        return _MODEL_INPUT_TRAINING_TRANSFORMS.get(version)
+    except TypeError:
+        return None
 
 
 def _model_input_binding(
@@ -340,13 +430,18 @@ def _model_input_binding(
             or units != list(definition.feature_units)
         ):
             label = (
-                "loitering-impact contact-pose"
+                "loitering-impact first-armour state"
                 if definition
-                is LOITERING_IMPACT_CONTACT_POSE_MODEL_INPUT_DEFINITION
+                is LOITERING_IMPACT_FIRST_ARMOR_STATE_MODEL_INPUT_DEFINITION
                 else (
-                    "loitering-impact"
-                    if definition is LOITERING_IMPACT_MODEL_INPUT_DEFINITION
-                    else "UAV"
+                    "loitering-impact contact-pose"
+                    if definition
+                    is LOITERING_IMPACT_CONTACT_POSE_MODEL_INPUT_DEFINITION
+                    else (
+                        "loitering-impact"
+                        if definition is LOITERING_IMPACT_MODEL_INPUT_DEFINITION
+                        else "UAV"
+                    )
                 )
             )
             raise InputValidationError(

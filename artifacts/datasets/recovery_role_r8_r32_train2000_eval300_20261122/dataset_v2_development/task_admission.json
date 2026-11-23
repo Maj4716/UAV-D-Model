@@ -1,0 +1,775 @@
+{
+  "schema_version": "dataset-v2-task-admission@1.1.0",
+  "dataset_identity": {
+    "dataset_id": "damage-dataset-v2-16969411c388e086d2757f88",
+    "dataset_manifest_hash": "sha256:72fb6a13d747600a2ef78898b62264a57cb65f0104e587d6f1af6ea643d8cff6",
+    "audit_report_hash": "sha256:b11af730b39b65807dd723e426680f270b505465faa4cabc8e81f495ca551696"
+  },
+  "selection_contract": {
+    "protocol_version": "train-validation-label-support-gate@1.1.0",
+    "scope": "train_and_validation_label_availability_only",
+    "source_audit_schema_version": "dataset-v2-development-audit@1.0.0",
+    "performance_metrics_used": false,
+    "sealed_test_outcomes_used": false
+  },
+  "sealed_test": {
+    "test_case_count": 300,
+    "test_labels_present_in_core": false,
+    "test_open_count": 0,
+    "test_result_json_lines_decoded": 0,
+    "test_metrics_computed": false,
+    "sealed": true
+  },
+  "component_task_admission": {
+    "p_hit": {
+      "support_kind": "binary_probability",
+      "thresholds": {
+        "train_positive_min": 20,
+        "train_negative_min": 20,
+        "validation_positive_min": 5,
+        "validation_negative_min": 5
+      },
+      "component_count": 67,
+      "component_order_hash": "sha256:eb7e5bcf23c1cb49faf520743082e669bce7277fc33c1b4f03829920c670e4f9",
+      "admitted_component_count": 64,
+      "admitted_component_ids": [
+        "component-001",
+        "component-002",
+        "component-003",
+        "component-004",
+        "component-005",
+        "component-006",
+        "component-007",
+        "component-008",
+        "component-009",
+        "component-010",
+        "component-012",
+        "component-013",
+        "component-014",
+        "component-015",
+        "component-016",
+        "component-017",
+        "component-018",
+        "component-021",
+        "component-022",
+        "component-023",
+        "component-024",
+        "component-025",
+        "component-026",
+        "component-027",
+        "component-028",
+        "component-029",
+        "component-030",
+        "component-031",
+        "component-032",
+        "component-033",
+        "component-034",
+        "component-035",
+        "component-036",
+        "component-037",
+        "component-038",
+        "component-039",
+        "component-040",
+        "component-041",
+        "component-042",
+        "component-043",
+        "component-044",
+        "component-045",
+        "component-046",
+        "component-047",
+        "component-048",
+        "component-049",
+        "component-050",
+        "component-051",
+        "component-052",
+        "component-053",
+        "component-054",
+        "component-055",
+        "component-056",
+        "component-058",
+        "component-059",
+        "component-060",
+        "component-061",
+        "component-062",
+        "component-063",
+        "component-064",
+        "component-065",
+        "component-066",
+        "component-067",
+        "component-068"
+      ],
+      "rejected_component_count": 3,
+      "rejected_components": [
+        {
+          "component_id": "component-011",
+          "reasons": [
+            "train_positive_below_minimum",
+            "validation_positive_below_minimum"
+          ],
+          "counts": {
+            "train_positive_count": 18,
+            "train_negative_count": 1978,
+            "validation_positive_count": 3,
+            "validation_negative_count": 294
+          }
+        },
+        {
+          "component_id": "component-019",
+          "reasons": [
+            "validation_positive_below_minimum"
+          ],
+          "counts": {
+            "train_positive_count": 33,
+            "train_negative_count": 1963,
+            "validation_positive_count": 4,
+            "validation_negative_count": 293
+          }
+        },
+        {
+          "component_id": "component-020",
+          "reasons": [
+            "train_positive_below_minimum",
+            "validation_positive_below_minimum"
+          ],
+          "counts": {
+            "train_positive_count": 17,
+            "train_negative_count": 1979,
+            "validation_positive_count": 1,
+            "validation_negative_count": 296
+          }
+        }
+      ]
+    },
+    "p_degraded": {
+      "support_kind": "binary_probability",
+      "thresholds": {
+        "train_positive_min": 20,
+        "train_negative_min": 20,
+        "validation_positive_min": 5,
+        "validation_negative_min": 5
+      },
+      "component_count": 67,
+      "component_order_hash": "sha256:eb7e5bcf23c1cb49faf520743082e669bce7277fc33c1b4f03829920c670e4f9",
+      "admitted_component_count": 64,
+      "admitted_component_ids": [
+        "component-001",
+        "component-002",
+        "component-003",
+        "component-004",
+        "component-005",
+        "component-006",
+        "component-007",
+        "component-008",
+        "component-009",
+        "component-010",
+        "component-012",
+        "component-013",
+        "component-014",
+        "component-015",
+        "component-016",
+        "component-017",
+        "component-018",
+        "component-021",
+        "component-022",
+        "component-023",
+        "component-024",
+        "component-025",
+        "component-026",
+        "component-027",
+        "component-028",
+        "component-029",
+        "component-030",
+        "component-031",
+        "component-032",
+        "component-033",
+        "component-034",
+        "component-035",
+        "component-036",
+        "component-037",
+        "component-038",
+        "component-039",
+        "component-040",
+        "component-041",
+        "component-042",
+        "component-043",
+        "component-044",
+        "component-045",
+        "component-046",
+        "component-047",
+        "component-048",
+        "component-049",
+        "component-050",
+        "component-051",
+        "component-052",
+        "component-053",
+        "component-054",
+        "component-055",
+        "component-056",
+        "component-058",
+        "component-059",
+        "component-060",
+        "component-061",
+        "component-062",
+        "component-063",
+        "component-064",
+        "component-065",
+        "component-066",
+        "component-067",
+        "component-068"
+      ],
+      "rejected_component_count": 3,
+      "rejected_components": [
+        {
+          "component_id": "component-011",
+          "reasons": [
+            "train_positive_below_minimum",
+            "validation_positive_below_minimum"
+          ],
+          "counts": {
+            "train_positive_count": 18,
+            "train_negative_count": 1978,
+            "validation_positive_count": 3,
+            "validation_negative_count": 294
+          }
+        },
+        {
+          "component_id": "component-019",
+          "reasons": [
+            "validation_positive_below_minimum"
+          ],
+          "counts": {
+            "train_positive_count": 33,
+            "train_negative_count": 1963,
+            "validation_positive_count": 4,
+            "validation_negative_count": 293
+          }
+        },
+        {
+          "component_id": "component-020",
+          "reasons": [
+            "train_positive_below_minimum",
+            "validation_positive_below_minimum"
+          ],
+          "counts": {
+            "train_positive_count": 17,
+            "train_negative_count": 1979,
+            "validation_positive_count": 1,
+            "validation_negative_count": 296
+          }
+        }
+      ]
+    },
+    "p_failed": {
+      "support_kind": "binary_probability",
+      "thresholds": {
+        "train_positive_min": 20,
+        "train_negative_min": 20,
+        "validation_positive_min": 5,
+        "validation_negative_min": 5
+      },
+      "component_count": 67,
+      "component_order_hash": "sha256:eb7e5bcf23c1cb49faf520743082e669bce7277fc33c1b4f03829920c670e4f9",
+      "admitted_component_count": 64,
+      "admitted_component_ids": [
+        "component-001",
+        "component-002",
+        "component-003",
+        "component-004",
+        "component-005",
+        "component-006",
+        "component-007",
+        "component-008",
+        "component-009",
+        "component-010",
+        "component-012",
+        "component-013",
+        "component-014",
+        "component-015",
+        "component-016",
+        "component-017",
+        "component-018",
+        "component-021",
+        "component-022",
+        "component-023",
+        "component-024",
+        "component-025",
+        "component-026",
+        "component-027",
+        "component-028",
+        "component-029",
+        "component-030",
+        "component-031",
+        "component-032",
+        "component-033",
+        "component-034",
+        "component-035",
+        "component-036",
+        "component-037",
+        "component-038",
+        "component-039",
+        "component-040",
+        "component-041",
+        "component-042",
+        "component-043",
+        "component-044",
+        "component-045",
+        "component-046",
+        "component-047",
+        "component-048",
+        "component-049",
+        "component-050",
+        "component-051",
+        "component-052",
+        "component-053",
+        "component-054",
+        "component-055",
+        "component-056",
+        "component-058",
+        "component-059",
+        "component-060",
+        "component-061",
+        "component-062",
+        "component-063",
+        "component-064",
+        "component-065",
+        "component-066",
+        "component-067",
+        "component-068"
+      ],
+      "rejected_component_count": 3,
+      "rejected_components": [
+        {
+          "component_id": "component-011",
+          "reasons": [
+            "train_positive_below_minimum",
+            "validation_positive_below_minimum"
+          ],
+          "counts": {
+            "train_positive_count": 18,
+            "train_negative_count": 1978,
+            "validation_positive_count": 3,
+            "validation_negative_count": 294
+          }
+        },
+        {
+          "component_id": "component-019",
+          "reasons": [
+            "validation_positive_below_minimum"
+          ],
+          "counts": {
+            "train_positive_count": 33,
+            "train_negative_count": 1963,
+            "validation_positive_count": 4,
+            "validation_negative_count": 293
+          }
+        },
+        {
+          "component_id": "component-020",
+          "reasons": [
+            "train_positive_below_minimum",
+            "validation_positive_below_minimum"
+          ],
+          "counts": {
+            "train_positive_count": 17,
+            "train_negative_count": 1979,
+            "validation_positive_count": 1,
+            "validation_negative_count": 296
+          }
+        }
+      ]
+    },
+    "conditional_log1p_energy": {
+      "support_kind": "observed_continuous",
+      "thresholds": {
+        "train_observed_min": 20,
+        "validation_observed_min": 5
+      },
+      "component_count": 67,
+      "component_order_hash": "sha256:eb7e5bcf23c1cb49faf520743082e669bce7277fc33c1b4f03829920c670e4f9",
+      "admitted_component_count": 62,
+      "admitted_component_ids": [
+        "component-001",
+        "component-003",
+        "component-004",
+        "component-005",
+        "component-006",
+        "component-007",
+        "component-008",
+        "component-009",
+        "component-012",
+        "component-013",
+        "component-014",
+        "component-015",
+        "component-016",
+        "component-017",
+        "component-018",
+        "component-021",
+        "component-022",
+        "component-023",
+        "component-024",
+        "component-025",
+        "component-026",
+        "component-027",
+        "component-028",
+        "component-029",
+        "component-030",
+        "component-031",
+        "component-032",
+        "component-033",
+        "component-034",
+        "component-035",
+        "component-036",
+        "component-037",
+        "component-038",
+        "component-039",
+        "component-040",
+        "component-041",
+        "component-042",
+        "component-043",
+        "component-044",
+        "component-045",
+        "component-046",
+        "component-047",
+        "component-048",
+        "component-049",
+        "component-050",
+        "component-051",
+        "component-052",
+        "component-053",
+        "component-054",
+        "component-055",
+        "component-056",
+        "component-058",
+        "component-059",
+        "component-060",
+        "component-061",
+        "component-062",
+        "component-063",
+        "component-064",
+        "component-065",
+        "component-066",
+        "component-067",
+        "component-068"
+      ],
+      "rejected_component_count": 5,
+      "rejected_components": [
+        {
+          "component_id": "component-002",
+          "reasons": [
+            "validation_observed_below_minimum"
+          ],
+          "counts": {
+            "train_observed_count": 30,
+            "validation_observed_count": 4
+          }
+        },
+        {
+          "component_id": "component-010",
+          "reasons": [
+            "train_observed_below_minimum"
+          ],
+          "counts": {
+            "train_observed_count": 18,
+            "validation_observed_count": 6
+          }
+        },
+        {
+          "component_id": "component-011",
+          "reasons": [
+            "train_observed_below_minimum",
+            "validation_observed_below_minimum"
+          ],
+          "counts": {
+            "train_observed_count": 16,
+            "validation_observed_count": 3
+          }
+        },
+        {
+          "component_id": "component-019",
+          "reasons": [
+            "validation_observed_below_minimum"
+          ],
+          "counts": {
+            "train_observed_count": 26,
+            "validation_observed_count": 4
+          }
+        },
+        {
+          "component_id": "component-020",
+          "reasons": [
+            "train_observed_below_minimum",
+            "validation_observed_below_minimum"
+          ],
+          "counts": {
+            "train_observed_count": 13,
+            "validation_observed_count": 1
+          }
+        }
+      ]
+    },
+    "conditional_log1p_hit_count": {
+      "support_kind": "observed_continuous",
+      "thresholds": {
+        "train_observed_min": 20,
+        "validation_observed_min": 5
+      },
+      "component_count": 67,
+      "component_order_hash": "sha256:eb7e5bcf23c1cb49faf520743082e669bce7277fc33c1b4f03829920c670e4f9",
+      "admitted_component_count": 62,
+      "admitted_component_ids": [
+        "component-001",
+        "component-003",
+        "component-004",
+        "component-005",
+        "component-006",
+        "component-007",
+        "component-008",
+        "component-009",
+        "component-012",
+        "component-013",
+        "component-014",
+        "component-015",
+        "component-016",
+        "component-017",
+        "component-018",
+        "component-021",
+        "component-022",
+        "component-023",
+        "component-024",
+        "component-025",
+        "component-026",
+        "component-027",
+        "component-028",
+        "component-029",
+        "component-030",
+        "component-031",
+        "component-032",
+        "component-033",
+        "component-034",
+        "component-035",
+        "component-036",
+        "component-037",
+        "component-038",
+        "component-039",
+        "component-040",
+        "component-041",
+        "component-042",
+        "component-043",
+        "component-044",
+        "component-045",
+        "component-046",
+        "component-047",
+        "component-048",
+        "component-049",
+        "component-050",
+        "component-051",
+        "component-052",
+        "component-053",
+        "component-054",
+        "component-055",
+        "component-056",
+        "component-058",
+        "component-059",
+        "component-060",
+        "component-061",
+        "component-062",
+        "component-063",
+        "component-064",
+        "component-065",
+        "component-066",
+        "component-067",
+        "component-068"
+      ],
+      "rejected_component_count": 5,
+      "rejected_components": [
+        {
+          "component_id": "component-002",
+          "reasons": [
+            "validation_observed_below_minimum"
+          ],
+          "counts": {
+            "train_observed_count": 30,
+            "validation_observed_count": 4
+          }
+        },
+        {
+          "component_id": "component-010",
+          "reasons": [
+            "train_observed_below_minimum"
+          ],
+          "counts": {
+            "train_observed_count": 18,
+            "validation_observed_count": 6
+          }
+        },
+        {
+          "component_id": "component-011",
+          "reasons": [
+            "train_observed_below_minimum",
+            "validation_observed_below_minimum"
+          ],
+          "counts": {
+            "train_observed_count": 16,
+            "validation_observed_count": 3
+          }
+        },
+        {
+          "component_id": "component-019",
+          "reasons": [
+            "validation_observed_below_minimum"
+          ],
+          "counts": {
+            "train_observed_count": 26,
+            "validation_observed_count": 4
+          }
+        },
+        {
+          "component_id": "component-020",
+          "reasons": [
+            "train_observed_below_minimum",
+            "validation_observed_below_minimum"
+          ],
+          "counts": {
+            "train_observed_count": 13,
+            "validation_observed_count": 1
+          }
+        }
+      ]
+    }
+  },
+  "summary": {
+    "admitted_component_union_count": 64,
+    "admitted_component_union_ids": [
+      "component-001",
+      "component-002",
+      "component-003",
+      "component-004",
+      "component-005",
+      "component-006",
+      "component-007",
+      "component-008",
+      "component-009",
+      "component-010",
+      "component-012",
+      "component-013",
+      "component-014",
+      "component-015",
+      "component-016",
+      "component-017",
+      "component-018",
+      "component-021",
+      "component-022",
+      "component-023",
+      "component-024",
+      "component-025",
+      "component-026",
+      "component-027",
+      "component-028",
+      "component-029",
+      "component-030",
+      "component-031",
+      "component-032",
+      "component-033",
+      "component-034",
+      "component-035",
+      "component-036",
+      "component-037",
+      "component-038",
+      "component-039",
+      "component-040",
+      "component-041",
+      "component-042",
+      "component-043",
+      "component-044",
+      "component-045",
+      "component-046",
+      "component-047",
+      "component-048",
+      "component-049",
+      "component-050",
+      "component-051",
+      "component-052",
+      "component-053",
+      "component-054",
+      "component-055",
+      "component-056",
+      "component-058",
+      "component-059",
+      "component-060",
+      "component-061",
+      "component-062",
+      "component-063",
+      "component-064",
+      "component-065",
+      "component-066",
+      "component-067",
+      "component-068"
+    ],
+    "admitted_component_intersection_count": 62,
+    "admitted_component_intersection_ids": [
+      "component-001",
+      "component-003",
+      "component-004",
+      "component-005",
+      "component-006",
+      "component-007",
+      "component-008",
+      "component-009",
+      "component-012",
+      "component-013",
+      "component-014",
+      "component-015",
+      "component-016",
+      "component-017",
+      "component-018",
+      "component-021",
+      "component-022",
+      "component-023",
+      "component-024",
+      "component-025",
+      "component-026",
+      "component-027",
+      "component-028",
+      "component-029",
+      "component-030",
+      "component-031",
+      "component-032",
+      "component-033",
+      "component-034",
+      "component-035",
+      "component-036",
+      "component-037",
+      "component-038",
+      "component-039",
+      "component-040",
+      "component-041",
+      "component-042",
+      "component-043",
+      "component-044",
+      "component-045",
+      "component-046",
+      "component-047",
+      "component-048",
+      "component-049",
+      "component-050",
+      "component-051",
+      "component-052",
+      "component-053",
+      "component-054",
+      "component-055",
+      "component-056",
+      "component-058",
+      "component-059",
+      "component-060",
+      "component-061",
+      "component-062",
+      "component-063",
+      "component-064",
+      "component-065",
+      "component-066",
+      "component-067",
+      "component-068"
+    ]
+  },
+  "artifact_hash": "sha256:c5b4ff603ec29eeffae51ad0dcd7fd2a34f1c9f90917f79d33234d4c3f6810c3"
+}

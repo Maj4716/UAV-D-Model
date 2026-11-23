@@ -1,0 +1,38 @@
+{
+  "schema_version": "anisotropic-fast-assessment-manifest@1.0.0",
+  "created_at_utc": "2026-11-23T03:16:47.207736+00:00",
+  "mode": "quick",
+  "candidate_count": 256,
+  "source_audit": {
+    "source_candidate_count": 2600,
+    "used_candidate_count": 256,
+    "selection": "proportional_cell_stratified",
+    "selection_seed": 2026112301,
+    "selection_indices_hash": "sha256:b9313f0a466f1ed653d8c5a1da6a93951fa29e17f909d26acee3c45c08c0d7d5"
+  },
+  "split_audit": {
+    "source_split_counts": {
+      "test": 300,
+      "train": 2000,
+      "validation": 300
+    },
+    "included_split_counts": {
+      "train": 2000,
+      "validation": 300
+    },
+    "allowed_splits": [
+      "train",
+      "unassigned",
+      "validation"
+    ],
+    "test_case_count_included": 0
+  },
+  "assessment_hash": "sha256:e26b54d077d934643fc66caf5e87add8689e6bc41e6e7c4bafec9a7960a0442e",
+  "outputs": [
+    "assessment.json",
+    "REPORT.md",
+    "manifest.json",
+    "COMMAND.txt",
+    "hashes.json"
+  ]
+}

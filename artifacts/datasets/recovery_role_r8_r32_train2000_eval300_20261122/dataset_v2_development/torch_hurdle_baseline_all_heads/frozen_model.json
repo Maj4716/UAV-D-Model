@@ -1,0 +1,30 @@
+{
+  "schema_version": "frozen-hurdle-model@1.0.0",
+  "baseline_contract": "dataset-v2-hurdle-baseline@1.2.0",
+  "dataset_id": "damage-dataset-v2-16969411c388e086d2757f88",
+  "dataset_manifest_hash": "sha256:72fb6a13d747600a2ef78898b62264a57cb65f0104e587d6f1af6ea643d8cff6",
+  "selected_run_id": "fraction-1.00-seed-43",
+  "selection_metric": "reference_validation.p_hit.weighted_brier",
+  "selection_value": 0.038984361848017325,
+  "model_state_sha256": "sha256:74291bc25392c59ff849960ab73fa92bf846cae90436ff5ace10598d08ff9a05",
+  "target_encoder_bundle_hash": "sha256:1738ca0483aa3050bfd4c43aa2bd8bd260404da1aaf38297251bf11d4dec1965",
+  "target_encoder_methods": {
+    "energy": "empirical_quantile_normal",
+    "hit_count": "box_cox"
+  },
+  "support_probability_threshold": 0.05,
+  "task_admission": {
+    "mode": "all_dataset_components",
+    "artifact_path": null,
+    "artifact_sha256": null,
+    "artifact_hash": null,
+    "admitted_component_count_by_task": {
+      "p_hit": 67,
+      "p_degraded": 67,
+      "p_failed": 67
+    }
+  },
+  "test_labels_evaluated": false,
+  "test_open_count": 0,
+  "frozen_contract_hash": "sha256:0a627f667d38c7d22413b57d8720af0fe880a6afaa5b26bfa2cb793f7e8f2254"
+}

@@ -1,0 +1,711 @@
+{
+  "schema_version": "offline-monotone-tree-candidate@1.0.0",
+  "candidate_id": "identity-unreferenced-23-target-fragment-only-v1",
+  "status": "provisional_no_domain_semantics",
+  "semantic_authority": {
+    "status": "not_provided",
+    "source": null,
+    "scope": "component-state pass-through only; no functional grouping, priority, or system-effect semantics are asserted"
+  },
+  "inputs": [
+    {
+      "input_id": "fragment::component-018::degraded",
+      "component_id": "component-018",
+      "mechanism": "fragment",
+      "damage_state": "degraded"
+    },
+    {
+      "input_id": "fragment::component-018::failed",
+      "component_id": "component-018",
+      "mechanism": "fragment",
+      "damage_state": "failed"
+    },
+    {
+      "input_id": "fragment::component-019::degraded",
+      "component_id": "component-019",
+      "mechanism": "fragment",
+      "damage_state": "degraded"
+    },
+    {
+      "input_id": "fragment::component-019::failed",
+      "component_id": "component-019",
+      "mechanism": "fragment",
+      "damage_state": "failed"
+    },
+    {
+      "input_id": "fragment::component-020::degraded",
+      "component_id": "component-020",
+      "mechanism": "fragment",
+      "damage_state": "degraded"
+    },
+    {
+      "input_id": "fragment::component-020::failed",
+      "component_id": "component-020",
+      "mechanism": "fragment",
+      "damage_state": "failed"
+    },
+    {
+      "input_id": "fragment::component-021::degraded",
+      "component_id": "component-021",
+      "mechanism": "fragment",
+      "damage_state": "degraded"
+    },
+    {
+      "input_id": "fragment::component-021::failed",
+      "component_id": "component-021",
+      "mechanism": "fragment",
+      "damage_state": "failed"
+    },
+    {
+      "input_id": "fragment::component-022::degraded",
+      "component_id": "component-022",
+      "mechanism": "fragment",
+      "damage_state": "degraded"
+    },
+    {
+      "input_id": "fragment::component-022::failed",
+      "component_id": "component-022",
+      "mechanism": "fragment",
+      "damage_state": "failed"
+    },
+    {
+      "input_id": "fragment::component-023::degraded",
+      "component_id": "component-023",
+      "mechanism": "fragment",
+      "damage_state": "degraded"
+    },
+    {
+      "input_id": "fragment::component-023::failed",
+      "component_id": "component-023",
+      "mechanism": "fragment",
+      "damage_state": "failed"
+    },
+    {
+      "input_id": "fragment::component-024::degraded",
+      "component_id": "component-024",
+      "mechanism": "fragment",
+      "damage_state": "degraded"
+    },
+    {
+      "input_id": "fragment::component-024::failed",
+      "component_id": "component-024",
+      "mechanism": "fragment",
+      "damage_state": "failed"
+    },
+    {
+      "input_id": "fragment::component-025::degraded",
+      "component_id": "component-025",
+      "mechanism": "fragment",
+      "damage_state": "degraded"
+    },
+    {
+      "input_id": "fragment::component-025::failed",
+      "component_id": "component-025",
+      "mechanism": "fragment",
+      "damage_state": "failed"
+    },
+    {
+      "input_id": "fragment::component-026::degraded",
+      "component_id": "component-026",
+      "mechanism": "fragment",
+      "damage_state": "degraded"
+    },
+    {
+      "input_id": "fragment::component-026::failed",
+      "component_id": "component-026",
+      "mechanism": "fragment",
+      "damage_state": "failed"
+    },
+    {
+      "input_id": "fragment::component-027::degraded",
+      "component_id": "component-027",
+      "mechanism": "fragment",
+      "damage_state": "degraded"
+    },
+    {
+      "input_id": "fragment::component-027::failed",
+      "component_id": "component-027",
+      "mechanism": "fragment",
+      "damage_state": "failed"
+    },
+    {
+      "input_id": "fragment::component-028::degraded",
+      "component_id": "component-028",
+      "mechanism": "fragment",
+      "damage_state": "degraded"
+    },
+    {
+      "input_id": "fragment::component-028::failed",
+      "component_id": "component-028",
+      "mechanism": "fragment",
+      "damage_state": "failed"
+    },
+    {
+      "input_id": "fragment::component-029::degraded",
+      "component_id": "component-029",
+      "mechanism": "fragment",
+      "damage_state": "degraded"
+    },
+    {
+      "input_id": "fragment::component-029::failed",
+      "component_id": "component-029",
+      "mechanism": "fragment",
+      "damage_state": "failed"
+    },
+    {
+      "input_id": "fragment::component-040::degraded",
+      "component_id": "component-040",
+      "mechanism": "fragment",
+      "damage_state": "degraded"
+    },
+    {
+      "input_id": "fragment::component-040::failed",
+      "component_id": "component-040",
+      "mechanism": "fragment",
+      "damage_state": "failed"
+    },
+    {
+      "input_id": "fragment::component-041::degraded",
+      "component_id": "component-041",
+      "mechanism": "fragment",
+      "damage_state": "degraded"
+    },
+    {
+      "input_id": "fragment::component-041::failed",
+      "component_id": "component-041",
+      "mechanism": "fragment",
+      "damage_state": "failed"
+    },
+    {
+      "input_id": "fragment::component-042::degraded",
+      "component_id": "component-042",
+      "mechanism": "fragment",
+      "damage_state": "degraded"
+    },
+    {
+      "input_id": "fragment::component-042::failed",
+      "component_id": "component-042",
+      "mechanism": "fragment",
+      "damage_state": "failed"
+    },
+    {
+      "input_id": "fragment::component-043::degraded",
+      "component_id": "component-043",
+      "mechanism": "fragment",
+      "damage_state": "degraded"
+    },
+    {
+      "input_id": "fragment::component-043::failed",
+      "component_id": "component-043",
+      "mechanism": "fragment",
+      "damage_state": "failed"
+    },
+    {
+      "input_id": "fragment::component-044::degraded",
+      "component_id": "component-044",
+      "mechanism": "fragment",
+      "damage_state": "degraded"
+    },
+    {
+      "input_id": "fragment::component-044::failed",
+      "component_id": "component-044",
+      "mechanism": "fragment",
+      "damage_state": "failed"
+    },
+    {
+      "input_id": "fragment::component-045::degraded",
+      "component_id": "component-045",
+      "mechanism": "fragment",
+      "damage_state": "degraded"
+    },
+    {
+      "input_id": "fragment::component-045::failed",
+      "component_id": "component-045",
+      "mechanism": "fragment",
+      "damage_state": "failed"
+    },
+    {
+      "input_id": "fragment::component-049::degraded",
+      "component_id": "component-049",
+      "mechanism": "fragment",
+      "damage_state": "degraded"
+    },
+    {
+      "input_id": "fragment::component-049::failed",
+      "component_id": "component-049",
+      "mechanism": "fragment",
+      "damage_state": "failed"
+    },
+    {
+      "input_id": "fragment::component-050::degraded",
+      "component_id": "component-050",
+      "mechanism": "fragment",
+      "damage_state": "degraded"
+    },
+    {
+      "input_id": "fragment::component-050::failed",
+      "component_id": "component-050",
+      "mechanism": "fragment",
+      "damage_state": "failed"
+    },
+    {
+      "input_id": "fragment::component-055::degraded",
+      "component_id": "component-055",
+      "mechanism": "fragment",
+      "damage_state": "degraded"
+    },
+    {
+      "input_id": "fragment::component-055::failed",
+      "component_id": "component-055",
+      "mechanism": "fragment",
+      "damage_state": "failed"
+    },
+    {
+      "input_id": "fragment::component-056::degraded",
+      "component_id": "component-056",
+      "mechanism": "fragment",
+      "damage_state": "degraded"
+    },
+    {
+      "input_id": "fragment::component-056::failed",
+      "component_id": "component-056",
+      "mechanism": "fragment",
+      "damage_state": "failed"
+    },
+    {
+      "input_id": "fragment::component-068::degraded",
+      "component_id": "component-068",
+      "mechanism": "fragment",
+      "damage_state": "degraded"
+    },
+    {
+      "input_id": "fragment::component-068::failed",
+      "component_id": "component-068",
+      "mechanism": "fragment",
+      "damage_state": "failed"
+    }
+  ],
+  "outputs": [
+    {
+      "output_id": "identity::fragment::component-018::degraded",
+      "gate": {
+        "kind": "identity",
+        "inputs": [
+          "fragment::component-018::degraded"
+        ]
+      }
+    },
+    {
+      "output_id": "identity::fragment::component-018::failed",
+      "gate": {
+        "kind": "identity",
+        "inputs": [
+          "fragment::component-018::failed"
+        ]
+      }
+    },
+    {
+      "output_id": "identity::fragment::component-019::degraded",
+      "gate": {
+        "kind": "identity",
+        "inputs": [
+          "fragment::component-019::degraded"
+        ]
+      }
+    },
+    {
+      "output_id": "identity::fragment::component-019::failed",
+      "gate": {
+        "kind": "identity",
+        "inputs": [
+          "fragment::component-019::failed"
+        ]
+      }
+    },
+    {
+      "output_id": "identity::fragment::component-020::degraded",
+      "gate": {
+        "kind": "identity",
+        "inputs": [
+          "fragment::component-020::degraded"
+        ]
+      }
+    },
+    {
+      "output_id": "identity::fragment::component-020::failed",
+      "gate": {
+        "kind": "identity",
+        "inputs": [
+          "fragment::component-020::failed"
+        ]
+      }
+    },
+    {
+      "output_id": "identity::fragment::component-021::degraded",
+      "gate": {
+        "kind": "identity",
+        "inputs": [
+          "fragment::component-021::degraded"
+        ]
+      }
+    },
+    {
+      "output_id": "identity::fragment::component-021::failed",
+      "gate": {
+        "kind": "identity",
+        "inputs": [
+          "fragment::component-021::failed"
+        ]
+      }
+    },
+    {
+      "output_id": "identity::fragment::component-022::degraded",
+      "gate": {
+        "kind": "identity",
+        "inputs": [
+          "fragment::component-022::degraded"
+        ]
+      }
+    },
+    {
+      "output_id": "identity::fragment::component-022::failed",
+      "gate": {
+        "kind": "identity",
+        "inputs": [
+          "fragment::component-022::failed"
+        ]
+      }
+    },
+    {
+      "output_id": "identity::fragment::component-023::degraded",
+      "gate": {
+        "kind": "identity",
+        "inputs": [
+          "fragment::component-023::degraded"
+        ]
+      }
+    },
+    {
+      "output_id": "identity::fragment::component-023::failed",
+      "gate": {
+        "kind": "identity",
+        "inputs": [
+          "fragment::component-023::failed"
+        ]
+      }
+    },
+    {
+      "output_id": "identity::fragment::component-024::degraded",
+      "gate": {
+        "kind": "identity",
+        "inputs": [
+          "fragment::component-024::degraded"
+        ]
+      }
+    },
+    {
+      "output_id": "identity::fragment::component-024::failed",
+      "gate": {
+        "kind": "identity",
+        "inputs": [
+          "fragment::component-024::failed"
+        ]
+      }
+    },
+    {
+      "output_id": "identity::fragment::component-025::degraded",
+      "gate": {
+        "kind": "identity",
+        "inputs": [
+          "fragment::component-025::degraded"
+        ]
+      }
+    },
+    {
+      "output_id": "identity::fragment::component-025::failed",
+      "gate": {
+        "kind": "identity",
+        "inputs": [
+          "fragment::component-025::failed"
+        ]
+      }
+    },
+    {
+      "output_id": "identity::fragment::component-026::degraded",
+      "gate": {
+        "kind": "identity",
+        "inputs": [
+          "fragment::component-026::degraded"
+        ]
+      }
+    },
+    {
+      "output_id": "identity::fragment::component-026::failed",
+      "gate": {
+        "kind": "identity",
+        "inputs": [
+          "fragment::component-026::failed"
+        ]
+      }
+    },
+    {
+      "output_id": "identity::fragment::component-027::degraded",
+      "gate": {
+        "kind": "identity",
+        "inputs": [
+          "fragment::component-027::degraded"
+        ]
+      }
+    },
+    {
+      "output_id": "identity::fragment::component-027::failed",
+      "gate": {
+        "kind": "identity",
+        "inputs": [
+          "fragment::component-027::failed"
+        ]
+      }
+    },
+    {
+      "output_id": "identity::fragment::component-028::degraded",
+      "gate": {
+        "kind": "identity",
+        "inputs": [
+          "fragment::component-028::degraded"
+        ]
+      }
+    },
+    {
+      "output_id": "identity::fragment::component-028::failed",
+      "gate": {
+        "kind": "identity",
+        "inputs": [
+          "fragment::component-028::failed"
+        ]
+      }
+    },
+    {
+      "output_id": "identity::fragment::component-029::degraded",
+      "gate": {
+        "kind": "identity",
+        "inputs": [
+          "fragment::component-029::degraded"
+        ]
+      }
+    },
+    {
+      "output_id": "identity::fragment::component-029::failed",
+      "gate": {
+        "kind": "identity",
+        "inputs": [
+          "fragment::component-029::failed"
+        ]
+      }
+    },
+    {
+      "output_id": "identity::fragment::component-040::degraded",
+      "gate": {
+        "kind": "identity",
+        "inputs": [
+          "fragment::component-040::degraded"
+        ]
+      }
+    },
+    {
+      "output_id": "identity::fragment::component-040::failed",
+      "gate": {
+        "kind": "identity",
+        "inputs": [
+          "fragment::component-040::failed"
+        ]
+      }
+    },
+    {
+      "output_id": "identity::fragment::component-041::degraded",
+      "gate": {
+        "kind": "identity",
+        "inputs": [
+          "fragment::component-041::degraded"
+        ]
+      }
+    },
+    {
+      "output_id": "identity::fragment::component-041::failed",
+      "gate": {
+        "kind": "identity",
+        "inputs": [
+          "fragment::component-041::failed"
+        ]
+      }
+    },
+    {
+      "output_id": "identity::fragment::component-042::degraded",
+      "gate": {
+        "kind": "identity",
+        "inputs": [
+          "fragment::component-042::degraded"
+        ]
+      }
+    },
+    {
+      "output_id": "identity::fragment::component-042::failed",
+      "gate": {
+        "kind": "identity",
+        "inputs": [
+          "fragment::component-042::failed"
+        ]
+      }
+    },
+    {
+      "output_id": "identity::fragment::component-043::degraded",
+      "gate": {
+        "kind": "identity",
+        "inputs": [
+          "fragment::component-043::degraded"
+        ]
+      }
+    },
+    {
+      "output_id": "identity::fragment::component-043::failed",
+      "gate": {
+        "kind": "identity",
+        "inputs": [
+          "fragment::component-043::failed"
+        ]
+      }
+    },
+    {
+      "output_id": "identity::fragment::component-044::degraded",
+      "gate": {
+        "kind": "identity",
+        "inputs": [
+          "fragment::component-044::degraded"
+        ]
+      }
+    },
+    {
+      "output_id": "identity::fragment::component-044::failed",
+      "gate": {
+        "kind": "identity",
+        "inputs": [
+          "fragment::component-044::failed"
+        ]
+      }
+    },
+    {
+      "output_id": "identity::fragment::component-045::degraded",
+      "gate": {
+        "kind": "identity",
+        "inputs": [
+          "fragment::component-045::degraded"
+        ]
+      }
+    },
+    {
+      "output_id": "identity::fragment::component-045::failed",
+      "gate": {
+        "kind": "identity",
+        "inputs": [
+          "fragment::component-045::failed"
+        ]
+      }
+    },
+    {
+      "output_id": "identity::fragment::component-049::degraded",
+      "gate": {
+        "kind": "identity",
+        "inputs": [
+          "fragment::component-049::degraded"
+        ]
+      }
+    },
+    {
+      "output_id": "identity::fragment::component-049::failed",
+      "gate": {
+        "kind": "identity",
+        "inputs": [
+          "fragment::component-049::failed"
+        ]
+      }
+    },
+    {
+      "output_id": "identity::fragment::component-050::degraded",
+      "gate": {
+        "kind": "identity",
+        "inputs": [
+          "fragment::component-050::degraded"
+        ]
+      }
+    },
+    {
+      "output_id": "identity::fragment::component-050::failed",
+      "gate": {
+        "kind": "identity",
+        "inputs": [
+          "fragment::component-050::failed"
+        ]
+      }
+    },
+    {
+      "output_id": "identity::fragment::component-055::degraded",
+      "gate": {
+        "kind": "identity",
+        "inputs": [
+          "fragment::component-055::degraded"
+        ]
+      }
+    },
+    {
+      "output_id": "identity::fragment::component-055::failed",
+      "gate": {
+        "kind": "identity",
+        "inputs": [
+          "fragment::component-055::failed"
+        ]
+      }
+    },
+    {
+      "output_id": "identity::fragment::component-056::degraded",
+      "gate": {
+        "kind": "identity",
+        "inputs": [
+          "fragment::component-056::degraded"
+        ]
+      }
+    },
+    {
+      "output_id": "identity::fragment::component-056::failed",
+      "gate": {
+        "kind": "identity",
+        "inputs": [
+          "fragment::component-056::failed"
+        ]
+      }
+    },
+    {
+      "output_id": "identity::fragment::component-068::degraded",
+      "gate": {
+        "kind": "identity",
+        "inputs": [
+          "fragment::component-068::degraded"
+        ]
+      }
+    },
+    {
+      "output_id": "identity::fragment::component-068::failed",
+      "gate": {
+        "kind": "identity",
+        "inputs": [
+          "fragment::component-068::failed"
+        ]
+      }
+    }
+  ],
+  "definition_hash": "sha256:09cd4c13538b9016d92e625dc4b9a911d2ee010b7f94ea17d64b4ac06fe55eba",
+  "provenance": {
+    "target_path": "configs/targets/target.fragment_only.v1.json",
+    "target_file_hash": "sha256:5c4e936975e95f32d72cfe62e38263ae20ef310fb79160b08876d494756c651f",
+    "selection_rule": "component identifiers present in target components and absent from current damage_tree component_id references",
+    "selected_component_count": 23
+  }
+}

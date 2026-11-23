@@ -1,0 +1,15 @@
+{
+  "schema_version": "anisotropic-fast-assessment-hashes@1.0.0",
+  "inputs": {
+    "cases": "sha256:52c948384ed0f341f4c542cf89e013084a48c063d9d2624d42ef65335ebf94b7",
+    "config": "sha256:129d10ed3290beb13bd8cc05a91c8ca2941d7c54f8787cdd2eac94b4690130f7",
+    "physics": "sha256:04030ac5f87519010da33eb5b5f8379bb5dbd8fb9be7b4ede6c6a31248443828",
+    "target": "sha256:5c4e936975e95f32d72cfe62e38263ae20ef310fb79160b08876d494756c651f"
+  },
+  "outputs": {
+    "assessment.json": "sha256:1e595349eb2f897181a28035efec9ce414302b40952321e2f31bd15952f08f99",
+    "REPORT.md": "sha256:66fb629a92cef629f56d95efb09e424693c871b6950ffed314334480ebc01a42",
+    "manifest.json": "sha256:14a34ba8964fa964508722f07ab144baeeaaa16376d17a08190353ed95640bc1",
+    "COMMAND.txt": "sha256:4bc9af8f73bf480a9e3be1a1d146d328d177f6e34e0556f4a189e2c02e903837"
+  }
+}

@@ -1,0 +1,223 @@
+{
+  "schema_version": "1.0.0",
+  "experiment": "C2",
+  "contract_version": "stage2-mechanism-experiments@1.0.0",
+  "physics_registry_hash": "sha256:809b15a7010ed540403b299946caec96dc0c29aa03aba5e36aed61169af2ce45",
+  "profile_reports": [
+    {
+      "profile_id": "small_front",
+      "mass_basis": "casing_mass_plus_fragment_mass_for_excludes_fragments",
+      "expected_gurney_speed_mps": 2028.1537635511274,
+      "engine_generated_gurney_speed_mps": 2028.1537635511277,
+      "maximum_gurney_speed_abs_error_mps": 4.547473508864641e-13,
+      "angle_gold": {
+        "base_angle_deg": 30.450020977165675,
+        "nominal_ring_angles_deg": [
+          30.450020977165675,
+          32.45002097716568,
+          34.45002097716567,
+          36.45002097716568,
+          38.45002097716567,
+          40.45002097716568
+        ],
+        "expected_mean_angle_deg": 35.45002097716567,
+        "expected_std_angle_deg": 3.958114029012645,
+        "spread_distribution": "normal",
+        "spread_sigma_deg": 2.0,
+        "gold_definition": "exact_clipped_normal_ring_mixture_moments"
+      },
+      "angle_empirical": {
+        "sample_count": 960,
+        "mean_angle_deg": 35.3110134077443,
+        "std_angle_deg": 3.9144415395642036,
+        "quantiles_deg": {
+          "0.01": 26.87711631229708,
+          "0.1": 30.24841426780988,
+          "0.5": 35.171632611367926,
+          "0.9": 40.72660553936405,
+          "0.99": 43.31874637475426
+        }
+      },
+      "mean_angle_error_deg": -0.1390075694213735,
+      "std_angle_error_deg": -0.043672489448441265
+    },
+    {
+      "profile_id": "medium_front",
+      "mass_basis": "casing_mass_plus_fragment_mass_for_excludes_fragments",
+      "expected_gurney_speed_mps": 1974.9465232771238,
+      "engine_generated_gurney_speed_mps": 1974.9465232771236,
+      "maximum_gurney_speed_abs_error_mps": 4.547473508864641e-13,
+      "angle_gold": {
+        "base_angle_deg": 29.788904875521073,
+        "nominal_ring_angles_deg": [
+          29.788904875521073,
+          30.697995784611987,
+          31.60708669370289,
+          32.5161776027938,
+          33.42526851188471,
+          34.33435942097562,
+          35.24345033006653,
+          36.152541239157436,
+          37.06163214824834,
+          37.97072305733926,
+          38.87981396643016,
+          39.78890487552108
+        ],
+        "expected_mean_angle_deg": 34.98890487552108,
+        "expected_std_angle_deg": 3.7966492403888856,
+        "spread_distribution": "normal",
+        "spread_sigma_deg": 2.0,
+        "gold_definition": "exact_clipped_normal_ring_mixture_moments"
+      },
+      "angle_empirical": {
+        "sample_count": 2400,
+        "mean_angle_deg": 34.913071858134145,
+        "std_angle_deg": 3.843629990090019,
+        "quantiles_deg": {
+          "0.01": 26.91630442490737,
+          "0.1": 29.759824505472405,
+          "0.5": 34.92076542834889,
+          "0.9": 40.05452725887605,
+          "0.99": 42.720121550376454
+        }
+      },
+      "mean_angle_error_deg": -0.07583301738693393,
+      "std_angle_error_deg": 0.046980749701133195
+    },
+    {
+      "profile_id": "large_front",
+      "mass_basis": "casing_mass_plus_fragment_mass_for_excludes_fragments",
+      "expected_gurney_speed_mps": 1875.6083562594774,
+      "engine_generated_gurney_speed_mps": 1875.6083562594777,
+      "maximum_gurney_speed_abs_error_mps": 4.547473508864641e-13,
+      "angle_gold": {
+        "base_angle_deg": 25.40012378310394,
+        "nominal_ring_angles_deg": [
+          25.40012378310394,
+          25.988359077221585,
+          26.576594371339233,
+          27.16482966545688,
+          27.753064959574527,
+          28.34130025369217,
+          28.92953554780982,
+          29.51777084192747,
+          30.106006136045117,
+          30.694241430162762,
+          31.28247672428041,
+          31.87071201839806,
+          32.458947312515704,
+          33.04718260663335,
+          33.635417900751,
+          34.22365319486864,
+          34.81188848898629,
+          35.400123783103936
+        ],
+        "expected_mean_angle_deg": 30.600123783103935,
+        "expected_std_angle_deg": 3.728428150117453,
+        "spread_distribution": "normal",
+        "spread_sigma_deg": 2.0,
+        "gold_definition": "exact_clipped_normal_ring_mixture_moments"
+      },
+      "angle_empirical": {
+        "sample_count": 4800,
+        "mean_angle_deg": 30.605192463486606,
+        "std_angle_deg": 3.6530318100447428,
+        "quantiles_deg": {
+          "0.01": 22.825481905774264,
+          "0.1": 25.76412726525687,
+          "0.5": 30.59016253500472,
+          "0.9": 35.43391571640518,
+          "0.99": 38.15813757520768
+        }
+      },
+      "mean_angle_error_deg": 0.0050686803826707205,
+      "std_angle_error_deg": -0.07539634007271045
+    }
+  ],
+  "fragment_response_reports": {
+    "demo_armor_response": {
+      "v50_mps": 1688.1418884302384,
+      "transition_width_ratio_tau": 0.15,
+      "analytic_probability_at_v50": 0.5,
+      "empirical_probability_at_v50": 0.50390625,
+      "ten_to_ninety_speed_ratio": 1.9331820449317627,
+      "trials_per_speed": 512,
+      "speed_scan": [
+        {
+          "log_speed_units": -2.0,
+          "speed_mps": 1250.6062700451644,
+          "analytic_probability": 0.11920292202211755,
+          "empirical_perforation_rate": 0.12890625
+        },
+        {
+          "log_speed_units": -1.0,
+          "speed_mps": 1452.9971887091663,
+          "analytic_probability": 0.2689414213699951,
+          "empirical_perforation_rate": 0.25390625
+        },
+        {
+          "log_speed_units": 0.0,
+          "speed_mps": 1688.1418884302384,
+          "analytic_probability": 0.5,
+          "empirical_perforation_rate": 0.50390625
+        },
+        {
+          "log_speed_units": 1.0,
+          "speed_mps": 1961.3410525622398,
+          "analytic_probability": 0.7310585786300049,
+          "empirical_perforation_rate": 0.7578125
+        },
+        {
+          "log_speed_units": 2.0,
+          "speed_mps": 2278.753196535544,
+          "analytic_probability": 0.8807970779778825,
+          "empirical_perforation_rate": 0.88671875
+        }
+      ],
+      "maximum_empirical_minus_analytic_abs_error": 0.026753921369995104
+    },
+    "demo_component_response": {
+      "v50_mps": 442.9964620198086,
+      "transition_width_ratio_tau": 0.18,
+      "analytic_probability_at_v50": 0.5,
+      "empirical_probability_at_v50": 0.49609375,
+      "ten_to_ninety_speed_ratio": 2.2056027947475028,
+      "trials_per_speed": 512,
+      "speed_scan": [
+        {
+          "log_speed_units": -2.0,
+          "speed_mps": 309.06814408444507,
+          "analytic_probability": 0.11920292202211753,
+          "empirical_perforation_rate": 0.138671875
+        },
+        {
+          "log_speed_units": -1.0,
+          "speed_mps": 370.02174848573105,
+          "analytic_probability": 0.26894142136999505,
+          "empirical_perforation_rate": 0.28125
+        },
+        {
+          "log_speed_units": 0.0,
+          "speed_mps": 442.9964620198086,
+          "analytic_probability": 0.5,
+          "empirical_perforation_rate": 0.49609375
+        },
+        {
+          "log_speed_units": 1.0,
+          "speed_mps": 530.3630561316463,
+          "analytic_probability": 0.7310585786300049,
+          "empirical_perforation_rate": 0.716796875
+        },
+        {
+          "log_speed_units": 2.0,
+          "speed_mps": 634.9598595591542,
+          "analytic_probability": 0.8807970779778823,
+          "empirical_perforation_rate": 0.873046875
+        }
+      ],
+      "maximum_empirical_minus_analytic_abs_error": 0.019468952977882467
+    }
+  },
+  "taylor_shapiro_policy": "independent_candidate; this C2 report audits the legacy taylor_ring baseline",
+  "config_hash": "sha256:09d1d8df15635513c165b55133daf5d2cecf4ec59566610525271d9a8f7652b7"
+}

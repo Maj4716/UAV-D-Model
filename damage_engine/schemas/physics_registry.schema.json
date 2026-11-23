@@ -180,7 +180,7 @@
           "additionalProperties": false,
           "required": ["kind"],
           "properties": {
-            "kind": {"enum": ["isotropic", "cone", "taylor_ring"]},
+            "kind": {"enum": ["isotropic", "cone", "taylor_ring", "taylor_shapiro_ring"]},
             "axis_mode": {"enum": ["body_vector", "impact_inward"]},
             "axis_body": {
               "type": "array",
@@ -190,10 +190,26 @@
             },
             "half_angle_deg": {"type": "number", "exclusiveMinimum": 0, "maximum": 180},
             "spread_sigma_deg": {"type": "number", "minimum": 0},
+            "spread_distribution": {"enum": ["normal", "uniform", "laplace"]},
             "ring_count": {"type": "integer", "minimum": 1},
             "axial_coverage_ratio": {"type": "number", "exclusiveMinimum": 0, "maximum": 1},
             "axial_angle_correction_deg": {"type": "number", "minimum": 0, "maximum": 90},
-            "azimuth_layout": {"enum": ["uniform_per_ring"]}
+            "azimuth_layout": {"enum": ["uniform_per_ring"]},
+            "initiation_point_body_m": {
+              "type": "array",
+              "prefixItems": [{"type": "number"}, {"type": "number"}, {"type": "number"}],
+              "minItems": 3,
+              "maxItems": 3
+            },
+            "casing_surface": {"enum": ["cylindrical_inner_wall"]},
+            "angle_convention": {
+              "enum": [
+                "body_plus_x_polar_from_nose_local_normal_signed",
+                "body_plus_x_polar_deflection_toward_detonation_propagation"
+              ]
+            },
+            "dispersion_model": {"enum": ["tangent_plane_gaussian"]},
+            "taylor_limit_policy": {"enum": ["reject_ratio_gt_one"]}
           },
           "allOf": [
             {
@@ -220,6 +236,41 @@
                     "required": ["axis_mode"]
                   }
                 ]
+              }
+            },
+            {
+              "if": {
+                "properties": {"kind": {"const": "taylor_shapiro_ring"}},
+                "required": ["kind"]
+              },
+              "then": {
+                "required": [
+                  "axis_body",
+                  "spread_sigma_deg",
+                  "ring_count",
+                  "axial_coverage_ratio",
+                  "azimuth_layout",
+                  "initiation_point_body_m",
+                  "casing_surface",
+                  "angle_convention",
+                  "dispersion_model",
+                  "taylor_limit_policy"
+                ],
+                "properties": {
+                  "axis_body": {
+                    "prefixItems": [
+                      {"const": 1.0},
+                      {"const": 0.0},
+                      {"const": 0.0}
+                    ]
+                  }
+                },
+                "not": {
+                  "anyOf": [
+                    {"required": ["axis_mode"]},
+                    {"required": ["axial_angle_correction_deg"]}
+                  ]
+                }
               }
             },
             {
@@ -279,6 +330,19 @@
             "obliquity_exponent": {"type": "number"},
             "transition_width_ratio": {"type": "number", "exclusiveMinimum": 0},
             "maximum_obliquity_deg": {"type": "number", "exclusiveMinimum": 0, "maximum": 90},
+            "high_obliquity_nonperforation_bound": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["kind", "maximum_obliquity_deg"],
+              "properties": {
+                "kind": {"const": "pathwise_monotone_ballistic_limit_lower_bound"},
+                "maximum_obliquity_deg": {
+                  "type": "number",
+                  "exclusiveMinimum": 0,
+                  "exclusiveMaximum": 90
+                }
+              }
+            },
             "residual_velocity_coefficient": {"type": "number", "exclusiveMinimum": 0, "maximum": 1},
             "residual_velocity_exponent": {"type": "number", "exclusiveMinimum": 0}
           }

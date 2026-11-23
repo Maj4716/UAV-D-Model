@@ -1,0 +1,15 @@
+{
+  "schema_version": "anisotropic-engine-calibration-manifest@1.0.0",
+  "created_at_utc": "2026-11-23T03:35:05.770320+00:00",
+  "mode": "calibrate",
+  "paired_candidate_count": 229,
+  "comparison_hash": "sha256:320ff45748d37df7a98b6fa34424068c6b531763ba47f1a6f0f90c86f68c41d8",
+  "temporary_teacher_subset_assessment": false,
+  "outputs": [
+    "engine_calibration.json",
+    "REPORT.md",
+    "manifest.json",
+    "COMMAND.txt",
+    "hashes.json"
+  ]
+}

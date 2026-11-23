@@ -1,0 +1,77 @@
+{
+  "final_module_sha256": "ec3ec868f4168b211f44496c676843bc69eb30d368043232365f3aad5b11fd98",
+  "cases": 60,
+  "runs": {
+    "az4": {
+      "run_module_sha256": "26952531d0574e6c4dfbd4bdfddf46114952ad1d1b51773674ca5df3455b929a",
+      "max_abs_diff": {
+        "lambda": 0.0,
+        "phit_prod": 0.0,
+        "p_deg": 0.0,
+        "p_fail": 0.0,
+        "energy": 0.0,
+        "absorbed": 0.0,
+        "ood_mass_frac": 0.0,
+        "ood_packet_frac": 0.0
+      },
+      "bitwise_identical": true
+    },
+    "azall": {
+      "run_module_sha256": "26952531d0574e6c4dfbd4bdfddf46114952ad1d1b51773674ca5df3455b929a",
+      "max_abs_diff": {
+        "lambda": 0.0,
+        "phit_prod": 0.0,
+        "p_deg": 0.0,
+        "p_fail": 0.0,
+        "energy": 0.0,
+        "absorbed": 0.0,
+        "ood_mass_frac": 0.0,
+        "ood_packet_frac": 0.0
+      },
+      "bitwise_identical": true
+    },
+    "azall_reg": {
+      "run_module_sha256": "26952531d0574e6c4dfbd4bdfddf46114952ad1d1b51773674ca5df3455b929a",
+      "max_abs_diff": {
+        "lambda": 0.0,
+        "phit_prod": 0.0,
+        "p_deg": 0.0,
+        "p_fail": 0.0,
+        "energy": 0.0,
+        "absorbed": 0.0,
+        "ood_mass_frac": 0.0,
+        "ood_packet_frac": 0.0
+      },
+      "bitwise_identical": true
+    },
+    "azall_k4_reg": {
+      "run_module_sha256": "26952531d0574e6c4dfbd4bdfddf46114952ad1d1b51773674ca5df3455b929a",
+      "max_abs_diff": {
+        "lambda": 0.0,
+        "phit_prod": 0.0,
+        "p_deg": 0.0,
+        "p_fail": 0.0,
+        "energy": 0.0,
+        "absorbed": 0.0,
+        "ood_mass_frac": 0.0,
+        "ood_packet_frac": 0.0
+      },
+      "bitwise_identical": true
+    },
+    "az4_s7777777": {
+      "run_module_sha256": "26952531d0574e6c4dfbd4bdfddf46114952ad1d1b51773674ca5df3455b929a",
+      "max_abs_diff": {
+        "lambda": 0.0,
+        "phit_prod": 0.0,
+        "p_deg": 0.0,
+        "p_fail": 0.0,
+        "energy": 0.0,
+        "absorbed": 0.0,
+        "ood_mass_frac": 0.0,
+        "ood_packet_frac": 0.0
+      },
+      "bitwise_identical": true
+    }
+  },
+  "all_bitwise_identical": true
+}

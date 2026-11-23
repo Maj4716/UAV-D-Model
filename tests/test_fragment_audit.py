@@ -8,8 +8,12 @@ import pytest
 
 from damage_engine.errors import InputValidationError
 from damage_engine.fragment_audit import (
+    combine_warhead_target_matching_observations,
     diagnose_front_axis_semantics,
+    extract_warhead_target_matching_observations,
     summarize_component_reachability,
+    summarize_warhead_target_matching,
+    summarize_warhead_target_matching_observations,
 )
 from damage_engine.registry import PhysicsRegistry
 
@@ -121,6 +125,88 @@ def test_component_reachability_rejects_legacy_hit_only_audit():
             [_intersection(0, penetrated=True, response_probability=0.25)],
             ["critical-component"],
         )
+
+
+def test_warhead_target_matching_uses_finite_margins_and_exact_reach_counts():
+    audit = [
+        {
+            "replicate": 0,
+            "events": [
+                _trace(0, ["armor", "critical-component"]),
+                {
+                    "record_type": "intersection",
+                    "global_event_index": 0,
+                    "fragment_id": 0,
+                    "object_id": "armor",
+                    "role": "armor",
+                    "arrival_speed_mps": 400.0,
+                    "v50_mps": 200.0,
+                    "penetrated": True,
+                },
+                {
+                    "record_type": "intersection",
+                    "global_event_index": 1,
+                    "fragment_id": 0,
+                    "object_id": "critical-component",
+                    "role": "component",
+                    "penetrated": True,
+                    "damage_energy_j": 50.0,
+                    "damage_state_response_parameters": {
+                        "degraded": {"damage_energy_50_j": 100.0},
+                        "failed": {"damage_energy_50_j": 200.0},
+                    },
+                },
+                _trace(1, ["armor"]),
+                {
+                    "record_type": "intersection",
+                    "global_event_index": 2,
+                    "fragment_id": 1,
+                    "object_id": "armor",
+                    "role": "armor",
+                    "arrival_speed_mps": 100.0,
+                    "v50_mps": 200.0,
+                    "penetrated": True,
+                },
+                _trace(2, ["critical-component"]),
+                {
+                    "record_type": "intersection",
+                    "global_event_index": 3,
+                    "fragment_id": 2,
+                    "object_id": "critical-component",
+                    "role": "component",
+                    "penetrated": False,
+                    "damage_energy_j": 0.0,
+                    "damage_state_response_parameters": {
+                        "degraded": {"damage_energy_50_j": 100.0},
+                        "failed": {"damage_energy_50_j": 200.0},
+                    },
+                },
+            ],
+        }
+    ]
+
+    report = summarize_warhead_target_matching(audit)
+
+    assert report["M_armor"]["valid_margin_count"] == 2
+    assert report["M_armor"]["below_v50_fraction"] == pytest.approx(0.5)
+    assert report["M_armor"]["log_arrival_speed_over_v50"]["quantiles"]["q50"] == pytest.approx(0.0)
+    assert report["M_comp"]["states"]["degraded"]["eligible_event_count"] == 2
+    assert report["M_comp"]["states"]["degraded"]["nonpositive_energy_count"] == 1
+    assert report["M_comp"]["states"]["degraded"]["below_threshold_fraction"] == pytest.approx(1.0)
+    assert report["M_reach"] == {
+        "armor_penetrating_fragment_count": 2,
+        "component_reached_after_armor_count": 1,
+        "fraction": 0.5,
+    }
+    json.dumps(report, allow_nan=False)
+
+    observation = extract_warhead_target_matching_observations(audit)
+    doubled = combine_warhead_target_matching_observations(
+        [observation, observation]
+    )
+    doubled_report = summarize_warhead_target_matching_observations(doubled)
+    assert doubled_report["M_armor"]["event_count"] == 4
+    assert doubled_report["M_reach"]["armor_penetrating_fragment_count"] == 4
 
 
 def test_current_front_axis_semantics_are_explicit_and_observational():

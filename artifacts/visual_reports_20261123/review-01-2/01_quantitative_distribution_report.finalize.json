@@ -1,0 +1,362 @@
+{
+  "schemaVersion": 1,
+  "ok": true,
+  "command": "finalize",
+  "status": "pass",
+  "type": "explainer",
+  "quality": "showcase",
+  "startedAt": "2026-11-23T09:05:53.848Z",
+  "specification": {
+    "path": "D:\\Desktop\\UAV新\\.archify\\explainer-uav-visual-report-20261123-quant\\quantitative.archify.md",
+    "sha256": "feb04d7ef95498e2b6c834ba852c33d13b9196ef02dc880c2758eb7bb310aa86",
+    "bytes": 6436
+  },
+  "artifact": {
+    "path": "D:\\Desktop\\UAV新\\artifacts\\visual_reports_20261123\\01_quantitative_distribution_report.html",
+    "sha256": "b98876baf07355a58cffedb403551837d0fe6869ba905a01a9f4e56cc6aa90ba",
+    "bytes": 2713144
+  },
+  "stages": {
+    "browser-check": {
+      "status": "not-run",
+      "execution": "not-requested"
+    },
+    "validate": {
+      "status": "pass",
+      "exitCode": 0,
+      "durationMs": null,
+      "execution": "embedded-in-deliver",
+      "command": [
+        "D:\\Program Files\\nodejs\\node.exe",
+        "C:\\Users\\Administrator\\.codex\\skills\\archify\\bin\\archify.mjs",
+        "deliver",
+        "explainer",
+        "D:\\Desktop\\UAV新\\.archify\\explainer-uav-visual-report-20261123-quant\\quantitative.archify.md",
+        "D:\\Desktop\\UAV新\\artifacts\\visual_reports_20261123\\01_quantitative_distribution_report.html",
+        "--quality",
+        "showcase",
+        "--writing",
+        "strict",
+        "--json"
+      ],
+      "receipt": {
+        "schemaVersion": 1,
+        "ok": true,
+        "command": "validate",
+        "specification": {
+          "sha256": "feb04d7ef95498e2b6c834ba852c33d13b9196ef02dc880c2758eb7bb310aa86",
+          "bytes": 6436
+        },
+        "validation": {
+          "checksPassed": 4,
+          "checkCount": 4,
+          "compositionProfile": "showcase",
+          "compositionStatus": "pass",
+          "errors": 0,
+          "warnings": 0
+        }
+      }
+    },
+    "deliver": {
+      "status": "pass",
+      "exitCode": 0,
+      "durationMs": 1131,
+      "command": [
+        "D:\\Program Files\\nodejs\\node.exe",
+        "C:\\Users\\Administrator\\.codex\\skills\\archify\\bin\\archify.mjs",
+        "deliver",
+        "explainer",
+        "D:\\Desktop\\UAV新\\.archify\\explainer-uav-visual-report-20261123-quant\\quantitative.archify.md",
+        "D:\\Desktop\\UAV新\\artifacts\\visual_reports_20261123\\01_quantitative_distribution_report.html",
+        "--quality",
+        "showcase",
+        "--writing",
+        "strict",
+        "--json"
+      ],
+      "receipt": {
+        "schemaVersion": 1,
+        "receiptId": "310ceac5-995a-4735-8618-876eccb9beea",
+        "ok": true,
+        "command": "deliver",
+        "type": "explainer",
+        "input": "D:\\Desktop\\UAV新\\.archify\\explainer-uav-visual-report-20261123-quant\\quantitative.archify.md",
+        "output": "D:\\Desktop\\UAV新\\artifacts\\visual_reports_20261123\\01_quantitative_distribution_report.html",
+        "explainer": {
+          "preparedSha256": "2bae562dcb66bf143f4c578844cf3693034816c429d75ddd10c2a68de2743c96",
+          "dependencies": [
+            {
+              "kind": "image",
+              "id": "selection-gap-figure",
+              "path": "D:\\Desktop\\UAV新\\.archify\\explainer-uav-visual-report-20261123-quant\\quant_distribution.png",
+              "sha256": "e8aef8f7f4363b86047c81077063e3e5fe9082d2258c34e82e15155ce15e1c16",
+              "bytes": 137048
+            },
+            {
+              "kind": "image",
+              "id": "stage-gap-figure",
+              "path": "D:\\Desktop\\UAV新\\.archify\\explainer-uav-visual-report-20261123-quant\\quant_stage_reliability.png",
+              "sha256": "01de4927d083d6905568d7218063dd865941340be7bb3a4f8e089030de1156a1",
+              "bytes": 158236
+            },
+            {
+              "kind": "image",
+              "id": "proxy-convergence-figure",
+              "path": "D:\\Desktop\\UAV新\\.archify\\explainer-uav-visual-report-20261123-quant\\quant_proxy_convergence.png",
+              "sha256": "8b232ee7b6c56ac86a03d6dac6e22dfab5d4fcdcc5c118582eec9592c53d0df2",
+              "bytes": 104336
+            },
+            {
+              "kind": "diagram-spec",
+              "id": "distribution-chain",
+              "inline": true,
+              "sha256": "cebaa0cd17d08f91c71ba720b285438753667a20571e2d8b96d1971e930e9f93",
+              "bytes": 1463
+            }
+          ]
+        },
+        "specification": {
+          "sha256": "feb04d7ef95498e2b6c834ba852c33d13b9196ef02dc880c2758eb7bb310aa86",
+          "bytes": 6436
+        },
+        "artifact": {
+          "sha256": "b98876baf07355a58cffedb403551837d0fe6869ba905a01a9f4e56cc6aa90ba",
+          "bytes": 2713144
+        },
+        "validation": {
+          "checksPassed": 4,
+          "checkCount": 4,
+          "compositionProfile": "showcase",
+          "compositionStatus": "pass",
+          "errors": 0,
+          "warnings": 0
+        },
+        "update": {
+          "status": "unavailable",
+          "installedVersion": null,
+          "availableVersion": null,
+          "releaseNotes": null,
+          "checkedAt": null,
+          "source": null,
+          "noticeRequired": false,
+          "noticeText": null,
+          "reason": "disabled"
+        }
+      }
+    },
+    "check": {
+      "status": "pass",
+      "exitCode": 0,
+      "durationMs": 491,
+      "command": [
+        "D:\\Program Files\\nodejs\\node.exe",
+        "C:\\Users\\Administrator\\.codex\\skills\\archify\\bin\\archify.mjs",
+        "check",
+        "D:\\Desktop\\UAV新\\artifacts\\visual_reports_20261123\\01_quantitative_distribution_report.html",
+        "--require-provenance"
+      ],
+      "receipt": {
+        "ok": true,
+        "file": "D:\\Desktop\\UAV新\\artifacts\\visual_reports_20261123\\01_quantitative_distribution_report.html",
+        "family": "explainer",
+        "artifact": {
+          "sha256": "b98876baf07355a58cffedb403551837d0fe6869ba905a01a9f4e56cc6aa90ba",
+          "bytes": 2713144
+        },
+        "checks": [
+          {
+            "name": "explainer_structure",
+            "ok": true,
+            "details": [
+              "63 unique DOM IDs"
+            ]
+          },
+          {
+            "name": "explainer_payload_identity",
+            "ok": true,
+            "details": []
+          },
+          {
+            "name": "explainer_dependencies",
+            "ok": true,
+            "details": [
+              "4 frozen dependencies"
+            ]
+          },
+          {
+            "name": "explainer_native_diagrams",
+            "ok": true,
+            "details": [
+              "distribution-chain: pass"
+            ]
+          }
+        ],
+        "composition": {
+          "schemaVersion": 1,
+          "profile": "showcase",
+          "status": "pass",
+          "summary": {
+            "errors": 0,
+            "warnings": 0
+          },
+          "issues": [],
+          "nativeDiagrams": [
+            {
+              "id": "distribution-chain",
+              "receipt": {
+                "ok": true,
+                "file": "C:\\Users\\ADMINI~1\\AppData\\Local\\Temp\\archify-explainer-check-WL0iSK\\child.html",
+                "artifact": {
+                  "sha256": "79405f64c417300253473e9869c0200a95f75208adb6a69f65022fa3256e9018",
+                  "bytes": 833860
+                },
+                "checks": [
+                  {
+                    "name": "single_svg",
+                    "ok": true,
+                    "details": [
+                      "found 1 <svg> block(s)"
+                    ]
+                  },
+                  {
+                    "name": "finite_svg",
+                    "ok": true,
+                    "details": []
+                  },
+                  {
+                    "name": "orthogonal_arrows",
+                    "ok": true,
+                    "details": []
+                  },
+                  {
+                    "name": "label_route_clearance",
+                    "ok": true,
+                    "details": []
+                  },
+                  {
+                    "name": "relationship_crossings",
+                    "ok": true,
+                    "details": []
+                  },
+                  {
+                    "name": "relationship_corridors",
+                    "ok": true,
+                    "details": []
+                  },
+                  {
+                    "name": "container_border_runs",
+                    "ok": true,
+                    "details": []
+                  },
+                  {
+                    "name": "route_rhythm",
+                    "ok": true,
+                    "details": []
+                  },
+                  {
+                    "name": "legend_clearance",
+                    "ok": true,
+                    "details": []
+                  }
+                ],
+                "composition": {
+                  "schemaVersion": 1,
+                  "profile": "showcase",
+                  "status": "pass",
+                  "summary": {
+                    "errors": 0,
+                    "warnings": 0
+                  },
+                  "metrics": {
+                    "properCrossings": 0,
+                    "resolvedCrossovers": 0,
+                    "ambiguousCorridors": 0,
+                    "arrowheadCollisions": 0,
+                    "containerBorderRuns": 0,
+                    "labelRouteClearanceIssues": 0,
+                    "labelCanvasOverflowIssues": 0,
+                    "minLabelRouteClearance": 96.2,
+                    "desktopReadabilityIssues": 0,
+                    "viewportHeightIssues": 0,
+                    "minProjectedNodeTextPx": 7.492447129909365,
+                    "maxBends": 0,
+                    "routesOverSuggestedBends": 0,
+                    "maxStretch": 1,
+                    "routesOverSuggestedStretch": 0,
+                    "minSegmentPx": 38,
+                    "minInteriorSegmentPx": null,
+                    "shortSegmentCount": 0,
+                    "shortEndpointSegmentCount": 0,
+                    "shortInteriorSegmentCount": 0,
+                    "microSegmentCount": 0
+                  },
+                  "suggestedLimits": {
+                    "bendsPerRelationship": 2,
+                    "stretch": 1.35,
+                    "segmentPx": 16,
+                    "microSegmentPx": 8
+                  },
+                  "routeReview": {
+                    "crossings": [],
+                    "detours": []
+                  },
+                  "leadingSpace": {
+                    "measured": false,
+                    "reviewSuggested": false
+                  },
+                  "desktopReadability": {
+                    "budgetBasis": "legacy-930",
+                    "readerContract": "declared-wide-v1",
+                    "availableDiagramWidth": 930,
+                    "actualBudgetPx": 930,
+                    "limit": "legacy",
+                    "requestedTargetPx": null,
+                    "requestedTargetMet": null,
+                    "hardFloorPx": 6,
+                    "hardFloorMet": true,
+                    "minimumOwner": {
+                      "kind": "edge",
+                      "id": "candidate-to-contact-1",
+                      "from": "candidate",
+                      "to": "contact"
+                    },
+                    "minimumSourceTextPx": 8,
+                    "minimumProjectedTextPx": 7.492447129909365,
+                    "semanticTextCount": 11
+                  },
+                  "issues": []
+                }
+              }
+            }
+          ]
+        },
+        "diagnostics": [],
+        "provenance": "current",
+        "deliveryReceiptId": "310ceac5-995a-4735-8618-876eccb9beea"
+      }
+    }
+  },
+  "browserCheck": {
+    "requested": false,
+    "ran": false
+  },
+  "diagnostics": [],
+  "evidence": {
+    "receipt": "D:\\Desktop\\UAV新\\artifacts\\visual_reports_20261123\\review-01-2\\01_quantitative_distribution_report.finalize.json",
+    "summaryReceipt": "D:\\Desktop\\UAV新\\artifacts\\visual_reports_20261123\\review-01-2\\01_quantitative_distribution_report.finalize-summary.json"
+  },
+  "visualReview": "not-requested",
+  "finishedAt": "2026-11-23T09:05:56.070Z",
+  "durationMs": 2222,
+  "update": {
+    "status": "unavailable",
+    "installedVersion": null,
+    "availableVersion": null,
+    "releaseNotes": null,
+    "checkedAt": null,
+    "source": null,
+    "noticeRequired": false,
+    "noticeText": null,
+    "reason": "check-failed"
+  }
+}

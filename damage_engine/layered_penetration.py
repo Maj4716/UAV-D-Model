@@ -191,7 +191,7 @@ def resolve_penetration_path(
     if len(layers) == 1:
         perforation_class = last.perforation_class
         reported_probability = first.penetration_probability
-        probability_semantics = "single_layer_theoretical_probability"
+        probability_semantics = first.penetration_probability_semantics
     else:
         perforation_class = (
             "complete_layer_stack" if complete else "stopped_in_layer"

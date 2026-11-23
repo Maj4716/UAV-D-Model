@@ -1,0 +1,57 @@
+{
+  "schemaVersion": 1,
+  "receiptId": "042b99ce-b1f2-4bb3-83c8-3cf3cbdc1b24",
+  "status": "current",
+  "command": "deliver",
+  "type": "explainer",
+  "input": "D:\\Desktop\\UAV新\\.archify\\explainer-uav-visual-report-20261123-quant\\anisotropic.archify.md",
+  "output": "D:\\Desktop\\UAV新\\artifacts\\visual_reports_20261123\\02_anisotropic_fast_assessment.html",
+  "specification": {
+    "sha256": "f0a44535495c17b28cfda636cf137c56cefdae63b83ce2648782d607a525e657",
+    "bytes": 7789
+  },
+  "artifact": {
+    "sha256": "1a66506899116790e59795683467116ab9618bf3de45f99cf31de7fab0d41af9",
+    "bytes": 3832185
+  },
+  "explainer": {
+    "preparedSha256": "ed10149f4e894055f7bfe06b45bf03d964d702625a0c7c41ab5789521b097461",
+    "dependencies": [
+      {
+        "kind": "image",
+        "id": "gate-status-figure",
+        "path": "D:\\Desktop\\UAV新\\.archify\\explainer-uav-visual-report-20261123-quant\\anisotropic_gate_status.png",
+        "sha256": "3c8de743441e55beef7a233b400ab2ac55010fd04daa574f0e2284c7334397a3",
+        "bytes": 131554
+      },
+      {
+        "kind": "image",
+        "id": "distribution-domain-figure",
+        "path": "D:\\Desktop\\UAV新\\.archify\\explainer-uav-visual-report-20261123-quant\\anisotropic_distribution_domain.png",
+        "sha256": "4919caccdb95d83ab054534fb19a426b2b25de06b157f9c55b6b4e35fa31b40e",
+        "bytes": 229699
+      },
+      {
+        "kind": "image",
+        "id": "historical-accuracy-figure",
+        "path": "D:\\Desktop\\UAV新\\.archify\\explainer-uav-visual-report-20261123-quant\\anisotropic_historical_accuracy.png",
+        "sha256": "d9b1f4e905590230ef4b21bc522aa9b50f696428531929088097cd9c375e3e2c",
+        "bytes": 174339
+      },
+      {
+        "kind": "diagram-spec",
+        "id": "three-tier-architecture",
+        "inline": true,
+        "sha256": "6119dc932fa86a419514b5a66fcb008174fc06d22c59178dc59447dc6139b4d7",
+        "bytes": 1063
+      },
+      {
+        "kind": "diagram-spec",
+        "id": "optimization-loop",
+        "inline": true,
+        "sha256": "1845dd521da48b17b454d2588e73e86aa54be1690b3b8473f88484dc3714eaf0",
+        "bytes": 1662
+      }
+    ]
+  }
+}

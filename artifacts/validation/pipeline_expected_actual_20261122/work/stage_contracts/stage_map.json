@@ -1,0 +1,770 @@
+{
+  "schema_version": "uav-data-generation-stage-map@1.1.0",
+  "analysis_id": "pipeline-expected-actual-20261122-v2-stagewise",
+  "scope": {
+    "dataset_root": "artifacts/datasets/recovery_role_r8_r32_train2000_eval300_20261122",
+    "allowed_result_splits": [
+      "train",
+      "validation"
+    ],
+    "sealed_test_result_json_lines_decoded": 0,
+    "training_runs_started": 0,
+    "capture_fragment_audit": false,
+    "capture_component_state_trace": true,
+    "mechanisms": [
+      "fragment"
+    ],
+    "replicate_counts_by_split": {
+      "train": 8,
+      "validation": 32,
+      "test": 32
+    }
+  },
+  "expectation_taxonomy": {
+    "declared_design_distribution": "配置或设计明确声明的抽样分布、离散配额和参数分布；比较实现样本是否忠实于声明设计。",
+    "deterministic_contract_or_conservation": "给定输入后必须精确成立的身份、几何、公式、排序、聚合或守恒关系；比较数值误差与违例数。",
+    "model_internal_probability_expectation": "由当前软件响应模型给出的条件概率或 Monte Carlo 期望；比较软件实现、重复频率和代理是否吻合。",
+    "external_physical_expectation": "由独立试验、实测或经外部校准模型给出的物理/作战分布；当前项目在关键机制层未提供。"
+  },
+  "interpretation_rule": "前三类只能建立设计忠实性、软件一致性和模型内校准；只有第四类能够支持真实物理有效性。",
+  "stage_order": [
+    "S00_frozen_contracts",
+    "S01_candidate_reference_design",
+    "S02_s_contact_admission",
+    "S03_first_armor_contact_geometry",
+    "S04_fragment_source_generation",
+    "S05_fragment_geometry_and_occlusion",
+    "S06_armor_penetration_and_openings",
+    "S07_component_contact_penetration_energy",
+    "S08_penetration_domain_censoring",
+    "S09_component_damage_states",
+    "S10_damage_tree",
+    "S11_label_extraction",
+    "S12_archive_split_weights",
+    "S13_proxy_teacher_comparison"
+  ],
+  "stages": [
+    {
+      "stage_id": "S00_frozen_contracts",
+      "name_zh": "冻结合同与身份",
+      "transform": "版本化 SimulationCase、Target、PhysicsRegistry、SamplingSpec、LabelSpec 与 split registry 绑定为一次可复现运行",
+      "expected_by_class": {
+        "declared_design_distribution": "由冻结的 sampling spec、case budgets 与 split registry 声明；本层不重新定义概率分布。",
+        "deterministic_contract_or_conservation": "target/config/code/dependency/formal-input 哈希、案例数与身份必须精确一致。",
+        "model_internal_probability_expectation": "not_applicable",
+        "external_physical_expectation": "not_applicable；本层是治理合同，不是物理验证。"
+      },
+      "expected_contract": {
+        "type": "exact_identity",
+        "requirements": [
+          "target/config/code/dependency hash exact match",
+          "formal input ordered identity exact match",
+          "split registry frozen before outcomes"
+        ]
+      },
+      "actual_sources": [
+        "sampling_checkpoint.json",
+        "formal_dataset/manifest.json",
+        "formal_dataset/checkpoint.json",
+        "dataset_v2_development/manifest.json",
+        "result.provenance"
+      ],
+      "quantifiable_metrics": [
+        "hash mismatch count",
+        "expected versus committed case count",
+        "engine/config/target identity consistency"
+      ],
+      "observability": "complete",
+      "code_evidence": [
+        "damage_engine/sharded_dataset.py",
+        "damage_engine/dataset_v2.py"
+      ]
+    },
+    {
+      "stage_id": "S01_candidate_reference_design",
+      "name_zh": "候选参考设计",
+      "transform": "8 维 scrambled Sobol 潜变量映射为弹型、方向区域、方向坐标、瞄点、速度和滚转角",
+      "expected_by_class": {
+        "declared_design_distribution": "8 维 Uniform(0,1) Sobol 设计；三个 profile 各 1/3；五个 approach region 各 1/5；区域内按立体角均匀；速度 Uniform(80,160) m/s。",
+        "deterministic_contract_or_conservation": "一个冻结 Sobol 索引只能映射到一个候选身份；角色预算为 2000/300/300。",
+        "model_internal_probability_expectation": "not_applicable；该层产生输入设计，不使用响应概率。",
+        "external_physical_expectation": "missing；未提供真实来袭 profile、方向、速度或瞄点分布。"
+      },
+      "expected_contract": {
+        "type": "declared_design_distribution",
+        "continuous_latents": "Uniform(0,1)^8 under one scrambled-Sobol design",
+        "munition_profile_mass": {
+          "small_front": 0.3333333333333333,
+          "medium_front": 0.3333333333333333,
+          "large_front": 0.3333333333333333
+        },
+        "approach_region_mass": {
+          "pos_x": 0.2,
+          "neg_x": 0.2,
+          "pos_y": 0.2,
+          "neg_y": 0.2,
+          "top_cap": 0.2
+        },
+        "direction_measure": "uniform_solid_angle_within_region",
+        "role_budgets": {
+          "reference_train": 2000,
+          "reference_validation": 300,
+          "reference_test": 300
+        }
+      },
+      "actual_sources": [
+        "rounds/round-000/candidates.parquet",
+        "plan/sampling_spec.json",
+        "plan/split_registry.json"
+      ],
+      "quantifiable_metrics": [
+        "profile/region/profile-region total variation",
+        "marginal KS distance without iid p-values",
+        "centered discrepancy",
+        "nearest-neighbor distance",
+        "maximum absolute Spearman correlation"
+      ],
+      "observability": "complete",
+      "code_evidence": [
+        "damage_engine/design_sequences.py",
+        "damage_engine/sampling.py"
+      ]
+    },
+    {
+      "stage_id": "S02_s_contact_admission",
+      "name_zh": "S-CONTACT 接触准入",
+      "transform": "候选按首次正向装甲交点合同进行 pre-outcome 拒绝/准入",
+      "expected_by_class": {
+        "declared_design_distribution": "输入为 S01 的 P0；准入后 P_contact 是 P0 经确定性接触选择得到的条件/推送分布。",
+        "deterministic_contract_or_conservation": "外部起点、有限非零速度、正向首次装甲交点、持久化接触与重算一致、姿态轴与速度一致、选择不读结果。",
+        "model_internal_probability_expectation": "没有独立 Bernoulli 接触模型；准入率是确定性几何在 P0 下的经验测度。",
+        "external_physical_expectation": "missing；没有实测接触发生率或真实目标遭遇分布。"
+      },
+      "expected_contract": {
+        "type": "deterministic_selection_induced_distribution",
+        "estimand": "criterion_exceedance_probability_given_first_armor_contact",
+        "criteria": [
+          "origin outside armor",
+          "finite nonzero velocity",
+          "positive forward armor intersection",
+          "persisted first contact equals recomputed contact",
+          "body axis aligned with velocity",
+          "selection is outcome blind"
+        ],
+        "analytic_distribution": "not declared; P_contact is the deterministic push-forward/conditioning of P0 through target geometry"
+      },
+      "actual_sources": [
+        "candidates.parquet refusal.code and selected flag",
+        "formal_cases.jsonl.gz contact_status and eligibility",
+        "sampling_quality.json"
+      ],
+      "quantifiable_metrics": [
+        "overall and stratum-specific admission rate",
+        "refusal reason counts",
+        "selected-versus-candidate latent shift",
+        "selected region/profile mass",
+        "candidate-to-formal mapping mismatch count"
+      ],
+      "observability": "complete",
+      "code_evidence": [
+        "damage_engine/sampling.py",
+        "damage_engine/contact_pose.py"
+      ]
+    },
+    {
+      "stage_id": "S03_first_armor_contact_geometry",
+      "name_zh": "首次装甲接触几何与模型输入",
+      "transform": "正式工况保存首次命中点、法向、速度、姿态和撞击弹型，形成 16 维 first-armor-state 输入",
+      "expected_by_class": {
+        "declared_design_distribution": "profile、region、速度和姿态来自 P0 并经 S-CONTACT 条件化；无另行声明的闭式接触点密度。",
+        "deterministic_contract_or_conservation": "距离/时间为正、法向单位化、命中点位于声明装甲、速度 80--160 m/s、方向指向表面内部、16 维编码与工况一致。",
+        "model_internal_probability_expectation": "not_applicable；该层是确定性几何与编码。",
+        "external_physical_expectation": "missing；无实测首次接触点、入射角、姿态和速度联合分布。"
+      },
+      "expected_contract": {
+        "type": "geometric_invariants_and_declared_ranges",
+        "invariants": [
+          "collision distance and time are positive",
+          "collision normal has unit norm",
+          "hit point lies on the declared first armor",
+          "impact direction points inward relative to the contact normal",
+          "speed lies in 80-160 m/s",
+          "profile is one of three frozen choices"
+        ],
+        "conditional_distribution": "induced by P0 plus S-CONTACT; no closed-form density is registered"
+      },
+      "actual_sources": [
+        "formal_cases.jsonl.gz encounter fields",
+        "formal_dataset/shards/*/tensors.npz",
+        "formal_dataset/shards/*/cases.parquet",
+        "dataset_v2_development/core/inputs.npz"
+      ],
+      "quantifiable_metrics": [
+        "invariant violation count",
+        "hit-point and normal distribution by region/profile",
+        "impact speed and incidence-angle quantiles",
+        "train-versus-validation standardized mean difference",
+        "input completeness"
+      ],
+      "observability": "complete",
+      "code_evidence": [
+        "damage_engine/sampling.py",
+        "damage_engine/dataset_v2.py"
+      ]
+    },
+    {
+      "stage_id": "S04_fragment_source_generation",
+      "name_zh": "破片源生成",
+      "transform": "固定质量破片按 Taylor-Shapiro 环布局、2 度切平面高斯散布和 Gurney 圆筒初速生成",
+      "expected_by_class": {
+        "declared_design_distribution": "按 profile 固定 total_count、单枚质量、ring_count 与 fragments_per_ring；环内方位均匀，Taylor-Shapiro 基准方向叠加切平面 Gaussian(0, 2 deg) 扰动。",
+        "deterministic_contract_or_conservation": "每重复生成的破片数等于 profile total_count；Gurney 速度必须等于 G/sqrt(M_casing/M_charge+0.5)，并落入 [100,5000] m/s。基准速度为 small 2028.153764、medium 1974.946523、large 1875.608356 m/s。",
+        "model_internal_probability_expectation": "方向随机性由 Taylor-Shapiro 环位置、环内均匀方位和 2 deg 切平面高斯共同定义；给定 profile 的初速是确定值而不是概率分布。",
+        "external_physical_expectation": "missing；profile 参数来自未保留的 legacy port，方向模型仅为 unverified literature-grounded candidate，Gurney/破片数量/质量未用独立试验校准。"
+      },
+      "expected_contract": {
+        "type": "model_defined_fragment_distribution",
+        "profiles": {
+          "small_front": {
+            "fragment_count": 60,
+            "fragment_mass_kg": 0.005,
+            "ring_count": 6
+          },
+          "medium_front": {
+            "fragment_count": 150,
+            "fragment_mass_kg": 0.008,
+            "ring_count": 12
+          },
+          "large_front": {
+            "fragment_count": 300,
+            "fragment_mass_kg": 0.01,
+            "ring_count": 18
+          }
+        },
+        "azimuth_layout": "uniform_per_ring",
+        "dispersion_model": "tangent_plane_gaussian",
+        "spread_sigma_deg": 2.0,
+        "validation_status": "unverified_literature_grounded_candidate"
+      },
+      "actual_sources": [
+        "result.summary.total_fragments.mean",
+        "result.provenance.fragment_list",
+        "formal case munition/warhead fields"
+      ],
+      "comparison_items": [
+        {
+          "item": "fragment_total_count",
+          "expectation_class": "deterministic_contract_or_conservation",
+          "expected": {"small_front": 60, "medium_front": 150, "large_front": 300},
+          "actual": "result.summary.total_fragments.mean",
+          "metric": "per-case absolute error and violation count",
+          "status": "directly_comparable"
+        },
+        {
+          "item": "direction_model",
+          "expectation_class": "model_internal_probability_expectation",
+          "expected": "Taylor-Shapiro ring + uniform azimuth per ring + tangent-plane Gaussian sigma=2 deg",
+          "actual": null,
+          "metric": "ring occupancy, angular residual mean/SD, circular-uniformity and distribution distance",
+          "status": "not_recoverable_from_formal_archive"
+        },
+        {
+          "item": "gurney_initial_speed_mps",
+          "expectation_class": "deterministic_contract_or_conservation",
+          "expected": {"small_front": 2028.1537635511274, "medium_front": 1974.9465232771238, "large_front": 1875.6083562594774},
+          "actual": null,
+          "metric": "maximum absolute speed error",
+          "status": "formula_is_auditable_in_code_but_realized_per_fragment_speed_is_not_retained"
+        }
+      ],
+      "quantifiable_metrics": [
+        "realized total_fragments versus profile-exact count",
+        "fragment-count invariant violation count"
+      ],
+      "unavailable_metrics": [
+        "realized fragment direction distribution",
+        "realized origin distribution",
+        "realized mass and initial-speed distribution",
+        "ring-level angular calibration"
+      ],
+      "observability": "aggregate_only",
+      "observability_reason": "capture_fragment_audit=false removes per-fragment trace records",
+      "code_evidence": [
+        "damage_engine/fragments.py::generate_fragments",
+        "damage_engine/fragments.py::build_taylor_shapiro_ring_layout"
+      ]
+    },
+    {
+      "stage_id": "S05_fragment_geometry_and_occlusion",
+      "name_zh": "破片射线路径、遮挡与阻断",
+      "transform": "每个破片先构造按距离排序的 target.ray_hits，再沿路径处理；未侵彻、残速耗尽或 OOD 事件终止后续路径",
+      "expected_by_class": {
+        "declared_design_distribution": "由 S04 的方向模型与冻结 target geometry 诱导；无独立声明的可见率/遮挡率分布。",
+        "deterministic_contract_or_conservation": "候选交点按距离排序；未侵彻、残速耗尽或 OOD 后不得出现下游已处理命中；processed hit 不得超过几何候选交点。",
+        "model_internal_probability_expectation": "几何本身确定；随机侵彻分支会诱导下游可达概率，但项目未注册其解析闭式分布。",
+        "external_physical_expectation": "missing；无实测破片可见率、遮挡率或路径分布。"
+      },
+      "expected_contract": {
+        "type": "deterministic_geometry_plus_stochastic_blocking",
+        "invariants": [
+          "candidate path is distance ordered",
+          "only processed contacts count as armor/component hits",
+          "a blocked ray cannot produce downstream observed hits"
+        ],
+        "analytic_distribution": "not registered"
+      },
+      "actual_sources": [
+        "result.summary.total_armor_hits.mean",
+        "result.summary.total_component_hits.mean",
+        "result.summary.total_existing_hole_reuses.mean"
+      ],
+      "quantifiable_metrics": [
+        "armor-hit per fragment rate",
+        "component-hit per fragment rate",
+        "case/profile/region funnel distributions"
+      ],
+      "unavailable_metrics": [
+        "candidate geometric intersection count",
+        "blocked-before-object count",
+        "blocking-reason distribution",
+        "per-fragment visibility/occlusion probability",
+        "geometry path length and hit-order distribution"
+      ],
+      "observability": "aggregate_only",
+      "observability_reason": "geometry_candidate_path, processed_path and blocking_reason are written only when capture_fragment_audit=true",
+      "code_evidence": [
+        "damage_engine/fragments.py::simulate_fragments",
+        "damage_engine/geometry.py"
+      ]
+    },
+    {
+      "stage_id": "S06_armor_penetration_and_openings",
+      "name_zh": "装甲侵彻、开孔与复用",
+      "transform": "装甲接触经注册的 ballistic-limit/obliquity 模型采样侵彻结果，侵彻事件形成开孔并影响后续破片",
+      "expected_by_class": {
+        "declared_design_distribution": "装甲材料、厚度与 demo_armor_response 参数由冻结 target/physics registry 声明；不构成经验物理分布。",
+        "deterministic_contract_or_conservation": "每事件 v50、路径长度、残速、能量与开孔更新服从冻结公式；penetrations <= processed hits；开孔/复用计数由事件路径唯一决定。",
+        "model_internal_probability_expectation": "适用域内单层事件 p=logistic(log(v/v50)/transition_width_ratio)，perforated 由同一随机 ballistic-limit 构造采样；理论上条件频率应匹配 penetration_probability。",
+        "external_physical_expectation": "missing；demo_armor_response 为 single-point software tuning，未以独立 V50/斜侵彻试验校准。"
+      },
+      "expected_contract": {
+        "type": "conditional_stochastic_response_model",
+        "model": "demo_armor_response",
+        "maximum_obliquity_deg": 80.0,
+        "high_obliquity_policy": "pathwise_monotone_ballistic_limit_lower_bound to 89.9 deg for certified nonperforation only",
+        "response_validation_status": "software_tuned_single_point_unverified"
+      },
+      "actual_sources": [
+        "result.summary.total_armor_hits.mean",
+        "result.summary.total_armor_penetrations.mean",
+        "result.summary.total_out_of_domain_armor_impacts.mean",
+        "result.summary.total_unique_armor_holes.mean",
+        "result.summary.total_perforation_events.mean",
+        "result.armor.*.fragment_panel_damage",
+        "armor.parquet and armor_labels.parquet"
+      ],
+      "comparison_items": [
+        {
+          "item": "penetration_probability",
+          "expectation_class": "model_internal_probability_expectation",
+          "expected": "single-layer theoretical probability p=logistic(log(v/v50)/transition_width_ratio)",
+          "actual": null,
+          "metric": "event-level Brier/ECE/calibration-bin error or binomial frequency-minus-mean-p",
+          "status": "not_recoverable_because_event_probability_and_branch_are_not_retained"
+        },
+        {
+          "item": "aggregate_armor_penetration_conversion",
+          "expectation_class": "model_internal_probability_expectation",
+          "expected": "Monte Carlo push-forward of all event probabilities under path-dependent opening reuse",
+          "actual": "mean penetrations / mean processed armor hits, stratified by profile/region",
+          "metric": "descriptive conversion and replicate uncertainty",
+          "status": "observable_but_no_independent_closed_form_expected_value"
+        }
+      ],
+      "quantifiable_metrics": [
+        "armor penetration/hit conversion",
+        "OOD armor-impact rate",
+        "hole count and covered-area distribution",
+        "existing-hole reuse rate",
+        "post-fragment armor-integrity distribution"
+      ],
+      "unavailable_metrics": [
+        "event-level predicted penetration probability versus realized branch",
+        "event-level impact angle, v50 and penetration margin",
+        "layer-path distribution"
+      ],
+      "observability": "aggregate_only",
+      "observability_reason": "event-level intersection records require capture_fragment_audit=true",
+      "code_evidence": [
+        "damage_engine/penetration.py",
+        "damage_engine/layered_penetration.py",
+        "damage_engine/fragments.py::simulate_fragments",
+        "damage_engine/panel_damage.py"
+      ]
+    },
+    {
+      "stage_id": "S07_component_contact_penetration_energy",
+      "name_zh": "部件接触、侵彻与能量传递",
+      "transform": "到达部件的破片记录命中、侵彻、到达速度、穿透裕度、沉积能量和损伤能量",
+      "expected_by_class": {
+        "declared_design_distribution": "部件几何、材料、厚度、vulnerable_ratio 与 demo_component_response 参数由冻结 target/registry 声明。",
+        "deterministic_contract_or_conservation": "component penetrations <= component hits；0 <= residual energy <= incident energy；absorbed energy=incident-residual；damage energy 按 absorbed_plus_residual 权重生成。",
+        "model_internal_probability_expectation": "适用域内部件 penetration_probability 使用注册 ballistic-limit logistic 响应；跨破片累计由 0.05 m complete-link 空间簇和生存概率乘积决定。",
+        "external_physical_expectation": "missing；部件 V50、能量传递权重、vulnerable_ratio 和空间相关长度无独立试验标定。"
+      },
+      "expected_contract": {
+        "type": "conditional_stochastic_response_model",
+        "model": "demo_component_response",
+        "damage_energy_model": "absorbed_plus_residual",
+        "accumulation_model": "spatial_cumulative_damage_energy",
+        "correlation_length_m": 0.05,
+        "response_validation_status": "software_tuned_single_point_unverified"
+      },
+      "actual_sources": [
+        "result.summary.total_component_hits.mean",
+        "result.summary.total_component_penetrations.mean",
+        "result.components.*.fragment_metrics",
+        "components.parquet and component_aux.parquet"
+      ],
+      "quantifiable_metrics": [
+        "component penetration/hit conversion",
+        "component hit zero mass",
+        "hit-conditioned log1p hit-count and energy distributions",
+        "arrival-speed and penetration-margin summaries",
+        "spatial damage cluster summaries",
+        "profile/region/component stratification"
+      ],
+      "unavailable_metrics": [
+        "event-level energy-transfer residuals",
+        "per-impact response calibration",
+        "causal allocation of misses to occlusion versus nonpenetration"
+      ],
+      "observability": "aggregate_component_level",
+      "code_evidence": [
+        "damage_engine/component_damage.py",
+        "damage_engine/fragments.py::simulate_fragments"
+      ]
+    },
+    {
+      "stage_id": "S08_penetration_domain_censoring",
+      "name_zh": "侵彻适用域删失",
+      "transform": "高斜率无法被注册单侧边界解析的事件保留为 OOD；按部件传播最坏情形识别区间",
+      "expected_by_class": {
+        "declared_design_distribution": "not_applicable；该层由已发生事件及适用域政策诱导。",
+        "deterministic_contract_or_conservation": "未解析事件不得转成未侵彻或零毁伤；受影响重复必须传播到部件和标签识别区间；epsilon-complete 阈值固定为 0.01。",
+        "model_internal_probability_expectation": "识别区间给出当前模型在未解析分支下的最坏情形概率范围，不是概率先验。",
+        "external_physical_expectation": "missing；无高斜率侵彻/跳弹/破碎的外部结果分布。"
+      },
+      "expected_contract": {
+        "type": "identification_bounds",
+        "rules": [
+          "unresolved event is not converted to nonpenetration or zero damage",
+          "component-specific affected-replicate bounds with global fallback",
+          "epsilon-complete threshold is 0.01"
+        ]
+      },
+      "actual_sources": [
+        "result.penetration_domain_coverage",
+        "result.component_state_trace.records[*].domain_censoring",
+        "dataset_v2 component identification intervals and masks",
+        "development_audit.json"
+      ],
+      "quantifiable_metrics": [
+        "affected-replicate fraction",
+        "resolved and unresolved impact counts",
+        "probability identification-interval width",
+        "epsilon-complete rate",
+        "missingness KS with multiplicity correction"
+      ],
+      "observability": "complete_for_registered_bounds",
+      "code_evidence": [
+        "damage_engine/engine.py::_build_penetration_domain_censoring_bounds",
+        "damage_engine/hurdle_targets.py"
+      ]
+    },
+    {
+      "stage_id": "S09_component_damage_states",
+      "name_zh": "部件毁伤状态",
+      "transform": "每个重复将空间累计损伤能量映射为 degraded/failed 概率，再跨重复聚合",
+      "expected_by_class": {
+        "declared_design_distribution": "degraded: damage_energy_50=350 J, slope=3.0；failed: damage_energy_50=1900 J, slope=3.5；空间相关长度 0.05 m。",
+        "deterministic_contract_or_conservation": "单簇原始响应为 vulnerable_ratio*logistic(slope*log(E/E50))；簇间按 1-product(1-p) 合并并作 ordinal projection；最终 0<=p_failed<=p_degraded<=1；跨重复算术平均。",
+        "model_internal_probability_expectation": "E=E50 时未乘 vulnerable_ratio 的 logistic 核为 0.5，实际孤立簇概率为 0.5*vulnerable_ratio；聚合状态是当前响应模型在重复随机性下的均值。",
+        "external_physical_expectation": "missing；E50、slope、vulnerable_ratio、空间累计与 ordinal projection 未经部件级独立毁伤试验校准。"
+      },
+      "expected_contract": {
+        "type": "ordinal_model_defined_probabilities",
+        "state_thresholds": {
+          "degraded_damage_energy_50_j": 350.0,
+          "failed_damage_energy_50_j": 1900.0
+        },
+        "invariants": [
+          "0 <= p_failed <= p_degraded <= 1",
+          "point output is replicate arithmetic mean",
+          "domain-affected probability is represented by an identification interval"
+        ]
+      },
+      "actual_sources": [
+        "result.components.*.damage_states.fragment",
+        "result.component_state_trace.records[*].component_mechanism_states.fragment",
+        "component_labels.npz p_degraded/p_failed"
+      ],
+      "comparison_items": [
+        {
+          "item": "E50_response",
+          "expectation_class": "model_internal_probability_expectation",
+          "expected": {
+            "degraded": {"damage_energy_50_j": 350.0, "log_slope": 3.0},
+            "failed": {"damage_energy_50_j": 1900.0, "log_slope": 3.5},
+            "isolated_cluster_formula": "vulnerable_ratio*logistic(log_slope*log(cluster_energy/E50))"
+          },
+          "actual": "replicate state probabilities are retained, but replicate cluster energies/locations are not retained in component_state_trace",
+          "metric": "formula recomputation error when cluster trace exists; mean-state summaries are descriptive only because response is nonlinear",
+          "status": "state_outputs_observable_response_curve_not_reconstructable_from_formal_archive"
+        }
+      ],
+      "quantifiable_metrics": [
+        "ordinal invariant violations",
+        "zero/positive/saturated state mass",
+        "hit-to-degraded and degraded-to-failed conversion",
+        "component/profile/region state distributions"
+      ],
+      "observability": "complete_for_state_outputs_but_incomplete_for_energy_to_state_response_audit",
+      "code_evidence": [
+        "damage_engine/component_damage.py",
+        "damage_engine/engine.py::_aggregate_components"
+      ]
+    },
+    {
+      "stage_id": "S10_damage_tree",
+      "name_zh": "毁伤树与系统输出",
+      "transform": "冻结树对每个重复的联合部件状态求值，再对系统输出作算术平均；依赖场景并行保留",
+      "expected_by_class": {
+        "declared_design_distribution": "not_applicable；树是版本化逻辑结构，不是输入抽样设计。",
+        "deterministic_contract_or_conservation": "对每个 replicate 的联合部件状态先求树，再对 32/8 个 replicate 输出作算术平均；禁止把均值部件概率先代入非线性树。",
+        "model_internal_probability_expectation": "逐重复 tree output 的算术平均是当前模型下的 Monte Carlo 系统输出期望；Fréchet/条件独立场景给出声明依赖假设下的模型内范围。",
+        "external_physical_expectation": "missing；树仍为 provisional 且待 codebook confirmation，无系统级实测失效概率用于校准。"
+      },
+      "expected_contract": {
+        "type": "deterministic_versioned_mapping",
+        "tree_revision": "raw-damage-tree-fragment-only-v1",
+        "node_count": 61,
+        "output_count": 7,
+        "aggregation": "evaluate_each_replicate_then_arithmetic_mean_system_outputs",
+        "tree_status": "provisional_requires_codebook_confirmation"
+      },
+      "actual_sources": [
+        "result.component_state_trace",
+        "result.damage_tree.outputs",
+        "tree_outputs.parquet",
+        "dataset_v2 component_state_trace.jsonl.gz"
+      ],
+      "comparison_items": [
+        {
+          "item": "damage_tree_aggregation",
+          "expectation_class": "deterministic_contract_or_conservation",
+          "expected": "evaluate tree on every replicate joint state, then arithmetic mean each system output",
+          "actual": "component_state_trace plus result.damage_tree.outputs",
+          "metric": "per-case/per-output absolute recomputation error, maximum error, mismatch count",
+          "status": "exactly_comparable"
+        },
+        {
+          "item": "system_failure_probability",
+          "expectation_class": "model_internal_probability_expectation",
+          "expected": "replicate mean under the current provisional tree and software response model",
+          "actual": "result.damage_tree.outputs",
+          "metric": "distribution by split/profile/region and Monte Carlo interval",
+          "status": "model_internal_only_not_physical_validation"
+        }
+      ],
+      "quantifiable_metrics": [
+        "offline recomputation absolute error",
+        "node/output probability distribution",
+        "declared versus Fréchet/dependency scenario spread",
+        "tree coverage of components"
+      ],
+      "observability": "complete_for_current_tree",
+      "code_evidence": [
+        "damage_engine/damage_tree.py",
+        "damage_engine/engine.py::build_component_state_trace",
+        "tools/recompute_tree_outputs.py"
+      ]
+    },
+    {
+      "stage_id": "S11_label_extraction",
+      "name_zh": "标签提取与任务准入",
+      "transform": "引擎聚合量转换为 p_hit、条件能量、条件命中数、p_degraded、p_failed、识别区间与任务掩码",
+      "expected_by_class": {
+        "declared_design_distribution": "not_applicable；标签分布由 S01--S10 的设计和模型推送得到。",
+        "deterministic_contract_or_conservation": "hurdle target v2 字段、log1p 变换、识别区间、epsilon=0.01 mask、至少两个 hit-positive replicate 条件与 sealed placeholder 必须精确执行。",
+        "model_internal_probability_expectation": "p_hit/p_degraded/p_failed 是当前软件教师的重复均值；条件能量/命中数只对 hit-positive replicate 定义。",
+        "external_physical_expectation": "missing；无实测部件命中、能量或毁伤标签分布。"
+      },
+      "expected_contract": {
+        "type": "versioned_hurdle_target_contract",
+        "target_spec_id": "component-fragment-hurdle-targets-v2",
+        "primary_estimands": [
+          "p_hit",
+          "conditional_mean_log1p_deposited_energy_j_given_component_hit",
+          "conditional_mean_log1p_hit_count_given_component_hit",
+          "p_at_least_degraded",
+          "p_failed"
+        ],
+        "mask_rule": "probability identification interval width <= 0.01; conditional target also requires at least two hit-positive replicates and point identification",
+        "test_policy": "opaque masked placeholders"
+      },
+      "actual_sources": [
+        "dataset_v2_development/core/component_labels.npz",
+        "development_audit.json",
+        "task_admission.json",
+        "sealed_test.json"
+      ],
+      "quantifiable_metrics": [
+        "target observation rate",
+        "label-mask/interval consistency",
+        "Monte Carlo interval width",
+        "positive/negative/observed component support",
+        "task-specific admitted component count",
+        "sealed-test exposed-label count"
+      ],
+      "observability": "complete_for_train_validation",
+      "code_evidence": [
+        "damage_engine/hurdle_targets.py",
+        "damage_engine/dataset_v2.py",
+        "tools/audit_dataset_v2_development.py"
+      ]
+    },
+    {
+      "stage_id": "S12_archive_split_weights",
+      "name_zh": "归档、切分、权重与泄漏",
+      "transform": "案例、结果、表格和训练张量分片提交；设计权重、split 和身份被冻结并验证",
+      "expected_by_class": {
+        "declared_design_distribution": "总数 2600，train/validation/test=2000/300/300；train R8、validation/test R32；冻结 sampling weights。",
+        "deterministic_contract_or_conservation": "shard/case/hash/role quota 精确一致；candidate group 和 realization 不跨 split；sealed test 零标签暴露。",
+        "model_internal_probability_expectation": "positivity、ESS fraction 与 weight CV 是设计质量量，不是物理概率验证。",
+        "external_physical_expectation": "not_applicable；本层为归档与治理。"
+      },
+      "expected_contract": {
+        "type": "exact_archive_and_governance_contract",
+        "case_count": 2600,
+        "split_counts": {
+          "train": 2000,
+          "validation": 300,
+          "test": 300
+        },
+        "quality_gates": {
+          "positivity_min": 0.1,
+          "ess_fraction_min": 0.5,
+          "weight_cv_max": 2.0
+        },
+        "leakage_requirement": "no candidate group or realization crosses split"
+      },
+      "actual_sources": [
+        "formal_dataset/manifest.json",
+        "formal_dataset/checkpoint.json",
+        "sampling_checkpoint.json",
+        "sampling_quality.json",
+        "split_registry.json",
+        "sampling_weights.npz"
+      ],
+      "quantifiable_metrics": [
+        "case/shard/hash consistency",
+        "role and split quota error",
+        "positivity, ESS and weight CV",
+        "cross-split leakage count",
+        "duplicate identity count",
+        "sealed-test decode/open/metric count"
+      ],
+      "observability": "complete",
+      "code_evidence": [
+        "damage_engine/sharded_dataset.py",
+        "damage_engine/sampling_audit.py",
+        "damage_engine/dataset_v2.py"
+      ]
+    },
+    {
+      "stage_id": "S13_proxy_teacher_comparison",
+      "name_zh": "快速期望代理与软件教师分布比较",
+      "transform": "FastSamplingProxy 的方向暴露、射线与侵彻期望同软件教师 replicate 均值比较",
+      "expected_by_class": {
+        "declared_design_distribution": "代理与教师必须使用相同 train/validation 工况、profile/region 分层和冻结输入设计。",
+        "deterministic_contract_or_conservation": "同工况身份、输出对齐、固定分箱和指标实现必须精确一致。",
+        "model_internal_probability_expectation": "教师 replicate 均值是当前软件模型的比较目标；以 Brier/ECE/JS/W1/MMD2/false-unreached 衡量代理误差。",
+        "external_physical_expectation": "missing；代理—教师一致性不能替代破片、侵彻、能量、毁伤或系统失效的实测比较。"
+      },
+      "expected_contract": {
+        "type": "surrogate_agreement_evaluation",
+        "metrics": [
+          "soft-label Brier",
+          "ECE",
+          "fixed-bin Jensen-Shannon",
+          "positive-part log1p Wasserstein-1",
+          "67-dimensional RBF-MMD2",
+          "false-unreached"
+        ],
+        "promotion_gate": "R8 false-unreached Wilson upper <= 0.03"
+      },
+      "actual_sources": [
+        "work/proxy_teacher/full_proxy_teacher_distribution.json",
+        "work/proxy_teacher/full_proxy_uncertainty.json",
+        "work/proxy_teacher/v3_proxy_teacher_bootstrap.json"
+      ],
+      "quantifiable_metrics": [
+        "global and profile-region-stratified agreement",
+        "R8/R32-separated bootstrap intervals",
+        "low-probability mass miss rate"
+      ],
+      "observability": "complete_for_aggregated_teacher_outputs",
+      "interpretation_boundary": "agreement with the current software teacher is not agreement with real physical or operational data",
+      "code_evidence": [
+        "damage_engine/fast_sampling_proxy.py",
+        "damage_engine/exposure_field.py",
+        "damage_engine/distribution_metrics.py",
+        "tools/evaluate_proxy_teacher_distribution.py"
+      ]
+    }
+  ],
+  "principal_observability_gaps": [
+    {
+      "gap_id": "G01_fragment_microtrace",
+      "affected_stages": [
+        "S04_fragment_source_generation",
+        "S05_fragment_geometry_and_occlusion",
+        "S06_armor_penetration_and_openings",
+        "S07_component_contact_penetration_energy"
+      ],
+      "cause": "capture_fragment_audit=false",
+      "consequence": "aggregate funnel rates are measurable, but per-fragment source, path, blocking, angle, probability and energy residuals cannot be reconstructed from the 2600-case archive"
+    },
+    {
+      "gap_id": "G02_no_closed_form_contact_density",
+      "affected_stages": [
+        "S02_s_contact_admission",
+        "S03_first_armor_contact_geometry"
+      ],
+      "cause": "P_contact is induced by deterministic geometry and reject/resample; no analytic density is registered",
+      "consequence": "candidate-versus-selected empirical push-forward can be measured, but an absolute density-ratio error needs a high-resolution geometry reference or analytic Jacobian"
+    },
+    {
+      "gap_id": "G03_external_physical_distribution",
+      "affected_stages": [
+        "S04_fragment_source_generation",
+        "S06_armor_penetration_and_openings",
+        "S07_component_contact_penetration_energy",
+        "S09_component_damage_states",
+        "S10_damage_tree"
+      ],
+      "cause": "direction, munition, response and tree inputs remain unverified/provisional",
+      "consequence": "the project can compare declared design distributions, deterministic contracts and model-internal probabilities with software realizations, but cannot estimate the distance to a real physical/operational distribution"
+    },
+    {
+      "gap_id": "G04_component_response_trace",
+      "affected_stages": [
+        "S07_component_contact_penetration_energy",
+        "S09_component_damage_states"
+      ],
+      "cause": "component_state_trace retains replicate state probabilities but not replicate component fragment metrics, cluster energies or impact locations",
+      "consequence": "E50/log-slope software outputs are visible, but the nonlinear energy-to-state calculation cannot be exactly reconstructed from the formal archive; aggregate mean energy must not be substituted into the nonlinear response"
+    }
+  ]
+}

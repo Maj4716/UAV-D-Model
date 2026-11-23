@@ -1,0 +1,66 @@
+{
+  "schema_version": "workspace-change-report-manifest/1.0",
+  "generated_at": "2026-11-23T13:08:51+08:00",
+  "files": [
+    {
+      "path": "WORKSPACE_CHANGE_REPORT.md",
+      "bytes": 18741,
+      "sha256": "96c1c9aa4fb33c290511e1cdd72644a1de11fa6cb7c3d1e05801691b20372f5e"
+    },
+    {
+      "path": "PEER_BRIEFING.md",
+      "bytes": 5780,
+      "sha256": "1d562c901b92b965e2e80b5b6ba9d423e1561a034e397ca9148f67f24b8f0d3a"
+    },
+    {
+      "path": "EVIDENCE_INDEX.md",
+      "bytes": 2914,
+      "sha256": "ab0d366d5a3c08be45ee2d9d498b98ea1e5724c7a208122433267e7e57954ade"
+    },
+    {
+      "path": "commit_summary.csv",
+      "bytes": 464,
+      "sha256": "7ff8adb68aded3d813751cb34f1dd2816b63ee03688887408b999f6fe6c2d734"
+    },
+    {
+      "path": "historical_commit_changes.csv",
+      "bytes": 506897,
+      "sha256": "107c8f20a3b1d95650eb614b78c8e07f2bd61e0a1abe9bb86e98b0733e1eb983"
+    },
+    {
+      "path": "tracked_worktree_diff.csv",
+      "bytes": 2694,
+      "sha256": "e868c5a16aef5f534ac73448700bc281fa6b9fe8ffa4941b016dfce2fe2fc5fb"
+    },
+    {
+      "path": "current_change_inventory.csv",
+      "bytes": 372153,
+      "sha256": "8566a1265db068a2b3909f8d959583199d8a3f69dc6b23f35c4a83d15c9bfc7a"
+    },
+    {
+      "path": "directory_summary.csv",
+      "bytes": 323,
+      "sha256": "49c5330b3d1216b46c7ef30dd7564a73964ce4125125383c08c238c7bc0c4f05"
+    },
+    {
+      "path": "inventory_summary.json",
+      "bytes": 5743,
+      "sha256": "15f00c04e5b03dbf2a099e05951d122ce7812505a58b28a63739210c35ea297e"
+    },
+    {
+      "path": "git_status_snapshot.txt",
+      "bytes": 180559,
+      "sha256": "e8f061d6065c6d2b711cdaa00d2fcdf7962b270e276a30839f48c4b89ce02fc0"
+    },
+    {
+      "path": "AUDIT_LOG.txt",
+      "bytes": 353,
+      "sha256": "fac7975e70bfad473f8757404dc4dae3cdae3655049ad7df708dba6534594020"
+    },
+    {
+      "path": "verify_bundle.py",
+      "bytes": 5955,
+      "sha256": "c20f28629c4f8fb642e30b3a30fa948679ed64609eb71f97f9f1959eeb97669c"
+    }
+  ]
+}

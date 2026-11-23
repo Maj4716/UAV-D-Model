@@ -1,0 +1,64 @@
+{
+  "schema_version": "offline-monotone-tree-candidate@1.0.0",
+  "candidate_id": "demo-monotone-gates-v1",
+  "status": "unreviewed_example_only",
+  "semantic_authority": {
+    "status": "unreviewed",
+    "source": null,
+    "scope": "synthetic identifiers for software demonstration; no UAV component semantics"
+  },
+  "inputs": [
+    {
+      "input_id": "demo_a",
+      "component_id": "synthetic_component_a",
+      "mechanism": "fragment",
+      "damage_state": "failed"
+    },
+    {
+      "input_id": "demo_b",
+      "component_id": "synthetic_component_b",
+      "mechanism": "fragment",
+      "damage_state": "failed"
+    },
+    {
+      "input_id": "demo_c",
+      "component_id": "synthetic_component_c",
+      "mechanism": "fragment",
+      "damage_state": "failed"
+    }
+  ],
+  "outputs": [
+    {
+      "output_id": "demo_weighted_noisy_or",
+      "gate": {
+        "kind": "weighted_noisy_or",
+        "inputs": ["demo_a", "demo_b", "demo_c"],
+        "weights": [1.0, 0.75, 0.5]
+      }
+    },
+    {
+      "output_id": "demo_two_of_three",
+      "gate": {
+        "kind": "k_of_n",
+        "inputs": ["demo_a", "demo_b", "demo_c"],
+        "k": 2
+      }
+    },
+    {
+      "output_id": "demo_choquet",
+      "gate": {
+        "kind": "two_additive_choquet",
+        "inputs": ["demo_a", "demo_b", "demo_c"],
+        "singleton_masses": {
+          "demo_a": 0.3,
+          "demo_b": 0.3,
+          "demo_c": 0.2
+        },
+        "pair_masses": [
+          {"left": "demo_a", "right": "demo_b", "mass": 0.1},
+          {"left": "demo_b", "right": "demo_c", "mass": 0.1}
+        ]
+      }
+    }
+  ]
+}

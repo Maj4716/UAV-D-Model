@@ -1,0 +1,74 @@
+{
+  "schema_version": "anisotropic-fast-assessment-config@1.0.0",
+  "method_id": "anisotropic-taylor-ring-fast-assessment@1.0.0",
+  "default_max_cases": 4096,
+  "precomputed_selection": {
+    "strategy": "proportional_cell_stratified",
+    "seed": 2026112301
+  },
+  "generator": {
+    "enabled": true,
+    "latent_field": "latent",
+    "cell_field": "cell_id",
+    "measure_weight_field": "measure_weight",
+    "minimum_cell_count": 20,
+    "require_full_cell_rank": true,
+    "maximum_uniform_marginal_ks": 0.1,
+    "maximum_expected_cell_total_variation": 0.1,
+    "maximum_cell_total_variation": 0.1,
+    "minimum_measure_ess_fraction": 0.5,
+    "expected_cell_mass_semantics": "pre_contact_declared_equal_region_and_equal_profile_design_mass_compared_with_s_contact_realized_frame",
+    "expected_cell_mass": {
+      "neg_x::large_front": 0.06666666666666667,
+      "neg_x::medium_front": 0.06666666666666667,
+      "neg_x::small_front": 0.06666666666666667,
+      "neg_y::large_front": 0.06666666666666667,
+      "neg_y::medium_front": 0.06666666666666667,
+      "neg_y::small_front": 0.06666666666666667,
+      "pos_x::large_front": 0.06666666666666667,
+      "pos_x::medium_front": 0.06666666666666667,
+      "pos_x::small_front": 0.06666666666666667,
+      "pos_y::large_front": 0.06666666666666667,
+      "pos_y::medium_front": 0.06666666666666667,
+      "pos_y::small_front": 0.06666666666666667,
+      "top_cap::large_front": 0.06666666666666667,
+      "top_cap::medium_front": 0.06666666666666667,
+      "top_cap::small_front": 0.06666666666666667
+    }
+  },
+  "proxy": {
+    "kernel_id": "conical-multigroup-expected-transport@0.3.0",
+    "source_seed": 2026112001,
+    "azimuths_per_ring": 4,
+    "reach_probability_cutoff": 0.00001,
+    "component_support_threshold": 0.05,
+    "layer_quadrature_samples": 16,
+    "reach_tolerance": 0.0,
+    "minimum_complete_domain_fraction": 0.9,
+    "maximum_normalized_l1_footprint_error": 0.15
+  },
+  "engine_calibration": {
+    "default_status": "not_evaluated",
+    "split_role": "validation",
+    "teacher_positive_threshold": 0.0,
+    "confidence": 0.95,
+    "maximum_false_unreached_wilson_upper": 0.03,
+    "minimum_proxy_teacher_spearman": 0.8
+  },
+  "measure_semantics": {
+    "reference": "declared_reference_measure",
+    "coverage": "training_coverage_measure",
+    "selection_weight": "inverse_inclusion_probability_hajek",
+    "reference_replacement": false
+  },
+  "zero_semantics": {
+    "proxy_zero": "proxy_unreached_in_declared_frame",
+    "structural_zero_claim": false
+  },
+  "safety": {
+    "onsite_teacher_execution": false,
+    "sealed_test_outcomes": "prohibited",
+    "formal_label_admissible": false
+  },
+  "gate_status": "diagnostic_thresholds_not_research_preregistered"
+}

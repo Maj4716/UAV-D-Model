@@ -205,7 +205,7 @@ def test_reject_and_resample_ledgers_misses_and_replays_deterministically() -> N
             "latent_design": first.latent_design.tolist(),
             "split_registry": first.split_registry.definition_document(),
         }
-    ) == "sha256:319165f1793f4107e1a0f67df50435011502bbbe2b190d24ce8992731cff7ec5"
+    ) == "sha256:8c684efb32dd7773150cd4525fffd39eb98206643dfa30d8a7a5b0fb2c20c31d"
 
     rejected = [row for row in first.candidate_rows if not row["selected"]]
     assert rejected

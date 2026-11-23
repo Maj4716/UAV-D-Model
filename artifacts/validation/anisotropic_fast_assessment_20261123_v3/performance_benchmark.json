@@ -1,0 +1,45 @@
+{
+  "schema_version": "fast-proxy-scope-benchmark@1.0.0",
+  "development_case_count": 48,
+  "repeats": 3,
+  "execution_order": [
+    [
+      "full",
+      "exposure"
+    ],
+    [
+      "exposure",
+      "full"
+    ],
+    [
+      "full",
+      "exposure"
+    ]
+  ],
+  "times_seconds": {
+    "exposure": [
+      3.123414500000763,
+      3.1244122000007337,
+      3.137944900000548
+    ],
+    "full": [
+      2.3452950000000783,
+      3.27111160000004,
+      3.325528200000008
+    ]
+  },
+  "median_exposure_seconds": 3.1244122000007337,
+  "median_full_seconds": 3.27111160000004,
+  "exposure_only_speedup": 1.0469526396034659,
+  "exposure_cases_per_second": 15.362889698097046,
+  "full_cases_per_second": 14.673910850366404,
+  "shared_exposure_fields_exactly_equal": true,
+  "test_case_inputs_seen": 0,
+  "teacher_result_rows_read": 0,
+  "sealed_test_result_rows_decoded": 0,
+  "inputs": {
+    "target_sha256": "sha256:5c4e936975e95f32d72cfe62e38263ae20ef310fb79160b08876d494756c651f",
+    "physics_sha256": "sha256:04030ac5f87519010da33eb5b5f8379bb5dbd8fb9be7b4ede6c6a31248443828",
+    "formal_cases_sha256": "sha256:52c948384ed0f341f4c542cf89e013084a48c063d9d2624d42ef65335ebf94b7"
+  }
+}

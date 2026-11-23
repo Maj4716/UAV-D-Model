@@ -1,0 +1,7 @@
+{
+  "schema_version": "1.0.0",
+  "experiment": "E3",
+  "status": "dry_run_design_only",
+  "physical_variant_count": 16,
+  "planned_teacher_case_runs": 4800
+}

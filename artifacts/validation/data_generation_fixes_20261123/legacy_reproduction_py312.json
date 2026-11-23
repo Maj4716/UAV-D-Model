@@ -1,0 +1,17 @@
+{
+  "python": "3.12.13",
+  "archived_cases": 2600,
+  "rebuilt_cases": 2600,
+  "identical_ignoring_storage_fields": 2600,
+  "max_abs_numeric_difference_non_storage": 0.0,
+  "storage_fields_ignored": [
+    "/metadata/sampling/engine_code_hash",
+    "/metadata/sampling/contract_document_references",
+    "/metadata/sampling/label_spec_document",
+    "/metadata/sampling/sampling_spec_document",
+    "/metadata/sampling/split_registry_document",
+    "/metadata/sampling/split_registry_reference",
+    "/metadata/sampling/training_design_document"
+  ],
+  "note": "engine_code_hash changes with any code edit; archives store contract documents as references"
+}

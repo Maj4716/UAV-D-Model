@@ -214,21 +214,86 @@ def _result_ledger_paths(root: Path):
 
 
 def _trace_audit(root: Path, system_names: list[str], aggregate_system: np.ndarray) -> dict[str, Any]:
+    raw_trace_modes = {
+        "online_sufficient_moments_plus_raw_trace",
+        "online_sufficient_moments_plus_raw_and_component_state_trace",
+    }
+    trace_omission_modes = {
+        "online_sufficient_moments",
+        "online_sufficient_moments_plus_component_state_trace",
+    }
     trace_counts: Counter[int] = Counter()
+    declared_replicate_counts: Counter[int] = Counter()
+    storage_mode_counts: Counter[str] = Counter()
     distinct_parameter_hashes: Counter[int] = Counter()
     varying_cases = 0
     system_ranges: dict[str, list[float]] = {name: [] for name in system_names}
     aggregate_errors: dict[str, list[float]] = {name: [] for name in system_names}
     cases_with_any_fragment_hit = 0
     total_records = 0
+    trace_available_cases = 0
+    trace_unavailable_cases = 0
     row_index = 0
     for path, expected_count in _result_ledger_paths(root):
         shard_count = 0
         for record in iter_result_ledger(path):
             trace = record.get("replicate_trace")
-            if not isinstance(trace, dict) or not isinstance(trace.get("records"), list):
-                raise RuntimeError(f"missing replicate trace in {path}")
+            storage = record.get("replicate_statistics_storage")
+            if storage is None:
+                # Older trace-retaining archives predate the explicit storage
+                # declaration.  Their trace remains auditable as stored.
+                if not isinstance(trace, dict):
+                    raise RuntimeError(
+                        f"missing replicate trace and storage declaration in {path}"
+                    )
+                storage_mode_counts["legacy_unspecified"] += 1
+            elif not isinstance(storage, dict):
+                raise RuntimeError(
+                    f"invalid replicate statistics storage declaration in {path}"
+                )
+            else:
+                mode = storage.get("mode")
+                retained = storage.get("raw_trace_retained")
+                if not isinstance(mode, str) or not mode:
+                    raise RuntimeError(
+                        f"replicate statistics storage mode is invalid in {path}"
+                    )
+                if not isinstance(retained, bool):
+                    raise RuntimeError(
+                        f"raw_trace_retained is not boolean in {path}"
+                    )
+                if mode not in raw_trace_modes | trace_omission_modes:
+                    raise RuntimeError(
+                        f"unknown replicate statistics storage mode in {path}: {mode}"
+                    )
+                mode_claims_raw_trace = mode in raw_trace_modes
+                if retained != mode_claims_raw_trace:
+                    raise RuntimeError(
+                        f"replicate storage mode and raw_trace_retained disagree in {path}"
+                    )
+                storage_mode_counts[mode] += 1
+                if retained != isinstance(trace, dict):
+                    raise RuntimeError(
+                        f"replicate trace presence disagrees with storage declaration in {path}"
+                    )
+
+            declared_count = record.get("replicate_count")
+            if isinstance(declared_count, int) and not isinstance(
+                declared_count, bool
+            ) and declared_count > 0:
+                declared_replicate_counts[declared_count] += 1
+
+            if trace is None:
+                trace_unavailable_cases += 1
+                row_index += 1
+                shard_count += 1
+                continue
+            if not isinstance(trace, dict) or not isinstance(
+                trace.get("records"), list
+            ):
+                raise RuntimeError(f"invalid replicate trace in {path}")
             rows = trace["records"]
+            trace_available_cases += 1
             trace_counts[len(rows)] += 1
             total_records += len(rows)
             hashes = {str(item.get("parameter_realization_hash")) for item in rows}
@@ -242,12 +307,18 @@ def _trace_audit(root: Path, system_names: list[str], aggregate_system: np.ndarr
                 value_range = float(np.max(values) - np.min(values))
                 system_ranges[name].append(value_range)
                 any_varying = any_varying or value_range > 0.0
+                aggregate_value = float(
+                    aggregate_system[row_index, output_index]
+                )
                 aggregate_errors[name].append(
-                    abs(float(np.mean(values)) - float(aggregate_system[row_index, output_index]))
+                    abs(float(np.mean(values)) - aggregate_value)
                 )
             for item in rows:
                 fragment_metrics = item.get("fragment_metrics", {})
-                if any(float(metrics.get("hits", 0.0)) > 0.0 for metrics in fragment_metrics.values()):
+                if any(
+                    float(metrics.get("hits", 0.0)) > 0.0
+                    for metrics in fragment_metrics.values()
+                ):
                     any_hit = True
             varying_cases += int(any_varying)
             cases_with_any_fragment_hit += int(any_hit)
@@ -257,15 +328,36 @@ def _trace_audit(root: Path, system_names: list[str], aggregate_system: np.ndarr
             raise RuntimeError(f"result trace count disagrees with manifest row_count in {path}")
     if row_index != aggregate_system.shape[0]:
         raise RuntimeError("result trace count does not match tensor rows")
+    if trace_available_cases == 0:
+        status = "unavailable_raw_trace_not_retained"
+    elif trace_unavailable_cases == 0:
+        status = "available"
+    else:
+        status = "partial_trace_availability"
     return {
+        "status": status,
         "case_count": row_index,
+        "trace_available_case_count": trace_available_cases,
+        "trace_unavailable_case_count": trace_unavailable_cases,
+        "storage_mode_counts": {
+            name: int(count) for name, count in sorted(storage_mode_counts.items())
+        },
+        "declared_replicate_count_distribution": {
+            str(k): int(v) for k, v in sorted(declared_replicate_counts.items())
+        },
         "total_replicate_records": total_records,
-        "replicate_count_distribution": {str(k): int(v) for k, v in sorted(trace_counts.items())},
+        "replicate_count_distribution": {
+            str(k): int(v) for k, v in sorted(trace_counts.items())
+        },
         "distinct_parameter_realization_hashes_per_case": {
             str(k): int(v) for k, v in sorted(distinct_parameter_hashes.items())
         },
         "cases_with_any_system_output_variation_across_replicates": varying_cases,
-        "fraction_with_any_system_output_variation": varying_cases / row_index,
+        "fraction_with_any_system_output_variation": (
+            varying_cases / trace_available_cases
+            if trace_available_cases
+            else None
+        ),
         "cases_with_any_fragment_hit_in_any_replicate": cases_with_any_fragment_hit,
         "system_output_range_across_replicates": {
             name: _summary(np.asarray(values)) for name, values in system_ranges.items()
@@ -273,7 +365,11 @@ def _trace_audit(root: Path, system_names: list[str], aggregate_system: np.ndarr
         "trace_mean_vs_aggregate_absolute_error": {
             name: _summary(np.asarray(values)) for name, values in aggregate_errors.items()
         },
-        "interpretation": "R=4 traces diagnose synthetic-teacher Monte Carlo variation only; they do not quantify model-form or real-world uncertainty.",
+        "interpretation": (
+            "Stored raw traces diagnose synthetic-teacher Monte Carlo variation only; "
+            "cases using online sufficient moments remain valid but do not support "
+            "trace-level range or aggregate-reconstruction checks."
+        ),
     }
 
 

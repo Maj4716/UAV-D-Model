@@ -46,6 +46,44 @@ def test_raw_replicates_are_retained_only_when_trace_is_requested(
     assert result["replicate_trace"]["replicate_count"] == 2
 
 
+def test_component_state_trace_is_lightweight_and_independent_of_raw_trace(
+    target_data,
+    case_data,
+    registry,
+):
+    engine = DamageEngine(target_data, registry)
+    case = deepcopy(case_data)
+    case["analysis"]["replicates"] = 2
+    case["analysis"]["adaptive_ci_half_width"] = None
+    case["analysis"]["capture_component_state_trace"] = True
+
+    result = engine.run(case).to_dict()
+
+    storage = result["replicate_statistics_storage"]
+    assert storage["raw_trace_retained"] is False
+    assert storage["component_state_trace_retained"] is True
+    assert storage["mode"] == (
+        "online_sufficient_moments_plus_component_state_trace"
+    )
+    assert "replicate_trace" not in result
+    trace = result["component_state_trace"]
+    assert trace["schema_version"] == "1.0.0"
+    assert trace["semantics"] == (
+        "joint_per_replicate_component_mechanism_states_before_tree_aggregation"
+    )
+    assert trace["replicate_count"] == 2
+    assert trace["source_identity"]["case_id"] == case["case_id"]
+    assert trace["source_identity"]["target_id"] == target_data["target_id"]
+    assert set(trace["records"][0]) == {
+        "replicate_index",
+        "parameter_realization_hash",
+        "component_mechanism_states",
+        "system_outputs",
+        "domain_censoring",
+    }
+    assert "fragment_metrics" not in trace["records"][0]
+
+
 def test_fragment_audit_exposes_coherent_stochastic_perforation_outcomes(
     target_data,
     case_data,
@@ -117,6 +155,16 @@ def test_nonperforating_component_impact_can_cause_absorbed_energy_damage(
     assert result["fragment_metrics"]["penetrations"]["mean"] == 0.0
     assert result["fragment_metrics"]["deposited_energy_j"]["mean"] > 0.0
     assert result["damage_states"]["fragment"]["degraded"]["mean"] > 0.0
+    conditional_energy = result["fragment_metrics"][
+        "hit_conditioned_log1p_deposited_energy_j"
+    ]
+    conditional_hits = result["fragment_metrics"][
+        "hit_conditioned_log1p_hit_count"
+    ]
+    assert conditional_energy["sample_count"] == 1
+    assert conditional_energy["conditioning"] == "replicate_has_component_hit"
+    assert conditional_energy["mean"] > 0.0
+    assert conditional_hits["mean"] > 0.0
 
 
 def test_audit_separates_geometry_envelope_from_material_traversal(
@@ -259,6 +307,41 @@ def test_engine_marks_unresolved_penetration_domain_coverage(
     assert tree_bounds["lower"] == 0.0
     assert tree_bounds["upper"] == 1.0
     assert any("unresolved events" in warning for warning in result["warnings"])
+
+
+def test_component_ood_contact_keeps_hit_indicator_point_identified(
+    target_data, case_data, registry
+):
+    registry_data = deepcopy(registry.data)
+    registry_data["fragment_response_models"]["demo_armor_response"][
+        "ballistic_limit"
+    ]["maximum_obliquity_deg"] = 89.0
+    registry_data["fragment_response_models"]["demo_component_response"][
+        "ballistic_limit"
+    ]["maximum_obliquity_deg"] = 0.1
+    case = deepcopy(case_data)
+    case["analysis"]["replicates"] = 1
+    case["analysis"]["aleatory_seed"] = 1
+    case["analysis"]["adaptive_ci_half_width"] = None
+
+    result = DamageEngine(target_data, PhysicsRegistry(registry_data)).run(case).to_dict()
+
+    assert result["summary"]["total_out_of_domain_armor_impacts"]["mean"] == 0.0
+    assert result["summary"]["total_out_of_domain_component_impacts"]["mean"] > 0.0
+    component = result["components"]["flight-control"]
+    assert component["fragment_metrics"]["hit_indicator"]["mean"] == 1.0
+    bounds = result["penetration_domain_coverage"]["probability_bounds"][
+        "components"
+    ]["flight-control"]
+    hit_bound = bounds["fragment_metrics"]["hit_indicator"]
+    assert hit_bound["lower"] == hit_bound["upper"] == 1.0
+    assert hit_bound["width"] == 0.0
+    assert hit_bound["affected_replicate_fraction"] == 0.0
+    degraded_bound = bounds["fragment"]["degraded"]
+    assert degraded_bound["lower"] == 0.0
+    assert degraded_bound["upper"] == 1.0
+    assert degraded_bound["affected_replicate_fraction"] == 1.0
+    assert degraded_bound["method"].startswith("component_specific")
 
 
 def test_sequential_engine_applies_blast_failure_only_to_later_fragments(

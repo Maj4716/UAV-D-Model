@@ -33,3 +33,24 @@ def test_online_statistics_exposes_deterministic_child_keys():
     store = OnlineStatisticsStore()
     store.observe_replicate({"metrics": {"z": 1.0, "a": 2.0}})
     assert store.child_keys(("metrics",)) == ("a", "z")
+
+
+def test_online_statistics_reconstructs_hit_conditioned_moments_without_trace():
+    store = OnlineStatisticsStore()
+    for indicator, value in ((0.0, 0.0), (1.0, 2.0), (1.0, 4.0), (0.0, 0.0)):
+        store.observe_replicate(
+            {"metrics": {"hit_indicator": indicator, "conditional_value": value}}
+        )
+
+    observed = store.conditioned_statistics(
+        ("metrics", "conditional_value"),
+        ("metrics", "hit_indicator"),
+        estimand="mean_value_given_hit",
+        conditioning="replicate_has_hit",
+    )
+
+    assert observed["sample_count"] == 2
+    assert observed["mean"] == pytest.approx(3.0)
+    assert observed["stddev"] == pytest.approx(2.0**0.5)
+    assert observed["estimand"] == "mean_value_given_hit"
+    assert observed["conditioning"] == "replicate_has_hit"

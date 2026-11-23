@@ -30,8 +30,19 @@ def candidate_table_schema():
 def candidate_table(rows):
     import pyarrow as pa
     schema = candidate_table_schema()
-    validate_rows(rows, schema)
-    return pa.Table.from_pylist(rows, schema=schema)
+    normalized = []
+    for row in rows:
+        value = dict(row)
+        design_sequence = value.pop("design_sequence", None)
+        if design_sequence is not None and not isinstance(design_sequence, dict):
+            from .errors import InputValidationError
+
+            raise InputValidationError(
+                "candidate design_sequence provenance must be an object"
+            )
+        normalized.append(value)
+    validate_rows(normalized, schema)
+    return pa.Table.from_pylist(normalized, schema=schema)
 
 
 def adaptive_candidate_table_schema():

@@ -1,0 +1,19 @@
+{
+  "schema_version": "mechanism-output-verification@1.0.0",
+  "status": "pass",
+  "aggregate_report_hash": "sha256:fad90d0c02e06932f09a0e1c3a083898bf5749714ff928aa6308a3e08bc9bd35",
+  "micro_report_hash": "sha256:1075292ce894d5ed8536bf20400094ff4a1be0c529a5272504241da1aba6fa3d",
+  "checks": {
+    "strict_json_and_finite_values": "pass",
+    "content_hashes": "pass",
+    "sealed_test_result_json_lines_decoded": 0,
+    "aggregate_development_case_count": 2300,
+    "aggregate_joint_domain_complete_case_count": 1120,
+    "micro_selected_train_case_count": 30,
+    "micro_replicate_rows": 240,
+    "micro_fragment_trace_count": 40800,
+    "micro_fragment_component_pair_count": 2733600,
+    "archive_equivalence": "exact"
+  },
+  "report_hash": "sha256:f82b9114ed70f90eee3e59253b678bb9fa417404c9778fe9eb283334c7cefc71"
+}

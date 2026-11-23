@@ -1,4 +1,4 @@
-"""Deterministic p0/LHS case construction with geometry-correct transforms."""
+"""Deterministic p0 unit-cube case construction with geometry-correct transforms."""
 
 from __future__ import annotations
 
@@ -20,32 +20,27 @@ from .input_identity import (
     case_identity_hash,
 )
 from .learning_input_identity import (
-    LOITERING_IMPACT_CONTACT_POSE_TRAINING_FEATURE_NAMES,
-    LOITERING_IMPACT_CONTACT_POSE_TRAINING_FEATURE_UNITS,
-    LOITERING_IMPACT_STATE_FEATURE_NAMES,
-    LOITERING_IMPACT_STATE_FEATURE_UNITS,
-    LOITERING_IMPACT_TRAINING_FEATURE_NAMES,
-    UAV_STATE_FEATURE_NAMES,
-    UAV_STATE_FEATURE_UNITS,
-    UAV_TRAINING_FEATURE_NAMES,
-    fixed_scenario_fingerprint,
-    learning_input_fingerprint,
     legacy_learning_input_fingerprint,
-    loitering_impact_contact_pose_fixed_scenario_fingerprint,
-    loitering_impact_contact_pose_learning_input_fingerprint,
-    loitering_impact_contact_pose_training_vector,
-    loitering_impact_fixed_scenario_fingerprint,
-    loitering_impact_learning_input_fingerprint,
-    loitering_impact_state_vector,
-    uav_state_vector,
+    model_input_definition_for_sampling_contract,
 )
 from .sampling_spec import SamplingSpec, latent_dimensions
 from .split_registry import SplitRegistry
 from .utils import content_hash
 from .contact_contract import audit_s_contact
-from .contact_manifold_sampling import apply_contact_manifold
+from .contact_manifold_sampling import (
+    CONTACT_MANIFOLD_APPROACH_WEIGHT_SEMANTICS,
+    CONTACT_MANIFOLD_MODE,
+    CONTACT_MANIFOLD_SAMPLER_ID,
+    CONTACT_MANIFOLD_SCHEMA_VERSION,
+    apply_contact_manifold,
+)
 from .impact import is_impact_case, resolve_impact_detonation
 from .munition_profiles import apply_munition_profile
+from .sphere_entry_ray_sampling import (
+    apply_sphere_entry_reanchor,
+    map_sphere_entry_latent,
+)
+from .continuous_direction_sampling import apply_continuous_direction_manifold
 
 
 _CONTACT_DATA_ROLE_BY_SAMPLING_ROLE = {
@@ -73,6 +68,20 @@ _CONTACT_INPUT_REFUSAL_CODES = frozenset(
 )
 
 
+def _legacy_contact_manifold_declaration(
+    sphere_entry_manifold: dict[str, Any],
+) -> dict[str, Any]:
+    """Project a 1.5 declaration onto the frozen 1.4 transverse sampler."""
+
+    return {
+        "schema_version": CONTACT_MANIFOLD_SCHEMA_VERSION,
+        "sampler_id": CONTACT_MANIFOLD_SAMPLER_ID,
+        "mode": CONTACT_MANIFOLD_MODE,
+        "approach_weight_semantics": CONTACT_MANIFOLD_APPROACH_WEIGHT_SEMANTICS,
+        "approaches": sphere_entry_manifold["approaches"],
+    }
+
+
 def randomized_lhs(sample_count: int, dimension: int, *, seed: int) -> np.ndarray:
     """Generate a randomized Latin hypercube in the open unit cube."""
 
@@ -92,6 +101,75 @@ def randomized_lhs(sample_count: int, dimension: int, *, seed: int) -> np.ndarra
         out=design,
     )
     return design
+
+
+def _production_unit_design(
+    spec: SamplingSpec,
+    sample_count: int,
+    *,
+    seed: int,
+) -> tuple[np.ndarray, dict[str, Any] | None]:
+    """Generate one declared pre-outcome design batch.
+
+    SamplingSpecs without ``design_sequence`` retain the legacy randomized-LHS
+    implementation byte-for-byte.  Explicit scrambled-Sobol designs generate
+    the next base-2 net and take its deterministic prefix when an allocation or
+    retry batch is not itself a power of two.  The weaker prefix balance is
+    recorded instead of being described as a full base-2 net.
+    """
+
+    declaration = spec.design_sequence
+    if declaration is None:
+        return (
+            randomized_lhs(sample_count, spec.latent_dimension, seed=seed),
+            None,
+        )
+    try:
+        from .design_sequences import generate_unit_design
+    except ImportError as exc:  # SamplingSpec normally reports this first.
+        raise InputValidationError(
+            "design_sequence requires the optional sampling dependencies; "
+            "install the project with .[sampling]"
+        ) from exc
+
+    requested_count = int(sample_count)
+    generated_count = requested_count
+    method = str(declaration["method"])
+    if method == "scrambled_sobol" and requested_count & (requested_count - 1):
+        generated_count = 1 << (requested_count - 1).bit_length()
+    generated = generate_unit_design(
+        generated_count,
+        spec.latent_dimension,
+        seed=seed,
+        method=method,
+        maximin_restarts=int(declaration.get("maximin_restarts", 16)),
+    )
+    points = np.asarray(
+        generated.points[:requested_count], dtype=np.float64
+    ).copy()
+    metadata = dict(generated.metadata)
+    underlying_points_hash = metadata["points_hash"]
+    metadata.update(
+        {
+            "outcome_blind": True,
+            "requested_sample_count": requested_count,
+            "generated_sample_count": generated_count,
+            "prefix_truncated": generated_count != requested_count,
+            "underlying_points_hash": underlying_points_hash,
+            "points_hash": content_hash(
+                {
+                    "shape": list(points.shape),
+                    "values": points.tolist(),
+                }
+            ),
+        }
+    )
+    if generated_count != requested_count:
+        metadata["underlying_balance_contract"] = metadata["balance_contract"]
+        metadata["balance_contract"] = (
+            "scrambled_sobol_prefix_of_next_base2_net"
+        )
+    return points, metadata
 
 
 def _pointer_tokens(pointer: str) -> list[str]:
@@ -412,13 +490,16 @@ def _validate_fixed_scenario_plan(cases: list[dict], sampling_spec: SamplingSpec
 
     if not sampling_spec.has_versioned_model_input:
         return None
-    if sampling_spec.is_contact_pose_model_input:
-        fingerprint = loitering_impact_contact_pose_fixed_scenario_fingerprint
-    elif sampling_spec.is_uav_model_input:
-        fingerprint = fixed_scenario_fingerprint
-    else:
-        fingerprint = loitering_impact_fixed_scenario_fingerprint
-    identities = {fingerprint(case) for case in cases}
+    definition = model_input_definition_for_sampling_contract(
+        sampling_spec.data.get("model_input_contract")
+    )
+    if definition is None:
+        raise InputValidationError(
+            "versioned sampling plan has no registered model-input definition"
+        )
+    identities = {
+        definition.fixed_scenario_fingerprint(case) for case in cases
+    }
     if len(identities) != 1:
         subject = "UAV-only" if sampling_spec.is_uav_model_input else "loitering-impact"
         raise InputValidationError(
@@ -444,32 +525,32 @@ def _validate_uav_training_plan(cases: list[dict], sampling_spec: SamplingSpec) 
     if not train_cases:
         raise InputValidationError("versioned model-input plan has no frozen Train cases")
 
-    if sampling_spec.is_contact_pose_model_input:
-        from .training_view import (
-            transform_loitering_impact_contact_pose as input_transform,
+    definition = model_input_definition_for_sampling_contract(
+        sampling_spec.data.get("model_input_contract")
+    )
+    if definition is None:
+        raise InputValidationError(
+            "versioned sampling plan has no registered model-input definition"
         )
+    from .training_view import model_input_training_transform_for_version
 
-        vector = loitering_impact_contact_pose_training_vector
-        raw_names = LOITERING_IMPACT_CONTACT_POSE_TRAINING_FEATURE_NAMES
-        raw_units = LOITERING_IMPACT_CONTACT_POSE_TRAINING_FEATURE_UNITS
-        training_names = LOITERING_IMPACT_CONTACT_POSE_TRAINING_FEATURE_NAMES
-    elif sampling_spec.is_uav_model_input:
-        from .training_view import transform_uav_state as input_transform
-
-        vector = uav_state_vector
-        raw_names = UAV_STATE_FEATURE_NAMES
-        raw_units = UAV_STATE_FEATURE_UNITS
-        training_names = UAV_TRAINING_FEATURE_NAMES
-    else:
-        from .training_view import (
-            transform_loitering_impact_state as input_transform,
+    input_transform = model_input_training_transform_for_version(
+        definition.version
+    )
+    if input_transform is None:
+        raise InputValidationError(
+            "versioned sampling plan has no registered training transform"
         )
-
-        vector = loitering_impact_state_vector
-        raw_names = LOITERING_IMPACT_STATE_FEATURE_NAMES
-        raw_units = LOITERING_IMPACT_STATE_FEATURE_UNITS
-        training_names = LOITERING_IMPACT_TRAINING_FEATURE_NAMES
-    raw = np.asarray([vector(case) for case in train_cases], dtype=np.float32)
+    raw_names = definition.feature_names
+    raw_units = definition.feature_units
+    training_names = tuple(
+        name
+        for feature in sampling_spec.feature_roles
+        for name in feature["tensor_feature_names"]
+    )
+    raw = np.asarray(
+        [definition.vector(case) for case in train_cases], dtype=np.float32
+    )
     raw_mask = np.ones_like(raw, dtype=bool)
     values, mask, names, _units, _transforms = input_transform(
         raw,
@@ -788,6 +869,13 @@ class CaseFactory:
         constraints = spec.data["reference_distribution"]["constraints"]
         global_index = 0
         refusal_counts: dict[str, int] = {}
+        model_input_definition = model_input_definition_for_sampling_contract(
+            spec.data.get("model_input_contract")
+        )
+        if model_input_definition is None:
+            raise InputValidationError(
+                "contact-conditioned plan has no registered model-input definition"
+            )
 
         def contact_data_role(allocation: dict[str, Any]) -> str:
             try:
@@ -809,11 +897,7 @@ class CaseFactory:
 
         def candidate_learning_hash(case: dict) -> str:
             try:
-                if spec.is_contact_pose_model_input:
-                    return loitering_impact_contact_pose_learning_input_fingerprint(
-                        case
-                    )
-                return loitering_impact_learning_input_fingerprint(case)
+                return model_input_definition.learning_input_fingerprint(case)
             except (KeyError, TypeError, ValueError):
                 # Invalid contact candidates still need a deterministic ledger
                 # identity, even when they cannot satisfy the learner contract.
@@ -827,6 +911,7 @@ class CaseFactory:
             *,
             selected: bool,
             learning_hash: str,
+            design_sequence: dict[str, Any] | None,
             duplicate_of: str | None = None,
             refusal: dict[str, Any] | None = None,
         ) -> dict[str, Any]:
@@ -878,6 +963,8 @@ class CaseFactory:
                 "refusal": refusal,
                 "latent": latent_row.tolist(),
             }
+            if design_sequence is not None:
+                row["design_sequence"] = dict(design_sequence)
             if not selected:
                 row.update(
                     {
@@ -914,6 +1001,7 @@ class CaseFactory:
             code: str,
             message: str,
             context: dict[str, Any],
+            design_sequence: dict[str, Any] | None,
             duplicate_of: str | None = None,
         ) -> bool:
             refusal_context = {
@@ -951,6 +1039,7 @@ class CaseFactory:
                 identity,
                 selected=False,
                 learning_hash=candidate_learning_hash(case),
+                design_sequence=design_sequence,
                 duplicate_of=duplicate_of,
                 refusal=refusal,
             )
@@ -959,7 +1048,9 @@ class CaseFactory:
             return False
 
         def accept_candidate(
-            allocation: dict[str, Any], latent_row: np.ndarray
+            allocation: dict[str, Any],
+            latent_row: np.ndarray,
+            design_sequence: dict[str, Any] | None,
         ) -> bool:
             nonlocal global_index
             attempt_index = global_index
@@ -984,11 +1075,42 @@ class CaseFactory:
                     raise InputValidationError(
                         "contact-manifold SamplingSpec lacks its declaration"
                     )
-                apply_contact_manifold(
-                    case,
-                    manifold,
-                    latent_row[independent_width:],
-                )
+                manifold_latent = latent_row[independent_width:]
+                if spec.is_continuous_sphere_entry_ray:
+                    apply_continuous_direction_manifold(
+                        case,
+                        manifold,
+                        manifold_latent,
+                        self.compiled_target,
+                        target_hash=self.target_hash,
+                    )
+                elif spec.is_sphere_entry_ray:
+                    mapped = map_sphere_entry_latent(
+                        manifold_latent,
+                        layout=manifold["latent_layout"],
+                    )
+                    contact_record = apply_contact_manifold(
+                        case,
+                        _legacy_contact_manifold_declaration(manifold),
+                        mapped.legacy_contact_manifold_latent,
+                    )
+                    sphere = manifold["sphere"]
+                    apply_sphere_entry_reanchor(
+                        case,
+                        self.compiled_target,
+                        target_hash=self.target_hash,
+                        clearance_m=float(sphere["clearance_m"]),
+                        object_scope=str(sphere["object_scope"]),
+                        latent_layout=manifold["latent_layout"],
+                        latent=manifold_latent,
+                        line_point_target_m=contact_record["aim_point_target_m"],
+                    )
+                else:
+                    apply_contact_manifold(
+                        case,
+                        manifold,
+                        manifold_latent,
+                    )
 
             # Run the input/geometry portion before impact resolution.  A valid
             # unresolved candidate normally stops at persisted_first_contact_mismatch;
@@ -1010,6 +1132,7 @@ class CaseFactory:
                         code=str(reason_code),
                         message=error.message,
                         context=dict(error.context),
+                        design_sequence=design_sequence,
                     )
 
             case = self._finalize_case_physics(case)
@@ -1021,6 +1144,14 @@ class CaseFactory:
                 if isinstance(manifold_record, dict):
                     manifold_record["status"] = "admitted_s_contact"
                     manifold_record["s_contact_contract_hash"] = eligibility[
+                        "contract_hash"
+                    ]
+                sphere_record = case.get("metadata", {}).get(
+                    "sphere_entry_ray_sampling"
+                )
+                if isinstance(sphere_record, dict):
+                    sphere_record["status"] = "admitted_s_contact"
+                    sphere_record["s_contact_contract_hash"] = eligibility[
                         "contract_hash"
                     ]
             legal = _constraints_satisfied(case, constraints)
@@ -1058,13 +1189,10 @@ class CaseFactory:
                         "role": allocation["role"],
                         "stratum_id": allocation["stratum_id"],
                     },
+                    design_sequence=design_sequence,
                 )
 
-            learning_hash = (
-                loitering_impact_contact_pose_learning_input_fingerprint(case)
-                if spec.is_contact_pose_model_input
-                else loitering_impact_learning_input_fingerprint(case)
-            )
+            learning_hash = model_input_definition.learning_input_fingerprint(case)
             previous = observed_learning_inputs.get(learning_hash)
             if previous is not None:
                 previous_split, previous_id, previous_role, previous_stream = previous
@@ -1106,6 +1234,7 @@ class CaseFactory:
                             "role": allocation["role"],
                             "previous_candidate_id": previous_id,
                         },
+                        design_sequence=design_sequence,
                         duplicate_of=previous_id,
                     )
 
@@ -1131,6 +1260,7 @@ class CaseFactory:
                 identity,
                 selected=True,
                 learning_hash=learning_hash,
+                design_sequence=design_sequence,
                 duplicate_of=previous[1] if previous is not None else None,
             )
             register_row(row, latent_row)
@@ -1179,12 +1309,23 @@ class CaseFactory:
                     spec.seeds["design"],
                     "design:" + ":".join(map(str, (*key, batch_index))),
                 )
-                batch = randomized_lhs(
-                    batch_size, spec.latent_dimension, seed=design_seed
+                batch, batch_design = _production_unit_design(
+                    spec,
+                    batch_size,
+                    seed=design_seed,
                 )
-                for latent_row in batch:
+                for point_index, latent_row in enumerate(batch):
                     attempts += 1
-                    if accept_candidate(template, latent_row):
+                    point_design = (
+                        None
+                        if batch_design is None
+                        else {
+                            **batch_design,
+                            "batch_index": batch_index,
+                            "point_index": point_index,
+                        }
+                    )
+                    if accept_candidate(template, latent_row, point_design):
                         accepted_count += 1
                         if accepted_count == required_count:
                             break
@@ -1274,6 +1415,8 @@ class CaseFactory:
                 "physics_registry_hash": self.physics_registry_hash,
                 "engine_code_hash": self.engine_code_hash,
             }
+            if "design_sequence" in row:
+                sampling["design_sequence"] = row["design_sequence"]
             case["metadata"]["sampling"] = sampling
             case["metadata"]["frozen_split"] = split
             case["metadata"]["split_registry_hash"] = registry_hash
@@ -1367,12 +1510,14 @@ class CaseFactory:
                     "adaptive_ci_half_width"
                 ],
             )
-            if spec.is_uav_model_input:
-                learning_hash = learning_input_fingerprint(case)
-            elif spec.is_loitering_impact_model_input:
-                learning_hash = loitering_impact_learning_input_fingerprint(case)
-            else:
-                learning_hash = legacy_learning_input_fingerprint(case)
+            model_input_definition = model_input_definition_for_sampling_contract(
+                spec.data.get("model_input_contract")
+            )
+            learning_hash = (
+                model_input_definition.learning_input_fingerprint(case)
+                if model_input_definition is not None
+                else legacy_learning_input_fingerprint(case)
+            )
             previous = observed_learning_inputs.get(learning_hash)
             if previous is not None:
                 previous_split, previous_id, previous_role, previous_stream = previous

@@ -1,0 +1,65 @@
+{
+  "variant_id": "e3-a1-t1-fhollow-w1",
+  "factors": {
+    "A_armor_mm": 1.0,
+    "T_component_threshold_factor": 1.0,
+    "F_direction_model": "legacy_hollow",
+    "W_gurney_factor": 1.0
+  },
+  "target_hash": "sha256:9aa087bf5621cbead6b6752a82841c7737eb7829410a08a85ae847f84b066b0e",
+  "physics_registry_hash": "sha256:cc6464b0351a6725319a94b8cf3a53568ed452fc554ebdd0538b089453366b2e",
+  "trace_path": "D:\\Desktop\\UAV新\\artifacts\\validation\\idea2_optimization_20261120\\stage2_representative_scaled\\e3\\variants\\e3-a1-t1-fhollow-w1\\engine_results.minimal.jsonl.gz",
+  "elapsed_seconds": 37.67085589999988,
+  "summary": {
+    "case_count": 3,
+    "component_zero_rate": 0.6915422885572139,
+    "case_any_support_rate": 1.0,
+    "domain_complete_rate": 0.3333333333333333,
+    "mean_affected_replicate_fraction": 0.6666666666666666,
+    "positive_component_energy_tail": {
+      "positive_count": 62,
+      "primary_tail_fraction": 0.1,
+      "primary_alpha": 1.8551575083828562,
+      "estimates": [
+        {
+          "tail_fraction": 0.05,
+          "k": 3,
+          "xi": 0.46410593522236887,
+          "alpha": 2.1546804815604568
+        },
+        {
+          "tail_fraction": 0.1,
+          "k": 6,
+          "xi": 0.5390377881561667,
+          "alpha": 1.8551575083828562
+        },
+        {
+          "tail_fraction": 0.2,
+          "k": 12,
+          "xi": 1.1642739621009983,
+          "alpha": 0.8589043752171898
+        }
+      ]
+    },
+    "tree_views": {
+      "current": {
+        "count": 21,
+        "zero_rate": 0.19047619047619047,
+        "saturation_rate": 0.7619047619047619,
+        "intermediate_rate": 0.047619047619047616,
+        "mean_binary_entropy_nats": 0.025310950948445668
+      },
+      "identity_component_states": {
+        "count": 402,
+        "zero_rate": 0.6915422885572139,
+        "saturation_rate": 0.19402985074626866,
+        "intermediate_rate": 0.11194029850746269,
+        "mean_binary_entropy_nats": 0.04181500059399454
+      },
+      "maximum_offline_recompute_abs_error": 0.0
+    },
+    "status_counts": {
+      "ok": 3
+    }
+  }
+}

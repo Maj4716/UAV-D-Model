@@ -1,0 +1,50 @@
+{
+  "schemaVersion": 1,
+  "receiptId": "9e9533d6-f9ff-434f-9c7e-bf5b5e90d055",
+  "status": "current",
+  "command": "deliver",
+  "type": "explainer",
+  "input": "D:\\Desktop\\UAV新\\.archify\\explainer-uav-visual-report-20261123-quant\\quantitative.archify.md",
+  "output": "D:\\Desktop\\UAV新\\artifacts\\visual_reports_20261123\\01_quantitative_distribution_report.html",
+  "specification": {
+    "sha256": "feb04d7ef95498e2b6c834ba852c33d13b9196ef02dc880c2758eb7bb310aa86",
+    "bytes": 6436
+  },
+  "artifact": {
+    "sha256": "b98876baf07355a58cffedb403551837d0fe6869ba905a01a9f4e56cc6aa90ba",
+    "bytes": 2713144
+  },
+  "explainer": {
+    "preparedSha256": "ac87e5e429cdb2220bd9fda0f1aa7320b3c4b926f696c77a3cb4ccf707486ee9",
+    "dependencies": [
+      {
+        "kind": "image",
+        "id": "selection-gap-figure",
+        "path": "D:\\Desktop\\UAV新\\.archify\\explainer-uav-visual-report-20261123-quant\\quant_distribution.png",
+        "sha256": "e8aef8f7f4363b86047c81077063e3e5fe9082d2258c34e82e15155ce15e1c16",
+        "bytes": 137048
+      },
+      {
+        "kind": "image",
+        "id": "stage-gap-figure",
+        "path": "D:\\Desktop\\UAV新\\.archify\\explainer-uav-visual-report-20261123-quant\\quant_stage_reliability.png",
+        "sha256": "01de4927d083d6905568d7218063dd865941340be7bb3a4f8e089030de1156a1",
+        "bytes": 158236
+      },
+      {
+        "kind": "image",
+        "id": "proxy-convergence-figure",
+        "path": "D:\\Desktop\\UAV新\\.archify\\explainer-uav-visual-report-20261123-quant\\quant_proxy_convergence.png",
+        "sha256": "8b232ee7b6c56ac86a03d6dac6e22dfab5d4fcdcc5c118582eec9592c53d0df2",
+        "bytes": 104336
+      },
+      {
+        "kind": "diagram-spec",
+        "id": "distribution-chain",
+        "inline": true,
+        "sha256": "cebaa0cd17d08f91c71ba720b285438753667a20571e2d8b96d1971e930e9f93",
+        "bytes": 1463
+      }
+    ]
+  }
+}

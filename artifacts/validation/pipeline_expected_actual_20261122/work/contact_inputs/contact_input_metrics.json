@@ -1,0 +1,1259 @@
+{
+  "schema_version": "contact-input-expected-actual@1.0.0",
+  "analysis_id": "pipeline-expected-actual-20261122-v2:contact-inputs",
+  "scope": {
+    "formal_input_case_count": 2600,
+    "split_counts": {
+      "validation": 300,
+      "test": 300,
+      "train": 2000
+    },
+    "sealed_test_input_case_count": 300,
+    "teacher_result_files_opened": 0,
+    "teacher_result_json_lines_decoded": 0,
+    "training_runs_started": 0,
+    "data_access": "SamplingSpec plus formal pre-outcome case ledger only"
+  },
+  "evidence": {
+    "sampling_spec": {
+      "path": "D:\\Desktop\\UAV新\\configs\\sampling\\p0_sphere_entry_continuous_direction_recovery_train2000_eval300_role_r8_r32.v1.json",
+      "sha256": "sha256:31521f5c21d826bf4ac71ca89e4119f74c223528abb83196b674fa2c6dfa03af"
+    },
+    "formal_cases": {
+      "path": "D:\\Desktop\\UAV新\\artifacts\\datasets\\recovery_role_r8_r32_train2000_eval300_20261122\\rounds\\round-000\\formal_cases.jsonl.gz",
+      "sha256": "sha256:52c948384ed0f341f4c542cf89e013084a48c063d9d2624d42ef65335ebf94b7"
+    }
+  },
+  "declared_expectations": {
+    "speed_distribution": {
+      "family": "Uniform",
+      "minimum_mps": 80.0,
+      "maximum_mps": 160.0,
+      "mean_mps": 120.0,
+      "population_standard_deviation_mps": 23.094010767585033
+    },
+    "profile_mass_each": 0.3333333333333333,
+    "region_mass_each": 0.2,
+    "first_contact_contract": {
+      "positive_forward_intersection": true,
+      "collision_time_equals_distance_over_speed": true,
+      "detonation_point_equals_first_contact_point": true,
+      "detonation_time_equals_first_contact_time": true,
+      "direction_and_normal_are_unit_vectors": true
+    },
+    "interpretation": "profile/region/speed are declared design distributions; contact geometry is the S-CONTACT-conditioned actual input distribution"
+  },
+  "actual_distributions": {
+    "profile_vs_declared_equal_mass": {
+      "denominator": 2600,
+      "rows": [
+        {
+          "label": "small_front",
+          "count": 857,
+          "actual_mass": 0.3296153846153846,
+          "declared_mass": 0.3333333333333333,
+          "actual_minus_declared_mass": -0.003717948717948727
+        },
+        {
+          "label": "medium_front",
+          "count": 872,
+          "actual_mass": 0.3353846153846154,
+          "declared_mass": 0.3333333333333333,
+          "actual_minus_declared_mass": 0.0020512820512820773
+        },
+        {
+          "label": "large_front",
+          "count": 871,
+          "actual_mass": 0.335,
+          "declared_mass": 0.3333333333333333,
+          "actual_minus_declared_mass": 0.0016666666666667052
+        }
+      ],
+      "total_variation_distance": 0.0037179487179487547,
+      "maximum_absolute_mass_gap": 0.003717948717948727
+    },
+    "region_vs_declared_precontact_equal_mass": {
+      "denominator": 2600,
+      "rows": [
+        {
+          "label": "pos_x",
+          "count": 668,
+          "actual_mass": 0.2569230769230769,
+          "declared_mass": 0.2,
+          "actual_minus_declared_mass": 0.05692307692307691
+        },
+        {
+          "label": "neg_x",
+          "count": 152,
+          "actual_mass": 0.05846153846153846,
+          "declared_mass": 0.2,
+          "actual_minus_declared_mass": -0.14153846153846156
+        },
+        {
+          "label": "pos_y",
+          "count": 364,
+          "actual_mass": 0.14,
+          "declared_mass": 0.2,
+          "actual_minus_declared_mass": -0.06
+        },
+        {
+          "label": "neg_y",
+          "count": 702,
+          "actual_mass": 0.27,
+          "declared_mass": 0.2,
+          "actual_minus_declared_mass": 0.07
+        },
+        {
+          "label": "top_cap",
+          "count": 714,
+          "actual_mass": 0.2746153846153846,
+          "declared_mass": 0.2,
+          "actual_minus_declared_mass": 0.07461538461538458
+        }
+      ],
+      "total_variation_distance": 0.20153846153846153,
+      "maximum_absolute_mass_gap": 0.14153846153846156
+    },
+    "speed_mps": {
+      "summary": {
+        "count": 2600,
+        "minimum": 80.06077393889427,
+        "p05": 84.1672751493752,
+        "p25": 99.76783534511924,
+        "median": 119.31969448924065,
+        "mean": 119.64894846454263,
+        "p75": 139.5885168388486,
+        "p95": 155.8232737854123,
+        "maximum": 159.99898567795753,
+        "population_standard_deviation": 23.01509088939377
+      },
+      "actual_minus_declared_mean_mps": -0.35105153545737267,
+      "actual_to_declared_population_variance_ratio": 0.9931770162132298,
+      "uniform_ks_distance": 0.010557007551766362,
+      "out_of_declared_range_count": 0,
+      "by_region": {
+        "pos_x": {
+          "summary": {
+            "count": 668,
+            "minimum": 80.06077393889427,
+            "p05": 84.3245768584311,
+            "p25": 100.00172166153789,
+            "median": 118.40359073132277,
+            "mean": 119.5070224072405,
+            "p75": 139.40347706899047,
+            "p95": 155.61730482429266,
+            "maximum": 159.99522551894188,
+            "population_standard_deviation": 23.25596677826175
+          },
+          "uniform_ks_distance": 0.025751437283606238
+        },
+        "neg_x": {
+          "summary": {
+            "count": 152,
+            "minimum": 80.70458397269249,
+            "p05": 84.07302810251713,
+            "p25": 101.03298634290695,
+            "median": 121.2834706902504,
+            "mean": 120.76151012590057,
+            "p75": 140.97267085686326,
+            "p95": 157.95019358024,
+            "maximum": 159.4125059247017,
+            "population_standard_deviation": 23.238838289224752
+          },
+          "uniform_ks_distance": 0.0360230173621523
+        },
+        "pos_y": {
+          "summary": {
+            "count": 364,
+            "minimum": 80.09766295552254,
+            "p05": 84.20664224773645,
+            "p25": 98.99557882919908,
+            "median": 117.69444715231657,
+            "mean": 118.86614677363208,
+            "p75": 137.45607241988182,
+            "p95": 155.68514766171572,
+            "maximum": 159.99898567795753,
+            "population_standard_deviation": 22.969617592281914
+          },
+          "uniform_ks_distance": 0.03457282588991162
+        },
+        "neg_y": {
+          "summary": {
+            "count": 702,
+            "minimum": 80.2222353219986,
+            "p05": 84.51945478096604,
+            "p25": 100.07519686594605,
+            "median": 119.4091022759676,
+            "mean": 119.69250270168156,
+            "p75": 139.4769006036222,
+            "p95": 155.41944408416748,
+            "maximum": 159.8223190754652,
+            "population_standard_deviation": 22.615288266116647
+          },
+          "uniform_ks_distance": 0.02307421175439306
+        },
+        "top_cap": {
+          "summary": {
+            "count": 714,
+            "minimum": 80.13689510524273,
+            "p05": 84.02127273380756,
+            "p25": 99.86937770619988,
+            "median": 120.28375685214996,
+            "mean": 119.90113610427836,
+            "p75": 140.20363153889775,
+            "p95": 155.91394962742925,
+            "maximum": 159.88086067140102,
+            "population_standard_deviation": 23.138843142226907
+          },
+          "uniform_ks_distance": 0.01271143054761803
+        }
+      }
+    },
+    "collision_distance_m": {
+      "count": 2600,
+      "minimum": 0.2536717932114853,
+      "p05": 0.625894577191505,
+      "p25": 2.115431483707659,
+      "median": 3.006524945065041,
+      "mean": 2.7723009929136246,
+      "p75": 3.6384561574076018,
+      "p95": 4.201091773665969,
+      "maximum": 6.621366427103205,
+      "population_standard_deviation": 1.1425833690742067
+    },
+    "collision_time_s": {
+      "count": 2600,
+      "minimum": 0.0018286431195021272,
+      "p05": 0.005108738680332142,
+      "p25": 0.017020930464126362,
+      "median": 0.02473435409850548,
+      "mean": 0.024035320761045694,
+      "p75": 0.031171466070550262,
+      "p95": 0.041728873748692406,
+      "maximum": 0.0711368079806242,
+      "population_standard_deviation": 0.01110590850515818
+    },
+    "forward_normal_cosine": {
+      "count": 2600,
+      "minimum": 0.04164111424188021,
+      "p05": 0.2865940934081869,
+      "p25": 0.47988715229612205,
+      "median": 0.6987658371082615,
+      "mean": 0.6743253246369767,
+      "p75": 0.8848029332126746,
+      "p95": 0.9785739908697088,
+      "maximum": 0.9999602966688662,
+      "population_standard_deviation": 0.2297053287762774
+    },
+    "incidence_angle_from_normal_deg": {
+      "count": 2600,
+      "minimum": 0.5105667636059276,
+      "p05": 11.881914987081283,
+      "p25": 27.772719269274546,
+      "median": 45.67192466010435,
+      "mean": 44.21929102280482,
+      "p75": 61.32196794634433,
+      "p95": 73.34584109803887,
+      "maximum": 87.6134498545771,
+      "population_standard_deviation": 19.74839656980396
+    },
+    "collision_point_target_m_by_axis": {
+      "x": {
+        "count": 2600,
+        "minimum": -1.630264997482,
+        "p05": -1.630264997482,
+        "p25": -1.040390132123,
+        "median": -0.27193326091900005,
+        "mean": -0.21794237597020694,
+        "p75": 0.484333257917,
+        "p95": 1.5419475032809997,
+        "maximum": 1.630264997482,
+        "population_standard_deviation": 0.954771946030573
+      },
+      "y": {
+        "count": 2600,
+        "minimum": -3.487394809723,
+        "p05": -3.487394809723,
+        "p25": -1.33810811569075,
+        "median": 0.1643913266095,
+        "mean": -0.0783471909048396,
+        "p75": 1.15297888637925,
+        "p95": 3.0401485060998477,
+        "maximum": 4.12650727145,
+        "population_standard_deviation": 1.8873290385267432
+      },
+      "z": {
+        "count": 2600,
+        "minimum": 0.310216140045,
+        "p05": 0.6109208931950001,
+        "p25": 1.514370599718,
+        "median": 1.940329855486,
+        "mean": 1.666555338041083,
+        "p75": 1.940329966626,
+        "p95": 1.9403301318950001,
+        "maximum": 1.940330265793,
+        "population_standard_deviation": 0.442689333444181
+      }
+    },
+    "aim_u_m": {
+      "count": 2600,
+      "minimum": -2.4933562949299812,
+      "p05": -1.5561907369643448,
+      "p25": -0.6170545861823484,
+      "median": 0.1664569426793605,
+      "mean": 0.04810346385070051,
+      "p75": 0.7611733191879466,
+      "p95": 1.242757686600089,
+      "maximum": 2.2304431833326817,
+      "population_standard_deviation": 0.9080977757498909
+    },
+    "aim_v_m": {
+      "count": 2600,
+      "minimum": -2.4877479961141944,
+      "p05": -1.5043215953744948,
+      "p25": 0.7952630507876166,
+      "median": 1.0845685350010172,
+      "mean": 0.8203427495031904,
+      "p75": 1.39713747483911,
+      "p95": 1.6524312521284445,
+      "maximum": 1.998382959049195,
+      "population_standard_deviation": 0.9245555669510759
+    },
+    "body_x_roll_rad": {
+      "count": 2600,
+      "minimum": -3.141305945052946,
+      "p05": -2.835890161280213,
+      "p25": -1.5512377864803293,
+      "median": 0.00817951145234086,
+      "mean": 0.005384785721130512,
+      "p75": 1.5526967927166526,
+      "p95": 2.821985189012591,
+      "maximum": 3.138517523715433,
+      "population_standard_deviation": 1.809581786547077
+    },
+    "transverse_radius_m": {
+      "count": 2600,
+      "minimum": 0.012171280853295505,
+      "p05": 0.3162059348236947,
+      "p25": 0.7639911377960737,
+      "median": 1.2037872712367332,
+      "mean": 1.301302556783553,
+      "p75": 1.7312248953785772,
+      "p95": 2.6042915199097703,
+      "maximum": 3.064279770854213,
+      "population_standard_deviation": 0.695488699333646
+    },
+    "collision_armor_counts": {
+      "armor-001": 2232,
+      "armor-002": 368
+    },
+    "collision_normal_counts": {
+      "[0.0, -1.0, 0.0]": 281,
+      "[0.0, 8.5156e-08, 1.0]": 1101,
+      "[-0.0, 0.192060725115, 0.981383043398]": 118,
+      "[-1.0, 0.0, 0.0]": 253,
+      "[1.0, 0.0, 0.0]": 199,
+      "[-0.0, 8.5156e-08, 1.0]": 395,
+      "[0.0, 0.192060725115, 0.981383043398]": 78,
+      "[0.0, 0.756394439211, -0.654115778996]": 44,
+      "[-1.0, -0.0, 0.0]": 101,
+      "[0.0, 0.190049976062, 0.981774417368]": 12,
+      "[0.0, 0.274636250599, -0.961548194245]": 9,
+      "[-0.0, 0.190049976062, 0.981774417368]": 2,
+      "[-1.0, -0.0, -0.0]": 4,
+      "[1.0, -0.0, 0.0]": 3
+    },
+    "profile_region_strata": {
+      "pos_x::small_front": {
+        "case_count": 218,
+        "split_counts": {
+          "validation": 27,
+          "test": 23,
+          "train": 168
+        },
+        "speed_mps": {
+          "count": 218,
+          "minimum": 80.06077393889427,
+          "p05": 83.73760290071368,
+          "p25": 98.84275402873755,
+          "median": 119.04480155557394,
+          "mean": 119.53694016185649,
+          "p75": 138.97725814953446,
+          "p95": 155.15398835390806,
+          "maximum": 159.26265060901642,
+          "population_standard_deviation": 23.062495271303728
+        },
+        "collision_distance_m": {
+          "count": 218,
+          "minimum": 0.7308703425998843,
+          "p05": 1.8581880621119478,
+          "p25": 2.581286811723799,
+          "median": 2.944775298980476,
+          "mean": 2.9537154853989254,
+          "p75": 3.430086607509571,
+          "p95": 4.0199014389011545,
+          "maximum": 4.300481601430274,
+          "population_standard_deviation": 0.6630473361143864
+        },
+        "collision_time_s": {
+          "count": 218,
+          "minimum": 0.0073679356874254715,
+          "p05": 0.01417844382148451,
+          "p25": 0.019776283687783884,
+          "median": 0.02490136995720435,
+          "mean": 0.025739499821961217,
+          "p75": 0.031038934724992112,
+          "p95": 0.03923278098075111,
+          "maximum": 0.050507969922371804,
+          "population_standard_deviation": 0.008078451405468501
+        },
+        "incidence_angle_from_normal_deg": {
+          "count": 218,
+          "minimum": 2.2408118748215986,
+          "p05": 10.43061763830917,
+          "p25": 22.56913812117014,
+          "median": 49.69695555375286,
+          "mean": 42.68810025162522,
+          "p75": 58.40714415955692,
+          "p95": 68.67261771884984,
+          "maximum": 76.82244867467898,
+          "population_standard_deviation": 19.837116689712587
+        },
+        "forward_normal_cosine_minimum": 0.22796940118017855
+      },
+      "neg_x::small_front": {
+        "case_count": 51,
+        "split_counts": {
+          "validation": 7,
+          "test": 9,
+          "train": 35
+        },
+        "speed_mps": {
+          "count": 51,
+          "minimum": 82.41331875324249,
+          "p05": 84.35716532170773,
+          "p25": 101.34745825082064,
+          "median": 124.09833781421185,
+          "mean": 122.1252580790543,
+          "p75": 141.79817516356707,
+          "p95": 156.8218955770135,
+          "maximum": 159.22963857650757,
+          "population_standard_deviation": 22.953924769734687
+        },
+        "collision_distance_m": {
+          "count": 51,
+          "minimum": 1.5839056434272685,
+          "p05": 1.9907679824955395,
+          "p25": 2.4730544471214846,
+          "median": 2.9496883541349304,
+          "mean": 3.0278269631063672,
+          "p75": 3.455829900839891,
+          "p95": 4.491061195162417,
+          "maximum": 5.068121041399964,
+          "population_standard_deviation": 0.7654466528424715
+        },
+        "collision_time_s": {
+          "count": 51,
+          "minimum": 0.01321435031951088,
+          "p05": 0.015376734287150008,
+          "p25": 0.020163803990774866,
+          "median": 0.024081157262657048,
+          "mean": 0.02573799264575687,
+          "p75": 0.030185903190016412,
+          "p95": 0.04095547661001597,
+          "maximum": 0.058748336944278626,
+          "population_standard_deviation": 0.00864917852325354
+        },
+        "incidence_angle_from_normal_deg": {
+          "count": 51,
+          "minimum": 4.3538732438710275,
+          "p05": 12.588156517763032,
+          "p25": 18.519677130499332,
+          "median": 27.914037494326312,
+          "mean": 36.24677638808711,
+          "p75": 36.58681355450173,
+          "p95": 84.55384229015408,
+          "maximum": 86.77490543659715,
+          "population_standard_deviation": 24.6044467389911
+        },
+        "forward_normal_cosine_minimum": 0.05625879946242395
+      },
+      "pos_y::small_front": {
+        "case_count": 118,
+        "split_counts": {
+          "validation": 12,
+          "test": 13,
+          "train": 93
+        },
+        "speed_mps": {
+          "count": 118,
+          "minimum": 80.32096989452839,
+          "p05": 83.24794345349073,
+          "p25": 96.72935472801328,
+          "median": 119.74357813596725,
+          "mean": 118.15964026408176,
+          "p75": 136.87036601826549,
+          "p95": 154.14619901403782,
+          "maximum": 159.99898567795753,
+          "population_standard_deviation": 23.19560543080382
+        },
+        "collision_distance_m": {
+          "count": 118,
+          "minimum": 0.26447668515613665,
+          "p05": 0.5372075046042352,
+          "p25": 0.6336042942060218,
+          "median": 0.7050411575273623,
+          "mean": 1.0346879084446852,
+          "p75": 0.8031680688434946,
+          "p95": 3.835386395931059,
+          "maximum": 4.871243629402819,
+          "population_standard_deviation": 0.9706079080328093
+        },
+        "collision_time_s": {
+          "count": 118,
+          "minimum": 0.0018286431195021272,
+          "p05": 0.004099410794768807,
+          "p25": 0.004946371093958184,
+          "median": 0.00631915321078531,
+          "mean": 0.008957063924594588,
+          "p75": 0.008042871381579657,
+          "p95": 0.02973387681166941,
+          "maximum": 0.051389403210494976,
+          "population_standard_deviation": 0.00831712003991755
+        },
+        "incidence_angle_from_normal_deg": {
+          "count": 118,
+          "minimum": 5.252517956316972,
+          "p05": 20.90741546156021,
+          "p25": 30.63739840385418,
+          "median": 39.33816659321822,
+          "mean": 41.69456394047565,
+          "p75": 46.13890960746016,
+          "p95": 73.2531179554861,
+          "maximum": 79.2254135941351,
+          "population_standard_deviation": 15.685681412416999
+        },
+        "forward_normal_cosine_minimum": 0.18694560178087877
+      },
+      "neg_y::small_front": {
+        "case_count": 238,
+        "split_counts": {
+          "validation": 29,
+          "test": 25,
+          "train": 184
+        },
+        "speed_mps": {
+          "count": 238,
+          "minimum": 80.42796015739441,
+          "p05": 84.88928719609976,
+          "p25": 99.66753216460347,
+          "median": 116.34990811347961,
+          "mean": 118.58863742380332,
+          "p75": 137.37132295966148,
+          "p95": 155.14353326708076,
+          "maximum": 159.6803054213524,
+          "population_standard_deviation": 22.123887319756317
+        },
+        "collision_distance_m": {
+          "count": 238,
+          "minimum": 0.2836843236645868,
+          "p05": 0.9375310104730943,
+          "p25": 2.4288953313984947,
+          "median": 3.3855873365472138,
+          "mean": 3.083552434945529,
+          "p75": 3.8582028957987626,
+          "p95": 4.263897713192722,
+          "maximum": 6.621366427103205,
+          "population_standard_deviation": 1.0421887159102412
+        },
+        "collision_time_s": {
+          "count": 238,
+          "minimum": 0.002106950072127668,
+          "p05": 0.007498652075947718,
+          "p25": 0.0200788625385001,
+          "median": 0.02700668162885706,
+          "mean": 0.027084010100381552,
+          "p75": 0.034813761360911355,
+          "p95": 0.04461453522072541,
+          "maximum": 0.0711368079806242,
+          "population_standard_deviation": 0.010943345757647722
+        },
+        "incidence_angle_from_normal_deg": {
+          "count": 238,
+          "minimum": 42.56030062453262,
+          "p05": 46.18702407648315,
+          "p25": 53.55222479384378,
+          "median": 61.594548508432865,
+          "mean": 60.80917127712511,
+          "p75": 68.14473581345268,
+          "p95": 74.57582260768893,
+          "maximum": 79.84990824295512,
+          "population_standard_deviation": 9.008559264049875
+        },
+        "forward_normal_cosine_minimum": 0.1762273767066515
+      },
+      "top_cap::small_front": {
+        "case_count": 232,
+        "split_counts": {
+          "validation": 27,
+          "test": 25,
+          "train": 180
+        },
+        "speed_mps": {
+          "count": 232,
+          "minimum": 80.17534233629704,
+          "p05": 83.99797709286213,
+          "p25": 101.00406892597675,
+          "median": 121.76678966730833,
+          "mean": 120.49481328191429,
+          "p75": 140.01615401357412,
+          "p95": 154.72913859039545,
+          "maximum": 159.77593138813972,
+          "population_standard_deviation": 22.571829897483415
+        },
+        "collision_distance_m": {
+          "count": 232,
+          "minimum": 0.7534608578132429,
+          "p05": 1.4846812088613008,
+          "p25": 2.82798594549359,
+          "median": 3.513655804062308,
+          "mean": 3.2264428928458297,
+          "p75": 3.7796164582893073,
+          "p95": 4.12664713484628,
+          "maximum": 4.528127529412233,
+          "population_standard_deviation": 0.802494808083024
+        },
+        "collision_time_s": {
+          "count": 232,
+          "minimum": 0.0048799471906072625,
+          "p05": 0.012925181341470051,
+          "p25": 0.023023815898724046,
+          "median": 0.027744523591448904,
+          "mean": 0.027795838846745108,
+          "p75": 0.032984637828893354,
+          "p95": 0.04324984962996968,
+          "maximum": 0.051499311326384814,
+          "population_standard_deviation": 0.008900684814331197
+        },
+        "incidence_angle_from_normal_deg": {
+          "count": 232,
+          "minimum": 1.5443976149374812,
+          "p05": 9.188121663269552,
+          "p25": 20.56367817000003,
+          "median": 28.95537284403136,
+          "mean": 29.954774119431036,
+          "p75": 37.84002492677729,
+          "p95": 58.79112328388982,
+          "maximum": 79.54624742055275,
+          "population_standard_deviation": 14.365055978561557
+        },
+        "forward_normal_cosine_minimum": 0.18144181258604078
+      },
+      "pos_x::medium_front": {
+        "case_count": 228,
+        "split_counts": {
+          "validation": 26,
+          "test": 26,
+          "train": 176
+        },
+        "speed_mps": {
+          "count": 228,
+          "minimum": 80.57727999985218,
+          "p05": 84.72938546910882,
+          "p25": 101.13082496449351,
+          "median": 120.834616497159,
+          "mean": 120.71663686417435,
+          "p75": 140.87561011314392,
+          "p95": 156.31262074783444,
+          "maximum": 159.99522551894188,
+          "population_standard_deviation": 23.354012869087555
+        },
+        "collision_distance_m": {
+          "count": 228,
+          "minimum": 0.6476852325830162,
+          "p05": 1.7184036924391766,
+          "p25": 2.541114748481967,
+          "median": 2.910663897218322,
+          "mean": 2.921630292072871,
+          "p75": 3.467269815314006,
+          "p95": 3.9291266384716232,
+          "maximum": 4.396141317509141,
+          "population_standard_deviation": 0.6676625968230935
+        },
+        "collision_time_s": {
+          "count": 228,
+          "minimum": 0.007125608387931331,
+          "p05": 0.013084172131855457,
+          "p25": 0.02027003724920655,
+          "median": 0.02457496621617049,
+          "mean": 0.025102308389221718,
+          "p75": 0.029998602636075417,
+          "p95": 0.03791057819662506,
+          "maximum": 0.05090042241149599,
+          "population_standard_deviation": 0.007491844881226231
+        },
+        "incidence_angle_from_normal_deg": {
+          "count": 228,
+          "minimum": 0.8983694037041062,
+          "p05": 11.618332849998039,
+          "p25": 27.20488545375255,
+          "median": 51.46965216086008,
+          "mean": 45.28673650554925,
+          "p75": 61.239928581872825,
+          "p95": 70.163986656182,
+          "maximum": 78.55381780610357,
+          "population_standard_deviation": 19.88256006753149
+        },
+        "forward_normal_cosine_minimum": 0.19844740537366368
+      },
+      "neg_x::medium_front": {
+        "case_count": 47,
+        "split_counts": {
+          "validation": 3,
+          "test": 7,
+          "train": 37
+        },
+        "speed_mps": {
+          "count": 47,
+          "minimum": 81.40300147235394,
+          "p05": 88.34790480136871,
+          "p25": 100.13625476509333,
+          "median": 121.38360880315304,
+          "mean": 119.81901079416275,
+          "p75": 137.22619514912367,
+          "p95": 156.4585896655917,
+          "maximum": 158.79300385713577,
+          "population_standard_deviation": 22.492225125247312
+        },
+        "collision_distance_m": {
+          "count": 47,
+          "minimum": 1.8192660331756776,
+          "p05": 2.1637815943558523,
+          "p25": 2.660877399234277,
+          "median": 2.907436759674138,
+          "mean": 3.200195911879943,
+          "p75": 3.4036432791916953,
+          "p95": 5.06265213853985,
+          "maximum": 5.712456193038838,
+          "population_standard_deviation": 0.8888951693912284
+        },
+        "collision_time_s": {
+          "count": 47,
+          "minimum": 0.014865006852870922,
+          "p05": 0.01789651620348414,
+          "p25": 0.021169789649869177,
+          "median": 0.024766142394976817,
+          "mean": 0.027515823901516658,
+          "p75": 0.031298765373304366,
+          "p95": 0.047742624832715984,
+          "maximum": 0.052420620510936156,
+          "population_standard_deviation": 0.008875791759661297
+        },
+        "incidence_angle_from_normal_deg": {
+          "count": 47,
+          "minimum": 2.158168288750086,
+          "p05": 7.601962650911763,
+          "p25": 18.352572856979357,
+          "median": 24.94908508569795,
+          "mean": 35.52682604546177,
+          "p75": 64.09370939957097,
+          "p95": 82.1076731753452,
+          "maximum": 86.99062987807089,
+          "population_standard_deviation": 26.04411300451357
+        },
+        "forward_normal_cosine_minimum": 0.05249927089615321
+      },
+      "pos_y::medium_front": {
+        "case_count": 127,
+        "split_counts": {
+          "validation": 18,
+          "test": 13,
+          "train": 96
+        },
+        "speed_mps": {
+          "count": 127,
+          "minimum": 81.63047209382057,
+          "p05": 84.81224404275417,
+          "p25": 99.51477233320475,
+          "median": 117.74469926953316,
+          "mean": 119.93961685696455,
+          "p75": 140.93067098408937,
+          "p95": 155.7156833857298,
+          "maximum": 159.46149863302708,
+          "population_standard_deviation": 22.879538079982225
+        },
+        "collision_distance_m": {
+          "count": 127,
+          "minimum": 0.2536717932114853,
+          "p05": 0.3703215260960157,
+          "p25": 0.5937046013108267,
+          "median": 0.6932164575176013,
+          "mean": 1.2191887602979175,
+          "p75": 0.8892410411449898,
+          "p95": 4.536642542457827,
+          "maximum": 5.818709499187055,
+          "population_standard_deviation": 1.2440189188362127
+        },
+        "collision_time_s": {
+          "count": 127,
+          "minimum": 0.001979799124248139,
+          "p05": 0.003039241830665771,
+          "p25": 0.004789530552883522,
+          "median": 0.005897293057750452,
+          "mean": 0.010661096540037584,
+          "p75": 0.008656388451576768,
+          "p95": 0.037094203269848865,
+          "maximum": 0.055281941868354084,
+          "population_standard_deviation": 0.011429486482885274
+        },
+        "incidence_angle_from_normal_deg": {
+          "count": 127,
+          "minimum": 9.00495566626175,
+          "p05": 16.035119422071514,
+          "p25": 31.96595306040412,
+          "median": 40.18632481628206,
+          "mean": 43.4871982254691,
+          "p75": 54.644705431414366,
+          "p95": 73.36475330352255,
+          "maximum": 83.31947304101077,
+          "population_standard_deviation": 17.727845806850272
+        },
+        "forward_normal_cosine_minimum": 0.11633318276879105
+      },
+      "neg_y::medium_front": {
+        "case_count": 234,
+        "split_counts": {
+          "validation": 27,
+          "test": 27,
+          "train": 180
+        },
+        "speed_mps": {
+          "count": 234,
+          "minimum": 80.2222353219986,
+          "p05": 83.35454458370805,
+          "p25": 102.26539190858603,
+          "median": 123.49483657628298,
+          "mean": 120.89695831076202,
+          "p75": 138.8276346027851,
+          "p95": 155.11169090494514,
+          "maximum": 159.8223190754652,
+          "population_standard_deviation": 22.43383939573168
+        },
+        "collision_distance_m": {
+          "count": 234,
+          "minimum": 0.368690838123098,
+          "p05": 0.8123636588397779,
+          "p25": 2.253111050193009,
+          "median": 3.2289864513371356,
+          "mean": 2.94473838630132,
+          "p75": 3.822814532085304,
+          "p95": 4.333572754893238,
+          "maximum": 5.192221379516282,
+          "population_standard_deviation": 1.1214111824848458
+        },
+        "collision_time_s": {
+          "count": 234,
+          "minimum": 0.0025824915232380992,
+          "p05": 0.0067412353784681,
+          "p25": 0.017784382372004238,
+          "median": 0.02660275729339425,
+          "mean": 0.025236653828950913,
+          "p75": 0.03261688153340916,
+          "p95": 0.04134444463526868,
+          "maximum": 0.05428663172123121,
+          "population_standard_deviation": 0.010846720992121625
+        },
+        "incidence_angle_from_normal_deg": {
+          "count": 234,
+          "minimum": 41.80702103588181,
+          "p05": 46.71482646522177,
+          "p25": 52.47608471179275,
+          "median": 61.43528564163784,
+          "mean": 60.750547940514565,
+          "p75": 67.13184770253136,
+          "p95": 76.40927070047219,
+          "maximum": 81.3144704937628,
+          "population_standard_deviation": 9.16997774435465
+        },
+        "forward_normal_cosine_minimum": 0.1510111636233856
+      },
+      "top_cap::medium_front": {
+        "case_count": 236,
+        "split_counts": {
+          "validation": 24,
+          "test": 30,
+          "train": 182
+        },
+        "speed_mps": {
+          "count": 236,
+          "minimum": 80.13689510524273,
+          "p05": 84.28073043003678,
+          "p25": 96.80292580276728,
+          "median": 118.0247562751174,
+          "mean": 119.02250494586967,
+          "p75": 139.83679542317986,
+          "p95": 154.74229384213686,
+          "maximum": 159.88086067140102,
+          "population_standard_deviation": 23.47648385372229
+        },
+        "collision_distance_m": {
+          "count": 236,
+          "minimum": 0.7186962026401434,
+          "p05": 1.591753748365526,
+          "p25": 2.8914162476769465,
+          "median": 3.4105922533812407,
+          "mean": 3.2265666739906638,
+          "p75": 3.7822801099716052,
+          "p95": 4.209460038765186,
+          "maximum": 4.531299136466234,
+          "population_standard_deviation": 0.7914943334678011
+        },
+        "collision_time_s": {
+          "count": 236,
+          "minimum": 0.005082205313362365,
+          "p05": 0.014296318345397572,
+          "p25": 0.022640859297989646,
+          "median": 0.02747067594027503,
+          "mean": 0.028085614781117704,
+          "p75": 0.03347477022052038,
+          "p95": 0.04293621670016774,
+          "maximum": 0.04988565351672959,
+          "population_standard_deviation": 0.008675452198577965
+        },
+        "incidence_angle_from_normal_deg": {
+          "count": 236,
+          "minimum": 0.5105667636059276,
+          "p05": 9.860391783528916,
+          "p25": 21.81135030299548,
+          "median": 29.91464804939679,
+          "mean": 30.941856077948838,
+          "p75": 38.77006140817535,
+          "p95": 58.80028495392309,
+          "maximum": 80.72973734551115,
+          "population_standard_deviation": 14.124079294577443
+        },
+        "forward_normal_cosine_minimum": 0.16109160684523682
+      },
+      "pos_x::large_front": {
+        "case_count": 222,
+        "split_counts": {
+          "validation": 24,
+          "test": 25,
+          "train": 173
+        },
+        "speed_mps": {
+          "count": 222,
+          "minimum": 80.15074834227562,
+          "p05": 84.53429897129536,
+          "p25": 99.21484453603625,
+          "median": 115.69290034472942,
+          "mean": 118.23533697171254,
+          "p75": 137.7990790642798,
+          "p95": 155.6916336081922,
+          "maximum": 159.62753765285015,
+          "population_standard_deviation": 23.27714792942944
+        },
+        "collision_distance_m": {
+          "count": 222,
+          "minimum": 0.9072973230363957,
+          "p05": 1.5495695787667767,
+          "p25": 2.446771063844156,
+          "median": 2.8717559181589793,
+          "mean": 2.882468990939996,
+          "p75": 3.4131549766603446,
+          "p95": 4.00652671180566,
+          "maximum": 4.303428394092563,
+          "population_standard_deviation": 0.7251097457223239
+        },
+        "collision_time_s": {
+          "count": 222,
+          "minimum": 0.006528852984593518,
+          "p05": 0.013153763818310363,
+          "p25": 0.019959967409713324,
+          "median": 0.02470045110386117,
+          "mean": 0.025303548599745904,
+          "p75": 0.02996041490795015,
+          "p95": 0.03917941974969865,
+          "maximum": 0.05111584730028177,
+          "population_standard_deviation": 0.008039645282087325
+        },
+        "incidence_angle_from_normal_deg": {
+          "count": 222,
+          "minimum": 0.6332993922078262,
+          "p05": 9.294197142486833,
+          "p25": 24.490979200099662,
+          "median": 49.08110367444186,
+          "mean": 43.34759234613198,
+          "p75": 60.570536412105156,
+          "p95": 70.97366779945386,
+          "maximum": 78.21447541157983,
+          "population_standard_deviation": 20.628762891398743
+        },
+        "forward_normal_cosine_minimum": 0.20424874074423008
+      },
+      "neg_x::large_front": {
+        "case_count": 54,
+        "split_counts": {
+          "validation": 7,
+          "test": 4,
+          "train": 43
+        },
+        "speed_mps": {
+          "count": 54,
+          "minimum": 80.70458397269249,
+          "p05": 83.38814650848508,
+          "p25": 101.22004831209779,
+          "median": 118.32171950489283,
+          "mean": 120.29384944036052,
+          "p75": 141.65852949023247,
+          "p95": 158.39259934797883,
+          "maximum": 159.4125059247017,
+          "population_standard_deviation": 24.071610944108738
+        },
+        "collision_distance_m": {
+          "count": 54,
+          "minimum": 1.7510344235145965,
+          "p05": 2.0683512139188305,
+          "p25": 2.4046021870257217,
+          "median": 2.7576437885779703,
+          "mean": 3.011038590869027,
+          "p75": 3.3227044421702536,
+          "p95": 4.687357024354497,
+          "maximum": 5.697962290584089,
+          "population_standard_deviation": 0.8920485201217639
+        },
+        "collision_time_s": {
+          "count": 54,
+          "minimum": 0.012425248583068718,
+          "p05": 0.015238049476821433,
+          "p25": 0.019977821664159606,
+          "median": 0.023892689806806616,
+          "mean": 0.0262175347853453,
+          "p75": 0.028165504158026808,
+          "p95": 0.046033497221738724,
+          "maximum": 0.06760536436229933,
+          "population_standard_deviation": 0.010321139457806222
+        },
+        "incidence_angle_from_normal_deg": {
+          "count": 54,
+          "minimum": 4.700993239505915,
+          "p05": 8.072726937817244,
+          "p25": 19.448417727706556,
+          "median": 28.12523869709873,
+          "mean": 38.97903122249535,
+          "p75": 73.24927066243275,
+          "p95": 81.86253903621203,
+          "maximum": 87.6134498545771,
+          "population_standard_deviation": 27.181059992752996
+        },
+        "forward_normal_cosine_minimum": 0.04164111424188021
+      },
+      "pos_y::large_front": {
+        "case_count": 119,
+        "split_counts": {
+          "validation": 9,
+          "test": 16,
+          "train": 94
+        },
+        "speed_mps": {
+          "count": 119,
+          "minimum": 80.09766295552254,
+          "p05": 84.05694738030434,
+          "p25": 99.79904867708683,
+          "median": 116.10538996756077,
+          "mean": 118.42108011433557,
+          "p75": 135.6749065220356,
+          "p95": 155.19541934132576,
+          "maximum": 159.28542718291283,
+          "population_standard_deviation": 22.797874851594365
+        },
+        "collision_distance_m": {
+          "count": 119,
+          "minimum": 0.2855631111537582,
+          "p05": 0.3500910008252261,
+          "p25": 0.5728929481521996,
+          "median": 0.6721447997901769,
+          "mean": 0.9430862278544416,
+          "p75": 0.7663541619821304,
+          "p95": 3.5097029108688407,
+          "maximum": 5.578671025856148,
+          "population_standard_deviation": 0.9384470122126928
+        },
+        "collision_time_s": {
+          "count": 119,
+          "minimum": 0.002212576255088638,
+          "p05": 0.0030118936750517895,
+          "p25": 0.004447785141660826,
+          "median": 0.005818394055032595,
+          "mean": 0.00825399590819947,
+          "p75": 0.007536772062523312,
+          "p95": 0.028340561370133063,
+          "maximum": 0.05170021755726671,
+          "population_standard_deviation": 0.008601103092189357
+        },
+        "incidence_angle_from_normal_deg": {
+          "count": 119,
+          "minimum": 7.05069911177182,
+          "p05": 19.82118415395056,
+          "p25": 32.17612861390576,
+          "median": 40.37433147158573,
+          "mean": 41.0386890019944,
+          "p75": 45.627561367117934,
+          "p95": 72.06363341323845,
+          "maximum": 82.5901523838029,
+          "population_standard_deviation": 15.387345976987062
+        },
+        "forward_normal_cosine_minimum": 0.12896603649547264
+      },
+      "neg_y::large_front": {
+        "case_count": 230,
+        "split_counts": {
+          "validation": 25,
+          "test": 30,
+          "train": 175
+        },
+        "speed_mps": {
+          "count": 230,
+          "minimum": 80.29104061424732,
+          "p05": 84.77528991550207,
+          "p25": 98.26184408739209,
+          "median": 119.4091022759676,
+          "mean": 119.60936063042153,
+          "p75": 139.770800601691,
+          "p95": 155.74603812396526,
+          "maximum": 159.21426884829998,
+          "population_standard_deviation": 23.233022664352962
+        },
+        "collision_distance_m": {
+          "count": 230,
+          "minimum": 0.526923880602384,
+          "p05": 0.8986037010176948,
+          "p25": 2.2926027580674786,
+          "median": 3.2889441558610644,
+          "mean": 2.9595536472178487,
+          "p75": 3.7317872930910347,
+          "p95": 4.238575724661678,
+          "maximum": 4.75521889558638,
+          "population_standard_deviation": 1.0447910606294122
+        },
+        "collision_time_s": {
+          "count": 230,
+          "minimum": 0.00445190214505102,
+          "p05": 0.0078063936817577015,
+          "p25": 0.01874254619578885,
+          "median": 0.026511691725912414,
+          "mean": 0.025682511984590824,
+          "p75": 0.033692453829476,
+          "p95": 0.0427655634819813,
+          "maximum": 0.05215900430028453,
+          "population_standard_deviation": 0.010511243531348788
+        },
+        "incidence_angle_from_normal_deg": {
+          "count": 230,
+          "minimum": 42.87231618247623,
+          "p05": 47.301759501105515,
+          "p25": 56.183664495773634,
+          "median": 61.51505075615927,
+          "mean": 61.39235625896949,
+          "p75": 67.6082019967665,
+          "p95": 74.25705675035269,
+          "maximum": 79.60151763410016,
+          "population_standard_deviation": 8.227777194547599
+        },
+        "forward_normal_cosine_minimum": 0.18049309262949662
+      },
+      "top_cap::large_front": {
+        "case_count": 246,
+        "split_counts": {
+          "validation": 35,
+          "test": 27,
+          "train": 184
+        },
+        "speed_mps": {
+          "count": 246,
+          "minimum": 80.43849982321262,
+          "p05": 83.9995039254427,
+          "p25": 99.86813444644213,
+          "median": 120.8172832801938,
+          "mean": 120.18415987733903,
+          "p75": 140.2945196814835,
+          "p95": 157.30894342064857,
+          "maximum": 159.82653334736824,
+          "population_standard_deviation": 23.315167713665865
+        },
+        "collision_distance_m": {
+          "count": 246,
+          "minimum": 0.4102770891143256,
+          "p05": 1.204302265955719,
+          "p25": 2.791498114807146,
+          "median": 3.452356864568581,
+          "mean": 3.202417977442232,
+          "p75": 3.8263125611368505,
+          "p95": 4.173373179429163,
+          "maximum": 4.587733913174496,
+          "population_standard_deviation": 0.8685952121166635
+        },
+        "collision_time_s": {
+          "count": 246,
+          "minimum": 0.0026295498411621496,
+          "p05": 0.009903562765366154,
+          "p25": 0.023243434895795983,
+          "median": 0.02747070054836559,
+          "mean": 0.027601518353898624,
+          "p75": 0.03355033193620935,
+          "p95": 0.0420807781911787,
+          "maximum": 0.04639168305211347,
+          "population_standard_deviation": 0.009025905798012122
+        },
+        "incidence_angle_from_normal_deg": {
+          "count": 246,
+          "minimum": 2.061801615317117,
+          "p05": 8.274723248706358,
+          "p25": 21.40667103130358,
+          "median": 30.78129946694426,
+          "mean": 31.324065088766968,
+          "p75": 39.09175712665657,
+          "p95": 63.63611371336002,
+          "maximum": 76.81464899623238,
+          "population_standard_deviation": 15.09905788100746
+        },
+        "forward_normal_cosine_minimum": 0.22810194460037234
+      }
+    }
+  },
+  "deterministic_contract_checks": {
+    "contact_status_counts": {
+      "admitted_s_contact": 2600
+    },
+    "eligibility_status_counts": {
+      "eligible_contact_conditioned": 2600
+    },
+    "eligibility_check_true_counts": {
+      "origin_outside_armor": 2600,
+      "velocity_finite_nonzero": 2600,
+      "body_axis_velocity_aligned": 2600,
+      "positive_forward_armor_intersection": 2600,
+      "persisted_first_contact_recomputed_match": 2600,
+      "selection_pre_outcome": 2600,
+      "selection_outcome_blind": 2600
+    },
+    "eligibility_check_false_or_missing_counts": {},
+    "velocity_magnitude_minus_declared_speed_max_abs_mps": 2.842170943040401e-14,
+    "velocity_unit_direction_minus_declared_direction_max_l2": 3.152427400121712e-16,
+    "declared_direction_unit_norm_max_abs_error": 2.220446049250313e-16,
+    "collision_normal_unit_norm_max_abs_error": 0.0,
+    "origin_to_contact_distance_minus_persisted_distance_max_abs_m": 7.600586826583822e-13,
+    "collision_time_minus_distance_over_speed_max_abs_s": 0.0,
+    "detonation_point_minus_first_contact_point_max_l2_m": 0.0,
+    "detonation_time_minus_first_contact_time_max_abs_s": 0.0,
+    "nonpositive_forward_normal_cosine_count": 0,
+    "speed_quantile_mapping_max_abs_error_mps": 0.0
+  },
+  "interpretation": {
+    "speed_gap_semantics": "distance to the declared pre-contact Uniform(80,160) design after S-CONTACT selection; no iid p-value",
+    "contact_geometry_semantics": "empirical push-forward of the declared design through target geometry and the first-contact admission rule; no external physical target given",
+    "operational_prevalence_claim": false,
+    "physical_validation_claim": false
+  },
+  "report_hash": "sha256:b96fb05d15b3df8e7c81021e4fcf2066235e44bca9bf3db18c4ea7344c2ad684"
+}

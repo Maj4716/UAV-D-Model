@@ -1,0 +1,66 @@
+{"timestamp": "2026-11-20T12:02:21.012830+00:00", "event": "experiment_start", "experiment": "E3", "dry_run": false}
+{"timestamp": "2026-11-20T12:02:31.525026+00:00", "event": "case_complete", "variant_id": "e3-a10-t1-fhollow-w1", "case_index": 0, "base_case_id": "formal-5544cf1085110aa49213fa46", "status": "ok"}
+{"timestamp": "2026-11-20T12:02:40.715052+00:00", "event": "case_complete", "variant_id": "e3-a10-t1-fhollow-w1", "case_index": 1, "base_case_id": "formal-726bf27acbefd905f72ebc9d", "status": "ok"}
+{"timestamp": "2026-11-20T12:02:43.990837+00:00", "event": "case_complete", "variant_id": "e3-a10-t1-fhollow-w1", "case_index": 2, "base_case_id": "formal-b991cc69ebf8cbadd3443ffb", "status": "ok"}
+{"timestamp": "2026-11-20T12:02:44.009404+00:00", "event": "variant_complete", "variant_id": "e3-a10-t1-fhollow-w1", "case_count": 3, "elapsed_seconds": 22.087725400000636}
+{"timestamp": "2026-11-20T12:02:56.338951+00:00", "event": "case_complete", "variant_id": "e3-a10-t1-fhollow-w1p3", "case_index": 0, "base_case_id": "formal-5544cf1085110aa49213fa46", "status": "ok"}
+{"timestamp": "2026-11-20T12:03:10.927979+00:00", "event": "case_complete", "variant_id": "e3-a10-t1-fhollow-w1p3", "case_index": 1, "base_case_id": "formal-726bf27acbefd905f72ebc9d", "status": "ok"}
+{"timestamp": "2026-11-20T12:03:15.614643+00:00", "event": "case_complete", "variant_id": "e3-a10-t1-fhollow-w1p3", "case_index": 2, "base_case_id": "formal-b991cc69ebf8cbadd3443ffb", "status": "ok"}
+{"timestamp": "2026-11-20T12:03:15.647325+00:00", "event": "variant_complete", "variant_id": "e3-a10-t1-fhollow-w1p3", "case_count": 3, "elapsed_seconds": 30.6586884999997}
+{"timestamp": "2026-11-20T12:03:26.484840+00:00", "event": "case_complete", "variant_id": "e3-a10-t1-fsolid-w1", "case_index": 0, "base_case_id": "formal-5544cf1085110aa49213fa46", "status": "ok"}
+{"timestamp": "2026-11-20T12:03:38.454688+00:00", "event": "case_complete", "variant_id": "e3-a10-t1-fsolid-w1", "case_index": 1, "base_case_id": "formal-726bf27acbefd905f72ebc9d", "status": "ok"}
+{"timestamp": "2026-11-20T12:03:42.132377+00:00", "event": "case_complete", "variant_id": "e3-a10-t1-fsolid-w1", "case_index": 2, "base_case_id": "formal-b991cc69ebf8cbadd3443ffb", "status": "ok"}
+{"timestamp": "2026-11-20T12:03:42.152944+00:00", "event": "variant_complete", "variant_id": "e3-a10-t1-fsolid-w1", "case_count": 3, "elapsed_seconds": 25.416357600000083}
+{"timestamp": "2026-11-20T12:03:51.438449+00:00", "event": "case_complete", "variant_id": "e3-a10-t1-fsolid-w1p3", "case_index": 0, "base_case_id": "formal-5544cf1085110aa49213fa46", "status": "ok"}
+{"timestamp": "2026-11-20T12:03:54.436822+00:00", "event": "case_complete", "variant_id": "e3-a10-t1-fsolid-w1p3", "case_index": 1, "base_case_id": "formal-726bf27acbefd905f72ebc9d", "status": "ok"}
+{"timestamp": "2026-11-20T12:03:55.715276+00:00", "event": "case_complete", "variant_id": "e3-a10-t1-fsolid-w1p3", "case_index": 2, "base_case_id": "formal-b991cc69ebf8cbadd3443ffb", "status": "ok"}
+{"timestamp": "2026-11-20T12:03:55.755493+00:00", "event": "variant_complete", "variant_id": "e3-a10-t1-fsolid-w1p3", "case_count": 3, "elapsed_seconds": 12.690363799999432}
+{"timestamp": "2026-11-20T12:04:04.285661+00:00", "event": "case_complete", "variant_id": "e3-a10-t0p1-fhollow-w1", "case_index": 0, "base_case_id": "formal-5544cf1085110aa49213fa46", "status": "ok"}
+{"timestamp": "2026-11-20T12:04:12.577762+00:00", "event": "case_complete", "variant_id": "e3-a10-t0p1-fhollow-w1", "case_index": 1, "base_case_id": "formal-726bf27acbefd905f72ebc9d", "status": "ok"}
+{"timestamp": "2026-11-20T12:04:15.568065+00:00", "event": "case_complete", "variant_id": "e3-a10-t0p1-fhollow-w1", "case_index": 2, "base_case_id": "formal-b991cc69ebf8cbadd3443ffb", "status": "ok"}
+{"timestamp": "2026-11-20T12:04:15.588844+00:00", "event": "variant_complete", "variant_id": "e3-a10-t0p1-fhollow-w1", "case_count": 3, "elapsed_seconds": 19.055941199999324}
+{"timestamp": "2026-11-20T12:04:25.840764+00:00", "event": "case_complete", "variant_id": "e3-a10-t0p1-fhollow-w1p3", "case_index": 0, "base_case_id": "formal-5544cf1085110aa49213fa46", "status": "ok"}
+{"timestamp": "2026-11-20T12:04:36.396303+00:00", "event": "case_complete", "variant_id": "e3-a10-t0p1-fhollow-w1p3", "case_index": 1, "base_case_id": "formal-726bf27acbefd905f72ebc9d", "status": "ok"}
+{"timestamp": "2026-11-20T12:04:39.760413+00:00", "event": "case_complete", "variant_id": "e3-a10-t0p1-fhollow-w1p3", "case_index": 2, "base_case_id": "formal-b991cc69ebf8cbadd3443ffb", "status": "ok"}
+{"timestamp": "2026-11-20T12:04:39.783594+00:00", "event": "variant_complete", "variant_id": "e3-a10-t0p1-fhollow-w1p3", "case_count": 3, "elapsed_seconds": 23.380699399999685}
+{"timestamp": "2026-11-20T12:04:48.381673+00:00", "event": "case_complete", "variant_id": "e3-a10-t0p1-fsolid-w1", "case_index": 0, "base_case_id": "formal-5544cf1085110aa49213fa46", "status": "ok"}
+{"timestamp": "2026-11-20T12:04:58.849644+00:00", "event": "case_complete", "variant_id": "e3-a10-t0p1-fsolid-w1", "case_index": 1, "base_case_id": "formal-726bf27acbefd905f72ebc9d", "status": "ok"}
+{"timestamp": "2026-11-20T12:05:02.101854+00:00", "event": "case_complete", "variant_id": "e3-a10-t0p1-fsolid-w1", "case_index": 2, "base_case_id": "formal-b991cc69ebf8cbadd3443ffb", "status": "ok"}
+{"timestamp": "2026-11-20T12:05:02.125986+00:00", "event": "variant_complete", "variant_id": "e3-a10-t0p1-fsolid-w1", "case_count": 3, "elapsed_seconds": 21.51748580000003}
+{"timestamp": "2026-11-20T12:05:13.127876+00:00", "event": "case_complete", "variant_id": "e3-a10-t0p1-fsolid-w1p3", "case_index": 0, "base_case_id": "formal-5544cf1085110aa49213fa46", "status": "ok"}
+{"timestamp": "2026-11-20T12:05:26.977175+00:00", "event": "case_complete", "variant_id": "e3-a10-t0p1-fsolid-w1p3", "case_index": 1, "base_case_id": "formal-726bf27acbefd905f72ebc9d", "status": "ok"}
+{"timestamp": "2026-11-20T12:05:31.028449+00:00", "event": "case_complete", "variant_id": "e3-a10-t0p1-fsolid-w1p3", "case_index": 2, "base_case_id": "formal-b991cc69ebf8cbadd3443ffb", "status": "ok"}
+{"timestamp": "2026-11-20T12:05:31.046597+00:00", "event": "variant_complete", "variant_id": "e3-a10-t0p1-fsolid-w1p3", "case_count": 3, "elapsed_seconds": 28.009261199999855}
+{"timestamp": "2026-11-20T12:05:45.846648+00:00", "event": "case_complete", "variant_id": "e3-a1-t1-fhollow-w1", "case_index": 0, "base_case_id": "formal-5544cf1085110aa49213fa46", "status": "ok"}
+{"timestamp": "2026-11-20T12:06:04.840345+00:00", "event": "case_complete", "variant_id": "e3-a1-t1-fhollow-w1", "case_index": 1, "base_case_id": "formal-726bf27acbefd905f72ebc9d", "status": "ok"}
+{"timestamp": "2026-11-20T12:06:09.731452+00:00", "event": "case_complete", "variant_id": "e3-a1-t1-fhollow-w1", "case_index": 2, "base_case_id": "formal-b991cc69ebf8cbadd3443ffb", "status": "ok"}
+{"timestamp": "2026-11-20T12:06:09.757107+00:00", "event": "variant_complete", "variant_id": "e3-a1-t1-fhollow-w1", "case_count": 3, "elapsed_seconds": 37.67085589999988}
+{"timestamp": "2026-11-20T12:06:24.748114+00:00", "event": "case_complete", "variant_id": "e3-a1-t1-fhollow-w1p3", "case_index": 0, "base_case_id": "formal-5544cf1085110aa49213fa46", "status": "ok"}
+{"timestamp": "2026-11-20T12:06:43.420812+00:00", "event": "case_complete", "variant_id": "e3-a1-t1-fhollow-w1p3", "case_index": 1, "base_case_id": "formal-726bf27acbefd905f72ebc9d", "status": "ok"}
+{"timestamp": "2026-11-20T12:06:47.848924+00:00", "event": "case_complete", "variant_id": "e3-a1-t1-fhollow-w1p3", "case_index": 2, "base_case_id": "formal-b991cc69ebf8cbadd3443ffb", "status": "ok"}
+{"timestamp": "2026-11-20T12:06:47.882092+00:00", "event": "variant_complete", "variant_id": "e3-a1-t1-fhollow-w1p3", "case_count": 3, "elapsed_seconds": 37.040868999999475}
+{"timestamp": "2026-11-20T12:06:59.761372+00:00", "event": "case_complete", "variant_id": "e3-a1-t1-fsolid-w1", "case_index": 0, "base_case_id": "formal-5544cf1085110aa49213fa46", "status": "ok"}
+{"timestamp": "2026-11-20T12:07:13.299199+00:00", "event": "case_complete", "variant_id": "e3-a1-t1-fsolid-w1", "case_index": 1, "base_case_id": "formal-726bf27acbefd905f72ebc9d", "status": "ok"}
+{"timestamp": "2026-11-20T12:07:17.128605+00:00", "event": "case_complete", "variant_id": "e3-a1-t1-fsolid-w1", "case_index": 2, "base_case_id": "formal-b991cc69ebf8cbadd3443ffb", "status": "ok"}
+{"timestamp": "2026-11-20T12:07:17.151762+00:00", "event": "variant_complete", "variant_id": "e3-a1-t1-fsolid-w1", "case_count": 3, "elapsed_seconds": 28.193301400000564}
+{"timestamp": "2026-11-20T12:07:27.630349+00:00", "event": "case_complete", "variant_id": "e3-a1-t1-fsolid-w1p3", "case_index": 0, "base_case_id": "formal-5544cf1085110aa49213fa46", "status": "ok"}
+{"timestamp": "2026-11-20T12:07:42.488721+00:00", "event": "case_complete", "variant_id": "e3-a1-t1-fsolid-w1p3", "case_index": 1, "base_case_id": "formal-726bf27acbefd905f72ebc9d", "status": "ok"}
+{"timestamp": "2026-11-20T12:07:46.329829+00:00", "event": "case_complete", "variant_id": "e3-a1-t1-fsolid-w1p3", "case_index": 2, "base_case_id": "formal-b991cc69ebf8cbadd3443ffb", "status": "ok"}
+{"timestamp": "2026-11-20T12:07:46.359104+00:00", "event": "variant_complete", "variant_id": "e3-a1-t1-fsolid-w1p3", "case_count": 3, "elapsed_seconds": 28.294278500000473}
+{"timestamp": "2026-11-20T12:07:59.820122+00:00", "event": "case_complete", "variant_id": "e3-a1-t0p1-fhollow-w1", "case_index": 0, "base_case_id": "formal-5544cf1085110aa49213fa46", "status": "ok"}
+{"timestamp": "2026-11-20T12:08:15.397481+00:00", "event": "case_complete", "variant_id": "e3-a1-t0p1-fhollow-w1", "case_index": 1, "base_case_id": "formal-726bf27acbefd905f72ebc9d", "status": "ok"}
+{"timestamp": "2026-11-20T12:08:19.589962+00:00", "event": "case_complete", "variant_id": "e3-a1-t0p1-fhollow-w1", "case_index": 2, "base_case_id": "formal-b991cc69ebf8cbadd3443ffb", "status": "ok"}
+{"timestamp": "2026-11-20T12:08:19.617383+00:00", "event": "variant_complete", "variant_id": "e3-a1-t0p1-fhollow-w1", "case_count": 3, "elapsed_seconds": 32.364427600000454}
+{"timestamp": "2026-11-20T12:08:33.244014+00:00", "event": "case_complete", "variant_id": "e3-a1-t0p1-fhollow-w1p3", "case_index": 0, "base_case_id": "formal-5544cf1085110aa49213fa46", "status": "ok"}
+{"timestamp": "2026-11-20T12:08:50.179081+00:00", "event": "case_complete", "variant_id": "e3-a1-t0p1-fhollow-w1p3", "case_index": 1, "base_case_id": "formal-726bf27acbefd905f72ebc9d", "status": "ok"}
+{"timestamp": "2026-11-20T12:08:54.411047+00:00", "event": "case_complete", "variant_id": "e3-a1-t0p1-fhollow-w1p3", "case_index": 2, "base_case_id": "formal-b991cc69ebf8cbadd3443ffb", "status": "ok"}
+{"timestamp": "2026-11-20T12:08:54.440035+00:00", "event": "variant_complete", "variant_id": "e3-a1-t0p1-fhollow-w1p3", "case_count": 3, "elapsed_seconds": 33.87119540000003}
+{"timestamp": "2026-11-20T12:09:05.110461+00:00", "event": "case_complete", "variant_id": "e3-a1-t0p1-fsolid-w1", "case_index": 0, "base_case_id": "formal-5544cf1085110aa49213fa46", "status": "ok"}
+{"timestamp": "2026-11-20T12:09:21.082873+00:00", "event": "case_complete", "variant_id": "e3-a1-t0p1-fsolid-w1", "case_index": 1, "base_case_id": "formal-726bf27acbefd905f72ebc9d", "status": "ok"}
+{"timestamp": "2026-11-20T12:09:25.101884+00:00", "event": "case_complete", "variant_id": "e3-a1-t0p1-fsolid-w1", "case_index": 2, "base_case_id": "formal-b991cc69ebf8cbadd3443ffb", "status": "ok"}
+{"timestamp": "2026-11-20T12:09:25.122213+00:00", "event": "variant_complete", "variant_id": "e3-a1-t0p1-fsolid-w1", "case_count": 3, "elapsed_seconds": 29.741701300000386}
+{"timestamp": "2026-11-20T12:09:36.304321+00:00", "event": "case_complete", "variant_id": "e3-a1-t0p1-fsolid-w1p3", "case_index": 0, "base_case_id": "formal-5544cf1085110aa49213fa46", "status": "ok"}
+{"timestamp": "2026-11-20T12:09:51.756508+00:00", "event": "case_complete", "variant_id": "e3-a1-t0p1-fsolid-w1p3", "case_index": 1, "base_case_id": "formal-726bf27acbefd905f72ebc9d", "status": "ok"}
+{"timestamp": "2026-11-20T12:09:55.686612+00:00", "event": "case_complete", "variant_id": "e3-a1-t0p1-fsolid-w1p3", "case_index": 2, "base_case_id": "formal-b991cc69ebf8cbadd3443ffb", "status": "ok"}
+{"timestamp": "2026-11-20T12:09:55.713759+00:00", "event": "variant_complete", "variant_id": "e3-a1-t0p1-fsolid-w1p3", "case_count": 3, "elapsed_seconds": 29.63228009999966}
+{"timestamp": "2026-11-20T12:09:57.772808+00:00", "event": "experiment_complete", "experiment": "E3"}

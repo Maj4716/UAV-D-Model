@@ -11,7 +11,11 @@ from .content_contract import validate_json_schema
 from .damage_tree import compile_damage_tree
 from .damage_response import effective_fragment_damage_thresholds
 from .errors import InputValidationError, UnverifiedModelError
-from .fragments import load_fragment_list, validate_fragment_mass_budget
+from .fragments import (
+    build_taylor_shapiro_ring_layout,
+    load_fragment_list,
+    validate_fragment_mass_budget,
+)
 from .geometry import CompiledTarget, compile_target
 from .impact import is_impact_case, validate_impact_detonation
 from .munition_profiles import validate_munition_profile
@@ -605,10 +609,23 @@ def validate_inputs(
             raise InputValidationError("Gurney fragment source requires gurney_constant_mps")
     if (
         fragment_list is None
-        and source_model["direction"]["kind"] == "taylor_ring"
+        and source_model["direction"]["kind"]
+        in {"taylor_ring", "taylor_shapiro_ring"}
         and source.get("detonation_velocity_mps") is None
     ):
-        raise InputValidationError("taylor_ring fragment source requires detonation_velocity_mps")
+        raise InputValidationError(
+            f"{source_model['direction']['kind']} fragment source requires "
+            "detonation_velocity_mps"
+        )
+    if (
+        fragment_list is None
+        and source_model["direction"]["kind"] == "taylor_shapiro_ring"
+    ):
+        build_taylor_shapiro_ring_layout(
+            case,
+            source_model,
+            int(source["total_count"]),
+        )
 
     registry.blast_field(case["warhead"]["blast_source"]["model_id"])
 

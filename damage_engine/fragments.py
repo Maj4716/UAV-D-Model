@@ -57,6 +57,38 @@ class FragmentListData:
     provenance: dict[str, Any]
 
 
+TAYLOR_SHAPIRO_LEGACY_ANGLE_CONVENTION = (
+    "body_plus_x_polar_from_nose_local_normal_signed"
+)
+"""Legacy sign: deflects toward the initiation end (contrary to Taylor 1941).
+
+Kept only so registries that declare it reproduce archived datasets."""
+
+TAYLOR_SHAPIRO_WAVE_DIRECTED_ANGLE_CONVENTION = (
+    "body_plus_x_polar_deflection_toward_detonation_propagation"
+)
+"""Taylor-consistent sign: deflects toward the detonation-wave travel direction."""
+
+TAYLOR_SHAPIRO_ANGLE_CONVENTIONS = (
+    TAYLOR_SHAPIRO_LEGACY_ANGLE_CONVENTION,
+    TAYLOR_SHAPIRO_WAVE_DIRECTED_ANGLE_CONVENTION,
+)
+
+
+@dataclass(frozen=True)
+class FragmentRingLayout:
+    """One authoritative casing-ring layout shared by origins and directions."""
+
+    source_offsets_body_m: np.ndarray
+    local_normals_body: np.ndarray
+    wave_directions_body: np.ndarray
+    body_axis: np.ndarray
+    ring_indices: np.ndarray
+    azimuth_rad: np.ndarray
+    ring_sizes: tuple[int, ...]
+    angle_convention: str = TAYLOR_SHAPIRO_LEGACY_ANGLE_CONVENTION
+
+
 @dataclass
 class FragmentSimulation:
     component_state_probabilities: dict[str, dict[str, float]]
@@ -69,6 +101,9 @@ class FragmentSimulation:
     total_component_penetrations: int
     total_existing_hole_reuses: int
     total_out_of_domain_impacts: int
+    unresolved_component_hit_affected: dict[str, bool] = field(default_factory=dict)
+    unresolved_component_state_affected: dict[str, bool] = field(default_factory=dict)
+    out_of_domain_impacts_by_role: dict[str, int] = field(default_factory=dict)
     panel_damage_state: PanelDamageState | None = None
     audit: list[dict] = field(default_factory=list)
     fragment_list_provenance: dict[str, Any] | None = None
@@ -644,6 +679,381 @@ def _fragment_area(mass_kg: float, density: float, shape_factor: float) -> float
     return float(shape_factor * math.pi * equivalent_diameter**2 / 4.0)
 
 
+def _taylor_ratio_and_bound(
+    fragment_speed_mps: float,
+    detonation_velocity_mps: float,
+    phi1_rad: float,
+    phi2_rad: float,
+) -> tuple[float, float, float, float]:
+    values = (
+        float(fragment_speed_mps),
+        float(detonation_velocity_mps),
+        float(phi1_rad),
+        float(phi2_rad),
+    )
+    if not all(math.isfinite(value) for value in values):
+        raise InputValidationError("Taylor-Shapiro inputs must be finite")
+    speed, detonation_velocity, phi1, phi2 = values
+    if speed <= 0.0 or detonation_velocity <= 0.0:
+        raise InputValidationError(
+            "Taylor-Shapiro fragment and detonation velocities must be positive"
+        )
+    ratio = speed / (2.0 * detonation_velocity)
+    if ratio > 1.0 + 1.0e-12:
+        raise OutOfDomainError(
+            "Taylor-Shapiro velocity ratio is outside the Taylor domain",
+            context={
+                "fragment_speed_mps": speed,
+                "detonation_velocity_mps": detonation_velocity,
+                "velocity_ratio": ratio,
+                "required_maximum": 1.0,
+            },
+        )
+    ratio = min(1.0, ratio)
+    return ratio, math.asin(ratio), phi1, phi2
+
+
+def taylor_shapiro_angles(
+    fragment_speed_mps: float,
+    detonation_velocity_mps: float,
+    phi1_rad: float,
+    phi2_rad: float,
+) -> tuple[float, float]:
+    """Return the Taylor bound and the legacy signed Shapiro angle in radians.
+
+    ``phi1`` is the body-axis polar angle of the local casing normal and
+    ``phi2`` is the body-axis polar angle of the detonation-wave direction.
+    The legacy convention applies the returned angle from the local normal in
+    the direction of increasing polar angle.  With that application the
+    fragment leans toward the initiation end, which is the opposite of
+    Taylor (1941): fragments lean toward the direction the detonation wave
+    travels.  This function is kept bit-identical only so that registries
+    declaring ``TAYLOR_SHAPIRO_LEGACY_ANGLE_CONVENTION`` reproduce archived
+    datasets.  New registries use :func:`taylor_shapiro_deflection`.
+    """
+
+    ratio, taylor_bound, phi1, phi2 = _taylor_ratio_and_bound(
+        fragment_speed_mps, detonation_velocity_mps, phi1_rad, phi2_rad
+    )
+    shapiro = math.atan(ratio * math.cos(math.pi / 2.0 + phi2 - phi1))
+    shapiro = float(np.clip(shapiro, -taylor_bound, taylor_bound))
+    return taylor_bound, shapiro
+
+
+def taylor_shapiro_deflection(
+    fragment_speed_mps: float,
+    detonation_velocity_mps: float,
+    phi1_rad: float,
+    phi2_rad: float,
+) -> tuple[float, float]:
+    """Return the Taylor bound and the wave-directed Shapiro deflection.
+
+    The deflection is measured from the local casing normal toward
+    increasing body-axis polar angle.  In the meridional plane the unit
+    tangent toward increasing polar angle is ``(-sin phi1, cos phi1)`` and
+    the wave direction is ``(cos phi2, sin phi2)``, so the wave's tangential
+    component along the casing is ``sin(phi2 - phi1)``.  Taylor's steady-flow
+    construction turns the casing material toward that component, giving
+
+        tan(delta) = V / (2 D) * sin(phi2 - phi1),   |delta| <= asin(V / 2D).
+
+    For a nose initiator the wave travels aft, so fragments lean aft.
+    """
+
+    ratio, taylor_bound, phi1, phi2 = _taylor_ratio_and_bound(
+        fragment_speed_mps, detonation_velocity_mps, phi1_rad, phi2_rad
+    )
+    deflection = math.atan(ratio * math.sin(phi2 - phi1))
+    deflection = float(np.clip(deflection, -taylor_bound, taylor_bound))
+    return taylor_bound, deflection
+
+
+def build_taylor_shapiro_ring_layout(
+    case: dict,
+    source_model: dict,
+    count: int,
+) -> FragmentRingLayout:
+    """Build cylindrical inner-wall ring geometry relative to the initiator.
+
+    The v2 model intentionally supports one declared geometry: a front-axis
+    point initiator and an axisymmetric cylindrical inner casing wall.  New
+    geometries require a new model version rather than implicit fallbacks.
+    """
+
+    direction = source_model.get("direction", {})
+    if direction.get("kind") != "taylor_shapiro_ring":
+        raise InputValidationError(
+            "Taylor-Shapiro ring layout requires taylor_shapiro_ring direction"
+        )
+    munition = case.get("munition")
+    if not isinstance(munition, dict):
+        raise InputValidationError(
+            "taylor_shapiro_ring requires versioned munition geometry"
+        )
+    if direction.get("casing_surface") != "cylindrical_inner_wall":
+        raise InputValidationError(
+            "taylor_shapiro_ring supports only cylindrical_inner_wall geometry"
+        )
+    if direction.get("azimuth_layout") != "uniform_per_ring":
+        raise InputValidationError(
+            "taylor_shapiro_ring requires uniform_per_ring azimuth layout"
+        )
+    angle_convention = direction.get("angle_convention")
+    if angle_convention not in TAYLOR_SHAPIRO_ANGLE_CONVENTIONS:
+        raise InputValidationError(
+            "taylor_shapiro_ring angle convention is missing or unsupported",
+            context={
+                "angle_convention": angle_convention,
+                "supported": list(TAYLOR_SHAPIRO_ANGLE_CONVENTIONS),
+            },
+        )
+    if direction.get("dispersion_model") != "tangent_plane_gaussian":
+        raise InputValidationError(
+            "taylor_shapiro_ring requires tangent_plane_gaussian dispersion"
+        )
+    if direction.get("taylor_limit_policy") != "reject_ratio_gt_one":
+        raise InputValidationError(
+            "taylor_shapiro_ring requires reject_ratio_gt_one Taylor policy"
+        )
+
+    axis = normalize(
+        np.asarray(direction.get("axis_body"), dtype=np.float64),
+        name="Taylor-Shapiro body axis",
+    )
+    if not np.allclose(axis, np.array([1.0, 0.0, 0.0]), atol=1.0e-12, rtol=0.0):
+        raise InputValidationError(
+            "taylor_shapiro_ring v2 requires body +X as the nose polar axis"
+        )
+    initiation = np.asarray(
+        direction.get("initiation_point_body_m"), dtype=np.float64
+    )
+    if initiation.shape != (3,) or not np.isfinite(initiation).all():
+        raise InputValidationError(
+            "taylor_shapiro_ring initiation_point_body_m must be a finite 3-vector"
+        )
+    radial_initiation = initiation - float(np.dot(initiation, axis)) * axis
+    if float(np.linalg.norm(radial_initiation)) > 1.0e-12:
+        raise InputValidationError(
+            "taylor_shapiro_ring v2 requires an on-axis point initiator"
+        )
+
+    try:
+        ring_count = int(munition["fragment_ring_count"])
+        ring_sizes = tuple(int(value) for value in munition["fragments_per_ring"])
+        warhead_length = float(munition["warhead_length_m"])
+        outer_radius = float(munition["warhead_diameter_m"]) / 2.0
+        wall_thickness = float(munition["wall_thickness_m"])
+        coverage = float(munition["fragment_axial_coverage_ratio"])
+    except (KeyError, TypeError, ValueError) as exc:
+        raise InputValidationError(
+            "taylor_shapiro_ring munition geometry is incomplete"
+        ) from exc
+    if (
+        ring_count < 1
+        or len(ring_sizes) != ring_count
+        or any(size < 1 for size in ring_sizes)
+        or sum(ring_sizes) != int(count)
+    ):
+        raise InputValidationError(
+            "taylor_shapiro_ring fragment ring layout must match total_count",
+            context={
+                "ring_count": ring_count,
+                "ring_sizes": list(ring_sizes),
+                "fragment_count": int(count),
+            },
+        )
+    configured_ring_count = direction.get("ring_count")
+    if configured_ring_count is None or int(configured_ring_count) != ring_count:
+        raise InputValidationError(
+            "taylor_shapiro_ring source and munition ring_count must match",
+            context={
+                "source_ring_count": configured_ring_count,
+                "munition_ring_count": ring_count,
+            },
+        )
+    configured_coverage = direction.get("axial_coverage_ratio")
+    if (
+        configured_coverage is None
+        or not math.isclose(
+            float(configured_coverage), coverage, rel_tol=0.0, abs_tol=1.0e-12
+        )
+    ):
+        raise InputValidationError(
+            "taylor_shapiro_ring source and munition axial coverage must match",
+            context={
+                "source_axial_coverage_ratio": configured_coverage,
+                "munition_axial_coverage_ratio": coverage,
+            },
+        )
+    inner_radius = outer_radius - wall_thickness
+    axial_span = warhead_length * coverage
+    if (
+        not all(
+            math.isfinite(value)
+            for value in (
+                warhead_length,
+                outer_radius,
+                wall_thickness,
+                coverage,
+                inner_radius,
+                axial_span,
+            )
+        )
+        or warhead_length <= 0.0
+        or wall_thickness <= 0.0
+        or inner_radius <= 0.0
+        or not 0.0 < coverage <= 1.0
+        or axial_span <= 0.0
+    ):
+        raise InputValidationError(
+            "taylor_shapiro_ring cylindrical geometry must be finite and positive"
+        )
+
+    basis1 = np.array([0.0, 1.0, 0.0], dtype=np.float64)
+    basis2 = np.array([0.0, 0.0, 1.0], dtype=np.float64)
+    offsets: list[np.ndarray] = []
+    normals: list[np.ndarray] = []
+    waves: list[np.ndarray] = []
+    ring_indices: list[int] = []
+    azimuths: list[float] = []
+    for ring_index, ring_size in enumerate(ring_sizes):
+        axial_offset = axial_span * (ring_index + 0.5) / ring_count
+        for fragment_index in range(ring_size):
+            azimuth = 2.0 * math.pi * fragment_index / ring_size
+            radial = math.cos(azimuth) * basis1 + math.sin(azimuth) * basis2
+            source_offset = -axial_offset * axis + inner_radius * radial
+            offsets.append(source_offset)
+            normals.append(radial)
+            waves.append(normalize(source_offset, name="Taylor-Shapiro wave direction"))
+            ring_indices.append(ring_index)
+            azimuths.append(azimuth)
+    return FragmentRingLayout(
+        source_offsets_body_m=np.asarray(offsets, dtype=np.float64),
+        local_normals_body=np.asarray(normals, dtype=np.float64),
+        wave_directions_body=np.asarray(waves, dtype=np.float64),
+        body_axis=axis,
+        ring_indices=np.asarray(ring_indices, dtype=np.int64),
+        azimuth_rad=np.asarray(azimuths, dtype=np.float64),
+        ring_sizes=ring_sizes,
+        angle_convention=str(angle_convention),
+    )
+
+
+def _sample_taylor_shapiro_directions(
+    layout: FragmentRingLayout,
+    rotation: np.ndarray,
+    rng: np.random.Generator,
+    *,
+    gurney_speed: float,
+    detonation_velocity_mps: float | None,
+    spread_sigma_deg: float,
+    spread_distribution: str = "normal",
+) -> np.ndarray:
+    if detonation_velocity_mps is None:
+        raise InputValidationError(
+            "taylor_shapiro_ring requires detonation_velocity_mps"
+        )
+    if layout.angle_convention == TAYLOR_SHAPIRO_WAVE_DIRECTED_ANGLE_CONVENTION:
+        deflection_function = taylor_shapiro_deflection
+    elif layout.angle_convention == TAYLOR_SHAPIRO_LEGACY_ANGLE_CONVENTION:
+        deflection_function = taylor_shapiro_angles
+    else:
+        raise InputValidationError(
+            "Taylor-Shapiro layout angle convention is unsupported",
+            context={"angle_convention": layout.angle_convention},
+        )
+    axis = layout.body_axis
+    normals = layout.local_normals_body
+    waves = layout.wave_directions_body
+    count = len(normals)
+    nominal = np.empty_like(normals)
+    for index in range(count):
+        normal = normals[index]
+        wave = waves[index]
+        phi1 = math.acos(float(np.clip(np.dot(axis, normal), -1.0, 1.0)))
+        phi2 = math.acos(float(np.clip(np.dot(axis, wave), -1.0, 1.0)))
+        _, shapiro = deflection_function(
+            gurney_speed,
+            float(detonation_velocity_mps),
+            phi1,
+            phi2,
+        )
+        radial = normal - float(np.dot(axis, normal)) * axis
+        radial = normalize(radial, name="Taylor-Shapiro radial direction")
+        polar_increase = -math.sin(phi1) * axis + math.cos(phi1) * radial
+        nominal[index] = normalize(
+            math.cos(shapiro) * normal + math.sin(shapiro) * polar_increase,
+            name="Taylor-Shapiro nominal fragment direction",
+        )
+
+    sigma = math.radians(float(spread_sigma_deg))
+    if not math.isfinite(sigma) or sigma < 0.0:
+        raise InputValidationError(
+            "taylor_shapiro_ring spread_sigma_deg must be finite and non-negative"
+        )
+    values = nominal.copy()
+    if sigma > 0.0:
+        noise = _sample_direction_noise(
+            rng,
+            sigma,
+            size=(count, 2),
+            distribution=spread_distribution,
+        )
+        for index in range(count):
+            azimuth_tangent = normalize(
+                np.cross(axis, normals[index]),
+                name="Taylor-Shapiro azimuth tangent",
+            )
+            meridional_tangent = normalize(
+                np.cross(azimuth_tangent, nominal[index]),
+                name="Taylor-Shapiro meridional tangent",
+            )
+            tangent_delta = (
+                noise[index, 0] * meridional_tangent
+                + noise[index, 1] * azimuth_tangent
+            )
+            angular_radius = float(np.linalg.norm(tangent_delta))
+            if angular_radius > EPS:
+                values[index] = (
+                    math.cos(angular_radius) * nominal[index]
+                    + math.sin(angular_radius) * tangent_delta / angular_radius
+                )
+    values = (rotation @ values.T).T
+    values /= np.linalg.norm(values, axis=1, keepdims=True)
+    return values
+
+
+def _sample_direction_noise(
+    rng: np.random.Generator,
+    sigma_rad: float,
+    *,
+    size: int | tuple[int, ...] | None = None,
+    distribution: str = "normal",
+) -> np.ndarray | float:
+    """Sample zero-mean angular noise with the declared standard deviation."""
+
+    sigma = float(sigma_rad)
+    if not math.isfinite(sigma) or sigma < 0.0:
+        raise InputValidationError(
+            "fragment direction spread sigma must be finite and non-negative"
+        )
+    name = str(distribution)
+    if name == "normal":
+        return rng.normal(0.0, sigma, size=size)
+    if name == "uniform":
+        half_width = math.sqrt(3.0) * sigma
+        return rng.uniform(-half_width, half_width, size=size)
+    if name == "laplace":
+        return rng.laplace(0.0, sigma / math.sqrt(2.0), size=size)
+    raise InputValidationError(
+        "unsupported fragment direction spread distribution",
+        context={
+            "spread_distribution": name,
+            "allowed": ["normal", "uniform", "laplace"],
+        },
+    )
+
+
 def _sample_directions(
     count: int,
     source_model: dict,
@@ -653,9 +1063,30 @@ def _sample_directions(
     gurney_speed: float,
     detonation_velocity_mps: float | None,
     impact_inward_axis_target: np.ndarray | None = None,
+    taylor_shapiro_layout: FragmentRingLayout | None = None,
 ) -> np.ndarray:
     direction = source_model["direction"]
     kind = direction["kind"]
+    if kind == "taylor_shapiro_ring":
+        if taylor_shapiro_layout is None:
+            raise InputValidationError(
+                "taylor_shapiro_ring requires a shared fragment ring layout"
+            )
+        if len(taylor_shapiro_layout.local_normals_body) != count:
+            raise InputValidationError(
+                "Taylor-Shapiro layout size must match fragment count"
+            )
+        return _sample_taylor_shapiro_directions(
+            taylor_shapiro_layout,
+            rotation,
+            rng,
+            gurney_speed=gurney_speed,
+            detonation_velocity_mps=detonation_velocity_mps,
+            spread_sigma_deg=float(direction.get("spread_sigma_deg", 0.0)),
+            spread_distribution=str(
+                direction.get("spread_distribution", "normal")
+            ),
+        )
     if impact_inward_axis_target is None:
         axis = normalize(
             np.asarray(direction.get("axis_body", [1.0, 0.0, 0.0])),
@@ -679,9 +1110,27 @@ def _sample_directions(
             raise InputValidationError("taylor_ring requires detonation_velocity_mps")
         base = math.atan2(2.0 * gurney_speed, detonation_velocity_mps)
         sigma = math.radians(float(direction.get("spread_sigma_deg", 0.0)))
+        spread_distribution = str(
+            direction.get("spread_distribution", "normal")
+        )
         ring_count = direction.get("ring_count")
         if ring_count is None:
-            theta = np.clip(rng.normal(base, sigma, count), 0.0, math.pi)
+            if spread_distribution == "normal":
+                # Preserve the legacy random stream and bit pattern when the
+                # new distribution field is absent or explicitly normal.
+                theta = np.clip(rng.normal(base, sigma, count), 0.0, math.pi)
+            else:
+                theta = np.clip(
+                    base
+                    + _sample_direction_noise(
+                        rng,
+                        sigma,
+                        size=count,
+                        distribution=spread_distribution,
+                    ),
+                    0.0,
+                    math.pi,
+                )
         else:
             ring_count = int(ring_count)
             if ring_count < 1 or ring_count > count:
@@ -704,10 +1153,25 @@ def _sample_directions(
                 )
                 ring_theta = base + correction * normalized_axial
                 for fragment_index in range(ring_size):
-                    theta_values.append(ring_theta + rng.normal(0.0, sigma))
+                    theta_values.append(
+                        ring_theta
+                        + float(
+                            _sample_direction_noise(
+                                rng,
+                                sigma,
+                                distribution=spread_distribution,
+                            )
+                        )
+                    )
                     azimuth_values.append(
                         2.0 * math.pi * fragment_index / ring_size
-                        + rng.normal(0.0, sigma)
+                        + float(
+                            _sample_direction_noise(
+                                rng,
+                                sigma,
+                                distribution=spread_distribution,
+                            )
+                        )
                     )
             theta = np.clip(np.asarray(theta_values), 0.0, math.pi)
             azimuth = np.asarray(azimuth_values)
@@ -728,12 +1192,22 @@ def _fragment_origins(
     case: dict,
     count: int,
     rotation: np.ndarray,
+    *,
+    taylor_shapiro_layout: FragmentRingLayout | None = None,
 ) -> np.ndarray:
     detonation = np.asarray(
         case["encounter"]["detonation_position_m"], dtype=np.float64
     )
     if detonation.shape != (3,) or not np.isfinite(detonation).all():
         raise InputValidationError("detonation_position_m must be a finite 3-vector")
+    if taylor_shapiro_layout is not None:
+        if len(taylor_shapiro_layout.source_offsets_body_m) != count:
+            raise InputValidationError(
+                "Taylor-Shapiro layout size must match fragment count"
+            )
+        return detonation[None, :] + (
+            rotation @ taylor_shapiro_layout.source_offsets_body_m.T
+        ).T
     munition = case.get("munition")
     if munition is None:
         return np.repeat(detonation[None, :], count, axis=0)
@@ -823,6 +1297,7 @@ def generate_fragments(
     basis = source_model["casing_mass_basis"]
     valid_speed = source_model.get("valid_speed_mps")
     rotation = quaternion_matrix_xyzw(case["encounter"]["body_to_target_orientation_xyzw"])
+    taylor_shapiro_layout: FragmentRingLayout | None = None
     if list_data is not None:
         if valid_speed:
             lower_speed, upper_speed = map(float, valid_speed)
@@ -864,6 +1339,12 @@ def generate_fragments(
                 "fragment initial speed is outside source model validity",
                 context={"speed_mps": gurney_speed, "valid_speed_mps": valid_speed},
             )
+        if source_model["direction"]["kind"] == "taylor_shapiro_ring":
+            taylor_shapiro_layout = build_taylor_shapiro_ring_layout(
+                case,
+                source_model,
+                len(masses),
+            )
         axis_mode = str(source_model["direction"].get("axis_mode", "body_vector"))
         impact_inward_axis_target = None
         if axis_mode == "impact_inward":
@@ -884,6 +1365,7 @@ def generate_fragments(
             gurney_speed=gurney_speed,
             detonation_velocity_mps=source.get("detonation_velocity_mps"),
             impact_inward_axis_target=impact_inward_axis_target,
+            taylor_shapiro_layout=taylor_shapiro_layout,
         )
         velocity_vectors = directions * gurney_speed
     projectile_velocity = np.asarray(case["encounter"]["velocity_target_mps"], dtype=np.float64)
@@ -927,7 +1409,12 @@ def generate_fragments(
     shape_factor = float(drag.get("area_shape_factor", 1.0))
     if not math.isfinite(drag_coefficient) or drag_coefficient <= 0:
         raise InputValidationError("fragment drag coefficient must be finite and positive")
-    origins = _fragment_origins(case, len(masses), rotation)
+    origins = _fragment_origins(
+        case,
+        len(masses),
+        rotation,
+        taylor_shapiro_layout=taylor_shapiro_layout,
+    )
     return [
         Fragment(
             fragment_id=index,
@@ -1313,6 +1800,8 @@ def simulate_fragments(
             "mean_arrival_speed_mps": 0.0,
             "mean_penetration_margin": 0.0,
             "deposited_energy_j": 0.0,
+            "hit_conditioned_log1p_deposited_energy_j": 0.0,
+            "hit_conditioned_log1p_hit_count": 0.0,
             "damage_energy_j": 0.0,
             "ordinal_projection_max_correction": 0.0,
             "spatial_damage_cluster_count": 0.0,
@@ -1324,6 +1813,17 @@ def simulate_fragments(
     armor_hits = armor_penetrations = component_hits = component_penetrations = 0
     existing_hole_reuses = 0
     out_of_domain_impacts = 0
+    component_ids = tuple(component.object_id for component in target.components)
+    unresolved_component_hit_affected = {
+        component_id: False for component_id in component_ids
+    }
+    unresolved_component_state_affected = {
+        component_id: False for component_id in component_ids
+    }
+    out_of_domain_impacts_by_role = {"armor": 0, "component": 0}
+    resolved_penetration_margin_counts = {
+        component_id: 0 for component_id in component_ids
+    }
     audit: list[dict] = []
     cursors: list[_FragmentTransit] = []
     event_queue: list[_ScheduledFragmentImpact] = []
@@ -1446,6 +1946,29 @@ def simulate_fragments(
             # this fragment path without assigning energy or damage, retain a
             # separate count, and preserve the exact refusal in event audit.
             out_of_domain_impacts += 1
+            out_of_domain_impacts_by_role[hit.role] += 1
+            if hit.role == "armor":
+                # An unresolved armor response can change its opening state and
+                # therefore any later fragment path.  Until that event graph is
+                # narrowed, every component remains conservatively reachable.
+                for component_id in component_ids:
+                    unresolved_component_hit_affected[component_id] = True
+                    unresolved_component_state_affected[component_id] = True
+            else:
+                # The current component contact is geometrically observed even
+                # though its response is unresolved.  Its state is censored;
+                # only later components on this same stopped ray have censored
+                # hit indicators.
+                component_hits += 1
+                metrics = component_metrics[hit.object_id]
+                metrics["hits"] += 1.0
+                metrics["mean_arrival_speed_mps"] += before_speed
+                unresolved_component_state_affected[hit.object_id] = True
+                for downstream_hit in cursor.hits[path_index + 1 :]:
+                    if downstream_hit.role != "armor":
+                        downstream_id = downstream_hit.object_id
+                        unresolved_component_hit_affected[downstream_id] = True
+                        unresolved_component_state_affected[downstream_id] = True
             cursor.blocking_object_id = hit.object_id
             cursor.blocking_reason = "penetration_model_out_of_domain"
             if capture_audit:
@@ -1555,6 +2078,7 @@ def simulate_fragments(
             metrics["hits"] += 1.0
             metrics["mean_arrival_speed_mps"] += before_speed
             metrics["mean_penetration_margin"] += margin
+            resolved_penetration_margin_counts[hit.object_id] += 1
             deposited = impact_outcome.absorbed_energy_j
             metrics["deposited_energy_j"] += deposited
             metrics["damage_energy_j"] += impact_outcome.damage_energy_j
@@ -1806,6 +2330,12 @@ def simulate_fragments(
             ordered_probabilities[-1] if ordered_probabilities else 0.0,
         )
         metrics["hit_indicator"] = float(hit_observed)
+        metrics["hit_conditioned_log1p_deposited_energy_j"] = (
+            math.log1p(metrics["deposited_energy_j"]) if hit_observed else 0.0
+        )
+        metrics["hit_conditioned_log1p_hit_count"] = (
+            math.log1p(metrics["hits"]) if hit_observed else 0.0
+        )
         metrics["damage_positive_indicator"] = float(
             hit_observed and degraded_probability > 0.01
         )
@@ -1821,7 +2351,9 @@ def simulate_fragments(
         )
         if metrics["hits"] > 0:
             metrics["mean_arrival_speed_mps"] /= metrics["hits"]
-            metrics["mean_penetration_margin"] /= metrics["hits"]
+        resolved_margin_count = resolved_penetration_margin_counts[identifier]
+        if resolved_margin_count > 0:
+            metrics["mean_penetration_margin"] /= resolved_margin_count
     armor_integrity = panel_damage.integrity_map()
     return FragmentSimulation(
         component_state_probabilities=probabilities,
@@ -1834,6 +2366,9 @@ def simulate_fragments(
         total_component_penetrations=component_penetrations,
         total_existing_hole_reuses=existing_hole_reuses,
         total_out_of_domain_impacts=out_of_domain_impacts,
+        unresolved_component_hit_affected=unresolved_component_hit_affected,
+        unresolved_component_state_affected=unresolved_component_state_affected,
+        out_of_domain_impacts_by_role=out_of_domain_impacts_by_role,
         panel_damage_state=panel_damage,
         audit=audit,
         fragment_list_provenance=(

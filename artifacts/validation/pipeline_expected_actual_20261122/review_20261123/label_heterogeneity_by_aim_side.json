@@ -1,0 +1,164 @@
+{
+  "by_region": {
+    "neg_x": {
+      "cases": 132,
+      "share_above": 0.9696969696969697,
+      "mean_case_p_hit": 0.11504637838699067
+    },
+    "neg_y": {
+      "cases": 620,
+      "share_above": 0.9806451612903225,
+      "mean_case_p_hit": 0.1063705610861214
+    },
+    "pos_x": {
+      "cases": 594,
+      "share_above": 0.9949494949494949,
+      "mean_case_p_hit": 0.10134025352144185
+    },
+    "pos_y": {
+      "cases": 322,
+      "share_above": 0.3167701863354037,
+      "mean_case_p_hit": 0.027648253825452076
+    },
+    "top_cap": {
+      "cases": 632,
+      "share_above": 0.5886075949367089,
+      "mean_case_p_hit": 0.10443646163433427
+    }
+  },
+  "by_region_side": {
+    "neg_x|above": {
+      "cases": 128,
+      "mean_case_p_hit": 0.11492480998770352
+    },
+    "neg_x|below": {
+      "cases": 4,
+      "mean_case_p_hit": 0.11893656716417911
+    },
+    "neg_y|above": {
+      "cases": 608,
+      "mean_case_p_hit": 0.1072440987705588
+    },
+    "neg_y|below": {
+      "cases": 12,
+      "mean_case_p_hit": 0.06211131840796019
+    },
+    "pos_x|above": {
+      "cases": 591,
+      "mean_case_p_hit": 0.10135747429467747
+    },
+    "pos_x|below": {
+      "cases": 3,
+      "mean_case_p_hit": 0.09794776119402986
+    },
+    "pos_y|above": {
+      "cases": 102,
+      "mean_case_p_hit": 0.05172880860847279
+    },
+    "pos_y|below": {
+      "cases": 220,
+      "mean_case_p_hit": 0.016483632971506106
+    },
+    "top_cap|above": {
+      "cases": 372,
+      "mean_case_p_hit": 0.11606814842899414
+    },
+    "top_cap|below": {
+      "cases": 260,
+      "mean_case_p_hit": 0.08779420206659014
+    }
+  },
+  "by_profile_region_side": {
+    "neg_x::large_front|above": {
+      "cases": 48,
+      "mean_case_p_hit": 0.15231504056422432
+    },
+    "neg_y::large_front|above": {
+      "cases": 196,
+      "mean_case_p_hit": 0.13722889916586611
+    },
+    "pos_x::large_front|above": {
+      "cases": 197,
+      "mean_case_p_hit": 0.13685515749497867
+    },
+    "pos_y::large_front|above": {
+      "cases": 28,
+      "mean_case_p_hit": 0.053404850746268655
+    },
+    "pos_y::large_front|below": {
+      "cases": 75,
+      "mean_case_p_hit": 0.01879353233830846
+    },
+    "top_cap::large_front|above": {
+      "cases": 132,
+      "mean_case_p_hit": 0.1565645501258629
+    },
+    "top_cap::large_front|below": {
+      "cases": 87,
+      "mean_case_p_hit": 0.11269621718991252
+    },
+    "neg_x::medium_front|above": {
+      "cases": 38,
+      "mean_case_p_hit": 0.11386734092694423
+    },
+    "neg_y::medium_front|above": {
+      "cases": 202,
+      "mean_case_p_hit": 0.11053304185900795
+    },
+    "neg_y::medium_front|below": {
+      "cases": 5,
+      "mean_case_p_hit": 0.06735074626865671
+    },
+    "pos_x::medium_front|above": {
+      "cases": 201,
+      "mean_case_p_hit": 0.10102162873303089
+    },
+    "pos_y::medium_front|above": {
+      "cases": 45,
+      "mean_case_p_hit": 0.06090868259711543
+    },
+    "pos_y::medium_front|below": {
+      "cases": 69,
+      "mean_case_p_hit": 0.019380002163097557
+    },
+    "top_cap::medium_front|above": {
+      "cases": 115,
+      "mean_case_p_hit": 0.11208601569720568
+    },
+    "top_cap::medium_front|below": {
+      "cases": 91,
+      "mean_case_p_hit": 0.09174594062653761
+    },
+    "neg_x::small_front|above": {
+      "cases": 42,
+      "mean_case_p_hit": 0.07314987562189054
+    },
+    "neg_y::small_front|above": {
+      "cases": 210,
+      "mean_case_p_hit": 0.07609463504985893
+    },
+    "pos_x::small_front|above": {
+      "cases": 193,
+      "mean_case_p_hit": 0.06547385443681016
+    },
+    "pos_y::small_front|above": {
+      "cases": 29,
+      "mean_case_p_hit": 0.035865928975810604
+    },
+    "pos_y::small_front|below": {
+      "cases": 76,
+      "mean_case_p_hit": 0.011574528672427338
+    },
+    "top_cap::small_front|above": {
+      "cases": 125,
+      "mean_case_p_hit": 0.07696751035034617
+    },
+    "top_cap::small_front|below": {
+      "cases": 82,
+      "mean_case_p_hit": 0.05698830542409902
+    }
+  },
+  "r2_case_p_hit_region_x_profile": 0.24977292562560138,
+  "r2_case_p_hit_region_x_profile_x_side": 0.27018015597124234,
+  "r2_case_p_hit_profile_x_side": 0.18661802558604504
+}

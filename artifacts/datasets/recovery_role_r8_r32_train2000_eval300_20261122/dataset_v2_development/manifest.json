@@ -1,0 +1,181 @@
+{
+  "schema_version": "dataset-v2@1.0.0",
+  "dataset_id": "damage-dataset-v2-16969411c388e086d2757f88",
+  "status": "provisional",
+  "provisional_reason": "taylor_shapiro_and_high_obliquity_shape_constraint_require_external_validation",
+  "core_tree_independent": true,
+  "case_count": 2600,
+  "component_count": 67,
+  "input_contract": {
+    "version": "loitering-impact-first-armor-state-input@1.0.0",
+    "tensor_field": "loitering_impact_first_armor_state_x",
+    "mask_field": "loitering_impact_first_armor_state_feature_mask",
+    "dtype": "float32",
+    "shape": "[B,F_loitering_impact_first_armor_state]",
+    "feature_axis": "F_loitering_impact_first_armor_state",
+    "features": [
+      {
+        "name": "munition_profile_small_front",
+        "unit": "1",
+        "semantic": "One-hot indicator for the versioned small front-detonating munition profile.",
+        "source_path": "/munition/profile_id",
+        "transformation": "one_hot_equals_small_front"
+      },
+      {
+        "name": "munition_profile_medium_front",
+        "unit": "1",
+        "semantic": "One-hot indicator for the versioned medium front-detonating munition profile.",
+        "source_path": "/munition/profile_id",
+        "transformation": "one_hot_equals_medium_front"
+      },
+      {
+        "name": "munition_profile_large_front",
+        "unit": "1",
+        "semantic": "One-hot indicator for the versioned large munition profile.",
+        "source_path": "/munition/profile_id",
+        "transformation": "one_hot_equals_large_front"
+      },
+      {
+        "name": "first_armor_hit_point_target_x_m",
+        "unit": "m",
+        "semantic": "Target-frame x coordinate of the deterministic first-armour ray intersection.",
+        "source_path": "/encounter/detonation_position_m",
+        "transformation": "validated_first_armor_hit_point_target_component"
+      },
+      {
+        "name": "first_armor_hit_point_target_y_m",
+        "unit": "m",
+        "semantic": "Target-frame y coordinate of the deterministic first-armour ray intersection.",
+        "source_path": "/encounter/detonation_position_m",
+        "transformation": "validated_first_armor_hit_point_target_component"
+      },
+      {
+        "name": "first_armor_hit_point_target_z_m",
+        "unit": "m",
+        "semantic": "Target-frame z coordinate of the deterministic first-armour ray intersection.",
+        "source_path": "/encounter/detonation_position_m",
+        "transformation": "validated_first_armor_hit_point_target_component"
+      },
+      {
+        "name": "first_armor_hit_normal_target_x",
+        "unit": "1",
+        "semantic": "Target-frame x component of the unit surface normal at first armour contact.",
+        "source_path": "/encounter/collision_normal_target_xyz",
+        "transformation": "validated_unit_first_armor_hit_normal_target_component"
+      },
+      {
+        "name": "first_armor_hit_normal_target_y",
+        "unit": "1",
+        "semantic": "Target-frame y component of the unit surface normal at first armour contact.",
+        "source_path": "/encounter/collision_normal_target_xyz",
+        "transformation": "validated_unit_first_armor_hit_normal_target_component"
+      },
+      {
+        "name": "first_armor_hit_normal_target_z",
+        "unit": "1",
+        "semantic": "Target-frame z component of the unit surface normal at first armour contact.",
+        "source_path": "/encounter/collision_normal_target_xyz",
+        "transformation": "validated_unit_first_armor_hit_normal_target_component"
+      },
+      {
+        "name": "impact_direction_target_x",
+        "unit": "1",
+        "semantic": "Target-frame x component of normalized impact velocity.",
+        "source_path": "/encounter/velocity_target_mps",
+        "transformation": "normalize_impact_velocity_target_component"
+      },
+      {
+        "name": "impact_direction_target_y",
+        "unit": "1",
+        "semantic": "Target-frame y component of normalized impact velocity.",
+        "source_path": "/encounter/velocity_target_mps",
+        "transformation": "normalize_impact_velocity_target_component"
+      },
+      {
+        "name": "impact_direction_target_z",
+        "unit": "1",
+        "semantic": "Target-frame z component of normalized impact velocity.",
+        "source_path": "/encounter/velocity_target_mps",
+        "transformation": "normalize_impact_velocity_target_component"
+      },
+      {
+        "name": "impact_speed_mps",
+        "unit": "m/s",
+        "semantic": "Speed at deterministic first armour contact.",
+        "source_path": "/encounter/velocity_target_mps",
+        "transformation": "euclidean_norm_of_impact_velocity_target"
+      },
+      {
+        "name": "body_y_axis_target_x",
+        "unit": "1",
+        "semantic": "Target-frame x component of the body y axis; with impact direction it encodes roll without Euler angles.",
+        "source_path": "/encounter/body_to_target_orientation_xyzw",
+        "transformation": "normalized_body_to_target_quaternion_rotation_column_1"
+      },
+      {
+        "name": "body_y_axis_target_y",
+        "unit": "1",
+        "semantic": "Target-frame y component of the body y axis; with impact direction it encodes roll without Euler angles.",
+        "source_path": "/encounter/body_to_target_orientation_xyzw",
+        "transformation": "normalized_body_to_target_quaternion_rotation_column_1"
+      },
+      {
+        "name": "body_y_axis_target_z",
+        "unit": "1",
+        "semantic": "Target-frame z component of the body y axis; with impact direction it encodes roll without Euler angles.",
+        "source_path": "/encounter/body_to_target_orientation_xyzw",
+        "transformation": "normalized_body_to_target_quaternion_rotation_column_1"
+      }
+    ],
+    "excluded_tensor_fields": [
+      "case_x",
+      "case_feature_mask",
+      "case_physics_x",
+      "case_physics_feature_mask",
+      "solver_context_x",
+      "solver_context_feature_mask",
+      "component_x",
+      "component_feature_mask",
+      "armor_x",
+      "armor_feature_mask",
+      "component_armor_path_x",
+      "component_armor_path_mask",
+      "armor_vertices_m",
+      "armor_vertex_offsets",
+      "component_vertices_m",
+      "component_vertex_offsets",
+      "tree_edge_index",
+      "tree_edge_type"
+    ],
+    "fixed_scenario_policy": "single_frozen_scenario_per_archive",
+    "fixed_scenario_hash": "sha256:25a09db5bc633007541b00e8770cd619f32eb62eff455889744933e26a243efb",
+    "evidence_boundary": "deployment-executable, label-independent view available after the frozen target ray intersection has produced deterministic first-armour contact geometry; it contains no teacher response or damage outcome",
+    "source_dataset_id": "damage-dataset-074d300c1382eb8eee4cd87a",
+    "source_manifest_sha256": "sha256:3b6b7ba94ccd7715040716b69a1a039977636853142cfde6c31127f78debfae2",
+    "conversion_version": "sampler-pilot-to-dataset-v2-strict-seal@1.0.0",
+    "sealed_test_label_policy": "opaque_source_with_masked_core_placeholders"
+  },
+  "input_contract_hash": "sha256:8f1e5c48d6436bc227250a81b3bf9a983ddff51159be570611c1c73342b6626c",
+  "label_spec_id": "raw-armored-target-fragment-only-hurdle-v3",
+  "source_code_hash": "sha256:b041499ab0e5bfd1b80813779ccd8e6867afaf9d9cc6cba0a7ff29a622a8ad0d",
+  "core_files": {
+    "inputs": {
+      "path": "core/inputs.npz",
+      "sha256": "sha256:31c17273aed8aacf3679c06d38558c05f0cb92859c5cf551a148c4b6011c11f2"
+    },
+    "component_state_trace": {
+      "path": "core/component_state_trace.jsonl.gz",
+      "sha256": "sha256:4986894b50af7a6c66e7cab3ba99b61aae24c8cea9330a8408974b34375d0d7f"
+    },
+    "component_labels": {
+      "path": "core/component_labels.npz",
+      "sha256": "sha256:afd7eb7500fef291f57c3ac2cb3387ff236d7163d94bef91f32252e31cba1148"
+    },
+    "sampling_weights": {
+      "path": "core/sampling_weights.npz",
+      "sha256": "sha256:65c1dc2432524f058475b7be2b9bfd4d8b2d813daf154fe9145bfd4c4d5093d4"
+    }
+  },
+  "views": {},
+  "manifest_hash": "sha256:72fb6a13d747600a2ef78898b62264a57cb65f0104e587d6f1af6ea643d8cff6"
+}

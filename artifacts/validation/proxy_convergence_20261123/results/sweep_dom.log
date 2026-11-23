@@ -1,0 +1,6 @@
+azall_dom: 32s wall, 0.177s/case
+azall_reg_dom: 35s wall, 0.197s/case
+azall_k4_reg_dom: 140s wall, 0.828s/case
+azall_k8_reg_dom: 276s wall, 1.638s/case
+azall_k16_reg_dom: 551s wall, 3.283s/case
+done

@@ -1,0 +1,113 @@
+{
+  "schema_version": "sampling-measure-bundle@1.0.0",
+  "operational": {
+    "status": "unavailable",
+    "reason": "No mission-frequency distribution for approach, profile, aim error, speed, and roll has been supplied; task-level damage probability is therefore not an admitted estimand."
+  },
+  "reference": {
+    "schema_version": "sampling-measure-contract@1.0.0",
+    "status": "available",
+    "role": "reference",
+    "measure_kind": "declared_reference_measure",
+    "estimand": {
+      "estimand_id": "criterion_exceedance_probability_given_first_armor_contact",
+      "definition": {
+        "population": "fixed-target sphere-entry candidates admitted by S-CONTACT",
+        "outcome": "software-teacher criterion exceedance after first armor contact",
+        "conditioning": "first forward armor contact"
+      }
+    },
+    "measure": {
+      "measure_id": "sphere-entry-reference-contact-conditioned-v1",
+      "definition": {
+        "target_hash": "sha256:8f03659312d50ec0ae497b77eb01dd4f8612aa4c61aa9e177aa90fde090492a2",
+        "approach_mass": "equal_over_six_declared_approaches",
+        "profile_mass": "equal_over_small_medium_large_front",
+        "within_cell_coordinates": "uniform_aim_u_aim_v_speed_roll_quantiles_on_open_unit_hypercube",
+        "normalization": "unit_mass_after_S_CONTACT_conditioning"
+      }
+    },
+    "proposal": {
+      "proposal_id": "sphere-entry-scrambled-sobol-per-cell-v1",
+      "definition": {
+        "sequence": "scrambled_sobol",
+        "dimension_within_cell": 4,
+        "sample_count_rule": "power_of_two_per_approach_profile_cell",
+        "outcome_blind": true,
+        "screening": "S_CONTACT_then_proxy_with_complete_and_partial_rows_retained"
+      }
+    },
+    "condition_on_s_contact": true,
+    "target_density_semantics": "declared_reference_density",
+    "inclusion_probability_field": "inclusion_probability",
+    "weight_semantics": {
+      "design": {
+        "field": "design_weight_raw",
+        "formula": "inverse_inclusion_probability",
+        "purpose": "finite_frame_design_inference"
+      },
+      "evaluation": {
+        "field": "evaluation_importance_weight",
+        "formula": "target_density_over_proposal_density",
+        "purpose": "target_measure_evaluation"
+      },
+      "training": {
+        "field": "training_objective_weight",
+        "formula": "declared_training_objective_weight",
+        "purpose": "optimization_objective_only"
+      }
+    }
+  },
+  "coverage": {
+    "schema_version": "sampling-measure-contract@1.0.0",
+    "status": "available",
+    "role": "coverage",
+    "measure_kind": "training_coverage_measure",
+    "estimand": {
+      "estimand_id": "criterion_exceedance_probability_given_first_armor_contact",
+      "definition": {
+        "population": "fixed-target sphere-entry candidates admitted by S-CONTACT",
+        "outcome": "software-teacher criterion exceedance after first armor contact",
+        "conditioning": "first forward armor contact"
+      }
+    },
+    "measure": {
+      "measure_id": "sphere-entry-coverage-contact-conditioned-v1",
+      "definition": {
+        "target_hash": "sha256:8f03659312d50ec0ae497b77eb01dd4f8612aa4c61aa9e177aa90fde090492a2",
+        "objective": "increase rare component, transition, and complete non-saturated support",
+        "reference_replacement": false,
+        "normalization": "unit_mass_on_declared_coverage_design"
+      }
+    },
+    "proposal": {
+      "proposal_id": "sphere-entry-coverage-with-reference-audit-v1",
+      "definition": {
+        "candidate_sequence": "scrambled_sobol",
+        "selection": "outcome_blind_proxy_coverage_plus_positive_support_reference_audit",
+        "proxy_partial_policy": "strictly_positive_inclusion_probability",
+        "outcome_blind": true
+      }
+    },
+    "condition_on_s_contact": true,
+    "target_density_semantics": "coverage_design_density",
+    "inclusion_probability_field": "inclusion_probability",
+    "weight_semantics": {
+      "design": {
+        "field": "design_weight_raw",
+        "formula": "inverse_inclusion_probability",
+        "purpose": "finite_frame_design_inference"
+      },
+      "evaluation": {
+        "field": "evaluation_importance_weight",
+        "formula": "target_density_over_proposal_density",
+        "purpose": "target_measure_evaluation"
+      },
+      "training": {
+        "field": "training_objective_weight",
+        "formula": "declared_training_objective_weight",
+        "purpose": "optimization_objective_only"
+      }
+    }
+  }
+}

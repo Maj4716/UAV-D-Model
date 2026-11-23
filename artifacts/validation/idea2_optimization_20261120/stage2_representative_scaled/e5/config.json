@@ -1,0 +1,110 @@
+{
+  "schema_version": "1.0.0",
+  "contract_version": "stage2-mechanism-experiments@1.0.0",
+  "experiment": "E5",
+  "created_at": "2026-11-20T12:10:35.195596+00:00",
+  "engine_code_hash": "sha256:a839260a8f2a3f99cd0489bd1e0464d0c0a1debbec32f2da1a2ec23015b93a19",
+  "target_path": "D:\\Desktop\\UAV新\\configs\\targets\\target.fragment_only.v1.json",
+  "target_file_hash": "sha256:5c4e936975e95f32d72cfe62e38263ae20ef310fb79160b08876d494756c651f",
+  "physics_path": "D:\\Desktop\\UAV新\\configs\\physics\\loitering_impact.json",
+  "physics_file_hash": "sha256:3b44885ad0d94ac2ba9977670effff9e1eba45be33b7cf2a393378471f24ac8e",
+  "case_source": {
+    "mode": "generated_reference_plan",
+    "base_case": "D:\\Desktop\\UAV新\\configs\\cases\\loitering_impact.fragment_only.v1.json",
+    "base_case_file_hash": "sha256:9fbbf7ae0f61ade70c72f5c73cbafafe38e7fb853b158459540cd9dbe71a1ba1",
+    "sampling_spec": "D:\\Desktop\\UAV新\\configs\\sampling\\p0_contact_reference.json",
+    "sampling_spec_file_hash": "sha256:dc3e210e60cefb63f3b36cd2d39ae088af830031f0d1ce1455bc66a35388e5c0",
+    "sampling_spec_hash": "sha256:4589489789fbb0389f7da8ce1c5db5bd0162b70ba1933838e8edfe76b9c1062b",
+    "label_spec": "D:\\Desktop\\UAV新\\configs\\labels\\loitering_impact.fragment_only.v1.json",
+    "label_spec_file_hash": "sha256:8cbe0b77c668c483eb0dac550d2fd9602a5265b6b37d0ce07b8543ced57a1315",
+    "label_spec_hash": "sha256:afeb0f26c74ba1cab0e5c86e647ece1d490a528c1da8d7aba1d2d31ae45fc44f",
+    "reference_test_included": false
+  },
+  "case_count": 3,
+  "replicates": 1,
+  "common_random_numbers": {
+    "enabled": true,
+    "unit": "same ordered base cases and same aleatory_seed across variants"
+  },
+  "design": [
+    {
+      "variant_id": "e5-normal-s0p5-tau0p04",
+      "factors": {
+        "direction_noise_distribution": "normal",
+        "sigma_deg": 0.5,
+        "tau": 0.04
+      }
+    },
+    {
+      "variant_id": "e5-normal-s0p5-tau0p08",
+      "factors": {
+        "direction_noise_distribution": "normal",
+        "sigma_deg": 0.5,
+        "tau": 0.08
+      }
+    },
+    {
+      "variant_id": "e5-normal-s0p5-tau0p16",
+      "factors": {
+        "direction_noise_distribution": "normal",
+        "sigma_deg": 0.5,
+        "tau": 0.16
+      }
+    },
+    {
+      "variant_id": "e5-normal-s2-tau0p04",
+      "factors": {
+        "direction_noise_distribution": "normal",
+        "sigma_deg": 2.0,
+        "tau": 0.04
+      }
+    },
+    {
+      "variant_id": "e5-normal-s2-tau0p08",
+      "factors": {
+        "direction_noise_distribution": "normal",
+        "sigma_deg": 2.0,
+        "tau": 0.08
+      }
+    },
+    {
+      "variant_id": "e5-normal-s2-tau0p16",
+      "factors": {
+        "direction_noise_distribution": "normal",
+        "sigma_deg": 2.0,
+        "tau": 0.16
+      }
+    },
+    {
+      "variant_id": "e5-normal-s5-tau0p04",
+      "factors": {
+        "direction_noise_distribution": "normal",
+        "sigma_deg": 5.0,
+        "tau": 0.04
+      }
+    },
+    {
+      "variant_id": "e5-normal-s5-tau0p08",
+      "factors": {
+        "direction_noise_distribution": "normal",
+        "sigma_deg": 5.0,
+        "tau": 0.08
+      }
+    },
+    {
+      "variant_id": "e5-normal-s5-tau0p16",
+      "factors": {
+        "direction_noise_distribution": "normal",
+        "sigma_deg": 5.0,
+        "tau": 0.16
+      }
+    }
+  ],
+  "dry_run": false,
+  "scientific_status": "software_mechanism_experiment_on_unvalidated_physics_not_external_validation",
+  "direction_noise_distributions": [
+    "normal"
+  ],
+  "equal_variance_noise_shapes": true,
+  "taylor_shapiro_policy": "independent_candidate_not_factor_level"
+}

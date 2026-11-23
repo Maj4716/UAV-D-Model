@@ -1,0 +1,53 @@
+{
+  "schema_version": "1.0.0",
+  "label_spec_id": "raw-armored-target-fragment-only-hurdle-v2",
+  "revision": "2.0.0-provisional-taylor-shapiro",
+  "status": "provisional",
+  "source": {
+    "damage_tree_id": "raw-armored-target-fragment-only-v1/damage-tree",
+    "damage_tree_revision": "raw-damage-tree-fragment-only-v1",
+    "damage_tree_definition_hash": "sha256:b5c466056a26c4acbabd29372cdb3c060bcfd8b51f2244e1fd60a1ab6d84a72e"
+  },
+  "tasks": {
+    "raw_damage_events": {
+      "type": "multi_label_event_probability",
+      "outputs": ["effect-m2", "effect-k1", "effect-m1", "effect-k2", "effect-f1", "effect-c1", "effect-c2"],
+      "loss": "soft_bce_or_brier",
+      "description": "Frozen provisional tree view; component hurdle tasks remain authoritative in dataset-v2 core."
+    }
+  },
+  "hurdle_contract": {
+    "target_spec_id": "component-fragment-hurdle-targets-v1",
+    "primary_estimands": [
+      "p_hit",
+      "conditional_mean_log1p_deposited_energy_j_given_component_hit",
+      "conditional_mean_log1p_hit_count_given_component_hit",
+      "p_at_least_degraded",
+      "p_failed"
+    ],
+    "derived_support": {
+      "role": "derived_view_not_primary_label",
+      "probability_threshold": 0.05,
+      "decision_rule": "ci95_excludes_fixed_probability_threshold"
+    },
+    "domain_censoring": {
+      "epsilon": 0.01,
+      "wide_interval_supervision": "identification_interval_only",
+      "epsilon_complete_supervision": "point_and_identification_interval"
+    },
+    "uncertainty_separation": {
+      "monte_carlo": "sample_variance_standard_error_and_fixed_sample_ci",
+      "domain_censoring": "worst_case_identification_interval",
+      "epistemic": "separate_scenario_or_parameter_interval"
+    },
+    "target_encoder_policy": {
+      "fit_split": "reference_train_only",
+      "label_mutation": false,
+      "evaluation_scale": "original_physical_label_scale"
+    }
+  },
+  "provenance": {
+    "approval_status": "not_approved",
+    "evidence_ref": "docs/FRAGMENT_DIRECTION_MODEL.md"
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 1,
+  "receiptId": "eab1da09-c765-41c0-a23a-788bfbef62e1",
+  "status": "current",
+  "command": "deliver",
+  "type": "explainer",
+  "input": "D:\\Desktop\\UAV新\\.archify\\explainer-uav-visual-report-20261123-quant\\remaining.archify.md",
+  "output": "D:\\Desktop\\UAV新\\artifacts\\visual_reports_20261123\\03_remaining_work_roadmap.html",
+  "specification": {
+    "sha256": "9ebe3b64e4bb3943b3159d68ef2fa70d5be9a6eaf1c4ba90a0e1833eea6ae331",
+    "bytes": 6746
+  },
+  "artifact": {
+    "sha256": "8953d15d684e4557d3ba3e62ec65577137d97e3d6732ca598151a7f5021038fe",
+    "bytes": 1015123
+  },
+  "explainer": {
+    "preparedSha256": "422ce34e57da78ac645085ca9c3ff061659c0f49aa7c4ccf44a1c369b786f289",
+    "dependencies": [
+      {
+        "kind": "diagram-spec",
+        "id": "remaining-critical-path",
+        "inline": true,
+        "sha256": "861f8c3c46533479542a619d82e840592fdd598011ab70edaf68536ace46bca7",
+        "bytes": 1224
+      },
+      {
+        "kind": "diagram-spec",
+        "id": "remaining-workstreams",
+        "inline": true,
+        "sha256": "deaec1c7c11627f0265ab55f0d4f1fd7ac707aa91f9ee42c0c66454aa5725067",
+        "bytes": 1470
+      }
+    ]
+  }
+}

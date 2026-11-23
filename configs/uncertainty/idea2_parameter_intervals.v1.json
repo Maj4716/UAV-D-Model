@@ -1,0 +1,50 @@
+{
+  "schema_version": "parameter-intervals@1.0.0",
+  "interval_set_id": "idea2-exploratory-mechanism-intervals-v1",
+  "status": "exploratory_sensitivity_only_not_physical_probability",
+  "parameters": [
+    {
+      "parameter_id": "armor_thickness_scale",
+      "range": [0.1, 1.0],
+      "scale": "log",
+      "source": "idea2_E3_factor_A_1mm_vs_10mm",
+      "interpretation": "placeholder armor scenario range"
+    },
+    {
+      "parameter_id": "component_threshold_scale",
+      "range": [0.1, 1.0],
+      "scale": "log",
+      "source": "idea2_E3_factor_T",
+      "interpretation": "response-threshold scenario range"
+    },
+    {
+      "parameter_id": "v50_coefficient_scale",
+      "range": [0.7, 1.3],
+      "scale": "linear",
+      "source": "engineering_screening_range_pending_external_calibration",
+      "interpretation": "ballistic-limit coefficient sensitivity"
+    },
+    {
+      "parameter_id": "gurney_speed_scale",
+      "range": [1.0, 1.3],
+      "scale": "linear",
+      "source": "idea2_E3_factor_W",
+      "interpretation": "fragment launch-speed scenario range"
+    },
+    {
+      "parameter_id": "direction_spread_sigma_deg",
+      "range": [0.5, 5.0],
+      "scale": "log",
+      "source": "idea2_E5_sigma_grid",
+      "interpretation": "unverified angular dispersion scenario range"
+    }
+  ],
+  "categorical_factors": [
+    {
+      "parameter_id": "direction_model_family",
+      "levels": ["legacy_taylor_ring", "solid_cone", "taylor_shapiro_ring"],
+      "analysis": "factorial_not_Morris_or_Sobol"
+    }
+  ],
+  "prohibition": "Do not interpret these ranges as calibrated uncertainty distributions."
+}

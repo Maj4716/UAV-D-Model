@@ -16,6 +16,18 @@
 | D008 | 毁伤等级采用平滑中间门与最终离散判定 | Accepted for development | 2026-11-17 |
 | D009 | 机器证据按稳定用途目录保留 | Accepted | 2026-11-17 |
 | D010 | 参数写回必须通过预注册晋升门 | Accepted | 2026-11-16 |
+| D011 | OOD 标签采用已证明有效的严格最坏界 | Accepted | 2026-11-20 |
+| D012 | 部件命中概率是跨重复数的主学习目标 | Accepted for development | 2026-11-20 |
+| D013 | 物理状态轨迹与毁伤树派生视图解耦 | Accepted for development | 2026-11-20 |
+| D014 | 球面入射 Sobol 设计进入 Reference 评价路线 | Accepted for evaluation | 2026-11-20 |
+| D015 | 首层装甲状态进入版本化学习输入候选 | Accepted for evaluation | 2026-11-20 |
+| D016 | Taylor–Shapiro 作为独立 v2 方向候选，不覆盖 legacy | Accepted for evaluation | 2026-11-20 |
+| D017 | 连续来向采用球面测度，bottom-up 仅作压力测试 | Accepted for evaluation | 2026-11-20 |
+| D018 | 最终试生成采用 R=32，test 在选模期间保持封存 | Accepted for pilot | 2026-11-20 |
+| D019 | 分布适配只进入 train-only 可逆目标编码器 | Accepted for development | 2026-11-20 |
+| D020 | 缺少树语义权威时使用 identity-component fallback | Accepted for development | 2026-11-20 |
+| D021 | Taylor–Shapiro 偏转改为朝爆轰传播方向，v2/v3 符号仅供复现 | Accepted for evaluation | 2026-11-23 |
+| D022 | 瞄准窗口采用固定参考轴切向基，动态基仅供复现 | Accepted for evaluation | 2026-11-23 |
 
 ## D001：项目定位为数据方法合成生成器
 
@@ -209,6 +221,182 @@ writer、validator、loader 和 loss 共同检查 mask—有限性一致性。`n
 **后果**
 
 当前单点与多工况探索的 `selected_candidate_id=null`，注册表保持原参数。诊断领导者只用于下一轮假设和实验设计。
+
+## D011：OOD 标签使用严格最坏界
+
+**背景**
+
+超出当前部件或材料适用域的重复需要给出可审计的不确定性范围。把 OOD 部件分别解释为“终止传播”和“透明且不沉积能量”，无法形成全部系统输出的全局上下界；装甲开孔、后续传播和时序耦合会破坏所需的单调性。
+
+**决策**
+
+- 保留当前对受影响重复使用的严格最坏情况界；
+- 只有在某个标签的传播链和门函数具备可证明单调性时，才增加该标签专用的收紧界；
+- 每个界记录受影响重复、适用标签、假设和证明范围；
+- 缺少单调性依据的双分支结果只作情景分析，不标记为上下界。
+
+**后果**
+
+OOD 不确定性仍可进入训练 mask、稳健损失和评价报告。新增收紧方法需要标签级性质测试，且不得改变旧数据集身份。
+
+## D012：跨重复数的概率主目标
+
+**背景**
+
+固定重复数下的二值 support 会把 Monte Carlo 分辨率写进标签语义。同一底层命中概率在不同重复数下可能产生不同二值结果，使模型学习样本预算而非物理教师的概率对象。
+
+**决策**
+
+- 主目标定义为部件命中概率 `p_hit`，由重复级 `hit_indicator` 的样本均值估计；
+- 同时保存重复数、样本标准差、标准误、95% 区间和不确定性 mask；
+- 二值 support 是版本化派生视图，使用固定概率阈值和区间判定；区间跨阈值时标记 ambiguous 并关闭训练 mask；
+- 域删失保留数值证据，响应训练 mask 为 false；
+- 命中后能量和命中数只在提供显式条件充分统计时生成，不由无条件总量代替。
+
+**后果**
+
+R=4、R=16 等预算共享同一估计对象。实现入口为 `damage_engine/hurdle_targets.py`，批量适配器为 `tools/extract_hurdle_targets.py`；阈值、区间规则和目标版本随数据包冻结。
+
+## D013：状态轨迹与树派生解耦
+
+**背景**
+
+物理教师状态、部件机制判定和系统毁伤树具有不同的演化频率。把树输出固化为物理核的唯一标签会放大语义修改成本，也会混淆逐重复非线性评估与在期望概率上评树这两个不同统计对象。
+
+**决策**
+
+- 软件教师可选保存重复级部件状态轨迹、域状态、参数身份和来源身份；
+- 毁伤树作为可离线重算的版本化派生视图；
+- 权威树目标对每个重复评估冻结树，再对重复结果取均值；
+- 在期望部件概率上评树只作辅助诊断，并使用独立字段和 estimand 名称；
+- 缺少领域授权的功能树语义时，训练和评价优先使用部件身份任务。
+
+**后果**
+
+树规则迭代无需重跑物理教师，且两类树统计量不会混用。离线入口为 `tools/recompute_tree_outputs.py`，重算结果必须与在线逐重复输出满足数值一致性门。
+
+## D014：球面入射 Sobol Reference 评价路线
+
+**背景**
+
+现有 V5 Coverage 通过代理门，但独立软件教师总门为 `overall_pass=false`。球面入射参数化已通过几何与降维检查，需要用独立配置评价空间填充序列，并保持旧冻结配置和哈希不变。
+
+**决策**
+
+- 新球面入射 Reference 配置显式使用 scrambled Sobol；
+- 非 2 的幂样本量由下一幂次 Sobol 设计取确定性前缀，并完整记录填充量、前缀和序列身份；
+- Reference 继续承担参考分布基线，V5 不晋升为新基线；
+- `bottom_up` 保留为压力测试方向，不进入当前主 Reference 设计；
+- 连续方向采样在来向分布、测度和权重合同冻结后进入后续版本。
+
+**后果**
+
+旧 randomized-LHS 配置及六来向 Sobol 比较配置仍按原哈希复现。新路线使用独立配置、设计种子和数据身份；当前主评价入口为 `configs/sampling/p0_sphere_entry_sobol_no_bottom_impact_state.v1.json`，状态为 `provisional`，通过同预算评价门后才能晋升。
+
+## D015：首层装甲状态学习输入候选
+
+**背景**
+
+仅使用来向代理量会遗漏实际瞄点、姿态和目标几何共同决定的首次装甲接触状态。首层装甲交点、法向和路径状态在教师执行前可确定，能够形成不读取响应的几何输入。
+
+**决策**
+
+- 新球面数据路线优先评价版本化的首层装甲状态输入；
+- 输入只包含标签计算前可确定的几何与运动状态，并通过来源和泄漏检查；
+- 来向代理量保留为可选消融，不与首层装甲状态混成未声明合同；
+- 原 15 维 learner input 保持旧身份；新增字段使用新的模型输入定义、维度和 manifest 身份；
+- 树语义缺少领域授权时，首层装甲状态先服务于部件概率和严重度任务。
+
+**后果**
+
+该候选使用 16 维合同 `loitering_impact_first_armor_state@1.0.0`，需要与旧 15 维输入在同一 Reference 验证集、相同训练预算和多随机种子下比较。通过泄漏、可学习性和稳定性门后，才能成为新数据包默认输入。
+
+## D016：Taylor–Shapiro 使用独立 v2 身份
+
+**决策**
+
+- legacy `taylor_ring` 的配置、固定种子输出和数据身份保持不变；
+- 新路径使用 `taylor_shapiro_ring`、独立 physics registry、case revision 和模型卡；
+- v2 将 Shapiro 有符号偏转限制在 Taylor 幅值界内，仅支持已声明的圆柱内壁、前端轴上点起爆几何；
+- 新模型的文献可溯源性不等于已完成弹药几何、色散、材料和目标响应标定。
+
+**后果**
+
+v2 可用于敏感性研究和新数据 pilot，不得用它重解释旧数据。模型说明和适用界见 `docs/FRAGMENT_DIRECTION_MODEL.md`。
+
+## D017：连续来向与 bottom-up 分流
+
+**决策**
+
+- 水平来向在方位±30°、俯冲0–45°内按声明的球面测度采样；顶攻在偏离竖直0–45°内按均匀立体角采样；
+- 切向基随实际方向重算，记录量度和采样身份；
+- `bottom_up` 不进入主 Reference，仅进入独立 stress 语义。
+
+**后果**
+
+SamplingSpec 1.7 是新评价路线；旧离散来向仍用于复现。Reference 的设计权重不解释为作战方位的真实流行率。
+
+## D018：R=32 的 pilot 预算与封存 test
+
+**决策**
+
+- 用 32 个非 test 工况、每工况 R=32 的 E1 方差分解选择本次试生成预算；
+- 预注册 pilot 门为“67 部件中最坏 `p_hit` 均值估计器 RMSE≤0.05”；实测最坏值约 0.045，R=16 外推约 0.064；
+- train/validation/test 在标签观察前以独立设计种子冻结；模型、阈值和训练规则冻结前不读 test 指标。
+
+**后果**
+
+R=32 是本次 360 例 pilot 的临时决策，不是对全域或所有条件正值目标的充分性证明。正式数据需扩大 E1 并单独预注册自适应重复分配。
+
+## D019：分布适配不改写标签
+
+**决策**
+
+- identity、log1p、Box–Cox 和经验分位数编码器只允许在 train 拟合；
+- 变换参数与模型绑定并可逆，所有发布评价回到原始标签尺度；
+- 编码器不进入物理标签身份，不按数据分布改写毁伤语义。
+
+## D020：未审定树语义时使用 identity fallback
+
+**决策**
+
+- 23 个现有树未引用部件仅生成部件—机理—状态 identity 输出，不补造功能分组或系统效应；
+- noisy-OR、k-of-n 和 Choquet 候选可作数值诊断，只有独立 seed 门通过且具名语义权威批准后才能冻结；
+- 缺少语义权威时，阶段 5 可先训练部件层，不将候选树写成权威标签。
+
+## D021：Taylor–Shapiro 偏转朝爆轰传播方向
+
+**背景**
+
+审查（`artifacts/validation/pipeline_expected_actual_20261122/REVIEW_20261123.md` §4.1）发现，v2/v3 把 Shapiro 角施加到极角增大方向后，前端起爆的破片全部偏向起爆端（轴向 +0.5° 至 +7.6°）。Taylor（1941）的稳态流构造要求破片偏向爆轰波传播方向，前端起爆应向后偏转。原测试把错误方向写成了断言，微观审计又复用了同一函数，所以一直没有被发现。
+
+**决策**
+
+- 新增 `angle_convention: body_plus_x_polar_deflection_toward_detonation_propagation`，偏转角取 `atan(q·sin(φ₂−φ₁))`，幅值和 Taylor 上界不变，符号与 v2/v3 相反；
+- 新物理注册表 `loitering_impact.taylor_shapiro.wave_directed.obliquity_bound.v4.json` 与案例 v4 只改这一处，其余与 v3 相同；
+- v2/v3 的 `body_plus_x_polar_from_nose_local_normal_signed` 原样保留，仅用于复现已归档数据；
+- 方向测试必须包含与引擎代码无关的独立判据（Taylor 实验室系速度合成、“偏离法线方向与爆轰切向分量同号”）。
+
+**后果**
+
+基于 v3 的数据集（含 `recovery_role_r8_r32_train2000_eval300_20261122`）的部件级命中格局需要用 v4 重建后才能作为正式结论。v3 归档仍可逐位复现：3 个 train 工况的教师结果重跑后完全相等。模型卡升为 `fragment-direction-model@3.0.0`。
+
+## D022：瞄准窗口固定参考轴切向基
+
+**背景**
+
+SamplingSpec 1.7 的动态切向基取“与来向最不对齐的坐标轴”投影为 u，v=direction×u。v 的朝向随来向翻转，同一个 `aim_v_range_m=[0.75,1.7]` 对一半扇区落在目标中心上方，对另一半落在下方：瞄准带在上方时 S-CONTACT 准入 94.8%，下方时 26.1%；x 向近似镜像对称的目标，pos_x 与 neg_x 准入率为 77.4% 与 17.7%，正式集 region TV 达 0.2015。
+
+**决策**
+
+- 新增 `contact_manifold.aim_tangent_basis: target_up_horizontal_target_forward_top@1.0.0`：水平扇区以目标 +z、顶攻以目标 +y 在垂直来向平面上的投影为 v，u=v×direction；
+- 四个正方向与正下方顶攻时，该基精确还原 `contact_pose.smoke.v1` 中显式声明的坐标框架；
+- 新基使用独立的 measure contract（`continuous-direction-measure@1.1.0`）和实现哈希；未声明该字段的 SamplingSpec 维持原动态基，归档哈希不变；
+- 新 SamplingSpec `p0_sphere_entry_continuous_direction_recovery_train2000_eval300_role_r8_r32.v2.json` 使用新基和新设计种子。
+
+**后果**
+
+同预算下 S-CONTACT 总准入率从 60.5% 升到 98.4%，四个水平扇区均为 100%，正式集 region TV 从 0.2015 降到 0.0127。旧计划重建后 2,600 个工况与归档逐位一致（存储字段除外）。D017“切向基随实际方向重算”的表述由本决策细化：方向本身仍逐例重算，切向基改为固定参考轴投影。
 
 ## 修改决策的流程
 

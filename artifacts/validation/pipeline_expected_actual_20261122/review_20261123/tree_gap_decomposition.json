@@ -1,0 +1,68 @@
+{
+  "joint_complete_cases": 1120,
+  "outputs": {
+    "effect-c1": {
+      "proxy_mean": 0.33674424067944925,
+      "tree_of_mean_teacher_states": 0.4127406818918929,
+      "teacher_mean_of_replicate_trees": 0.4188548008542455,
+      "teacher_minus_proxy": 0.08211056017479623,
+      "input_state_bias_part": 0.07599644121244364,
+      "aggregation_order_part": 0.006114118962352588,
+      "order_share_of_gap": 0.07446202960175775
+    },
+    "effect-c2": {
+      "proxy_mean": 0.06939489563764029,
+      "tree_of_mean_teacher_states": 0.19585105662601768,
+      "teacher_mean_of_replicate_trees": 0.19829422785283457,
+      "teacher_minus_proxy": 0.12889933221519428,
+      "input_state_bias_part": 0.1264561609883774,
+      "aggregation_order_part": 0.0024431712268168926,
+      "order_share_of_gap": 0.01895410305724531
+    },
+    "effect-f1": {
+      "proxy_mean": 0.08010964948373257,
+      "tree_of_mean_teacher_states": 0.1742981501087755,
+      "teacher_mean_of_replicate_trees": 0.17508193578866393,
+      "teacher_minus_proxy": 0.09497228630493136,
+      "input_state_bias_part": 0.09418850062504293,
+      "aggregation_order_part": 0.0007837856798884324,
+      "order_share_of_gap": 0.008252783105293475
+    },
+    "effect-k1": {
+      "proxy_mean": 0.008797477488408248,
+      "tree_of_mean_teacher_states": 0.03767174211421928,
+      "teacher_mean_of_replicate_trees": 0.03767174211421928,
+      "teacher_minus_proxy": 0.02887426462581103,
+      "input_state_bias_part": 0.02887426462581103,
+      "aggregation_order_part": 0.0,
+      "order_share_of_gap": 0.0
+    },
+    "effect-k2": {
+      "proxy_mean": 0.001024144192015048,
+      "tree_of_mean_teacher_states": 0.01054716337431544,
+      "teacher_mean_of_replicate_trees": 0.01054716337431544,
+      "teacher_minus_proxy": 0.009523019182300392,
+      "input_state_bias_part": 0.009523019182300392,
+      "aggregation_order_part": 0.0,
+      "order_share_of_gap": 0.0
+    },
+    "effect-m1": {
+      "proxy_mean": 0.07850150334862482,
+      "tree_of_mean_teacher_states": 0.18516595309408884,
+      "teacher_mean_of_replicate_trees": 0.18982367820491564,
+      "teacher_minus_proxy": 0.11132217485629081,
+      "input_state_bias_part": 0.10666444974546402,
+      "aggregation_order_part": 0.004657725110826794,
+      "order_share_of_gap": 0.041840047742865184
+    },
+    "effect-m2": {
+      "proxy_mean": 0.31837488696611566,
+      "tree_of_mean_teacher_states": 0.5657690039791803,
+      "teacher_mean_of_replicate_trees": 0.5813046196523496,
+      "teacher_minus_proxy": 0.26292973268623393,
+      "input_state_bias_part": 0.24739411701306463,
+      "aggregation_order_part": 0.0155356156731693,
+      "order_share_of_gap": 0.05908656854608627
+    }
+  }
+}

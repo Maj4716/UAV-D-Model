@@ -24,6 +24,9 @@ from .result_ledger import write_result_ledger
 from .utils import content_hash, file_hash, length_to_m, pressure_to_pa, ratio_value
 
 
+CASE_FEATURE_CONTRACT_VERSION = "case-features@2.0.0-taylor-shapiro"
+
+
 CASE_FEATURE_NAMES = [
     "detonation_x_m", "detonation_y_m", "detonation_z_m", "detonation_time_s",
     "orientation_qx", "orientation_qy", "orientation_qz", "orientation_qw",
@@ -43,6 +46,7 @@ CASE_FEATURE_NAMES = [
     "initial_velocity_fixed", "initial_velocity_gurney",
     "fixed_initial_velocity_mps", "gurney_constant_mps", "detonation_velocity_mps",
     "direction_isotropic", "direction_cone", "direction_taylor_ring",
+    "direction_taylor_shapiro_ring",
     "direction_axis_body_x", "direction_axis_body_y", "direction_axis_body_z",
     "direction_half_angle_deg", "direction_spread_sigma_deg",
     "drag_coefficient", "area_shape_factor",
@@ -63,7 +67,7 @@ CASE_FEATURE_UNITS = [
     "kg", "kg", "kg", "kg", "kg",
     "1", "1", "1", "1", "1",
     "kg/m^3", "1", "1", "m/s", "m/s", "m/s",
-    "1", "1", "1", "1", "1", "1", "deg", "deg",
+    "1", "1", "1", "1", "1", "1", "1", "deg", "deg",
     "1", "1", "kg/m^3", "Pa", "K",
     "1", "1", "1", "1", "1", "1", "1", "1", "1",
     "count", "1",
@@ -383,7 +387,12 @@ def _case_features(case: dict, engine: DamageEngine) -> tuple[list[float], list[
     initial_one_hot = [float(initial_kind == "fixed"), float(initial_kind == "gurney_cylinder")]
     fixed_velocity = float(source_model["initial_velocity"].get("velocity_mps", 0.0))
     direction = source_model["direction"]
-    direction_names = ["isotropic", "cone", "taylor_ring"]
+    direction_names = [
+        "isotropic",
+        "cone",
+        "taylor_ring",
+        "taylor_shapiro_ring",
+    ]
     direction_one_hot = [float(direction["kind"] == name) for name in direction_names]
     half_angle = float(direction.get("half_angle_deg", 0.0))
     spread_sigma = float(direction.get("spread_sigma_deg", 0.0))
@@ -758,6 +767,14 @@ _SAMPLING_REQUIRED_FIELDS_BY_VERSION = {
     "1.2.0": _SAMPLING_REQUIRED_FIELDS_V1_2,
     "1.3.0": _SAMPLING_REQUIRED_FIELDS_V1_3,
     "1.4.0": _SAMPLING_REQUIRED_FIELDS_V1_3,
+    "1.5.0": _SAMPLING_REQUIRED_FIELDS_V1_3,
+    "1.6.0": _SAMPLING_REQUIRED_FIELDS_V1_3,
+    "1.7.0": _SAMPLING_REQUIRED_FIELDS_V1_3,
+}
+_SAMPLING_OPTIONAL_FIELDS_BY_VERSION = {
+    "1.5.0": {"design_sequence"},
+    "1.6.0": {"design_sequence"},
+    "1.7.0": {"design_sequence"},
 }
 
 
@@ -787,14 +804,17 @@ def _sampling_context(cases: list[dict]) -> list[dict] | None:
         required_fields = _SAMPLING_REQUIRED_FIELDS_BY_VERSION.get(version)
         if required_fields is None:
             raise InputValidationError("unsupported sampling envelope schema version")
-        if set(raw) != required_fields:
+        optional_fields = _SAMPLING_OPTIONAL_FIELDS_BY_VERSION.get(version, set())
+        missing_fields = required_fields - set(raw)
+        unknown_fields = set(raw) - required_fields - optional_fields
+        if missing_fields or unknown_fields:
             raise InputValidationError(
                 "sampling envelope has missing or unknown fields",
                 context={
                     "case_id": case.get("case_id"),
                     "schema_version": version,
-                    "missing": sorted(required_fields - set(raw)),
-                    "unknown": sorted(set(raw) - required_fields),
+                    "missing": sorted(missing_fields),
+                    "unknown": sorted(unknown_fields),
                 },
             )
         record = dict(raw)
@@ -896,7 +916,10 @@ def _sampling_context(cases: list[dict]) -> list[dict] | None:
         if int(record["formal_seed"]) != int(case["analysis"]["aleatory_seed"]):
             raise InputValidationError("formal seed in sampling envelope differs from the executed case")
         active_fixed_fields = set(fixed_fields)
-        if version in {"1.1.0", "1.2.0", "1.3.0", "1.4.0"}:
+        if version in {
+            "1.1.0", "1.2.0", "1.3.0", "1.4.0", "1.5.0", "1.6.0",
+            "1.7.0",
+        }:
             active_fixed_fields.update(
                 {"sampling_spec_document", "training_design_document", "training_design_hash"}
             )
@@ -932,6 +955,9 @@ def _sampling_context(cases: list[dict]) -> list[dict] | None:
         "1.2.0",
         "1.3.0",
         "1.4.0",
+        "1.5.0",
+        "1.6.0",
+        "1.7.0",
     }:
         from .sampling_spec import SamplingSpec
 
@@ -1182,7 +1208,7 @@ class DatasetWriter:
         if (
             isinstance(sampling_spec_document, dict)
             and sampling_spec_document.get("schema_version")
-            in {"1.2.0", "1.3.0", "1.4.0"}
+            in {"1.2.0", "1.3.0", "1.4.0", "1.5.0", "1.6.0", "1.7.0"}
         ):
             candidate_definition = model_input_definition_for_sampling_contract(
                 sampling_spec_document.get("model_input_contract")
@@ -2246,6 +2272,7 @@ class DatasetWriter:
         source_contracts = {
             "target_schema": "target.schema.json@1.0.0",
             "case_schema": "simulation_case.schema.json@1.0.0",
+            "case_feature_contract": CASE_FEATURE_CONTRACT_VERSION,
             "damage_tree_versions": [engine.damage_tree.version],
             "evaluation_standards": {
                 standard_id: list(output_ids)
@@ -2302,6 +2329,9 @@ class DatasetWriter:
                 "1.2.0",
                 "1.3.0",
                 "1.4.0",
+                "1.5.0",
+                "1.6.0",
+                "1.7.0",
             }:
                 source_contracts.update(
                     {

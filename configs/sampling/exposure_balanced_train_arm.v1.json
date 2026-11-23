@@ -1,0 +1,15 @@
+{
+  "schema_version": "exposure-balanced-train-arm-config@1.0.0",
+  "selection_role": "train_enrichment_exposure_balanced",
+  "reference_replacement": false,
+  "sample_size": 16,
+  "seed": 2026112002,
+  "rho_min": 0.08,
+  "smoothing": 2.0,
+  "iterations": 80,
+  "footprint_metrics": [
+    "design_ess_fraction",
+    "normalized_l1_lambda_error",
+    "component_reachability_retention"
+  ]
+}

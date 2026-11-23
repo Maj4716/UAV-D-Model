@@ -1,0 +1,1167 @@
+{
+  "schema_version": "1.0.0",
+  "scope": {
+    "dataset_root": "D:\\Desktop\\UAV新\\artifacts\\validation\\sampling_sphere_v1\\no_bottom_impact_state_pilot\\formal_dataset",
+    "dataset_id": "damage-dataset-0d329baeb6e488cd40309c56",
+    "engine_version": "0.11.0.dev0",
+    "case_count": 360,
+    "split_counts": {
+      "validation": 60,
+      "test": 60,
+      "train": 240
+    },
+    "purpose_admission_counts": {
+      "software_development": 360,
+      "research_training": 0,
+      "research_validation": 0,
+      "research_test": 0
+    },
+    "parameter_set_ids": [
+      "loitering-impact-unverified-1"
+    ],
+    "evidence_boundary": "Software and synthetic-design statistical audit only; physical validity and research admission remain unestablished."
+  },
+  "sampling_design": {
+    "role_counts": {
+      "reference_test": 60,
+      "reference_train": 240,
+      "reference_validation": 60
+    },
+    "stratum_counts": {
+      "p0": 360
+    },
+    "round_counts": {
+      "0": 360
+    },
+    "selection_probability": {
+      "count": 360,
+      "min": 1.0,
+      "p01": 1.0,
+      "p05": 1.0,
+      "median": 1.0,
+      "p95": 1.0,
+      "p99": 1.0,
+      "max": 1.0,
+      "mean": 1.0,
+      "std": 0.0,
+      "unique": 1,
+      "mode": 1.0,
+      "mode_count": 360,
+      "mode_fraction": 1.0,
+      "exact_zero_fraction": 0.0,
+      "exact_one_fraction": 1.0
+    },
+    "design_weight_raw": {
+      "count": 360,
+      "min": 1.0,
+      "p01": 1.0,
+      "p05": 1.0,
+      "median": 1.0,
+      "p95": 1.0,
+      "p99": 1.0,
+      "max": 1.0,
+      "mean": 1.0,
+      "std": 0.0,
+      "unique": 1,
+      "mode": 1.0,
+      "mode_count": 360,
+      "mode_fraction": 1.0,
+      "exact_zero_fraction": 0.0,
+      "exact_one_fraction": 1.0
+    },
+    "effective_sample_size": 360.0,
+    "ess_fraction": 1.0,
+    "weight_cv": 0.0,
+    "max_normalized_weight": 0.002777777777777778,
+    "note": "Raw design weights are neither class weights nor minibatch sampling probabilities."
+  },
+  "input_features": {
+    "raw_feature_count": 60,
+    "variable_feature_count": 31,
+    "variable_features": [
+      "detonation_x_m",
+      "detonation_y_m",
+      "detonation_z_m",
+      "detonation_time_s",
+      "orientation_qx",
+      "orientation_qy",
+      "orientation_qz",
+      "orientation_qw",
+      "velocity_x_mps",
+      "velocity_y_mps",
+      "velocity_z_mps",
+      "charge_mass_kg",
+      "casing_mass_kg",
+      "blast_equivalent_mass_kg",
+      "fragment_total_count",
+      "munition_profile_small_front",
+      "munition_profile_medium_front",
+      "munition_profile_large_front",
+      "projectile_length_m",
+      "projectile_diameter_m",
+      "warhead_length_m",
+      "warhead_diameter_m",
+      "wall_thickness_m",
+      "fragment_ring_count",
+      "collision_distance_m",
+      "fragment_mass_mean_kg",
+      "fragment_mass_q10_kg",
+      "fragment_mass_q50_kg",
+      "fragment_mass_q90_kg",
+      "gurney_constant_mps",
+      "detonation_velocity_mps"
+    ],
+    "constant_feature_count": 29,
+    "constant_features": [
+      "fragment_axial_coverage_ratio",
+      "impact_first_armor_contact",
+      "mass_family_fixed",
+      "mass_family_lognormal",
+      "mass_family_weibull",
+      "mass_family_empirical",
+      "fragment_mass_stddev_kg",
+      "shape_sphere",
+      "shape_cube",
+      "shape_cylinder",
+      "shape_irregular",
+      "shape_empirical",
+      "fragment_density_kg_m3",
+      "initial_velocity_fixed",
+      "initial_velocity_gurney",
+      "fixed_initial_velocity_mps",
+      "direction_isotropic",
+      "direction_cone",
+      "direction_taylor_ring",
+      "direction_axis_body_x",
+      "direction_axis_body_y",
+      "direction_axis_body_z",
+      "direction_half_angle_deg",
+      "direction_spread_sigma_deg",
+      "drag_coefficient",
+      "area_shape_factor",
+      "air_density_kg_m3",
+      "ambient_pressure_pa",
+      "temperature_k"
+    ],
+    "features_with_missing_values": [
+      {
+        "name": "fixed_initial_velocity_mps",
+        "available": 0
+      },
+      {
+        "name": "direction_axis_body_x",
+        "available": 0
+      },
+      {
+        "name": "direction_axis_body_y",
+        "available": 0
+      },
+      {
+        "name": "direction_axis_body_z",
+        "available": 0
+      },
+      {
+        "name": "direction_half_angle_deg",
+        "available": 0
+      }
+    ],
+    "sphere_shell_radius_m": {
+      "count": 360,
+      "min": 1.429112480095606,
+      "p01": 1.4814146449038366,
+      "p05": 1.6280292153815017,
+      "median": 2.7480364801796515,
+      "p95": 4.2189865834094435,
+      "p99": 4.403097285088318,
+      "max": 4.456819607612387,
+      "mean": 2.9457732220829813,
+      "std": 0.8526247325994888,
+      "unique": 360,
+      "mode": 1.429112480095606,
+      "mode_count": 1,
+      "mode_fraction": 0.002777777777777778,
+      "exact_zero_fraction": 0.0,
+      "exact_one_fraction": 0.0
+    },
+    "sphere_equal_area_20x10": {
+      "occupied_cells": 66,
+      "total_cells": 200,
+      "occupancy_fraction": 0.33,
+      "min_count": 0,
+      "median_count": 0.0,
+      "max_count": 33
+    },
+    "quaternion_norm": {
+      "count": 360,
+      "min": 0.9999999583030892,
+      "p01": 0.9999999622386222,
+      "p05": 0.999999966505189,
+      "median": 1.000000001094,
+      "p95": 1.0000000305714944,
+      "p99": 1.0000000403404654,
+      "max": 1.0000000443105144,
+      "mean": 1.000000000475203,
+      "std": 1.9956918908576924e-08,
+      "unique": 360,
+      "mode": 0.9999999583030892,
+      "mode_count": 1,
+      "mode_fraction": 0.002777777777777778,
+      "exact_zero_fraction": 0.0,
+      "exact_one_fraction": 0.0
+    }
+  },
+  "leakage_and_duplicates": {
+    "unique_exact_physics_rows": 360,
+    "duplicate_row_groups": 0,
+    "duplicate_rows_beyond_first": 0,
+    "exact_physics_rows_crossing_splits": 0,
+    "candidate_id_unique": true,
+    "lineage_id_unique": true,
+    "epistemic_group_id_unique": true
+  },
+  "mechanism_events": {
+    "fragment_hit": {
+      "all": {
+        "successes": 105,
+        "total": 360,
+        "rate": 0.2916666666666667,
+        "ci95": [
+          0.24711047670979067,
+          0.3406220469938317
+        ],
+        "interval_semantics": "Wilson binomial interval for this synthetic design sample; not a real-world validity interval"
+      },
+      "train": {
+        "successes": 71,
+        "total": 240,
+        "rate": 0.29583333333333334,
+        "ci95": [
+          0.24167259820926645,
+          0.3564269191002034
+        ],
+        "interval_semantics": "Wilson binomial interval for this synthetic design sample; not a real-world validity interval"
+      },
+      "validation": {
+        "successes": 18,
+        "total": 60,
+        "rate": 0.3,
+        "ci95": [
+          0.19898166138769108,
+          0.42508707946914487
+        ],
+        "interval_semantics": "Wilson binomial interval for this synthetic design sample; not a real-world validity interval"
+      },
+      "test": {
+        "successes": 16,
+        "total": 60,
+        "rate": 0.26666666666666666,
+        "ci95": [
+          0.17132640003280553,
+          0.39008713096683645
+        ],
+        "interval_semantics": "Wilson binomial interval for this synthetic design sample; not a real-world validity interval"
+      }
+    },
+    "fragment_penetration": {
+      "all": {
+        "successes": 90,
+        "total": 360,
+        "rate": 0.25,
+        "ci95": [
+          0.20806819270307225,
+          0.29721083574127455
+        ],
+        "interval_semantics": "Wilson binomial interval for this synthetic design sample; not a real-world validity interval"
+      },
+      "train": {
+        "successes": 61,
+        "total": 240,
+        "rate": 0.25416666666666665,
+        "ci95": [
+          0.20325441583962553,
+          0.3128245947983075
+        ],
+        "interval_semantics": "Wilson binomial interval for this synthetic design sample; not a real-world validity interval"
+      },
+      "validation": {
+        "successes": 16,
+        "total": 60,
+        "rate": 0.26666666666666666,
+        "ci95": [
+          0.17132640003280553,
+          0.39008713096683645
+        ],
+        "interval_semantics": "Wilson binomial interval for this synthetic design sample; not a real-world validity interval"
+      },
+      "test": {
+        "successes": 13,
+        "total": 60,
+        "rate": 0.21666666666666667,
+        "ci95": [
+          0.13123044048190308,
+          0.33620027573194783
+        ],
+        "interval_semantics": "Wilson binomial interval for this synthetic design sample; not a real-world validity interval"
+      }
+    },
+    "fragment_hit_without_penetration": {
+      "all": {
+        "successes": 15,
+        "total": 360,
+        "rate": 0.041666666666666664,
+        "ci95": [
+          0.02541060939986971,
+          0.06760094274809934
+        ],
+        "interval_semantics": "Wilson binomial interval for this synthetic design sample; not a real-world validity interval"
+      },
+      "train": {
+        "successes": 10,
+        "total": 240,
+        "rate": 0.041666666666666664,
+        "ci95": [
+          0.022787422709248207,
+          0.07498700390384737
+        ],
+        "interval_semantics": "Wilson binomial interval for this synthetic design sample; not a real-world validity interval"
+      },
+      "validation": {
+        "successes": 2,
+        "total": 60,
+        "rate": 0.03333333333333333,
+        "ci95": [
+          0.009189319256197877,
+          0.113637742743086
+        ],
+        "interval_semantics": "Wilson binomial interval for this synthetic design sample; not a real-world validity interval"
+      },
+      "test": {
+        "successes": 3,
+        "total": 60,
+        "rate": 0.05,
+        "ci95": [
+          0.01714950216439568,
+          0.1370051647634852
+        ],
+        "interval_semantics": "Wilson binomial interval for this synthetic design sample; not a real-world validity interval"
+      }
+    },
+    "fragment_hit_count_exceeds_penetration_count": {
+      "all": {
+        "successes": 95,
+        "total": 360,
+        "rate": 0.2638888888888889,
+        "ci95": [
+          0.22102613238788865,
+          0.3117373944762167
+        ],
+        "interval_semantics": "Wilson binomial interval for this synthetic design sample; not a real-world validity interval"
+      },
+      "train": {
+        "successes": 63,
+        "total": 240,
+        "rate": 0.2625,
+        "ci95": [
+          0.21088941348121418,
+          0.3215936984910262
+        ],
+        "interval_semantics": "Wilson binomial interval for this synthetic design sample; not a real-world validity interval"
+      },
+      "validation": {
+        "successes": 17,
+        "total": 60,
+        "rate": 0.2833333333333333,
+        "ci95": [
+          0.18506828428432714,
+          0.4076728516439118
+        ],
+        "interval_semantics": "Wilson binomial interval for this synthetic design sample; not a real-world validity interval"
+      },
+      "test": {
+        "successes": 15,
+        "total": 60,
+        "rate": 0.25,
+        "ci95": [
+          0.15776522530056675,
+          0.37232070077047824
+        ],
+        "interval_semantics": "Wilson binomial interval for this synthetic design sample; not a real-world validity interval"
+      }
+    },
+    "blast_shielding_panel": {
+      "all": {
+        "successes": 0,
+        "total": 360,
+        "rate": 0.0,
+        "ci95": [
+          0.0,
+          0.010558056888693507
+        ],
+        "interval_semantics": "Wilson binomial interval for this synthetic design sample; not a real-world validity interval"
+      },
+      "train": {
+        "successes": 0,
+        "total": 240,
+        "rate": 0.0,
+        "ci95": [
+          0.0,
+          0.015753919941558815
+        ],
+        "interval_semantics": "Wilson binomial interval for this synthetic design sample; not a real-world validity interval"
+      },
+      "validation": {
+        "successes": 0,
+        "total": 60,
+        "rate": 0.0,
+        "ci95": [
+          0.0,
+          0.06017185214208986
+        ],
+        "interval_semantics": "Wilson binomial interval for this synthetic design sample; not a real-world validity interval"
+      },
+      "test": {
+        "successes": 0,
+        "total": 60,
+        "rate": 0.0,
+        "ci95": [
+          0.0,
+          0.06017185214208986
+        ],
+        "interval_semantics": "Wilson binomial interval for this synthetic design sample; not a real-world validity interval"
+      }
+    },
+    "shielding_and_fragment_hit": {
+      "all": {
+        "successes": 0,
+        "total": 360,
+        "rate": 0.0,
+        "ci95": [
+          0.0,
+          0.010558056888693507
+        ],
+        "interval_semantics": "Wilson binomial interval for this synthetic design sample; not a real-world validity interval"
+      },
+      "train": {
+        "successes": 0,
+        "total": 240,
+        "rate": 0.0,
+        "ci95": [
+          0.0,
+          0.015753919941558815
+        ],
+        "interval_semantics": "Wilson binomial interval for this synthetic design sample; not a real-world validity interval"
+      },
+      "validation": {
+        "successes": 0,
+        "total": 60,
+        "rate": 0.0,
+        "ci95": [
+          0.0,
+          0.06017185214208986
+        ],
+        "interval_semantics": "Wilson binomial interval for this synthetic design sample; not a real-world validity interval"
+      },
+      "test": {
+        "successes": 0,
+        "total": 60,
+        "rate": 0.0,
+        "ci95": [
+          0.0,
+          0.06017185214208986
+        ],
+        "interval_semantics": "Wilson binomial interval for this synthetic design sample; not a real-world validity interval"
+      }
+    },
+    "no_shielding_and_no_fragment_hit": {
+      "all": {
+        "successes": 255,
+        "total": 360,
+        "rate": 0.7083333333333334,
+        "ci95": [
+          0.6593779530061684,
+          0.7528895232902094
+        ],
+        "interval_semantics": "Wilson binomial interval for this synthetic design sample; not a real-world validity interval"
+      },
+      "train": {
+        "successes": 169,
+        "total": 240,
+        "rate": 0.7041666666666667,
+        "ci95": [
+          0.6435730808997967,
+          0.7583274017907337
+        ],
+        "interval_semantics": "Wilson binomial interval for this synthetic design sample; not a real-world validity interval"
+      },
+      "validation": {
+        "successes": 42,
+        "total": 60,
+        "rate": 0.7,
+        "ci95": [
+          0.5749129205308552,
+          0.8010183386123089
+        ],
+        "interval_semantics": "Wilson binomial interval for this synthetic design sample; not a real-world validity interval"
+      },
+      "test": {
+        "successes": 44,
+        "total": 60,
+        "rate": 0.7333333333333333,
+        "ci95": [
+          0.6099128690331636,
+          0.8286735999671945
+        ],
+        "interval_semantics": "Wilson binomial interval for this synthetic design sample; not a real-world validity interval"
+      }
+    },
+    "hit_to_penetration_fraction": 0.8571428571428571,
+    "penetration_count_to_hit_count_ratio": 0.7800309658050537,
+    "raw_hit_summary": {
+      "count": 360,
+      "min": 0.0,
+      "p01": 0.0,
+      "p05": 0.0,
+      "median": 0.0,
+      "p95": 20.98750000000011,
+      "p99": 80.57250000000043,
+      "max": 149.75,
+      "mean": 4.486111111111111,
+      "std": 16.744634758927308,
+      "unique": 59,
+      "mode": 0.0,
+      "mode_count": 255,
+      "mode_fraction": 0.7083333333333334,
+      "exact_zero_fraction": 0.7083333333333334,
+      "exact_one_fraction": 0.008333333333333333
+    },
+    "raw_penetration_summary": {
+      "count": 360,
+      "min": 0.0,
+      "p01": 0.0,
+      "p05": 0.0,
+      "median": 0.0,
+      "p95": 14.5,
+      "p99": 69.84250000000036,
+      "max": 142.25,
+      "mean": 3.4993055555555554,
+      "std": 14.84335451065082,
+      "unique": 51,
+      "mode": 0.0,
+      "mode_count": 270,
+      "mode_fraction": 0.75,
+      "exact_zero_fraction": 0.75,
+      "exact_one_fraction": 0.016666666666666666
+    }
+  },
+  "labels": {
+    "system_outputs": {
+      "effect-m2": {
+        "summary": {
+          "count": 360,
+          "min": 0.0,
+          "p01": 0.0,
+          "p05": 0.0,
+          "median": 0.996491014957428,
+          "p95": 1.0,
+          "p99": 1.0,
+          "max": 1.0,
+          "mean": 0.7407388365258822,
+          "std": 0.36714711127980376,
+          "unique": 218,
+          "mode": 1.0,
+          "mode_count": 120,
+          "mode_fraction": 0.3333333333333333,
+          "exact_zero_fraction": 0.05277777777777778,
+          "exact_one_fraction": 0.3333333333333333
+        },
+        "histogram_entropy": {
+          "bins": 20,
+          "occupied_bins": 20,
+          "entropy_bits": 2.605542412438758,
+          "normalized_entropy": 0.602865747702048,
+          "counts": [
+            44,
+            4,
+            7,
+            4,
+            5,
+            5,
+            2,
+            6,
+            6,
+            8,
+            4,
+            5,
+            7,
+            5,
+            12,
+            4,
+            10,
+            6,
+            11,
+            205
+          ]
+        }
+      },
+      "effect-k1": {
+        "summary": {
+          "count": 360,
+          "min": 0.0,
+          "p01": 0.0,
+          "p05": 0.0,
+          "median": 0.0,
+          "p95": 0.9996978014707565,
+          "p99": 1.0,
+          "max": 1.0,
+          "mean": 0.1310365107004903,
+          "std": 0.31371755428198345,
+          "unique": 94,
+          "mode": 0.0,
+          "mode_count": 255,
+          "mode_fraction": 0.7083333333333334,
+          "exact_zero_fraction": 0.7083333333333334,
+          "exact_one_fraction": 0.03611111111111111
+        },
+        "histogram_entropy": {
+          "bins": 20,
+          "occupied_bins": 16,
+          "entropy_bits": 1.1923089842206065,
+          "normalized_entropy": 0.2758743223032914,
+          "counts": [
+            295,
+            5,
+            7,
+            1,
+            1,
+            0,
+            1,
+            1,
+            1,
+            0,
+            1,
+            0,
+            2,
+            2,
+            1,
+            0,
+            6,
+            3,
+            3,
+            30
+          ]
+        }
+      },
+      "effect-m1": {
+        "summary": {
+          "count": 360,
+          "min": 0.0,
+          "p01": 0.0,
+          "p05": 0.0,
+          "median": 0.0,
+          "p95": 0.9997519791126251,
+          "p99": 1.0,
+          "max": 1.0,
+          "mean": 0.26122832124902085,
+          "std": 0.3801194050312637,
+          "unique": 165,
+          "mode": 0.0,
+          "mode_count": 187,
+          "mode_fraction": 0.5194444444444445,
+          "exact_zero_fraction": 0.5194444444444445,
+          "exact_one_fraction": 0.027777777777777776
+        },
+        "histogram_entropy": {
+          "bins": 20,
+          "occupied_bins": 20,
+          "entropy_bits": 2.4663406592564794,
+          "normalized_entropy": 0.5706574947820267,
+          "counts": [
+            215,
+            9,
+            6,
+            6,
+            7,
+            4,
+            6,
+            7,
+            5,
+            2,
+            5,
+            2,
+            3,
+            2,
+            10,
+            5,
+            5,
+            8,
+            10,
+            43
+          ]
+        }
+      },
+      "effect-k2": {
+        "summary": {
+          "count": 360,
+          "min": 0.0,
+          "p01": 0.0,
+          "p05": 0.0,
+          "median": 0.0,
+          "p95": 0.9751182287931445,
+          "p99": 1.0,
+          "max": 1.0,
+          "mean": 0.07056007885454081,
+          "std": 0.2390500607066838,
+          "unique": 73,
+          "mode": 0.0,
+          "mode_count": 284,
+          "mode_fraction": 0.7888888888888889,
+          "exact_zero_fraction": 0.7888888888888889,
+          "exact_one_fraction": 0.013888888888888888
+        },
+        "histogram_entropy": {
+          "bins": 20,
+          "occupied_bins": 11,
+          "entropy_bits": 0.7484397651614156,
+          "normalized_entropy": 0.1731726555207581,
+          "counts": [
+            321,
+            7,
+            3,
+            1,
+            2,
+            0,
+            0,
+            0,
+            2,
+            0,
+            0,
+            1,
+            1,
+            0,
+            1,
+            0,
+            1,
+            0,
+            0,
+            20
+          ]
+        }
+      },
+      "effect-f1": {
+        "summary": {
+          "count": 360,
+          "min": 0.0,
+          "p01": 0.0,
+          "p05": 0.0,
+          "median": 0.0022249773610383272,
+          "p95": 0.9945279419422149,
+          "p99": 1.0,
+          "max": 1.0,
+          "mean": 0.16448875614864344,
+          "std": 0.31283541522935293,
+          "unique": 213,
+          "mode": 0.0,
+          "mode_count": 144,
+          "mode_fraction": 0.4,
+          "exact_zero_fraction": 0.4,
+          "exact_one_fraction": 0.013888888888888888
+        },
+        "histogram_entropy": {
+          "bins": 20,
+          "occupied_bins": 19,
+          "entropy_bits": 1.9850771897102217,
+          "normalized_entropy": 0.45930361313934737,
+          "counts": [
+            252,
+            18,
+            8,
+            4,
+            6,
+            4,
+            5,
+            2,
+            0,
+            4,
+            3,
+            3,
+            5,
+            3,
+            1,
+            5,
+            7,
+            2,
+            3,
+            25
+          ]
+        }
+      },
+      "effect-c1": {
+        "summary": {
+          "count": 360,
+          "min": 0.0,
+          "p01": 0.0,
+          "p05": 0.0,
+          "median": 0.9046686291694641,
+          "p95": 1.0,
+          "p99": 1.0,
+          "max": 1.0,
+          "mean": 0.687540530237796,
+          "std": 0.3734739081477153,
+          "unique": 280,
+          "mode": 1.0,
+          "mode_count": 39,
+          "mode_fraction": 0.10833333333333334,
+          "exact_zero_fraction": 0.10555555555555556,
+          "exact_one_fraction": 0.10833333333333334
+        },
+        "histogram_entropy": {
+          "bins": 20,
+          "occupied_bins": 20,
+          "entropy_bits": 3.101984151137482,
+          "normalized_entropy": 0.7177315501400828,
+          "counts": [
+            46,
+            2,
+            8,
+            4,
+            9,
+            14,
+            7,
+            11,
+            4,
+            5,
+            7,
+            9,
+            5,
+            6,
+            6,
+            11,
+            11,
+            14,
+            18,
+            163
+          ]
+        }
+      },
+      "effect-c2": {
+        "summary": {
+          "count": 360,
+          "min": 0.0,
+          "p01": 0.0,
+          "p05": 0.0,
+          "median": 0.03812824934720993,
+          "p95": 0.9846942514181137,
+          "p99": 0.9998867160081863,
+          "max": 1.0,
+          "mean": 0.20941997931706927,
+          "std": 0.31390358849184663,
+          "unique": 323,
+          "mode": 0.0,
+          "mode_count": 38,
+          "mode_fraction": 0.10555555555555556,
+          "exact_zero_fraction": 0.10555555555555556,
+          "exact_one_fraction": 0.002777777777777778
+        },
+        "histogram_entropy": {
+          "bins": 20,
+          "occupied_bins": 20,
+          "entropy_bits": 2.729990625772127,
+          "normalized_entropy": 0.6316603529340474,
+          "counts": [
+            195,
+            23,
+            17,
+            17,
+            13,
+            6,
+            7,
+            9,
+            9,
+            4,
+            6,
+            3,
+            5,
+            1,
+            3,
+            1,
+            4,
+            3,
+            6,
+            28
+          ]
+        }
+      }
+    },
+    "joint_mode_vector": [
+      1.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      1.0,
+      0.0
+    ],
+    "joint_mode_count": 0,
+    "joint_mode_fraction": 0.0,
+    "joint_unique_rows": 360,
+    "joint_mode_fraction_given_no_fragment_hit": 0.0,
+    "joint_mode_fraction_given_fragment_hit": 0.0,
+    "mission_loss_le_mission_degraded_fraction": 1.0
+  },
+  "uncertainty": {
+    "replicate_count": {
+      "count": 360,
+      "min": 4.0,
+      "p01": 4.0,
+      "p05": 4.0,
+      "median": 4.0,
+      "p95": 4.0,
+      "p99": 4.0,
+      "max": 4.0,
+      "mean": 4.0,
+      "std": 0.0,
+      "unique": 1,
+      "mode": 4.0,
+      "mode_count": 360,
+      "mode_fraction": 1.0,
+      "exact_zero_fraction": 0.0,
+      "exact_one_fraction": 0.0
+    },
+    "system": {
+      "effect-m2": {
+        "uncertainty_mask_count": 360,
+        "positive_half_width_count": 360,
+        "half_width": {
+          "count": 360,
+          "min": 0.33952537178993225,
+          "p01": 0.33952537178993225,
+          "p05": 0.33952537178993225,
+          "median": 0.33963628113269806,
+          "p95": 0.5,
+          "p99": 0.5,
+          "max": 0.5,
+          "mean": 0.3765943955216143,
+          "std": 0.058929391173545224,
+          "unique": 176,
+          "mode": 0.33952537178993225,
+          "mode_count": 125,
+          "mode_fraction": 0.3472222222222222,
+          "exact_zero_fraction": 0.0,
+          "exact_one_fraction": 0.0
+        },
+        "half_width_gt_0_05": 360,
+        "half_width_gt_0_10": 360
+      },
+      "effect-k1": {
+        "uncertainty_mask_count": 360,
+        "positive_half_width_count": 360,
+        "half_width": {
+          "count": 360,
+          "min": 0.33952537178993225,
+          "p01": 0.33952537178993225,
+          "p05": 0.33952537178993225,
+          "median": 0.33952537178993225,
+          "p95": 0.41365229785442353,
+          "p99": 0.5,
+          "max": 0.5,
+          "mean": 0.34905255610744157,
+          "std": 0.029892995133607866,
+          "unique": 87,
+          "mode": 0.33952537178993225,
+          "mode_count": 266,
+          "mode_fraction": 0.7388888888888889,
+          "exact_zero_fraction": 0.0,
+          "exact_one_fraction": 0.0
+        },
+        "half_width_gt_0_05": 360,
+        "half_width_gt_0_10": 360
+      },
+      "effect-m1": {
+        "uncertainty_mask_count": 360,
+        "positive_half_width_count": 360,
+        "half_width": {
+          "count": 360,
+          "min": 0.33952537178993225,
+          "p01": 0.33952537178993225,
+          "p05": 0.33952537178993225,
+          "median": 0.33952537178993225,
+          "p95": 0.5,
+          "p99": 0.5,
+          "max": 0.5,
+          "mean": 0.370693902257416,
+          "std": 0.05378264528098966,
+          "unique": 135,
+          "mode": 0.33952537178993225,
+          "mode_count": 196,
+          "mode_fraction": 0.5444444444444444,
+          "exact_zero_fraction": 0.0,
+          "exact_one_fraction": 0.0
+        },
+        "half_width_gt_0_05": 360,
+        "half_width_gt_0_10": 360
+      },
+      "effect-k2": {
+        "uncertainty_mask_count": 360,
+        "positive_half_width_count": 360,
+        "half_width": {
+          "count": 360,
+          "min": 0.33952537178993225,
+          "p01": 0.33952537178993225,
+          "p05": 0.33952537178993225,
+          "median": 0.33952537178993225,
+          "p95": 0.3706882789731026,
+          "p99": 0.4893763914704327,
+          "max": 0.5,
+          "mean": 0.3446427850259675,
+          "std": 0.022082922064927703,
+          "unique": 67,
+          "mode": 0.33952537178993225,
+          "mode_count": 290,
+          "mode_fraction": 0.8055555555555556,
+          "exact_zero_fraction": 0.0,
+          "exact_one_fraction": 0.0
+        },
+        "half_width_gt_0_05": 360,
+        "half_width_gt_0_10": 360
+      },
+      "effect-f1": {
+        "uncertainty_mask_count": 360,
+        "positive_half_width_count": 360,
+        "half_width": {
+          "count": 360,
+          "min": 0.33952537178993225,
+          "p01": 0.33952537178993225,
+          "p05": 0.33952537178993225,
+          "median": 0.3398400545120239,
+          "p95": 0.5,
+          "p99": 0.5,
+          "max": 0.5,
+          "mean": 0.3644543946617179,
+          "std": 0.047504231927552105,
+          "unique": 188,
+          "mode": 0.33952537178993225,
+          "mode_count": 150,
+          "mode_fraction": 0.4166666666666667,
+          "exact_zero_fraction": 0.0,
+          "exact_one_fraction": 0.0
+        },
+        "half_width_gt_0_05": 360,
+        "half_width_gt_0_10": 360
+      },
+      "effect-c1": {
+        "uncertainty_mask_count": 360,
+        "positive_half_width_count": 360,
+        "half_width": {
+          "count": 360,
+          "min": 0.33952537178993225,
+          "p01": 0.33952537178993225,
+          "p05": 0.33952537178993225,
+          "median": 0.3463638126850128,
+          "p95": 0.5,
+          "p99": 0.5,
+          "max": 0.5,
+          "mean": 0.38829953430427444,
+          "std": 0.062290000596865285,
+          "unique": 232,
+          "mode": 0.33952537178993225,
+          "mode_count": 73,
+          "mode_fraction": 0.20277777777777778,
+          "exact_zero_fraction": 0.0,
+          "exact_one_fraction": 0.0
+        },
+        "half_width_gt_0_05": 360,
+        "half_width_gt_0_10": 360
+      },
+      "effect-c2": {
+        "uncertainty_mask_count": 360,
+        "positive_half_width_count": 360,
+        "half_width": {
+          "count": 360,
+          "min": 0.33952537178993225,
+          "p01": 0.33952537178993225,
+          "p05": 0.33952537178993225,
+          "median": 0.35014645755290985,
+          "p95": 0.5,
+          "p99": 0.5,
+          "max": 0.5,
+          "mean": 0.38174196895625856,
+          "std": 0.05633035218626621,
+          "unique": 282,
+          "mode": 0.5,
+          "mode_count": 42,
+          "mode_fraction": 0.11666666666666667,
+          "exact_zero_fraction": 0.0,
+          "exact_one_fraction": 0.0
+        },
+        "half_width_gt_0_05": 360,
+        "half_width_gt_0_10": 360
+      }
+    },
+    "caveat": "CI95 is a finite-R conditional Monte Carlo interval, not total uncertainty and not a real-world prediction interval."
+  },
+  "replicate_trace": {
+    "status": "unavailable_raw_trace_not_retained",
+    "case_count": 360,
+    "trace_available_case_count": 0,
+    "trace_unavailable_case_count": 360,
+    "storage_mode_counts": {
+      "online_sufficient_moments": 360
+    },
+    "declared_replicate_count_distribution": {
+      "4": 360
+    },
+    "total_replicate_records": 0,
+    "replicate_count_distribution": {},
+    "distinct_parameter_realization_hashes_per_case": {},
+    "cases_with_any_system_output_variation_across_replicates": 0,
+    "fraction_with_any_system_output_variation": null,
+    "cases_with_any_fragment_hit_in_any_replicate": 0,
+    "system_output_range_across_replicates": {
+      "effect-m2": {
+        "count": 0
+      },
+      "effect-k1": {
+        "count": 0
+      },
+      "effect-m1": {
+        "count": 0
+      },
+      "effect-k2": {
+        "count": 0
+      },
+      "effect-f1": {
+        "count": 0
+      },
+      "effect-c1": {
+        "count": 0
+      },
+      "effect-c2": {
+        "count": 0
+      }
+    },
+    "trace_mean_vs_aggregate_absolute_error": {
+      "effect-m2": {
+        "count": 0
+      },
+      "effect-k1": {
+        "count": 0
+      },
+      "effect-m1": {
+        "count": 0
+      },
+      "effect-k2": {
+        "count": 0
+      },
+      "effect-f1": {
+        "count": 0
+      },
+      "effect-c1": {
+        "count": 0
+      },
+      "effect-c2": {
+        "count": 0
+      }
+    },
+    "interpretation": "Stored raw traces diagnose synthetic-teacher Monte Carlo variation only; cases using online sufficient moments remain valid but do not support trace-level range or aggregate-reconstruction checks."
+  }
+}

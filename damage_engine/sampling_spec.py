@@ -23,6 +23,9 @@ SAMPLING_SPEC_SCHEMA_VERSION = "1.1.0"
 UAV_SAMPLING_SPEC_SCHEMA_VERSION = "1.2.0"
 CONTACT_CONDITIONED_SAMPLING_SPEC_SCHEMA_VERSION = "1.3.0"
 CONTACT_MANIFOLD_SAMPLING_SPEC_SCHEMA_VERSION = "1.4.0"
+SPHERE_ENTRY_SAMPLING_SPEC_SCHEMA_VERSION = "1.5.0"
+SPHERE_ENTRY_REDUCED_SAMPLING_SPEC_SCHEMA_VERSION = "1.6.0"
+CONTINUOUS_DIRECTION_SAMPLING_SPEC_SCHEMA_VERSION = "1.7.0"
 LEGACY_SAMPLING_SPEC_SCHEMA_VERSION = "1.0.0"
 _EXTENDED_FIELDS = frozenset(
     {
@@ -83,6 +86,9 @@ class SamplingSpec:
             UAV_SAMPLING_SPEC_SCHEMA_VERSION,
             CONTACT_CONDITIONED_SAMPLING_SPEC_SCHEMA_VERSION,
             CONTACT_MANIFOLD_SAMPLING_SPEC_SCHEMA_VERSION,
+            SPHERE_ENTRY_SAMPLING_SPEC_SCHEMA_VERSION,
+            SPHERE_ENTRY_REDUCED_SAMPLING_SPEC_SCHEMA_VERSION,
+            CONTINUOUS_DIRECTION_SAMPLING_SPEC_SCHEMA_VERSION,
         }:
             missing = sorted(_EXTENDED_FIELDS - set(document))
             if missing:
@@ -138,8 +144,12 @@ class SamplingSpec:
             UAV_SAMPLING_SPEC_SCHEMA_VERSION,
             CONTACT_CONDITIONED_SAMPLING_SPEC_SCHEMA_VERSION,
             CONTACT_MANIFOLD_SAMPLING_SPEC_SCHEMA_VERSION,
+            SPHERE_ENTRY_SAMPLING_SPEC_SCHEMA_VERSION,
+            SPHERE_ENTRY_REDUCED_SAMPLING_SPEC_SCHEMA_VERSION,
+            CONTINUOUS_DIRECTION_SAMPLING_SPEC_SCHEMA_VERSION,
         }:
             from .learning_input_identity import (
+                LOITERING_IMPACT_FIRST_ARMOR_STATE_MODEL_INPUT_CONTRACT,
                 LOITERING_IMPACT_CONTACT_POSE_SAMPLING_MODEL_INPUT_CONTRACT,
                 LOITERING_IMPACT_SAMPLING_MODEL_INPUT_CONTRACT,
                 UAV_SAMPLING_MODEL_INPUT_CONTRACT,
@@ -149,6 +159,7 @@ class SamplingSpec:
                 UAV_SAMPLING_MODEL_INPUT_CONTRACT,
                 LOITERING_IMPACT_SAMPLING_MODEL_INPUT_CONTRACT,
                 LOITERING_IMPACT_CONTACT_POSE_SAMPLING_MODEL_INPUT_CONTRACT,
+                LOITERING_IMPACT_FIRST_ARMOR_STATE_MODEL_INPUT_CONTRACT,
             }:
                 raise InputValidationError(
                     f"SamplingSpec {version} requires a supported versioned model-input contract"
@@ -156,11 +167,17 @@ class SamplingSpec:
             if (
                 model_input_contract
                 == LOITERING_IMPACT_CONTACT_POSE_SAMPLING_MODEL_INPUT_CONTRACT
-                and version != CONTACT_MANIFOLD_SAMPLING_SPEC_SCHEMA_VERSION
+                and version
+                not in {
+                    CONTACT_MANIFOLD_SAMPLING_SPEC_SCHEMA_VERSION,
+                    SPHERE_ENTRY_SAMPLING_SPEC_SCHEMA_VERSION,
+                    SPHERE_ENTRY_REDUCED_SAMPLING_SPEC_SCHEMA_VERSION,
+                    CONTINUOUS_DIRECTION_SAMPLING_SPEC_SCHEMA_VERSION,
+                }
             ):
                 raise InputValidationError(
                     "the loitering-impact contact-pose model-input contract "
-                    "requires SamplingSpec schema_version 1.4.0"
+                    "requires SamplingSpec schema_version 1.4.0 through 1.7.0"
                 )
             if (
                 version == CONTACT_CONDITIONED_SAMPLING_SPEC_SCHEMA_VERSION
@@ -172,13 +189,34 @@ class SamplingSpec:
                     "loitering-impact model-input contract"
                 )
             if (
-                version == CONTACT_MANIFOLD_SAMPLING_SPEC_SCHEMA_VERSION
-                and model_input_contract
-                != LOITERING_IMPACT_CONTACT_POSE_SAMPLING_MODEL_INPUT_CONTRACT
+                version
+                in {
+                    CONTACT_MANIFOLD_SAMPLING_SPEC_SCHEMA_VERSION,
+                    SPHERE_ENTRY_SAMPLING_SPEC_SCHEMA_VERSION,
+                    SPHERE_ENTRY_REDUCED_SAMPLING_SPEC_SCHEMA_VERSION,
+                    CONTINUOUS_DIRECTION_SAMPLING_SPEC_SCHEMA_VERSION,
+                }
+                and model_input_contract not in {
+                    LOITERING_IMPACT_CONTACT_POSE_SAMPLING_MODEL_INPUT_CONTRACT,
+                    LOITERING_IMPACT_FIRST_ARMOR_STATE_MODEL_INPUT_CONTRACT,
+                }
             ):
                 raise InputValidationError(
-                    "SamplingSpec 1.4.0 contact-manifold sampling requires the "
-                    "loitering-impact contact-pose model-input contract"
+                    f"SamplingSpec {version} contact-manifold sampling requires the "
+                    "loitering-impact contact-pose or first-armour model-input contract"
+                )
+            if (
+                model_input_contract
+                == LOITERING_IMPACT_FIRST_ARMOR_STATE_MODEL_INPUT_CONTRACT
+                and version
+                not in {
+                    SPHERE_ENTRY_REDUCED_SAMPLING_SPEC_SCHEMA_VERSION,
+                    CONTINUOUS_DIRECTION_SAMPLING_SPEC_SCHEMA_VERSION,
+                }
+            ):
+                raise InputValidationError(
+                    "the loitering-impact first-armour model-input contract "
+                    "requires SamplingSpec schema_version 1.6.0 or 1.7.0"
                 )
         conditioning = document.get("contact_conditioning")
         if (
@@ -186,15 +224,21 @@ class SamplingSpec:
             not in {
                 CONTACT_CONDITIONED_SAMPLING_SPEC_SCHEMA_VERSION,
                 CONTACT_MANIFOLD_SAMPLING_SPEC_SCHEMA_VERSION,
+                SPHERE_ENTRY_SAMPLING_SPEC_SCHEMA_VERSION,
+                SPHERE_ENTRY_REDUCED_SAMPLING_SPEC_SCHEMA_VERSION,
+                CONTINUOUS_DIRECTION_SAMPLING_SPEC_SCHEMA_VERSION,
             }
             and conditioning is not None
         ):
             raise InputValidationError(
-                "contact_conditioning requires SamplingSpec schema_version 1.3.0 or 1.4.0"
+                "contact_conditioning requires SamplingSpec schema_version 1.3.0 through 1.7.0"
             )
         if version in {
             CONTACT_CONDITIONED_SAMPLING_SPEC_SCHEMA_VERSION,
             CONTACT_MANIFOLD_SAMPLING_SPEC_SCHEMA_VERSION,
+            SPHERE_ENTRY_SAMPLING_SPEC_SCHEMA_VERSION,
+            SPHERE_ENTRY_REDUCED_SAMPLING_SPEC_SCHEMA_VERSION,
+            CONTINUOUS_DIRECTION_SAMPLING_SPEC_SCHEMA_VERSION,
         }:
             from .contact_contract import (
                 S_CONTACT_CONTRACT_HASH,
@@ -251,13 +295,63 @@ class SamplingSpec:
             # supplied only the complete source declarations.
             conditioning["contract_hash"] = S_CONTACT_CONTRACT_HASH
             conditioning["selection_declaration_hash"] = selection["content_hash"]
+        design_sequence = document.get("design_sequence")
+        if design_sequence is not None:
+            try:
+                from .design_sequences import (
+                    DESIGN_SEQUENCE_SCHEMA_VERSION,
+                    SUPPORTED_DESIGN_METHODS,
+                )
+            except ImportError as exc:
+                raise InputValidationError(
+                    "design_sequence requires the optional sampling dependencies; "
+                    "install the project with .[sampling]"
+                ) from exc
+
+            if version not in {
+                CONTACT_CONDITIONED_SAMPLING_SPEC_SCHEMA_VERSION,
+                CONTACT_MANIFOLD_SAMPLING_SPEC_SCHEMA_VERSION,
+                SPHERE_ENTRY_SAMPLING_SPEC_SCHEMA_VERSION,
+                SPHERE_ENTRY_REDUCED_SAMPLING_SPEC_SCHEMA_VERSION,
+                CONTINUOUS_DIRECTION_SAMPLING_SPEC_SCHEMA_VERSION,
+            }:
+                raise InputValidationError(
+                    "design_sequence requires a contact-conditioned SamplingSpec"
+                )
+            if design_sequence.get("schema_version") != DESIGN_SEQUENCE_SCHEMA_VERSION:
+                raise InputValidationError(
+                    "design_sequence schema version is unsupported"
+                )
+            if design_sequence.get("method") not in SUPPORTED_DESIGN_METHODS:
+                raise InputValidationError(
+                    "design_sequence method is unsupported",
+                    context={
+                        "method": design_sequence.get("method"),
+                        "supported": list(SUPPORTED_DESIGN_METHODS),
+                    },
+                )
+            if design_sequence.get("outcome_blind") is not True:
+                raise InputValidationError(
+                    "design_sequence must be declared outcome-blind"
+                )
+            if (
+                design_sequence["method"] == "scrambled_sobol"
+                and design_sequence.get("non_power_of_two_policy")
+                != "pad_to_next_power_of_two_then_take_prefix"
+            ):
+                raise InputValidationError(
+                    "scrambled_sobol requires an explicit non-power-of-two policy"
+                )
         manifold = document.get("contact_manifold")
-        if (
-            version != CONTACT_MANIFOLD_SAMPLING_SPEC_SCHEMA_VERSION
-            and manifold is not None
-        ):
+        manifold_versions = {
+            CONTACT_MANIFOLD_SAMPLING_SPEC_SCHEMA_VERSION,
+            SPHERE_ENTRY_SAMPLING_SPEC_SCHEMA_VERSION,
+            SPHERE_ENTRY_REDUCED_SAMPLING_SPEC_SCHEMA_VERSION,
+            CONTINUOUS_DIRECTION_SAMPLING_SPEC_SCHEMA_VERSION,
+        }
+        if version not in manifold_versions and manifold is not None:
             raise InputValidationError(
-                "contact_manifold requires SamplingSpec schema_version 1.4.0"
+                "contact_manifold requires SamplingSpec schema_version 1.4.0 through 1.7.0"
             )
         if version == CONTACT_MANIFOLD_SAMPLING_SPEC_SCHEMA_VERSION:
             from .contact_manifold_sampling import validate_contact_manifold
@@ -268,10 +362,108 @@ class SamplingSpec:
                 )
             document["contact_manifold"] = validate_contact_manifold(manifold)
         if version in {
+            SPHERE_ENTRY_SAMPLING_SPEC_SCHEMA_VERSION,
+            SPHERE_ENTRY_REDUCED_SAMPLING_SPEC_SCHEMA_VERSION,
+        }:
+            from .contact_manifold_sampling import (
+                CONTACT_MANIFOLD_APPROACH_WEIGHT_SEMANTICS,
+                CONTACT_MANIFOLD_MODE,
+                CONTACT_MANIFOLD_SAMPLER_ID,
+                CONTACT_MANIFOLD_SCHEMA_VERSION,
+                validate_contact_manifold,
+            )
+            from .geometry import AABB_ENCLOSING_SPHERE_ALGORITHM_ID
+            from .sphere_entry_ray_sampling import (
+                PAIRED_LEGACY_STANDOFF_6D,
+                REDUCED_PHYSICAL_RAY_5D,
+                SPHERE_ENTRY_RAY_IMPLEMENTATION_HASH,
+                SPHERE_ENTRY_RAY_MODE,
+                SPHERE_ENTRY_RAY_SAMPLER_ID,
+                SPHERE_ENTRY_RAY_SCHEMA_VERSION,
+                sphere_entry_latent_declaration,
+            )
+
+            if document["reference_distribution"]["interpretation"] != "design_distribution":
+                raise InputValidationError(
+                    "sphere-entry approach weights are a design distribution, not operational prevalence"
+                )
+            if not isinstance(manifold, dict):
+                raise InputValidationError("sphere-entry contact_manifold must be an object")
+            expected_identity = {
+                "schema_version": SPHERE_ENTRY_RAY_SCHEMA_VERSION,
+                "sampler_id": SPHERE_ENTRY_RAY_SAMPLER_ID,
+                "mode": SPHERE_ENTRY_RAY_MODE,
+                "approach_weight_semantics": CONTACT_MANIFOLD_APPROACH_WEIGHT_SEMANTICS,
+            }
+            observed_identity = {
+                key: manifold.get(key) for key in expected_identity
+            }
+            if observed_identity != expected_identity:
+                raise InputValidationError(
+                    "sphere-entry contact-manifold sampler identity is unsupported",
+                    context={"expected": expected_identity, "observed": observed_identity},
+                )
+            declared_hash = manifold.get("implementation_hash")
+            if declared_hash not in {None, SPHERE_ENTRY_RAY_IMPLEMENTATION_HASH}:
+                raise InputValidationError(
+                    "sphere-entry implementation hash is inconsistent",
+                    context={
+                        "expected": SPHERE_ENTRY_RAY_IMPLEMENTATION_HASH,
+                        "observed": declared_hash,
+                    },
+                )
+            expected_layout = (
+                PAIRED_LEGACY_STANDOFF_6D
+                if version == SPHERE_ENTRY_SAMPLING_SPEC_SCHEMA_VERSION
+                else REDUCED_PHYSICAL_RAY_5D
+            )
+            if manifold.get("latent_layout") != expected_layout:
+                raise InputValidationError(
+                    f"SamplingSpec {version} requires sphere-entry latent layout {expected_layout}"
+                )
+            sphere_entry_latent_declaration(expected_layout)
+            sphere = manifold.get("sphere")
+            if (
+                not isinstance(sphere, dict)
+                or sphere.get("algorithm_id") != AABB_ENCLOSING_SPHERE_ALGORITHM_ID
+            ):
+                raise InputValidationError(
+                    "sphere-entry enclosing-sphere algorithm is unsupported"
+                )
+            legacy = {
+                "schema_version": CONTACT_MANIFOLD_SCHEMA_VERSION,
+                "sampler_id": CONTACT_MANIFOLD_SAMPLER_ID,
+                "mode": CONTACT_MANIFOLD_MODE,
+                "approach_weight_semantics": CONTACT_MANIFOLD_APPROACH_WEIGHT_SEMANTICS,
+                "approaches": manifold["approaches"],
+            }
+            validated_legacy = validate_contact_manifold(legacy)
+            canonical_manifold = dict(manifold)
+            canonical_manifold["approaches"] = validated_legacy["approaches"]
+            canonical_manifold["implementation_hash"] = (
+                SPHERE_ENTRY_RAY_IMPLEMENTATION_HASH
+            )
+            document["contact_manifold"] = canonical_manifold
+        if version == CONTINUOUS_DIRECTION_SAMPLING_SPEC_SCHEMA_VERSION:
+            from .continuous_direction_sampling import (
+                validate_continuous_direction_manifold,
+            )
+
+            if document["reference_distribution"]["interpretation"] != "design_distribution":
+                raise InputValidationError(
+                    "continuous-direction region weights are a design distribution, not operational prevalence"
+                )
+            document["contact_manifold"] = validate_continuous_direction_manifold(
+                manifold
+            )
+        if version in {
             SAMPLING_SPEC_SCHEMA_VERSION,
             UAV_SAMPLING_SPEC_SCHEMA_VERSION,
             CONTACT_CONDITIONED_SAMPLING_SPEC_SCHEMA_VERSION,
             CONTACT_MANIFOLD_SAMPLING_SPEC_SCHEMA_VERSION,
+            SPHERE_ENTRY_SAMPLING_SPEC_SCHEMA_VERSION,
+            SPHERE_ENTRY_REDUCED_SAMPLING_SPEC_SCHEMA_VERSION,
+            CONTINUOUS_DIRECTION_SAMPLING_SPEC_SCHEMA_VERSION,
         }:
             self._validate_extended_contract(document, names, paths)
         seeds = document["seeds"]
@@ -308,8 +500,13 @@ class SamplingSpec:
             UAV_SAMPLING_SPEC_SCHEMA_VERSION,
             CONTACT_CONDITIONED_SAMPLING_SPEC_SCHEMA_VERSION,
             CONTACT_MANIFOLD_SAMPLING_SPEC_SCHEMA_VERSION,
+            SPHERE_ENTRY_SAMPLING_SPEC_SCHEMA_VERSION,
+            SPHERE_ENTRY_REDUCED_SAMPLING_SPEC_SCHEMA_VERSION,
+            CONTINUOUS_DIRECTION_SAMPLING_SPEC_SCHEMA_VERSION,
         }:
             from .learning_input_identity import (
+                LOITERING_IMPACT_FIRST_ARMOR_STATE_FEATURE_NAMES,
+                LOITERING_IMPACT_FIRST_ARMOR_STATE_MODEL_INPUT_CONTRACT,
                 LOITERING_IMPACT_CONTACT_POSE_SAMPLING_MODEL_INPUT_CONTRACT,
                 LOITERING_IMPACT_CONTACT_POSE_TRAINING_FEATURE_NAMES,
                 LOITERING_IMPACT_SAMPLING_MODEL_INPUT_CONTRACT,
@@ -325,9 +522,19 @@ class SamplingSpec:
                 document["model_input_contract"]
                 == LOITERING_IMPACT_CONTACT_POSE_SAMPLING_MODEL_INPUT_CONTRACT
             )
+            first_armor_contract = (
+                document["model_input_contract"]
+                == LOITERING_IMPACT_FIRST_ARMOR_STATE_MODEL_INPUT_CONTRACT
+            )
             if loitering_contract:
                 expected_names = LOITERING_IMPACT_TRAINING_FEATURE_NAMES
                 description = "profile one-hot3, trajectory origin y/z and impact speed"
+            elif first_armor_contract:
+                expected_names = LOITERING_IMPACT_FIRST_ARMOR_STATE_FEATURE_NAMES
+                description = (
+                    "profile one-hot3, first-armour hit point3, surface normal3, "
+                    "unit impact direction3, impact speed and body-y3"
+                )
             elif contact_pose_contract:
                 expected_names = LOITERING_IMPACT_CONTACT_POSE_TRAINING_FEATURE_NAMES
                 description = (
@@ -346,7 +553,30 @@ class SamplingSpec:
                         "observed": tensor_feature_names,
                     },
                 )
-            if contact_pose_contract:
+            if first_armor_contract:
+                expected_paths = {
+                    **{
+                        name: {"/munition/profile_id"}
+                        for name in expected_names[:3]
+                    },
+                    **{
+                        name: {"/encounter/detonation_position_m"}
+                        for name in expected_names[3:6]
+                    },
+                    **{
+                        name: {"/encounter/collision_normal_target_xyz"}
+                        for name in expected_names[6:9]
+                    },
+                    **{
+                        name: {"/encounter/velocity_target_mps"}
+                        for name in expected_names[9:13]
+                    },
+                    **{
+                        name: {"/encounter/body_to_target_orientation_xyzw"}
+                        for name in expected_names[13:]
+                    },
+                }
+            elif contact_pose_contract:
                 expected_paths = {
                     **{
                         name: {"/munition/profile_id"}
@@ -399,25 +629,49 @@ class SamplingSpec:
                         for name in expected_names[6:]
                     },
                 }
-            invalid_features = [
-                item["feature_id"]
-                for item in feature_roles
-                if any(
+            invalid_features = []
+            for item in feature_roles:
+                names = item["tensor_feature_names"]
+                path_invalid = any(
                     item["path"] not in expected_paths[name]
-                    for name in item["tensor_feature_names"]
+                    for name in names
                 )
-                or item["availability_stage"] != "raw_input"
-                or item["deployment_available"] is not True
-                or item["role"] not in {"learnable_variable", "fixed_context"}
-            ]
+                if first_armor_contract:
+                    derived = item["path"] in {
+                        "/encounter/detonation_position_m",
+                        "/encounter/collision_normal_target_xyz",
+                    }
+                    role_invalid = item["role"] != (
+                        "derived_input" if derived else "learnable_variable"
+                    )
+                    stage_invalid = item["availability_stage"] != (
+                        "prelabel_geometry" if derived else "raw_input"
+                    )
+                else:
+                    role_invalid = item["role"] not in {
+                        "learnable_variable",
+                        "fixed_context",
+                    }
+                    stage_invalid = item["availability_stage"] != "raw_input"
+                if (
+                    path_invalid
+                    or role_invalid
+                    or stage_invalid
+                    or item["deployment_available"] is not True
+                ):
+                    invalid_features.append(item["feature_id"])
             if invalid_features:
                 state_name = (
-                    "raw loitering-impact contact-pose state"
-                    if contact_pose_contract
+                    "pre-label first-armour impact state"
+                    if first_armor_contract
                     else (
-                        "raw loitering-impact state"
-                        if loitering_contract
-                        else "raw UAV state"
+                        "raw loitering-impact contact-pose state"
+                        if contact_pose_contract
+                        else (
+                            "raw loitering-impact state"
+                            if loitering_contract
+                            else "raw UAV state"
+                        )
                     )
                 )
                 raise InputValidationError(
@@ -434,15 +688,21 @@ class SamplingSpec:
                 "every sampled variable path must be declared learnable_variable",
                 context={"paths": missing_learnable},
             )
-        if (
-            document["schema_version"]
-            == CONTACT_MANIFOLD_SAMPLING_SPEC_SCHEMA_VERSION
-        ):
+        if document["schema_version"] in {
+            CONTACT_MANIFOLD_SAMPLING_SPEC_SCHEMA_VERSION,
+            SPHERE_ENTRY_SAMPLING_SPEC_SCHEMA_VERSION,
+            SPHERE_ENTRY_REDUCED_SAMPLING_SPEC_SCHEMA_VERSION,
+            CONTINUOUS_DIRECTION_SAMPLING_SPEC_SCHEMA_VERSION,
+        }:
+            first_armor_contract = document.get("model_input_contract") == (
+                "loitering_impact_first_armor_state@1.0.0"
+            )
             manifold_paths = {
-                "/encounter/trajectory_origin_m",
                 "/encounter/velocity_target_mps",
                 "/encounter/body_to_target_orientation_xyzw",
             }
+            if not first_armor_contract:
+                manifold_paths.add("/encounter/trajectory_origin_m")
             missing_manifold_roles = sorted(
                 path
                 for path in manifold_paths
@@ -683,6 +943,9 @@ class SamplingSpec:
             UAV_SAMPLING_SPEC_SCHEMA_VERSION,
             CONTACT_CONDITIONED_SAMPLING_SPEC_SCHEMA_VERSION,
             CONTACT_MANIFOLD_SAMPLING_SPEC_SCHEMA_VERSION,
+            SPHERE_ENTRY_SAMPLING_SPEC_SCHEMA_VERSION,
+            SPHERE_ENTRY_REDUCED_SAMPLING_SPEC_SCHEMA_VERSION,
+            CONTINUOUS_DIRECTION_SAMPLING_SPEC_SCHEMA_VERSION,
         } and (
             scope["scope"] != "fixed_target"
             or scope["geometry_boundary"] != "end_to_end"
@@ -728,6 +991,9 @@ class SamplingSpec:
             UAV_SAMPLING_SPEC_SCHEMA_VERSION,
             CONTACT_CONDITIONED_SAMPLING_SPEC_SCHEMA_VERSION,
             CONTACT_MANIFOLD_SAMPLING_SPEC_SCHEMA_VERSION,
+            SPHERE_ENTRY_SAMPLING_SPEC_SCHEMA_VERSION,
+            SPHERE_ENTRY_REDUCED_SAMPLING_SPEC_SCHEMA_VERSION,
+            CONTINUOUS_DIRECTION_SAMPLING_SPEC_SCHEMA_VERSION,
         }
 
     @property
@@ -744,9 +1010,13 @@ class SamplingSpec:
             UAV_SAMPLING_SPEC_SCHEMA_VERSION,
             CONTACT_CONDITIONED_SAMPLING_SPEC_SCHEMA_VERSION,
             CONTACT_MANIFOLD_SAMPLING_SPEC_SCHEMA_VERSION,
+            SPHERE_ENTRY_SAMPLING_SPEC_SCHEMA_VERSION,
+            SPHERE_ENTRY_REDUCED_SAMPLING_SPEC_SCHEMA_VERSION,
+            CONTINUOUS_DIRECTION_SAMPLING_SPEC_SCHEMA_VERSION,
         }:
             return False
         from .learning_input_identity import (
+            LOITERING_IMPACT_FIRST_ARMOR_STATE_MODEL_INPUT_CONTRACT,
             LOITERING_IMPACT_CONTACT_POSE_SAMPLING_MODEL_INPUT_CONTRACT,
             LOITERING_IMPACT_SAMPLING_MODEL_INPUT_CONTRACT,
         )
@@ -754,11 +1024,33 @@ class SamplingSpec:
         return self.data.get("model_input_contract") in {
             LOITERING_IMPACT_SAMPLING_MODEL_INPUT_CONTRACT,
             LOITERING_IMPACT_CONTACT_POSE_SAMPLING_MODEL_INPUT_CONTRACT,
+            LOITERING_IMPACT_FIRST_ARMOR_STATE_MODEL_INPUT_CONTRACT,
         }
 
     @property
+    def is_first_armor_state_model_input(self) -> bool:
+        if self.schema_version not in {
+            SPHERE_ENTRY_REDUCED_SAMPLING_SPEC_SCHEMA_VERSION,
+            CONTINUOUS_DIRECTION_SAMPLING_SPEC_SCHEMA_VERSION,
+        }:
+            return False
+        from .learning_input_identity import (
+            LOITERING_IMPACT_FIRST_ARMOR_STATE_MODEL_INPUT_CONTRACT,
+        )
+
+        return (
+            self.data.get("model_input_contract")
+            == LOITERING_IMPACT_FIRST_ARMOR_STATE_MODEL_INPUT_CONTRACT
+        )
+
+    @property
     def is_contact_pose_model_input(self) -> bool:
-        if self.schema_version != CONTACT_MANIFOLD_SAMPLING_SPEC_SCHEMA_VERSION:
+        if self.schema_version not in {
+            CONTACT_MANIFOLD_SAMPLING_SPEC_SCHEMA_VERSION,
+            SPHERE_ENTRY_SAMPLING_SPEC_SCHEMA_VERSION,
+            SPHERE_ENTRY_REDUCED_SAMPLING_SPEC_SCHEMA_VERSION,
+            CONTINUOUS_DIRECTION_SAMPLING_SPEC_SCHEMA_VERSION,
+        }:
             return False
         from .learning_input_identity import (
             LOITERING_IMPACT_CONTACT_POSE_SAMPLING_MODEL_INPUT_CONTRACT,
@@ -778,6 +1070,9 @@ class SamplingSpec:
         return self.schema_version in {
             CONTACT_CONDITIONED_SAMPLING_SPEC_SCHEMA_VERSION,
             CONTACT_MANIFOLD_SAMPLING_SPEC_SCHEMA_VERSION,
+            SPHERE_ENTRY_SAMPLING_SPEC_SCHEMA_VERSION,
+            SPHERE_ENTRY_REDUCED_SAMPLING_SPEC_SCHEMA_VERSION,
+            CONTINUOUS_DIRECTION_SAMPLING_SPEC_SCHEMA_VERSION,
         }
 
     @property
@@ -796,8 +1091,46 @@ class SamplingSpec:
 
     @property
     def has_contact_manifold(self) -> bool:
+        return self.schema_version in {
+            CONTACT_MANIFOLD_SAMPLING_SPEC_SCHEMA_VERSION,
+            SPHERE_ENTRY_SAMPLING_SPEC_SCHEMA_VERSION,
+            SPHERE_ENTRY_REDUCED_SAMPLING_SPEC_SCHEMA_VERSION,
+            CONTINUOUS_DIRECTION_SAMPLING_SPEC_SCHEMA_VERSION,
+        }
+
+    @property
+    def is_sphere_entry_ray(self) -> bool:
+        if self.schema_version not in {
+            SPHERE_ENTRY_SAMPLING_SPEC_SCHEMA_VERSION,
+            SPHERE_ENTRY_REDUCED_SAMPLING_SPEC_SCHEMA_VERSION,
+        }:
+            return False
+        from .sphere_entry_ray_sampling import SPHERE_ENTRY_RAY_SAMPLER_ID
+
+        manifold = self.data.get("contact_manifold")
         return (
-            self.schema_version == CONTACT_MANIFOLD_SAMPLING_SPEC_SCHEMA_VERSION
+            isinstance(manifold, dict)
+            and manifold.get("sampler_id") == SPHERE_ENTRY_RAY_SAMPLER_ID
+        )
+
+    @property
+    def is_reduced_sphere_entry_ray(self) -> bool:
+        return (
+            self.schema_version
+            == SPHERE_ENTRY_REDUCED_SAMPLING_SPEC_SCHEMA_VERSION
+            and self.is_sphere_entry_ray
+        )
+
+    @property
+    def is_continuous_sphere_entry_ray(self) -> bool:
+        if self.schema_version != CONTINUOUS_DIRECTION_SAMPLING_SPEC_SCHEMA_VERSION:
+            return False
+        from .continuous_direction_sampling import CONTINUOUS_DIRECTION_SAMPLER_ID
+
+        manifold = self.data.get("contact_manifold")
+        return (
+            isinstance(manifold, dict)
+            and manifold.get("sampler_id") == CONTINUOUS_DIRECTION_SAMPLER_ID
         )
 
     @property
@@ -833,6 +1166,34 @@ class SamplingSpec:
     def contact_manifold_latent_dimension(self) -> int:
         if not self.has_contact_manifold:
             return 0
+        if self.is_continuous_sphere_entry_ray:
+            from .continuous_direction_sampling import (
+                continuous_direction_latent_declaration,
+            )
+
+            manifold = self.contact_manifold
+            if manifold is None:
+                raise InputValidationError(
+                    "continuous-direction SamplingSpec lacks its manifold declaration"
+                )
+            return int(
+                continuous_direction_latent_declaration(manifold["latent_layout"])[
+                    "latent_dimension"
+                ]
+            )
+        if self.is_sphere_entry_ray:
+            from .sphere_entry_ray_sampling import sphere_entry_latent_declaration
+
+            manifold = self.contact_manifold
+            if manifold is None:
+                raise InputValidationError(
+                    "sphere-entry SamplingSpec lacks its manifold declaration"
+                )
+            return int(
+                sphere_entry_latent_declaration(manifold["latent_layout"])[
+                    "latent_dimension"
+                ]
+            )
         from .contact_manifold_sampling import CONTACT_MANIFOLD_LATENT_DIMENSION
 
         return CONTACT_MANIFOLD_LATENT_DIMENSION
@@ -889,6 +1250,11 @@ class SamplingSpec:
         )
 
     @property
+    def design_sequence(self) -> dict[str, Any] | None:
+        value = self.data.get("design_sequence")
+        return dict(value) if value is not None else None
+
+    @property
     def training_design_document(self) -> dict[str, Any]:
         """Return the parseable training-design boundary bound into each case."""
         if not self.is_extended:
@@ -913,19 +1279,42 @@ class SamplingSpec:
         return {
             "schema_version": "1.0.0",
             "contract_mode": (
-                "loitering_impact_contact_pose_1.4"
-                if self.is_contact_pose_model_input
+                (
+                    "loitering_impact_continuous_sphere_entry_first_armor_state_1.7"
+                    if self.is_continuous_sphere_entry_ray
+                    else "loitering_impact_sphere_entry_first_armor_state_1.6"
+                )
+                if self.is_first_armor_state_model_input
                 else (
-                    "uav_control_state_only_1.2"
-                    if self.is_uav_model_input
-                    else (
+                    (
                         (
-                            "loitering_impact_contact_conditioned_1.3"
-                            if self.has_contact_conditioning
-                            else "loitering_impact_state_only_1.2"
+                            "loitering_impact_continuous_sphere_entry_contact_pose_1.7"
+                            if self.is_continuous_sphere_entry_ray
+                            else (
+                                "loitering_impact_sphere_entry_contact_pose_1.6"
+                                if self.is_reduced_sphere_entry_ray
+                                else "loitering_impact_sphere_entry_contact_pose_1.5"
+                            )
                         )
-                        if self.is_loitering_impact_model_input
-                        else "distribution_design_1.1"
+                        if (
+                            self.is_sphere_entry_ray
+                            or self.is_continuous_sphere_entry_ray
+                        )
+                        else "loitering_impact_contact_pose_1.4"
+                    )
+                    if self.is_contact_pose_model_input
+                    else (
+                        "uav_control_state_only_1.2"
+                        if self.is_uav_model_input
+                        else (
+                            (
+                                "loitering_impact_contact_conditioned_1.3"
+                                if self.has_contact_conditioning
+                                else "loitering_impact_state_only_1.2"
+                            )
+                            if self.is_loitering_impact_model_input
+                            else "distribution_design_1.1"
+                        )
                     )
                 )
             ),
@@ -942,6 +1331,11 @@ class SamplingSpec:
             **(
                 {"contact_manifold": data["contact_manifold"]}
                 if self.has_contact_manifold
+                else {}
+            ),
+            **(
+                {"design_sequence": data["design_sequence"]}
+                if "design_sequence" in data
                 else {}
             ),
             **{key: data[key] for key in (

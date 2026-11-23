@@ -1,0 +1,4 @@
+﻿commit,authored_at,subject,files_changed,insertions,deletions
+ff2ef1f21c7d6bf73630bdb11331289278fb69dd,2026-11-17T09:58:54+08:00,refactor: focus project on data generation and validation,1327,37943,4959272
+77d779f6a4f3bf1d030795ff9749d008fa92e4d4,2026-11-11T10:09:29+08:00,docs: update relocated GitHub URL,1,1,1
+56ba16ef71963f1e856e3a164fc1ec8907977f4e,2026-11-11T10:08:34+08:00,checkpoint: sync R06u calibration workflow and project status,535,1869720,11

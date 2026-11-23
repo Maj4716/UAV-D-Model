@@ -237,6 +237,275 @@ def summarize_component_reachability(
     }
 
 
+def extract_warhead_target_matching_observations(
+    fragment_audit: Iterable[Mapping[str, Any]],
+) -> dict[str, Any]:
+    """Extract E7 armor, component-response and post-armor reach margins.
+
+    Log margins are emitted only when their numerator is strictly positive.
+    Zero-energy component events remain visible through explicit counters and
+    through the below-threshold fraction instead of being replaced by an
+    arbitrary epsilon.
+    """
+
+    armor_log_margin: list[float] = []
+    armor_event_count = 0
+    armor_invalid_margin_count = 0
+    armor_below_v50_count = 0
+    component_event_count = 0
+    component_states: dict[str, dict[str, Any]] = defaultdict(
+        lambda: {
+            "eligible_event_count": 0,
+            "below_threshold_count": 0,
+            "nonpositive_energy_count": 0,
+            "log_damage_energy_over_e50": [],
+        }
+    )
+    armor_penetrating_fragment_count = 0
+    component_reached_after_armor_count = 0
+
+    for _replicate, records in _records_by_replicate(fragment_audit):
+        intersections_by_fragment: dict[int, list[tuple[int, dict]]] = defaultdict(list)
+        for fallback_index, record in enumerate(records):
+            if record.get("record_type") != "intersection":
+                continue
+            fragment_id = _fragment_id(record)
+            order = record.get("global_event_index", fallback_index)
+            if not isinstance(order, int) or isinstance(order, bool) or order < 0:
+                raise InputValidationError(
+                    "fragment intersection has an invalid global_event_index"
+                )
+            intersections_by_fragment[fragment_id].append((order, record))
+            role = record.get("role")
+            if role == "armor":
+                armor_event_count += 1
+                speed = record.get("arrival_speed_mps")
+                v50 = record.get("v50_mps")
+                if (
+                    not isinstance(speed, (int, float))
+                    or isinstance(speed, bool)
+                    or not math.isfinite(float(speed))
+                    or float(speed) <= 0.0
+                    or not isinstance(v50, (int, float))
+                    or isinstance(v50, bool)
+                    or not math.isfinite(float(v50))
+                    or float(v50) <= 0.0
+                ):
+                    armor_invalid_margin_count += 1
+                else:
+                    ratio = float(speed) / float(v50)
+                    armor_log_margin.append(math.log(ratio))
+                    armor_below_v50_count += int(ratio < 1.0)
+            elif role == "component":
+                component_event_count += 1
+                energy = record.get("damage_energy_j")
+                parameters = record.get("damage_state_response_parameters")
+                if not isinstance(parameters, Mapping):
+                    continue
+                if (
+                    not isinstance(energy, (int, float))
+                    or isinstance(energy, bool)
+                    or not math.isfinite(float(energy))
+                    or float(energy) < 0.0
+                ):
+                    continue
+                energy_value = float(energy)
+                for state, raw_parameters in parameters.items():
+                    if not isinstance(state, str) or not state or not isinstance(
+                        raw_parameters, Mapping
+                    ):
+                        raise InputValidationError(
+                            "component audit response parameters are malformed"
+                        )
+                    threshold = raw_parameters.get("damage_energy_50_j")
+                    if (
+                        not isinstance(threshold, (int, float))
+                        or isinstance(threshold, bool)
+                        or not math.isfinite(float(threshold))
+                        or float(threshold) <= 0.0
+                    ):
+                        raise InputValidationError(
+                            "component audit damage_energy_50_j must be finite and positive"
+                        )
+                    state_record = component_states[state]
+                    state_record["eligible_event_count"] += 1
+                    state_record["below_threshold_count"] += int(
+                        energy_value < float(threshold)
+                    )
+                    if energy_value <= 0.0:
+                        state_record["nonpositive_energy_count"] += 1
+                    else:
+                        state_record["log_damage_energy_over_e50"].append(
+                            math.log(energy_value / float(threshold))
+                        )
+
+        for ordered in intersections_by_fragment.values():
+            armor_was_penetrated = False
+            component_reached = False
+            for _order, record in sorted(ordered, key=lambda item: item[0]):
+                if record.get("role") == "armor" and record.get("penetrated") is True:
+                    armor_was_penetrated = True
+                elif record.get("role") == "component" and armor_was_penetrated:
+                    component_reached = True
+            if armor_was_penetrated:
+                armor_penetrating_fragment_count += 1
+                component_reached_after_armor_count += int(component_reached)
+
+    return {
+        "schema_version": "warhead-target-matching-observations@1.0.0",
+        "armor_event_count": armor_event_count,
+        "armor_invalid_margin_count": armor_invalid_margin_count,
+        "armor_below_v50_count": armor_below_v50_count,
+        "armor_log_v_over_v50": armor_log_margin,
+        "component_event_count": component_event_count,
+        "component_states": dict(component_states),
+        "armor_penetrating_fragment_count": armor_penetrating_fragment_count,
+        "component_reached_after_armor_count": component_reached_after_armor_count,
+    }
+
+
+def combine_warhead_target_matching_observations(
+    observations: Iterable[Mapping[str, Any]],
+) -> dict[str, Any]:
+    combined: dict[str, Any] = {
+        "schema_version": "warhead-target-matching-observations@1.0.0",
+        "armor_event_count": 0,
+        "armor_invalid_margin_count": 0,
+        "armor_below_v50_count": 0,
+        "armor_log_v_over_v50": [],
+        "component_event_count": 0,
+        "component_states": {},
+        "armor_penetrating_fragment_count": 0,
+        "component_reached_after_armor_count": 0,
+    }
+    for observation in observations:
+        if observation.get("schema_version") != combined["schema_version"]:
+            raise InputValidationError("matching-observation schema version is unsupported")
+        for field in (
+            "armor_event_count",
+            "armor_invalid_margin_count",
+            "armor_below_v50_count",
+            "component_event_count",
+            "armor_penetrating_fragment_count",
+            "component_reached_after_armor_count",
+        ):
+            combined[field] += int(observation[field])
+        combined["armor_log_v_over_v50"].extend(
+            float(value) for value in observation["armor_log_v_over_v50"]
+        )
+        for state, source in observation["component_states"].items():
+            target = combined["component_states"].setdefault(
+                state,
+                {
+                    "eligible_event_count": 0,
+                    "below_threshold_count": 0,
+                    "nonpositive_energy_count": 0,
+                    "log_damage_energy_over_e50": [],
+                },
+            )
+            for field in (
+                "eligible_event_count",
+                "below_threshold_count",
+                "nonpositive_energy_count",
+            ):
+                target[field] += int(source[field])
+            target["log_damage_energy_over_e50"].extend(
+                float(value) for value in source["log_damage_energy_over_e50"]
+            )
+    return combined
+
+
+def _finite_distribution_summary(values: Iterable[float]) -> dict[str, Any]:
+    array = np.asarray(list(values), dtype=np.float64)
+    if array.ndim != 1 or not np.isfinite(array).all():
+        raise InputValidationError("matching margins must be a finite vector")
+    if array.size == 0:
+        return {
+            "count": 0,
+            "mean": None,
+            "quantiles": {"q10": None, "q50": None, "q90": None},
+            "minimum": None,
+            "maximum": None,
+        }
+    quantiles = np.quantile(array, [0.1, 0.5, 0.9])
+    return {
+        "count": int(array.size),
+        "mean": float(np.mean(array)),
+        "quantiles": {
+            "q10": float(quantiles[0]),
+            "q50": float(quantiles[1]),
+            "q90": float(quantiles[2]),
+        },
+        "minimum": float(np.min(array)),
+        "maximum": float(np.max(array)),
+    }
+
+
+def summarize_warhead_target_matching_observations(
+    observations: Mapping[str, Any],
+) -> dict[str, Any]:
+    if observations.get("schema_version") != (
+        "warhead-target-matching-observations@1.0.0"
+    ):
+        raise InputValidationError("matching-observation schema version is unsupported")
+    armor_valid = len(observations["armor_log_v_over_v50"])
+    states = {}
+    for state, values in observations["component_states"].items():
+        eligible = int(values["eligible_event_count"])
+        states[state] = {
+            "eligible_event_count": eligible,
+            "nonpositive_energy_count": int(values["nonpositive_energy_count"]),
+            "below_threshold_fraction": (
+                int(values["below_threshold_count"]) / eligible
+                if eligible
+                else None
+            ),
+            "log_damage_energy_over_e50": _finite_distribution_summary(
+                values["log_damage_energy_over_e50"]
+            ),
+        }
+    penetrating = int(observations["armor_penetrating_fragment_count"])
+    reached = int(observations["component_reached_after_armor_count"])
+    return {
+        "schema_version": "warhead-target-matching-summary@1.0.0",
+        "M_armor": {
+            "event_count": int(observations["armor_event_count"]),
+            "valid_margin_count": armor_valid,
+            "invalid_margin_count": int(observations["armor_invalid_margin_count"]),
+            "below_v50_fraction": (
+                int(observations["armor_below_v50_count"]) / armor_valid
+                if armor_valid
+                else None
+            ),
+            "log_arrival_speed_over_v50": _finite_distribution_summary(
+                observations["armor_log_v_over_v50"]
+            ),
+        },
+        "M_comp": {
+            "component_hit_event_count": int(observations["component_event_count"]),
+            "energy_semantics": "damage_energy_j_over_state_damage_energy_50_j",
+            "states": states,
+        },
+        "M_reach": {
+            "armor_penetrating_fragment_count": penetrating,
+            "component_reached_after_armor_count": reached,
+            "fraction": reached / penetrating if penetrating else None,
+        },
+        "evidence_boundary": (
+            "Executed software-teacher matching diagnostic. Thresholds, armor and "
+            "Taylor-Shapiro parameters remain externally unvalidated."
+        ),
+    }
+
+
+def summarize_warhead_target_matching(
+    fragment_audit: Iterable[Mapping[str, Any]],
+) -> dict[str, Any]:
+    return summarize_warhead_target_matching_observations(
+        extract_warhead_target_matching_observations(fragment_audit)
+    )
+
+
 def diagnose_front_axis_semantics(
     case: Mapping[str, Any],
     fragment_source_model: Mapping[str, Any],

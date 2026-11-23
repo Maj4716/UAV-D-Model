@@ -492,6 +492,9 @@ def _hydrate_contract_documents(
         "1.2.0",
         "1.3.0",
         "1.4.0",
+        "1.5.0",
+        "1.6.0",
+        "1.7.0",
     }:
         expected.update({
             "sampling_spec_document": _SAMPLING_SPEC_REFERENCE,
@@ -1192,8 +1195,7 @@ def _verify_plan_semantics(root: Path, checkpoint: dict) -> ReferencePlan:
     from .sampling_candidate_schema import candidate_table, candidate_table_schema
     from .learning_input_identity import (
         learning_input_fingerprint,
-        loitering_impact_contact_pose_learning_input_fingerprint,
-        loitering_impact_learning_input_fingerprint,
+        model_input_definition_for_sampling_contract,
     )
     import pyarrow.parquet as pq
     sampling_spec = SamplingSpec.from_file(root / "plan" / "sampling_spec.json")
@@ -1288,18 +1290,18 @@ def _verify_plan_semantics(root: Path, checkpoint: dict) -> ReferencePlan:
         raise InputValidationError("checkpoint formal input identity differs from committed plan")
     actual_rows = []
     learning_inputs = {}
+    model_input_definition = model_input_definition_for_sampling_contract(
+        sampling_spec.data.get("model_input_contract")
+    )
     for case, row, digest in zip(plan.cases, selected, hashes):
         envelope = case.get("metadata", {}).get("sampling", {})
         if row.get("formal_case_hash") != digest or envelope.get("candidate_id") != row["candidate_id"] or envelope.get("lineage_id") != row["lineage_id"]:
             raise InputValidationError("formal cases and selected candidate ledger are not aligned")
-        if sampling_spec.is_contact_pose_model_input:
-            learning_hash = (
-                loitering_impact_contact_pose_learning_input_fingerprint(case)
-            )
-        elif sampling_spec.is_loitering_impact_model_input:
-            learning_hash = loitering_impact_learning_input_fingerprint(case)
-        else:
-            learning_hash = learning_input_fingerprint(case)
+        learning_hash = (
+            model_input_definition.learning_input_fingerprint(case)
+            if model_input_definition is not None
+            else learning_input_fingerprint(case)
+        )
         previous = learning_inputs.get(learning_hash)
         if row.get("learning_input_hash") != learning_hash or (previous is not None and previous[0] != envelope.get("frozen_split")):
             raise InputValidationError("frozen plan learning input fingerprints are inconsistent or cross splits")

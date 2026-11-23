@@ -1,0 +1,479 @@
+{
+  "schemaVersion": 1,
+  "ok": true,
+  "command": "finalize",
+  "status": "pass",
+  "type": "explainer",
+  "quality": "showcase",
+  "startedAt": "2026-11-23T09:11:57.134Z",
+  "specification": {
+    "path": "D:\\Desktop\\UAV新\\.archify\\explainer-uav-visual-report-20261123-quant\\remaining.archify.md",
+    "sha256": "9ebe3b64e4bb3943b3159d68ef2fa70d5be9a6eaf1c4ba90a0e1833eea6ae331",
+    "bytes": 6746
+  },
+  "artifact": {
+    "path": "D:\\Desktop\\UAV新\\artifacts\\visual_reports_20261123\\03_remaining_work_roadmap.html",
+    "sha256": "8953d15d684e4557d3ba3e62ec65577137d97e3d6732ca598151a7f5021038fe",
+    "bytes": 1015123
+  },
+  "stages": {
+    "browser-check": {
+      "status": "not-run",
+      "execution": "not-requested"
+    },
+    "validate": {
+      "status": "pass",
+      "exitCode": 0,
+      "durationMs": null,
+      "execution": "embedded-in-deliver",
+      "command": [
+        "D:\\Program Files\\nodejs\\node.exe",
+        "C:\\Users\\Administrator\\.codex\\skills\\archify\\bin\\archify.mjs",
+        "deliver",
+        "explainer",
+        "D:\\Desktop\\UAV新\\.archify\\explainer-uav-visual-report-20261123-quant\\remaining.archify.md",
+        "D:\\Desktop\\UAV新\\artifacts\\visual_reports_20261123\\03_remaining_work_roadmap.html",
+        "--quality",
+        "showcase",
+        "--writing",
+        "strict",
+        "--json"
+      ],
+      "receipt": {
+        "schemaVersion": 1,
+        "ok": true,
+        "command": "validate",
+        "specification": {
+          "sha256": "9ebe3b64e4bb3943b3159d68ef2fa70d5be9a6eaf1c4ba90a0e1833eea6ae331",
+          "bytes": 6746
+        },
+        "validation": {
+          "checksPassed": 4,
+          "checkCount": 4,
+          "compositionProfile": "showcase",
+          "compositionStatus": "pass",
+          "errors": 0,
+          "warnings": 0
+        }
+      }
+    },
+    "deliver": {
+      "status": "pass",
+      "exitCode": 0,
+      "durationMs": 1241,
+      "command": [
+        "D:\\Program Files\\nodejs\\node.exe",
+        "C:\\Users\\Administrator\\.codex\\skills\\archify\\bin\\archify.mjs",
+        "deliver",
+        "explainer",
+        "D:\\Desktop\\UAV新\\.archify\\explainer-uav-visual-report-20261123-quant\\remaining.archify.md",
+        "D:\\Desktop\\UAV新\\artifacts\\visual_reports_20261123\\03_remaining_work_roadmap.html",
+        "--quality",
+        "showcase",
+        "--writing",
+        "strict",
+        "--json"
+      ],
+      "receipt": {
+        "schemaVersion": 1,
+        "receiptId": "273f9052-a2a1-4db9-9ee6-bb217f8fd7f2",
+        "ok": true,
+        "command": "deliver",
+        "type": "explainer",
+        "input": "D:\\Desktop\\UAV新\\.archify\\explainer-uav-visual-report-20261123-quant\\remaining.archify.md",
+        "output": "D:\\Desktop\\UAV新\\artifacts\\visual_reports_20261123\\03_remaining_work_roadmap.html",
+        "explainer": {
+          "preparedSha256": "a05efcd9c4b25c55a897fbfa4ddbd23155945aa39926f2be62321e187152315d",
+          "dependencies": [
+            {
+              "kind": "diagram-spec",
+              "id": "remaining-critical-path",
+              "inline": true,
+              "sha256": "861f8c3c46533479542a619d82e840592fdd598011ab70edaf68536ace46bca7",
+              "bytes": 1224
+            },
+            {
+              "kind": "diagram-spec",
+              "id": "remaining-workstreams",
+              "inline": true,
+              "sha256": "deaec1c7c11627f0265ab55f0d4f1fd7ac707aa91f9ee42c0c66454aa5725067",
+              "bytes": 1470
+            }
+          ]
+        },
+        "specification": {
+          "sha256": "9ebe3b64e4bb3943b3159d68ef2fa70d5be9a6eaf1c4ba90a0e1833eea6ae331",
+          "bytes": 6746
+        },
+        "artifact": {
+          "sha256": "8953d15d684e4557d3ba3e62ec65577137d97e3d6732ca598151a7f5021038fe",
+          "bytes": 1015123
+        },
+        "validation": {
+          "checksPassed": 4,
+          "checkCount": 4,
+          "compositionProfile": "showcase",
+          "compositionStatus": "pass",
+          "errors": 0,
+          "warnings": 0
+        },
+        "update": {
+          "status": "unavailable",
+          "installedVersion": null,
+          "availableVersion": null,
+          "releaseNotes": null,
+          "checkedAt": null,
+          "source": null,
+          "noticeRequired": false,
+          "noticeText": null,
+          "reason": "disabled"
+        }
+      }
+    },
+    "check": {
+      "status": "pass",
+      "exitCode": 0,
+      "durationMs": 594,
+      "command": [
+        "D:\\Program Files\\nodejs\\node.exe",
+        "C:\\Users\\Administrator\\.codex\\skills\\archify\\bin\\archify.mjs",
+        "check",
+        "D:\\Desktop\\UAV新\\artifacts\\visual_reports_20261123\\03_remaining_work_roadmap.html",
+        "--require-provenance"
+      ],
+      "receipt": {
+        "ok": true,
+        "file": "D:\\Desktop\\UAV新\\artifacts\\visual_reports_20261123\\03_remaining_work_roadmap.html",
+        "family": "explainer",
+        "artifact": {
+          "sha256": "8953d15d684e4557d3ba3e62ec65577137d97e3d6732ca598151a7f5021038fe",
+          "bytes": 1015123
+        },
+        "checks": [
+          {
+            "name": "explainer_structure",
+            "ok": true,
+            "details": [
+              "80 unique DOM IDs"
+            ]
+          },
+          {
+            "name": "explainer_payload_identity",
+            "ok": true,
+            "details": []
+          },
+          {
+            "name": "explainer_dependencies",
+            "ok": true,
+            "details": [
+              "2 frozen dependencies"
+            ]
+          },
+          {
+            "name": "explainer_native_diagrams",
+            "ok": true,
+            "details": [
+              "remaining-critical-path: pass",
+              "remaining-workstreams: pass"
+            ]
+          }
+        ],
+        "composition": {
+          "schemaVersion": 1,
+          "profile": "showcase",
+          "status": "pass",
+          "summary": {
+            "errors": 0,
+            "warnings": 0
+          },
+          "issues": [],
+          "nativeDiagrams": [
+            {
+              "id": "remaining-critical-path",
+              "receipt": {
+                "ok": true,
+                "file": "C:\\Users\\ADMINI~1\\AppData\\Local\\Temp\\archify-explainer-check-j1XcZu\\child.html",
+                "artifact": {
+                  "sha256": "ba6fb64f823319cbb87bbe24baefef1604d5da55b7aeacbc1b973cc9c554e793",
+                  "bytes": 833684
+                },
+                "checks": [
+                  {
+                    "name": "single_svg",
+                    "ok": true,
+                    "details": [
+                      "found 1 <svg> block(s)"
+                    ]
+                  },
+                  {
+                    "name": "finite_svg",
+                    "ok": true,
+                    "details": []
+                  },
+                  {
+                    "name": "orthogonal_arrows",
+                    "ok": true,
+                    "details": []
+                  },
+                  {
+                    "name": "label_route_clearance",
+                    "ok": true,
+                    "details": []
+                  },
+                  {
+                    "name": "relationship_crossings",
+                    "ok": true,
+                    "details": []
+                  },
+                  {
+                    "name": "relationship_corridors",
+                    "ok": true,
+                    "details": []
+                  },
+                  {
+                    "name": "container_border_runs",
+                    "ok": true,
+                    "details": []
+                  },
+                  {
+                    "name": "route_rhythm",
+                    "ok": true,
+                    "details": []
+                  },
+                  {
+                    "name": "legend_clearance",
+                    "ok": true,
+                    "details": []
+                  }
+                ],
+                "composition": {
+                  "schemaVersion": 1,
+                  "profile": "showcase",
+                  "status": "pass",
+                  "summary": {
+                    "errors": 0,
+                    "warnings": 0
+                  },
+                  "metrics": {
+                    "properCrossings": 0,
+                    "resolvedCrossovers": 0,
+                    "ambiguousCorridors": 0,
+                    "arrowheadCollisions": 0,
+                    "containerBorderRuns": 0,
+                    "labelRouteClearanceIssues": 0,
+                    "labelCanvasOverflowIssues": 0,
+                    "minLabelRouteClearance": 96.2,
+                    "desktopReadabilityIssues": 0,
+                    "viewportHeightIssues": 0,
+                    "minProjectedNodeTextPx": 8,
+                    "maxBends": 0,
+                    "routesOverSuggestedBends": 0,
+                    "maxStretch": 1,
+                    "routesOverSuggestedStretch": 0,
+                    "minSegmentPx": 38,
+                    "minInteriorSegmentPx": null,
+                    "shortSegmentCount": 0,
+                    "shortEndpointSegmentCount": 0,
+                    "shortInteriorSegmentCount": 0,
+                    "microSegmentCount": 0
+                  },
+                  "suggestedLimits": {
+                    "bendsPerRelationship": 2,
+                    "stretch": 1.35,
+                    "segmentPx": 16,
+                    "microSegmentPx": 8
+                  },
+                  "routeReview": {
+                    "crossings": [],
+                    "detours": []
+                  },
+                  "leadingSpace": {
+                    "measured": false,
+                    "reviewSuggested": false
+                  },
+                  "desktopReadability": {
+                    "budgetBasis": "legacy-930",
+                    "readerContract": "declared-wide-v1",
+                    "availableDiagramWidth": 930,
+                    "actualBudgetPx": 930,
+                    "limit": "legacy",
+                    "requestedTargetPx": null,
+                    "requestedTargetMet": null,
+                    "hardFloorPx": 6,
+                    "hardFloorMet": true,
+                    "minimumOwner": {
+                      "kind": "edge",
+                      "id": "p0-to-p1-1",
+                      "from": "p0",
+                      "to": "p1"
+                    },
+                    "minimumSourceTextPx": 8,
+                    "minimumProjectedTextPx": 8,
+                    "semanticTextCount": 11
+                  },
+                  "issues": []
+                }
+              }
+            },
+            {
+              "id": "remaining-workstreams",
+              "receipt": {
+                "ok": true,
+                "file": "C:\\Users\\ADMINI~1\\AppData\\Local\\Temp\\archify-explainer-check-3dYMb4\\child.html",
+                "artifact": {
+                  "sha256": "0e0276ac09a169ab34e46457a882a5c1c06eb3f1df3375632ee25393d7879d97",
+                  "bytes": 853737
+                },
+                "checks": [
+                  {
+                    "name": "single_svg",
+                    "ok": true,
+                    "details": [
+                      "found 1 <svg> block(s)"
+                    ]
+                  },
+                  {
+                    "name": "finite_svg",
+                    "ok": true,
+                    "details": []
+                  },
+                  {
+                    "name": "orthogonal_arrows",
+                    "ok": true,
+                    "details": []
+                  },
+                  {
+                    "name": "label_route_clearance",
+                    "ok": true,
+                    "details": []
+                  },
+                  {
+                    "name": "relationship_crossings",
+                    "ok": true,
+                    "details": []
+                  },
+                  {
+                    "name": "relationship_corridors",
+                    "ok": true,
+                    "details": []
+                  },
+                  {
+                    "name": "container_border_runs",
+                    "ok": true,
+                    "details": []
+                  },
+                  {
+                    "name": "route_rhythm",
+                    "ok": true,
+                    "details": []
+                  },
+                  {
+                    "name": "legend_clearance",
+                    "ok": true,
+                    "details": [
+                      "no legend marker found"
+                    ]
+                  }
+                ],
+                "composition": {
+                  "schemaVersion": 1,
+                  "profile": "showcase",
+                  "status": "pass",
+                  "summary": {
+                    "errors": 0,
+                    "warnings": 0
+                  },
+                  "metrics": {
+                    "properCrossings": 0,
+                    "resolvedCrossovers": 0,
+                    "ambiguousCorridors": 0,
+                    "arrowheadCollisions": 0,
+                    "containerBorderRuns": 0,
+                    "labelRouteClearanceIssues": 0,
+                    "labelCanvasOverflowIssues": 0,
+                    "minLabelRouteClearance": null,
+                    "desktopReadabilityIssues": 0,
+                    "viewportHeightIssues": 0,
+                    "minProjectedNodeTextPx": 12.944325481798714,
+                    "maxBends": 0,
+                    "routesOverSuggestedBends": 0,
+                    "maxStretch": null,
+                    "routesOverSuggestedStretch": 0,
+                    "minSegmentPx": null,
+                    "minInteriorSegmentPx": null,
+                    "shortSegmentCount": 0,
+                    "shortEndpointSegmentCount": 0,
+                    "shortInteriorSegmentCount": 0,
+                    "microSegmentCount": 0
+                  },
+                  "suggestedLimits": {
+                    "bendsPerRelationship": 2,
+                    "stretch": 1.35,
+                    "segmentPx": 16,
+                    "microSegmentPx": 8
+                  },
+                  "routeReview": {
+                    "crossings": [],
+                    "detours": []
+                  },
+                  "leadingSpace": {
+                    "measured": false,
+                    "reviewSuggested": false
+                  },
+                  "desktopReadability": {
+                    "budgetBasis": "recognized-declared-wide",
+                    "readerContract": "declared-wide-v1",
+                    "availableDiagramWidth": 930,
+                    "actualBudgetPx": 930,
+                    "actualReaderWidth": 960,
+                    "desiredReaderWidth": 960,
+                    "viewportCap": 1376,
+                    "limit": "source-size",
+                    "requestedTargetPx": 7.5,
+                    "requestedTargetMet": true,
+                    "hardFloorPx": 6,
+                    "hardFloorMet": true,
+                    "minimumOwner": {
+                      "kind": "node",
+                      "id": "engineering"
+                    },
+                    "minimumSourceTextPx": 13,
+                    "minimumProjectedTextPx": 12.944325481798714,
+                    "semanticTextCount": 20
+                  },
+                  "issues": []
+                }
+              }
+            }
+          ]
+        },
+        "diagnostics": [],
+        "provenance": "current",
+        "deliveryReceiptId": "273f9052-a2a1-4db9-9ee6-bb217f8fd7f2"
+      }
+    }
+  },
+  "browserCheck": {
+    "requested": false,
+    "ran": false
+  },
+  "diagnostics": [],
+  "evidence": {
+    "receipt": "D:\\Desktop\\UAV新\\artifacts\\visual_reports_20261123\\review-03-2\\03_remaining_work_roadmap.finalize.json",
+    "summaryReceipt": "D:\\Desktop\\UAV新\\artifacts\\visual_reports_20261123\\review-03-2\\03_remaining_work_roadmap.finalize-summary.json"
+  },
+  "visualReview": "not-requested",
+  "finishedAt": "2026-11-23T09:11:59.590Z",
+  "durationMs": 2456,
+  "update": {
+    "status": "unavailable",
+    "installedVersion": null,
+    "availableVersion": null,
+    "releaseNotes": null,
+    "checkedAt": null,
+    "source": null,
+    "noticeRequired": false,
+    "noticeText": null,
+    "reason": "check-failed"
+  }
+}

@@ -1,0 +1,67 @@
+{
+  "schema_version": "anisotropic-quick-vs-full-x1@1.0.0",
+  "quick_candidate_count": 4096,
+  "full_candidate_count": 100000,
+  "tier_1_generator_approximation": {
+    "declared_cell_tv_quick": 0.2037109375,
+    "declared_cell_tv_full": 0.20388,
+    "quick_vs_full_cell_mass_tv": 0.0005984374999999896,
+    "latent_mean_l2_quick_vs_full": 0.01072405966459525,
+    "latent_covariance_relative_frobenius_gap": 0.046591530828868515,
+    "full_eigenvalues_descending": [
+      0.10141694846571853,
+      0.09640740549754324,
+      0.08363847139750628,
+      0.0834181946710456,
+      0.08317010635295403,
+      0.081035731572126,
+      0.0799434373269302,
+      0.06394803341394746
+    ],
+    "quick_eigenvalues_descending": [
+      0.10088453375067921,
+      0.09421095763872973,
+      0.0846577862097965,
+      0.08244125312074142,
+      0.08100468209920145,
+      0.07955930569554838,
+      0.07769012788795593,
+      0.06435405827065857
+    ],
+    "maximum_uniform_ks_quick": 0.14723849017173052,
+    "maximum_uniform_ks_full": 0.14712953047811983,
+    "maximum_uniform_ks_absolute_error": 0.00010895969361068847
+  },
+  "tier_2_field_approximation": {
+    "complete_domain_fraction_quick": 0.865966796875,
+    "complete_domain_fraction_full": 0.86039,
+    "complete_domain_fraction_error": 0.005576796875000012,
+    "component_lambda_pearson": 0.9994921497344853,
+    "component_lambda_spearman": 0.9897760134565967,
+    "component_lambda_normalized_l1_error": 0.0510073441536021,
+    "component_energy_pearson": 0.9998730993642648,
+    "component_energy_spearman": 0.9704461667668096,
+    "component_energy_normalized_l1_error": 0.047897946130225896,
+    "full_reached_component_count": 62,
+    "quick_reached_component_count": 60,
+    "quick_reached_precision": 1.0,
+    "quick_reached_recall": 0.967741935483871,
+    "full_reached_missing_in_quick": [
+      "component-020",
+      "component-034"
+    ],
+    "quick_only_reached": []
+  },
+  "runtime": {
+    "wall_seconds": 1.260480899999493,
+    "cases_per_second": 3249.5534045788777
+  },
+  "sealed_test_result_rows_decoded": 0,
+  "inputs": {
+    "npz_sha256": "sha256:1b4ac10b94a4b1cdbc863954c1d5d4b67c0244ac253e1bdb15d86df3e19dfa2c",
+    "full_x1_sha256": "sha256:e2cdae6c29fb5ff6249edc52af6f1627345695076c24f849d0ca59e62fbad414",
+    "quick_assessment_sha256": "sha256:af0e986d7e23f86ade0e01af0e41f139873576e48ed4fb949ff1a40c1b6fb146",
+    "config_sha256": "sha256:129d10ed3290beb13bd8cc05a91c8ca2941d7c54f8787cdd2eac94b4690130f7"
+  },
+  "report_hash": "sha256:032d100a6f3940cf2afd08e21295bac057ebf07ff78fb63bc50bf157aea9ac27"
+}

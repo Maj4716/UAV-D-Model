@@ -1,0 +1,17 @@
+{
+  "schema_version": "source-import-exception@1.0.0",
+  "source_file": "data/source/components.csv",
+  "source_row_id": 57,
+  "expected_component_id": "component-057",
+  "source_name_zh": "无线电台",
+  "status": "skipped_incomplete_geometry",
+  "missing_required_fields": [
+    "X坐标/cm",
+    "Y坐标/cm",
+    "Z坐标/cm",
+    "Rotation"
+  ],
+  "policy_reference": "configs/import/target_import.json#/import_policy/skip_incomplete_components",
+  "decision": "Do not invent coordinates or orientation. Keep the row outside the compiled target until an authoritative geometry source is supplied.",
+  "downstream_effect": "The compiled target contains 67 components and no component-057; dataset feature and label axes remain bound to that compiled target hash."
+}

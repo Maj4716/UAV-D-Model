@@ -17,6 +17,12 @@ from .utils import content_hash
 
 
 PROFILE_REVISION = "loitering-munition-reference-port-v1"
+TAYLOR_SHAPIRO_PROFILE_REVISION = "loitering-munition-taylor-shapiro-v2"
+SUPPORTED_PROFILE_REVISIONS = (
+    PROFILE_REVISION,
+    TAYLOR_SHAPIRO_PROFILE_REVISION,
+)
+STAGE2_MECHANISM_VARIANT_CONTRACT = "stage2-mechanism-factorial@1.0.0"
 PROFILE_SOURCE_ID = "LEGACY-PROTOTYPE-PARAMETERS-UNVERIFIED"
 PROFILE_SOURCE_LOCATION = "legacy_code_port_reference_not_retained"
 STEEL_DENSITY_KG_M3 = 7850.0
@@ -64,6 +70,10 @@ class MunitionProfile:
     @property
     def source_model_id(self) -> str:
         return f"loitering_{self.profile_id}_taylor_source"
+
+    @property
+    def taylor_shapiro_source_model_id(self) -> str:
+        return f"loitering_{self.profile_id}_taylor_shapiro_source"
 
 
 _PROFILES = {
@@ -134,12 +144,29 @@ def get_munition_profile(profile_id: str) -> MunitionProfile:
         ) from exc
 
 
-def profile_document(profile: MunitionProfile) -> dict:
+def _profile_revision(value: str | None) -> str:
+    revision = PROFILE_REVISION if value is None else str(value)
+    if revision not in SUPPORTED_PROFILE_REVISIONS:
+        raise InputValidationError(
+            "unsupported loitering-munition profile revision",
+            context={
+                "profile_revision": revision,
+                "allowed_profile_revisions": list(SUPPORTED_PROFILE_REVISIONS),
+            },
+        )
+    return revision
+
+
+def profile_document(
+    profile: MunitionProfile,
+    *,
+    profile_revision: str = PROFILE_REVISION,
+) -> dict:
     """Return the canonical, schema-compatible projectile metadata."""
 
     return {
         "profile_id": profile.profile_id,
-        "profile_revision": PROFILE_REVISION,
+        "profile_revision": _profile_revision(profile_revision),
         "display_name_zh": profile.display_name_zh,
         "projectile_length_m": profile.projectile_length_m,
         "projectile_diameter_m": profile.projectile_diameter_m,
@@ -160,16 +187,31 @@ def profile_document(profile: MunitionProfile) -> dict:
     }
 
 
-def warhead_document(profile: MunitionProfile) -> dict:
+def warhead_document(
+    profile: MunitionProfile,
+    *,
+    profile_revision: str = PROFILE_REVISION,
+) -> dict:
     """Return the current engine's warhead representation for ``profile``."""
+
+    revision = _profile_revision(profile_revision)
+    is_taylor_shapiro = revision == TAYLOR_SHAPIRO_PROFILE_REVISION
+    source_model_id = (
+        profile.taylor_shapiro_source_model_id
+        if is_taylor_shapiro
+        else profile.source_model_id
+    )
+    direction_model_id = (
+        "taylor_shapiro_ring" if is_taylor_shapiro else "taylor_ring"
+    )
 
     return {
         "warhead_id": f"loitering-munition-{profile.profile_id}",
-        "revision": PROFILE_REVISION,
+        "revision": revision,
         "charge_mass_kg": profile.charge_mass_kg,
         "casing_mass_kg": profile.casing_mass_kg,
         "fragment_source": {
-            "model_id": profile.source_model_id,
+            "model_id": source_model_id,
             "total_count": profile.fragment_count,
             "mass_distribution": {
                 "family": "fixed",
@@ -183,7 +225,7 @@ def warhead_document(profile: MunitionProfile) -> dict:
             "shape_class": profile.fragment_shape,
             "density_kg_m3": profile.fragment_density_kg_m3,
             "drag_model_id": "constant_cd",
-            "direction_model_id": "taylor_ring",
+            "direction_model_id": direction_model_id,
             "initial_velocity_model_id": "gurney_cylinder",
             "gurney_constant_mps": profile.gurney_constant_mps,
             "detonation_velocity_mps": profile.detonation_velocity_mps,
@@ -199,13 +241,93 @@ def warhead_document(profile: MunitionProfile) -> dict:
     }
 
 
-def apply_munition_profile(case: dict, profile_id: str | None = None) -> dict:
+def apply_munition_profile(
+    case: dict,
+    profile_id: str | None = None,
+    *,
+    profile_revision: str | None = None,
+) -> dict:
     """Synchronize a mutable case after the profile ID has been sampled."""
 
     selected = profile_id or (case.get("munition") or {}).get("profile_id")
     profile = get_munition_profile(str(selected))
-    case["munition"] = profile_document(profile)
-    case["warhead"] = warhead_document(profile)
+    selected_revision = _profile_revision(
+        profile_revision
+        or (case.get("munition") or {}).get("profile_revision")
+        or PROFILE_REVISION
+    )
+    case["munition"] = profile_document(
+        profile,
+        profile_revision=selected_revision,
+    )
+    case["warhead"] = warhead_document(
+        profile,
+        profile_revision=selected_revision,
+    )
+    return case
+
+
+def _stage2_variant_warhead_document(
+    profile: MunitionProfile,
+    *,
+    gurney_constant_factor: float,
+    direction_model_kind: str,
+) -> dict:
+    factor = float(gurney_constant_factor)
+    if not math.isfinite(factor) or factor <= 0.0:
+        raise InputValidationError(
+            "stage2 Gurney constant factor must be finite and positive"
+        )
+    direction_kind = str(direction_model_kind)
+    if direction_kind not in {"taylor_ring", "cone"}:
+        raise InputValidationError(
+            "stage2 direction factor must be taylor_ring or cone",
+            context={"direction_model_kind": direction_kind},
+        )
+    warhead = warhead_document(profile, profile_revision=PROFILE_REVISION)
+    source = warhead["fragment_source"]
+    source["gurney_constant_mps"] = float(
+        source["gurney_constant_mps"] * factor
+    )
+    source["direction_model_id"] = direction_kind
+    return warhead
+
+
+def apply_stage2_mechanism_variant(
+    case: dict,
+    *,
+    profile_id: str | None = None,
+    gurney_constant_factor: float = 1.0,
+    direction_model_kind: str = "taylor_ring",
+    experiment_id: str,
+) -> dict:
+    """Apply an explicit, fail-closed E3/E5 warhead factor override.
+
+    The override is restricted to the legacy v1 Taylor/cone comparison.  The
+    Taylor-Shapiro v2 profile remains a separate candidate and cannot be
+    silently folded into the Stage-2 factorial.
+    """
+
+    selected = profile_id or (case.get("munition") or {}).get("profile_id")
+    profile = get_munition_profile(str(selected))
+    apply_munition_profile(
+        case,
+        profile.profile_id,
+        profile_revision=PROFILE_REVISION,
+    )
+    case["warhead"] = _stage2_variant_warhead_document(
+        profile,
+        gurney_constant_factor=gurney_constant_factor,
+        direction_model_kind=direction_model_kind,
+    )
+    metadata = case.setdefault("metadata", {})
+    metadata["stage2_mechanism_variant"] = {
+        "contract_version": STAGE2_MECHANISM_VARIANT_CONTRACT,
+        "experiment_id": str(experiment_id),
+        "baseline_profile_revision": PROFILE_REVISION,
+        "gurney_constant_factor": float(gurney_constant_factor),
+        "direction_model_kind": str(direction_model_kind),
+    }
     return case
 
 
@@ -218,8 +340,38 @@ def validate_munition_profile(case: dict) -> None:
     if not isinstance(munition, dict):
         raise InputValidationError("munition must be an object")
     profile = get_munition_profile(munition.get("profile_id"))
-    expected_munition = profile_document(profile)
-    expected_warhead = warhead_document(profile)
+    revision = _profile_revision(munition.get("profile_revision"))
+    expected_munition = profile_document(profile, profile_revision=revision)
+    experiment = (case.get("metadata") or {}).get("stage2_mechanism_variant")
+    if experiment is None:
+        expected_warhead = warhead_document(profile, profile_revision=revision)
+    else:
+        required = {
+            "contract_version",
+            "experiment_id",
+            "baseline_profile_revision",
+            "gurney_constant_factor",
+            "direction_model_kind",
+        }
+        if not isinstance(experiment, dict) or set(experiment) != required:
+            raise InputValidationError(
+                "stage2 mechanism variant metadata is malformed"
+            )
+        if (
+            experiment["contract_version"] != STAGE2_MECHANISM_VARIANT_CONTRACT
+            or experiment["baseline_profile_revision"] != PROFILE_REVISION
+            or revision != PROFILE_REVISION
+            or not isinstance(experiment["experiment_id"], str)
+            or not experiment["experiment_id"]
+        ):
+            raise InputValidationError(
+                "stage2 mechanism variant must declare the legacy v1 baseline"
+            )
+        expected_warhead = _stage2_variant_warhead_document(
+            profile,
+            gurney_constant_factor=float(experiment["gurney_constant_factor"]),
+            direction_model_kind=str(experiment["direction_model_kind"]),
+        )
     if content_hash(munition) != content_hash(expected_munition):
         raise InputValidationError(
             "munition metadata does not match its versioned profile",

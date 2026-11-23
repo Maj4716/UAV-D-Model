@@ -1,0 +1,66 @@
+{
+  "schema_version": "pipeline-expected-actual-analysis-config@2.0.0",
+  "analysis_id": "pipeline-expected-actual-20261122-v2-stagewise",
+  "analysis_status": "development_stagewise_quantitative_assessment",
+  "analysis_date": "2026-11-22",
+  "expectation_taxonomy": {
+    "declared_design_distribution": "配置或设计明确声明的抽样分布、离散配额和参数分布；比较实现样本是否忠实于声明设计。",
+    "deterministic_contract_or_conservation": "给定输入后必须精确成立的身份、几何、公式、排序、聚合或守恒关系；比较数值误差与违例数。",
+    "model_internal_probability_expectation": "由当前软件响应模型给出的条件概率或 Monte Carlo 期望；比较软件实现、重复频率和代理是否吻合。",
+    "external_physical_expectation": "由独立试验、实测或经外部校准模型给出的物理/作战分布；当前项目在关键机制层未提供。"
+  },
+  "populations": {
+    "candidate_design": 4301,
+    "formal_preoutcome_inputs": 2600,
+    "formal_split_counts": {
+      "train": 2000,
+      "validation": 300,
+      "test": 300
+    },
+    "development_outputs": {
+      "case_count": 2300,
+      "train_R8": 2000,
+      "validation_R32": 300,
+      "teacher_replicate_count": 25600,
+      "component_count": 67
+    },
+    "stratified_micro_audit": {
+      "train_case_count": 30,
+      "profile_region_cells": 15,
+      "cases_per_cell": 2,
+      "replicates_per_case": 8,
+      "fragment_trace_count": 40800
+    }
+  },
+  "uncertainty": {
+    "unit": "case",
+    "draws": 5000,
+    "scope": "case-resampling sensitivity conditional on fixed QMC designs",
+    "not_covered": [
+      "between_scramble_uncertainty",
+      "physical_population_uncertainty"
+    ]
+  },
+  "preexisting_gates": {
+    "sampling": {
+      "positivity_min": 0.1,
+      "ess_fraction_min": 0.5,
+      "weight_cv_max": 2.0
+    },
+    "proxy_false_unreached_R8_wilson_upper_max": 0.03,
+    "train_epsilon_complete_rate_min": 0.9
+  },
+  "sealing": {
+    "test_case_count": 300,
+    "test_result_json_lines_decoded": 0,
+    "test_open_count": 0,
+    "test_metrics_computed": false,
+    "merged_trace_placeholder_rows_skipped_before_json_loads": true
+  },
+  "interpretation_boundaries": {
+    "software_implementation": "assessed",
+    "generated_data_distribution": "assessed",
+    "proxy_teacher_gap": "assessed",
+    "external_physical_distribution_gap": "not_estimable_without_external_reference"
+  }
+}

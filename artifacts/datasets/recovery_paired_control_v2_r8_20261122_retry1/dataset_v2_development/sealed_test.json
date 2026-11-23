@@ -1,0 +1,63 @@
+{
+  "schema_version": "dataset-v2-sealed-test@1.0.0",
+  "dataset_id": "damage-dataset-v2-2587ce1394a92d4dff0fc957",
+  "split_counts": {
+    "test": 15,
+    "train": 30,
+    "validation": 15
+  },
+  "test_packaging_operation": "opaque_source_with_masked_core_placeholders",
+  "test_labels_present_in_core": false,
+  "test_component_traces_present_in_core": false,
+  "test_label_masks_all_false": true,
+  "test_result_json_lines_decoded": 0,
+  "development_result_json_lines_decoded": 45,
+  "test_open_count": 0,
+  "test_labels_evaluated_for_model_selection": false,
+  "opening_requirement": "frozen_model_and_threshold_contract",
+  "source_dataset_id": "damage-dataset-dcab62c6e18598fdb15f5daf",
+  "source_manifest_sha256": "sha256:244862efdc0b331883588d18f636bd54ad098445dfe02151b49ee7de0ec9a6a1",
+  "source_shards": [
+    {
+      "shard": "part-000000",
+      "case_count": 16,
+      "test_case_count": 1,
+      "tensors_sha256": "sha256:75374be5186e4808be933979e66d37432626db6d143a9ec2d1af7ab7b481d210",
+      "results_sha256": "sha256:39d2ade327c0ae1e1baa3503ec5deb4deb337f172d4ae0c3cc7678d38fc66919"
+    },
+    {
+      "shard": "part-000001",
+      "case_count": 16,
+      "test_case_count": 14,
+      "tensors_sha256": "sha256:8837109613e06ce60382980326880568d2f8c5aacd14eafb7625d0b2c48008e4",
+      "results_sha256": "sha256:4d466d308ad859785b06ccd4e2a70c65565455c10eefaf11dd85244565fa20b0"
+    },
+    {
+      "shard": "part-000002",
+      "case_count": 16,
+      "test_case_count": 0,
+      "tensors_sha256": "sha256:407b900c504c16af792d5176f19844aac51aa55dac32e34553d98a3e27aaa958",
+      "results_sha256": "sha256:dce27abc80517baed1a947058bb4dad97541e8d365f9186816373b8c43cbd82a"
+    },
+    {
+      "shard": "part-000003",
+      "case_count": 12,
+      "test_case_count": 0,
+      "tensors_sha256": "sha256:bc4be770fb026f5e8fc22ad5b5bf9878c3b01bdef0308605708f2b243be3abfc",
+      "results_sha256": "sha256:e58ac449c1ad3fc0c40fb7b8b2d5971d02256f8c0e635a76a1c6466983342a78"
+    }
+  ],
+  "test_case_id_order_hash": "sha256:639d40ff4794fc55a4b76fb98412e2d19077e0c8842acff765b1b6dcff32bed0",
+  "source_tensor_fields_read": [
+    "case_ids",
+    "split_names",
+    "input_frozen_splits",
+    "loitering_impact_first_armor_state_x",
+    "loitering_impact_first_armor_state_feature_mask",
+    "loitering_impact_first_armor_state_feature_names",
+    "component_ids",
+    "sampling_weight_mask",
+    "sampling_selection_probability",
+    "sampling_design_weight_raw"
+  ]
+}

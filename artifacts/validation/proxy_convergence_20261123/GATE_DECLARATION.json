@@ -1,0 +1,44 @@
+{
+  "declaration_id": "proxy-convergence-20261123-gate-declaration-v1",
+  "declared_at_local": "2026-11-23T11:21:29+08:00",
+  "declared_before": "any proxy run of this study and any teacher-side metric computed in this study",
+  "prior_information_disclosed": [
+    "REVIEW_20261123.md section 3.2 already reported train-R8 false-unreached 1.65% (case-cluster bootstrap [1.56%, 1.74%]) for the all-fragment configuration declared below; the declaration is therefore not blind to that single number. It is fixed here so that the gate result cannot be tuned by the sweep in this study."
+  ],
+  "gate": {
+    "source": "artifacts/validation/pipeline_expected_actual_20261122/analysis_config.json preexisting_gates.proxy_false_unreached_R8_wilson_upper_max",
+    "criterion": "false_unreached_wilson_upper <= 0.03",
+    "implementation": "identified-pair procedure of bootstrap_proxy_teacher.py::_metrics (see amendments[0]); exposure_audit unmasked as secondary",
+    "proxy_unreached_definition": "component_metrics[c].expected_hits == 0.0",
+    "teacher_hit_probability": "damage_engine.exposure_audit.teacher_component_hit_probabilities (fragment_metrics.hit_indicator.mean)",
+    "evaluation_set": "all 2,000 train cases (R=8) of artifacts/datasets/recovery_role_r8_r32_train2000_eval300_20261122, loaded via tools.evaluate_proxy_teacher_distribution.load_development_evidence; sealed test never decoded",
+    "teacher_engine_code_hash": "sha256:b041499ab0e5bfd1b80813779ccd8e6867afaf9d9cc6cba0a7ff29a622a8ad0d",
+    "supplementary_not_gating": [
+      "case-cluster bootstrap 95% interval of the pair rate",
+      "validation R32 false-unreached"
+    ]
+  },
+  "declared_proxy_configuration": {
+    "azimuths_per_ring": "all fragments (1_000_000, i.e. one ray per fragment)",
+    "source_seed": 2026111401,
+    "source_realizations": 1,
+    "layer_quadrature_samples": 16,
+    "reach_probability_cutoff": 1e-05,
+    "component_support_threshold": 0.05,
+    "damage_accumulation": "independent_hits (does not affect expected_hits)",
+    "physics_registry": "configs/physics/loitering_impact.taylor_shapiro.obliquity_bound.v3.json",
+    "target": "configs/targets/target.fragment_only.v1.json"
+  },
+  "reproduction_oracle": "expected_hits of this configuration must equal review_20261123/proxy_variants.npz v2_lambda bit-for-bit on all 2,300 development cases; otherwise the gate run is void",
+  "pre_edit_proxy_module_sha256": "3b2bafbbc24660179a2afc5c7fd73c2ee7f132d46e6891eb2c4d30654da20992",
+  "post_hoc_policy": "Any other configuration evaluated on the train gate in this study (for example a recommended default chosen from the sweep) is reported as post-hoc and secondary; it cannot replace the declared result.",
+  "amendments": [
+    {
+      "amended_at_local": "2026-11-23T11:22:40+08:00",
+      "still_before": "any proxy run of this study and any teacher-side metric computed in this study",
+      "original_declaration_sha256": "31989ebfaee9cfbe9c47a8ec225d41ab649671d374e0c8254d78ec20f0777382",
+      "change": "Primary gate implementation aligned with the procedure that produced the original 7.56%/7.60% numbers (pipeline_expected_actual_20261122/work/proxy_teacher/bootstrap_proxy_teacher.py::_metrics): pairs restricted to hurdle p_hit mask (identified pairs), proxy unreached = 1-exp(-expected_hits) == 0, false = teacher fragment_metrics.hit_indicator.mean > 0, Wilson z=1.959963984540054. The unmasked damage_engine.exposure_audit.build_exposure_teacher_audit result is reported as a secondary number.",
+      "reason": "The original declaration named exposure_audit, which does not apply the identified-pair mask that the pre-existing gate evaluation used; the gate must be re-evaluated with the same procedure."
+    }
+  ]
+}

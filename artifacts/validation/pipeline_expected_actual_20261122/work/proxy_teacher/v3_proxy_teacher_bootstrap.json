@@ -1,0 +1,124 @@
+{
+  "schema_version": "proxy-teacher-case-cluster-bootstrap@1.0.0",
+  "analysis_role": "development_descriptive_uncertainty_not_qmc_design_variance",
+  "source": {
+    "source_manifest_sha256": "sha256:07ccfd8d0ce4b442c745d55d1d053c77771b0c6fee133ee382632301da915613",
+    "source_dataset_id": "damage-dataset-9e7ffe4581fd9c4393ba3ad9",
+    "source_engine": {
+      "version": "0.11.0.dev0",
+      "code_hash": "sha256:987c0d4db314a4b4ce21717eb49fa644ea7744ba3206d4d72bd34cca1302c53a",
+      "configuration_hash": "sha256:573c432183051546e617286123aae884c3dca82389daee654ac940ba56d056ad",
+      "fidelity_level": "L2",
+      "fidelity_levels": [
+        "L2"
+      ],
+      "validation_record_id": null
+    },
+    "source_contracts": {
+      "target_hashes": [
+        "sha256:8f03659312d50ec0ae497b77eb01dd4f8612aa4c61aa9e177aa90fde090492a2"
+      ],
+      "parameter_set_hashes": [
+        "sha256:573c432183051546e617286123aae884c3dca82389daee654ac940ba56d056ad"
+      ],
+      "sampling_spec_id": "p0-sphere-entry-continuous-direction-recovery-pilot-v1",
+      "sampling_design_hash": "sha256:bba12c1242ae406e269644e6372fa995ad08400f5691ddc64544de617643c1c5"
+    },
+    "shard_count": 4,
+    "split_counts": {
+      "validation": 15,
+      "test": 15,
+      "train": 30
+    },
+    "development_row_count": 45,
+    "test_row_count": 15,
+    "test_result_json_lines_decoded": 0,
+    "test_metrics_computed": false,
+    "test_open_count_increment": 0,
+    "development_case_ids_hash": "sha256:04ec58a555c7ae1f8f4794e9c724726442310a2644d32e4f2c0050ab6d1f4219",
+    "target_path": "configs\\targets\\target.fragment_only.v1.json",
+    "target_file_sha256": "sha256:5c4e936975e95f32d72cfe62e38263ae20ef310fb79160b08876d494756c651f",
+    "physics_path": "configs\\physics\\loitering_impact.taylor_shapiro.obliquity_bound.v3.json",
+    "physics_file_sha256": "sha256:04030ac5f87519010da33eb5b5f8379bb5dbd8fb9be7b4ede6c6a31248443828",
+    "engine_target_hash": "sha256:8f03659312d50ec0ae497b77eb01dd4f8612aa4c61aa9e177aa90fde090492a2",
+    "engine_registry_hash": "sha256:573c432183051546e617286123aae884c3dca82389daee654ac940ba56d056ad"
+  },
+  "bootstrap": {
+    "unit": "case_with_all_67_components",
+    "method": "paired_nonparametric_case_cluster_percentile_bootstrap",
+    "resamples": 2000,
+    "seed": 2026112201,
+    "scope_note": "Quantifies finite development-case uncertainty conditional on this single QMC design; it is not between-scramble design variance."
+  },
+  "weights": {
+    "unique_values": [
+      1.0
+    ],
+    "all_equal": true
+  },
+  "point_estimates": {
+    "brier": 0.03765511381652031,
+    "ece": 0.04784864999419192,
+    "jensen_shannon_fixed_bins": 0.014181592032566243,
+    "log1p_wasserstein1": 1.036943362347084,
+    "mmd2": 0.045655614365711195,
+    "proxy_unreached_pair_count": 2779,
+    "teacher_positive_among_proxy_unreached": 210,
+    "false_unreached_rate": 0.07556675062972293,
+    "false_unreached_wilson_upper": 0.0859900034946332,
+    "identified_case_component_count": 3013,
+    "paired_positive_energy_count": 189,
+    "domain_complete_case_count": 43
+  },
+  "intervals": {
+    "brier": {
+      "valid_resamples": 2000,
+      "percentile_95_interval": [
+        0.030908857519758567,
+        0.04464847594248639
+      ],
+      "bootstrap_median": 0.03771786335383218
+    },
+    "ece": {
+      "valid_resamples": 2000,
+      "percentile_95_interval": [
+        0.04044788918419922,
+        0.05589655001544573
+      ],
+      "bootstrap_median": 0.04805105759934215
+    },
+    "jensen_shannon_fixed_bins": {
+      "valid_resamples": 2000,
+      "percentile_95_interval": [
+        0.011240809736854752,
+        0.017836529328924544
+      ],
+      "bootstrap_median": 0.014437115606850157
+    },
+    "log1p_wasserstein1": {
+      "valid_resamples": 2000,
+      "percentile_95_interval": [
+        0.8339246188019354,
+        1.2585501075245498
+      ],
+      "bootstrap_median": 1.036210558228608
+    },
+    "mmd2": {
+      "valid_resamples": 2000,
+      "percentile_95_interval": [
+        0.038941130047725925,
+        0.0835487792726523
+      ],
+      "bootstrap_median": 0.057790409328331405
+    },
+    "false_unreached_rate": {
+      "valid_resamples": 2000,
+      "percentile_95_interval": [
+        0.06358679320113672,
+        0.08851547411884743
+      ],
+      "bootstrap_median": 0.07543417613350759
+    }
+  },
+  "report_hash": "sha256:c3de881a28e1f6ac387a219d823719e261572b86af15d66b7c54aa7e958a584e"
+}

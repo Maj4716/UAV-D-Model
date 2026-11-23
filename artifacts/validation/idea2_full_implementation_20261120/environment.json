@@ -1,0 +1,21 @@
+{
+  "schema_version": "verified-environment@1.0.0",
+  "verified_at_local_date": "2026-11-20",
+  "platform": "Windows",
+  "environment_name": "pytorch312-lmdt",
+  "python": "3.12.13",
+  "packages": {
+    "numpy": "2.4.6",
+    "jsonschema": "4.26.0",
+    "scipy": "1.18.0",
+    "pyarrow": "22.0.0",
+    "pytest": "9.1.1",
+    "torch": "2.8.0+cu128"
+  },
+  "requirements_alignment": {
+    "requirements.txt": "core and test versions aligned to this verified environment",
+    "requirements-lock.txt": "core and test versions aligned to this verified environment",
+    "torch_policy": "CUDA build remains platform-specific and is not pinned in the portable lock"
+  },
+  "pytest_cache_policy": "Tests are executed with -p no:cacheprovider because the existing workspace .pytest_cache ACL is not required for correctness."
+}

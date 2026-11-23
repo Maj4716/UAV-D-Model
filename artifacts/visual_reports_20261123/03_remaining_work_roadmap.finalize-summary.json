@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "ok": true,
+  "command": "finalize",
+  "status": "pass",
+  "type": "explainer",
+  "quality": "showcase",
+  "specification": {
+    "path": "D:\\Desktop\\UAV新\\.archify\\explainer-uav-visual-report-20261123-quant\\remaining.archify.md",
+    "sha256": "9ebe3b64e4bb3943b3159d68ef2fa70d5be9a6eaf1c4ba90a0e1833eea6ae331",
+    "bytes": 6746
+  },
+  "artifact": {
+    "path": "D:\\Desktop\\UAV新\\artifacts\\visual_reports_20261123\\03_remaining_work_roadmap.html",
+    "sha256": "8953d15d684e4557d3ba3e62ec65577137d97e3d6732ca598151a7f5021038fe",
+    "bytes": 1015123
+  },
+  "gates": {
+    "validate": "pass",
+    "deliver": "pass",
+    "check": "pass",
+    "browser-check": "not-run"
+  },
+  "diagnostics": [],
+  "diagnosticSummary": {
+    "total": 0,
+    "shown": 0,
+    "truncated": false
+  },
+  "evidence": {
+    "receipt": "D:\\Desktop\\UAV新\\artifacts\\visual_reports_20261123\\03_remaining_work_roadmap.finalize.json",
+    "summaryReceipt": "D:\\Desktop\\UAV新\\artifacts\\visual_reports_20261123\\03_remaining_work_roadmap.finalize-summary.json"
+  },
+  "visualReview": "not-requested",
+  "durationMs": 2420,
+  "browserCheck": {
+    "requested": false,
+    "ran": false
+  }
+}

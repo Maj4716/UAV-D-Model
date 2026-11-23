@@ -1,0 +1,38 @@
+{"timestamp": "2026-11-20T12:10:35.221340+00:00", "event": "experiment_start", "experiment": "E5", "dry_run": false}
+{"timestamp": "2026-11-20T12:10:46.437206+00:00", "event": "case_complete", "variant_id": "e5-normal-s0p5-tau0p04", "case_index": 0, "base_case_id": "formal-5544cf1085110aa49213fa46", "status": "ok"}
+{"timestamp": "2026-11-20T12:10:56.832326+00:00", "event": "case_complete", "variant_id": "e5-normal-s0p5-tau0p04", "case_index": 1, "base_case_id": "formal-726bf27acbefd905f72ebc9d", "status": "ok"}
+{"timestamp": "2026-11-20T12:11:00.573289+00:00", "event": "case_complete", "variant_id": "e5-normal-s0p5-tau0p04", "case_index": 2, "base_case_id": "formal-b991cc69ebf8cbadd3443ffb", "status": "ok"}
+{"timestamp": "2026-11-20T12:11:00.592652+00:00", "event": "variant_complete", "variant_id": "e5-normal-s0p5-tau0p04", "case_count": 3, "elapsed_seconds": 24.512352400000054}
+{"timestamp": "2026-11-20T12:11:11.362676+00:00", "event": "case_complete", "variant_id": "e5-normal-s0p5-tau0p08", "case_index": 0, "base_case_id": "formal-5544cf1085110aa49213fa46", "status": "ok"}
+{"timestamp": "2026-11-20T12:11:23.048958+00:00", "event": "case_complete", "variant_id": "e5-normal-s0p5-tau0p08", "case_index": 1, "base_case_id": "formal-726bf27acbefd905f72ebc9d", "status": "ok"}
+{"timestamp": "2026-11-20T12:11:26.679932+00:00", "event": "case_complete", "variant_id": "e5-normal-s0p5-tau0p08", "case_index": 2, "base_case_id": "formal-b991cc69ebf8cbadd3443ffb", "status": "ok"}
+{"timestamp": "2026-11-20T12:11:26.714632+00:00", "event": "variant_complete", "variant_id": "e5-normal-s0p5-tau0p08", "case_count": 3, "elapsed_seconds": 25.299116900000627}
+{"timestamp": "2026-11-20T12:11:36.474737+00:00", "event": "case_complete", "variant_id": "e5-normal-s0p5-tau0p16", "case_index": 0, "base_case_id": "formal-5544cf1085110aa49213fa46", "status": "ok"}
+{"timestamp": "2026-11-20T12:11:46.262739+00:00", "event": "case_complete", "variant_id": "e5-normal-s0p5-tau0p16", "case_index": 1, "base_case_id": "formal-726bf27acbefd905f72ebc9d", "status": "ok"}
+{"timestamp": "2026-11-20T12:11:49.637897+00:00", "event": "case_complete", "variant_id": "e5-normal-s0p5-tau0p16", "case_index": 2, "base_case_id": "formal-b991cc69ebf8cbadd3443ffb", "status": "ok"}
+{"timestamp": "2026-11-20T12:11:49.671151+00:00", "event": "variant_complete", "variant_id": "e5-normal-s0p5-tau0p16", "case_count": 3, "elapsed_seconds": 22.066900499999974}
+{"timestamp": "2026-11-20T12:12:02.093998+00:00", "event": "case_complete", "variant_id": "e5-normal-s2-tau0p04", "case_index": 0, "base_case_id": "formal-5544cf1085110aa49213fa46", "status": "ok"}
+{"timestamp": "2026-11-20T12:12:13.500954+00:00", "event": "case_complete", "variant_id": "e5-normal-s2-tau0p04", "case_index": 1, "base_case_id": "formal-726bf27acbefd905f72ebc9d", "status": "ok"}
+{"timestamp": "2026-11-20T12:12:17.881919+00:00", "event": "case_complete", "variant_id": "e5-normal-s2-tau0p04", "case_index": 2, "base_case_id": "formal-b991cc69ebf8cbadd3443ffb", "status": "ok"}
+{"timestamp": "2026-11-20T12:12:17.902520+00:00", "event": "variant_complete", "variant_id": "e5-normal-s2-tau0p04", "case_count": 3, "elapsed_seconds": 27.329613799999606}
+{"timestamp": "2026-11-20T12:12:29.460455+00:00", "event": "case_complete", "variant_id": "e5-normal-s2-tau0p08", "case_index": 0, "base_case_id": "formal-5544cf1085110aa49213fa46", "status": "ok"}
+{"timestamp": "2026-11-20T12:12:40.676980+00:00", "event": "case_complete", "variant_id": "e5-normal-s2-tau0p08", "case_index": 1, "base_case_id": "formal-726bf27acbefd905f72ebc9d", "status": "ok"}
+{"timestamp": "2026-11-20T12:12:44.380273+00:00", "event": "case_complete", "variant_id": "e5-normal-s2-tau0p08", "case_index": 2, "base_case_id": "formal-b991cc69ebf8cbadd3443ffb", "status": "ok"}
+{"timestamp": "2026-11-20T12:12:44.405357+00:00", "event": "variant_complete", "variant_id": "e5-normal-s2-tau0p08", "case_count": 3, "elapsed_seconds": 25.566103000000112}
+{"timestamp": "2026-11-20T12:12:54.531095+00:00", "event": "case_complete", "variant_id": "e5-normal-s2-tau0p16", "case_index": 0, "base_case_id": "formal-5544cf1085110aa49213fa46", "status": "ok"}
+{"timestamp": "2026-11-20T12:13:03.634708+00:00", "event": "case_complete", "variant_id": "e5-normal-s2-tau0p16", "case_index": 1, "base_case_id": "formal-726bf27acbefd905f72ebc9d", "status": "ok"}
+{"timestamp": "2026-11-20T12:13:06.626130+00:00", "event": "case_complete", "variant_id": "e5-normal-s2-tau0p16", "case_index": 2, "base_case_id": "formal-b991cc69ebf8cbadd3443ffb", "status": "ok"}
+{"timestamp": "2026-11-20T12:13:06.645124+00:00", "event": "variant_complete", "variant_id": "e5-normal-s2-tau0p16", "case_count": 3, "elapsed_seconds": 21.352253699999892}
+{"timestamp": "2026-11-20T12:13:15.270452+00:00", "event": "case_complete", "variant_id": "e5-normal-s5-tau0p04", "case_index": 0, "base_case_id": "formal-5544cf1085110aa49213fa46", "status": "ok"}
+{"timestamp": "2026-11-20T12:13:24.685178+00:00", "event": "case_complete", "variant_id": "e5-normal-s5-tau0p04", "case_index": 1, "base_case_id": "formal-726bf27acbefd905f72ebc9d", "status": "ok"}
+{"timestamp": "2026-11-20T12:13:28.237022+00:00", "event": "case_complete", "variant_id": "e5-normal-s5-tau0p04", "case_index": 2, "base_case_id": "formal-b991cc69ebf8cbadd3443ffb", "status": "ok"}
+{"timestamp": "2026-11-20T12:13:28.263065+00:00", "event": "variant_complete", "variant_id": "e5-normal-s5-tau0p04", "case_count": 3, "elapsed_seconds": 20.718462300000283}
+{"timestamp": "2026-11-20T12:13:38.527149+00:00", "event": "case_complete", "variant_id": "e5-normal-s5-tau0p08", "case_index": 0, "base_case_id": "formal-5544cf1085110aa49213fa46", "status": "ok"}
+{"timestamp": "2026-11-20T12:13:48.270894+00:00", "event": "case_complete", "variant_id": "e5-normal-s5-tau0p08", "case_index": 1, "base_case_id": "formal-726bf27acbefd905f72ebc9d", "status": "ok"}
+{"timestamp": "2026-11-20T12:13:51.607873+00:00", "event": "case_complete", "variant_id": "e5-normal-s5-tau0p08", "case_index": 2, "base_case_id": "formal-b991cc69ebf8cbadd3443ffb", "status": "ok"}
+{"timestamp": "2026-11-20T12:13:51.632257+00:00", "event": "variant_complete", "variant_id": "e5-normal-s5-tau0p08", "case_count": 3, "elapsed_seconds": 22.535841100000653}
+{"timestamp": "2026-11-20T12:14:00.397564+00:00", "event": "case_complete", "variant_id": "e5-normal-s5-tau0p16", "case_index": 0, "base_case_id": "formal-5544cf1085110aa49213fa46", "status": "ok"}
+{"timestamp": "2026-11-20T12:14:08.488963+00:00", "event": "case_complete", "variant_id": "e5-normal-s5-tau0p16", "case_index": 1, "base_case_id": "formal-726bf27acbefd905f72ebc9d", "status": "ok"}
+{"timestamp": "2026-11-20T12:14:11.681956+00:00", "event": "case_complete", "variant_id": "e5-normal-s5-tau0p16", "case_index": 2, "base_case_id": "formal-b991cc69ebf8cbadd3443ffb", "status": "ok"}
+{"timestamp": "2026-11-20T12:14:11.698998+00:00", "event": "variant_complete", "variant_id": "e5-normal-s5-tau0p16", "case_count": 3, "elapsed_seconds": 19.213706399999865}
+{"timestamp": "2026-11-20T12:14:11.750070+00:00", "event": "experiment_complete", "experiment": "E5"}

@@ -1,0 +1,187 @@
+{
+  "teacher_noise_floor_p_hit_brier": 0.0013041955376482833,
+  "brier_vs_K": {
+    "historical_accumulation": {
+      "K": [
+        1,
+        2,
+        4,
+        8,
+        16
+      ],
+      "p_hit_brier": [
+        0.007498105283235596,
+        0.0045526809043317205,
+        0.003029319000941128,
+        0.0023345267037553075,
+        0.001972071854272186
+      ],
+      "fit_p_hit_a_plus_b_over_K": {
+        "a_K_infinity": 0.0015876753408301963,
+        "b": 0.005908813957359976
+      },
+      "p_hit_a_minus_teacher_noise_floor": 0.000283479803181913,
+      "p_failed_brier": [
+        0.00562466172670954,
+        0.0052682749260870194,
+        0.0050517268463558425,
+        0.00496087470590127,
+        0.004907726348322409
+      ],
+      "fit_p_failed_a_plus_b_over_K": {
+        "a_K_infinity": 0.004865364162730824,
+        "b": 0.0007671967688887535
+      }
+    },
+    "teacher_predictor_options": {
+      "K": [
+        1,
+        4,
+        8,
+        16
+      ],
+      "p_hit_brier": [
+        0.007476511124242929,
+        0.0029798447453023343,
+        0.002273274407877437,
+        0.0019007592011279324
+      ],
+      "fit_p_hit_a_plus_b_over_K": {
+        "a_K_infinity": 0.0015178376353730707,
+        "b": 0.0059541140431710275
+      },
+      "p_hit_a_minus_teacher_noise_floor": 0.00021364209772478746,
+      "p_failed_brier": [
+        0.0015456025843061283,
+        0.000633502110483177,
+        0.00048788833355640755,
+        0.0004042556352252111
+      ],
+      "fit_p_failed_a_plus_b_over_K": {
+        "a_K_infinity": 0.00033148737766194094,
+        "b": 0.0012141211498595903
+      }
+    }
+  },
+  "p_failed_by_lambda_band": {
+    "bands": [
+      {
+        "lambda_band": "(0.0, 0.5]",
+        "pairs": 7731,
+        "teacher_p_failed_mean": 0.006482768948138434,
+        "azall_historical_mean": 1.6909468114459644e-05,
+        "azall_registry_mean": 1.769369082754436e-05
+      },
+      {
+        "lambda_band": "(0.5, 2.0]",
+        "pairs": 4600,
+        "teacher_p_failed_mean": 0.09233896132205127,
+        "azall_historical_mean": 0.07953756898919054,
+        "azall_registry_mean": 0.08623332851919359
+      },
+      {
+        "lambda_band": "(2.0, 5.0]",
+        "pairs": 2654,
+        "teacher_p_failed_mean": 0.2898860463155329,
+        "azall_historical_mean": 0.19153023002868347,
+        "azall_registry_mean": 0.2796462330241677
+      },
+      {
+        "lambda_band": "(5.0, inf]",
+        "pairs": 6500,
+        "teacher_p_failed_mean": 0.8105259109014249,
+        "azall_historical_mean": 0.5980149723271402,
+        "azall_registry_mean": 0.7969605914942748
+      }
+    ],
+    "lambda_zero_pairs": 131876,
+    "teacher_p_failed_mass_share_at_lambda_zero": 0.01934892168426033
+  },
+  "preset": "azall_k8_reg_dom",
+  "components_with_teacher_p_hit_mass_ge_20": 64,
+  "worst_p_hit_ratio": [
+    {
+      "component": "component-026",
+      "teacher_p_hit_mass": 74.34375,
+      "p_hit_ratio": 0.7650212085546715,
+      "teacher_p_failed_mass": 20.976621445702694,
+      "p_failed_ratio": 0.9209778993542239
+    },
+    {
+      "component": "component-046",
+      "teacher_p_hit_mass": 210.875,
+      "p_hit_ratio": 0.7770976746682369,
+      "teacher_p_failed_mass": 26.71483600146557,
+      "p_failed_ratio": 0.7961934088128859
+    },
+    {
+      "component": "component-002",
+      "teacher_p_hit_mass": 21.8125,
+      "p_hit_ratio": 0.8113580048881618,
+      "teacher_p_failed_mass": 2.899515917942687,
+      "p_failed_ratio": 0.8385300743928099
+    },
+    {
+      "component": "component-053",
+      "teacher_p_hit_mass": 41.34375,
+      "p_hit_ratio": 0.8376011775803063,
+      "teacher_p_failed_mass": 5.8992892928255145,
+      "p_failed_ratio": 0.8525717174415358
+    },
+    {
+      "component": "component-025",
+      "teacher_p_hit_mass": 81.15625,
+      "p_hit_ratio": 0.8388362943918343,
+      "teacher_p_failed_mass": 17.402726608958204,
+      "p_failed_ratio": 0.8963362823766294
+    }
+  ],
+  "components_with_teacher_p_failed_mass_ge_10": 60,
+  "worst_p_failed_ratio": [
+    {
+      "component": "component-063",
+      "teacher_p_hit_mass": 311.15625,
+      "p_hit_ratio": 0.996894538023757,
+      "teacher_p_failed_mass": 31.31960904869423,
+      "p_failed_ratio": 0.7604909013959287
+    },
+    {
+      "component": "component-064",
+      "teacher_p_hit_mass": 155.28125,
+      "p_hit_ratio": 0.9803510578934619,
+      "teacher_p_failed_mass": 11.401956214633802,
+      "p_failed_ratio": 0.765887685506477
+    },
+    {
+      "component": "component-066",
+      "teacher_p_hit_mass": 177.78125,
+      "p_hit_ratio": 0.9985957043614879,
+      "teacher_p_failed_mass": 18.45118653366277,
+      "p_failed_ratio": 0.7747132434647253
+    },
+    {
+      "component": "component-061",
+      "teacher_p_hit_mass": 257.78125,
+      "p_hit_ratio": 0.9967836728130456,
+      "teacher_p_failed_mass": 27.681031301982657,
+      "p_failed_ratio": 0.792588988258578
+    },
+    {
+      "component": "component-046",
+      "teacher_p_hit_mass": 210.875,
+      "p_hit_ratio": 0.7770976746682369,
+      "teacher_p_failed_mass": 26.71483600146557,
+      "p_failed_ratio": 0.7961934088128859
+    }
+  ],
+  "p_failed_ratio_quantiles_over_components": [
+    0.8148872418208051,
+    0.9319584009039348,
+    0.9923767653468025
+  ],
+  "p_hit_ratio_quantiles_over_components": [
+    0.8834839453452747,
+    0.987604175271408,
+    1.007918284161101
+  ]
+}

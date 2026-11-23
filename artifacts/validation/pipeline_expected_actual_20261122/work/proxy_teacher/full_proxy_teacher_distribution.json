@@ -1,0 +1,479 @@
+{
+  "schema_version": "proxy-teacher-hurdle-distribution@1.0.0",
+  "source": {
+    "source_manifest_sha256": "sha256:3b6b7ba94ccd7715040716b69a1a039977636853142cfde6c31127f78debfae2",
+    "source_dataset_id": "damage-dataset-074d300c1382eb8eee4cd87a",
+    "source_engine": {
+      "version": "0.11.0.dev0",
+      "code_hash": "sha256:b041499ab0e5bfd1b80813779ccd8e6867afaf9d9cc6cba0a7ff29a622a8ad0d",
+      "configuration_hash": "sha256:573c432183051546e617286123aae884c3dca82389daee654ac940ba56d056ad",
+      "fidelity_level": "L2",
+      "fidelity_levels": [
+        "L2"
+      ],
+      "validation_record_id": null
+    },
+    "source_contracts": {
+      "target_hashes": [
+        "sha256:8f03659312d50ec0ae497b77eb01dd4f8612aa4c61aa9e177aa90fde090492a2"
+      ],
+      "parameter_set_hashes": [
+        "sha256:573c432183051546e617286123aae884c3dca82389daee654ac940ba56d056ad"
+      ],
+      "sampling_spec_id": "p0-sphere-entry-continuous-direction-recovery-train2000-eval300-role-r8-r32-v1",
+      "sampling_design_hash": "sha256:9880ba05f21edf646fdeb09462115969c0b94d5bcf1911ca0bc94e5c3edb60d3"
+    },
+    "shard_count": 41,
+    "split_counts": {
+      "validation": 300,
+      "test": 300,
+      "train": 2000
+    },
+    "development_row_count": 2300,
+    "test_row_count": 300,
+    "test_result_json_lines_decoded": 0,
+    "test_metrics_computed": false,
+    "test_open_count_increment": 0,
+    "development_case_ids_hash": "sha256:287d7a902728c7f3a1625f3a4cf4646fa59f00b439184f48a044488724d91c2e"
+  },
+  "evaluation_scope": {
+    "included_splits": [
+      "train",
+      "validation"
+    ],
+    "excluded_split": "test",
+    "case_count": 2300,
+    "component_count": 67,
+    "component_ids": [
+      "component-001",
+      "component-002",
+      "component-003",
+      "component-004",
+      "component-005",
+      "component-006",
+      "component-007",
+      "component-008",
+      "component-009",
+      "component-010",
+      "component-011",
+      "component-012",
+      "component-013",
+      "component-014",
+      "component-015",
+      "component-016",
+      "component-017",
+      "component-018",
+      "component-019",
+      "component-020",
+      "component-021",
+      "component-022",
+      "component-023",
+      "component-024",
+      "component-025",
+      "component-026",
+      "component-027",
+      "component-028",
+      "component-029",
+      "component-030",
+      "component-031",
+      "component-032",
+      "component-033",
+      "component-034",
+      "component-035",
+      "component-036",
+      "component-037",
+      "component-038",
+      "component-039",
+      "component-040",
+      "component-041",
+      "component-042",
+      "component-043",
+      "component-044",
+      "component-045",
+      "component-046",
+      "component-047",
+      "component-048",
+      "component-049",
+      "component-050",
+      "component-051",
+      "component-052",
+      "component-053",
+      "component-054",
+      "component-055",
+      "component-056",
+      "component-058",
+      "component-059",
+      "component-060",
+      "component-061",
+      "component-062",
+      "component-063",
+      "component-064",
+      "component-065",
+      "component-066",
+      "component-067",
+      "component-068"
+    ],
+    "design_weight_semantics": "sampler raw inverse-inclusion design weight"
+  },
+  "proxy_contract": {
+    "class": "FastSamplingProxy",
+    "source_seed": 2026111401,
+    "azimuths_per_ring": 4,
+    "layer_quadrature_samples": 16,
+    "target_hash": "sha256:8f03659312d50ec0ae497b77eb01dd4f8612aa4c61aa9e177aa90fde090492a2",
+    "physics_registry_hash": "sha256:573c432183051546e617286123aae884c3dca82389daee654ac940ba56d056ad"
+  },
+  "metrics": {
+    "identified_case_component_count": 153615,
+    "domain_complete_case_count": 2238,
+    "hit_probability": {
+      "proxy_transform": "1-exp(-expected_hits)",
+      "teacher_estimand": "replicate_mean_hit_indicator_given_case",
+      "brier": 0.04225657756153017,
+      "ece": 0.051289734038183675,
+      "calibration_bins": [
+        {
+          "bin": 0,
+          "lower": 0.0,
+          "upper": 0.1,
+          "weight_mass": 145993.0,
+          "predicted_mean": 0.0002247429660544874,
+          "observed_mean": 0.051036051386025356
+        },
+        {
+          "bin": 1,
+          "lower": 0.1,
+          "upper": 0.2,
+          "weight_mass": 247.0,
+          "predicted_mean": 0.143963802304501,
+          "observed_mean": 0.28770242914979755
+        },
+        {
+          "bin": 2,
+          "lower": 0.2,
+          "upper": 0.30000000000000004,
+          "weight_mass": 152.0,
+          "predicted_mean": 0.24718882787244426,
+          "observed_mean": 0.37993421052631576
+        },
+        {
+          "bin": 3,
+          "lower": 0.30000000000000004,
+          "upper": 0.4,
+          "weight_mass": 114.0,
+          "predicted_mean": 0.3512045667147938,
+          "observed_mean": 0.4076206140350877
+        },
+        {
+          "bin": 4,
+          "lower": 0.4,
+          "upper": 0.5,
+          "weight_mass": 99.0,
+          "predicted_mean": 0.4482485723216442,
+          "observed_mean": 0.46559343434343436
+        },
+        {
+          "bin": 5,
+          "lower": 0.5,
+          "upper": 0.6000000000000001,
+          "weight_mass": 76.0,
+          "predicted_mean": 0.5523831669963227,
+          "observed_mean": 0.45723684210526316
+        },
+        {
+          "bin": 6,
+          "lower": 0.6000000000000001,
+          "upper": 0.7000000000000001,
+          "weight_mass": 94.0,
+          "predicted_mean": 0.6478611940478618,
+          "observed_mean": 0.542220744680851
+        },
+        {
+          "bin": 7,
+          "lower": 0.7000000000000001,
+          "upper": 0.8,
+          "weight_mass": 85.0,
+          "predicted_mean": 0.751095681258267,
+          "observed_mean": 0.5691176470588235
+        },
+        {
+          "bin": 8,
+          "lower": 0.8,
+          "upper": 0.9,
+          "weight_mass": 401.0,
+          "predicted_mean": 0.8604637275851216,
+          "observed_mean": 0.6700436408977556
+        },
+        {
+          "bin": 9,
+          "lower": 0.9,
+          "upper": 1.0,
+          "weight_mass": 6354.0,
+          "predicted_mean": 0.9921000430892546,
+          "observed_mean": 0.9467805712936733
+        }
+      ],
+      "jensen_shannon_fixed_bins": 0.012089873255417528,
+      "js_bin_edges": [
+        0.0,
+        0.01,
+        0.05,
+        0.1,
+        0.25,
+        0.5,
+        0.75,
+        1.000000000001
+      ],
+      "correlation": {
+        "paired_count": 153615,
+        "spearman": 0.5854251255085083,
+        "pearson": 0.6758891966401706,
+        "status": "estimated"
+      }
+    },
+    "positive_energy": {
+      "paired_positive_count": 8302,
+      "comparison_semantics": "paired case-component teacher replicate-mean deposited_energy_j versus proxy expected_damage_energy_j; both values strictly positive",
+      "teacher_estimand": "replicate_mean_deposited_energy_j_given_case",
+      "proxy_estimand": "deterministic_expected_damage_energy_j_given_case",
+      "log1p_wasserstein1": 1.1645276807795635,
+      "log1p_quantiles": {
+        "probabilities": [
+          0.1,
+          0.5,
+          0.9,
+          0.99
+        ],
+        "proxy": [
+          2.3106171161742948,
+          8.633354100627294,
+          11.320665955125232,
+          12.910882000626868
+        ],
+        "teacher": [
+          5.689564518310121,
+          9.103250875727163,
+          12.387628834043328,
+          14.07633137767311
+        ]
+      },
+      "correlation": {
+        "paired_count": 8302,
+        "spearman": 0.8751087929086455,
+        "pearson": 0.7976394055618584,
+        "status": "estimated"
+      }
+    },
+    "multivariate_hit_probability": {
+      "mmd2": 0.042253305221777504,
+      "bandwidth": 1.7849158126981846,
+      "case_scope": "domain-complete train/validation cases only",
+      "feature_axis": "component hit probabilities"
+    },
+    "strata": {
+      "neg_x::large_front": {
+        "case_count": 50,
+        "identified_case_component_count": 3286,
+        "brier": 0.06878303041411478,
+        "ece": 0.07814243080930966,
+        "mae": 0.07998997963872509,
+        "correlation": {
+          "paired_count": 3286,
+          "spearman": 0.5955234377356975,
+          "pearson": 0.6413358797938471,
+          "status": "estimated"
+        }
+      },
+      "neg_x::medium_front": {
+        "case_count": 40,
+        "identified_case_component_count": 2680,
+        "brier": 0.05030203404807023,
+        "ece": 0.06064355768538515,
+        "mae": 0.06256247269574544,
+        "correlation": {
+          "paired_count": 2680,
+          "spearman": 0.618333209428309,
+          "pearson": 0.6896180338166711,
+          "status": "estimated"
+        }
+      },
+      "neg_x::small_front": {
+        "case_count": 42,
+        "identified_case_component_count": 2814,
+        "brier": 0.027537942750626376,
+        "ece": 0.03654932264331777,
+        "mae": 0.03768433035033368,
+        "correlation": {
+          "paired_count": 2814,
+          "spearman": 0.6233911162292078,
+          "pearson": 0.7393473003976448,
+          "status": "estimated"
+        }
+      },
+      "neg_y::large_front": {
+        "case_count": 200,
+        "identified_case_component_count": 13387,
+        "brier": 0.067812970220329,
+        "ece": 0.07772511003580437,
+        "mae": 0.07946796686294588,
+        "correlation": {
+          "paired_count": 13387,
+          "spearman": 0.5920795689436872,
+          "pearson": 0.646984801040835,
+          "status": "estimated"
+        }
+      },
+      "neg_y::medium_front": {
+        "case_count": 207,
+        "identified_case_component_count": 13807,
+        "brier": 0.04656694484919033,
+        "ece": 0.05592168341278002,
+        "mae": 0.05795954441381125,
+        "correlation": {
+          "paired_count": 13807,
+          "spearman": 0.6102432207089098,
+          "pearson": 0.6930721599447442,
+          "status": "estimated"
+        }
+      },
+      "neg_y::small_front": {
+        "case_count": 213,
+        "identified_case_component_count": 14267,
+        "brier": 0.02921779935590369,
+        "ece": 0.03580351326431644,
+        "mae": 0.0369124806491693,
+        "correlation": {
+          "paired_count": 14267,
+          "spearman": 0.6405607327073221,
+          "pearson": 0.7428197080900153,
+          "status": "estimated"
+        }
+      },
+      "pos_x::large_front": {
+        "case_count": 197,
+        "identified_case_component_count": 13065,
+        "brier": 0.0631492860542356,
+        "ece": 0.0775241672276559,
+        "mae": 0.0792012409090669,
+        "correlation": {
+          "paired_count": 13065,
+          "spearman": 0.5686051115514656,
+          "pearson": 0.6420288385424585,
+          "status": "estimated"
+        }
+      },
+      "pos_x::medium_front": {
+        "case_count": 202,
+        "identified_case_component_count": 13525,
+        "brier": 0.04622088124577848,
+        "ece": 0.059082102693148904,
+        "mae": 0.060894304899526026,
+        "correlation": {
+          "paired_count": 13525,
+          "spearman": 0.571936777547104,
+          "pearson": 0.6625429044564838,
+          "status": "estimated"
+        }
+      },
+      "pos_x::small_front": {
+        "case_count": 195,
+        "identified_case_component_count": 13057,
+        "brier": 0.026884162711833026,
+        "ece": 0.03496474441790203,
+        "mae": 0.03623672058224945,
+        "correlation": {
+          "paired_count": 13057,
+          "spearman": 0.5656872224412703,
+          "pearson": 0.7136105458604166,
+          "status": "estimated"
+        }
+      },
+      "pos_y::large_front": {
+        "case_count": 103,
+        "identified_case_component_count": 6901,
+        "brier": 0.016306852945337545,
+        "ece": 0.019981601314282074,
+        "mae": 0.020192145814140503,
+        "correlation": {
+          "paired_count": 6901,
+          "spearman": 0.5011546759213354,
+          "pearson": 0.5721646716374033,
+          "status": "estimated"
+        }
+      },
+      "pos_y::medium_front": {
+        "case_count": 114,
+        "identified_case_component_count": 7637,
+        "brier": 0.01767735297047982,
+        "ece": 0.02170113940107498,
+        "mae": 0.022171940343834462,
+        "correlation": {
+          "paired_count": 7637,
+          "spearman": 0.5914865956703265,
+          "pearson": 0.654234878068177,
+          "status": "estimated"
+        }
+      },
+      "pos_y::small_front": {
+        "case_count": 105,
+        "identified_case_component_count": 7035,
+        "brier": 0.007915246355146944,
+        "ece": 0.010564849509550207,
+        "mae": 0.011021829256667455,
+        "correlation": {
+          "paired_count": 7035,
+          "spearman": 0.595978490032444,
+          "pearson": 0.6914390291586948,
+          "status": "estimated"
+        }
+      },
+      "top_cap::large_front": {
+        "case_count": 219,
+        "identified_case_component_count": 14494,
+        "brier": 0.06474556530580414,
+        "ece": 0.07654365312529877,
+        "mae": 0.07772227830340009,
+        "correlation": {
+          "paired_count": 14494,
+          "spearman": 0.5585217955802736,
+          "pearson": 0.6403919042363879,
+          "status": "estimated"
+        }
+      },
+      "top_cap::medium_front": {
+        "case_count": 206,
+        "identified_case_component_count": 13794,
+        "brier": 0.04781535968119746,
+        "ece": 0.05775579866134706,
+        "mae": 0.05939714923342573,
+        "correlation": {
+          "paired_count": 13794,
+          "spearman": 0.5708983308985579,
+          "pearson": 0.6727532001050327,
+          "status": "estimated"
+        }
+      },
+      "top_cap::small_front": {
+        "case_count": 207,
+        "identified_case_component_count": 13866,
+        "brier": 0.027613845028191024,
+        "ece": 0.036090116984253726,
+        "mae": 0.03711630375625488,
+        "correlation": {
+          "paired_count": 13866,
+          "spearman": 0.5988366317591624,
+          "pearson": 0.7211118427067693,
+          "status": "estimated"
+        }
+      }
+    }
+  },
+  "limitations": [
+    "This is software-teacher agreement, not validation against physical truth.",
+    "Proxy 1-exp(-lambda) uses a Poisson hit-count approximation.",
+    "Positive-energy comparison aligns two different conditional expectations: teacher replicate mean and deterministic proxy expectation.",
+    "Only point-identified train/validation component targets enter metrics; interval-censored targets are excluded.",
+    "The frozen test split is not decoded, scored, or used for selection."
+  ],
+  "report_hash": "sha256:637a9bff2e37fc78ec5a606fdf47195bb04b335eb42426994ab3254f639f80c0"
+}

@@ -1,0 +1,51 @@
+{
+  "schema_version": "fast-proxy-scope-benchmark@1.0.0",
+  "development_case_count": 48,
+  "repeats": 3,
+  "execution_order": [
+    [
+      "full",
+      "exposure"
+    ],
+    [
+      "exposure",
+      "full"
+    ],
+    [
+      "full",
+      "exposure"
+    ]
+  ],
+  "times_seconds": {
+    "exposure": [
+      4.834976000000097,
+      5.12545769999997,
+      5.4482825000004595
+    ],
+    "full": [
+      4.526427700000568,
+      5.408985600000051,
+      4.650297199999841
+    ]
+  },
+  "median_exposure_seconds": 5.12545769999997,
+  "median_full_seconds": 4.650297199999841,
+  "exposure_only_speedup": 0.9072940354185087,
+  "exposure_cases_per_second": 9.365017293967773,
+  "full_cases_per_second": 10.321920930129291,
+  "shared_exposure_fields_exactly_equal": true,
+  "test_case_inputs_seen": 0,
+  "teacher_result_rows_read": 0,
+  "sealed_test_result_rows_decoded": 0,
+  "inputs": {
+    "target_sha256": "sha256:5c4e936975e95f32d72cfe62e38263ae20ef310fb79160b08876d494756c651f",
+    "physics_sha256": "sha256:04030ac5f87519010da33eb5b5f8379bb5dbd8fb9be7b4ede6c6a31248443828",
+    "formal_cases_sha256": "sha256:52c948384ed0f341f4c542cf89e013084a48c063d9d2624d42ef65335ebf94b7"
+  },
+  "live_identity": {
+    "target_hash": "sha256:8f03659312d50ec0ae497b77eb01dd4f8612aa4c61aa9e177aa90fde090492a2",
+    "physics_registry_hash": "sha256:573c432183051546e617286123aae884c3dca82389daee654ac940ba56d056ad",
+    "engine_code_hash": "sha256:6be8dc60f99885f873a97edd8de0a713c35b348a1d1e6667619bc7b1b50a68d5",
+    "damage_engine_source_tree_hash": "sha256:26e2c67fba8cd11ff38e46950658c7f04812751b03b082e6e485f1dce0df7f87"
+  }
+}

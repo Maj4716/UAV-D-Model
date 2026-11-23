@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "ok": true,
+  "command": "finalize",
+  "status": "pass",
+  "type": "explainer",
+  "quality": "showcase",
+  "specification": {
+    "path": "D:\\Desktop\\UAV新\\.archify\\explainer-uav-visual-report-20261123-quant\\anisotropic.archify.md",
+    "sha256": "c726e12580a179158d00af30d5f9fb8a8efd81ef3ba3d47b8663d82ed1388bd1",
+    "bytes": 8037
+  },
+  "artifact": {
+    "path": "D:\\Desktop\\UAV新\\artifacts\\visual_reports_20261123\\02_anisotropic_fast_assessment.html",
+    "sha256": "92fdd7182a05850a2d514cd7478fa570484116433da667996ad49eaa1c8fe569",
+    "bytes": 3857532
+  },
+  "gates": {
+    "validate": "pass",
+    "deliver": "pass",
+    "check": "pass",
+    "browser-check": "not-run"
+  },
+  "diagnostics": [],
+  "diagnosticSummary": {
+    "total": 0,
+    "shown": 0,
+    "truncated": false
+  },
+  "evidence": {
+    "receipt": "D:\\Desktop\\UAV新\\artifacts\\visual_reports_20261123\\review-02-2\\02_anisotropic_fast_assessment.finalize.json",
+    "summaryReceipt": "D:\\Desktop\\UAV新\\artifacts\\visual_reports_20261123\\review-02-2\\02_anisotropic_fast_assessment.finalize-summary.json"
+  },
+  "visualReview": "not-requested",
+  "durationMs": 2648,
+  "browserCheck": {
+    "requested": false,
+    "ran": false
+  }
+}

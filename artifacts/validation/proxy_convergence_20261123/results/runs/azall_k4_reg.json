@@ -1,0 +1,16 @@
+{
+  "name": "azall_k4_reg",
+  "kwargs": {
+    "azimuths_per_ring": 1000000,
+    "source_realizations": 4,
+    "damage_accumulation": "registry"
+  },
+  "case_count": 2300,
+  "workers": 14,
+  "wall_seconds": 166.64366388320923,
+  "mean_case_seconds_in_worker": 0.9730279964347712,
+  "proxy_module_sha256": "26952531d0574e6c4dfbd4bdfddf46114952ad1d1b51773674ca5df3455b929a",
+  "fragments_module_sha256": "7893284194f74cf3a9c06eb0c3014a73b83331cbb688006d12be64ad89769d5e",
+  "engine_code_hash_at_run": "sha256:6be8dc60f99885f873a97edd8de0a713c35b348a1d1e6667619bc7b1b50a68d5",
+  "finished_at_local": "2026-11-23T11:49:02+0800"
+}

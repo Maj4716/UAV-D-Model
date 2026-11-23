@@ -1,0 +1,97 @@
+{
+ "python": "3.12.13",
+ "direction_check": {
+  "v3_legacy|small_front": {
+   "angle_convention": "body_plus_x_polar_from_nose_local_normal_signed",
+   "fragments": 60,
+   "share_consistent_with_taylor": 0.0,
+   "axial_tilt_deg_mean": 5.534317584361446,
+   "axial_tilt_deg_range": [
+    1.6280583308745415,
+    7.516032089301385
+   ],
+   "taylor_bound_deg": 8.333082996290823
+  },
+  "v3_legacy|medium_front": {
+   "angle_convention": "body_plus_x_polar_from_nose_local_normal_signed",
+   "fragments": 150,
+   "share_consistent_with_taylor": 0.0,
+   "axial_tilt_deg_mean": 5.867127627501826,
+   "axial_tilt_deg_range": [
+    0.9424631854432859,
+    7.713799286902918
+   ],
+   "taylor_bound_deg": 8.333082996290823
+  },
+  "v3_legacy|large_front": {
+   "angle_convention": "body_plus_x_polar_from_nose_local_normal_signed",
+   "fragments": 300,
+   "share_consistent_with_taylor": 0.0,
+   "axial_tilt_deg_mean": 5.143202404340734,
+   "axial_tilt_deg_range": [
+    0.5558766877520038,
+    6.766630101648934
+   ],
+   "taylor_bound_deg": 7.2721395549392795
+  },
+  "v4_wave_directed|small_front": {
+   "angle_convention": "body_plus_x_polar_deflection_toward_detonation_propagation",
+   "fragments": 60,
+   "share_consistent_with_taylor": 1.0,
+   "axial_tilt_deg_mean": -5.534317584361446,
+   "axial_tilt_deg_range": [
+    -7.516032089301387,
+    -1.628058330874542
+   ],
+   "taylor_bound_deg": 8.333082996290823
+  },
+  "v4_wave_directed|medium_front": {
+   "angle_convention": "body_plus_x_polar_deflection_toward_detonation_propagation",
+   "fragments": 150,
+   "share_consistent_with_taylor": 1.0,
+   "axial_tilt_deg_mean": -5.867127627501826,
+   "axial_tilt_deg_range": [
+    -7.713799286902918,
+    -0.9424631854432866
+   ],
+   "taylor_bound_deg": 8.333082996290823
+  },
+  "v4_wave_directed|large_front": {
+   "angle_convention": "body_plus_x_polar_deflection_toward_detonation_propagation",
+   "fragments": 300,
+   "share_consistent_with_taylor": 1.0,
+   "axial_tilt_deg_mean": -5.143202404340734,
+   "axial_tilt_deg_range": [
+    -6.766630101648934,
+    -0.5558766877520059
+   ],
+   "taylor_bound_deg": 7.2721395549392795
+  }
+ },
+ "legacy_end_to_end_reproduction": {
+  "cases": [
+   {
+    "case_id": "formal-0035ee7537d128e301e24a8d",
+    "profile": "large_front",
+    "summary_equal": true,
+    "components_equal": true,
+    "damage_tree_outputs_equal": true
+   },
+   {
+    "case_id": "formal-005c2deb0585a06c2ba0e08b",
+    "profile": "small_front",
+    "summary_equal": true,
+    "components_equal": true,
+    "damage_tree_outputs_equal": true
+   },
+   {
+    "case_id": "formal-0089df8c760571cb89baec60",
+    "profile": "small_front",
+    "summary_equal": true,
+    "components_equal": true,
+    "damage_tree_outputs_equal": true
+   }
+  ],
+  "all_equal": true
+ }
+}

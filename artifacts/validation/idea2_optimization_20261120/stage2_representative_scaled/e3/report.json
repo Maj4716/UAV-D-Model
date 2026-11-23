@@ -1,0 +1,1986 @@
+{
+  "schema_version": "1.0.0",
+  "experiment": "E3",
+  "contract_version": "stage2-mechanism-experiments@1.0.0",
+  "common_random_numbers": true,
+  "physical_variants": [
+    {
+      "variant_id": "e3-a10-t1-fhollow-w1",
+      "factors": {
+        "A_armor_mm": 10.0,
+        "T_component_threshold_factor": 1.0,
+        "F_direction_model": "legacy_hollow",
+        "W_gurney_factor": 1.0
+      },
+      "summary": {
+        "case_count": 3,
+        "component_zero_rate": 0.7611940298507461,
+        "case_any_support_rate": 1.0,
+        "domain_complete_rate": 0.6666666666666666,
+        "mean_affected_replicate_fraction": 0.3333333333333333,
+        "positive_component_energy_tail": {
+          "positive_count": 48,
+          "primary_tail_fraction": 0.1,
+          "primary_alpha": 1.0642402141680696,
+          "estimates": [
+            {
+              "tail_fraction": 0.05,
+              "k": 2,
+              "xi": 0.4474287371834121,
+              "alpha": 2.234992786326273
+            },
+            {
+              "tail_fraction": 0.1,
+              "k": 4,
+              "xi": 0.9396374866192339,
+              "alpha": 1.0642402141680696
+            },
+            {
+              "tail_fraction": 0.2,
+              "k": 9,
+              "xi": 1.1394494102872017,
+              "alpha": 0.8776168480774824
+            }
+          ]
+        },
+        "tree_views": {
+          "current": {
+            "count": 21,
+            "zero_rate": 0.23809523809523808,
+            "saturation_rate": 0.23809523809523808,
+            "intermediate_rate": 0.47619047619047616,
+            "mean_binary_entropy_nats": 0.1362101168882553
+          },
+          "identity_component_states": {
+            "count": 402,
+            "zero_rate": 0.7611940298507462,
+            "saturation_rate": 0.07711442786069651,
+            "intermediate_rate": 0.1318407960199005,
+            "mean_binary_entropy_nats": 0.053810546734357735
+          },
+          "maximum_offline_recompute_abs_error": 0.0
+        },
+        "status_counts": {
+          "ok": 3
+        }
+      }
+    },
+    {
+      "variant_id": "e3-a10-t1-fhollow-w1p3",
+      "factors": {
+        "A_armor_mm": 10.0,
+        "T_component_threshold_factor": 1.0,
+        "F_direction_model": "legacy_hollow",
+        "W_gurney_factor": 1.3
+      },
+      "summary": {
+        "case_count": 3,
+        "component_zero_rate": 0.7462686567164178,
+        "case_any_support_rate": 1.0,
+        "domain_complete_rate": 0.3333333333333333,
+        "mean_affected_replicate_fraction": 0.6666666666666666,
+        "positive_component_energy_tail": {
+          "positive_count": 51,
+          "primary_tail_fraction": 0.1,
+          "primary_alpha": 0.9368827958811218,
+          "estimates": [
+            {
+              "tail_fraction": 0.05,
+              "k": 2,
+              "xi": 0.4023461378361588,
+              "alpha": 2.4854221426805756
+            },
+            {
+              "tail_fraction": 0.1,
+              "k": 5,
+              "xi": 1.0673693704232423,
+              "alpha": 0.9368827958811218
+            },
+            {
+              "tail_fraction": 0.2,
+              "k": 10,
+              "xi": 1.4457479712418781,
+              "alpha": 0.6916834883337332
+            }
+          ]
+        },
+        "tree_views": {
+          "current": {
+            "count": 21,
+            "zero_rate": 0.14285714285714285,
+            "saturation_rate": 0.5238095238095238,
+            "intermediate_rate": 0.2857142857142857,
+            "mean_binary_entropy_nats": 0.12666268441597375
+          },
+          "identity_component_states": {
+            "count": 402,
+            "zero_rate": 0.746268656716418,
+            "saturation_rate": 0.11940298507462686,
+            "intermediate_rate": 0.12935323383084577,
+            "mean_binary_entropy_nats": 0.04771690490323108
+          },
+          "maximum_offline_recompute_abs_error": 0.0
+        },
+        "status_counts": {
+          "ok": 3
+        }
+      }
+    },
+    {
+      "variant_id": "e3-a10-t1-fsolid-w1",
+      "factors": {
+        "A_armor_mm": 10.0,
+        "T_component_threshold_factor": 1.0,
+        "F_direction_model": "solid_cone",
+        "W_gurney_factor": 1.0
+      },
+      "summary": {
+        "case_count": 3,
+        "component_zero_rate": 0.7860696517412936,
+        "case_any_support_rate": 1.0,
+        "domain_complete_rate": 0.6666666666666666,
+        "mean_affected_replicate_fraction": 0.3333333333333333,
+        "positive_component_energy_tail": {
+          "positive_count": 43,
+          "primary_tail_fraction": 0.1,
+          "primary_alpha": 0.8058708479253388,
+          "estimates": [
+            {
+              "tail_fraction": 0.05,
+              "k": 2,
+              "xi": 0.941576638952519,
+              "alpha": 1.06204843942653
+            },
+            {
+              "tail_fraction": 0.1,
+              "k": 4,
+              "xi": 1.2408936277747655,
+              "alpha": 0.8058708479253388
+            },
+            {
+              "tail_fraction": 0.2,
+              "k": 8,
+              "xi": 1.008568068208193,
+              "alpha": 0.9915047199308868
+            }
+          ]
+        },
+        "tree_views": {
+          "current": {
+            "count": 21,
+            "zero_rate": 0.23809523809523808,
+            "saturation_rate": 0.23809523809523808,
+            "intermediate_rate": 0.5238095238095238,
+            "mean_binary_entropy_nats": 0.20177389694144715
+          },
+          "identity_component_states": {
+            "count": 402,
+            "zero_rate": 0.7860696517412935,
+            "saturation_rate": 0.06218905472636816,
+            "intermediate_rate": 0.12935323383084577,
+            "mean_binary_entropy_nats": 0.04999856900366686
+          },
+          "maximum_offline_recompute_abs_error": 0.0
+        },
+        "status_counts": {
+          "ok": 3
+        }
+      }
+    },
+    {
+      "variant_id": "e3-a10-t1-fsolid-w1p3",
+      "factors": {
+        "A_armor_mm": 10.0,
+        "T_component_threshold_factor": 1.0,
+        "F_direction_model": "solid_cone",
+        "W_gurney_factor": 1.3
+      },
+      "summary": {
+        "case_count": 3,
+        "component_zero_rate": 0.7263681592039801,
+        "case_any_support_rate": 1.0,
+        "domain_complete_rate": 0.3333333333333333,
+        "mean_affected_replicate_fraction": 0.6666666666666666,
+        "positive_component_energy_tail": {
+          "positive_count": 55,
+          "primary_tail_fraction": 0.1,
+          "primary_alpha": 1.4920149864919665,
+          "estimates": [
+            {
+              "tail_fraction": 0.05,
+              "k": 2,
+              "xi": 1.178148015871467,
+              "alpha": 0.8487897840750576
+            },
+            {
+              "tail_fraction": 0.1,
+              "k": 5,
+              "xi": 0.6702345546482782,
+              "alpha": 1.4920149864919665
+            },
+            {
+              "tail_fraction": 0.2,
+              "k": 11,
+              "xi": 1.4222240823317653,
+              "alpha": 0.7031240803913822
+            }
+          ]
+        },
+        "tree_views": {
+          "current": {
+            "count": 21,
+            "zero_rate": 0.23809523809523808,
+            "saturation_rate": 0.47619047619047616,
+            "intermediate_rate": 0.2857142857142857,
+            "mean_binary_entropy_nats": 0.14215026045542564
+          },
+          "identity_component_states": {
+            "count": 402,
+            "zero_rate": 0.7288557213930348,
+            "saturation_rate": 0.12189054726368159,
+            "intermediate_rate": 0.13681592039800994,
+            "mean_binary_entropy_nats": 0.05682345084756645
+          },
+          "maximum_offline_recompute_abs_error": 0.0
+        },
+        "status_counts": {
+          "ok": 3
+        }
+      }
+    },
+    {
+      "variant_id": "e3-a10-t0p1-fhollow-w1",
+      "factors": {
+        "A_armor_mm": 10.0,
+        "T_component_threshold_factor": 0.1,
+        "F_direction_model": "legacy_hollow",
+        "W_gurney_factor": 1.0
+      },
+      "summary": {
+        "case_count": 3,
+        "component_zero_rate": 0.7611940298507461,
+        "case_any_support_rate": 1.0,
+        "domain_complete_rate": 0.6666666666666666,
+        "mean_affected_replicate_fraction": 0.3333333333333333,
+        "positive_component_energy_tail": {
+          "positive_count": 48,
+          "primary_tail_fraction": 0.1,
+          "primary_alpha": 1.0642402141680696,
+          "estimates": [
+            {
+              "tail_fraction": 0.05,
+              "k": 2,
+              "xi": 0.4474287371834121,
+              "alpha": 2.234992786326273
+            },
+            {
+              "tail_fraction": 0.1,
+              "k": 4,
+              "xi": 0.9396374866192339,
+              "alpha": 1.0642402141680696
+            },
+            {
+              "tail_fraction": 0.2,
+              "k": 9,
+              "xi": 1.1394494102872017,
+              "alpha": 0.8776168480774824
+            }
+          ]
+        },
+        "tree_views": {
+          "current": {
+            "count": 21,
+            "zero_rate": 0.23809523809523808,
+            "saturation_rate": 0.7619047619047619,
+            "intermediate_rate": 0.0,
+            "mean_binary_entropy_nats": 0.004151585429370951
+          },
+          "identity_component_states": {
+            "count": 402,
+            "zero_rate": 0.7611940298507462,
+            "saturation_rate": 0.18407960199004975,
+            "intermediate_rate": 0.05472636815920398,
+            "mean_binary_entropy_nats": 0.020797212688760496
+          },
+          "maximum_offline_recompute_abs_error": 0.0
+        },
+        "status_counts": {
+          "ok": 3
+        }
+      }
+    },
+    {
+      "variant_id": "e3-a10-t0p1-fhollow-w1p3",
+      "factors": {
+        "A_armor_mm": 10.0,
+        "T_component_threshold_factor": 0.1,
+        "F_direction_model": "legacy_hollow",
+        "W_gurney_factor": 1.3
+      },
+      "summary": {
+        "case_count": 3,
+        "component_zero_rate": 0.7462686567164178,
+        "case_any_support_rate": 1.0,
+        "domain_complete_rate": 0.3333333333333333,
+        "mean_affected_replicate_fraction": 0.6666666666666666,
+        "positive_component_energy_tail": {
+          "positive_count": 51,
+          "primary_tail_fraction": 0.1,
+          "primary_alpha": 0.9368827958811218,
+          "estimates": [
+            {
+              "tail_fraction": 0.05,
+              "k": 2,
+              "xi": 0.4023461378361588,
+              "alpha": 2.4854221426805756
+            },
+            {
+              "tail_fraction": 0.1,
+              "k": 5,
+              "xi": 1.0673693704232423,
+              "alpha": 0.9368827958811218
+            },
+            {
+              "tail_fraction": 0.2,
+              "k": 10,
+              "xi": 1.4457479712418781,
+              "alpha": 0.6916834883337332
+            }
+          ]
+        },
+        "tree_views": {
+          "current": {
+            "count": 21,
+            "zero_rate": 0.14285714285714285,
+            "saturation_rate": 0.8095238095238095,
+            "intermediate_rate": 0.047619047619047616,
+            "mean_binary_entropy_nats": 0.0250602582479074
+          },
+          "identity_component_states": {
+            "count": 402,
+            "zero_rate": 0.746268656716418,
+            "saturation_rate": 0.21890547263681592,
+            "intermediate_rate": 0.03482587064676617,
+            "mean_binary_entropy_nats": 0.011696364399755516
+          },
+          "maximum_offline_recompute_abs_error": 0.0
+        },
+        "status_counts": {
+          "ok": 3
+        }
+      }
+    },
+    {
+      "variant_id": "e3-a10-t0p1-fsolid-w1",
+      "factors": {
+        "A_armor_mm": 10.0,
+        "T_component_threshold_factor": 0.1,
+        "F_direction_model": "solid_cone",
+        "W_gurney_factor": 1.0
+      },
+      "summary": {
+        "case_count": 3,
+        "component_zero_rate": 0.7860696517412936,
+        "case_any_support_rate": 1.0,
+        "domain_complete_rate": 0.6666666666666666,
+        "mean_affected_replicate_fraction": 0.3333333333333333,
+        "positive_component_energy_tail": {
+          "positive_count": 43,
+          "primary_tail_fraction": 0.1,
+          "primary_alpha": 0.8058708479253388,
+          "estimates": [
+            {
+              "tail_fraction": 0.05,
+              "k": 2,
+              "xi": 0.941576638952519,
+              "alpha": 1.06204843942653
+            },
+            {
+              "tail_fraction": 0.1,
+              "k": 4,
+              "xi": 1.2408936277747655,
+              "alpha": 0.8058708479253388
+            },
+            {
+              "tail_fraction": 0.2,
+              "k": 8,
+              "xi": 1.008568068208193,
+              "alpha": 0.9915047199308868
+            }
+          ]
+        },
+        "tree_views": {
+          "current": {
+            "count": 21,
+            "zero_rate": 0.23809523809523808,
+            "saturation_rate": 0.7142857142857143,
+            "intermediate_rate": 0.047619047619047616,
+            "mean_binary_entropy_nats": 0.008790838213931462
+          },
+          "identity_component_states": {
+            "count": 402,
+            "zero_rate": 0.7860696517412935,
+            "saturation_rate": 0.1791044776119403,
+            "intermediate_rate": 0.03482587064676617,
+            "mean_binary_entropy_nats": 0.014755180433703066
+          },
+          "maximum_offline_recompute_abs_error": 0.0
+        },
+        "status_counts": {
+          "ok": 3
+        }
+      }
+    },
+    {
+      "variant_id": "e3-a10-t0p1-fsolid-w1p3",
+      "factors": {
+        "A_armor_mm": 10.0,
+        "T_component_threshold_factor": 0.1,
+        "F_direction_model": "solid_cone",
+        "W_gurney_factor": 1.3
+      },
+      "summary": {
+        "case_count": 3,
+        "component_zero_rate": 0.7263681592039801,
+        "case_any_support_rate": 1.0,
+        "domain_complete_rate": 0.3333333333333333,
+        "mean_affected_replicate_fraction": 0.6666666666666666,
+        "positive_component_energy_tail": {
+          "positive_count": 55,
+          "primary_tail_fraction": 0.1,
+          "primary_alpha": 1.4920149864919665,
+          "estimates": [
+            {
+              "tail_fraction": 0.05,
+              "k": 2,
+              "xi": 1.178148015871467,
+              "alpha": 0.8487897840750576
+            },
+            {
+              "tail_fraction": 0.1,
+              "k": 5,
+              "xi": 0.6702345546482782,
+              "alpha": 1.4920149864919665
+            },
+            {
+              "tail_fraction": 0.2,
+              "k": 11,
+              "xi": 1.4222240823317653,
+              "alpha": 0.7031240803913822
+            }
+          ]
+        },
+        "tree_views": {
+          "current": {
+            "count": 21,
+            "zero_rate": 0.23809523809523808,
+            "saturation_rate": 0.7619047619047619,
+            "intermediate_rate": 0.0,
+            "mean_binary_entropy_nats": 0.0013130346077005303
+          },
+          "identity_component_states": {
+            "count": 402,
+            "zero_rate": 0.7263681592039801,
+            "saturation_rate": 0.23383084577114427,
+            "intermediate_rate": 0.03731343283582089,
+            "mean_binary_entropy_nats": 0.017408241391314833
+          },
+          "maximum_offline_recompute_abs_error": 0.0
+        },
+        "status_counts": {
+          "ok": 3
+        }
+      }
+    },
+    {
+      "variant_id": "e3-a1-t1-fhollow-w1",
+      "factors": {
+        "A_armor_mm": 1.0,
+        "T_component_threshold_factor": 1.0,
+        "F_direction_model": "legacy_hollow",
+        "W_gurney_factor": 1.0
+      },
+      "summary": {
+        "case_count": 3,
+        "component_zero_rate": 0.6915422885572139,
+        "case_any_support_rate": 1.0,
+        "domain_complete_rate": 0.3333333333333333,
+        "mean_affected_replicate_fraction": 0.6666666666666666,
+        "positive_component_energy_tail": {
+          "positive_count": 62,
+          "primary_tail_fraction": 0.1,
+          "primary_alpha": 1.8551575083828562,
+          "estimates": [
+            {
+              "tail_fraction": 0.05,
+              "k": 3,
+              "xi": 0.46410593522236887,
+              "alpha": 2.1546804815604568
+            },
+            {
+              "tail_fraction": 0.1,
+              "k": 6,
+              "xi": 0.5390377881561667,
+              "alpha": 1.8551575083828562
+            },
+            {
+              "tail_fraction": 0.2,
+              "k": 12,
+              "xi": 1.1642739621009983,
+              "alpha": 0.8589043752171898
+            }
+          ]
+        },
+        "tree_views": {
+          "current": {
+            "count": 21,
+            "zero_rate": 0.19047619047619047,
+            "saturation_rate": 0.7619047619047619,
+            "intermediate_rate": 0.047619047619047616,
+            "mean_binary_entropy_nats": 0.025310950948445668
+          },
+          "identity_component_states": {
+            "count": 402,
+            "zero_rate": 0.6915422885572139,
+            "saturation_rate": 0.19402985074626866,
+            "intermediate_rate": 0.11194029850746269,
+            "mean_binary_entropy_nats": 0.04181500059399454
+          },
+          "maximum_offline_recompute_abs_error": 0.0
+        },
+        "status_counts": {
+          "ok": 3
+        }
+      }
+    },
+    {
+      "variant_id": "e3-a1-t1-fhollow-w1p3",
+      "factors": {
+        "A_armor_mm": 1.0,
+        "T_component_threshold_factor": 1.0,
+        "F_direction_model": "legacy_hollow",
+        "W_gurney_factor": 1.3
+      },
+      "summary": {
+        "case_count": 3,
+        "component_zero_rate": 0.6616915422885572,
+        "case_any_support_rate": 1.0,
+        "domain_complete_rate": 0.3333333333333333,
+        "mean_affected_replicate_fraction": 0.6666666666666666,
+        "positive_component_energy_tail": {
+          "positive_count": 68,
+          "primary_tail_fraction": 0.1,
+          "primary_alpha": 0.8413750429095614,
+          "estimates": [
+            {
+              "tail_fraction": 0.05,
+              "k": 3,
+              "xi": 0.3486888787547289,
+              "alpha": 2.8678861326787812
+            },
+            {
+              "tail_fraction": 0.1,
+              "k": 6,
+              "xi": 1.1885306183338848,
+              "alpha": 0.8413750429095614
+            },
+            {
+              "tail_fraction": 0.2,
+              "k": 13,
+              "xi": 1.0175663586230985,
+              "alpha": 0.9827368913346662
+            }
+          ]
+        },
+        "tree_views": {
+          "current": {
+            "count": 21,
+            "zero_rate": 0.09523809523809523,
+            "saturation_rate": 0.7619047619047619,
+            "intermediate_rate": 0.14285714285714285,
+            "mean_binary_entropy_nats": 0.058237819313281924
+          },
+          "identity_component_states": {
+            "count": 402,
+            "zero_rate": 0.6616915422885572,
+            "saturation_rate": 0.2263681592039801,
+            "intermediate_rate": 0.10945273631840796,
+            "mean_binary_entropy_nats": 0.046520470394029546
+          },
+          "maximum_offline_recompute_abs_error": 0.0
+        },
+        "status_counts": {
+          "ok": 3
+        }
+      }
+    },
+    {
+      "variant_id": "e3-a1-t1-fsolid-w1",
+      "factors": {
+        "A_armor_mm": 1.0,
+        "T_component_threshold_factor": 1.0,
+        "F_direction_model": "solid_cone",
+        "W_gurney_factor": 1.0
+      },
+      "summary": {
+        "case_count": 3,
+        "component_zero_rate": 0.7213930348258707,
+        "case_any_support_rate": 1.0,
+        "domain_complete_rate": 0.3333333333333333,
+        "mean_affected_replicate_fraction": 0.6666666666666666,
+        "positive_component_energy_tail": {
+          "positive_count": 56,
+          "primary_tail_fraction": 0.1,
+          "primary_alpha": 1.3728881773431147,
+          "estimates": [
+            {
+              "tail_fraction": 0.05,
+              "k": 2,
+              "xi": 0.7660712906412868,
+              "alpha": 1.3053615403899146
+            },
+            {
+              "tail_fraction": 0.1,
+              "k": 5,
+              "xi": 0.7283914425829294,
+              "alpha": 1.3728881773431147
+            },
+            {
+              "tail_fraction": 0.2,
+              "k": 11,
+              "xi": 1.007885565341698,
+              "alpha": 0.9921761302940928
+            }
+          ]
+        },
+        "tree_views": {
+          "current": {
+            "count": 21,
+            "zero_rate": 0.19047619047619047,
+            "saturation_rate": 0.7142857142857143,
+            "intermediate_rate": 0.09523809523809523,
+            "mean_binary_entropy_nats": 0.06184917253859782
+          },
+          "identity_component_states": {
+            "count": 402,
+            "zero_rate": 0.7238805970149254,
+            "saturation_rate": 0.16666666666666666,
+            "intermediate_rate": 0.09950248756218906,
+            "mean_binary_entropy_nats": 0.042622617770156516
+          },
+          "maximum_offline_recompute_abs_error": 0.0
+        },
+        "status_counts": {
+          "ok": 3
+        }
+      }
+    },
+    {
+      "variant_id": "e3-a1-t1-fsolid-w1p3",
+      "factors": {
+        "A_armor_mm": 1.0,
+        "T_component_threshold_factor": 1.0,
+        "F_direction_model": "solid_cone",
+        "W_gurney_factor": 1.3
+      },
+      "summary": {
+        "case_count": 3,
+        "component_zero_rate": 0.6567164179104478,
+        "case_any_support_rate": 1.0,
+        "domain_complete_rate": 0.0,
+        "mean_affected_replicate_fraction": 1.0,
+        "positive_component_energy_tail": {
+          "positive_count": 69,
+          "primary_tail_fraction": 0.1,
+          "primary_alpha": 1.3488240711727881,
+          "estimates": [
+            {
+              "tail_fraction": 0.05,
+              "k": 3,
+              "xi": 0.9251127790225827,
+              "alpha": 1.080949288211691
+            },
+            {
+              "tail_fraction": 0.1,
+              "k": 6,
+              "xi": 0.7413865316998018,
+              "alpha": 1.3488240711727881
+            },
+            {
+              "tail_fraction": 0.2,
+              "k": 13,
+              "xi": 1.136740855571462,
+              "alpha": 0.8797079783828834
+            }
+          ]
+        },
+        "tree_views": {
+          "current": {
+            "count": 21,
+            "zero_rate": 0.19047619047619047,
+            "saturation_rate": 0.7142857142857143,
+            "intermediate_rate": 0.09523809523809523,
+            "mean_binary_entropy_nats": 0.03373491651992933
+          },
+          "identity_component_states": {
+            "count": 402,
+            "zero_rate": 0.6567164179104478,
+            "saturation_rate": 0.22885572139303484,
+            "intermediate_rate": 0.10945273631840796,
+            "mean_binary_entropy_nats": 0.05278223090064255
+          },
+          "maximum_offline_recompute_abs_error": 0.0
+        },
+        "status_counts": {
+          "ok": 3
+        }
+      }
+    },
+    {
+      "variant_id": "e3-a1-t0p1-fhollow-w1",
+      "factors": {
+        "A_armor_mm": 1.0,
+        "T_component_threshold_factor": 0.1,
+        "F_direction_model": "legacy_hollow",
+        "W_gurney_factor": 1.0
+      },
+      "summary": {
+        "case_count": 3,
+        "component_zero_rate": 0.6915422885572139,
+        "case_any_support_rate": 1.0,
+        "domain_complete_rate": 0.3333333333333333,
+        "mean_affected_replicate_fraction": 0.6666666666666666,
+        "positive_component_energy_tail": {
+          "positive_count": 62,
+          "primary_tail_fraction": 0.1,
+          "primary_alpha": 1.8551575083828562,
+          "estimates": [
+            {
+              "tail_fraction": 0.05,
+              "k": 3,
+              "xi": 0.46410593522236887,
+              "alpha": 2.1546804815604568
+            },
+            {
+              "tail_fraction": 0.1,
+              "k": 6,
+              "xi": 0.5390377881561667,
+              "alpha": 1.8551575083828562
+            },
+            {
+              "tail_fraction": 0.2,
+              "k": 12,
+              "xi": 1.1642739621009983,
+              "alpha": 0.8589043752171898
+            }
+          ]
+        },
+        "tree_views": {
+          "current": {
+            "count": 21,
+            "zero_rate": 0.19047619047619047,
+            "saturation_rate": 0.8095238095238095,
+            "intermediate_rate": 0.0,
+            "mean_binary_entropy_nats": 8.083566185503483e-07
+          },
+          "identity_component_states": {
+            "count": 402,
+            "zero_rate": 0.6915422885572139,
+            "saturation_rate": 0.27114427860696516,
+            "intermediate_rate": 0.03731343283582089,
+            "mean_binary_entropy_nats": 0.015143191285077332
+          },
+          "maximum_offline_recompute_abs_error": 0.0
+        },
+        "status_counts": {
+          "ok": 3
+        }
+      }
+    },
+    {
+      "variant_id": "e3-a1-t0p1-fhollow-w1p3",
+      "factors": {
+        "A_armor_mm": 1.0,
+        "T_component_threshold_factor": 0.1,
+        "F_direction_model": "legacy_hollow",
+        "W_gurney_factor": 1.3
+      },
+      "summary": {
+        "case_count": 3,
+        "component_zero_rate": 0.6616915422885572,
+        "case_any_support_rate": 1.0,
+        "domain_complete_rate": 0.3333333333333333,
+        "mean_affected_replicate_fraction": 0.6666666666666666,
+        "positive_component_energy_tail": {
+          "positive_count": 68,
+          "primary_tail_fraction": 0.1,
+          "primary_alpha": 0.8413750429095614,
+          "estimates": [
+            {
+              "tail_fraction": 0.05,
+              "k": 3,
+              "xi": 0.3486888787547289,
+              "alpha": 2.8678861326787812
+            },
+            {
+              "tail_fraction": 0.1,
+              "k": 6,
+              "xi": 1.1885306183338848,
+              "alpha": 0.8413750429095614
+            },
+            {
+              "tail_fraction": 0.2,
+              "k": 13,
+              "xi": 1.0175663586230985,
+              "alpha": 0.9827368913346662
+            }
+          ]
+        },
+        "tree_views": {
+          "current": {
+            "count": 21,
+            "zero_rate": 0.09523809523809523,
+            "saturation_rate": 0.9047619047619048,
+            "intermediate_rate": 0.0,
+            "mean_binary_entropy_nats": 0.00010830821166211283
+          },
+          "identity_component_states": {
+            "count": 402,
+            "zero_rate": 0.6616915422885572,
+            "saturation_rate": 0.31094527363184077,
+            "intermediate_rate": 0.02736318407960199,
+            "mean_binary_entropy_nats": 0.010484765349093471
+          },
+          "maximum_offline_recompute_abs_error": 0.0
+        },
+        "status_counts": {
+          "ok": 3
+        }
+      }
+    },
+    {
+      "variant_id": "e3-a1-t0p1-fsolid-w1",
+      "factors": {
+        "A_armor_mm": 1.0,
+        "T_component_threshold_factor": 0.1,
+        "F_direction_model": "solid_cone",
+        "W_gurney_factor": 1.0
+      },
+      "summary": {
+        "case_count": 3,
+        "component_zero_rate": 0.7213930348258707,
+        "case_any_support_rate": 1.0,
+        "domain_complete_rate": 0.3333333333333333,
+        "mean_affected_replicate_fraction": 0.6666666666666666,
+        "positive_component_energy_tail": {
+          "positive_count": 56,
+          "primary_tail_fraction": 0.1,
+          "primary_alpha": 1.3728881773431147,
+          "estimates": [
+            {
+              "tail_fraction": 0.05,
+              "k": 2,
+              "xi": 0.7660712906412868,
+              "alpha": 1.3053615403899146
+            },
+            {
+              "tail_fraction": 0.1,
+              "k": 5,
+              "xi": 0.7283914425829294,
+              "alpha": 1.3728881773431147
+            },
+            {
+              "tail_fraction": 0.2,
+              "k": 11,
+              "xi": 1.007885565341698,
+              "alpha": 0.9921761302940928
+            }
+          ]
+        },
+        "tree_views": {
+          "current": {
+            "count": 21,
+            "zero_rate": 0.19047619047619047,
+            "saturation_rate": 0.8095238095238095,
+            "intermediate_rate": 0.0,
+            "mean_binary_entropy_nats": 6.884308480431891e-05
+          },
+          "identity_component_states": {
+            "count": 402,
+            "zero_rate": 0.7213930348258707,
+            "saturation_rate": 0.2512437810945274,
+            "intermediate_rate": 0.024875621890547265,
+            "mean_binary_entropy_nats": 0.011514060162706988
+          },
+          "maximum_offline_recompute_abs_error": 0.0
+        },
+        "status_counts": {
+          "ok": 3
+        }
+      }
+    },
+    {
+      "variant_id": "e3-a1-t0p1-fsolid-w1p3",
+      "factors": {
+        "A_armor_mm": 1.0,
+        "T_component_threshold_factor": 0.1,
+        "F_direction_model": "solid_cone",
+        "W_gurney_factor": 1.3
+      },
+      "summary": {
+        "case_count": 3,
+        "component_zero_rate": 0.6567164179104478,
+        "case_any_support_rate": 1.0,
+        "domain_complete_rate": 0.0,
+        "mean_affected_replicate_fraction": 1.0,
+        "positive_component_energy_tail": {
+          "positive_count": 69,
+          "primary_tail_fraction": 0.1,
+          "primary_alpha": 1.3488240711727881,
+          "estimates": [
+            {
+              "tail_fraction": 0.05,
+              "k": 3,
+              "xi": 0.9251127790225827,
+              "alpha": 1.080949288211691
+            },
+            {
+              "tail_fraction": 0.1,
+              "k": 6,
+              "xi": 0.7413865316998018,
+              "alpha": 1.3488240711727881
+            },
+            {
+              "tail_fraction": 0.2,
+              "k": 13,
+              "xi": 1.136740855571462,
+              "alpha": 0.8797079783828834
+            }
+          ]
+        },
+        "tree_views": {
+          "current": {
+            "count": 21,
+            "zero_rate": 0.19047619047619047,
+            "saturation_rate": 0.8095238095238095,
+            "intermediate_rate": 0.0,
+            "mean_binary_entropy_nats": 7.520344725387667e-05
+          },
+          "identity_component_states": {
+            "count": 402,
+            "zero_rate": 0.6567164179104478,
+            "saturation_rate": 0.3034825870646766,
+            "intermediate_rate": 0.03980099502487562,
+            "mean_binary_entropy_nats": 0.01788629682595193
+          },
+          "maximum_offline_recompute_abs_error": 0.0
+        },
+        "status_counts": {
+          "ok": 3
+        }
+      }
+    }
+  ],
+  "tree_factor": {
+    "low": "current_tree_offline_recompute",
+    "high": "identity_component_state_outputs"
+  },
+  "effects": {
+    "A": {
+      "component_zero_rate": {
+        "effect_high_minus_low": -0.07213930348258704,
+        "bootstrap_ci95": [
+          -0.1268656716417911,
+          -0.04353233830845771
+        ],
+        "bootstrap_draw_count": 50
+      },
+      "case_any_support_rate": {
+        "effect_high_minus_low": 0.0,
+        "bootstrap_ci95": [
+          0.0,
+          0.0
+        ],
+        "bootstrap_draw_count": 50
+      },
+      "domain_complete_rate": {
+        "effect_high_minus_low": -0.25,
+        "bootstrap_ci95": [
+          -0.41666666666666674,
+          0.0
+        ],
+        "bootstrap_draw_count": 50
+      },
+      "hill_tail_alpha": {
+        "effect_high_minus_low": 0.27980898883545596,
+        "bootstrap_ci95": [
+          -0.11261365990159045,
+          1.5936993611969499
+        ],
+        "bootstrap_draw_count": 50
+      },
+      "tree_zero_rate": {
+        "effect_high_minus_low": -0.05987917555081735,
+        "bootstrap_ci95": [
+          -0.11700426439232411,
+          -0.028962331201137184
+        ],
+        "bootstrap_draw_count": 50
+      },
+      "tree_saturation_rate": {
+        "effect_high_minus_low": 0.15738272921108742,
+        "bootstrap_ci95": [
+          0.13317341862117982,
+          0.20202558635394458
+        ],
+        "bootstrap_draw_count": 50
+      },
+      "tree_intermediate_rate": {
+        "effect_high_minus_low": -0.08844171997157071,
+        "bootstrap_ci95": [
+          -0.09330579246624024,
+          -0.08357764747690122
+        ],
+        "bootstrap_draw_count": 50
+      },
+      "tree_entropy_nats": {
+        "effect_high_minus_low": -0.03131028061875761,
+        "bootstrap_ci95": [
+          -0.034426104515496374,
+          -0.02819445672201884
+        ],
+        "bootstrap_draw_count": 50
+      }
+    },
+    "T": {
+      "component_zero_rate": {
+        "effect_high_minus_low": 0.0,
+        "bootstrap_ci95": [
+          0.0,
+          0.0
+        ],
+        "bootstrap_draw_count": 50
+      },
+      "case_any_support_rate": {
+        "effect_high_minus_low": 0.0,
+        "bootstrap_ci95": [
+          0.0,
+          0.0
+        ],
+        "bootstrap_draw_count": 50
+      },
+      "domain_complete_rate": {
+        "effect_high_minus_low": 0.0,
+        "bootstrap_ci95": [
+          0.0,
+          0.0
+        ],
+        "bootstrap_draw_count": 50
+      },
+      "hill_tail_alpha": {
+        "effect_high_minus_low": 0.0,
+        "bootstrap_ci95": [
+          0.0,
+          0.0
+        ],
+        "bootstrap_draw_count": 50
+      },
+      "tree_zero_rate": {
+        "effect_high_minus_low": -0.00031094527363183244,
+        "bootstrap_ci95": [
+          -0.0006218905472636788,
+          0.0
+        ],
+        "bootstrap_draw_count": 50
+      },
+      "tree_saturation_rate": {
+        "effect_high_minus_low": 0.16928749111584931,
+        "bootstrap_ci95": [
+          0.13894811656005684,
+          0.19962686567164178
+        ],
+        "bootstrap_draw_count": 50
+      },
+      "tree_intermediate_rate": {
+        "effect_high_minus_low": -0.15773809523809523,
+        "bootstrap_ci95": [
+          -0.19387437810945274,
+          -0.12160181236673774
+        ],
+        "bootstrap_draw_count": 50
+      },
+      "tree_entropy_nats": {
+        "effect_high_minus_low": -0.06367283856458682,
+        "bootstrap_ci95": [
+          -0.08306330141829414,
+          -0.04428237571087949
+        ],
+        "bootstrap_draw_count": 50
+      }
+    },
+    "F": {
+      "component_zero_rate": {
+        "effect_high_minus_low": 0.007462686567164201,
+        "bootstrap_ci95": [
+          0.0,
+          0.011194029850746245
+        ],
+        "bootstrap_draw_count": 50
+      },
+      "case_any_support_rate": {
+        "effect_high_minus_low": 0.0,
+        "bootstrap_ci95": [
+          0.0,
+          0.0
+        ],
+        "bootstrap_draw_count": 50
+      },
+      "domain_complete_rate": {
+        "effect_high_minus_low": -0.08333333333333331,
+        "bootstrap_ci95": [
+          -0.3333333333333333,
+          0.16666666666666666
+        ],
+        "bootstrap_draw_count": 50
+      },
+      "hill_tail_alpha": {
+        "effect_high_minus_low": 0.0804856303978998,
+        "bootstrap_ci95": [
+          -1.946549231661392,
+          0.9929782791291144
+        ],
+        "bootstrap_draw_count": 50
+      },
+      "tree_zero_rate": {
+        "effect_high_minus_low": 0.027851812366737783,
+        "bootstrap_ci95": [
+          0.01785714285714285,
+          0.035980810234541694
+        ],
+        "bootstrap_draw_count": 50
+      },
+      "tree_saturation_rate": {
+        "effect_high_minus_low": -0.02425373134328357,
+        "bootstrap_ci95": [
+          -0.04277718550106613,
+          -0.010305614783226724
+        ],
+        "bootstrap_draw_count": 50
+      },
+      "tree_intermediate_rate": {
+        "effect_high_minus_low": 0.0014214641080312895,
+        "bootstrap_ci95": [
+          -0.015169687277896249,
+          0.025386460554370993
+        ],
+        "bootstrap_draw_count": 50
+      },
+      "tree_entropy_nats": {
+        "effect_high_minus_low": 0.0056137390615614985,
+        "bootstrap_ci95": [
+          -0.0062319764879320075,
+          0.019101557825000483
+        ],
+        "bootstrap_draw_count": 50
+      }
+    },
+    "W": {
+      "component_zero_rate": {
+        "effect_high_minus_low": -0.04228855721393027,
+        "bootstrap_ci95": [
+          -0.05223880597014913,
+          -0.033582089552238736
+        ],
+        "bootstrap_draw_count": 50
+      },
+      "case_any_support_rate": {
+        "effect_high_minus_low": 0.0,
+        "bootstrap_ci95": [
+          0.0,
+          0.0
+        ],
+        "bootstrap_draw_count": 50
+      },
+      "domain_complete_rate": {
+        "effect_high_minus_low": -0.24999999999999994,
+        "bootstrap_ci95": [
+          -0.5,
+          0.0
+        ],
+        "bootstrap_draw_count": 50
+      },
+      "hill_tail_alpha": {
+        "effect_high_minus_low": -0.11976496284098537,
+        "bootstrap_ci95": [
+          -1.1307912531819126,
+          1.232140727655014
+        ],
+        "bootstrap_draw_count": 50
+      },
+      "tree_zero_rate": {
+        "effect_high_minus_low": -0.044953802416488914,
+        "bootstrap_ci95": [
+          -0.047174840085287884,
+          -0.042732764747690166
+        ],
+        "bootstrap_draw_count": 50
+      },
+      "tree_saturation_rate": {
+        "effect_high_minus_low": 0.06827469793887703,
+        "bootstrap_ci95": [
+          0.047929992892679435,
+          0.08861940298507465
+        ],
+        "bootstrap_draw_count": 50
+      },
+      "tree_intermediate_rate": {
+        "effect_high_minus_low": -0.020833333333333336,
+        "bootstrap_ci95": [
+          -0.04262171286425018,
+          0.0009550461975835131
+        ],
+        "bootstrap_draw_count": 50
+      },
+      "tree_entropy_nats": {
+        "effect_high_minus_low": -0.0024969613026984278,
+        "bootstrap_ci95": [
+          -0.01419220963349559,
+          0.009198287028098752
+        ],
+        "bootstrap_draw_count": 50
+      }
+    },
+    "Tr": {
+      "component_zero_rate": {
+        "effect_high_minus_low": 0.0,
+        "bootstrap_ci95": [
+          0.0,
+          0.0
+        ],
+        "bootstrap_draw_count": 50
+      },
+      "case_any_support_rate": {
+        "effect_high_minus_low": 0.0,
+        "bootstrap_ci95": [
+          0.0,
+          0.0
+        ],
+        "bootstrap_draw_count": 50
+      },
+      "domain_complete_rate": {
+        "effect_high_minus_low": 0.0,
+        "bootstrap_ci95": [
+          0.0,
+          0.0
+        ],
+        "bootstrap_draw_count": 50
+      },
+      "hill_tail_alpha": {
+        "effect_high_minus_low": 0.0,
+        "bootstrap_ci95": [
+          0.0,
+          0.0
+        ],
+        "bootstrap_draw_count": 50
+      },
+      "tree_zero_rate": {
+        "effect_high_minus_low": 0.5287402274342573,
+        "bootstrap_ci95": [
+          0.48902807391613357,
+          0.595682302771855
+        ],
+        "bootstrap_draw_count": 50
+      },
+      "tree_saturation_rate": {
+        "effect_high_minus_low": -0.47876687988628286,
+        "bootstrap_ci95": [
+          -0.564498933901919,
+          -0.4269278606965174
+        ],
+        "bootstrap_draw_count": 50
+      },
+      "tree_intermediate_rate": {
+        "effect_high_minus_low": -0.04992892679459843,
+        "bootstrap_ci95": [
+          -0.06329957356076758,
+          -0.03444829424307035
+        ],
+        "bootstrap_draw_count": 50
+      },
+      "tree_entropy_nats": {
+        "effect_high_minus_low": -0.019607724621037305,
+        "bootstrap_ci95": [
+          -0.027590273509977777,
+          -0.009870530016331428
+        ],
+        "bootstrap_draw_count": 50
+      }
+    },
+    "A:T": {
+      "component_zero_rate": {
+        "effect_high_minus_low": 0.0,
+        "bootstrap_ci95": [
+          0.0,
+          0.0
+        ],
+        "bootstrap_draw_count": 50
+      },
+      "case_any_support_rate": {
+        "effect_high_minus_low": 0.0,
+        "bootstrap_ci95": [
+          0.0,
+          0.0
+        ],
+        "bootstrap_draw_count": 50
+      },
+      "domain_complete_rate": {
+        "effect_high_minus_low": 0.0,
+        "bootstrap_ci95": [
+          0.0,
+          0.0
+        ],
+        "bootstrap_draw_count": 50
+      },
+      "hill_tail_alpha": {
+        "effect_high_minus_low": 0.0,
+        "bootstrap_ci95": [
+          0.0,
+          0.0
+        ],
+        "bootstrap_draw_count": 50
+      },
+      "tree_zero_rate": {
+        "effect_high_minus_low": 0.0,
+        "bootstrap_ci95": [
+          0.0,
+          6.938893903907228e-18
+        ],
+        "bootstrap_draw_count": 50
+      },
+      "tree_saturation_rate": {
+        "effect_high_minus_low": -0.08155650319829422,
+        "bootstrap_ci95": [
+          -0.08466595593461265,
+          -0.07844705046197584
+        ],
+        "bootstrap_draw_count": 50
+      },
+      "tree_intermediate_rate": {
+        "effect_high_minus_low": 0.07249466950959488,
+        "bootstrap_ci95": [
+          0.06558724235963043,
+          0.08362206823027718
+        ],
+        "bootstrap_draw_count": 50
+      },
+      "tree_entropy_nats": {
+        "effect_high_minus_low": 0.025223875782598153,
+        "bootstrap_ci95": [
+          0.02031094299480041,
+          0.030136808570395884
+        ],
+        "bootstrap_draw_count": 50
+      }
+    },
+    "A:F": {
+      "component_zero_rate": {
+        "effect_high_minus_low": 0.004975124378109402,
+        "bootstrap_ci95": [
+          -0.007462686567164228,
+          0.01368159203980096
+        ],
+        "bootstrap_draw_count": 50
+      },
+      "case_any_support_rate": {
+        "effect_high_minus_low": 0.0,
+        "bootstrap_ci95": [
+          0.0,
+          0.0
+        ],
+        "bootstrap_draw_count": 50
+      },
+      "domain_complete_rate": {
+        "effect_high_minus_low": -0.08333333333333334,
+        "bootstrap_ci95": [
+          -0.3333333333333333,
+          0.16666666666666666
+        ],
+        "bootstrap_draw_count": 50
+      },
+      "hill_tail_alpha": {
+        "effect_high_minus_low": -0.06789578178615718,
+        "bootstrap_ci95": [
+          -2.0916331403192006,
+          0.6679545497575549
+        ],
+        "bootstrap_draw_count": 50
+      },
+      "tree_zero_rate": {
+        "effect_high_minus_low": 0.002487562189054736,
+        "bootstrap_ci95": [
+          -0.021588486140724956,
+          0.018745557924662384
+        ],
+        "bootstrap_draw_count": 50
+      },
+      "tree_saturation_rate": {
+        "effect_high_minus_low": -0.006085643212508873,
+        "bootstrap_ci95": [
+          -0.01470326936744848,
+          0.0070628997867803744
+        ],
+        "bootstrap_draw_count": 50
+      },
+      "tree_intermediate_rate": {
+        "effect_high_minus_low": -0.0029761904761904795,
+        "bootstrap_ci95": [
+          -0.013770433546552954,
+          0.012193496801705755
+        ],
+        "bootstrap_draw_count": 50
+      },
+      "tree_entropy_nats": {
+        "effect_high_minus_low": -0.0027497357118314737,
+        "bootstrap_ci95": [
+          -0.007145010530912091,
+          0.001645539107249138
+        ],
+        "bootstrap_draw_count": 50
+      }
+    },
+    "A:W": {
+      "component_zero_rate": {
+        "effect_high_minus_low": -0.004975124378109458,
+        "bootstrap_ci95": [
+          -0.014925373134328374,
+          0.0037313432835820726
+        ],
+        "bootstrap_draw_count": 50
+      },
+      "case_any_support_rate": {
+        "effect_high_minus_low": 0.0,
+        "bootstrap_ci95": [
+          0.0,
+          0.0
+        ],
+        "bootstrap_draw_count": 50
+      },
+      "domain_complete_rate": {
+        "effect_high_minus_low": 0.08333333333333336,
+        "bootstrap_ci95": [
+          0.0,
+          0.1666666666666667
+        ],
+        "bootstrap_draw_count": 50
+      },
+      "hill_tail_alpha": {
+        "effect_high_minus_low": -0.3991583229808253,
+        "bootstrap_ci95": [
+          -0.920628799415972,
+          0.397342638216702
+        ],
+        "bootstrap_draw_count": 50
+      },
+      "tree_zero_rate": {
+        "effect_high_minus_low": -0.002798507462686582,
+        "bootstrap_ci95": [
+          -0.014081378820184773,
+          0.010394456289978683
+        ],
+        "bootstrap_draw_count": 50
+      },
+      "tree_saturation_rate": {
+        "effect_high_minus_low": -0.0330490405117271,
+        "bootstrap_ci95": [
+          -0.049973347547974445,
+          -0.01612473347547977
+        ],
+        "bootstrap_draw_count": 50
+      },
+      "tree_intermediate_rate": {
+        "effect_high_minus_low": 0.034292821606254444,
+        "bootstrap_ci95": [
+          0.00970593461265103,
+          0.058879708599857854
+        ],
+        "bootstrap_draw_count": 50
+      },
+      "tree_entropy_nats": {
+        "effect_high_minus_low": 0.005185132080378802,
+        "bootstrap_ci95": [
+          -0.004519418383517816,
+          0.014889682544275421
+        ],
+        "bootstrap_draw_count": 50
+      }
+    },
+    "A:Tr": {
+      "component_zero_rate": {
+        "effect_high_minus_low": 0.0,
+        "bootstrap_ci95": [
+          0.0,
+          0.0
+        ],
+        "bootstrap_draw_count": 50
+      },
+      "case_any_support_rate": {
+        "effect_high_minus_low": 0.0,
+        "bootstrap_ci95": [
+          0.0,
+          0.0
+        ],
+        "bootstrap_draw_count": 50
+      },
+      "domain_complete_rate": {
+        "effect_high_minus_low": 0.0,
+        "bootstrap_ci95": [
+          0.0,
+          0.0
+        ],
+        "bootstrap_draw_count": 50
+      },
+      "hill_tail_alpha": {
+        "effect_high_minus_low": 0.0,
+        "bootstrap_ci95": [
+          0.0,
+          0.0
+        ],
+        "bootstrap_draw_count": 50
+      },
+      "tree_zero_rate": {
+        "effect_high_minus_low": -0.012260127931769733,
+        "bootstrap_ci95": [
+          -0.01945628997867803,
+          -0.005063965884861403
+        ],
+        "bootstrap_draw_count": 50
+      },
+      "tree_saturation_rate": {
+        "effect_high_minus_low": -0.06285536602700781,
+        "bootstrap_ci95": [
+          -0.07098436389481166,
+          -0.05472636815920398
+        ],
+        "bootstrap_draw_count": 50
+      },
+      "tree_intermediate_rate": {
+        "effect_high_minus_low": 0.072272565742715,
+        "bootstrap_ci95": [
+          0.06523187633262259,
+          0.07931325515280739
+        ],
+        "bootstrap_draw_count": 50
+      },
+      "tree_entropy_nats": {
+        "effect_high_minus_low": 0.027030550978669715,
+        "bootstrap_ci95": [
+          0.021404570116154518,
+          0.0326565318411849
+        ],
+        "bootstrap_draw_count": 50
+      }
+    },
+    "T:F": {
+      "component_zero_rate": {
+        "effect_high_minus_low": 0.0,
+        "bootstrap_ci95": [
+          0.0,
+          0.0
+        ],
+        "bootstrap_draw_count": 50
+      },
+      "case_any_support_rate": {
+        "effect_high_minus_low": 0.0,
+        "bootstrap_ci95": [
+          0.0,
+          0.0
+        ],
+        "bootstrap_draw_count": 50
+      },
+      "domain_complete_rate": {
+        "effect_high_minus_low": 0.0,
+        "bootstrap_ci95": [
+          0.0,
+          0.0
+        ],
+        "bootstrap_draw_count": 50
+      },
+      "hill_tail_alpha": {
+        "effect_high_minus_low": 0.0,
+        "bootstrap_ci95": [
+          0.0,
+          0.0
+        ],
+        "bootstrap_draw_count": 50
+      },
+      "tree_zero_rate": {
+        "effect_high_minus_low": -0.00031094527363183244,
+        "bootstrap_ci95": [
+          -0.0006218905472636788,
+          0.0
+        ],
+        "bootstrap_draw_count": 50
+      },
+      "tree_saturation_rate": {
+        "effect_high_minus_low": -0.001732409381663108,
+        "bootstrap_ci95": [
+          -0.019411869225302053,
+          0.032382729211087424
+        ],
+        "bootstrap_draw_count": 50
+      },
+      "tree_intermediate_rate": {
+        "effect_high_minus_low": -0.0035980810234541583,
+        "bootstrap_ci95": [
+          -0.03284914712153518,
+          0.015014214641080312
+        ],
+        "bootstrap_draw_count": 50
+      },
+      "tree_entropy_nats": {
+        "effect_high_minus_low": -0.00756758853667135,
+        "bootstrap_ci95": [
+          -0.020897913841951707,
+          0.0005099367220521351
+        ],
+        "bootstrap_draw_count": 50
+      }
+    },
+    "T:W": {
+      "component_zero_rate": {
+        "effect_high_minus_low": 0.0,
+        "bootstrap_ci95": [
+          0.0,
+          0.0
+        ],
+        "bootstrap_draw_count": 50
+      },
+      "case_any_support_rate": {
+        "effect_high_minus_low": 0.0,
+        "bootstrap_ci95": [
+          0.0,
+          0.0
+        ],
+        "bootstrap_draw_count": 50
+      },
+      "domain_complete_rate": {
+        "effect_high_minus_low": 0.0,
+        "bootstrap_ci95": [
+          0.0,
+          0.0
+        ],
+        "bootstrap_draw_count": 50
+      },
+      "hill_tail_alpha": {
+        "effect_high_minus_low": 0.0,
+        "bootstrap_ci95": [
+          0.0,
+          0.0
+        ],
+        "bootstrap_draw_count": 50
+      },
+      "tree_zero_rate": {
+        "effect_high_minus_low": 0.0,
+        "bootstrap_ci95": [
+          -6.938893903907228e-18,
+          0.0
+        ],
+        "bootstrap_draw_count": 50
+      },
+      "tree_saturation_rate": {
+        "effect_high_minus_low": -0.021766169154228854,
+        "bootstrap_ci95": [
+          -0.030517057569296374,
+          -0.013148542999289269
+        ],
+        "bootstrap_draw_count": 50
+      },
+      "tree_intermediate_rate": {
+        "effect_high_minus_low": 0.019278606965174125,
+        "bootstrap_ci95": [
+          0.010505508173418616,
+          0.029117803837953087
+        ],
+        "bootstrap_draw_count": 50
+      },
+      "tree_entropy_nats": {
+        "effect_high_minus_low": 0.003598305405906735,
+        "bootstrap_ci95": [
+          -0.004140435586270938,
+          0.011991245146201712
+        ],
+        "bootstrap_draw_count": 50
+      }
+    },
+    "T:Tr": {
+      "component_zero_rate": {
+        "effect_high_minus_low": 0.0,
+        "bootstrap_ci95": [
+          0.0,
+          0.0
+        ],
+        "bootstrap_draw_count": 50
+      },
+      "case_any_support_rate": {
+        "effect_high_minus_low": 0.0,
+        "bootstrap_ci95": [
+          0.0,
+          0.0
+        ],
+        "bootstrap_draw_count": 50
+      },
+      "domain_complete_rate": {
+        "effect_high_minus_low": 0.0,
+        "bootstrap_ci95": [
+          0.0,
+          0.0
+        ],
+        "bootstrap_draw_count": 50
+      },
+      "hill_tail_alpha": {
+        "effect_high_minus_low": 0.0,
+        "bootstrap_ci95": [
+          0.0,
+          0.0
+        ],
+        "bootstrap_draw_count": 50
+      },
+      "tree_zero_rate": {
+        "effect_high_minus_low": -0.00031094527363183244,
+        "bootstrap_ci95": [
+          -0.0006218905472636788,
+          0.0
+        ],
+        "bootstrap_draw_count": 50
+      },
+      "tree_saturation_rate": {
+        "effect_high_minus_low": -0.07476012793176973,
+        "bootstrap_ci95": [
+          -0.09306147832267235,
+          -0.05543710021321962
+        ],
+        "bootstrap_draw_count": 50
+      },
+      "tree_intermediate_rate": {
+        "effect_high_minus_low": 0.07440476190476189,
+        "bootstrap_ci95": [
+          0.051017235252309875,
+          0.09779228855721392
+        ],
+        "bootstrap_draw_count": 50
+      },
+      "tree_entropy_nats": {
+        "effect_high_minus_low": 0.029622278738176612,
+        "bootstrap_ci95": [
+          0.016176790986956544,
+          0.043067766489396676
+        ],
+        "bootstrap_draw_count": 50
+      }
+    },
+    "F:W": {
+      "component_zero_rate": {
+        "effect_high_minus_low": -0.019900497512437887,
+        "bootstrap_ci95": [
+          -0.03731343283582095,
+          -0.008706467661691586
+        ],
+        "bootstrap_draw_count": 50
+      },
+      "case_any_support_rate": {
+        "effect_high_minus_low": 0.0,
+        "bootstrap_ci95": [
+          0.0,
+          0.0
+        ],
+        "bootstrap_draw_count": 50
+      },
+      "domain_complete_rate": {
+        "effect_high_minus_low": -0.08333333333333331,
+        "bootstrap_ci95": [
+          -0.16666666666666666,
+          0.0
+        ],
+        "bootstrap_draw_count": 50
+      },
+      "hill_tail_alpha": {
+        "effect_high_minus_low": 0.45080497903913597,
+        "bootstrap_ci95": [
+          -1.1287874337190433,
+          0.8899125322903301
+        ],
+        "bootstrap_draw_count": 50
+      },
+      "tree_zero_rate": {
+        "effect_high_minus_low": 0.013859275053304893,
+        "bootstrap_ci95": [
+          -0.0007995735607676524,
+          0.025408670931059002
+        ],
+        "bootstrap_draw_count": 50
+      },
+      "tree_saturation_rate": {
+        "effect_high_minus_low": -0.003953447050462022,
+        "bootstrap_ci95": [
+          -0.010660980810234533,
+          0.0050639658848613545
+        ],
+        "bootstrap_draw_count": 50
+      },
+      "tree_intermediate_rate": {
+        "effect_high_minus_low": -0.010527718550106611,
+        "bootstrap_ci95": [
+          -0.015525053304904043,
+          -0.004730810234541569
+        ],
+        "bootstrap_draw_count": 50
+      },
+      "tree_entropy_nats": {
+        "effect_high_minus_low": -0.006152981591455206,
+        "bootstrap_ci95": [
+          -0.010225193934483784,
+          -0.00020636509612182233
+        ],
+        "bootstrap_draw_count": 50
+      }
+    },
+    "F:Tr": {
+      "component_zero_rate": {
+        "effect_high_minus_low": 0.0,
+        "bootstrap_ci95": [
+          0.0,
+          0.0
+        ],
+        "bootstrap_draw_count": 50
+      },
+      "case_any_support_rate": {
+        "effect_high_minus_low": 0.0,
+        "bootstrap_ci95": [
+          0.0,
+          0.0
+        ],
+        "bootstrap_draw_count": 50
+      },
+      "domain_complete_rate": {
+        "effect_high_minus_low": 0.0,
+        "bootstrap_ci95": [
+          0.0,
+          0.0
+        ],
+        "bootstrap_draw_count": 50
+      },
+      "hill_tail_alpha": {
+        "effect_high_minus_low": 0.0,
+        "bootstrap_ci95": [
+          0.0,
+          0.0
+        ],
+        "bootstrap_draw_count": 50
+      },
+      "tree_zero_rate": {
+        "effect_high_minus_low": -0.019767235252309834,
+        "bootstrap_ci95": [
+          -0.02540867093105903,
+          -0.014125799573560749
+        ],
+        "bootstrap_draw_count": 50
+      },
+      "tree_saturation_rate": {
+        "effect_high_minus_low": 0.01741293532338306,
+        "bootstrap_ci95": [
+          0.0015991471215351383,
+          0.04650852878464817
+        ],
+        "bootstrap_draw_count": 50
+      },
+      "tree_intermediate_rate": {
+        "effect_high_minus_low": -0.004530916844349683,
+        "bootstrap_ci95": [
+          -0.02818496801705756,
+          0.00863983653162758
+        ],
+        "bootstrap_draw_count": 50
+      },
+      "tree_entropy_nats": {
+        "effect_high_minus_low": -0.003637965188135311,
+        "bootstrap_ci95": [
+          -0.01572532336940753,
+          0.00582235721059448
+        ],
+        "bootstrap_draw_count": 50
+      }
+    },
+    "W:Tr": {
+      "component_zero_rate": {
+        "effect_high_minus_low": 0.0,
+        "bootstrap_ci95": [
+          0.0,
+          0.0
+        ],
+        "bootstrap_draw_count": 50
+      },
+      "case_any_support_rate": {
+        "effect_high_minus_low": 0.0,
+        "bootstrap_ci95": [
+          0.0,
+          0.0
+        ],
+        "bootstrap_draw_count": 50
+      },
+      "domain_complete_rate": {
+        "effect_high_minus_low": 0.0,
+        "bootstrap_ci95": [
+          0.0,
+          0.0
+        ],
+        "bootstrap_draw_count": 50
+      },
+      "hill_tail_alpha": {
+        "effect_high_minus_low": 0.0,
+        "bootstrap_ci95": [
+          0.0,
+          0.0
+        ],
+        "bootstrap_draw_count": 50
+      },
+      "tree_zero_rate": {
+        "effect_high_minus_low": 0.0026652452025587026,
+        "bootstrap_ci95": [
+          -0.008262260127931742,
+          0.012970859985785427
+        ],
+        "bootstrap_draw_count": 50
+      },
+      "tree_saturation_rate": {
+        "effect_high_minus_low": -0.021011016346837247,
+        "bootstrap_ci95": [
+          -0.03638059701492535,
+          -0.005641435678749113
+        ],
+        "bootstrap_draw_count": 50
+      },
+      "tree_intermediate_rate": {
+        "effect_high_minus_low": 0.020833333333333322,
+        "bootstrap_ci95": [
+          -0.004997334754797439,
+          0.04666400142146411
+        ],
+        "bootstrap_draw_count": 50
+      },
+      "tree_entropy_nats": {
+        "effect_high_minus_low": 0.0038547545950936594,
+        "bootstrap_ci95": [
+          -0.00925717720858581,
+          0.01696668639877312
+        ],
+        "bootstrap_draw_count": 50
+      }
+    }
+  },
+  "bootstrap": {
+    "replicates": 50,
+    "seed": 2026112051,
+    "paired_resampling_unit": "base_case"
+  },
+  "config_hash": "sha256:f0619863911b8cd4a5edc603175c0b9ba985bf573400b0256d220b8ddfe274fd"
+}

@@ -1,0 +1,14 @@
+{
+  "schema_version": "anisotropic-engine-calibration-hashes@1.0.0",
+  "inputs": {
+    "assessment": "sha256:0a9e30a3ad5fa27571b63d46ccae87f5847d8aaa0cb86baf59b94f0ff1750cfc",
+    "config": "sha256:41456671c129325127d6755fc0b49d6d771df6b88a9eacac9293d7a78124b136",
+    "teacher_evidence": "sha256:f660abd6608af06f86c05e2ce537ca0331aa3a413136601b16626955776cac38"
+  },
+  "outputs": {
+    "engine_calibration.json": "sha256:8c0486cbb8c73b4273b647a2d1f916eaa9c9b733eff4037890eae308eedfe2f0",
+    "REPORT.md": "sha256:af19412219a1145b3905322f25295c698f36714c7e1598036c127222dd87c371",
+    "manifest.json": "sha256:e2f0e7bcf99fe619c927cc6464c0568dda5a72733f053d9c07c5c4eb9b9b1d30",
+    "COMMAND.txt": "sha256:dec32fce6df786c1519252d613185743066db878acac660fbf282a51ccb9318e"
+  }
+}

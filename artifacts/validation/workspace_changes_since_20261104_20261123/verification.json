@@ -1,0 +1,234 @@
+{
+  "schema_version": "workspace-change-report-verification/1.0",
+  "verified_at": "2026-11-23T13:08:52+08:00",
+  "passed": 45,
+  "total": 45,
+  "all_passed": true,
+  "checks": [
+    {
+      "name": "required_file:WORKSPACE_CHANGE_REPORT.md",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "required_file:PEER_BRIEFING.md",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "required_file:EVIDENCE_INDEX.md",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "required_file:commit_summary.csv",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "required_file:historical_commit_changes.csv",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "required_file:tracked_worktree_diff.csv",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "required_file:current_change_inventory.csv",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "required_file:directory_summary.csv",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "required_file:inventory_summary.json",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "required_file:git_status_snapshot.txt",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "required_file:AUDIT_LOG.txt",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "required_file:verify_bundle.py",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "commit_count_matches",
+      "passed": true,
+      "details": 3
+    },
+    {
+      "name": "historical_path_count_matches",
+      "passed": true,
+      "details": 1863
+    },
+    {
+      "name": "tracked_diff_count_matches",
+      "passed": true,
+      "details": 43
+    },
+    {
+      "name": "tracked_added_lines_match",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "tracked_deleted_lines_match",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "current_inventory_count_matches",
+      "passed": true,
+      "details": 1885
+    },
+    {
+      "name": "current_inventory_bytes_match",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "directory_summary_nonempty",
+      "passed": true,
+      "details": 15
+    },
+    {
+      "name": "scan_errors_zero",
+      "passed": true,
+      "details": []
+    },
+    {
+      "name": "expected_branch",
+      "passed": true,
+      "details": "main"
+    },
+    {
+      "name": "expected_head",
+      "passed": true,
+      "details": "ff2ef1f21c7d6bf73630bdb11331289278fb69dd"
+    },
+    {
+      "name": "audit_tool_in_inventory",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "self_output_excluded",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "local_links_resolve:WORKSPACE_CHANGE_REPORT.md",
+      "passed": true,
+      "details": []
+    },
+    {
+      "name": "local_links_resolve:PEER_BRIEFING.md",
+      "passed": true,
+      "details": []
+    },
+    {
+      "name": "local_links_resolve:EVIDENCE_INDEX.md",
+      "passed": true,
+      "details": []
+    },
+    {
+      "name": "report_contains:43 个 tracked 文件",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "report_contains:135 个研究功能文件",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "report_contains:v4 物理与 SamplingSpec v2",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "report_contains:外部物理标定",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "report_contains:Python 3.12.13/NumPy 2.4.6",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "manifest_hash:WORKSPACE_CHANGE_REPORT.md",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "manifest_hash:PEER_BRIEFING.md",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "manifest_hash:EVIDENCE_INDEX.md",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "manifest_hash:commit_summary.csv",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "manifest_hash:historical_commit_changes.csv",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "manifest_hash:tracked_worktree_diff.csv",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "manifest_hash:current_change_inventory.csv",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "manifest_hash:directory_summary.csv",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "manifest_hash:inventory_summary.json",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "manifest_hash:git_status_snapshot.txt",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "manifest_hash:AUDIT_LOG.txt",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "manifest_hash:verify_bundle.py",
+      "passed": true,
+      "details": null
+    }
+  ]
+}

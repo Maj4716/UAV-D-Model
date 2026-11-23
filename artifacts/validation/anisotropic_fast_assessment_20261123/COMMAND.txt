@@ -1,0 +1,1 @@
+D:\ProgramData\Anaconda\python.exe tools/run_anisotropic_fast_assessment.py quick --precomputed-npz artifacts/experiments/X1_X2_20261120_frozen_v2/x1_candidate_exposure.npz --max-cases 4096 --output-dir artifacts/validation/anisotropic_fast_assessment_20261123

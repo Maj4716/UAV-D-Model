@@ -1,0 +1,80 @@
+{
+  "schema_version": "anisotropic-fast-assessment-manifest@1.0.0",
+  "created_at_utc": "2026-11-23T03:13:31.813176+00:00",
+  "mode": "quick",
+  "candidate_count": 4096,
+  "source_audit": {
+    "source_candidate_count": 100000,
+    "used_candidate_count": 4096,
+    "selection": "stratified",
+    "selection_seed": 2026112301,
+    "selection_indices_hash": "sha256:d211a7ec73337176c17cc00c3929a89393e6d22551511f0b650c814a272fbe7b",
+    "source_cell_counts": {
+      "neg_x::large_front": 1925,
+      "neg_x::medium_front": 1947,
+      "neg_x::small_front": 1914,
+      "neg_y::large_front": 9031,
+      "neg_y::medium_front": 9074,
+      "neg_y::small_front": 9066,
+      "pos_x::large_front": 8552,
+      "pos_x::medium_front": 8588,
+      "pos_x::small_front": 8536,
+      "pos_y::large_front": 4601,
+      "pos_y::medium_front": 4647,
+      "pos_y::small_front": 4578,
+      "top_cap::large_front": 9189,
+      "top_cap::medium_front": 9190,
+      "top_cap::small_front": 9162
+    },
+    "used_cell_counts": {
+      "neg_x::large_front": 79,
+      "neg_x::medium_front": 80,
+      "neg_x::small_front": 78,
+      "neg_y::large_front": 370,
+      "neg_y::medium_front": 372,
+      "neg_y::small_front": 371,
+      "pos_x::large_front": 350,
+      "pos_x::medium_front": 352,
+      "pos_x::small_front": 350,
+      "pos_y::large_front": 189,
+      "pos_y::medium_front": 190,
+      "pos_y::small_front": 188,
+      "top_cap::large_front": 376,
+      "top_cap::medium_front": 376,
+      "top_cap::small_front": 375
+    },
+    "cache_identity": {
+      "status": "historical_cache_current_source_differs",
+      "recorded_damage_engine_source_tree_hash": "sha256:50cc1d88105c58902d2f247ce98799807e81dcc1b6aa78082472e7aa7f2668ac",
+      "current_damage_engine_source_tree_hash": "sha256:91ed6bd0fe372fef81bc3828032b1a93df52128b967bde8b072e24931be65246",
+      "damage_engine_source_tree_match": false,
+      "recorded_engine_code_hash": "sha256:33e6a78619b5e9028e7b3d4a7217ebb7e230f325f11da365e479665f519b59ad",
+      "current_engine_code_hash": "sha256:263e12f33c1f74a5262a780662dea9123365a1328bb591e5550088a9107138f7",
+      "engine_code_hash_match": false,
+      "recorded_npz_sha256": "sha256:1b4ac10b94a4b1cdbc863954c1d5d4b67c0244ac253e1bdb15d86df3e19dfa2c",
+      "current_npz_sha256": "sha256:1b4ac10b94a4b1cdbc863954c1d5d4b67c0244ac253e1bdb15d86df3e19dfa2c",
+      "npz_hash_match": true,
+      "ledger_path": "artifacts\\experiments\\X1_X2_20261120_frozen_v2\\hashes.json"
+    }
+  },
+  "split_audit": {
+    "source_split_counts": {
+      "precomputed_unassigned": 100000
+    },
+    "included_split_counts": {
+      "precomputed_unassigned": 4096
+    },
+    "allowed_splits": [
+      "precomputed_unassigned"
+    ],
+    "test_case_count_included": 0
+  },
+  "assessment_hash": "sha256:cc8d5ef96b36f7da82d33eb9bd4b3f07a4ef3e751dead4fa0326f356ada6df8b",
+  "outputs": [
+    "assessment.json",
+    "REPORT.md",
+    "manifest.json",
+    "COMMAND.txt",
+    "hashes.json"
+  ]
+}

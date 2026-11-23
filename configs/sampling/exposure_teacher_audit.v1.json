@@ -1,0 +1,10 @@
+{
+  "schema_version": "exposure-teacher-audit-config@1.0.0",
+  "audit_size": 8,
+  "teacher_replicates_per_candidate": 32,
+  "seed": 2026112003,
+  "teacher_positive_threshold": 0.0,
+  "confidence": 0.95,
+  "primary_metric": "false_unreached_wilson_upper",
+  "proxy_zero_semantics": "proxy_unreached_in_declared_frame_not_structural_zero"
+}

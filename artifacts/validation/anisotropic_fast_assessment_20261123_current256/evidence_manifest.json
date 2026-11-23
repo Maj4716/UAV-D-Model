@@ -1,0 +1,28 @@
+{
+  "schema_version": "anisotropic-fast-assessment-evidence-manifest@1.0.0",
+  "verification_status": "pass",
+  "files": {
+    "damage_engine/fast_assessment.py": "sha256:0e79019234f22b727ebb8242a776e9da5970883e2c8007c8329b7a8db4fecb95",
+    "damage_engine/fast_sampling_proxy.py": "sha256:26952531d0574e6c4dfbd4bdfddf46114952ad1d1b51773674ca5df3455b929a",
+    "tools/run_anisotropic_fast_assessment.py": "sha256:ef01067df90a93f899d794b772adc3fc6e941d9df70bd55868c7ad133ecb558c",
+    "configs/sampling/anisotropic_fast_assessment.v1.json": "sha256:41456671c129325127d6755fc0b49d6d771df6b88a9eacac9293d7a78124b136",
+    "docs/ANISOTROPIC_FAST_ASSESSMENT.md": "sha256:44adcb55a45a3115d34d80efcecfccb21089d8e0d6e719f8b122f1df0835ac0d",
+    "tests/test_fast_assessment.py": "sha256:6474886ccfeea6241cf733d7e055363d2a4c07a81a9d8e8380866baf6de11093",
+    "tests/test_anisotropic_fast_assessment_cli.py": "sha256:4c916859a870f7168107e0e043f0c85d69a369e712b055800ddfa78b73c268c9",
+    "tests/test_fast_sampling_proxy.py": "sha256:583faa88e026c97d632845679ffd336da18789482cf14bd699cfe1cb01184e78",
+    "artifacts/validation/anisotropic_fast_assessment_20261123_current256/assessment.json": "sha256:0a9e30a3ad5fa27571b63d46ccae87f5847d8aaa0cb86baf59b94f0ff1750cfc",
+    "artifacts/validation/anisotropic_fast_assessment_20261123_current256/FINAL_REPORT.md": "sha256:659d9868d2bcc591f2971edbf3a7cb715b4d7e9927dfcc90cae2651a8834d54f",
+    "artifacts/validation/anisotropic_fast_assessment_20261123_current256/IMPLEMENTATION_LOG.md": "sha256:c79919dd10c9510328e2ca61e2b13a9704afe9b1e1b8bf3a1938e5d5bd1bb5b0",
+    "artifacts/validation/anisotropic_fast_assessment_20261123_current256/existing_teacher_rows.json": "sha256:f660abd6608af06f86c05e2ce537ca0331aa3a413136601b16626955776cac38",
+    "artifacts/validation/anisotropic_fast_assessment_20261123_current256/train_teacher_rows.json": "sha256:84207617a75c0627e1430d1122aeabbb9695efd41909985b91c7b93384dc546e",
+    "artifacts/validation/anisotropic_fast_assessment_20261123_current256/validation_teacher_rows.json": "sha256:1d21eb7a8ffbb3d2555b037c703b5d6cd64ffa75810e3d85ab04b4b1919509a9",
+    "artifacts/validation/anisotropic_fast_assessment_20261123_current256/performance_benchmark_v2.json": "sha256:016ef6d292847737300768a333d1d25327d13235f2f1120ec0ca60acd9adb5c8",
+    "artifacts/validation/anisotropic_fast_assessment_20261123_current256/engine_calibration_development/engine_calibration.json": "sha256:8c0486cbb8c73b4273b647a2d1f916eaa9c9b733eff4037890eae308eedfe2f0",
+    "artifacts/validation/anisotropic_fast_assessment_20261123_current256/engine_calibration_train/engine_calibration.json": "sha256:a42fa18fe542b0b12d0eb1c516c89ff152af23d639cce8e1437bb6f3e8f49c99",
+    "artifacts/validation/anisotropic_fast_assessment_20261123_current256/engine_calibration_validation/engine_calibration.json": "sha256:ccc9c7056a55c4dffa9dab32191c0b2805d8456d23141eb7a3f250a82aa2200b",
+    "artifacts/validation/anisotropic_fast_assessment_20261123_v3/quick_vs_full_x1.json": "sha256:44b02eb7a4a316b96ebb6b98a4c0dd17368d50d1d53c31a3e5ea34b15996c022",
+    "artifacts/validation/anisotropic_fast_assessment_20261123_current256/verification.json": "sha256:f0f3f60d3a74bf4173adff8b112330d7dbd443f829754947450041bcb89a99b8",
+    "artifacts/validation/anisotropic_fast_assessment_20261123_current256/QA_LOG.txt": "sha256:456a289f73f81dad025a9afcd5bfdeabb0e4c0f632b9529d7c8970b8449ee290"
+  },
+  "manifest_hash": "sha256:d1f4e14e00670be1f2888dd44a74ac9f5933cfec8979819d4f788ab3986634fd"
+}

@@ -1,0 +1,107 @@
+{
+  "candidate_count": 4301,
+  "by_region": {
+    "pos_y": {
+      "candidates": 863,
+      "admission_rate": 0.42178447276940906,
+      "share_tangent_v_pointing_up": 0.07184241019698726,
+      "aim_point_z_quantiles_p05_p50_p95": [
+        -1.4683326107928134,
+        -0.8908574680491378,
+        0.8557940315776866
+      ]
+    },
+    "top_cap": {
+      "candidates": 860,
+      "admission_rate": 0.8302325581395349,
+      "share_tangent_v_pointing_up": 0.5046511627906977,
+      "aim_point_z_quantiles_p05_p50_p95": [
+        -1.0950277897135003,
+        -0.0021085310523401707,
+        1.0684571235444587
+      ]
+    },
+    "pos_x": {
+      "candidates": 863,
+      "admission_rate": 0.7740440324449595,
+      "share_tangent_v_pointing_up": 0.7242178447276941,
+      "aim_point_z_quantiles_p05_p50_p95": [
+        -1.905077056380542,
+        0.8924989172751256,
+        1.5073697958127652
+      ]
+    },
+    "neg_y": {
+      "candidates": 857,
+      "admission_rate": 0.8191365227537923,
+      "share_tangent_v_pointing_up": 0.7327887981330222,
+      "aim_point_z_quantiles_p05_p50_p95": [
+        -0.8301216594237576,
+        0.906018804618105,
+        1.484337879859158
+      ]
+    },
+    "neg_x": {
+      "candidates": 858,
+      "admission_rate": 0.17715617715617715,
+      "share_tangent_v_pointing_up": 0.0944055944055944,
+      "aim_point_z_quantiles_p05_p50_p95": [
+        -1.4937797589955557,
+        -0.8942954391743261,
+        1.8155797838800836
+      ]
+    }
+  },
+  "by_region_and_aim_side": {
+    "neg_x|aim_band_above_centre": {
+      "candidates": 179,
+      "admission_rate": 0.8268156424581006
+    },
+    "neg_x|aim_band_below_centre": {
+      "candidates": 679,
+      "admission_rate": 0.005891016200294551
+    },
+    "neg_y|aim_band_above_centre": {
+      "candidates": 716,
+      "admission_rate": 0.9622905027932961
+    },
+    "neg_y|aim_band_below_centre": {
+      "candidates": 141,
+      "admission_rate": 0.09219858156028368
+    },
+    "pos_x|aim_band_above_centre": {
+      "candidates": 679,
+      "admission_rate": 0.979381443298969
+    },
+    "pos_x|aim_band_below_centre": {
+      "candidates": 184,
+      "admission_rate": 0.016304347826086956
+    },
+    "pos_y|aim_band_above_centre": {
+      "candidates": 149,
+      "admission_rate": 0.8053691275167785
+    },
+    "pos_y|aim_band_below_centre": {
+      "candidates": 714,
+      "admission_rate": 0.34173669467787116
+    },
+    "top_cap|aim_band_above_centre": {
+      "candidates": 428,
+      "admission_rate": 0.9742990654205608
+    },
+    "top_cap|aim_band_below_centre": {
+      "candidates": 432,
+      "admission_rate": 0.6875
+    }
+  },
+  "pooled_by_aim_side": {
+    "aim_band_below_centre": {
+      "candidates": 2150,
+      "admission_rate": 0.2609302325581395
+    },
+    "aim_band_above_centre": {
+      "candidates": 2151,
+      "admission_rate": 0.9479311947931195
+    }
+  }
+}

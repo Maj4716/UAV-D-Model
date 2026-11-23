@@ -1,0 +1,108 @@
+legacy done 60s
+fixed done 116s
+{
+ "python": "3.12.13",
+ "legacy_reproduction": {
+  "archived_formal_cases": 2600,
+  "rebuilt_formal_cases": 2600,
+  "rebuilt_candidate_rows": 4301,
+  "case_id_set_equal": true,
+  "field_level_equality": "see legacy_reproduction_py312.json (diff_legacy_case.py): identical except engine_code_hash and contract-document storage form",
+  "admission_by_region": {
+   "neg_x": {
+    "candidates": 858,
+    "admitted": 152,
+    "admission_rate": 0.17715617715617715
+   },
+   "neg_y": {
+    "candidates": 857,
+    "admitted": 702,
+    "admission_rate": 0.8191365227537923
+   },
+   "pos_x": {
+    "candidates": 863,
+    "admitted": 668,
+    "admission_rate": 0.7740440324449595
+   },
+   "pos_y": {
+    "candidates": 863,
+    "admitted": 364,
+    "admission_rate": 0.42178447276940906
+   },
+   "top_cap": {
+    "candidates": 860,
+    "admitted": 714,
+    "admission_rate": 0.8302325581395349
+   }
+  },
+  "admission_total": {
+   "candidates": 4301,
+   "admitted": 2600,
+   "admission_rate": 0.6045105789351314
+  },
+  "mirror_pos_x_vs_neg_x": {
+   "difference": 0.5968878552887823,
+   "se": 0.01930187164033985,
+   "z": 30.923833004946502
+  }
+ },
+ "fixed_basis": {
+  "formal_cases": 2600,
+  "candidate_rows": 2641,
+  "admission_by_region": {
+   "neg_x": {
+    "candidates": 529,
+    "admitted": 529,
+    "admission_rate": 1.0
+   },
+   "neg_y": {
+    "candidates": 530,
+    "admitted": 530,
+    "admission_rate": 1.0
+   },
+   "pos_x": {
+    "candidates": 526,
+    "admitted": 526,
+    "admission_rate": 1.0
+   },
+   "pos_y": {
+    "candidates": 528,
+    "admitted": 528,
+    "admission_rate": 1.0
+   },
+   "top_cap": {
+    "candidates": 528,
+    "admitted": 487,
+    "admission_rate": 0.9223484848484849
+   }
+  },
+  "admission_total": {
+   "candidates": 2641,
+   "admitted": 2600,
+   "admission_rate": 0.9844755774327906
+  },
+  "mirror_pos_x_vs_neg_x": {
+   "difference": 0.0,
+   "se": 0.0,
+   "z": null
+  },
+  "formal_region_counts": {
+   "neg_x": 529,
+   "neg_y": 530,
+   "pos_x": 526,
+   "pos_y": 528,
+   "top_cap": 487
+  },
+  "formal_region_share_tangent_v_up": {
+   "neg_x": 1.0,
+   "neg_y": 1.0,
+   "pos_x": 1.0,
+   "pos_y": 1.0,
+   "top_cap": 0.5030800821355236
+  },
+  "aim_tangent_basis_recorded": [
+   "target_up_horizontal_target_forward_top@1.0.0"
+  ],
+  "formal_region_tv_vs_equal_mass": 0.01269230769230767
+ }
+}

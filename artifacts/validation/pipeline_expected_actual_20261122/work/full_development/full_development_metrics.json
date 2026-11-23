@@ -1,0 +1,297 @@
+{
+  "schema_version": "full-development-audit-summary@1.0.0",
+  "analysis_id": "pipeline-expected-actual-20261122-v1",
+  "analysis_scope": "read_only_existing_artifacts_train_validation_only",
+  "analysis_status": "development_descriptive_with_existing_validation_only_model_evidence",
+  "source_dataset": {
+    "formal_dataset_id": "damage-dataset-074d300c1382eb8eee4cd87a",
+    "formal_manifest_hash": "sha256:3b6b7ba94ccd7715040716b69a1a039977636853142cfde6c31127f78debfae2",
+    "dataset_v2_id": "damage-dataset-v2-16969411c388e086d2757f88",
+    "dataset_v2_manifest_hash": "sha256:72fb6a13d747600a2ef78898b62264a57cb65f0104e587d6f1af6ea643d8cff6",
+    "dataset_v2_status": "provisional",
+    "provisional_reason": "taylor_shapiro_and_high_obliquity_shape_constraint_require_external_validation",
+    "case_count": 2600,
+    "component_count": 67,
+    "split_counts": {
+      "train": 2000,
+      "validation": 300,
+      "test": 300
+    }
+  },
+  "sampling_and_archive": {
+    "candidate_count": 4301,
+    "selected_count": 2600,
+    "selection_rate": 0.6045105789351314,
+    "positivity_min": 1.0,
+    "positivity_max": 1.0,
+    "design_weight_min": 1.0,
+    "design_weight_max": 1.0,
+    "design_weight_cv": 0.0,
+    "effective_sample_size": 2600.0,
+    "ess_fraction": 1.0,
+    "quality_gate_passed": true,
+    "quality_gates": {
+      "candidate_set_integrity": true,
+      "design_weight_numerics": true,
+      "declared_group_isolation": true,
+      "stream_role_split_isolation": true,
+      "positivity": true,
+      "ess_fraction": true,
+      "weight_cv": true
+    },
+    "registry_assignment_status": "assignments_verified",
+    "coverage_status": "descriptive_only_no_predeclared_coverage_protocol",
+    "coverage_guaranteed": false,
+    "sampling_checkpoint_status": "archive_complete",
+    "formal_writer_status": "complete",
+    "completed_shard_count": 41,
+    "archived_case_count": 2600,
+    "ordered_case_identity_hash": "sha256:ff6a80abb65e4773cbb012ec5eb6b9056a8fb951117eca3eccf8a2ef0fec65da",
+    "expected_actual_checks": {
+      "planned_case_count": 2600,
+      "actual_archived_case_count": 2600,
+      "case_count_exact": true,
+      "planned_split_counts": {
+        "train": 2000,
+        "validation": 300,
+        "test": 300
+      },
+      "actual_split_counts": {
+        "train": 2000,
+        "validation": 300,
+        "test": 300
+      },
+      "split_counts_exact": true
+    }
+  },
+  "development_teacher_observability": {
+    "development_case_count": 2300,
+    "input_complete_case_rate": 1.0,
+    "label_observation_rate": 0.9952044127190136,
+    "target_observation_rate": {
+      "p_hit": 0.9968526930564569,
+      "p_degraded": 0.996203763789747,
+      "p_failed": 0.9952044127190136
+    },
+    "fully_observed_case_rate": 0.9265217391304348,
+    "epsilon": 0.01,
+    "epsilon_complete_case_count": 2131,
+    "epsilon_complete_case_rate": 0.9265217391304348,
+    "target_epsilon_complete_case_rate": {
+      "p_hit": 0.9730434782608696,
+      "p_degraded": 0.9508695652173913,
+      "p_failed": 0.9265217391304348
+    },
+    "conditional_energy_observation_rate": 0.10889682024659313,
+    "conditional_hit_count_observation_rate": 0.10889682024659313,
+    "affected_replicate_fraction": {
+      "mean": 0.024918478260869566,
+      "median": 0.0,
+      "p90": 0.0,
+      "p95": 0.12500000000000003,
+      "p99": 0.625,
+      "maximum": 1.0
+    },
+    "identification_interval_width": {
+      "p_hit": {
+        "mean": 0.0003299399740428293,
+        "median": 0.0,
+        "p99": 0.0,
+        "maximum": 0.625
+      },
+      "p_degraded": {
+        "mean": 0.0004004491463112078,
+        "median": 0.0,
+        "p99": 0.0,
+        "maximum": 0.8379589103829772
+      },
+      "p_failed": {
+        "mean": 0.0005601892311015784,
+        "median": 0.0,
+        "p99": 0.0,
+        "maximum": 0.8847003464517553
+      }
+    },
+    "by_split": {
+      "train": {
+        "case_count": 2000,
+        "epsilon_complete_case_count": 1861,
+        "epsilon_complete_case_rate": 0.9305,
+        "label_observation_rate": 0.9963283582089553,
+        "affected_replicate_fraction_mean": 0.02525,
+        "ess_fraction": 1.0
+      },
+      "validation": {
+        "case_count": 300,
+        "epsilon_complete_case_count": 270,
+        "epsilon_complete_case_rate": 0.9,
+        "label_observation_rate": 0.9877114427860697,
+        "affected_replicate_fraction_mean": 0.022708333333333334,
+        "ess_fraction": 1.0
+      }
+    }
+  },
+  "missingness_diagnostics": {
+    "method": "KS effect size with Holm family-wise adjustment",
+    "tested_record_count": 282,
+    "evaluated_record_count": 222,
+    "significant_record_count_holm_0_05": 0,
+    "maximum_ks_statistic": 0.1428571428571429,
+    "interpretation": "descriptive diagnostics on a nested epsilon-complete subset"
+  },
+  "task_admission": {
+    "selection_scope": "train_and_validation_label_availability_only",
+    "performance_metrics_used_for_selection": false,
+    "sealed_test_outcomes_used_for_selection": false,
+    "binary_probability_thresholds": {
+      "train_positive_min": 20,
+      "train_negative_min": 20,
+      "validation_positive_min": 5,
+      "validation_negative_min": 5
+    },
+    "p_hit": {
+      "admitted_component_count": 64,
+      "rejected_component_count": 3,
+      "rejected_component_ids": [
+        "component-011",
+        "component-019",
+        "component-020"
+      ]
+    },
+    "p_degraded": {
+      "admitted_component_count": 64,
+      "rejected_component_count": 3,
+      "rejected_component_ids": [
+        "component-011",
+        "component-019",
+        "component-020"
+      ]
+    },
+    "p_failed": {
+      "admitted_component_count": 64,
+      "rejected_component_count": 3,
+      "rejected_component_ids": [
+        "component-011",
+        "component-019",
+        "component-020"
+      ]
+    },
+    "conditional_log1p_energy": {
+      "admitted_component_count": 62,
+      "rejected_component_count": 5,
+      "rejected_component_ids": [
+        "component-002",
+        "component-010",
+        "component-011",
+        "component-019",
+        "component-020"
+      ]
+    },
+    "conditional_log1p_hit_count": {
+      "admitted_component_count": 62,
+      "rejected_component_count": 5,
+      "rejected_component_ids": [
+        "component-002",
+        "component-010",
+        "component-011",
+        "component-019",
+        "component-020"
+      ]
+    },
+    "admitted_component_union_count": 64,
+    "admitted_component_intersection_count": 62
+  },
+  "global_training_gate": {
+    "formal_neural_training_ready": false,
+    "passed": {
+      "minimum_train_cases_2000": true,
+      "train_epsilon_complete_rate_at_least_0_90": true,
+      "minimum_component_p_hit_negative_count_20": true,
+      "minimum_validation_component_p_hit_negative_count_5": true,
+      "train_ess_fraction_at_least_0_50": true,
+      "validation_has_cases": true,
+      "sealed_test_result_json_lines_decoded_zero": true
+    },
+    "failed": {
+      "minimum_component_p_hit_positive_count_20": false,
+      "minimum_component_p_degraded_positive_count_20": false,
+      "minimum_component_p_failed_positive_count_20": false,
+      "minimum_validation_component_p_hit_positive_count_5": false
+    },
+    "interpretation": "all-67-component gate fails; task-specific admission retains supported components"
+  },
+  "existing_validation_only_learnability": {
+    "source_scope": "admitted_p_hit_train_validation_only",
+    "admitted_component_count": 64,
+    "validation_point_observation_count": 19016,
+    "model_micro_brier": 0.03720505737030457,
+    "train_only_climatology_micro_brier": 0.06410736171546867,
+    "micro_brier_skill": 0.41964454042838506,
+    "model_macro_brier": 0.037154747597583374,
+    "train_only_climatology_macro_brier": 0.06400040857353248,
+    "macro_brier_skill": 0.41946077492779,
+    "positive_skill_component_count": 62,
+    "skill_evaluable_component_count": 64,
+    "positive_skill_component_fraction": 0.96875,
+    "learning_curve_validation_brier_mean": {
+      "train_fraction_0_25": 0.040556201302810256,
+      "train_fraction_0_50": 0.037914183006867164,
+      "train_fraction_1_00": 0.03728720816003502
+    },
+    "detectable_learnability_pass": true,
+    "generated_by_this_audit": false
+  },
+  "sealed_test": {
+    "test_case_count": 300,
+    "test_labels_present_in_core": false,
+    "test_component_traces_present_in_core": false,
+    "test_label_masks_all_false": true,
+    "test_result_json_lines_seen": 300,
+    "test_result_json_lines_decoded": 0,
+    "test_open_count": 0,
+    "test_predictions_computed": false,
+    "test_metrics_computed": false,
+    "sealed": true
+  },
+  "evidence_boundaries": {
+    "software_and_statistical_consistency": "supported by archive, identity, observability, support and validation-only diagnostics",
+    "sampling_coverage": "descriptive only; no predeclared coverage guarantee",
+    "physical_validity": "unresolved pending external validation of Taylor-Shapiro and high-obliquity shape constraints",
+    "real_world_distribution_match": "not established by the current synthetic-teacher artifacts",
+    "research_admission": "separate from archive completion and software-teacher learnability"
+  },
+  "evidence_files": [
+    {
+      "path": "artifacts/datasets/recovery_role_r8_r32_train2000_eval300_20261122/formal_dataset/checkpoint.json",
+      "sha256": "bc9391c9775f3fe06b433deb382f16490a654cb00b9adea6826ac2fba7dc6a89"
+    },
+    {
+      "path": "artifacts/datasets/recovery_role_r8_r32_train2000_eval300_20261122/sampling_checkpoint.json",
+      "sha256": "eee42f43fbaaa7dc1691c8b62650f575a5b829be7116ee4d77c5c913843e03aa"
+    },
+    {
+      "path": "artifacts/datasets/recovery_role_r8_r32_train2000_eval300_20261122/audits/sampling_quality.json",
+      "sha256": "fe9791981997dd4892e53470f020bb9aa35ba4cdb4102942249cd29c0b7b4301"
+    },
+    {
+      "path": "artifacts/datasets/recovery_role_r8_r32_train2000_eval300_20261122/development_audit.json",
+      "sha256": "60f11e964ed3acdff743efd577a2c7f8aaf0ff7d5df750b620c545d4a3fc4978"
+    },
+    {
+      "path": "artifacts/datasets/recovery_role_r8_r32_train2000_eval300_20261122/dataset_v2_development/manifest.json",
+      "sha256": "4471534f46f58d08417933f9ce0cb2618ede499b86153a1d26b864f166267328"
+    },
+    {
+      "path": "artifacts/datasets/recovery_role_r8_r32_train2000_eval300_20261122/dataset_v2_development/task_admission.json",
+      "sha256": "c4124635d043a8a08ccc07e7308365da4885d197dc3629062eff27d795d3c45c"
+    },
+    {
+      "path": "artifacts/datasets/recovery_role_r8_r32_train2000_eval300_20261122/dataset_v2_development/model_readiness.json",
+      "sha256": "8a04d4fbb3adc59739eab23f4d3be3ad86f6be993488ce15897020b0934d6c04"
+    },
+    {
+      "path": "artifacts/datasets/recovery_role_r8_r32_train2000_eval300_20261122/dataset_v2_development/sealed_test.json",
+      "sha256": "b9e4c70a8cb090df137b12d71c9d4ed8bbeef382cf58874a4a5ccb1ffef16e3d"
+    }
+  ]
+}

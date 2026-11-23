@@ -45,6 +45,21 @@ LOITERING_IMPACT_CONTACT_POSE_LEARNING_INPUT_IDENTITY_VERSION = (
     "loitering-impact-contact-pose-learning-input@1.0.0"
 )
 
+# Independent post-intersection learner view. SamplingSpec 1.6 can opt into it
+# only after deterministic first-armour geometry materializes the impact fields.
+LOITERING_IMPACT_FIRST_ARMOR_STATE_CONTRACT_VERSION = (
+    "loitering-impact-first-armor-state-input@1.0.0"
+)
+LOITERING_IMPACT_FIRST_ARMOR_STATE_MODEL_INPUT_CONTRACT = (
+    "loitering_impact_first_armor_state@1.0.0"
+)
+LOITERING_IMPACT_FIRST_ARMOR_STATE_FIXED_SCENARIO_IDENTITY_VERSION = (
+    "loitering-impact-first-armor-state-fixed-scenario-json@1.0.0"
+)
+LOITERING_IMPACT_FIRST_ARMOR_STATE_LEARNING_INPUT_IDENTITY_VERSION = (
+    "loitering-impact-first-armor-state-learning-input@1.0.0"
+)
+
 UAV_STATE_FEATURE_NAMES = (
     "uav_position_relative_to_fixed_threat_x_m",
     "uav_position_relative_to_fixed_threat_y_m",
@@ -220,6 +235,64 @@ LOITERING_IMPACT_CONTACT_POSE_TRAINING_FEATURE_SEMANTICS = (
     "Target-frame x component of the body y axis; invariant to quaternion sign.",
     "Target-frame y component of the body y axis; invariant to quaternion sign.",
     "Target-frame z component of the body y axis; invariant to quaternion sign.",
+)
+
+LOITERING_IMPACT_FIRST_ARMOR_STATE_FEATURE_NAMES = (
+    *LOITERING_IMPACT_STATE_FEATURE_NAMES[:3],
+    "first_armor_hit_point_target_x_m",
+    "first_armor_hit_point_target_y_m",
+    "first_armor_hit_point_target_z_m",
+    "first_armor_hit_normal_target_x",
+    "first_armor_hit_normal_target_y",
+    "first_armor_hit_normal_target_z",
+    "impact_direction_target_x",
+    "impact_direction_target_y",
+    "impact_direction_target_z",
+    "impact_speed_mps",
+    "body_y_axis_target_x",
+    "body_y_axis_target_y",
+    "body_y_axis_target_z",
+)
+LOITERING_IMPACT_FIRST_ARMOR_STATE_FEATURE_UNITS = (
+    *("1",) * 3,
+    *("m",) * 3,
+    *("1",) * 6,
+    "m/s",
+    *("1",) * 3,
+)
+LOITERING_IMPACT_FIRST_ARMOR_STATE_FEATURE_SOURCE_PATHS = (
+    *("/munition/profile_id",) * 3,
+    *("/encounter/detonation_position_m",) * 3,
+    *("/encounter/collision_normal_target_xyz",) * 3,
+    *("/encounter/velocity_target_mps",) * 3,
+    "/encounter/velocity_target_mps",
+    *("/encounter/body_to_target_orientation_xyzw",) * 3,
+)
+LOITERING_IMPACT_FIRST_ARMOR_STATE_FEATURE_TRANSFORMS = (
+    "one_hot_equals_small_front",
+    "one_hot_equals_medium_front",
+    "one_hot_equals_large_front",
+    *("validated_first_armor_hit_point_target_component",) * 3,
+    *("validated_unit_first_armor_hit_normal_target_component",) * 3,
+    *("normalize_impact_velocity_target_component",) * 3,
+    "euclidean_norm_of_impact_velocity_target",
+    *("normalized_body_to_target_quaternion_rotation_column_1",) * 3,
+)
+LOITERING_IMPACT_FIRST_ARMOR_STATE_FEATURE_SEMANTICS = (
+    *LOITERING_IMPACT_STATE_FEATURE_SEMANTICS[:3],
+    "Target-frame x coordinate of the deterministic first-armour ray intersection.",
+    "Target-frame y coordinate of the deterministic first-armour ray intersection.",
+    "Target-frame z coordinate of the deterministic first-armour ray intersection.",
+    "Target-frame x component of the unit surface normal at first armour contact.",
+    "Target-frame y component of the unit surface normal at first armour contact.",
+    "Target-frame z component of the unit surface normal at first armour contact.",
+    "Target-frame x component of normalized impact velocity.",
+    "Target-frame y component of normalized impact velocity.",
+    "Target-frame z component of normalized impact velocity.",
+    "Speed at deterministic first armour contact.",
+    "Target-frame x component of the body y axis; with impact direction it encodes roll without Euler angles.",
+    "Target-frame y component of the body y axis; with impact direction it encodes roll without Euler angles.",
+    "Target-frame z component of the body y axis; with impact direction it encodes roll without Euler angles.",
 )
 
 
@@ -475,7 +548,47 @@ LOITERING_IMPACT_CONTACT_POSE_MODEL_INPUT_DEFINITION = ModelInputDefinition(
     ),
 )
 
+LOITERING_IMPACT_FIRST_ARMOR_STATE_MODEL_INPUT_DEFINITION = ModelInputDefinition(
+    sampling_contract=(
+        LOITERING_IMPACT_FIRST_ARMOR_STATE_MODEL_INPUT_CONTRACT
+    ),
+    version=LOITERING_IMPACT_FIRST_ARMOR_STATE_CONTRACT_VERSION,
+    tensor_field="loitering_impact_first_armor_state_x",
+    mask_field="loitering_impact_first_armor_state_feature_mask",
+    metadata_prefix="loitering_impact_first_armor_state",
+    feature_axis="F_loitering_impact_first_armor_state",
+    feature_names=LOITERING_IMPACT_FIRST_ARMOR_STATE_FEATURE_NAMES,
+    feature_units=LOITERING_IMPACT_FIRST_ARMOR_STATE_FEATURE_UNITS,
+    feature_source_paths=(
+        LOITERING_IMPACT_FIRST_ARMOR_STATE_FEATURE_SOURCE_PATHS
+    ),
+    feature_transforms=(
+        LOITERING_IMPACT_FIRST_ARMOR_STATE_FEATURE_TRANSFORMS
+    ),
+    feature_semantics=(
+        LOITERING_IMPACT_FIRST_ARMOR_STATE_FEATURE_SEMANTICS
+    ),
+    fixed_scenario_identity_version=(
+        LOITERING_IMPACT_FIRST_ARMOR_STATE_FIXED_SCENARIO_IDENTITY_VERSION
+    ),
+    learning_input_identity_version=(
+        LOITERING_IMPACT_FIRST_ARMOR_STATE_LEARNING_INPUT_IDENTITY_VERSION
+    ),
+    learning_input_payload_key="loitering_impact_first_armor_state",
+    evidence_boundary=(
+        "deployment-executable, label-independent view available after the "
+        "frozen target ray intersection has produced deterministic first-armour "
+        "contact geometry; it contains no teacher response or damage outcome"
+    ),
+    known_limitation=(
+        "Deployment requires the same versioned target geometry and deterministic "
+        "first-armour ray-intersection contract. Absolute target-frame hit "
+        "coordinates are specific to that target snapshot."
+    ),
+)
+
 MODEL_INPUT_DEFINITIONS = (
+    LOITERING_IMPACT_FIRST_ARMOR_STATE_MODEL_INPUT_DEFINITION,
     LOITERING_IMPACT_CONTACT_POSE_MODEL_INPUT_DEFINITION,
     LOITERING_IMPACT_MODEL_INPUT_DEFINITION,
     UAV_MODEL_INPUT_DEFINITION,
@@ -549,6 +662,16 @@ def _finite_vector(value: Any, *, length: int, name: str) -> list[float]:
     result = [float(item) for item in value]
     if not all(math.isfinite(item) for item in result):
         raise ValueError(f"{name} must contain only finite values")
+    return result
+
+
+def _finite_scalar(value: Any, *, name: str) -> float:
+    try:
+        result = float(value)
+    except (TypeError, ValueError) as exc:
+        raise ValueError(f"{name} must be a finite scalar") from exc
+    if not math.isfinite(result):
+        raise ValueError(f"{name} must be a finite scalar")
     return result
 
 
@@ -769,6 +892,182 @@ def loitering_impact_contact_pose_training_vector(case: dict) -> list[float]:
     ]
 
 
+def loitering_impact_first_armor_state_value(case: dict) -> dict[str, float]:
+    """Return the 16-value deterministic first-armour impact state.
+
+    This is a post-intersection, pre-label view.  ``DamageEngine.prepare_case``
+    or the S-CONTACT path must first materialize the versioned first-contact
+    fields.  The consistency checks below reject raw launch cases and damaged
+    or partially persisted geometry instead of manufacturing missing values.
+    """
+
+    munition = case.get("munition")
+    encounter = case.get("encounter")
+    if not isinstance(munition, dict):
+        raise ValueError("case is missing munition")
+    if not isinstance(encounter, dict):
+        raise ValueError("case is missing encounter")
+    profile_id = munition.get("profile_id")
+    if profile_id not in LOITERING_IMPACT_PROFILE_IDS:
+        raise ValueError(
+            "munition.profile_id must be one of the three versioned loitering profiles"
+        )
+    if munition.get("fuze_type") != "impact_contact":
+        raise ValueError(
+            "munition.fuze_type must be impact_contact for the impact-state view"
+        )
+    if munition.get("trajectory_reference_point") != "nose_fuze":
+        raise ValueError(
+            "munition.trajectory_reference_point must be nose_fuze for the impact-state view"
+        )
+    if encounter.get("detonation_trigger") != "first_armor_contact":
+        raise ValueError(
+            "impact-state view requires detonation_trigger=first_armor_contact"
+        )
+    if encounter.get("impact_model_id") != "continuous-ray-first-armor-v1":
+        raise ValueError(
+            "impact-state view requires prepared continuous-ray-first-armor-v1 geometry"
+        )
+    if encounter.get("trajectory_reference_point") != "nose_fuze":
+        raise ValueError(
+            "impact-state view requires trajectory_reference_point=nose_fuze"
+        )
+    collision_armor_id = encounter.get("collision_armor_id")
+    if not isinstance(collision_armor_id, str) or not collision_armor_id:
+        raise ValueError("encounter.collision_armor_id must identify first armor")
+
+    origin = _finite_vector(
+        encounter.get("trajectory_origin_m"),
+        length=3,
+        name="encounter.trajectory_origin_m",
+    )
+    hit_point = _finite_vector(
+        encounter.get("detonation_position_m"),
+        length=3,
+        name="encounter.detonation_position_m",
+    )
+    hit_normal = _finite_vector(
+        encounter.get("collision_normal_target_xyz"),
+        length=3,
+        name="encounter.collision_normal_target_xyz",
+    )
+    velocity = _finite_vector(
+        encounter.get("velocity_target_mps"),
+        length=3,
+        name="encounter.velocity_target_mps",
+    )
+    speed = math.sqrt(sum(component * component for component in velocity))
+    if speed <= 0.0:
+        raise ValueError("encounter.velocity_target_mps must be nonzero")
+    direction = [component / speed for component in velocity]
+
+    normal_norm = math.sqrt(
+        sum(component * component for component in hit_normal)
+    )
+    if not math.isclose(normal_norm, 1.0, rel_tol=0.0, abs_tol=1.0e-6):
+        raise ValueError(
+            "encounter.collision_normal_target_xyz must be a unit vector"
+        )
+    if sum(a * b for a, b in zip(direction, hit_normal, strict=True)) > 1.0e-8:
+        raise ValueError(
+            "encounter.collision_normal_target_xyz must be an entry normal"
+        )
+
+    collision_distance = _finite_scalar(
+        encounter.get("collision_distance_m"),
+        name="encounter.collision_distance_m",
+    )
+    collision_time = _finite_scalar(
+        encounter.get("detonation_time_s"),
+        name="encounter.detonation_time_s",
+    )
+    detonation_delay = _finite_scalar(
+        encounter.get("detonation_delay_s"),
+        name="encounter.detonation_delay_s",
+    )
+    if collision_distance < 0.0:
+        raise ValueError("encounter.collision_distance_m must be nonnegative")
+    if collision_time < 0.0:
+        raise ValueError("encounter.detonation_time_s must be nonnegative")
+    if not math.isclose(
+        detonation_delay, 0.0, rel_tol=0.0, abs_tol=1.0e-10
+    ):
+        raise ValueError("first armor impact must have zero detonation delay")
+    expected_point = [
+        start + collision_distance * ray_direction
+        for start, ray_direction in zip(origin, direction, strict=True)
+    ]
+    if any(
+        not math.isclose(
+            observed,
+            expected,
+            rel_tol=0.0,
+            abs_tol=1.0e-8,
+        )
+        for observed, expected in zip(hit_point, expected_point, strict=True)
+    ):
+        raise ValueError(
+            "encounter.detonation_position_m is not the persisted first armor hit point"
+        )
+    if not math.isclose(
+        collision_time,
+        collision_distance / speed,
+        rel_tol=0.0,
+        abs_tol=1.0e-10,
+    ):
+        raise ValueError(
+            "encounter.detonation_time_s is inconsistent with first armor impact"
+        )
+
+    x, y, z, w = _canonical_quaternion_xyzw(
+        encounter.get("body_to_target_orientation_xyzw")
+    )
+    body_x = [
+        1.0 - 2.0 * (y * y + z * z),
+        2.0 * (x * y + z * w),
+        2.0 * (x * z - y * w),
+    ]
+    alignment = sum(
+        axis * ray_direction
+        for axis, ray_direction in zip(body_x, direction, strict=True)
+    )
+    if alignment < 1.0 - 1.0e-6:
+        raise ValueError(
+            "encounter.body_to_target_orientation_xyzw must align body +X with impact direction"
+        )
+    body_y = [
+        2.0 * (x * y - z * w),
+        1.0 - 2.0 * (x * x + z * z),
+        2.0 * (y * z + x * w),
+    ]
+    values = [
+        *(
+            1.0 if profile_id == name else 0.0
+            for name in LOITERING_IMPACT_PROFILE_IDS
+        ),
+        *hit_point,
+        *hit_normal,
+        *direction,
+        speed,
+        *body_y,
+    ]
+    return dict(
+        zip(
+            LOITERING_IMPACT_FIRST_ARMOR_STATE_FEATURE_NAMES,
+            values,
+            strict=True,
+        )
+    )
+
+
+def loitering_impact_first_armor_state_vector(case: dict) -> list[float]:
+    state = loitering_impact_first_armor_state_value(case)
+    return [
+        state[name]
+        for name in LOITERING_IMPACT_FIRST_ARMOR_STATE_FEATURE_NAMES
+    ]
+
+
 def fixed_scenario_value(case: dict) -> dict:
     """Return case content that must be frozen outside the learner tensor."""
 
@@ -925,6 +1224,32 @@ def loitering_impact_contact_pose_fixed_scenario_fingerprint(case: dict) -> str:
     )
 
 
+def loitering_impact_first_armor_state_fixed_scenario_value(case: dict) -> dict:
+    """Return context invariant to the deterministic impact-state vector.
+
+    Launch origin, full velocity and quaternion are deterministic ancestors of
+    the hit point, impact direction/speed and body-y axis.  Removing them also
+    makes the scenario identity invariant to redundant standoff along one ray.
+    """
+
+    return loitering_impact_contact_pose_fixed_scenario_value(case)
+
+
+def loitering_impact_first_armor_state_fixed_scenario_fingerprint(
+    case: dict,
+) -> str:
+    return content_hash(
+        {
+            "version": (
+                LOITERING_IMPACT_FIRST_ARMOR_STATE_FIXED_SCENARIO_IDENTITY_VERSION
+            ),
+            "scenario": loitering_impact_first_armor_state_fixed_scenario_value(
+                case
+            ),
+        }
+    )
+
+
 def loitering_impact_learning_input_fingerprint(case: dict) -> str:
     """Compatibility entry point for the loitering-impact input identity."""
 
@@ -938,6 +1263,17 @@ def loitering_impact_contact_pose_learning_input_fingerprint(case: dict) -> str:
 
     return (
         LOITERING_IMPACT_CONTACT_POSE_MODEL_INPUT_DEFINITION
+        .learning_input_fingerprint(case)
+    )
+
+
+def loitering_impact_first_armor_state_learning_input_fingerprint(
+    case: dict,
+) -> str:
+    """Hash the post-intersection first-armour learner state."""
+
+    return (
+        LOITERING_IMPACT_FIRST_ARMOR_STATE_MODEL_INPUT_DEFINITION
         .learning_input_fingerprint(case)
     )
 
@@ -974,7 +1310,7 @@ def _model_input_definition_for_case(
         sampling_spec = sampling.get("sampling_spec_document")
         if not isinstance(sampling_spec, dict) or sampling_spec.get(
             "schema_version"
-        ) not in {"1.2.0", "1.3.0", "1.4.0"}:
+        ) not in {"1.2.0", "1.3.0", "1.4.0", "1.5.0", "1.6.0", "1.7.0"}:
             return None
         model_input_contract = sampling_spec.get("model_input_contract")
         try:
@@ -1023,6 +1359,9 @@ _MODEL_INPUT_VECTOR_ADAPTERS = {
     LOITERING_IMPACT_CONTACT_POSE_STATE_CONTRACT_VERSION: (
         loitering_impact_contact_pose_training_vector
     ),
+    LOITERING_IMPACT_FIRST_ARMOR_STATE_CONTRACT_VERSION: (
+        loitering_impact_first_armor_state_vector
+    ),
 }
 _MODEL_INPUT_SCENARIO_ADAPTERS = {
     UAV_STATE_CONTRACT_VERSION: fixed_scenario_fingerprint,
@@ -1032,11 +1371,17 @@ _MODEL_INPUT_SCENARIO_ADAPTERS = {
     LOITERING_IMPACT_CONTACT_POSE_STATE_CONTRACT_VERSION: (
         loitering_impact_contact_pose_fixed_scenario_fingerprint
     ),
+    LOITERING_IMPACT_FIRST_ARMOR_STATE_CONTRACT_VERSION: (
+        loitering_impact_first_armor_state_fixed_scenario_fingerprint
+    ),
 }
 _MODEL_INPUT_VALUE_ADAPTERS = {
     UAV_STATE_CONTRACT_VERSION: uav_state_value,
     LOITERING_IMPACT_STATE_CONTRACT_VERSION: loitering_impact_state_value,
     LOITERING_IMPACT_CONTACT_POSE_STATE_CONTRACT_VERSION: (
         loitering_impact_contact_pose_learning_value
+    ),
+    LOITERING_IMPACT_FIRST_ARMOR_STATE_CONTRACT_VERSION: (
+        loitering_impact_first_armor_state_value
     ),
 }

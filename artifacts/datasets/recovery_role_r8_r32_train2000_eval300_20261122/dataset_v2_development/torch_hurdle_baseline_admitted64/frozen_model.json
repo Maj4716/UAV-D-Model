@@ -1,0 +1,33 @@
+{
+  "schema_version": "frozen-hurdle-model@1.0.0",
+  "baseline_contract": "dataset-v2-hurdle-baseline@1.2.0",
+  "dataset_id": "damage-dataset-v2-16969411c388e086d2757f88",
+  "dataset_manifest_hash": "sha256:72fb6a13d747600a2ef78898b62264a57cb65f0104e587d6f1af6ea643d8cff6",
+  "selected_run_id": "fraction-1.00-seed-43",
+  "selection_metric": "reference_validation.p_hit.weighted_brier",
+  "selection_value": 0.04082886289065148,
+  "model_state_sha256": "sha256:927c8676e538b0208255ccdf83a60f300704b7515f31991b0082c7b6ce3e3a40",
+  "target_encoder_bundle_hash": "sha256:2e8b6b91a71d9e300a306dbc55e6eb838b7670122e275464ae61c54769080727",
+  "target_encoder_methods": {
+    "energy": "empirical_quantile_normal",
+    "hit_count": "box_cox"
+  },
+  "support_probability_threshold": 0.05,
+  "task_admission": {
+    "mode": "frozen_component_task_subset",
+    "schema_version": "dataset-v2-task-admission@1.0.0",
+    "artifact_path": "artifacts\\datasets\\recovery_role_r8_r32_train2000_eval300_20261122\\dataset_v2_development\\task_admission.json",
+    "artifact_sha256": "sha256:01a6e1297a41a13e8ab8563925dfb230839ac357355a56d0663d04200fbcb6d0",
+    "artifact_hash": "sha256:3b94f77b7c88e0dffac4c9ceb18be00480745f0050ce5c446170596723a70fa7",
+    "audit_report_hash": "sha256:105dd9ef10b9a6b3d2035471e04010c6bffbf9d66bd7f86a3bd4da16808658e5",
+    "unspecified_component_task_policy": "conditional_and_derived_tasks_inherit_p_hit_admission",
+    "admitted_component_count_by_task": {
+      "p_hit": 64,
+      "p_degraded": 64,
+      "p_failed": 64
+    }
+  },
+  "test_labels_evaluated": false,
+  "test_open_count": 0,
+  "frozen_contract_hash": "sha256:fea41d0fe476eb890746b4c1cbf2b8d0c8447dad71dc4feae2dd3507712f4c1a"
+}

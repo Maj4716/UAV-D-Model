@@ -1,0 +1,65 @@
+{
+  "variant_id": "e3-a1-t1-fsolid-w1",
+  "factors": {
+    "A_armor_mm": 1.0,
+    "T_component_threshold_factor": 1.0,
+    "F_direction_model": "solid_cone",
+    "W_gurney_factor": 1.0
+  },
+  "target_hash": "sha256:9aa087bf5621cbead6b6752a82841c7737eb7829410a08a85ae847f84b066b0e",
+  "physics_registry_hash": "sha256:29758addddf0405626747052814c138276ed6f3e4088c8f48726dc674fe06ee9",
+  "trace_path": "D:\\Desktop\\UAV新\\artifacts\\validation\\idea2_optimization_20261120\\stage2_representative_scaled\\e3\\variants\\e3-a1-t1-fsolid-w1\\engine_results.minimal.jsonl.gz",
+  "elapsed_seconds": 28.193301400000564,
+  "summary": {
+    "case_count": 3,
+    "component_zero_rate": 0.7213930348258707,
+    "case_any_support_rate": 1.0,
+    "domain_complete_rate": 0.3333333333333333,
+    "mean_affected_replicate_fraction": 0.6666666666666666,
+    "positive_component_energy_tail": {
+      "positive_count": 56,
+      "primary_tail_fraction": 0.1,
+      "primary_alpha": 1.3728881773431147,
+      "estimates": [
+        {
+          "tail_fraction": 0.05,
+          "k": 2,
+          "xi": 0.7660712906412868,
+          "alpha": 1.3053615403899146
+        },
+        {
+          "tail_fraction": 0.1,
+          "k": 5,
+          "xi": 0.7283914425829294,
+          "alpha": 1.3728881773431147
+        },
+        {
+          "tail_fraction": 0.2,
+          "k": 11,
+          "xi": 1.007885565341698,
+          "alpha": 0.9921761302940928
+        }
+      ]
+    },
+    "tree_views": {
+      "current": {
+        "count": 21,
+        "zero_rate": 0.19047619047619047,
+        "saturation_rate": 0.7142857142857143,
+        "intermediate_rate": 0.09523809523809523,
+        "mean_binary_entropy_nats": 0.06184917253859782
+      },
+      "identity_component_states": {
+        "count": 402,
+        "zero_rate": 0.7238805970149254,
+        "saturation_rate": 0.16666666666666666,
+        "intermediate_rate": 0.09950248756218906,
+        "mean_binary_entropy_nats": 0.042622617770156516
+      },
+      "maximum_offline_recompute_abs_error": 0.0
+    },
+    "status_counts": {
+      "ok": 3
+    }
+  }
+}

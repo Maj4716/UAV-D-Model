@@ -1,0 +1,65 @@
+{
+  "variant_id": "e3-a1-t1-fhollow-w1p3",
+  "factors": {
+    "A_armor_mm": 1.0,
+    "T_component_threshold_factor": 1.0,
+    "F_direction_model": "legacy_hollow",
+    "W_gurney_factor": 1.3
+  },
+  "target_hash": "sha256:9aa087bf5621cbead6b6752a82841c7737eb7829410a08a85ae847f84b066b0e",
+  "physics_registry_hash": "sha256:7083329c22660d15b9615260c7502c535661022e6603b4865882da1b8a322bc1",
+  "trace_path": "D:\\Desktop\\UAV新\\artifacts\\validation\\idea2_optimization_20261120\\stage2_representative_scaled\\e3\\variants\\e3-a1-t1-fhollow-w1p3\\engine_results.minimal.jsonl.gz",
+  "elapsed_seconds": 37.040868999999475,
+  "summary": {
+    "case_count": 3,
+    "component_zero_rate": 0.6616915422885572,
+    "case_any_support_rate": 1.0,
+    "domain_complete_rate": 0.3333333333333333,
+    "mean_affected_replicate_fraction": 0.6666666666666666,
+    "positive_component_energy_tail": {
+      "positive_count": 68,
+      "primary_tail_fraction": 0.1,
+      "primary_alpha": 0.8413750429095614,
+      "estimates": [
+        {
+          "tail_fraction": 0.05,
+          "k": 3,
+          "xi": 0.3486888787547289,
+          "alpha": 2.8678861326787812
+        },
+        {
+          "tail_fraction": 0.1,
+          "k": 6,
+          "xi": 1.1885306183338848,
+          "alpha": 0.8413750429095614
+        },
+        {
+          "tail_fraction": 0.2,
+          "k": 13,
+          "xi": 1.0175663586230985,
+          "alpha": 0.9827368913346662
+        }
+      ]
+    },
+    "tree_views": {
+      "current": {
+        "count": 21,
+        "zero_rate": 0.09523809523809523,
+        "saturation_rate": 0.7619047619047619,
+        "intermediate_rate": 0.14285714285714285,
+        "mean_binary_entropy_nats": 0.058237819313281924
+      },
+      "identity_component_states": {
+        "count": 402,
+        "zero_rate": 0.6616915422885572,
+        "saturation_rate": 0.2263681592039801,
+        "intermediate_rate": 0.10945273631840796,
+        "mean_binary_entropy_nats": 0.046520470394029546
+      },
+      "maximum_offline_recompute_abs_error": 0.0
+    },
+    "status_counts": {
+      "ok": 3
+    }
+  }
+}

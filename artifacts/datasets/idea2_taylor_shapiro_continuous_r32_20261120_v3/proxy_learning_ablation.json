@@ -1,0 +1,123 @@
+{
+  "schema_version": "proxy-learning-ablation@1.0.0",
+  "status": "all_arms_inadmissible",
+  "reason": {
+    "code": "no_observable_validation_p_hit",
+    "message": "validation contains no observable p_hit labels",
+    "selection_metric": "validation_p_hit_weighted_brier"
+  },
+  "arms": [
+    "teacher_only",
+    "proxy_feature",
+    "teacher_minus_proxy_residual",
+    "proxy_pretrain_then_teacher"
+  ],
+  "selected_arm": null,
+  "selection_scope": "reference_validation_only",
+  "selection_metric": "validation_p_hit_weighted_brier",
+  "requested_fractions": [
+    0.25,
+    0.5,
+    1.0
+  ],
+  "requested_seeds": [
+    17,
+    29,
+    43
+  ],
+  "requested_epochs": 120,
+  "requested_pretrain_epochs": 60,
+  "arm_results": [
+    {
+      "arm": "teacher_only",
+      "status": "inadmissible",
+      "error": {
+        "code": "no_observable_validation_p_hit",
+        "message": "validation contains no observable p_hit labels",
+        "selection_metric": "validation_p_hit_weighted_brier"
+      },
+      "validation_brier": null,
+      "validation_ece": null
+    },
+    {
+      "arm": "proxy_feature",
+      "status": "inadmissible",
+      "error": {
+        "code": "no_observable_validation_p_hit",
+        "message": "validation contains no observable p_hit labels",
+        "selection_metric": "validation_p_hit_weighted_brier"
+      },
+      "validation_brier": null,
+      "validation_ece": null
+    },
+    {
+      "arm": "teacher_minus_proxy_residual",
+      "status": "inadmissible",
+      "error": {
+        "code": "no_observable_validation_p_hit",
+        "message": "validation contains no observable p_hit labels",
+        "selection_metric": "validation_p_hit_weighted_brier"
+      },
+      "validation_brier": null,
+      "validation_ece": null
+    },
+    {
+      "arm": "proxy_pretrain_then_teacher",
+      "status": "inadmissible",
+      "error": {
+        "code": "no_observable_validation_p_hit",
+        "message": "validation contains no observable p_hit labels",
+        "selection_metric": "validation_p_hit_weighted_brier"
+      },
+      "validation_brier": null,
+      "validation_ece": null
+    }
+  ],
+  "runs": [],
+  "observation_counts": {
+    "train": {
+      "case_count": 240,
+      "p_hit_observation_count": 134,
+      "conditional_energy_observation_count": 2089,
+      "conditional_hit_count_observation_count": 2089
+    },
+    "validation": {
+      "case_count": 60,
+      "p_hit_observation_count": 0,
+      "conditional_energy_observation_count": 614,
+      "conditional_hit_count_observation_count": 614
+    },
+    "test": {
+      "case_count": 60,
+      "p_hit_observation_count": 0,
+      "conditional_energy_observation_count": 0,
+      "conditional_hit_count_observation_count": 0
+    }
+  },
+  "dataset": {
+    "dataset_id": "damage-dataset-v2-aa0fc301038df1c79ac21095",
+    "manifest_hash": "sha256:e0fa6c68af2b96ac7f74086139d30292274240a296bf9aa11ba9ee0c3231178a",
+    "manifest_sha256": "sha256:43b32de03d31c5c32af72b619baa1423237a9234a4d62cdfd916aa6bce16092c",
+    "sealed_test_sha256": "sha256:8ef53102551849afcfe3aea95899bb407bf903552ada227b93eed8dca55d8052"
+  },
+  "requested_inputs": {
+    "target_sha256": "sha256:5c4e936975e95f32d72cfe62e38263ae20ef310fb79160b08876d494756c651f",
+    "physics_sha256": "sha256:cdab954af294cf564dfe636005bad227e97ce924e7f5ca6559c5f74fe2498949"
+  },
+  "proxy_pretraining_pool": {
+    "requested_count": 512,
+    "status": "skipped_primary_validation_gate",
+    "teacher_labels_used": false
+  },
+  "x1_gate_status": "failed",
+  "research_use": "diagnostic_only_not_promoted",
+  "test_access_policy": {
+    "true_labels_present_in_development_package": false,
+    "test_result_json_lines_decoded": 0,
+    "open_count": 0,
+    "metrics_computed": false,
+    "selection_uses_test": false
+  },
+  "evidence_boundary": "The four-arm comparison is inadmissible because the frozen validation split has no observable p_hit labels. Conditional hurdle observations do not replace the primary validation gate.",
+  "report_hash": "sha256:48046246a20d1d50fc043623953ff369fa36f55af32e840535891ee3c3d9ce88"
+}

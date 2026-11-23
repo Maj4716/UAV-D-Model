@@ -1,0 +1,13 @@
+{
+  "schema_version": "1.0.0",
+  "contract_version": "stage2-mechanism-experiments@1.0.0",
+  "experiment": "C2",
+  "created_at": "2026-11-20T12:14:28.856553+00:00",
+  "engine_code_hash": "sha256:ce6282b3b861787dbfb34befa8cfd104643c32f19a5c6ab547f0a6ab875cdad0",
+  "physics_path": "D:\\Desktop\\UAV新\\configs\\physics\\loitering_impact.json",
+  "physics_file_hash": "sha256:3b44885ad0d94ac2ba9977670effff9e1eba45be33b7cf2a393378471f24ac8e",
+  "physics_registry_hash": "sha256:809b15a7010ed540403b299946caec96dc0c29aa03aba5e36aed61169af2ce45",
+  "direction_repeats": 16,
+  "v50_trials_per_speed": 512,
+  "seed": 2026112053
+}

@@ -1,0 +1,64 @@
+{
+  "variant_id": "e5-normal-s5-tau0p16",
+  "factors": {
+    "direction_noise_distribution": "normal",
+    "sigma_deg": 5.0,
+    "tau": 0.16
+  },
+  "target_hash": "sha256:8f03659312d50ec0ae497b77eb01dd4f8612aa4c61aa9e177aa90fde090492a2",
+  "physics_registry_hash": "sha256:4f878d80175f59748def658106bc0c55ff7d70039de5cfb2790ffceb744bdefe",
+  "trace_path": "D:\\Desktop\\UAV新\\artifacts\\validation\\idea2_optimization_20261120\\stage2_representative_scaled\\e5\\variants\\e5-normal-s5-tau0p16\\engine_results.minimal.jsonl.gz",
+  "elapsed_seconds": 19.213706399999865,
+  "summary": {
+    "case_count": 3,
+    "component_zero_rate": 0.7412935323383084,
+    "case_any_support_rate": 1.0,
+    "domain_complete_rate": 0.3333333333333333,
+    "mean_affected_replicate_fraction": 0.6666666666666666,
+    "positive_component_energy_tail": {
+      "positive_count": 52,
+      "primary_tail_fraction": 0.1,
+      "primary_alpha": 1.3595302007479022,
+      "estimates": [
+        {
+          "tail_fraction": 0.05,
+          "k": 2,
+          "xi": 0.4429066207522334,
+          "alpha": 2.257812263681221
+        },
+        {
+          "tail_fraction": 0.1,
+          "k": 5,
+          "xi": 0.7355482058801502,
+          "alpha": 1.3595302007479022
+        },
+        {
+          "tail_fraction": 0.2,
+          "k": 10,
+          "xi": 1.1766871520125797,
+          "alpha": 0.8498435614679927
+        }
+      ]
+    },
+    "tree_views": {
+      "current": {
+        "count": 21,
+        "zero_rate": 0.23809523809523808,
+        "saturation_rate": 0.19047619047619047,
+        "intermediate_rate": 0.5714285714285714,
+        "mean_binary_entropy_nats": 0.21517688989769976
+      },
+      "identity_component_states": {
+        "count": 402,
+        "zero_rate": 0.7412935323383084,
+        "saturation_rate": 0.07213930348258707,
+        "intermediate_rate": 0.14925373134328357,
+        "mean_binary_entropy_nats": 0.05491392603776718
+      },
+      "maximum_offline_recompute_abs_error": 0.0
+    },
+    "status_counts": {
+      "ok": 3
+    }
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "name": "azall_dom",
+  "kwargs": {
+    "azimuths_per_ring": 1000000,
+    "domain_censoring": "branch_probability"
+  },
+  "case_count": 2300,
+  "workers": 14,
+  "wall_seconds": 31.579766988754272,
+  "mean_case_seconds_in_worker": 0.17740367217390446,
+  "proxy_module_sha256": "ec3ec868f4168b211f44496c676843bc69eb30d368043232365f3aad5b11fd98",
+  "fragments_module_sha256": "7893284194f74cf3a9c06eb0c3014a73b83331cbb688006d12be64ad89769d5e",
+  "engine_code_hash_at_run": "sha256:ba753954ed856b13f59c8efcc3ab4d853f7d08722c03ca0fbecaa92fb8fc461e",
+  "finished_at_local": "2026-11-23T12:25:11+0800"
+}

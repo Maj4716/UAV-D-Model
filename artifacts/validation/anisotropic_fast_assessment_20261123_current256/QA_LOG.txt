@@ -1,0 +1,38 @@
+# Targeted pytest
+D:\ProgramData\Anaconda\python.exe -m pytest -q tests/test_anisotropic_fast_assessment_cli.py tests/test_fast_assessment.py tests/test_fast_sampling_proxy.py tests/test_fast_proxy_domain_and_layers.py tests/test_exposure_field.py tests/test_multifidelity.py -p no:cacheprovider
+.............................................                            [100%]
+
+
+# Calibrate help
+usage: run_anisotropic_fast_assessment.py calibrate [-h]
+                                                    --assessment ASSESSMENT
+                                                    --teacher-evidence TEACHER_EVIDENCE
+                                                    [--config CONFIG]
+                                                    [--split-role SPLIT_ROLE]
+                                                    --output-dir OUTPUT_DIR
+
+Compare fixed quick-assessment cases with existing non-test teacher rows. The
+command never executes a teacher.
+
+options:
+  -h, --help            show this help message and exit
+  --assessment ASSESSMENT
+                        quick assessment.json
+  --teacher-evidence TEACHER_EVIDENCE
+                        JSON teacher rows with explicit non-test
+                        role/provenance
+  --config CONFIG       diagnostic config
+  --split-role SPLIT_ROLE
+                        aggregate role label; must describe every explicit row
+                        role, e.g. validation or development_train_validation
+  --output-dir OUTPUT_DIR
+                        new output directory; existing paths are rejected
+
+
+# Scoped git diff check
+
+warning: in the working copy of 'README.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'damage_engine/fast_sampling_proxy.py', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'docs/INDEX.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'tests/test_fast_sampling_proxy.py', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'tools/README.md', LF will be replaced by CRLF the next time Git touches it

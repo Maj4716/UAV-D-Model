@@ -63,6 +63,8 @@ _PHYSICAL_METRIC_UNITS = {
     "component.fragment.spatial_damage_cluster_count": "count",
     "component.fragment.spatial_damage_cluster_max_diameter_m": "m",
     "component.fragment.hit_indicator": "1",
+    "component.fragment.hit_conditioned_log1p_deposited_energy_j": "log(1+J)",
+    "component.fragment.hit_conditioned_log1p_hit_count": "log(1+count)",
     "component.fragment.damage_positive_indicator": "1",
     "component.fragment.saturated_damage_indicator": "1",
     "component.fragment.hit_conditioned_degraded_probability": "1",
@@ -104,6 +106,8 @@ _PHYSICAL_METRIC_UNITS = {
     "summary.total_component_penetrations": "count",
     "summary.total_existing_hole_reuses": "count",
     "summary.total_out_of_domain_impacts": "count",
+    "summary.total_out_of_domain_armor_impacts": "count",
+    "summary.total_out_of_domain_component_impacts": "count",
     "summary.total_unique_armor_holes": "count",
     "summary.total_perforation_events": "count",
     "summary.total_opening_primitives": "count",
@@ -199,6 +203,119 @@ def build_replicate_trace(replicates: list[dict[str, Any]]) -> dict[str, Any]:
         "records": records,
         "scientific_status": "raw_simulator_repetitions_not_independent_physical_validation",
     }
+
+
+def _component_state_trace_record(
+    replicate: dict[str, Any],
+    *,
+    replicate_index: int,
+) -> dict[str, Any]:
+    """Extract the minimal joint state required to re-evaluate a damage tree."""
+
+    required = {
+        "mechanism_states",
+        "tree",
+        "domain_censoring",
+        "parameter_realization_hash",
+    }
+    missing = sorted(required - set(replicate))
+    if missing:
+        raise InputValidationError(
+            "component-state trace source is incomplete",
+            context={"replicate": replicate_index, "missing": missing},
+        )
+    tree = replicate["tree"]
+    if not isinstance(tree, dict) or "outputs" not in tree:
+        raise InputValidationError(
+            "component-state trace tree record is incomplete",
+            context={"replicate": replicate_index},
+        )
+    domain_censoring = replicate["domain_censoring"]
+    if not isinstance(domain_censoring, dict) or (
+        "penetration_affected_replicate" not in domain_censoring
+    ):
+        raise InputValidationError(
+            "component-state trace domain record is incomplete",
+            context={"replicate": replicate_index},
+        )
+    return deepcopy(
+        {
+            "replicate_index": replicate_index,
+            "parameter_realization_hash": replicate["parameter_realization_hash"],
+            "component_mechanism_states": replicate["mechanism_states"],
+            "system_outputs": tree["outputs"],
+            "domain_censoring": {
+                "penetration_affected_replicate": domain_censoring[
+                    "penetration_affected_replicate"
+                ]
+            },
+        }
+    )
+
+
+def _component_state_trace_payload(
+    records: list[dict[str, Any]],
+    *,
+    case_id: str,
+    target_id: str,
+    damage_tree_revision: str,
+    damage_tree_definition_hash: str,
+) -> dict[str, Any]:
+    if not records:
+        raise InputValidationError(
+            "component-state trace requires at least one completed replicate"
+        )
+    return {
+        "schema_version": "1.0.0",
+        "semantics": (
+            "joint_per_replicate_component_mechanism_states_before_tree_aggregation"
+        ),
+        "source_identity": {
+            "case_id": str(case_id),
+            "target_id": str(target_id),
+            "damage_tree_revision": str(damage_tree_revision),
+            "damage_tree_definition_hash": str(damage_tree_definition_hash),
+        },
+        "replicate_count": len(records),
+        "records": deepcopy(records),
+        "aggregation_contract": (
+            "evaluate_each_replicate_then_arithmetic_mean_system_outputs"
+        ),
+        "scientific_status": (
+            "raw_simulator_repetitions_not_independent_physical_validation"
+        ),
+    }
+
+
+def build_component_state_trace(
+    replicates: list[dict[str, Any]],
+    *,
+    case_id: str,
+    target_id: str,
+    damage_tree_revision: str,
+    damage_tree_definition_hash: str,
+) -> dict[str, Any]:
+    """Build the lightweight, versioned source for offline tree evaluation.
+
+    The trace stores joint per-replicate component states.  Tree outputs must be
+    recomputed for each record and averaged afterwards; evaluating a nonlinear
+    tree on component means changes the estimand.
+    """
+
+    records = [
+        _component_state_trace_record(
+            replicate,
+            replicate_index=index,
+        )
+        for index, replicate in enumerate(replicates)
+    ]
+    return _component_state_trace_payload(
+        records,
+        case_id=case_id,
+        target_id=target_id,
+        damage_tree_revision=damage_tree_revision,
+        damage_tree_definition_hash=damage_tree_definition_hash,
+    )
 
 
 @dataclass
@@ -383,6 +500,9 @@ class DamageEngine:
         adaptive_enabled = adaptive_target is not None or bool(physical_tolerances)
         capture_audit = bool(case["analysis"].get("capture_fragment_audit", False))
         capture_replicate_trace = bool(case["analysis"].get("capture_replicate_trace", False))
+        capture_component_state_trace = bool(
+            case["analysis"].get("capture_component_state_trace", False)
+        )
         root_seed = np.random.SeedSequence(int(case["analysis"]["aleatory_seed"]))
         replicate_seeds = root_seed.spawn(maximum_replicates)
         epistemic_seed = int(
@@ -406,6 +526,12 @@ class DamageEngine:
         statistics_store = OnlineStatisticsStore()
         retained_replicates: list[dict[str, Any]] | None = (
             [] if capture_replicate_trace else None
+        )
+        component_state_records: list[dict[str, Any]] | None = (
+            [] if capture_component_state_trace else None
+        )
+        damage_tree_definition_hash = content_hash(
+            self._target_data["damage_tree"]
         )
         parameter_hash_chain = content_hash(
             {"schema_version": "1.0.0", "semantics": "empty_replicate_parameter_chain"}
@@ -592,6 +718,50 @@ class DamageEngine:
                 self.damage_tree.evaluate_dependency_scenarios(mechanism_states)
             )
             tree = tree_gate_dependency_scenarios["declared"]
+            component_domain_censoring: dict[str, dict[str, Any]] = {}
+            for item in self.compiled_target.components:
+                component_id = item.object_id
+                hit_value = float(
+                    fragment.component_metrics[component_id]["hit_indicator"]
+                )
+                hit_could_change = bool(
+                    fragment.unresolved_component_hit_affected.get(
+                        component_id, False
+                    )
+                    and hit_value < 1.0
+                )
+                state_could_change = bool(
+                    fragment.unresolved_component_state_affected.get(
+                        component_id, False
+                    )
+                )
+                state_remaining_upper_mass: dict[str, dict[str, float]] = {}
+                state_affected_replicate: dict[str, dict[str, float]] = {}
+                for mechanism in ("fragment", "combined"):
+                    state_remaining_upper_mass[mechanism] = {}
+                    state_affected_replicate[mechanism] = {}
+                    for state, value in mechanism_states[mechanism][
+                        component_id
+                    ].items():
+                        target_could_change = bool(
+                            state_could_change and float(value) < 1.0
+                        )
+                        state_affected_replicate[mechanism][state] = float(
+                            target_could_change
+                        )
+                        state_remaining_upper_mass[mechanism][state] = (
+                            float(1.0 - float(value))
+                            if target_could_change
+                            else 0.0
+                        )
+                component_domain_censoring[component_id] = {
+                    "hit_indicator_affected_replicate": float(hit_could_change),
+                    "hit_indicator_remaining_upper_mass": (
+                        float(1.0 - hit_value) if hit_could_change else 0.0
+                    ),
+                    "state_affected_replicate": state_affected_replicate,
+                    "state_remaining_upper_mass": state_remaining_upper_mass,
+                }
             panel_damage_summary = (
                 fragment.panel_damage_state.summary()
                 if fragment.panel_damage_state is not None
@@ -638,7 +808,8 @@ class DamageEngine:
                     "domain_censoring": {
                         "penetration_affected_replicate": float(
                             replicate_has_unresolved_penetration
-                        )
+                        ),
+                        "components": component_domain_censoring,
                     },
                     "parameter_realization_hash": content_hash(parameter_realization),
                     "summary": {
@@ -652,6 +823,14 @@ class DamageEngine:
                         ),
                         "total_out_of_domain_impacts": float(
                             fragment.total_out_of_domain_impacts
+                        ),
+                        "total_out_of_domain_armor_impacts": float(
+                            fragment.out_of_domain_impacts_by_role.get("armor", 0)
+                        ),
+                        "total_out_of_domain_component_impacts": float(
+                            fragment.out_of_domain_impacts_by_role.get(
+                                "component", 0
+                            )
                         ),
                         "total_unique_armor_holes": float(
                             sum(
@@ -676,6 +855,13 @@ class DamageEngine:
             statistics_store.observe_replicate(replicate_record)
             if retained_replicates is not None:
                 retained_replicates.append(replicate_record)
+            if component_state_records is not None:
+                component_state_records.append(
+                    _component_state_trace_record(
+                        replicate_record,
+                        replicate_index=replicate_index,
+                    )
+                )
             parameter_hash_chain = content_hash(
                 {
                     "schema_version": "1.0.0",
@@ -731,18 +917,30 @@ class DamageEngine:
         if affected_replicate_fraction > 0.0:
             penetration_domain_probability_bounds = (
                 self._build_penetration_domain_censoring_bounds(
-                components,
-                armor,
-                tree,
-                affected_replicate_fraction=affected_replicate_fraction,
-            )
+                    components,
+                    armor,
+                    tree,
+                    statistics_store=statistics_store,
+                    affected_replicate_fraction=affected_replicate_fraction,
+                )
             )
         unresolved_mean = float(
             summary.get("total_out_of_domain_impacts", {"mean": 0.0})["mean"]
         )
+        unresolved_component_mean = float(
+            summary.get(
+                "total_out_of_domain_component_impacts", {"mean": 0.0}
+            )["mean"]
+        )
+        unresolved_armor_mean = float(
+            summary.get(
+                "total_out_of_domain_armor_impacts", {"mean": 0.0}
+            )["mean"]
+        )
         resolved_mean = float(
             summary.get("total_armor_hits", {"mean": 0.0})["mean"]
             + summary.get("total_component_hits", {"mean": 0.0})["mean"]
+            - unresolved_component_mean
         )
         penetration_domain_applicable = "fragment" in mechanisms
         observed_domain_complete = (
@@ -775,6 +973,8 @@ class DamageEngine:
             ),
             "mean_resolved_impact_count": resolved_mean,
             "mean_unresolved_impact_count": unresolved_mean,
+            "mean_unresolved_armor_impact_count": unresolved_armor_mean,
+            "mean_unresolved_component_impact_count": unresolved_component_mean,
             "affected_replicate_count": unresolved_replicate_count,
             "affected_replicate_fraction": affected_replicate_fraction,
             "zero_event_upper_confidence_bound": (
@@ -808,6 +1008,11 @@ class DamageEngine:
             ),
             "probability_bound_method": (
                 "affected-replicate worst-case bounded-outcome interval"
+                if affected_replicate_fraction > 0.0
+                else "not_required"
+            ),
+            "component_probability_bound_method": (
+                "component-specific affected-replicate bounds with global worst-case fallback"
                 if affected_replicate_fraction > 0.0
                 else "not_required"
             ),
@@ -983,6 +1188,18 @@ class DamageEngine:
                 statistics_store.replicate_count == maximum_replicates
             ),
         }
+        if retained_replicates is not None and component_state_records is not None:
+            replicate_storage_mode = (
+                "online_sufficient_moments_plus_raw_and_component_state_trace"
+            )
+        elif component_state_records is not None:
+            replicate_storage_mode = (
+                "online_sufficient_moments_plus_component_state_trace"
+            )
+        elif retained_replicates is not None:
+            replicate_storage_mode = "online_sufficient_moments_plus_raw_trace"
+        else:
+            replicate_storage_mode = "online_sufficient_moments"
         payload = {
             "status": "ok",
             "scientific_completion_status": (
@@ -1043,12 +1260,11 @@ class DamageEngine:
             "summary": summary,
             "penetration_domain_coverage": penetration_domain_coverage,
             "replicate_statistics_storage": {
-                "mode": (
-                    "online_sufficient_moments_plus_raw_trace"
-                    if retained_replicates is not None
-                    else "online_sufficient_moments"
-                ),
+                "mode": replicate_storage_mode,
                 "raw_trace_retained": retained_replicates is not None,
+                "component_state_trace_retained": (
+                    component_state_records is not None
+                ),
                 "parameter_realization_hash_chain": parameter_hash_chain,
                 "hash_chain_schema_version": "1.0.0",
             },
@@ -1071,6 +1287,18 @@ class DamageEngine:
             if retained_replicates is None:
                 raise RuntimeError("replicate trace retention invariant failed")
             payload["replicate_trace"] = build_replicate_trace(retained_replicates)
+        if capture_component_state_trace:
+            if component_state_records is None:
+                raise RuntimeError(
+                    "component-state trace retention invariant failed"
+                )
+            payload["component_state_trace"] = _component_state_trace_payload(
+                component_state_records,
+                case_id=case["case_id"],
+                target_id=self.target_data["target_id"],
+                damage_tree_revision=self.damage_tree.version,
+                damage_tree_definition_hash=damage_tree_definition_hash,
+            )
         return payload
 
     def _has_converged(
@@ -1310,6 +1538,7 @@ class DamageEngine:
         armor: dict,
         tree: dict,
         *,
+        statistics_store: OnlineStatisticsStore,
         affected_replicate_fraction: float,
     ) -> dict:
         """Build separate finite bounds without changing legacy statistic records."""
@@ -1334,21 +1563,103 @@ class DamageEngine:
                 "point": point,
                 "lower": lower,
                 "upper": upper,
+                "width": upper - lower,
                 "affected_replicate_fraction": fraction,
                 "method": "affected_replicate_worst_case_bounded_outcome",
                 "monotonicity": direction,
             }
 
+        def component_specific_bound(
+            statistics: dict,
+            *,
+            affected_path: tuple[str, ...],
+            remaining_mass_path: tuple[str, ...],
+            estimand: str,
+        ) -> dict | None:
+            if not isinstance(statistics, dict):
+                return None
+            mean = statistics.get("mean")
+            if not isinstance(mean, (int, float)) or isinstance(mean, bool):
+                return None
+            point = float(mean)
+            affected = float(
+                statistics_store.statistics(
+                    affected_path,
+                    probability=True,
+                )["mean"]
+            )
+            remaining_mass = float(
+                statistics_store.statistics(remaining_mass_path)["mean"]
+            )
+            lower = float(np.clip(point, 0.0, 1.0))
+            upper = float(np.clip(point + remaining_mass, lower, 1.0))
+            return {
+                "point": point,
+                "lower": lower,
+                "upper": upper,
+                "width": upper - lower,
+                "affected_replicate_fraction": affected,
+                "method": (
+                    "component_specific_affected_replicate_"
+                    "worst_case_bounded_outcome_v1"
+                ),
+                "monotonicity": "failure_monotone_increasing",
+                "estimand": estimand,
+                "proof_scope": (
+                    "observed current component contacts; downstream same-ray "
+                    "reachability; all-component fallback after unresolved armor"
+                ),
+            }
+
         component_bounds: dict[str, dict] = {}
         for component_id, component in components.items():
             state_results = component.get("damage_states", {})
-            component_bounds[component_id] = {}
+            component_bounds[component_id] = {
+                "fragment_metrics": {
+                    "hit_indicator": component_specific_bound(
+                        component.get("fragment_metrics", {}).get(
+                            "hit_indicator", {}
+                        ),
+                        affected_path=(
+                            "domain_censoring",
+                            "components",
+                            component_id,
+                            "hit_indicator_affected_replicate",
+                        ),
+                        remaining_mass_path=(
+                            "domain_censoring",
+                            "components",
+                            component_id,
+                            "hit_indicator_remaining_upper_mass",
+                        ),
+                        estimand="per_replicate_component_hit_indicator_mean",
+                    )
+                }
+            }
             for mechanism in ("fragment", "combined"):
                 mechanism_bounds: dict[str, dict] = {}
                 for state, statistics in state_results.get(mechanism, {}).items():
-                    state_bound = bound(
+                    state_bound = component_specific_bound(
                         statistics,
-                        direction="failure_monotone_increasing",
+                        affected_path=(
+                            "domain_censoring",
+                            "components",
+                            component_id,
+                            "state_affected_replicate",
+                            mechanism,
+                            state,
+                        ),
+                        remaining_mass_path=(
+                            "domain_censoring",
+                            "components",
+                            component_id,
+                            "state_remaining_upper_mass",
+                            mechanism,
+                            state,
+                        ),
+                        estimand=(
+                            f"per_replicate_{mechanism}_{state}_probability_mean"
+                        ),
                     )
                     if state_bound is not None:
                         mechanism_bounds[state] = state_bound
@@ -1405,7 +1716,9 @@ class DamageEngine:
                 },
             }
         return {
-            "method": "affected_replicate_worst_case_bounded_outcome",
+            "method": (
+                "component_specific_bounds_with_global_worst_case_fallback_v1"
+            ),
             "affected_replicate_fraction": fraction,
             "components": component_bounds,
             "armor_integrity": armor_bounds,
@@ -1444,15 +1757,29 @@ class DamageEngine:
             fragment_keys = statistics_store.child_keys(
                 ("fragment_metrics", identifier)
             )
-            fragment_metrics = {
-                key: statistics_store.statistics(
-                    ("fragment_metrics", identifier, key),
-                    probability=is_probability_statistic_path(
-                        ("fragment_metrics", identifier, key)
-                    ),
-                )
-                for key in fragment_keys
+            conditional_estimands = {
+                "hit_conditioned_log1p_deposited_energy_j": (
+                    "conditional_mean_log1p_deposited_energy_j_given_component_hit"
+                ),
+                "hit_conditioned_log1p_hit_count": (
+                    "conditional_mean_log1p_hit_count_given_component_hit"
+                ),
             }
+            fragment_metrics = {}
+            for key in fragment_keys:
+                path = ("fragment_metrics", identifier, key)
+                if key in conditional_estimands:
+                    fragment_metrics[key] = statistics_store.conditioned_statistics(
+                        path,
+                        ("fragment_metrics", identifier, "hit_indicator"),
+                        estimand=conditional_estimands[key],
+                        conditioning="replicate_has_component_hit",
+                    )
+                else:
+                    fragment_metrics[key] = statistics_store.statistics(
+                        path,
+                        probability=is_probability_statistic_path(path),
+                    )
             blast_keys = statistics_store.child_keys(("blast_metrics", identifier))
             blast_metrics = {
                 key: statistics_store.statistics(

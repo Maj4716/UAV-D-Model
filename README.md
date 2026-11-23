@@ -8,9 +8,10 @@
 
 - 破片、分层侵彻、冲击波、部件响应与毁伤树的软件计算；
 - 面向装甲目标的首次正向接触采样，拒绝未命中、反向飞行、零速度与接触身份漂移；
-- Reference 与 Coverage 双臂采样、选择概率、设计权重、域删失和拒绝分账；
+- Reference 与 Coverage 双臂采样、scrambled Sobol Reference 设计、选择概率、设计权重、域删失和拒绝分账；
 - JSONL/Parquet/NPZ 数据归档、内容哈希、恢复、严格读取与 PyTorch 接口；
-- 零质量、条件正响应、部件覆盖、树饱和、ESS 与数据泄漏审计。
+- 重复级部件状态轨迹、离线树重算和跨重复数的部件命中概率目标；
+- 零质量、条件正响应、部件覆盖、树饱和、ESS、数据泄漏与多任务可学习性审计。
 
 软件测试通过代表实现与数据合同一致，不代表目标参数、毁伤阈值或合成标签已获得外部真实性验证。当前稳定数据包的角色是 `development_ready`。
 
@@ -20,10 +21,10 @@
 
 ```powershell
 conda activate pytorch312-lmdt
-python -m pip install -e ".[dataset,test,torch]"
+python -m pip install -e ".[dataset,sampling,test,torch]"
 ```
 
-核心依赖为 NumPy 与 jsonschema；数据归档、测试和 PyTorch 支持分别由可选依赖组提供。
+核心依赖为 NumPy 与 jsonschema；数据归档、采样设计、测试和 PyTorch 支持分别由 `dataset`、`sampling`、`test`、`torch` 可选依赖组提供。显式使用 scrambled Sobol 或 maximin LHS 的 SamplingSpec 需要安装 `.[sampling]`；未声明 `design_sequence` 的旧 randomized-LHS 路径不加载 SciPy。
 
 ## 快速验证
 
@@ -54,9 +55,12 @@ python -m damage_engine sampler validate-plan `
   --target configs/targets/target.fragment_only.v1.json `
   --physics configs/physics/loitering_impact.json `
   --base-case configs/cases/loitering_impact.fragment_only.v1.json `
-  --sampling-spec configs/sampling/loitering_impact.fragment_only.v1.json `
+  --sampling-spec configs/sampling/p0_contact_reference.json `
   --label-spec configs/labels/loitering_impact.fragment_only.v1.json
 ```
+
+该示例使用 1.4 接触位姿规范；`configs/sampling/loitering_impact.fragment_only.v1.json`
+保留为 1.2 旧数据复现入口，不作为新计划模板。
 
 ## 当前开发数据包
 
@@ -83,10 +87,25 @@ python tools/validate_neural_sampling_dataset.py `
 
 - V5 Coverage 的代理门通过；独立软件教师总门 `overall_pass=false`，失败项见 `artifacts/validation/sampling/v5_teacher_aggregate.json`。
 - Coverage 适合作为训练增强臂，不能替代 Reference，也不能用其原始频率代表参考总体发生率。
+- 最新球面入射 Reference 配置使用 scrambled Sobol、五个主来向和首层装甲状态输入，并保留完整序列来源；它是状态为 `provisional` 的独立采样修订，未覆盖旧冻结配置。
+- 该配置的 360 例试生成已完成，采样质量门通过；域完整率为 38.06%，R=4 派生 support 没有可判定负例，因此未晋升为稳定基线，数据包只用于管线与探索性调试。完整结论见 `artifacts/validation/idea2_optimization_20261120/FINAL_REPORT.md`。
+- `p_hit` 是跨重复数的部件主目标；二值 support 由固定阈值和置信区间派生，区间跨阈值的样本不进入该二值任务。
+- 权威树目标由逐重复树结果取均值得到；期望部件概率上的树结果只作辅助诊断。
+- Phase 0 多任务诊断固定使用 validation-only 评价、三种训练比例、三个随机种子和两个输入视图，禁止访问 test split。
 - 引擎参数搜索没有产生可晋升候选，`selected_candidate_id=null`。
 - 目标参数状态仍为 `unverified`；数据适合管线、模型、损失和采样方法开发。
 
 稳定证据入口为 `artifacts/validation/manifest.json`。
+
+相关实现入口：
+
+- `tools/run_anisotropic_fast_assessment.py` 与 `docs/ANISOTROPIC_FAST_ASSESSMENT.md`：不构建正式数据集的 L1 生成器、L2 方向暴露、L3 既有教师残差快评；
+- `configs/sampling/p0_sphere_entry_sobol_no_bottom_impact_state.v1.json`：最新球面入射 Sobol Reference 配置；
+- `tools/run_phase0_learning_diagnostics.py`：Phase 0 学习曲线与瓶颈诊断；
+- `damage_engine/hurdle_targets.py` 与 `tools/extract_hurdle_targets.py`：概率主目标与批量提取；
+- `tools/recompute_tree_outputs.py`：从重复级状态轨迹离线重算树输出；
+- `docs/FRAGMENT_DIRECTION_MODEL.md`：破片方向假设、敏感性候选和晋升门。
+- `artifacts/validation/idea2_optimization_20261120/FINAL_REPORT.md`：idea2 优化、试生成指标和训练适用性结论。
 
 ## 项目结构
 
@@ -110,6 +129,8 @@ python tools/validate_neural_sampling_dataset.py `
 - [系统架构](docs/ARCHITECTURE.md)
 - [数据管线](docs/DATA_PIPELINE.md)
 - [采样与神经网络](docs/SAMPLING_AND_ML.md)
+- [各向异性快速评估](docs/ANISOTROPIC_FAST_ASSESSMENT.md)
+- [破片方向模型卡](docs/FRAGMENT_DIRECTION_MODEL.md)
 - [研究发现](docs/RESEARCH_FINDINGS.md)
 - [验证与验收](docs/VALIDATION.md)
 - [架构与研究决策](docs/DECISIONS.md)

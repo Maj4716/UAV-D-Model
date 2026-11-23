@@ -1,0 +1,33 @@
+{
+  "az4": {
+    "review_variant": "v0",
+    "max_abs_diff": {
+      "lambda": 0.0,
+      "p_deg": 0.0,
+      "p_fail": 0.0,
+      "ood_packet_frac": 0.0,
+      "complete_flag_disagreements": 0
+    }
+  },
+  "az4_s7777777": {
+    "review_variant": "v1",
+    "max_abs_diff": {
+      "lambda": 0.0,
+      "p_deg": 0.0,
+      "p_fail": 0.0,
+      "ood_packet_frac": 0.0,
+      "complete_flag_disagreements": 0
+    }
+  },
+  "azall": {
+    "review_variant": "v2",
+    "max_abs_diff": {
+      "lambda": 0.0,
+      "p_deg": 0.0,
+      "p_fail": 0.0,
+      "ood_packet_frac": 0.0,
+      "complete_flag_disagreements": 0
+    }
+  },
+  "all_bitwise_identical": true
+}

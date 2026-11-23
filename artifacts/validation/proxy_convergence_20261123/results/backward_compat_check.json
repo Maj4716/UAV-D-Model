@@ -1,0 +1,20 @@
+{
+  "cases": 40,
+  "configs": [
+    "v0",
+    "v0_exposure",
+    "v1",
+    "v2"
+  ],
+  "pre_edit_module_sha256": "3b2bafbbc24660179a2afc5c7fd73c2ee7f132d46e6891eb2c4d30654da20992",
+  "mismatch_count": 0,
+  "mismatches": [],
+  "added_top_level_keys": [
+    "component_hit_probabilities",
+    "component_hit_probability_semantics",
+    "damage_accumulation",
+    "domain_censoring",
+    "out_of_domain_mass_fraction",
+    "source_realizations"
+  ]
+}

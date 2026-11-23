@@ -1,0 +1,1 @@
+D:\ProgramData\Anaconda\python.exe tools/run_anisotropic_fast_assessment.py quick --cases artifacts/datasets/recovery_role_r8_r32_train2000_eval300_20261122/rounds/round-000/formal_cases.jsonl.gz --physics configs/physics/loitering_impact.taylor_shapiro.obliquity_bound.v3.json --max-cases 256 --output-dir artifacts/validation/anisotropic_fast_assessment_20261123_live256_v2

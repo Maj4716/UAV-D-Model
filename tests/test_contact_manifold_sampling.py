@@ -19,6 +19,7 @@ from damage_engine.label_spec import LabelSpec
 from damage_engine.learning_input_identity import (
     LOITERING_IMPACT_CONTACT_POSE_MODEL_INPUT_DEFINITION,
     LOITERING_IMPACT_CONTACT_POSE_TRAINING_FEATURE_NAMES,
+    LOITERING_IMPACT_FIRST_ARMOR_STATE_MODEL_INPUT_DEFINITION,
     loitering_impact_contact_pose_fixed_scenario_fingerprint,
     loitering_impact_contact_pose_learning_input_fingerprint,
     loitering_impact_contact_pose_training_vector,
@@ -40,6 +41,12 @@ SPEC_PATH = (
     / "configs"
     / "sampling"
     / "contact_pose.smoke.v1.json"
+)
+NO_BOTTOM_IMPACT_STATE_SPEC_PATH = (
+    ROOT
+    / "configs"
+    / "sampling"
+    / "p0_sphere_entry_sobol_no_bottom_impact_state.v1.json"
 )
 
 
@@ -334,4 +341,105 @@ def test_contact_pose_archive_exposes_exact_15d_learner_input(
     view = TrainingViewDataset(train, artifact, proxy_boundary="end_to_end")
     assert view.feature_names == LOITERING_IMPACT_CONTACT_POSE_TRAINING_FEATURE_NAMES
     assert tuple(view[0]["training_x"].shape) == (15,)
+
+
+def test_first_armor_archive_and_loader_share_the_exact_prelabel_16d_input(
+    tmp_path: Path,
+) -> None:
+    engine = _engine()
+    document = load_json(NO_BOTTOM_IMPACT_STATE_SPEC_PATH)
+    document["budgets"] = {
+        "train_pilot": 6,
+        "validation": 6,
+        "test": 6,
+        "rare_stress_test": 0,
+    }
+    for allocation in document["round_budgets"][0]["allocations"]:
+        allocation["count"] = 6
+    document["formal_policy"]["replicates"] = 2
+    document["replicate_policy"]["default_replicates"] = 2
+    document["legal_sampling"]["max_attempts_per_allocation"] = 120
+    plan = _factory(
+        engine,
+        _base_case(engine),
+        SamplingSpec(document),
+    ).build_reference_plan()
+
+    definition = LOITERING_IMPACT_FIRST_ARMOR_STATE_MODEL_INPUT_DEFINITION
+    expected_by_id = {
+        case["case_id"]: np.asarray(
+            definition.vector(engine.prepare_case(case)), dtype=np.float32
+        )
+        for case in plan.cases
+    }
+    output = tmp_path / "first-armor-state-archive"
+    manifest = DatasetWriter(output).run_cases(engine, plan.cases)
+
+    assert manifest["tensor_contract"]["version"] == "1.8.0"
+    assert manifest["model_input_contract"]["version"] == definition.version
+    assert manifest["model_input_contract"]["tensor_field"] == definition.tensor_field
+    assert len(manifest["model_input_contract"]["features"]) == 16
+    with np.load(output / "tensors.npz", allow_pickle=False) as tensors:
+        case_ids = tensors["case_ids"].tolist()
+        archived = tensors[definition.tensor_field]
+        masks = tensors[definition.mask_field]
+        assert archived.shape == (len(case_ids), 16)
+        assert masks.shape == archived.shape
+        assert masks.all()
+        for row, case_id in enumerate(case_ids):
+            np.testing.assert_allclose(
+                archived[row], expected_by_id[case_id], rtol=0.0, atol=0.0
+            )
+
+    dataset = TorchDamageDataset(output)
+    sample = dataset[0]
+    assert tuple(sample[definition.tensor_field].shape) == (16,)
+    assert tuple(sample[definition.mask_field].shape) == (16,)
+    np.testing.assert_allclose(
+        sample[definition.tensor_field].numpy(),
+        expected_by_id[sample["case_id"]],
+        rtol=0.0,
+        atol=0.0,
+    )
+
+
+def test_first_armor_sampling_checkpoint_preserves_16d_learning_identity(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    engine = _engine()
+    document = load_json(NO_BOTTOM_IMPACT_STATE_SPEC_PATH)
+    document["budgets"] = {
+        "train_pilot": 6,
+        "validation": 6,
+        "test": 6,
+        "rare_stress_test": 0,
+    }
+    for allocation in document["round_budgets"][0]["allocations"]:
+        allocation["count"] = 6
+    document["formal_policy"]["replicates"] = 2
+    document["replicate_policy"]["default_replicates"] = 2
+    document["legal_sampling"]["max_attempts_per_allocation"] = 120
+
+    def teacher_must_not_run(*_args, **_kwargs):
+        raise AssertionError("checkpoint initialization executed the teacher")
+
+    monkeypatch.setattr(engine, "run", teacher_must_not_run)
+    root = tmp_path / "first-armor-checkpoint"
+    checkpoint, plan = initialize_sampling_run(
+        root,
+        engine=engine,
+        base_case=_base_case(engine),
+        sampling_spec=SamplingSpec(document),
+        label_spec=_label_spec(),
+    )
+
+    assert verify_sampling_checkpoint(root) == checkpoint
+    definition = LOITERING_IMPACT_FIRST_ARMOR_STATE_MODEL_INPUT_DEFINITION
+    selected = [row for row in plan.candidate_rows if row["selected"]]
+    assert all(
+        row["learning_input_hash"]
+        == definition.learning_input_fingerprint(case)
+        for row, case in zip(selected, plan.cases, strict=True)
+    )
 

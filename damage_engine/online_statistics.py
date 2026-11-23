@@ -156,6 +156,86 @@ class OnlineStatisticsStore:
             ) from exc
         return moments.statistics(probability=probability)
 
+    def conditioned_statistics(
+        self,
+        value_path: Iterable[str],
+        condition_path: Iterable[str],
+        *,
+        estimand: str,
+        conditioning: str,
+    ) -> dict[str, Any]:
+        """Aggregate ``value`` only over replicates selected by a binary path.
+
+        The caller supplies zero for ``value`` when ``condition`` is zero.
+        Welford moments retain the first and second raw sums, so the selected
+        subset's mean and variance can be reconstructed without an O(R) trace.
+        """
+
+        value_key = tuple(str(part) for part in value_path)
+        condition_key = tuple(str(part) for part in condition_path)
+        try:
+            value = self._series[value_key]
+            condition = self._series[condition_key]
+        except KeyError as exc:
+            raise InputValidationError(
+                "requested conditioned statistic path was not observed",
+                context={
+                    "value_path": list(value_key),
+                    "condition_path": list(condition_key),
+                },
+            ) from exc
+        if value.count != condition.count or value.count != self.replicate_count:
+            raise InputValidationError(
+                "conditioned statistic paths do not share the replicate count"
+            )
+
+        condition_sum = condition.mean * condition.count
+        condition_sum_squares = (
+            condition.sum_squared_deviations
+            + condition.count * condition.mean * condition.mean
+        )
+        tolerance = 1.0e-10 * max(1.0, abs(condition_sum))
+        positive_count = int(round(condition_sum))
+        if (
+            positive_count < 0
+            or positive_count > condition.count
+            or abs(condition_sum - positive_count) > tolerance
+            or abs(condition_sum_squares - condition_sum) > tolerance
+        ):
+            raise InputValidationError(
+                "conditioned statistic requires a binary indicator path",
+                context={"condition_path": list(condition_key)},
+            )
+
+        value_sum = value.mean * value.count
+        value_sum_squares = (
+            value.sum_squared_deviations + value.count * value.mean * value.mean
+        )
+        if positive_count == 0:
+            mean = sample_variance = None
+        else:
+            mean = value_sum / positive_count
+            sample_variance = (
+                max(0.0, value_sum_squares - value_sum * value_sum / positive_count)
+                / (positive_count - 1)
+                if positive_count >= 2
+                else None
+            )
+        result = statistics_dict_from_moments(
+            count=positive_count,
+            mean=mean,
+            sample_variance=sample_variance,
+            probability=False,
+        )
+        result.update(
+            {
+                "estimand": str(estimand),
+                "conditioning": str(conditioning),
+                "random_level": "within_case_hit_positive_replicates",
+            }
+        )
+        return result
+
     def child_keys(self, path: Iterable[str]) -> tuple[str, ...]:
         prefix = tuple(str(part) for part in path)
         return self._children.get(prefix, ())

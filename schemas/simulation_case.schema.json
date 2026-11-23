@@ -97,7 +97,12 @@
       ],
       "properties": {
         "profile_id": {"enum": ["small_front", "medium_front", "large_front"]},
-        "profile_revision": {"const": "loitering-munition-reference-port-v1"},
+        "profile_revision": {
+          "enum": [
+            "loitering-munition-reference-port-v1",
+            "loitering-munition-taylor-shapiro-v2"
+          ]
+        },
         "display_name_zh": {"type": "string", "minLength": 1},
         "projectile_length_m": {"type": "number", "exclusiveMinimum": 0},
         "projectile_diameter_m": {"type": "number", "exclusiveMinimum": 0},
@@ -374,6 +379,7 @@
         "coupling_model": {"enum": ["none", "sequential"]},
         "capture_fragment_audit": {"type": "boolean", "default": false},
         "capture_replicate_trace": {"type": "boolean", "default": false},
+        "capture_component_state_trace": {"type": "boolean", "default": false},
         "evaluation_standard_ids": {
           "type": "array",
           "minItems": 1,

@@ -1,0 +1,10 @@
+== reproduction_check.py313 (3.13.5 2.1.3)
+exit=0 -> reproduction_check.py313
+== final_module_consistency_60.py313 (3.13.5 2.1.3)
+exit=0 -> final_module_consistency_60.py313
+== teacher_equivalence_4.py312 (3.12.13 2.4.6)
+exit=0 -> teacher_equivalence_4.py312
+== teacher_equivalence_4.py313 (3.13.5 2.1.3)
+exit=1 -> teacher_equivalence_4.py313
+originals restored
+ALL_DONE

@@ -2,13 +2,34 @@ from __future__ import annotations
 
 import math
 from dataclasses import dataclass
-from typing import Iterable
+from typing import Iterable, Literal
 
 import numpy as np
 
 from .errors import InputValidationError
 from .model_snapshot import FrozenSnapshotDict, detached_snapshot
-from .utils import EPS, normalize, quaternion_matrix_xyzw
+from .utils import EPS, content_hash, normalize, quaternion_matrix_xyzw
+
+
+AABB_ENCLOSING_SPHERE_ALGORITHM_ID = "target-aabb-circumsphere@1.0.0"
+RAY_INTERSECTION_POINT_DECIMALS = 12
+
+
+def _canonical_ray_intersection_point(point: np.ndarray) -> np.ndarray:
+    """Remove origin-dependent roundoff from an otherwise identical ray hit.
+
+    Narrow-phase distances are reconstructed as ``origin + t * direction``.
+    Translating the origin along the same directed line can therefore change a
+    boundary coordinate by a few ulps.  Downstream fragment rays start exactly
+    on that boundary, so the numerical side of the surface must not depend on
+    the longitudinal ray parameterization.  A 1e-12 m canonical grid is four
+    orders of magnitude tighter than the impact-position contract tolerance.
+    """
+
+    canonical = np.round(np.asarray(point, dtype=np.float64), RAY_INTERSECTION_POINT_DECIMALS)
+    zero_threshold = 0.5 * 10.0 ** (-RAY_INTERSECTION_POINT_DECIMALS)
+    canonical[np.abs(canonical) < zero_threshold] = 0.0
+    return canonical
 
 
 @dataclass(frozen=True)
@@ -25,6 +46,66 @@ class RayHit:
     @property
     def path_length_m(self) -> float:
         return max(0.0, float(self.exit_t - self.entry_t))
+
+
+@dataclass(frozen=True)
+class EnclosingSphere:
+    """Versioned conservative sphere around compiled target-object AABBs."""
+
+    center_target_m: tuple[float, float, float]
+    radius_m: float
+    clearance_m: float
+    object_scope: Literal["all", "armor"]
+    target_id: str
+    algorithm_id: str = AABB_ENCLOSING_SPHERE_ALGORITHM_ID
+
+    def __post_init__(self) -> None:
+        center = tuple(float(value) for value in self.center_target_m)
+        radius = float(self.radius_m)
+        clearance = float(self.clearance_m)
+        if len(center) != 3 or not all(math.isfinite(value) for value in center):
+            raise InputValidationError("enclosing-sphere center must be a finite 3-vector")
+        if not math.isfinite(radius) or radius <= 0.0:
+            raise InputValidationError("enclosing-sphere radius must be finite and positive")
+        if not math.isfinite(clearance) or clearance < 0.0:
+            raise InputValidationError("enclosing-sphere clearance must be finite and non-negative")
+        if self.object_scope not in {"all", "armor"}:
+            raise InputValidationError("enclosing-sphere object scope is unsupported")
+        if self.algorithm_id != AABB_ENCLOSING_SPHERE_ALGORITHM_ID:
+            raise InputValidationError("enclosing-sphere algorithm is unsupported")
+        if not isinstance(self.target_id, str) or not self.target_id:
+            raise InputValidationError("enclosing-sphere target_id must be nonempty")
+        object.__setattr__(self, "center_target_m", center)
+        object.__setattr__(self, "radius_m", radius)
+        object.__setattr__(self, "clearance_m", clearance)
+
+    def contains_point(self, point_target_m: Iterable[float]) -> bool:
+        point = np.asarray(tuple(point_target_m), dtype=np.float64)
+        if point.shape != (3,) or not np.isfinite(point).all():
+            raise InputValidationError("sphere containment point must be a finite 3-vector")
+        center = np.asarray(self.center_target_m, dtype=np.float64)
+        tolerance = 32.0 * np.finfo(np.float64).eps * max(1.0, self.radius_m)
+        return bool(np.linalg.norm(point - center) <= self.radius_m + tolerance)
+
+    def _definition_document(self) -> dict:
+        return {
+            "algorithm_id": self.algorithm_id,
+            "target_id": self.target_id,
+            "object_scope": self.object_scope,
+            "center_target_m": list(self.center_target_m),
+            "radius_m": self.radius_m,
+            "clearance_m": self.clearance_m,
+        }
+
+    @property
+    def definition_hash(self) -> str:
+        return content_hash(self._definition_document())
+
+    def as_document(self) -> dict:
+        return {
+            **self._definition_document(),
+            "definition_hash": self.definition_hash,
+        }
 
 
 class Geometry:
@@ -580,6 +661,42 @@ class CompiledTarget:
             self._build_bvh(np.arange(len(self.objects), dtype=np.int64)),
         )
 
+    def enclosing_sphere(
+        self,
+        *,
+        object_scope: Literal["all", "armor"] = "all",
+        clearance_m: float = 0.0,
+    ) -> EnclosingSphere:
+        """Return the deterministic AABB circumsphere for the selected objects."""
+
+        if object_scope not in {"all", "armor"}:
+            raise InputValidationError(
+                "enclosing-sphere object_scope must be 'all' or 'armor'"
+            )
+        clearance = float(clearance_m)
+        if not math.isfinite(clearance) or clearance < 0.0:
+            raise InputValidationError(
+                "enclosing-sphere clearance_m must be finite and non-negative"
+            )
+        selected = self.objects if object_scope == "all" else self.armor
+        lower = np.min(
+            np.asarray([item.geometry.bounds_min for item in selected], dtype=np.float64),
+            axis=0,
+        )
+        upper = np.max(
+            np.asarray([item.geometry.bounds_max for item in selected], dtype=np.float64),
+            axis=0,
+        )
+        center = 0.5 * (lower + upper)
+        radius = float(np.linalg.norm(0.5 * (upper - lower))) + clearance
+        return EnclosingSphere(
+            center_target_m=tuple(float(value) for value in center),
+            radius_m=radius,
+            clearance_m=clearance,
+            object_scope=object_scope,
+            target_id=self.target_id,
+        )
+
     def _build_bvh(self, indices: np.ndarray) -> _BVHNode:
         bounds_min = np.min(self._bounds_lower[indices], axis=0)
         bounds_max = np.max(self._bounds_upper[indices], axis=0)
@@ -734,7 +851,9 @@ class CompiledTarget:
                     role=item.role,
                     entry_t=entry,
                     exit_t=min(exit_value, maximum_distance_m),
-                    entry_point=origin + entry * direction,
+                    entry_point=_canonical_ray_intersection_point(
+                        origin + entry * direction
+                    ),
                     entry_normal=normalize(normal, name="surface normal"),
                     response=item.response,
                     source=item.source,

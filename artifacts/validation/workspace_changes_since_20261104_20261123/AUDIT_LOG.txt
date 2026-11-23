@@ -1,0 +1,11 @@
+snapshot_started_at=2026-11-23T13:08:16+08:00
+snapshot_finished_at=2026-11-23T13:08:20+08:00
+branch=main
+head=ff2ef1f21c7d6bf73630bdb11331289278fb69dd
+cutoff=2026-11-04T00:00:00+08:00
+commit_count=3
+historical_commit_change_rows=1863
+tracked_worktree_diff_files=43
+current_inventory_files=1885
+current_inventory_bytes=520258306
+scan_errors=0

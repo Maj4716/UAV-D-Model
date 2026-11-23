@@ -1,0 +1,131 @@
+{
+  "schema_version": "credibility-plan@1.0.0",
+  "dossier_id": "idea2-uav-damage-engine-credibility-v1",
+  "model_scope": "fragment-only software teacher with unvalidated response parameters",
+  "categories": [
+    {
+      "category_id": "C1",
+      "title": "性质与极限测试",
+      "status": "incomplete",
+      "acceptance_rule": "all preregistered order, closure, monotonicity, symmetry, zero-limit, OOD-bound and convergence properties pass",
+      "evidence_paths": [
+        "tests/test_physics_invariants_p012.py",
+        "tests/test_idea2_credibility_properties.py",
+        "tests/test_taylor_shapiro_direction.py",
+        "artifacts/experiments/E0_taylor_shapiro_continuous_scaled_frozen_20261120.json",
+        "artifacts/validation/idea2_full_implementation_20261120/E0_ANALYSIS.md",
+        "artifacts/validation/idea2_full_implementation_20261120/FINAL_QA_20261120.md"
+      ],
+      "open_items": [
+        "run the preregistered 200-case R32 E0 TOST rather than the completed 8-case R8 scaled check",
+        "extend OOD and monotonicity properties to the formal parameter corners"
+      ]
+    },
+    {
+      "category_id": "C2",
+      "title": "解析与半独立对照",
+      "status": "incomplete",
+      "acceptance_rule": "Gurney, angle, V50 midpoint/width, and stratified proxy-teacher checks pass",
+      "evidence_paths": [
+        "tests/test_penetration.py",
+        "tests/test_taylor_shapiro_direction.py",
+        "docs/FRAGMENT_DIRECTION_MODEL.md",
+        "artifacts/validation/idea2_optimization_20261120/stage2_representative_scaled/README.md",
+        "artifacts/validation/idea2_full_implementation_20261120/E2_E7_ANALYSIS.md",
+        "tools/evaluate_proxy_teacher_distribution.py",
+        "tests/test_proxy_teacher_distribution.py",
+        "artifacts/datasets/idea2_taylor_shapiro_continuous_r32_20261120_v3/proxy_teacher_distribution.json"
+      ],
+      "open_items": [
+        "run the formal-scale three-profile direction and V50 transition comparisons",
+        "repeat the stratified proxy-teacher report with complete cases across all region-profile strata",
+        "obtain external geometry, direction-statistics, V50 and response-threshold validation"
+      ]
+    },
+    {
+      "category_id": "C3",
+      "title": "全局敏感性",
+      "status": "incomplete",
+      "acceptance_rule": "proxy Morris and teacher Sobol analyses are hash-bound and stable across seeds",
+      "evidence_paths": [
+        "configs/uncertainty/idea2_parameter_intervals.v1.json",
+        "artifacts/experiments/C3_20261120/results.json",
+        "configs/uncertainty/warhead_mechanism_factor_design.v1.json",
+        "artifacts/experiments/warhead_factor_design_20261120/results.json",
+        "artifacts/experiments/warhead_factor_design_20261120/README.md"
+      ],
+      "open_items": [
+        "repeat Morris and teacher Sobol at the preregistered budget across independent seeds",
+        "freeze and execute the robust parameter-corner set",
+        "replace exploratory warhead-factor ranges with externally supported intervals"
+      ]
+    },
+    {
+      "category_id": "C4",
+      "title": "领域专家模式断言",
+      "status": "external_required",
+      "acceptance_rule": "at least ten sourced assertions are supplied by a named domain authority and checked",
+      "evidence_paths": [],
+      "open_items": ["domain authority must complete the assertion template"]
+    },
+    {
+      "category_id": "C5",
+      "title": "不确定性与依赖清单",
+      "status": "incomplete",
+      "acceptance_rule": "aleatory MC intervals, epistemic scenario intervals, censoring identification intervals and dependencies are separate",
+      "evidence_paths": [
+        "configs/uncertainty/idea2_parameter_intervals.v1.json",
+        "configs/labels/loitering_impact.fragment_only.hurdle.v2.json",
+        "docs/DECISIONS.md",
+        "artifacts/experiments/E1_taylor_shapiro_continuous_20261120/results.json",
+        "artifacts/experiments/E1_multitarget_taylor_shapiro_continuous_20261120/results.json",
+        "artifacts/validation/idea2_full_implementation_20261120/E1_MULTITARGET_ANALYSIS.md",
+        "artifacts/datasets/idea2_taylor_shapiro_continuous_r32_20261120_v3/formal_dataset/manifest.json",
+        "artifacts/datasets/idea2_taylor_shapiro_continuous_r32_20261120_v3/dataset_v2_development/manifest.json",
+        "artifacts/datasets/idea2_taylor_shapiro_continuous_r32_20261120_v3/dataset_v2_development/sealed_test.json",
+        "artifacts/datasets/idea2_taylor_shapiro_continuous_r32_20261120_v3/dataset_v2_validation.json",
+        "artifacts/datasets/idea2_taylor_shapiro_continuous_r32_20261120_v3/development_audit.json",
+        "artifacts/datasets/idea2_taylor_shapiro_continuous_r32_20261120_v3/hurdle_learning/ablation_results.json",
+        "artifacts/datasets/idea2_taylor_shapiro_continuous_r32_20261120_v3/proxy_learning_ablation.json",
+        "tools/package_sampler_dataset_v2_development.py",
+        "tests/test_strict_sealed_dataset_v2.py",
+        "tools/audit_dataset_v2_development.py",
+        "tests/test_dataset_v2_development_audit.py"
+      ],
+      "open_items": [
+        "repeat the corrected multi-target E1 analysis at the preregistered 500-case stratified budget",
+        "raise epsilon-complete and per-component positive support before formal neural training",
+        "repeat missingness diagnostics with enough epsilon-complete cases for stable region-profile tests"
+      ]
+    },
+    {
+      "category_id": "C6",
+      "title": "版本化可信度档案",
+      "status": "incomplete",
+      "acceptance_rule": "C1-C5 evidence is complete and every input artifact is content-addressed",
+      "evidence_paths": [
+        "configs/credibility/idea2_credibility_plan.v1.json",
+        "artifacts/validation/idea2_full_implementation_20261120/IMPLEMENTATION_MATRIX.md",
+        "artifacts/validation/idea2_full_implementation_20261120/WORKLOG.md",
+        "artifacts/validation/idea2_full_implementation_20261120/FINAL_REPORT.md",
+        "artifacts/validation/idea2_full_implementation_20261120/FINAL_QA_20261120.md"
+      ],
+      "open_items": [
+        "regenerate after each new C1-C5 evidence package until every category passes",
+        "retain research_admission=false until C4 and external physical evidence are complete"
+      ]
+    }
+  ],
+  "expert_assertions": [
+    {"assertion_id": "expert-pattern-01", "claim": null, "expected_direction_or_ordering": null, "applicable_conditions": null, "authority_name_or_role": null, "source_reference": null, "confidence": null, "status": "awaiting_domain_authority"},
+    {"assertion_id": "expert-pattern-02", "claim": null, "expected_direction_or_ordering": null, "applicable_conditions": null, "authority_name_or_role": null, "source_reference": null, "confidence": null, "status": "awaiting_domain_authority"},
+    {"assertion_id": "expert-pattern-03", "claim": null, "expected_direction_or_ordering": null, "applicable_conditions": null, "authority_name_or_role": null, "source_reference": null, "confidence": null, "status": "awaiting_domain_authority"},
+    {"assertion_id": "expert-pattern-04", "claim": null, "expected_direction_or_ordering": null, "applicable_conditions": null, "authority_name_or_role": null, "source_reference": null, "confidence": null, "status": "awaiting_domain_authority"},
+    {"assertion_id": "expert-pattern-05", "claim": null, "expected_direction_or_ordering": null, "applicable_conditions": null, "authority_name_or_role": null, "source_reference": null, "confidence": null, "status": "awaiting_domain_authority"},
+    {"assertion_id": "expert-pattern-06", "claim": null, "expected_direction_or_ordering": null, "applicable_conditions": null, "authority_name_or_role": null, "source_reference": null, "confidence": null, "status": "awaiting_domain_authority"},
+    {"assertion_id": "expert-pattern-07", "claim": null, "expected_direction_or_ordering": null, "applicable_conditions": null, "authority_name_or_role": null, "source_reference": null, "confidence": null, "status": "awaiting_domain_authority"},
+    {"assertion_id": "expert-pattern-08", "claim": null, "expected_direction_or_ordering": null, "applicable_conditions": null, "authority_name_or_role": null, "source_reference": null, "confidence": null, "status": "awaiting_domain_authority"},
+    {"assertion_id": "expert-pattern-09", "claim": null, "expected_direction_or_ordering": null, "applicable_conditions": null, "authority_name_or_role": null, "source_reference": null, "confidence": null, "status": "awaiting_domain_authority"},
+    {"assertion_id": "expert-pattern-10", "claim": null, "expected_direction_or_ordering": null, "applicable_conditions": null, "authority_name_or_role": null, "source_reference": null, "confidence": null, "status": "awaiting_domain_authority"}
+  ]
+}

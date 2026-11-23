@@ -1,0 +1,279 @@
+{
+  "schema_version": "pipeline-assessment-evidence-manifest@2.0.0",
+  "analysis_id": "pipeline-expected-actual-20261122-v2-stagewise",
+  "generated_at_utc": "2026-11-22T14:53:43.197166+00:00",
+  "evidence_count": 45,
+  "sealed_test_result_json_lines_decoded": 0,
+  "files": [
+    {
+      "path": "D:\\Desktop\\UAV新\\artifacts\\validation\\pipeline_expected_actual_20261122\\REPORT.md",
+      "workspace_relative_path": "artifacts\\validation\\pipeline_expected_actual_20261122\\REPORT.md",
+      "size_bytes": 23432,
+      "sha256": "sha256:b151b2a963094d49336107167a5b21dd119bb45391e16c48b772e3b90fe25b7e"
+    },
+    {
+      "path": "D:\\Desktop\\UAV新\\artifacts\\validation\\pipeline_expected_actual_20261122\\ANALYSIS_PLAN.md",
+      "workspace_relative_path": "artifacts\\validation\\pipeline_expected_actual_20261122\\ANALYSIS_PLAN.md",
+      "size_bytes": 5132,
+      "sha256": "sha256:4b3a0fb403ac515a65279dec4d4659c5c4f3ba00853e679ab9ce4c830e577ccf"
+    },
+    {
+      "path": "D:\\Desktop\\UAV新\\artifacts\\validation\\pipeline_expected_actual_20261122\\build_report_bundle.py",
+      "workspace_relative_path": "artifacts\\validation\\pipeline_expected_actual_20261122\\build_report_bundle.py",
+      "size_bytes": 16866,
+      "sha256": "sha256:71a6b6072957280befb3c905253f4e924d5f22b9715b6bbcc05127f8c69bef49"
+    },
+    {
+      "path": "D:\\Desktop\\UAV新\\artifacts\\validation\\pipeline_expected_actual_20261122\\verify_report_bundle.py",
+      "workspace_relative_path": "artifacts\\validation\\pipeline_expected_actual_20261122\\verify_report_bundle.py",
+      "size_bytes": 5617,
+      "sha256": "sha256:c0f82fc46364001edc91e1a78c107de96ef6a062afaae2caee4e43863b117042"
+    },
+    {
+      "path": "D:\\Desktop\\UAV新\\artifacts\\validation\\pipeline_expected_actual_20261122\\analysis_config.json",
+      "workspace_relative_path": "artifacts\\validation\\pipeline_expected_actual_20261122\\analysis_config.json",
+      "size_bytes": 2551,
+      "sha256": "sha256:fdb15139c007b882ae4449c9600a53fc97d574a3093287a2981e494c2efcbb16"
+    },
+    {
+      "path": "D:\\Desktop\\UAV新\\artifacts\\validation\\pipeline_expected_actual_20261122\\metrics.json",
+      "workspace_relative_path": "artifacts\\validation\\pipeline_expected_actual_20261122\\metrics.json",
+      "size_bytes": 175670,
+      "sha256": "sha256:00db9f11551ae48ef12639b49622c0b046eb5e0dbe8414ea4ef56654edaea81f"
+    },
+    {
+      "path": "D:\\Desktop\\UAV新\\artifacts\\validation\\pipeline_expected_actual_20261122\\work\\sampling\\sampling_metrics.json",
+      "workspace_relative_path": "artifacts\\validation\\pipeline_expected_actual_20261122\\work\\sampling\\sampling_metrics.json",
+      "size_bytes": 92432,
+      "sha256": "sha256:c98cb505292ecf7ed982f9ac6935ad4537f578325e9d66848b0f6a1ed6817709"
+    },
+    {
+      "path": "D:\\Desktop\\UAV新\\artifacts\\validation\\pipeline_expected_actual_20261122\\work\\sampling\\analyze_sampling_design.py",
+      "workspace_relative_path": "artifacts\\validation\\pipeline_expected_actual_20261122\\work\\sampling\\analyze_sampling_design.py",
+      "size_bytes": 39926,
+      "sha256": "sha256:632328ba43b31fd77fdac7ea427189103683546f681fa22de2c5a0a19471693b"
+    },
+    {
+      "path": "D:\\Desktop\\UAV新\\artifacts\\validation\\pipeline_expected_actual_20261122\\work\\teacher\\teacher_pair_metrics.json",
+      "workspace_relative_path": "artifacts\\validation\\pipeline_expected_actual_20261122\\work\\teacher\\teacher_pair_metrics.json",
+      "size_bytes": 36901,
+      "sha256": "sha256:77c1b251640e07fba5865ca44463ed66b4e668c21cf6906719af87ffb5072504"
+    },
+    {
+      "path": "D:\\Desktop\\UAV新\\artifacts\\validation\\pipeline_expected_actual_20261122\\work\\teacher\\TEACHER_PAIR_AUDIT.md",
+      "workspace_relative_path": "artifacts\\validation\\pipeline_expected_actual_20261122\\work\\teacher\\TEACHER_PAIR_AUDIT.md",
+      "size_bytes": 5454,
+      "sha256": "sha256:93562b3bcde244998b77a5f85eef862a881dd7705a4a4ffc3007f522d87c9934"
+    },
+    {
+      "path": "D:\\Desktop\\UAV新\\artifacts\\validation\\pipeline_expected_actual_20261122\\work\\teacher\\analyze_teacher_pair.py",
+      "workspace_relative_path": "artifacts\\validation\\pipeline_expected_actual_20261122\\work\\teacher\\analyze_teacher_pair.py",
+      "size_bytes": 21663,
+      "sha256": "sha256:db8830459fecf154f073b3035ed3f7f70cda7de880a1bce45740c3270e63db9e"
+    },
+    {
+      "path": "D:\\Desktop\\UAV新\\artifacts\\validation\\pipeline_expected_actual_20261122\\work\\full_development\\full_development_metrics.json",
+      "workspace_relative_path": "artifacts\\validation\\pipeline_expected_actual_20261122\\work\\full_development\\full_development_metrics.json",
+      "size_bytes": 10957,
+      "sha256": "sha256:f6fe3c423522e7553c9386c77a620684f128f1004cc0d6f0893f06c224d45360"
+    },
+    {
+      "path": "D:\\Desktop\\UAV新\\artifacts\\validation\\pipeline_expected_actual_20261122\\work\\full_development\\SUMMARY.md",
+      "workspace_relative_path": "artifacts\\validation\\pipeline_expected_actual_20261122\\work\\full_development\\SUMMARY.md",
+      "size_bytes": 3117,
+      "sha256": "sha256:ada59f502dfecba66ec98741aa73a1a344e93a75498b49a5a2525247b4a7e161"
+    },
+    {
+      "path": "D:\\Desktop\\UAV新\\artifacts\\validation\\pipeline_expected_actual_20261122\\work\\proxy_teacher\\full_proxy_teacher_distribution.json",
+      "workspace_relative_path": "artifacts\\validation\\pipeline_expected_actual_20261122\\work\\proxy_teacher\\full_proxy_teacher_distribution.json",
+      "size_bytes": 15189,
+      "sha256": "sha256:a6b5355eb32fbb46088e3879bf7d67eeec6e1d76b683699d443dc0904752e680"
+    },
+    {
+      "path": "D:\\Desktop\\UAV新\\artifacts\\validation\\pipeline_expected_actual_20261122\\work\\proxy_teacher\\full_proxy_uncertainty.json",
+      "workspace_relative_path": "artifacts\\validation\\pipeline_expected_actual_20261122\\work\\proxy_teacher\\full_proxy_uncertainty.json",
+      "size_bytes": 5840,
+      "sha256": "sha256:447b5b061692a02fc35538bcf874162ed89b8ca8ddfc3c13b223ce69b8841c2c"
+    },
+    {
+      "path": "D:\\Desktop\\UAV新\\artifacts\\validation\\pipeline_expected_actual_20261122\\work\\proxy_teacher\\v3_proxy_teacher_bootstrap.json",
+      "workspace_relative_path": "artifacts\\validation\\pipeline_expected_actual_20261122\\work\\proxy_teacher\\v3_proxy_teacher_bootstrap.json",
+      "size_bytes": 4579,
+      "sha256": "sha256:3bc9e9ab4f7f45c19b398fd8cb015ee0304c34e1b4c0f270993aff0bb2bfaf5a"
+    },
+    {
+      "path": "D:\\Desktop\\UAV新\\artifacts\\validation\\pipeline_expected_actual_20261122\\work\\proxy_teacher\\full_proxy_uncertainty.py",
+      "workspace_relative_path": "artifacts\\validation\\pipeline_expected_actual_20261122\\work\\proxy_teacher\\full_proxy_uncertainty.py",
+      "size_bytes": 10917,
+      "sha256": "sha256:9f1cb7beef9ba1287b6dd433bb093f3026d6c4bb27f9dd2f96e66ec43aa4d08e"
+    },
+    {
+      "path": "D:\\Desktop\\UAV新\\artifacts\\validation\\pipeline_expected_actual_20261122\\work\\stage_contracts\\stage_map.json",
+      "workspace_relative_path": "artifacts\\validation\\pipeline_expected_actual_20261122\\work\\stage_contracts\\stage_map.json",
+      "size_bytes": 39053,
+      "sha256": "sha256:137f3149c6476f6ef665648828ada20c9f988d01c8cd2369084b1a83b0562b7d"
+    },
+    {
+      "path": "D:\\Desktop\\UAV新\\artifacts\\validation\\pipeline_expected_actual_20261122\\work\\stage_contracts\\STAGE_MAP.md",
+      "workspace_relative_path": "artifacts\\validation\\pipeline_expected_actual_20261122\\work\\stage_contracts\\STAGE_MAP.md",
+      "size_bytes": 9378,
+      "sha256": "sha256:9328a700927d623872abd7842d84009294f559935f26863fb902b1f4fd39f2ec"
+    },
+    {
+      "path": "D:\\Desktop\\UAV新\\artifacts\\validation\\pipeline_expected_actual_20261122\\work\\contact_inputs\\contact_input_metrics.json",
+      "workspace_relative_path": "artifacts\\validation\\pipeline_expected_actual_20261122\\work\\contact_inputs\\contact_input_metrics.json",
+      "size_bytes": 45180,
+      "sha256": "sha256:7bdb817d16a2d293e648c39a88c76e5f439089b72cb69c431f0866f7eb526b1b"
+    },
+    {
+      "path": "D:\\Desktop\\UAV新\\artifacts\\validation\\pipeline_expected_actual_20261122\\work\\contact_inputs\\SUMMARY.md",
+      "workspace_relative_path": "artifacts\\validation\\pipeline_expected_actual_20261122\\work\\contact_inputs\\SUMMARY.md",
+      "size_bytes": 2261,
+      "sha256": "sha256:6b4d0f2472b9a377187613e824d12dd6361ad936a1882b45859a74ab932cffb0"
+    },
+    {
+      "path": "D:\\Desktop\\UAV新\\artifacts\\validation\\pipeline_expected_actual_20261122\\work\\contact_inputs\\analyze_contact_inputs.py",
+      "workspace_relative_path": "artifacts\\validation\\pipeline_expected_actual_20261122\\work\\contact_inputs\\analyze_contact_inputs.py",
+      "size_bytes": 21432,
+      "sha256": "sha256:a99760bd81ecdb57c11091a2cb83e3d6b3bdb4faf2d940d765612db72d93858c"
+    },
+    {
+      "path": "D:\\Desktop\\UAV新\\artifacts\\validation\\pipeline_expected_actual_20261122\\work\\contact_inputs\\verify_contact_inputs.py",
+      "workspace_relative_path": "artifacts\\validation\\pipeline_expected_actual_20261122\\work\\contact_inputs\\verify_contact_inputs.py",
+      "size_bytes": 2251,
+      "sha256": "sha256:f74157650cd3635f85f52976c4dc9f20db6e5aca53aad69ae2b8b627dca35bed"
+    },
+    {
+      "path": "D:\\Desktop\\UAV新\\artifacts\\validation\\pipeline_expected_actual_20261122\\work\\mechanism_funnel\\mechanism_pipeline_metrics.json",
+      "workspace_relative_path": "artifacts\\validation\\pipeline_expected_actual_20261122\\work\\mechanism_funnel\\mechanism_pipeline_metrics.json",
+      "size_bytes": 563536,
+      "sha256": "sha256:e291bc9c709762cbd69c6a4b391c506c15407e93d1cc2c237599c2e104472392"
+    },
+    {
+      "path": "D:\\Desktop\\UAV新\\artifacts\\validation\\pipeline_expected_actual_20261122\\work\\mechanism_funnel\\micro_audit_metrics.json",
+      "workspace_relative_path": "artifacts\\validation\\pipeline_expected_actual_20261122\\work\\mechanism_funnel\\micro_audit_metrics.json",
+      "size_bytes": 3886850,
+      "sha256": "sha256:7e2c246aa3a8b45485aab7dabf9a9f9d041df44d8fd6b363293ef93008d99079"
+    },
+    {
+      "path": "D:\\Desktop\\UAV新\\artifacts\\validation\\pipeline_expected_actual_20261122\\work\\mechanism_funnel\\verification.json",
+      "workspace_relative_path": "artifacts\\validation\\pipeline_expected_actual_20261122\\work\\mechanism_funnel\\verification.json",
+      "size_bytes": 841,
+      "sha256": "sha256:28afc03b6e0e1a6640d31f1ccca1a706600540c78da905aa9fc88c1378e81b4c"
+    },
+    {
+      "path": "D:\\Desktop\\UAV新\\artifacts\\validation\\pipeline_expected_actual_20261122\\work\\mechanism_funnel\\MECHANISM_ANALYSIS_SUMMARY.md",
+      "workspace_relative_path": "artifacts\\validation\\pipeline_expected_actual_20261122\\work\\mechanism_funnel\\MECHANISM_ANALYSIS_SUMMARY.md",
+      "size_bytes": 14599,
+      "sha256": "sha256:2a21952d0476eafd4f076515cb556d965452597c427b4f5054d965971cd7efb8"
+    },
+    {
+      "path": "D:\\Desktop\\UAV新\\artifacts\\validation\\pipeline_expected_actual_20261122\\work\\mechanism_funnel\\analyze_mechanism_pipeline.py",
+      "workspace_relative_path": "artifacts\\validation\\pipeline_expected_actual_20261122\\work\\mechanism_funnel\\analyze_mechanism_pipeline.py",
+      "size_bytes": 36224,
+      "sha256": "sha256:4c0fc1119091780be57553a6ffdba837c59352207fe20f689b5779bb197188df"
+    },
+    {
+      "path": "D:\\Desktop\\UAV新\\artifacts\\validation\\pipeline_expected_actual_20261122\\work\\mechanism_funnel\\run_stratified_micro_audit.py",
+      "workspace_relative_path": "artifacts\\validation\\pipeline_expected_actual_20261122\\work\\mechanism_funnel\\run_stratified_micro_audit.py",
+      "size_bytes": 53241,
+      "sha256": "sha256:b89d0536b7fdb04d31feb82d86dd55c94a7b4101a75e9cd8464ff16cdc6e3087"
+    },
+    {
+      "path": "D:\\Desktop\\UAV新\\artifacts\\validation\\pipeline_expected_actual_20261122\\work\\output_gap\\output_gap_metrics.json",
+      "workspace_relative_path": "artifacts\\validation\\pipeline_expected_actual_20261122\\work\\output_gap\\output_gap_metrics.json",
+      "size_bytes": 181020,
+      "sha256": "sha256:a4090c169af3dc3d8856de91117c4950462b903adb8a316292d7542f6640bf4b"
+    },
+    {
+      "path": "D:\\Desktop\\UAV新\\artifacts\\validation\\pipeline_expected_actual_20261122\\work\\output_gap\\SUMMARY.md",
+      "workspace_relative_path": "artifacts\\validation\\pipeline_expected_actual_20261122\\work\\output_gap\\SUMMARY.md",
+      "size_bytes": 9545,
+      "sha256": "sha256:f4ebff30918abf7b4c6b09a2f60ea232bb33b222474d3462178f9e8d69395298"
+    },
+    {
+      "path": "D:\\Desktop\\UAV新\\artifacts\\validation\\pipeline_expected_actual_20261122\\work\\output_gap\\analyze_output_distribution_gap.py",
+      "workspace_relative_path": "artifacts\\validation\\pipeline_expected_actual_20261122\\work\\output_gap\\analyze_output_distribution_gap.py",
+      "size_bytes": 42715,
+      "sha256": "sha256:3e1a41be91703a528cf76742cf0180627e2648510f9865463b5ce89e4b3a1507"
+    },
+    {
+      "path": "D:\\Desktop\\UAV新\\artifacts\\validation\\pipeline_expected_actual_20261122\\work\\output_gap\\verify_output_gap.py",
+      "workspace_relative_path": "artifacts\\validation\\pipeline_expected_actual_20261122\\work\\output_gap\\verify_output_gap.py",
+      "size_bytes": 3321,
+      "sha256": "sha256:aaf355a2e4b64cff1ae50cc719fcb635e6cadf9008b7f04bb1d1b9480aafc3e4"
+    },
+    {
+      "path": "D:\\Desktop\\UAV新\\artifacts\\datasets\\recovery_role_r8_r32_train2000_eval300_20261122\\sampling_checkpoint.json",
+      "workspace_relative_path": "artifacts\\datasets\\recovery_role_r8_r32_train2000_eval300_20261122\\sampling_checkpoint.json",
+      "size_bytes": 624012,
+      "sha256": "sha256:eee42f43fbaaa7dc1691c8b62650f575a5b829be7116ee4d77c5c913843e03aa"
+    },
+    {
+      "path": "D:\\Desktop\\UAV新\\artifacts\\datasets\\recovery_role_r8_r32_train2000_eval300_20261122\\audits\\sampling_quality.json",
+      "workspace_relative_path": "artifacts\\datasets\\recovery_role_r8_r32_train2000_eval300_20261122\\audits\\sampling_quality.json",
+      "size_bytes": 355617,
+      "sha256": "sha256:fe9791981997dd4892e53470f020bb9aa35ba4cdb4102942249cd29c0b7b4301"
+    },
+    {
+      "path": "D:\\Desktop\\UAV新\\artifacts\\datasets\\recovery_role_r8_r32_train2000_eval300_20261122\\formal_dataset\\manifest.json",
+      "workspace_relative_path": "artifacts\\datasets\\recovery_role_r8_r32_train2000_eval300_20261122\\formal_dataset\\manifest.json",
+      "size_bytes": 776142,
+      "sha256": "sha256:3b6b7ba94ccd7715040716b69a1a039977636853142cfde6c31127f78debfae2"
+    },
+    {
+      "path": "D:\\Desktop\\UAV新\\artifacts\\datasets\\recovery_role_r8_r32_train2000_eval300_20261122\\development_audit.json",
+      "workspace_relative_path": "artifacts\\datasets\\recovery_role_r8_r32_train2000_eval300_20261122\\development_audit.json",
+      "size_bytes": 352181,
+      "sha256": "sha256:60f11e964ed3acdff743efd577a2c7f8aaf0ff7d5df750b620c545d4a3fc4978"
+    },
+    {
+      "path": "D:\\Desktop\\UAV新\\artifacts\\datasets\\recovery_role_r8_r32_train2000_eval300_20261122\\dataset_v2_development\\manifest.json",
+      "workspace_relative_path": "artifacts\\datasets\\recovery_role_r8_r32_train2000_eval300_20261122\\dataset_v2_development\\manifest.json",
+      "size_bytes": 8258,
+      "sha256": "sha256:4471534f46f58d08417933f9ce0cb2618ede499b86153a1d26b864f166267328"
+    },
+    {
+      "path": "D:\\Desktop\\UAV新\\artifacts\\datasets\\recovery_role_r8_r32_train2000_eval300_20261122\\dataset_v2_development\\task_admission.json",
+      "workspace_relative_path": "artifacts\\datasets\\recovery_role_r8_r32_train2000_eval300_20261122\\dataset_v2_development\\task_admission.json",
+      "size_bytes": 21599,
+      "sha256": "sha256:c4124635d043a8a08ccc07e7308365da4885d197dc3629062eff27d795d3c45c"
+    },
+    {
+      "path": "D:\\Desktop\\UAV新\\artifacts\\datasets\\recovery_role_r8_r32_train2000_eval300_20261122\\dataset_v2_development\\model_readiness.json",
+      "workspace_relative_path": "artifacts\\datasets\\recovery_role_r8_r32_train2000_eval300_20261122\\dataset_v2_development\\model_readiness.json",
+      "size_bytes": 31284,
+      "sha256": "sha256:8a04d4fbb3adc59739eab23f4d3be3ad86f6be993488ce15897020b0934d6c04"
+    },
+    {
+      "path": "D:\\Desktop\\UAV新\\damage_engine\\distribution_metrics.py",
+      "workspace_relative_path": "damage_engine\\distribution_metrics.py",
+      "size_bytes": 7028,
+      "sha256": "sha256:836a194e803d16a7ea8fb8cb44ac3cf587bd2ec33c58babca25d8aba62cd6a09"
+    },
+    {
+      "path": "D:\\Desktop\\UAV新\\damage_engine\\fast_sampling_proxy.py",
+      "workspace_relative_path": "damage_engine\\fast_sampling_proxy.py",
+      "size_bytes": 21706,
+      "sha256": "sha256:7203f3fe7763d1c2775ecffd8f8cd30d2470f45004339f4e56ee52c7e05f99ea"
+    },
+    {
+      "path": "D:\\Desktop\\UAV新\\damage_engine\\fragment_audit.py",
+      "workspace_relative_path": "damage_engine\\fragment_audit.py",
+      "size_bytes": 26937,
+      "sha256": "sha256:fa7c62172ae37d3272bb814a0fcfe0ba9beac3fcf2e7d1c88ceb38e51bd37e99"
+    },
+    {
+      "path": "D:\\Desktop\\UAV新\\tools\\evaluate_proxy_teacher_distribution.py",
+      "workspace_relative_path": "tools\\evaluate_proxy_teacher_distribution.py",
+      "size_bytes": 22997,
+      "sha256": "sha256:355e49e26132f9f47279ccec692ac8b313732436aa24d7cc20cd4ca368c01c5a"
+    },
+    {
+      "path": "D:\\Desktop\\idea\\idea2.md",
+      "workspace_relative_path": null,
+      "size_bytes": 94321,
+      "sha256": "sha256:ed18b1f67a2c7f20413a1e0a96ce06940a83744ebf93f7eae786fa6beddee9e2"
+    }
+  ]
+}

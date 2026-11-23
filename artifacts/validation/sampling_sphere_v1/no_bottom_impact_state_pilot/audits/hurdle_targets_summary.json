@@ -1,0 +1,50 @@
+{
+  "schema_version": "1.0.0",
+  "source": {
+    "path": "hurdle_targets.json",
+    "sha256": "sha256:e484ed1b797bf6cd901259b33d56bd285363b3d8951a7ffb02d610f868589035",
+    "case_count": 360,
+    "component_count": 67,
+    "component_slot_count": 24120,
+    "replicate_count": 4,
+    "support_probability_threshold": 0.05
+  },
+  "response_admissibility": {
+    "all": {"admissible": 137, "censored": 223, "admissible_fraction": 0.38055555555555554},
+    "train": {"admissible": 92, "censored": 148, "admissible_fraction": 0.38333333333333336},
+    "validation": {"admissible": 25, "censored": 35, "admissible_fraction": 0.4166666666666667},
+    "test": {"admissible": 20, "censored": 40, "admissible_fraction": 0.3333333333333333}
+  },
+  "p_hit": {
+    "masked_in_slot_count": 9179,
+    "domain_censored_slot_count": 14941,
+    "all_value_counts": {"0.0": 20073, "0.25": 631, "0.5": 455, "0.75": 502, "1.0": 2459},
+    "masked_in_value_counts": {"0.0": 8084, "0.25": 191, "0.5": 135, "0.75": 154, "1.0": 615}
+  },
+  "derived_support": {
+    "decision_rule": "ci95_excludes_fixed_probability_threshold",
+    "positive_slot_count": 769,
+    "negative_slot_count": 0,
+    "ambiguous_slot_count": 8410,
+    "domain_censored_slot_count": 14941,
+    "training_usable": false,
+    "reason": "R=4 fixed-sample Hoeffding intervals cannot certify a zero-hit probability below the 0.05 threshold"
+  },
+  "train_component_support": {
+    "admissible_component_slot_count": 6164,
+    "component_nonzero_case_count_min": 0,
+    "component_nonzero_case_count_median": 6,
+    "component_nonzero_case_count_max": 46,
+    "components_with_zero_nonzero_cases": 1,
+    "components_with_no_derived_positive": 5
+  },
+  "validation_component_support": {
+    "admissible_component_slot_count": 1675,
+    "component_nonzero_case_count_min": 0,
+    "component_nonzero_case_count_median": 2,
+    "component_nonzero_case_count_max": 12,
+    "components_with_zero_nonzero_cases": 13,
+    "components_with_no_derived_positive": 24
+  },
+  "interpretation": "The primary p_hit estimand remains valid for admissible rows. The thresholded binary view has no certified negative class at R=4 and must not be used as a binary training target."
+}

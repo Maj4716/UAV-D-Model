@@ -1,0 +1,121 @@
+{
+  "schema_version": "hurdle-target-encoder-ablation@1.0.0",
+  "status": "all_bundles_inadmissible",
+  "reason": {
+    "code": "no_observable_validation_p_hit",
+    "message": "validation contains no observable p_hit labels",
+    "selection_metric": "mean_full_fraction_seed_p_hit_weighted_brier"
+  },
+  "selection_scope": "reference_validation_only",
+  "selection_metric": "mean_full_fraction_seed_p_hit_weighted_brier",
+  "selected_bundle_id": null,
+  "dataset_id": "damage-dataset-v2-aa0fc301038df1c79ac21095",
+  "dataset_manifest_hash": "sha256:e0fa6c68af2b96ac7f74086139d30292274240a296bf9aa11ba9ee0c3231178a",
+  "dataset_manifest_sha256": "sha256:43b32de03d31c5c32af72b619baa1423237a9234a4d62cdfd916aa6bce16092c",
+  "requested_fractions": [
+    0.25,
+    0.5,
+    1.0
+  ],
+  "requested_seeds": [
+    17,
+    29,
+    43
+  ],
+  "requested_epochs": 120,
+  "observation_counts": {
+    "train": {
+      "case_count": 240,
+      "p_hit_observation_count": 134,
+      "conditional_energy_observation_count": 2089,
+      "conditional_hit_count_observation_count": 2089
+    },
+    "validation": {
+      "case_count": 60,
+      "p_hit_observation_count": 0,
+      "conditional_energy_observation_count": 614,
+      "conditional_hit_count_observation_count": 614
+    },
+    "test": {
+      "case_count": 60,
+      "p_hit_observation_count": 0,
+      "conditional_energy_observation_count": 0,
+      "conditional_hit_count_observation_count": 0
+    }
+  },
+  "candidate_bundles": [
+    {
+      "bundle_id": "identity",
+      "methods": {
+        "energy": "identity",
+        "hit_count": "identity"
+      },
+      "status": "inadmissible",
+      "error": {
+        "code": "no_observable_validation_p_hit",
+        "message": "validation contains no observable p_hit labels",
+        "selection_metric": "mean_full_fraction_seed_p_hit_weighted_brier"
+      },
+      "validation_p_hit_brier": null,
+      "validation_p_hit_ece": null
+    },
+    {
+      "bundle_id": "box_cox",
+      "methods": {
+        "energy": "box_cox",
+        "hit_count": "box_cox"
+      },
+      "status": "inadmissible",
+      "error": {
+        "code": "no_observable_validation_p_hit",
+        "message": "validation contains no observable p_hit labels",
+        "selection_metric": "mean_full_fraction_seed_p_hit_weighted_brier"
+      },
+      "validation_p_hit_brier": null,
+      "validation_p_hit_ece": null
+    },
+    {
+      "bundle_id": "quantile_normal",
+      "methods": {
+        "energy": "empirical_quantile_normal",
+        "hit_count": "empirical_quantile_normal"
+      },
+      "status": "inadmissible",
+      "error": {
+        "code": "no_observable_validation_p_hit",
+        "message": "validation contains no observable p_hit labels",
+        "selection_metric": "mean_full_fraction_seed_p_hit_weighted_brier"
+      },
+      "validation_p_hit_brier": null,
+      "validation_p_hit_ece": null
+    },
+    {
+      "bundle_id": "section9_hybrid",
+      "methods": {
+        "energy": "empirical_quantile_normal",
+        "hit_count": "box_cox"
+      },
+      "status": "inadmissible",
+      "error": {
+        "code": "no_observable_validation_p_hit",
+        "message": "validation contains no observable p_hit labels",
+        "selection_metric": "mean_full_fraction_seed_p_hit_weighted_brier"
+      },
+      "validation_p_hit_brier": null,
+      "validation_p_hit_ece": null
+    }
+  ],
+  "conditional_head_assessment": {
+    "validation_energy_observation_count": 614,
+    "validation_hit_count_observation_count": 614,
+    "eligible_as_p_hit_selection_substitute": false
+  },
+  "test_access_policy": {
+    "labels_used_in_loss": false,
+    "labels_used_in_metrics": false,
+    "labels_used_in_selection": false,
+    "test_result_json_lines_decoded": 0,
+    "open_count": 0
+  },
+  "report_hash": "sha256:620d289c0dfa76907d2b38cdbb29fabdfa57fdad615a81210d83986fa8759c1a"
+}

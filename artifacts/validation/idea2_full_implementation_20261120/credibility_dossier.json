@@ -1,0 +1,397 @@
+{
+  "schema_version": "credibility-dossier@1.0.0",
+  "dossier_id": "idea2-uav-damage-engine-credibility-v1",
+  "model_scope": "fragment-only software teacher with unvalidated response parameters",
+  "categories": [
+    {
+      "category_id": "C1",
+      "title": "性质与极限测试",
+      "status": "incomplete",
+      "acceptance_rule": "all preregistered order, closure, monotonicity, symmetry, zero-limit, OOD-bound and convergence properties pass",
+      "evidence": [
+        {
+          "path": "tests/test_physics_invariants_p012.py",
+          "exists": true,
+          "sha256": "sha256:97150701dfd8ec715bb28b75c673ef285f2b08b7f834ebaa85d325c9f0136e67"
+        },
+        {
+          "path": "tests/test_idea2_credibility_properties.py",
+          "exists": true,
+          "sha256": "sha256:f67a9671896b82d96c48908bda7b158dc5bd4914cf825852551b36d2376a1dfc"
+        },
+        {
+          "path": "tests/test_taylor_shapiro_direction.py",
+          "exists": true,
+          "sha256": "sha256:15e7b79d9540814b094236af2a986b6aa3092c980bc7f742b3342a7ffa6c4f6c"
+        },
+        {
+          "path": "artifacts/experiments/E0_taylor_shapiro_continuous_scaled_frozen_20261120.json",
+          "exists": true,
+          "sha256": "sha256:132c471e1aa8e7135f5c5f5fbb805aa0b87362cc983d8554805c2f63f0a03dc6"
+        },
+        {
+          "path": "artifacts/validation/idea2_full_implementation_20261120/E0_ANALYSIS.md",
+          "exists": true,
+          "sha256": "sha256:611c3e5bee824109e65b17238df446a97f18f7b416fe1295259e5fcff487cc53"
+        },
+        {
+          "path": "artifacts/validation/idea2_full_implementation_20261120/FINAL_QA_20261120.md",
+          "exists": true,
+          "sha256": "sha256:e23e4f719d0166538f10266bb7044e9bde95e85c02a67beb33a0a9548facdf2a"
+        }
+      ],
+      "open_items": [
+        "run the preregistered 200-case R32 E0 TOST rather than the completed 8-case R8 scaled check",
+        "extend OOD and monotonicity properties to the formal parameter corners"
+      ]
+    },
+    {
+      "category_id": "C2",
+      "title": "解析与半独立对照",
+      "status": "incomplete",
+      "acceptance_rule": "Gurney, angle, V50 midpoint/width, and stratified proxy-teacher checks pass",
+      "evidence": [
+        {
+          "path": "tests/test_penetration.py",
+          "exists": true,
+          "sha256": "sha256:093168b3007c763a9a2cf58842f79ef1060e165a7e0f9bc87b39f6be6426ca89"
+        },
+        {
+          "path": "tests/test_taylor_shapiro_direction.py",
+          "exists": true,
+          "sha256": "sha256:15e7b79d9540814b094236af2a986b6aa3092c980bc7f742b3342a7ffa6c4f6c"
+        },
+        {
+          "path": "docs/FRAGMENT_DIRECTION_MODEL.md",
+          "exists": true,
+          "sha256": "sha256:bcdfb9a3be7fa685e68f2d13ef7f315048fa166ee99251e8d87f68f3996292fd"
+        },
+        {
+          "path": "artifacts/validation/idea2_optimization_20261120/stage2_representative_scaled/README.md",
+          "exists": true,
+          "sha256": "sha256:c06ce07d5d1fbb089f1c5e1c45b74bd18ce573016678f9029f055f9e6da3599b"
+        },
+        {
+          "path": "artifacts/validation/idea2_full_implementation_20261120/E2_E7_ANALYSIS.md",
+          "exists": true,
+          "sha256": "sha256:5824f9f044976e9c904def58127c5870ad82e239cf6d223f02d05386ce24cc06"
+        },
+        {
+          "path": "tools/evaluate_proxy_teacher_distribution.py",
+          "exists": true,
+          "sha256": "sha256:355e49e26132f9f47279ccec692ac8b313732436aa24d7cc20cd4ca368c01c5a"
+        },
+        {
+          "path": "tests/test_proxy_teacher_distribution.py",
+          "exists": true,
+          "sha256": "sha256:72425fe18813f36cd73bd85bc1d0c601a7ca1a60a0bdecaa639446353c600dd0"
+        },
+        {
+          "path": "artifacts/datasets/idea2_taylor_shapiro_continuous_r32_20261120_v3/proxy_teacher_distribution.json",
+          "exists": true,
+          "sha256": "sha256:711363ff1031fc0f8966ec6d2cac0da3b6ac9a24c24eaa45e8f36dae79c38b9c"
+        }
+      ],
+      "open_items": [
+        "run the formal-scale three-profile direction and V50 transition comparisons",
+        "repeat the stratified proxy-teacher report with complete cases across all region-profile strata",
+        "obtain external geometry, direction-statistics, V50 and response-threshold validation"
+      ]
+    },
+    {
+      "category_id": "C3",
+      "title": "全局敏感性",
+      "status": "incomplete",
+      "acceptance_rule": "proxy Morris and teacher Sobol analyses are hash-bound and stable across seeds",
+      "evidence": [
+        {
+          "path": "configs/uncertainty/idea2_parameter_intervals.v1.json",
+          "exists": true,
+          "sha256": "sha256:1442a7cf2ded97510135bf5d6ac47ebf86df88823f83c6ca8c2223d8760d8861"
+        },
+        {
+          "path": "artifacts/experiments/C3_20261120/results.json",
+          "exists": true,
+          "sha256": "sha256:39f3d30bf53b9f9e85c67a5c4c5cc3fa68ce0647de45c8c3ae36db04a8faee84"
+        },
+        {
+          "path": "configs/uncertainty/warhead_mechanism_factor_design.v1.json",
+          "exists": true,
+          "sha256": "sha256:65d3125fbd6517a2e7e87203f258d31cd3ce7aa1f35266ff7d7eabbd5cc47887"
+        },
+        {
+          "path": "artifacts/experiments/warhead_factor_design_20261120/results.json",
+          "exists": true,
+          "sha256": "sha256:d6ce023f4356e73dc3dc3707051adfbbf80c24ee40e32b7f4afc65cb30c132d0"
+        },
+        {
+          "path": "artifacts/experiments/warhead_factor_design_20261120/README.md",
+          "exists": true,
+          "sha256": "sha256:7c7d552a109c6ff402e6e1a0572957afc270f074794e0a3666ef513eaf4a4f40"
+        }
+      ],
+      "open_items": [
+        "repeat Morris and teacher Sobol at the preregistered budget across independent seeds",
+        "freeze and execute the robust parameter-corner set",
+        "replace exploratory warhead-factor ranges with externally supported intervals"
+      ]
+    },
+    {
+      "category_id": "C4",
+      "title": "领域专家模式断言",
+      "status": "external_required",
+      "acceptance_rule": "at least ten sourced assertions are supplied by a named domain authority and checked",
+      "evidence": [],
+      "open_items": [
+        "domain authority must complete the assertion template"
+      ]
+    },
+    {
+      "category_id": "C5",
+      "title": "不确定性与依赖清单",
+      "status": "incomplete",
+      "acceptance_rule": "aleatory MC intervals, epistemic scenario intervals, censoring identification intervals and dependencies are separate",
+      "evidence": [
+        {
+          "path": "configs/uncertainty/idea2_parameter_intervals.v1.json",
+          "exists": true,
+          "sha256": "sha256:1442a7cf2ded97510135bf5d6ac47ebf86df88823f83c6ca8c2223d8760d8861"
+        },
+        {
+          "path": "configs/labels/loitering_impact.fragment_only.hurdle.v2.json",
+          "exists": true,
+          "sha256": "sha256:ec7f9592c3c497fc7bf727eadfdd7acf5b0a6a599420185be4e7decaf28e0ad5"
+        },
+        {
+          "path": "docs/DECISIONS.md",
+          "exists": true,
+          "sha256": "sha256:414a163c3f0dd0b2c22048a2f5b18431a5a5916a8e63d894261ca0349df0b0ea"
+        },
+        {
+          "path": "artifacts/experiments/E1_taylor_shapiro_continuous_20261120/results.json",
+          "exists": true,
+          "sha256": "sha256:cdc8d184c2c8b5507e70833502721dca562ff60a0eb80a8827e5a497d35f9f59"
+        },
+        {
+          "path": "artifacts/experiments/E1_multitarget_taylor_shapiro_continuous_20261120/results.json",
+          "exists": true,
+          "sha256": "sha256:77bba85c9cbc8d7e048169e9e5f040ec2e6ab754538c262c54469b2fabcab5a1"
+        },
+        {
+          "path": "artifacts/validation/idea2_full_implementation_20261120/E1_MULTITARGET_ANALYSIS.md",
+          "exists": true,
+          "sha256": "sha256:b89640fee138e122b765d777cae59c5771ce8e02e84f2eb47188403b48db09aa"
+        },
+        {
+          "path": "artifacts/datasets/idea2_taylor_shapiro_continuous_r32_20261120_v3/formal_dataset/manifest.json",
+          "exists": true,
+          "sha256": "sha256:2ceef7e95643f91343b97ff191a326d7f30d7e63b0edc39bb8e14b9c1b1de522"
+        },
+        {
+          "path": "artifacts/datasets/idea2_taylor_shapiro_continuous_r32_20261120_v3/dataset_v2_development/manifest.json",
+          "exists": true,
+          "sha256": "sha256:43b32de03d31c5c32af72b619baa1423237a9234a4d62cdfd916aa6bce16092c"
+        },
+        {
+          "path": "artifacts/datasets/idea2_taylor_shapiro_continuous_r32_20261120_v3/dataset_v2_development/sealed_test.json",
+          "exists": true,
+          "sha256": "sha256:8ef53102551849afcfe3aea95899bb407bf903552ada227b93eed8dca55d8052"
+        },
+        {
+          "path": "artifacts/datasets/idea2_taylor_shapiro_continuous_r32_20261120_v3/dataset_v2_validation.json",
+          "exists": true,
+          "sha256": "sha256:c82551132f78a1f960776ff03cd5a691f8577ef0a1879bedea5776a05f5643f6"
+        },
+        {
+          "path": "artifacts/datasets/idea2_taylor_shapiro_continuous_r32_20261120_v3/development_audit.json",
+          "exists": true,
+          "sha256": "sha256:83d3900829cb0c4bf8f1aababa2b5c56fac01f8ff1d26b97b191edebb97b2576"
+        },
+        {
+          "path": "artifacts/datasets/idea2_taylor_shapiro_continuous_r32_20261120_v3/hurdle_learning/ablation_results.json",
+          "exists": true,
+          "sha256": "sha256:bdca7f796d7bef43ce5176480a7bf6758a87535c10ccd099126838e2c85ba035"
+        },
+        {
+          "path": "artifacts/datasets/idea2_taylor_shapiro_continuous_r32_20261120_v3/proxy_learning_ablation.json",
+          "exists": true,
+          "sha256": "sha256:8ea914e242553c8d97963fb2ae92ca31e1f2df10b730e02391a97f6074115173"
+        },
+        {
+          "path": "tools/package_sampler_dataset_v2_development.py",
+          "exists": true,
+          "sha256": "sha256:036ae98e94b5e3a98c9d5662a552d5a3d53943727a97186fb4356440186776ea"
+        },
+        {
+          "path": "tests/test_strict_sealed_dataset_v2.py",
+          "exists": true,
+          "sha256": "sha256:e6d55bd231e2106f25ac4c59a8cd8f5d5d56fd8141329f5af041ae694685e5e5"
+        },
+        {
+          "path": "tools/audit_dataset_v2_development.py",
+          "exists": true,
+          "sha256": "sha256:0bbb45d03689f880cbea7ab20fca844f72535844c442bb533d9d279cb2e9b0f4"
+        },
+        {
+          "path": "tests/test_dataset_v2_development_audit.py",
+          "exists": true,
+          "sha256": "sha256:a645301c05a3401a0992c905abb50d08fe881c7af983934707ae354c4838f050"
+        }
+      ],
+      "open_items": [
+        "repeat the corrected multi-target E1 analysis at the preregistered 500-case stratified budget",
+        "raise epsilon-complete and per-component positive support before formal neural training",
+        "repeat missingness diagnostics with enough epsilon-complete cases for stable region-profile tests"
+      ]
+    },
+    {
+      "category_id": "C6",
+      "title": "版本化可信度档案",
+      "status": "incomplete",
+      "acceptance_rule": "C1-C5 evidence is complete and every input artifact is content-addressed",
+      "evidence": [
+        {
+          "path": "configs/credibility/idea2_credibility_plan.v1.json",
+          "exists": true,
+          "sha256": "sha256:8ed7547c327e94d118e78c07cc21bf6a445f304bbb1811a4f83b5055929f8d36"
+        },
+        {
+          "path": "artifacts/validation/idea2_full_implementation_20261120/IMPLEMENTATION_MATRIX.md",
+          "exists": true,
+          "sha256": "sha256:ad71d22d1dd4c6d1f04e88212254430b2c1be3b98ad55065c9de474de3262d30"
+        },
+        {
+          "path": "artifacts/validation/idea2_full_implementation_20261120/WORKLOG.md",
+          "exists": true,
+          "sha256": "sha256:bbaaf612b5037d3445d1e93f59609431ad115daa608cd0991df8c073963cfd33"
+        },
+        {
+          "path": "artifacts/validation/idea2_full_implementation_20261120/FINAL_REPORT.md",
+          "exists": true,
+          "sha256": "sha256:d676a2c3ef322b9065a778ea4e616ccdc97afac347b44e915a84993cb50d395c"
+        },
+        {
+          "path": "artifacts/validation/idea2_full_implementation_20261120/FINAL_QA_20261120.md",
+          "exists": true,
+          "sha256": "sha256:e23e4f719d0166538f10266bb7044e9bde95e85c02a67beb33a0a9548facdf2a"
+        }
+      ],
+      "open_items": [
+        "regenerate after each new C1-C5 evidence package until every category passes",
+        "retain research_admission=false until C4 and external physical evidence are complete"
+      ]
+    }
+  ],
+  "expert_assertion_report": {
+    "declared_count": 10,
+    "complete_count": 0,
+    "complete_assertion_ids": [],
+    "passes_C4_minimum": false
+  },
+  "expert_assertions": [
+    {
+      "assertion_id": "expert-pattern-01",
+      "claim": null,
+      "expected_direction_or_ordering": null,
+      "applicable_conditions": null,
+      "authority_name_or_role": null,
+      "source_reference": null,
+      "confidence": null,
+      "status": "awaiting_domain_authority"
+    },
+    {
+      "assertion_id": "expert-pattern-02",
+      "claim": null,
+      "expected_direction_or_ordering": null,
+      "applicable_conditions": null,
+      "authority_name_or_role": null,
+      "source_reference": null,
+      "confidence": null,
+      "status": "awaiting_domain_authority"
+    },
+    {
+      "assertion_id": "expert-pattern-03",
+      "claim": null,
+      "expected_direction_or_ordering": null,
+      "applicable_conditions": null,
+      "authority_name_or_role": null,
+      "source_reference": null,
+      "confidence": null,
+      "status": "awaiting_domain_authority"
+    },
+    {
+      "assertion_id": "expert-pattern-04",
+      "claim": null,
+      "expected_direction_or_ordering": null,
+      "applicable_conditions": null,
+      "authority_name_or_role": null,
+      "source_reference": null,
+      "confidence": null,
+      "status": "awaiting_domain_authority"
+    },
+    {
+      "assertion_id": "expert-pattern-05",
+      "claim": null,
+      "expected_direction_or_ordering": null,
+      "applicable_conditions": null,
+      "authority_name_or_role": null,
+      "source_reference": null,
+      "confidence": null,
+      "status": "awaiting_domain_authority"
+    },
+    {
+      "assertion_id": "expert-pattern-06",
+      "claim": null,
+      "expected_direction_or_ordering": null,
+      "applicable_conditions": null,
+      "authority_name_or_role": null,
+      "source_reference": null,
+      "confidence": null,
+      "status": "awaiting_domain_authority"
+    },
+    {
+      "assertion_id": "expert-pattern-07",
+      "claim": null,
+      "expected_direction_or_ordering": null,
+      "applicable_conditions": null,
+      "authority_name_or_role": null,
+      "source_reference": null,
+      "confidence": null,
+      "status": "awaiting_domain_authority"
+    },
+    {
+      "assertion_id": "expert-pattern-08",
+      "claim": null,
+      "expected_direction_or_ordering": null,
+      "applicable_conditions": null,
+      "authority_name_or_role": null,
+      "source_reference": null,
+      "confidence": null,
+      "status": "awaiting_domain_authority"
+    },
+    {
+      "assertion_id": "expert-pattern-09",
+      "claim": null,
+      "expected_direction_or_ordering": null,
+      "applicable_conditions": null,
+      "authority_name_or_role": null,
+      "source_reference": null,
+      "confidence": null,
+      "status": "awaiting_domain_authority"
+    },
+    {
+      "assertion_id": "expert-pattern-10",
+      "claim": null,
+      "expected_direction_or_ordering": null,
+      "applicable_conditions": null,
+      "authority_name_or_role": null,
+      "source_reference": null,
+      "confidence": null,
+      "status": "awaiting_domain_authority"
+    }
+  ],
+  "software_consistency_complete": false,
+  "research_admission": false,
+  "physical_validation_claim_allowed": false,
+  "dossier_hash": "sha256:85c67628c92ac5e575f69e03326c356730169230541bad8a26a392dfa22b9e14"
+}

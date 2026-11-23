@@ -1,0 +1,33 @@
+{
+  "run": "azall",
+  "python": "3.12.13",
+  "numpy": "2.4.6",
+  "platform": "Windows-11-10.0.26200-SP0",
+  "stored_run_python_numpy": "3.13.5 / 2.1.3 (sweep environment)",
+  "stored_proxy_module_sha256": "26952531d0574e6c4dfbd4bdfddf46114952ad1d1b51773674ca5df3455b929a",
+  "cases": 2300,
+  "max_abs_diff_vs_stored": {
+    "lambda": 2.6436630662374228e-12,
+    "phit_prod": 2.219335826225688e-13,
+    "p_deg": 2.1960211427085596e-13,
+    "p_fail": 2.299049839393774e-12,
+    "energy": 5.77711034566164e-09,
+    "ood_mass_frac": 1.942890293094024e-16
+  },
+  "bitwise_identical": false,
+  "unreached_status_flips_vs_stored": 0,
+  "gate_train_R8_this_environment": {
+    "cases": 2000,
+    "identified_pairs": 133708,
+    "proxy_unreached_pairs": 114806,
+    "teacher_positive_among_unreached": 1893,
+    "false_unreached_rate": 0.016488685260352246,
+    "wilson_upper_95": 0.01724165698532299,
+    "passes_gate": true,
+    "case_cluster_bootstrap_95": [
+      0.015622507395466018,
+      0.017387750548476175
+    ],
+    "case_cluster_bootstrap_upper_975_below_gate": true
+  }
+}

@@ -1,0 +1,361 @@
+{
+  "declaration_sha256": "44d04bfa8cc507db8fe66c55ac8c9c60812c354fbede317aaa77b9bf763d6e40",
+  "declared_at_local": "2026-11-23T11:21:29+08:00",
+  "declared_run_finished_at_local": "2026-11-23T11:29:47+0800",
+  "teacher_engine_code_hash": "sha256:b041499ab0e5bfd1b80813779ccd8e6867afaf9d9cc6cba0a7ff29a622a8ad0d",
+  "gate_criterion": "false-unreached Wilson 95% upper <= 0.03",
+  "reproduction_oracle_v2_lambda_bitwise_identical": true,
+  "primary": {
+    "status": "pre-declared primary",
+    "run": "azall",
+    "kwargs": {
+      "azimuths_per_ring": 1000000
+    },
+    "proxy_module_sha256_at_run": "26952531d0574e6c4dfbd4bdfddf46114952ad1d1b51773674ca5df3455b929a",
+    "train_R8": {
+      "cases": 2000,
+      "identified_pairs": 133708,
+      "proxy_unreached_pairs": 114806,
+      "teacher_positive_among_unreached": 1893,
+      "false_unreached_rate": 0.016488685260352246,
+      "wilson_upper_95": 0.01724165698532299,
+      "passes_gate": true,
+      "case_cluster_bootstrap_95": [
+        0.015622507395466018,
+        0.017387750548476175
+      ],
+      "case_cluster_bootstrap_upper_975_below_gate": true
+    },
+    "validation_R32_supplementary": {
+      "cases": 300,
+      "identified_pairs": 19907,
+      "proxy_unreached_pairs": 17081,
+      "teacher_positive_among_unreached": 466,
+      "false_unreached_rate": 0.027281775071717113,
+      "wilson_upper_95": 0.029833088299521516,
+      "passes_gate": true
+    },
+    "train_R8_unmasked_exposure_audit_secondary": {
+      "audited_candidate_count": 2000,
+      "proxy_unreached_pair_count": 115027,
+      "teacher_positive_among_proxy_unreached": 1899,
+      "false_unreached_rate": 0.016509167412868283,
+      "false_unreached_wilson_upper": 0.017261848056277937,
+      "confidence": 0.95
+    },
+    "train_by_profile": {
+      "large_front": {
+        "cases": 669,
+        "identified_pairs": 44560,
+        "proxy_unreached_pairs": 36866,
+        "teacher_positive_among_unreached": 668,
+        "false_unreached_rate": 0.018119676666847502,
+        "wilson_upper_95": 0.01953230689527976,
+        "passes_gate": true
+      },
+      "medium_front": {
+        "cases": 671,
+        "identified_pairs": 44939,
+        "proxy_unreached_pairs": 38336,
+        "teacher_positive_among_unreached": 720,
+        "false_unreached_rate": 0.018781302170283808,
+        "wilson_upper_95": 0.020189214162860146,
+        "passes_gate": true
+      },
+      "small_front": {
+        "cases": 660,
+        "identified_pairs": 44209,
+        "proxy_unreached_pairs": 39604,
+        "teacher_positive_among_unreached": 505,
+        "false_unreached_rate": 0.012751237248762752,
+        "wilson_upper_95": 0.01390446532724197,
+        "passes_gate": true
+      }
+    },
+    "train_by_region": {
+      "neg_x": {
+        "cases": 115,
+        "identified_pairs": 7642,
+        "proxy_unreached_pairs": 6443,
+        "teacher_positive_among_unreached": 108,
+        "false_unreached_rate": 0.016762377774328728,
+        "wilson_upper_95": 0.020197326671320227,
+        "passes_gate": true
+      },
+      "neg_y": {
+        "cases": 539,
+        "identified_pairs": 36100,
+        "proxy_unreached_pairs": 30654,
+        "teacher_positive_among_unreached": 449,
+        "false_unreached_rate": 0.01464735434201083,
+        "wilson_upper_95": 0.01605432858822898,
+        "passes_gate": true
+      },
+      "pos_x": {
+        "cases": 517,
+        "identified_pairs": 34495,
+        "proxy_unreached_pairs": 28936,
+        "teacher_positive_among_unreached": 643,
+        "false_unreached_rate": 0.02222145424384849,
+        "wilson_upper_95": 0.023984327173424365,
+        "passes_gate": true
+      },
+      "pos_y": {
+        "cases": 283,
+        "identified_pairs": 18961,
+        "proxy_unreached_pairs": 18129,
+        "teacher_positive_among_unreached": 103,
+        "false_unreached_rate": 0.005681504771360803,
+        "wilson_upper_95": 0.006885207996192565,
+        "passes_gate": true
+      },
+      "top_cap": {
+        "cases": 546,
+        "identified_pairs": 36510,
+        "proxy_unreached_pairs": 30644,
+        "teacher_positive_among_unreached": 590,
+        "false_unreached_rate": 0.01925336118000261,
+        "wilson_upper_95": 0.020853235948604977,
+        "passes_gate": true
+      }
+    },
+    "gate_verdict": "PASS"
+  },
+  "posthoc": {
+    "azall_reg_dom": {
+      "status": "post-hoc secondary (not declared)",
+      "run": "azall_reg_dom",
+      "kwargs": {
+        "azimuths_per_ring": 1000000,
+        "damage_accumulation": "registry",
+        "domain_censoring": "branch_probability"
+      },
+      "proxy_module_sha256_at_run": "ec3ec868f4168b211f44496c676843bc69eb30d368043232365f3aad5b11fd98",
+      "train_R8": {
+        "cases": 2000,
+        "identified_pairs": 133708,
+        "proxy_unreached_pairs": 114731,
+        "teacher_positive_among_unreached": 1842,
+        "false_unreached_rate": 0.016054945916971,
+        "wilson_upper_95": 0.016798590413820022,
+        "passes_gate": true,
+        "case_cluster_bootstrap_95": [
+          0.015154533889065463,
+          0.016914885273330953
+        ],
+        "case_cluster_bootstrap_upper_975_below_gate": true
+      },
+      "validation_R32_supplementary": {
+        "cases": 300,
+        "identified_pairs": 19907,
+        "proxy_unreached_pairs": 17068,
+        "teacher_positive_among_unreached": 456,
+        "false_unreached_rate": 0.026716662760721818,
+        "wilson_upper_95": 0.029244407030629735,
+        "passes_gate": true
+      },
+      "train_R8_unmasked_exposure_audit_secondary": {
+        "audited_candidate_count": 2000,
+        "proxy_unreached_pair_count": 114951,
+        "teacher_positive_among_proxy_unreached": 1847,
+        "false_unreached_rate": 0.01606771580934485,
+        "false_unreached_wilson_upper": 0.016810916200929886,
+        "confidence": 0.95
+      },
+      "train_by_profile": {
+        "large_front": {
+          "cases": 669,
+          "identified_pairs": 44560,
+          "proxy_unreached_pairs": 36842,
+          "teacher_positive_among_unreached": 650,
+          "false_unreached_rate": 0.017642907551164433,
+          "wilson_upper_95": 0.019038367430949305,
+          "passes_gate": true
+        },
+        "medium_front": {
+          "cases": 671,
+          "identified_pairs": 44939,
+          "proxy_unreached_pairs": 38308,
+          "teacher_positive_among_unreached": 701,
+          "false_unreached_rate": 0.018299049806828862,
+          "wilson_upper_95": 0.01969031967961888,
+          "passes_gate": true
+        },
+        "small_front": {
+          "cases": 660,
+          "identified_pairs": 44209,
+          "proxy_unreached_pairs": 39581,
+          "teacher_positive_among_unreached": 491,
+          "false_unreached_rate": 0.012404941764988252,
+          "wilson_upper_95": 0.013543647390046671,
+          "passes_gate": true
+        }
+      },
+      "train_by_region": {
+        "neg_x": {
+          "cases": 115,
+          "identified_pairs": 7642,
+          "proxy_unreached_pairs": 6440,
+          "teacher_positive_among_unreached": 105,
+          "false_unreached_rate": 0.016304347826086956,
+          "wilson_upper_95": 0.019698246148650133,
+          "passes_gate": true
+        },
+        "neg_y": {
+          "cases": 539,
+          "identified_pairs": 36100,
+          "proxy_unreached_pairs": 30643,
+          "teacher_positive_among_unreached": 441,
+          "false_unreached_rate": 0.014391541298175766,
+          "wilson_upper_95": 0.015787200949386654,
+          "passes_gate": true
+        },
+        "pos_x": {
+          "cases": 517,
+          "identified_pairs": 34495,
+          "proxy_unreached_pairs": 28915,
+          "teacher_positive_among_unreached": 628,
+          "false_unreached_rate": 0.021718831056545047,
+          "wilson_upper_95": 0.02346355877830222,
+          "passes_gate": true
+        },
+        "pos_y": {
+          "cases": 283,
+          "identified_pairs": 18961,
+          "proxy_unreached_pairs": 18118,
+          "teacher_positive_among_unreached": 98,
+          "false_unreached_rate": 0.005408985539242742,
+          "wilson_upper_95": 0.006586854417740596,
+          "passes_gate": true
+        },
+        "top_cap": {
+          "cases": 546,
+          "identified_pairs": 36510,
+          "proxy_unreached_pairs": 30615,
+          "teacher_positive_among_unreached": 570,
+          "false_unreached_rate": 0.018618324350808426,
+          "wilson_upper_95": 0.020193982493043217,
+          "passes_gate": true
+        }
+      }
+    },
+    "azall_k8_reg_dom": {
+      "status": "post-hoc secondary (not declared)",
+      "run": "azall_k8_reg_dom",
+      "kwargs": {
+        "azimuths_per_ring": 1000000,
+        "source_realizations": 8,
+        "damage_accumulation": "registry",
+        "domain_censoring": "branch_probability"
+      },
+      "proxy_module_sha256_at_run": "ec3ec868f4168b211f44496c676843bc69eb30d368043232365f3aad5b11fd98",
+      "train_R8": {
+        "cases": 2000,
+        "identified_pairs": 133708,
+        "proxy_unreached_pairs": 109972,
+        "teacher_positive_among_unreached": 438,
+        "false_unreached_rate": 0.00398283199359837,
+        "wilson_upper_95": 0.004372805858399713,
+        "passes_gate": true,
+        "case_cluster_bootstrap_95": [
+          0.0035995810154768773,
+          0.004374131967051031
+        ],
+        "case_cluster_bootstrap_upper_975_below_gate": true
+      },
+      "validation_R32_supplementary": {
+        "cases": 300,
+        "identified_pairs": 19907,
+        "proxy_unreached_pairs": 16350,
+        "teacher_positive_among_unreached": 128,
+        "false_unreached_rate": 0.007828746177370031,
+        "wilson_upper_95": 0.009300052063864691,
+        "passes_gate": true
+      },
+      "train_R8_unmasked_exposure_audit_secondary": {
+        "audited_candidate_count": 2000,
+        "proxy_unreached_pair_count": 110170,
+        "teacher_positive_among_proxy_unreached": 440,
+        "false_unreached_rate": 0.003993827720795135,
+        "false_unreached_wilson_upper": 0.004383944740368138,
+        "confidence": 0.95
+      },
+      "train_by_profile": {
+        "large_front": {
+          "cases": 669,
+          "identified_pairs": 44560,
+          "proxy_unreached_pairs": 35214,
+          "teacher_positive_among_unreached": 135,
+          "false_unreached_rate": 0.003833702504685636,
+          "wilson_upper_95": 0.004535507127969825,
+          "passes_gate": true
+        },
+        "medium_front": {
+          "cases": 671,
+          "identified_pairs": 44939,
+          "proxy_unreached_pairs": 36489,
+          "teacher_positive_among_unreached": 172,
+          "false_unreached_rate": 0.004713749349118912,
+          "wilson_upper_95": 0.0054705685886109,
+          "passes_gate": true
+        },
+        "small_front": {
+          "cases": 660,
+          "identified_pairs": 44209,
+          "proxy_unreached_pairs": 38269,
+          "teacher_positive_among_unreached": 131,
+          "false_unreached_rate": 0.003423136219916904,
+          "wilson_upper_95": 0.004060250726017148,
+          "passes_gate": true
+        }
+      },
+      "train_by_region": {
+        "neg_x": {
+          "cases": 115,
+          "identified_pairs": 7642,
+          "proxy_unreached_pairs": 6200,
+          "teacher_positive_among_unreached": 26,
+          "false_unreached_rate": 0.004193548387096774,
+          "wilson_upper_95": 0.006137636530515529,
+          "passes_gate": true
+        },
+        "neg_y": {
+          "cases": 539,
+          "identified_pairs": 36100,
+          "proxy_unreached_pairs": 29536,
+          "teacher_positive_among_unreached": 88,
+          "false_unreached_rate": 0.002979414951245937,
+          "wilson_upper_95": 0.003668930091103608,
+          "passes_gate": true
+        },
+        "pos_x": {
+          "cases": 517,
+          "identified_pairs": 34495,
+          "proxy_unreached_pairs": 27369,
+          "teacher_positive_among_unreached": 157,
+          "false_unreached_rate": 0.005736417114253352,
+          "wilson_upper_95": 0.006703128737022863,
+          "passes_gate": true
+        },
+        "pos_y": {
+          "cases": 283,
+          "identified_pairs": 18961,
+          "proxy_unreached_pairs": 17905,
+          "teacher_positive_among_unreached": 31,
+          "false_unreached_rate": 0.001731359955319743,
+          "wilson_upper_95": 0.002456428234693343,
+          "passes_gate": true
+        },
+        "top_cap": {
+          "cases": 546,
+          "identified_pairs": 36510,
+          "proxy_unreached_pairs": 28962,
+          "teacher_positive_among_unreached": 136,
+          "false_unreached_rate": 0.0046958083005317315,
+          "wilson_upper_95": 0.005551527351586615,
+          "passes_gate": true
+        }
+      }
+    }
+  }
+}

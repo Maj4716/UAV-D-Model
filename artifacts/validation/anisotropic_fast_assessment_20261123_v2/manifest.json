@@ -1,0 +1,67 @@
+{
+  "schema_version": "anisotropic-fast-assessment-manifest@1.0.0",
+  "created_at_utc": "2026-11-23T03:08:30.428964+00:00",
+  "mode": "quick",
+  "candidate_count": 4096,
+  "source_audit": {
+    "source_candidate_count": 100000,
+    "used_candidate_count": 4096,
+    "selection": "stratified",
+    "selection_seed": 2026112301,
+    "selection_indices_hash": "sha256:d211a7ec73337176c17cc00c3929a89393e6d22551511f0b650c814a272fbe7b",
+    "source_cell_counts": {
+      "neg_x::large_front": 1925,
+      "neg_x::medium_front": 1947,
+      "neg_x::small_front": 1914,
+      "neg_y::large_front": 9031,
+      "neg_y::medium_front": 9074,
+      "neg_y::small_front": 9066,
+      "pos_x::large_front": 8552,
+      "pos_x::medium_front": 8588,
+      "pos_x::small_front": 8536,
+      "pos_y::large_front": 4601,
+      "pos_y::medium_front": 4647,
+      "pos_y::small_front": 4578,
+      "top_cap::large_front": 9189,
+      "top_cap::medium_front": 9190,
+      "top_cap::small_front": 9162
+    },
+    "used_cell_counts": {
+      "neg_x::large_front": 79,
+      "neg_x::medium_front": 80,
+      "neg_x::small_front": 78,
+      "neg_y::large_front": 370,
+      "neg_y::medium_front": 372,
+      "neg_y::small_front": 371,
+      "pos_x::large_front": 350,
+      "pos_x::medium_front": 352,
+      "pos_x::small_front": 350,
+      "pos_y::large_front": 189,
+      "pos_y::medium_front": 190,
+      "pos_y::small_front": 188,
+      "top_cap::large_front": 376,
+      "top_cap::medium_front": 376,
+      "top_cap::small_front": 375
+    }
+  },
+  "split_audit": {
+    "source_split_counts": {
+      "precomputed_unassigned": 100000
+    },
+    "included_split_counts": {
+      "precomputed_unassigned": 4096
+    },
+    "allowed_splits": [
+      "precomputed_unassigned"
+    ],
+    "test_case_count_included": 0
+  },
+  "assessment_hash": "sha256:c2febc559c638f48f51d24ff1e413704de1dd1bcb3deac4f8f81b6f063c2824b",
+  "outputs": [
+    "assessment.json",
+    "REPORT.md",
+    "manifest.json",
+    "COMMAND.txt",
+    "hashes.json"
+  ]
+}

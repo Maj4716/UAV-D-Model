@@ -44,6 +44,57 @@
         }
       }
     },
+    "hurdle_contract": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "target_spec_id", "primary_estimands", "derived_support", "domain_censoring",
+        "uncertainty_separation", "target_encoder_policy"
+      ],
+      "properties": {
+        "target_spec_id": {"type": "string", "minLength": 1},
+        "primary_estimands": {
+          "type": "array", "minItems": 1, "uniqueItems": true,
+          "items": {"type": "string", "minLength": 1}
+        },
+        "derived_support": {
+          "type": "object", "additionalProperties": false,
+          "required": ["role", "probability_threshold", "decision_rule"],
+          "properties": {
+            "role": {"const": "derived_view_not_primary_label"},
+            "probability_threshold": {"type": "number", "minimum": 0, "maximum": 1},
+            "decision_rule": {"type": "string", "minLength": 1}
+          }
+        },
+        "domain_censoring": {
+          "type": "object", "additionalProperties": false,
+          "required": ["epsilon", "wide_interval_supervision", "epsilon_complete_supervision"],
+          "properties": {
+            "epsilon": {"type": "number", "minimum": 0, "maximum": 1},
+            "wide_interval_supervision": {"const": "identification_interval_only"},
+            "epsilon_complete_supervision": {"const": "point_and_identification_interval"}
+          }
+        },
+        "uncertainty_separation": {
+          "type": "object", "additionalProperties": false,
+          "required": ["monte_carlo", "domain_censoring", "epistemic"],
+          "properties": {
+            "monte_carlo": {"type": "string", "minLength": 1},
+            "domain_censoring": {"type": "string", "minLength": 1},
+            "epistemic": {"type": "string", "minLength": 1}
+          }
+        },
+        "target_encoder_policy": {
+          "type": "object", "additionalProperties": false,
+          "required": ["fit_split", "label_mutation", "evaluation_scale"],
+          "properties": {
+            "fit_split": {"const": "reference_train_only"},
+            "label_mutation": {"const": false},
+            "evaluation_scale": {"const": "original_physical_label_scale"}
+          }
+        }
+      }
+    },
     "provenance": {
       "type": "object",
       "additionalProperties": false,

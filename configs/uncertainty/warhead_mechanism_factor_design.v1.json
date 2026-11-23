@@ -1,0 +1,41 @@
+{
+  "schema_version": "warhead-mechanism-factor-design@1.0.0",
+  "design_id": "idea2-warhead-mechanism-sobol-v1",
+  "status": "exploratory_unvalidated",
+  "method": "scrambled_sobol",
+  "design_count": 32,
+  "design_seed": 2026112061,
+  "factor_order": [
+    "V0_scale",
+    "fragment_mass_scale",
+    "fragment_count_scale",
+    "taylor_bound_scale",
+    "spread_sigma_deg"
+  ],
+  "factor_ranges": {
+    "V0_scale": [0.8, 1.2],
+    "fragment_mass_scale": [0.75, 1.25],
+    "fragment_count_scale": [0.75, 1.25],
+    "taylor_bound_scale": [0.75, 1.25],
+    "spread_sigma_deg": [0.5, 5.0]
+  },
+  "mapping_constraints": {
+    "detonation_velocity_mps": [1000.0, 12000.0],
+    "geometry_clearance_factor": 1.0,
+    "fragment_count_multiple": "profile_ring_count",
+    "mass_budget_source": "physics_registry.maximum_fragment_mass_fraction_of_total_metal",
+    "valid_speed_source": "physics_registry.valid_speed_mps",
+    "taylor_domain": "0 < V0/(2D) <= 1"
+  },
+  "quality_gates": {
+    "maximum_absolute_factor_correlation": 0.35,
+    "maximum_vif": 2.0,
+    "minimum_admitted_fraction": 0.75
+  },
+  "execution_defaults": {
+    "case_count": 1,
+    "replicates": 1,
+    "aleatory_seed": 2026112062
+  },
+  "evidence_boundary": "Exploratory profile-relative factor ranges. They exercise traceability and identifiability but are not externally validated warhead design limits."
+}

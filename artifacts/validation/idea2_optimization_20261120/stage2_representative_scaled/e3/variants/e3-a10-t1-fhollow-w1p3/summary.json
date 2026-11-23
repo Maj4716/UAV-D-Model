@@ -1,0 +1,65 @@
+{
+  "variant_id": "e3-a10-t1-fhollow-w1p3",
+  "factors": {
+    "A_armor_mm": 10.0,
+    "T_component_threshold_factor": 1.0,
+    "F_direction_model": "legacy_hollow",
+    "W_gurney_factor": 1.3
+  },
+  "target_hash": "sha256:d34e65c86a917bea86d329f0bfeedd7701bef7bffc046a746f40b2f0c3a8ac34",
+  "physics_registry_hash": "sha256:c9c194cb87db5c5a9dd6aaf990dbc91cd1fc1267361e9b51e53e483930da5eeb",
+  "trace_path": "D:\\Desktop\\UAV新\\artifacts\\validation\\idea2_optimization_20261120\\stage2_representative_scaled\\e3\\variants\\e3-a10-t1-fhollow-w1p3\\engine_results.minimal.jsonl.gz",
+  "elapsed_seconds": 30.6586884999997,
+  "summary": {
+    "case_count": 3,
+    "component_zero_rate": 0.7462686567164178,
+    "case_any_support_rate": 1.0,
+    "domain_complete_rate": 0.3333333333333333,
+    "mean_affected_replicate_fraction": 0.6666666666666666,
+    "positive_component_energy_tail": {
+      "positive_count": 51,
+      "primary_tail_fraction": 0.1,
+      "primary_alpha": 0.9368827958811218,
+      "estimates": [
+        {
+          "tail_fraction": 0.05,
+          "k": 2,
+          "xi": 0.4023461378361588,
+          "alpha": 2.4854221426805756
+        },
+        {
+          "tail_fraction": 0.1,
+          "k": 5,
+          "xi": 1.0673693704232423,
+          "alpha": 0.9368827958811218
+        },
+        {
+          "tail_fraction": 0.2,
+          "k": 10,
+          "xi": 1.4457479712418781,
+          "alpha": 0.6916834883337332
+        }
+      ]
+    },
+    "tree_views": {
+      "current": {
+        "count": 21,
+        "zero_rate": 0.14285714285714285,
+        "saturation_rate": 0.5238095238095238,
+        "intermediate_rate": 0.2857142857142857,
+        "mean_binary_entropy_nats": 0.12666268441597375
+      },
+      "identity_component_states": {
+        "count": 402,
+        "zero_rate": 0.746268656716418,
+        "saturation_rate": 0.11940298507462686,
+        "intermediate_rate": 0.12935323383084577,
+        "mean_binary_entropy_nats": 0.04771690490323108
+      },
+      "maximum_offline_recompute_abs_error": 0.0
+    },
+    "status_counts": {
+      "ok": 3
+    }
+  }
+}

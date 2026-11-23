@@ -1,0 +1,36 @@
+{
+  "source_manifest_sha256": "sha256:3b6b7ba94ccd7715040716b69a1a039977636853142cfde6c31127f78debfae2",
+  "source_dataset_id": "damage-dataset-074d300c1382eb8eee4cd87a",
+  "source_engine": {
+    "version": "0.11.0.dev0",
+    "code_hash": "sha256:b041499ab0e5bfd1b80813779ccd8e6867afaf9d9cc6cba0a7ff29a622a8ad0d",
+    "configuration_hash": "sha256:573c432183051546e617286123aae884c3dca82389daee654ac940ba56d056ad",
+    "fidelity_level": "L2",
+    "fidelity_levels": [
+      "L2"
+    ],
+    "validation_record_id": null
+  },
+  "source_contracts": {
+    "target_hashes": [
+      "sha256:8f03659312d50ec0ae497b77eb01dd4f8612aa4c61aa9e177aa90fde090492a2"
+    ],
+    "parameter_set_hashes": [
+      "sha256:573c432183051546e617286123aae884c3dca82389daee654ac940ba56d056ad"
+    ],
+    "sampling_spec_id": "p0-sphere-entry-continuous-direction-recovery-train2000-eval300-role-r8-r32-v1",
+    "sampling_design_hash": "sha256:9880ba05f21edf646fdeb09462115969c0b94d5bcf1911ca0bc94e5c3edb60d3"
+  },
+  "shard_count": 41,
+  "split_counts": {
+    "validation": 300,
+    "test": 300,
+    "train": 2000
+  },
+  "development_row_count": 2300,
+  "test_row_count": 300,
+  "test_result_json_lines_decoded": 0,
+  "test_metrics_computed": false,
+  "test_open_count_increment": 0,
+  "development_case_ids_hash": "sha256:287d7a902728c7f3a1625f3a4cf4646fa59f00b439184f48a044488724d91c2e"
+}

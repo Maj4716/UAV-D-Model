@@ -1,0 +1,104 @@
+{
+  "small_front": {
+    "initiation_point_body_m": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "casing_axial_offsets_m": [
+      -0.0935,
+      -0.0765,
+      -0.0595,
+      -0.0425,
+      -0.0255,
+      -0.0085
+    ],
+    "gurney_speed_mps": 2028.1537635511274,
+    "detonation_velocity_mps": 6900.0,
+    "taylor_bound_deg": 8.451238906050618,
+    "wave_axial_component_range": [
+      -0.9103664774626048,
+      -0.19611613513818402
+    ],
+    "implemented_tilt_deg_mean": 5.611550545110024,
+    "implemented_tilt_deg_range": [
+      1.650963719869833,
+      7.620599485414705
+    ],
+    "fraction_consistent_with_taylor_wave_direction": 0.0
+  },
+  "medium_front": {
+    "initiation_point_body_m": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "casing_axial_offsets_m": [
+      -0.1629,
+      -0.1488,
+      -0.1346,
+      -0.1204,
+      -0.1062,
+      -0.0921,
+      -0.0779,
+      -0.0638,
+      -0.0496,
+      -0.0354,
+      -0.0213,
+      -0.0071
+    ],
+    "gurney_speed_mps": 1974.9465232771238,
+    "detonation_velocity_mps": 6900.0,
+    "taylor_bound_deg": 8.227968410516825,
+    "wave_axial_component_range": [
+      -0.9346088526412845,
+      -0.11350892873373886
+    ],
+    "implemented_tilt_deg_mean": 5.794297037311935,
+    "implemented_tilt_deg_range": [
+      0.9306592853347674,
+      7.618312487683187
+    ],
+    "fraction_consistent_with_taylor_wave_direction": 0.0
+  },
+  "large_front": {
+    "initiation_point_body_m": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "casing_axial_offsets_m": [
+      -0.2314,
+      -0.2182,
+      -0.2049,
+      -0.1917,
+      -0.1785,
+      -0.1653,
+      -0.1521,
+      -0.1388,
+      -0.1256,
+      -0.1124,
+      -0.0992,
+      -0.0859,
+      -0.0727,
+      -0.0595,
+      -0.0463,
+      -0.0331,
+      -0.0198,
+      -0.0066
+    ],
+    "gurney_speed_mps": 1875.6083562594774,
+    "detonation_velocity_mps": 7900.0,
+    "taylor_bound_deg": 6.81762364780208,
+    "wave_axial_component_range": [
+      -0.9373517936328979,
+      -0.07664724450649862
+    ],
+    "implemented_tilt_deg_mean": 4.825380681517948,
+    "implemented_tilt_deg_range": [
+      0.5213054515723516,
+      6.349323415544563
+    ],
+    "fraction_consistent_with_taylor_wave_direction": 0.0
+  }
+}

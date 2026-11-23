@@ -1,0 +1,115 @@
+{
+  "host": {
+    "platform": "Windows-11-10.0.26200-SP0",
+    "cpu_count": 16
+  },
+  "cases": 60,
+  "per_profile": 20,
+  "concurrent_processes": 10,
+  "configs": {
+    "az4": {
+      "kwargs": {
+        "azimuths_per_ring": 4
+      },
+      "mean_seconds_per_case": 0.05169528333344715,
+      "median_seconds_per_case": 0.04841610000039509,
+      "p95_seconds_per_case": 0.1026638250009455,
+      "relative_to_az4": 1.0
+    },
+    "az8": {
+      "kwargs": {
+        "azimuths_per_ring": 8
+      },
+      "mean_seconds_per_case": 0.07716557833315771,
+      "median_seconds_per_case": 0.06826159999945958,
+      "p95_seconds_per_case": 0.14477863999845791,
+      "relative_to_az4": 1.492700559070756
+    },
+    "az16": {
+      "kwargs": {
+        "azimuths_per_ring": 16
+      },
+      "mean_seconds_per_case": 0.1163306733332926,
+      "median_seconds_per_case": 0.082996600000115,
+      "p95_seconds_per_case": 0.2522101999998084,
+      "relative_to_az4": 2.250315035182832
+    },
+    "azall": {
+      "kwargs": {
+        "azimuths_per_ring": 1000000
+      },
+      "mean_seconds_per_case": 0.12208168000000418,
+      "median_seconds_per_case": 0.09133565000047383,
+      "p95_seconds_per_case": 0.2807467600009658,
+      "relative_to_az4": 2.361563224492796
+    },
+    "azall_reg_dom": {
+      "kwargs": {
+        "azimuths_per_ring": 1000000,
+        "damage_accumulation": "registry",
+        "domain_censoring": "branch_probability"
+      },
+      "mean_seconds_per_case": 0.13136126666668133,
+      "median_seconds_per_case": 0.08982060000016645,
+      "p95_seconds_per_case": 0.30319557500015415,
+      "relative_to_az4": 2.541068704844293
+    },
+    "azall_k4": {
+      "kwargs": {
+        "azimuths_per_ring": 1000000,
+        "source_realizations": 4
+      },
+      "mean_seconds_per_case": 0.40105039666668746,
+      "median_seconds_per_case": 0.3031831999996939,
+      "p95_seconds_per_case": 0.9546532550009033,
+      "relative_to_az4": 7.7579688282162
+    },
+    "azall_k4_reg_dom": {
+      "kwargs": {
+        "azimuths_per_ring": 1000000,
+        "source_realizations": 4,
+        "damage_accumulation": "registry",
+        "domain_censoring": "branch_probability"
+      },
+      "mean_seconds_per_case": 0.42649371333339636,
+      "median_seconds_per_case": 0.31137959999978193,
+      "p95_seconds_per_case": 0.9948536650003913,
+      "relative_to_az4": 8.250147515052934
+    },
+    "azall_k8_reg": {
+      "kwargs": {
+        "azimuths_per_ring": 1000000,
+        "source_realizations": 8,
+        "damage_accumulation": "registry"
+      },
+      "mean_seconds_per_case": 0.7593603883332738,
+      "median_seconds_per_case": 0.5321216000002096,
+      "p95_seconds_per_case": 1.8022349900003969,
+      "relative_to_az4": 14.68916193833806
+    },
+    "azall_k8_reg_dom": {
+      "kwargs": {
+        "azimuths_per_ring": 1000000,
+        "source_realizations": 8,
+        "damage_accumulation": "registry",
+        "domain_censoring": "branch_probability"
+      },
+      "mean_seconds_per_case": 0.7915763133334621,
+      "median_seconds_per_case": 0.5543914999998378,
+      "p95_seconds_per_case": 1.9117054649990672,
+      "relative_to_az4": 15.312350804378077
+    },
+    "azall_k16_reg_dom": {
+      "kwargs": {
+        "azimuths_per_ring": 1000000,
+        "source_realizations": 16,
+        "damage_accumulation": "registry",
+        "domain_censoring": "branch_probability"
+      },
+      "mean_seconds_per_case": 1.5393642133332832,
+      "median_seconds_per_case": 1.0589640999996845,
+      "p95_seconds_per_case": 3.441821145000902,
+      "relative_to_az4": 29.777653086917226
+    }
+  }
+}
